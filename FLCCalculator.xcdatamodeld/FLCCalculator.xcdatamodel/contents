@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Calculation" representedClassName="Calculation" syncable="YES" codeGenerationType="class">
+        <attribute name="calculationDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="countryFrom" attributeType="String"/>
+        <attribute name="countryTo" attributeType="String"/>
+        <attribute name="deliveryType" attributeType="String"/>
+        <attribute name="fromLocation" attributeType="String"/>
+        <attribute name="goodsType" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="logisticsType" attributeType="String"/>
+        <attribute name="status" attributeType="String"/>
+        <attribute name="toLocation" attributeType="String"/>
+        <attribute name="volume" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CalculationResult" inverseName="calculation" inverseEntity="CalculationResult"/>
+    </entity>
+    <entity name="CalculationResult" representedClassName="CalculationResult" syncable="YES" codeGenerationType="class">
+        <attribute name="cargoHandling" optional="YES" attributeType="String"/>
+        <attribute name="customsClearance" attributeType="String"/>
+        <attribute name="customsWarehousePrice" optional="YES" attributeType="String"/>
+        <attribute name="deliveryFromWarehousePrice" attributeType="String"/>
+        <attribute name="deliveryFromWarehouseTime" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="deliveryToWarehousePrice" attributeType="String"/>
+        <attribute name="deliveryToWarehouseTime" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="groupageDocs" attributeType="String"/>
+        <attribute name="insurance" optional="YES" attributeType="String"/>
+        <attribute name="totalPrice" attributeType="String"/>
+        <attribute name="totalTime" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="calculation" maxCount="1" deletionRule="Nullify" destinationEntity="Calculation" inverseName="result" inverseEntity="Calculation"/>
+    </entity>
 </model>

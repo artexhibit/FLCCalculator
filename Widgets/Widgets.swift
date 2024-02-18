@@ -65,9 +65,9 @@ struct Widgets: Widget {
     }
 }
 
-#Preview(as: .systemSmall) {
-    Widgets()
-} timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
-}
+//#Preview(as: .systemSmall) {
+//    Widgets()
+//} timeline: {
+//    SimpleEntry(date: .now, emoji: "😀")
+//    SimpleEntry(date: .now, emoji: "🤩")
+//}
