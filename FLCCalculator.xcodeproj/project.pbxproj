@@ -9,23 +9,78 @@
 /* Begin PBXBuildFile section */
 		0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54272B810BA00078C110 /* AppDelegate.swift */; };
 		0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54292B810BA00078C110 /* SceneDelegate.swift */; };
-		0B6E542C2B810BA00078C110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E542B2B810BA00078C110 /* ViewController.swift */; };
-		0B6E542F2B810BA00078C110 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B6E542D2B810BA00078C110 /* Main.storyboard */; };
 		0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */; };
 		0B6E54342B810BA20078C110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B6E54332B810BA20078C110 /* Assets.xcassets */; };
 		0B6E54372B810BA20078C110 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B6E54352B810BA20078C110 /* LaunchScreen.storyboard */; };
+		0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E543E2B8110580078C110 /* FLCTabBarController.swift */; };
+		0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54402B8110CB0078C110 /* CalculationsVC.swift */; };
+		0B6E54432B8111C60078C110 /* UsefulInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54422B8111C60078C110 /* UsefulInfoVC.swift */; };
+		0B6E54462B8115420078C110 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54452B8115420078C110 /* Persistence.swift */; };
+		0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */; };
+		0B6E54502B811B540078C110 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6E544F2B811B540078C110 /* WidgetKit.framework */; };
+		0B6E54522B811B540078C110 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6E54512B811B540078C110 /* SwiftUI.framework */; };
+		0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54542B811B540078C110 /* WidgetsBundle.swift */; };
+		0B6E54572B811B540078C110 /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54562B811B540078C110 /* Widgets.swift */; };
+		0B6E54592B811B550078C110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B6E54582B811B550078C110 /* Assets.xcassets */; };
+		0B6E545D2B811B550078C110 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0B6E544D2B811B540078C110 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0B6E54622B811B700078C110 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54452B8115420078C110 /* Persistence.swift */; };
+		0B6E54632B811B740078C110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54292B810BA00078C110 /* SceneDelegate.swift */; };
+		0B6E54652B811B850078C110 /* FLCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E543E2B8110580078C110 /* FLCTabBarController.swift */; };
+		0B6E54662B811B880078C110 /* CalculationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54402B8110CB0078C110 /* CalculationsVC.swift */; };
+		0B6E54672B811B8A0078C110 /* UsefulInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54422B8111C60078C110 /* UsefulInfoVC.swift */; };
+		0B6E54682B811B8B0078C110 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */; };
+		0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */; };
+		0B6E546A2B811BA40078C110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B6E54332B810BA20078C110 /* Assets.xcassets */; };
+		0B6E54722B81228A0078C110 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54712B81228A0078C110 /* CalculationData.swift */; };
+		0B6E54732B81228A0078C110 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54712B81228A0078C110 /* CalculationData.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0B6E545B2B811B550078C110 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B6E541C2B810BA00078C110 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B6E544C2B811B540078C110;
+			remoteInfo = WidgetsExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0B6E54612B811B550078C110 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0B6E545D2B811B550078C110 /* WidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0B6E54242B810BA00078C110 /* FLCCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLCCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6E54272B810BA00078C110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B6E54292B810BA00078C110 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0B6E542B2B810BA00078C110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0B6E542E2B810BA00078C110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B6E54312B810BA00078C110 /* FLCCalculator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FLCCalculator.xcdatamodel; sourceTree = "<group>"; };
 		0B6E54332B810BA20078C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B6E54362B810BA20078C110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B6E54382B810BA20078C110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B6E543E2B8110580078C110 /* FLCTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTabBarController.swift; sourceTree = "<group>"; };
+		0B6E54402B8110CB0078C110 /* CalculationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsVC.swift; sourceTree = "<group>"; };
+		0B6E54422B8111C60078C110 /* UsefulInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoVC.swift; sourceTree = "<group>"; };
+		0B6E54442B8114AB0078C110 /* FLCCalculator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FLCCalculator.entitlements; sourceTree = "<group>"; };
+		0B6E54452B8115420078C110 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		0B6E544D2B811B540078C110 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B6E544F2B811B540078C110 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		0B6E54512B811B540078C110 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		0B6E54542B811B540078C110 /* WidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsBundle.swift; sourceTree = "<group>"; };
+		0B6E54562B811B540078C110 /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
+		0B6E54582B811B550078C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0B6E545A2B811B550078C110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B6E54712B81228A0078C110 /* CalculationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +91,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0B6E544A2B811B540078C110 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B6E54522B811B540078C110 /* SwiftUI.framework in Frameworks */,
+				0B6E54502B811B540078C110 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -43,6 +107,10 @@
 			isa = PBXGroup;
 			children = (
 				0B6E54262B810BA00078C110 /* FLCCalculator */,
+				0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */,
+				0B6E546D2B811C2E0078C110 /* Support */,
+				0B6E54532B811B540078C110 /* Widgets */,
+				0B6E544E2B811B540078C110 /* Frameworks */,
 				0B6E54252B810BA00078C110 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				0B6E54242B810BA00078C110 /* FLCCalculator.app */,
+				0B6E544D2B811B540078C110 /* WidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,16 +127,87 @@
 		0B6E54262B810BA00078C110 /* FLCCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				0B6E54272B810BA00078C110 /* AppDelegate.swift */,
-				0B6E54292B810BA00078C110 /* SceneDelegate.swift */,
-				0B6E542B2B810BA00078C110 /* ViewController.swift */,
-				0B6E542D2B810BA00078C110 /* Main.storyboard */,
-				0B6E54332B810BA20078C110 /* Assets.xcassets */,
-				0B6E54352B810BA20078C110 /* LaunchScreen.storyboard */,
+				0B6E546F2B811C7F0078C110 /* CustomViews */,
+				0B6E546E2B811C4A0078C110 /* Model */,
+				0B6E546C2B811C060078C110 /* Screens */,
+				0B6E546B2B811BFC0078C110 /* Extensions */,
+				0B6E54442B8114AB0078C110 /* FLCCalculator.entitlements */,
 				0B6E54382B810BA20078C110 /* Info.plist */,
-				0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */,
 			);
 			path = FLCCalculator;
+			sourceTree = "<group>";
+		};
+		0B6E544E2B811B540078C110 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E544F2B811B540078C110 /* WidgetKit.framework */,
+				0B6E54512B811B540078C110 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0B6E54532B811B540078C110 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E54542B811B540078C110 /* WidgetsBundle.swift */,
+				0B6E54562B811B540078C110 /* Widgets.swift */,
+				0B6E54582B811B550078C110 /* Assets.xcassets */,
+				0B6E545A2B811B550078C110 /* Info.plist */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		0B6E546B2B811BFC0078C110 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0B6E546C2B811C060078C110 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E54402B8110CB0078C110 /* CalculationsVC.swift */,
+				0B6E54422B8111C60078C110 /* UsefulInfoVC.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		0B6E546D2B811C2E0078C110 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E54272B810BA00078C110 /* AppDelegate.swift */,
+				0B6E54292B810BA00078C110 /* SceneDelegate.swift */,
+				0B6E54332B810BA20078C110 /* Assets.xcassets */,
+				0B6E54352B810BA20078C110 /* LaunchScreen.storyboard */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		0B6E546E2B811C4A0078C110 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E54452B8115420078C110 /* Persistence.swift */,
+				0B6E54712B81228A0078C110 /* CalculationData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0B6E546F2B811C7F0078C110 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E54702B811C8D0078C110 /* TabBarControllers */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		0B6E54702B811C8D0078C110 /* TabBarControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0B6E543E2B8110580078C110 /* FLCTabBarController.swift */,
+			);
+			path = TabBarControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,15 +220,34 @@
 				0B6E54202B810BA00078C110 /* Sources */,
 				0B6E54212B810BA00078C110 /* Frameworks */,
 				0B6E54222B810BA00078C110 /* Resources */,
+				0B6E54612B811B550078C110 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0B6E545C2B811B550078C110 /* PBXTargetDependency */,
 			);
 			name = FLCCalculator;
 			productName = FLCCalculator;
 			productReference = 0B6E54242B810BA00078C110 /* FLCCalculator.app */;
 			productType = "com.apple.product-type.application";
+		};
+		0B6E544C2B811B540078C110 /* WidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B6E545E2B811B550078C110 /* Build configuration list for PBXNativeTarget "WidgetsExtension" */;
+			buildPhases = (
+				0B6E54492B811B540078C110 /* Sources */,
+				0B6E544A2B811B540078C110 /* Frameworks */,
+				0B6E544B2B811B540078C110 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetsExtension;
+			productName = WidgetsExtension;
+			productReference = 0B6E544D2B811B540078C110 /* WidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -101,6 +260,9 @@
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					0B6E54232B810BA00078C110 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					0B6E544C2B811B540078C110 = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
@@ -119,6 +281,7 @@
 			projectRoot = "";
 			targets = (
 				0B6E54232B810BA00078C110 /* FLCCalculator */,
+				0B6E544C2B811B540078C110 /* WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -130,7 +293,15 @@
 			files = (
 				0B6E54372B810BA20078C110 /* LaunchScreen.storyboard in Resources */,
 				0B6E54342B810BA20078C110 /* Assets.xcassets in Resources */,
-				0B6E542F2B810BA00078C110 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B6E544B2B811B540078C110 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B6E546A2B811BA40078C110 /* Assets.xcassets in Resources */,
+				0B6E54592B811B550078C110 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,24 +312,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B6E542C2B810BA00078C110 /* ViewController.swift in Sources */,
+				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
+				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,
 				0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */,
+				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
+				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
+				0B6E54722B81228A0078C110 /* CalculationData.swift in Sources */,
+				0B6E54432B8111C60078C110 /* UsefulInfoVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B6E54492B811B540078C110 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B6E54662B811B880078C110 /* CalculationsVC.swift in Sources */,
+				0B6E54732B81228A0078C110 /* CalculationData.swift in Sources */,
+				0B6E54622B811B700078C110 /* Persistence.swift in Sources */,
+				0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */,
+				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
+				0B6E54652B811B850078C110 /* FLCTabBarController.swift in Sources */,
+				0B6E54682B811B8B0078C110 /* UserDefaults+Ext.swift in Sources */,
+				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
+				0B6E54672B811B8A0078C110 /* UsefulInfoVC.swift in Sources */,
+				0B6E54632B811B740078C110 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		0B6E542D2B810BA00078C110 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0B6E542E2B810BA00078C110 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		0B6E545C2B811B550078C110 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0B6E544C2B811B540078C110 /* WidgetsExtension */;
+			targetProxy = 0B6E545B2B811B550078C110 /* PBXContainerItemProxy */;
 		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
 		0B6E54352B810BA20078C110 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -222,7 +415,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -279,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -292,18 +485,22 @@
 		0B6E543C2B810BA20078C110 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FLCCalculator/FLCCalculator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLCCalculator/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "FLC Calculator";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,27 +508,35 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		0B6E543D2B810BA20078C110 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FLCCalculator/FLCCalculator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLCCalculator/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "FLC Calculator";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -339,6 +544,66 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		0B6E545F2B811B550078C110 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y43668Q2S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0B6E54602B811B550078C110 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y43668Q2S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -362,6 +627,15 @@
 			buildConfigurations = (
 				0B6E543C2B810BA20078C110 /* Debug */,
 				0B6E543D2B810BA20078C110 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0B6E545E2B811B550078C110 /* Build configuration list for PBXNativeTarget "WidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B6E545F2B811B550078C110 /* Debug */,
+				0B6E54602B811B550078C110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
