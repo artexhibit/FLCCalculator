@@ -43,6 +43,8 @@
 		0BF938872B84F8C200A18016 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938862B84F8C200A18016 /* UIView+Ext.swift */; };
 		0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938892B85014700A18016 /* FLCSubtitleLabel.swift */; };
 		0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388B2B850EC600A18016 /* FLCButton.swift */; };
+		0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
+		0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,7 @@
 		0BF938862B84F8C200A18016 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		0BF938892B85014700A18016 /* FLCSubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCSubtitleLabel.swift; sourceTree = "<group>"; };
 		0BF9388B2B850EC600A18016 /* FLCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCButton.swift; sourceTree = "<group>"; };
+		0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTagView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +153,7 @@
 		0B419FD32B82544800498ACE /* CalculationCell */ = {
 			isa = PBXGroup;
 			children = (
-				0B419FCF2B824BED00498ACE /* CalculationView.swift */,
+				0BF938912B85377A00A18016 /* CalculationView */,
 				0B419FD42B82546D00498ACE /* CalculationCell.swift */,
 			);
 			path = CalculationCell;
@@ -181,11 +184,11 @@
 			isa = PBXGroup;
 			children = (
 				0B419FCA2B82451D00498ACE /* Utilities */,
+				0B6E546B2B811BFC0078C110 /* Extensions */,
 				0B419FCE2B82468000498ACE /* Managers */,
 				0B6E546F2B811C7F0078C110 /* CustomViews */,
 				0B6E546E2B811C4A0078C110 /* Model */,
 				0B6E546C2B811C060078C110 /* Screens */,
-				0B6E546B2B811BFC0078C110 /* Extensions */,
 				0B6E54442B8114AB0078C110 /* FLCCalculator.entitlements */,
 				0B6E54382B810BA20078C110 /* Info.plist */,
 			);
@@ -294,6 +297,15 @@
 				0BF9388B2B850EC600A18016 /* FLCButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		0BF938912B85377A00A18016 /* CalculationView */ = {
+			isa = PBXGroup;
+			children = (
+				0B419FCF2B824BED00498ACE /* CalculationView.swift */,
+				0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */,
+			);
+			path = CalculationView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,6 +423,7 @@
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
+				0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */,
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationData.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
@@ -424,6 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */,
 				0B6E54732B81228A0078C110 /* CalculationData.swift in Sources */,
 				0B6E54622B811B700078C110 /* Persistence.swift in Sources */,
 				0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */,
