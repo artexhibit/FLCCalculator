@@ -42,7 +42,7 @@ struct CalculationView: View {
                 
                 Spacer()
             }
-            .padding(.bottom, 15)
+            .padding(.bottom, 10)
             
             HStack(alignment: .top) {
                 VStack(spacing: 5) {
@@ -52,10 +52,10 @@ struct CalculationView: View {
                         .foregroundStyle(.accent)
                     Path { path in
                         path.move(to: CGPoint(x: 0, y: 0))
-                        path.addLine(to: CGPoint(x: 0, y: 38))
+                        path.addLine(to: CGPoint(x: 0, y: 28))
                     }
-                    .stroke(style: StrokeStyle(lineWidth: 1.5, dash: [3.5]))
-                    .frame(width: 1, height: 38, alignment: .center)
+                    .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                    .frame(width: 1, height: 28, alignment: .center)
                     .foregroundStyle(.accent)
                     Image(systemName: "mappin.and.ellipse")
                         .resizable()
@@ -63,7 +63,7 @@ struct CalculationView: View {
                         .foregroundStyle(.accent)
                 }
                 
-                VStack(alignment: .leading, spacing: 30) {
+                VStack(alignment: .leading, spacing: 20) {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading) {
                             Text("Забрать из")
@@ -178,11 +178,11 @@ struct CalculationView: View {
                         HStack(alignment: .center, spacing: 8) {
                             Image(systemName: "cart.fill")
                                 .resizable()
-                                .frame(width: 23, height: 19)
+                                .frame(width: 20, height: 16)
                                 .foregroundStyle(.gray)
                             
                             Text("1266$ + 17500₽")
-                                .font(.title3)
+                                .font(.subheadline)
                                 .foregroundStyle(.primary.opacity(0.8))
                                 .bold()
                         }
@@ -194,14 +194,14 @@ struct CalculationView: View {
                     
                Spacer()
                 }
-                .padding(.top, 15)
             }
-            .padding(.top, 15)
+            .padding(.top, 10)
             Spacer()
             
         }
         .padding(.horizontal, 15)
-        .padding(.vertical, 16)
+        .padding(.top, 16)
+        .padding(.bottom, 6)
         .background(Color(colorScheme == .dark ? .quaternarySystemFill  : UIColor.systemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .shadow(color: Color(.lightGray).opacity(0.5), radius: 8, x: 0, y: 5)
