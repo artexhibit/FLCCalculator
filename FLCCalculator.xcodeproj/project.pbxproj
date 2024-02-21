@@ -38,6 +38,11 @@
 		0B6E546A2B811BA40078C110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B6E54332B810BA20078C110 /* Assets.xcassets */; };
 		0B6E54722B81228A0078C110 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54712B81228A0078C110 /* CalculationData.swift */; };
 		0B6E54732B81228A0078C110 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54712B81228A0078C110 /* CalculationData.swift */; };
+		0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */; };
+		0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */; };
+		0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61182B86750000929613 /* FLCNumberTextField.swift */; };
+		0B6F611B2B867BD400929613 /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F611A2B867BD400929613 /* UITextField+Ext.swift */; };
+		0B6F611F2B8690B000929613 /* FLCNumberTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F611E2B8690B000929613 /* FLCNumberTextFieldView.swift */; };
 		0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */; };
 		0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938842B84F61700A18016 /* FLCTitleLabel.swift */; };
 		0BF938872B84F8C200A18016 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938862B84F8C200A18016 /* UIView+Ext.swift */; };
@@ -45,6 +50,7 @@
 		0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388B2B850EC600A18016 /* FLCButton.swift */; };
 		0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
+		0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938922B853A6900A18016 /* CalculationVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,12 +104,18 @@
 		0B6E54582B811B550078C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B6E545A2B811B550078C110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B6E54712B81228A0078C110 /* CalculationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationData.swift; sourceTree = "<group>"; };
+		0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCargoParametersView.swift; sourceTree = "<group>"; };
+		0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTransportParametersView.swift; sourceTree = "<group>"; };
+		0B6F61182B86750000929613 /* FLCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCNumberTextField.swift; sourceTree = "<group>"; };
+		0B6F611A2B867BD400929613 /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
+		0B6F611E2B8690B000929613 /* FLCNumberTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCNumberTextFieldView.swift; sourceTree = "<group>"; };
 		0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCEmptyStateView.swift; sourceTree = "<group>"; };
 		0BF938842B84F61700A18016 /* FLCTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTitleLabel.swift; sourceTree = "<group>"; };
 		0BF938862B84F8C200A18016 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		0BF938892B85014700A18016 /* FLCSubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCSubtitleLabel.swift; sourceTree = "<group>"; };
 		0BF9388B2B850EC600A18016 /* FLCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCButton.swift; sourceTree = "<group>"; };
 		0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTagView.swift; sourceTree = "<group>"; };
+		0BF938922B853A6900A18016 /* CalculationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +233,7 @@
 				0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */,
 				0B419FCB2B82464000498ACE /* UITableView+Ext.swift */,
 				0BF938862B84F8C200A18016 /* UIView+Ext.swift */,
+				0B6F611A2B867BD400929613 /* UITextField+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -230,6 +243,7 @@
 			children = (
 				0B6E54402B8110CB0078C110 /* CalculationsVC.swift */,
 				0B6E54422B8111C60078C110 /* UsefulInfoVC.swift */,
+				0BF938922B853A6900A18016 /* CalculationVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -262,6 +276,7 @@
 				0BF938832B84F5FD00A18016 /* Views */,
 				0BF938882B84FD8900A18016 /* Labels */,
 				0BF9388D2B85194300A18016 /* Buttons */,
+				0B6F61202B86935600929613 /* TextFields */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -274,10 +289,21 @@
 			path = TabBarControllers;
 			sourceTree = "<group>";
 		};
+		0B6F61202B86935600929613 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				0B6F61182B86750000929613 /* FLCNumberTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
 		0BF938832B84F5FD00A18016 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */,
+				0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */,
+				0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */,
+				0B6F611E2B8690B000929613 /* FLCNumberTextFieldView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -411,14 +437,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BF938872B84F8C200A18016 /* UIView+Ext.swift in Sources */,
+				0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */,
 				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
 				0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */,
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,
 				0B419FC82B82451600498ACE /* FLCError.swift in Sources */,
+				0B6F611B2B867BD400929613 /* UITextField+Ext.swift in Sources */,
+				0B6F611F2B8690B000929613 /* FLCNumberTextFieldView.swift in Sources */,
 				0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */,
 				0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */,
 				0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */,
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
+				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
+				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
@@ -428,6 +459,7 @@
 				0B6E54722B81228A0078C110 /* CalculationData.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
 				0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */,
+				0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */,
 				0B6E54432B8111C60078C110 /* UsefulInfoVC.swift in Sources */,
 				0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */,
 			);

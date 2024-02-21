@@ -15,16 +15,17 @@ class CalculationsVC: UIViewController {
         configureVC()
         configureTableView()
         configureDataSource()
+        updateUI(with: calculations)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateUI(with: calculations)
     }
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        tabBarController?.tabBar.isHidden = false
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
         navigationItem.rightBarButtonItem = addButton
@@ -75,8 +76,8 @@ class CalculationsVC: UIViewController {
             self.calculations = calculations
             
             DispatchQueue.main.async {
-                self.view.bringSubviewToFront(self.tableView)
                 self.emptyStateView.removeFromSuperview()
+                self.view.bringSubviewToFront(self.tableView)
             }
             updateDataSource(on: self.calculations)
         }
@@ -91,8 +92,7 @@ extension CalculationsVC: UITableViewDelegate {
 
 extension CalculationsVC: FLCEmptyStateViewDelegate {
     func didTapActionButton() {
-        let calc = Calculation(context: Persistence.shared.container.viewContext)
-        calculations.append(calc)
-        updateUI(with: calculations)
+        let calculationVC = CalculationVC()
+        navigationController?.pushViewController(calculationVC, animated: true)
     }
 }
