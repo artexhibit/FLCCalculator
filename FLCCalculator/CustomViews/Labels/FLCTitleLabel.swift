@@ -21,6 +21,7 @@ class FLCTitleLabel: UILabel {
         font = UIFont.systemFont(ofSize: 25, weight: .bold)
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.7
+        numberOfLines = 0
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }

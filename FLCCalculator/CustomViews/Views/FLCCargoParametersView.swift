@@ -27,7 +27,7 @@ class FLCCargoParametersView: UIView {
             weightTextField.topAnchor.constraint(equalTo: topAnchor, constant: padding),
             weightTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             weightTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            weightTextField.heightAnchor.constraint(equalTo: weightTextField.widthAnchor, multiplier: 0.3/2)
+            weightTextField.heightAnchor.constraint(equalTo: weightTextField.widthAnchor, multiplier: 0.31/2)
         ])
     }
 }
