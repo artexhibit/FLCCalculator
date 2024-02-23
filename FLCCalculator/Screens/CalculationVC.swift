@@ -28,6 +28,7 @@ class CalculationVC: UIViewController {
     }
     
     private func configureVCNavigation() {
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.setHidesBackButton(true, animated: true)
         tabBarController?.tabBar.isHidden = true
         

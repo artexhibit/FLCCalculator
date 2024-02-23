@@ -12,7 +12,6 @@ class CalculationsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureVC()
         configureTableView()
         configureDataSource()
         updateUI(with: calculations)
@@ -20,11 +19,13 @@ class CalculationsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configureVC()
     }
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Расчёты"
         tabBarController?.tabBar.isHidden = false
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
@@ -92,6 +93,7 @@ extension CalculationsVC: UITableViewDelegate {
 
 extension CalculationsVC: FLCEmptyStateViewDelegate {
     func didTapActionButton() {
+        navigationItem.title = ""
         let calculationVC = CalculationVC()
         navigationController?.pushViewController(calculationVC, animated: true)
     }

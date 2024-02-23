@@ -64,7 +64,6 @@ class FLCEmptyStateView: UIView {
             titleLabel.topAnchor.constraint(equalTo: placeholderImage.bottomAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
