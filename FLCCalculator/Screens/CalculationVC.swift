@@ -49,6 +49,8 @@ class CalculationVC: UIViewController {
     }
     
     private func configureCargoParametersView() {
+        cargoParametersView.nextButton.delegate = self
+        
         leadingConstraint = cargoParametersView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
         
         NSLayoutConstraint.activate([
@@ -70,13 +72,25 @@ class CalculationVC: UIViewController {
     
     private func showNextView() {
         leadingConstraint.constant = -(cargoParametersView.frame.width)
-        
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
+        UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
     }
     
     @objc func closeButtonPressed() {
-        navigationController?.popViewController(animated: true)
+        if (leadingConstraint.constant == -(cargoParametersView.frame.width)) {
+            cargoParametersView.removeFromSuperview()
+        }
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension CalculationVC: FLCButtonDelegate {
+    func didTapButton(_ button: FLCButton) {
+        
+        switch button {
+        case cargoParametersView.nextButton:
+            showNextView()
+        default:
+            break
+        }
     }
 }

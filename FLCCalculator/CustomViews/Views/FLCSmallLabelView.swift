@@ -39,7 +39,8 @@ class FLCSmallLabelView: UIView {
         
         smallLabel.font = UIFont.preferredFont(forTextStyle: .body)
         smallLabel.adjustsFontSizeToFitWidth = true
-        smallLabel.minimumScaleFactor = 12
+        smallLabel.minimumScaleFactor = 0.5
+        smallLabel.numberOfLines = 1
         smallLabel.text = text
         smallLabel.textColor = .label
         smallLabel.layer.opacity = 1
@@ -47,14 +48,14 @@ class FLCSmallLabelView: UIView {
         smallLabelTopConstraint = smallLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         
         NSLayoutConstraint.activate([
-            smallLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            smallLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             smallLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             smallLabel.heightAnchor.constraint(equalToConstant: 25),
             smallLabelTopConstraint
         ])
     }
     
-     func showSmallLabel() {
+     func moveUpSmallLabel() {
         tintColor = .label
         layoutIfNeeded()
         
@@ -70,7 +71,7 @@ class FLCSmallLabelView: UIView {
         }
     }
     
-     func hideSmallLabel() {
+     func returnSmallLabelToIdentity() {
         smallLabelTopConstraint.isActive = false
         smallLabelTopConstraint = smallLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         smallLabelTopConstraint.isActive = true

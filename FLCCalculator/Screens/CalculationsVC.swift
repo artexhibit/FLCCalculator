@@ -44,7 +44,6 @@ class CalculationsVC: UIViewController {
         tableView.separatorStyle = .none
         
         tableView.delegate = self
-        
         tableView.register(CalculationCell.self, forCellReuseIdentifier: CalculationCell.reuseID)
     }
     
@@ -65,8 +64,9 @@ class CalculationsVC: UIViewController {
     }
     
     private func showEmptyStateView(withTitle: String, andSubtitle: String) {
-        emptyStateView = FLCEmptyStateView(titleText: withTitle, subtitleText: andSubtitle, delegate: self)
+        emptyStateView = FLCEmptyStateView(titleText: withTitle, subtitleText: andSubtitle)
         emptyStateView.frame = view.bounds
+        emptyStateView.actionButton.delegate = self
         view.addSubview(emptyStateView)
     }
     
@@ -91,10 +91,16 @@ extension CalculationsVC: UITableViewDelegate {
     }
 }
 
-extension CalculationsVC: FLCEmptyStateViewDelegate {
-    func didTapActionButton() {
-        navigationItem.title = ""
-        let calculationVC = CalculationVC()
-        navigationController?.pushViewController(calculationVC, animated: true)
+extension CalculationsVC: FLCButtonDelegate {
+    func didTapButton(_ button: FLCButton) {
+        
+        switch button {
+        case emptyStateView.actionButton:
+            navigationItem.title = ""
+            let calculationVC = CalculationVC()
+            navigationController?.pushViewController(calculationVC, animated: true)
+        default:
+            break
+        }
     }
 }

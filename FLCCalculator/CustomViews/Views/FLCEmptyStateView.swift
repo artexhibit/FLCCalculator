@@ -1,17 +1,11 @@
 import UIKit
 
-protocol FLCEmptyStateViewDelegate: AnyObject {
-    func didTapActionButton()
-}
-
 class FLCEmptyStateView: UIView {
     
     private let placeholderImage = UIImageView()
     private let titleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center)
     private let subtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
-    private let actionButton = FLCButton(color: .accent, title: "Новый расчёт", systemImageName: "plus")
-    
-    weak var delegate: FLCEmptyStateViewDelegate!
+    let actionButton = FLCButton(color: .accent, title: "Новый расчёт", systemImageName: "plus")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,12 +16,10 @@ class FLCEmptyStateView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(titleText: String, subtitleText: String, delegate: FLCEmptyStateViewDelegate) {
+    convenience init(titleText: String, subtitleText: String) {
         self.init(frame: .zero)
         self.titleLabel.text = titleText
         self.subtitleLabel.text = subtitleText
-        
-        self.delegate = delegate
     }
     
     private func configure() {
@@ -35,7 +27,7 @@ class FLCEmptyStateView: UIView {
         configurePlaceholderImage()
         configureTitleLable()
         configureSubtitleLabel()
-        configureStartCalculationButton()
+        configureActionButton()
     }
     
     private func configurePlaceholderImage() {
@@ -61,7 +53,7 @@ class FLCEmptyStateView: UIView {
         let padding: CGFloat = 15
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: placeholderImage.bottomAnchor),
+            titleLabel.topAnchor.constraint(equalTo: placeholderImage.bottomAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
         ])
@@ -74,13 +66,10 @@ class FLCEmptyStateView: UIView {
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            subtitleLabel.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
     
-    private func configureStartCalculationButton() {
-        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
-        
+    private func configureActionButton() {
         let padding: CGFloat = 30
         let widthConstraint = actionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8)
         let heightConstraint = actionButton.heightAnchor.constraint(equalTo: placeholderImage.widthAnchor, multiplier: 1/4.5)
@@ -88,7 +77,7 @@ class FLCEmptyStateView: UIView {
         heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
-            actionButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: padding),
+            actionButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: padding * 2),
             actionButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
             widthConstraint, heightConstraint,
             
@@ -96,8 +85,4 @@ class FLCEmptyStateView: UIView {
             actionButton.widthAnchor.constraint(lessThanOrEqualToConstant: 450)
         ])
     }
-    
-   @objc private func actionButtonTapped() {
-       delegate.didTapActionButton()
-   }
 }

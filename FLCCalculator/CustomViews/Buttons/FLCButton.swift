@@ -1,6 +1,12 @@
 import UIKit
 
+protocol FLCButtonDelegate: AnyObject {
+    func didTapButton(_ button: FLCButton)
+}
+
 class FLCButton: UIButton {
+    
+    weak var delegate: FLCButtonDelegate!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,6 +27,7 @@ class FLCButton: UIButton {
         configuration?.cornerStyle = .medium
         
         translatesAutoresizingMaskIntoConstraints = false
+        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     final func set(color: UIColor, title: String, systemImageName: String) {
@@ -31,4 +38,6 @@ class FLCButton: UIButton {
         configuration?.imagePadding = 6
         configuration?.imagePlacement = .leading
     }
+    
+    @objc private func buttonTapped() { delegate.didTapButton(self) }
 }

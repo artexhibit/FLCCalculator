@@ -18,7 +18,7 @@ class FLCSubtitleLabel: UILabel {
     }
     
     private func configure() {
-        font = UIFont.preferredFont(forTextStyle: .callout)
+        font = UIFont.preferredFont(forTextStyle: .body)
         minimumScaleFactor = 0.9
         lineBreakMode = .byWordWrapping
         numberOfLines = 0

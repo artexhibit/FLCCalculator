@@ -3,7 +3,7 @@ import UIKit
 class FLCNumberTextField: UITextField {
     
     private let smallLabelView = FLCSmallLabelView()
-    let insets = UIEdgeInsets(top: 0, left: 20, bottom: 7, right: 0)
+    let insets = UIEdgeInsets(top: 0, left: 15, bottom: 7, right: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +32,7 @@ class FLCNumberTextField: UITextField {
     
     override func becomeFirstResponder() -> Bool {
         let becomeFirstResponder = super.becomeFirstResponder()
-        becomeFirstResponder ? smallLabelView.showSmallLabel() : smallLabelView.hideSmallLabel()
+        becomeFirstResponder ? smallLabelView.moveUpSmallLabel() : smallLabelView.returnSmallLabelToIdentity()
         return becomeFirstResponder
     }
     
@@ -40,7 +40,7 @@ class FLCNumberTextField: UITextField {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(smallLabelView)
         
-        layer.cornerRadius = 13
+        layer.cornerRadius = 14
         textColor = .label
         tintColor = .label
         textAlignment = .left
