@@ -55,6 +55,9 @@ class FLCCargoParametersView: UIView {
         stackView.addArrangedSubview(weightTextField)
         stackView.addArrangedSubview(volumeTextField)
         
+        weightTextField.delegate = self
+        volumeTextField.delegate = self
+        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
@@ -75,6 +78,8 @@ class FLCCargoParametersView: UIView {
     }
     
     private func configureInvoiceAmountTextField() {
+        invoiceAmountTextField.delegate = self
+        
         NSLayoutConstraint.activate([
             invoiceAmountTextField.topAnchor.constraint(equalTo: cargoTypePickerButton.bottomAnchor, constant: padding),
             invoiceAmountTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
@@ -116,7 +121,7 @@ class FLCCargoParametersView: UIView {
         ])
     }
     
-    private func configureNextButton() {        
+    private func configureNextButton() {
         let widthConstraint = nextButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9)
         let heightConstraint = nextButton.heightAnchor.constraint(equalTo: nextButton.widthAnchor, multiplier: 1/2)
         widthConstraint.priority = UILayoutPriority(rawValue: 999)
@@ -133,6 +138,103 @@ class FLCCargoParametersView: UIView {
     }
     
     @objc private func switchValueChanged(_ sender: UISwitch) {
+    }
+}
+
+extension FLCCargoParametersView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        DispatchQueue.main.async {
+            guard let text = textField.text else { return }
+            
+            if text.isEmpty {
+                textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : ""
+                textField.setCursorAfterTypedNumber()
+            } else {
+                textField.text = text
+            }
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        var formatter = textField != self.invoiceAmountTextField ? NumberFormatter.getFLCNumberFormatter() : NumberFormatter.getFLCNumberFormatter(withDecimals: 0)
+
+        let decimalSeparator = formatter.decimalSeparator ?? ""
+        guard let text = textField.text else { return false }
+        let separatorIndex = text.firstIndex(of: Character(formatter.decimalSeparator ?? "")) ?? text.endIndex
+        let separatorPositon = text.distance(from: text.startIndex, to: separatorIndex)
+  
+        if string == decimalSeparator {
+            if text.contains(decimalSeparator) {
+                if textField.getCursorPosition() > separatorPositon { return false }
+                textField.moveCursorTo(position: separatorPositon + 2)
+            } else {
+                textField.text = text + "\(decimalSeparator)00"
+                textField.moveCursorTo(position: separatorPositon + 2)
+                return false
+            }
+        }
+   
+        if (textField.getCursorPosition() > separatorPositon) && !string.isEmpty {
+            let index = text.index(text.startIndex, offsetBy: textField.getCursorPosition() - 1)
+            guard let charBeforeCursorRange = Range(NSRange(location: textField.getCursorPosition() - 1, length: 1), in: text) else { return false }
+            
+            if text[index] == Character(decimalSeparator) {
+                var newText = text.replacingOccurrences(of: ",", with: ".")
+                
+                newText.insert(contentsOf: string, at: index)
+                if newText.contains(".") { formatter = NumberFormatter.getFLCNumberFormatter() }
+                textField.text = formatter.string(from: NSNumber(value: Double(newText) ?? 0)) ?? ""
+                
+               //textField.moveCursorTo(position: separatorPositon)
+            } else {
+                if string != formatter.decimalSeparator {
+                    textField.text = text.replacingCharacters(in: charBeforeCursorRange, with: string)
+                    textField.moveCursorTo(position: separatorPositon + 3)
+                }
+            }
+            return false
+        }
+       
+        if textField.getCursorPosition() - 1 == separatorPositon && string.isEmpty {
+            guard let charBeforeSeparator = Range(NSRange(location: separatorPositon - 1, length: 1), in: text) else { return false }
+            textField.text = text.replacingCharacters(in: charBeforeSeparator, with: "")
+            textField.moveCursorTo(position: textField.getCursorPosition() - 3)
+            
+            if textField.text?.firstIndex(of: Character(decimalSeparator)) == textField.text?.startIndex {
+                textField.text = FLCNumberTextField.placeholderValue
+                textField.moveCursorTo(position: separatorPositon)
+            }
+            return false
+        }
+    
+        if text == FLCNumberTextField.placeholderValue && !string.isEmpty {
+            textField.text = string + text.dropFirst()
+            textField.setCursorAfterTypedNumber()
+            return false
+        }
+       
+        let newText = NSString(string: text).replacingCharacters(in: range, with: string)
+        let completeString = newText.replacingOccurrences(of: formatter.groupingSeparator, with: "").replacingOccurrences(of: ",", with: ".")
+
+        guard let value = Double(completeString) else {
+            textField.text = "0"
+            return false
+        }
+
+        if completeString.contains(".") { formatter = NumberFormatter.getFLCNumberFormatter() }
+        let formattedNumber = formatter.string(from: NSNumber(value: value)) ?? ""
+        textField.text = formattedNumber
+       
+        var cursorOffset = range.location + string.count
+        let oldNumberOfGroupingSeparators = text.filter { $0 == formatter.groupingSeparator.first }.count
+        let newNumberOfGroupingSeparators = formattedNumber.filter { $0 == formatter.groupingSeparator.first }.count
+        cursorOffset += (newNumberOfGroupingSeparators - oldNumberOfGroupingSeparators)
+        textField.moveCursorTo(position: cursorOffset)
+        
+        if textField.getCursorPosition() == 0 && string.isEmpty {
+            textField.moveCursorTo(position: textField.getCursorPosition() + 1)
+        }
+        return false
     }
 }
 

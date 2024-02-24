@@ -3,7 +3,8 @@ import UIKit
 class FLCNumberTextField: UITextField {
     
     private let smallLabelView = FLCSmallLabelView()
-    let insets = UIEdgeInsets(top: 0, left: 15, bottom: 7, right: 0)
+    private let insets = UIEdgeInsets(top: 0, left: 15, bottom: 7, right: 0)
+    static let placeholderValue = "0\(NumberFormatter().decimalSeparator ?? "")00"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,6 +53,7 @@ class FLCNumberTextField: UITextField {
         
         autocorrectionType = .no
         returnKeyType = .next
+        keyboardType = .decimalPad
         clearButtonMode = .whileEditing
     }
 }
