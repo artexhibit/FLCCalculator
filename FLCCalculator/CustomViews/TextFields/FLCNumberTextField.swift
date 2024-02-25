@@ -9,6 +9,7 @@ class FLCNumberTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        configureToolBar()
     }
     
     required init?(coder: NSCoder) {
@@ -51,10 +52,24 @@ class FLCNumberTextField: UITextField {
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 15
         contentVerticalAlignment = .bottom
-        backgroundColor = UIColor.accent.withAlphaComponent(0.1)
+        backgroundColor = UIColor.flcNumberTextFieldBackground
         
         autocorrectionType = .no
         keyboardType = .decimalPad
         clearButtonMode = .whileEditing
     }
+    
+    private func configureToolBar() {
+        let toolbar =  UIToolbar(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 35))
+        toolbar.barStyle = .default
+        
+        let items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneButtonTapped))
+        ]
+        toolbar.setItems(items, animated: false)
+        toolbar.updateConstraintsIfNeeded()
+        inputAccessoryView = toolbar
+    }
+    @objc private func doneButtonTapped() { self.resignFirstResponder() }
 }

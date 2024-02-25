@@ -2,6 +2,7 @@ import UIKit
 
 class CalculationVC: UIViewController {
     
+    let scrollView = UIScrollView()
     let containerView = UIView()
     let cargoParametersView = FLCCargoParametersView()
     let transportParametersView = FLCTransportParametersView()
@@ -22,6 +23,7 @@ class CalculationVC: UIViewController {
         view.addSubview(containerView)
         view.backgroundColor = .systemBackground
         
+        configureScrollView()
         configureContainerView()
         configureCargoParametersView()
         configureTransportParametersView()
@@ -36,15 +38,21 @@ class CalculationVC: UIViewController {
         navigationItem.rightBarButtonItem = closeButton
     }
     
+    private func configureScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        scrollView.pinToEdges(of: view)
+        scrollView.showsVerticalScrollIndicator = false
+    }
+    
     private func configureContainerView() {
         containerView.addSubviews(cargoParametersView, transportParametersView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            containerView.heightAnchor.constraint(equalToConstant: 700)
         ])
     }
     

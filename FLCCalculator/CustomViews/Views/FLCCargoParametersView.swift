@@ -156,6 +156,16 @@ extension FLCCargoParametersView: UITextFieldDelegate {
         }
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        DispatchQueue.main.async {
+            guard let text = textField.text else { return }
+            
+            if text.isEmpty {
+                textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : "0"
+            }
+        }
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let formatter = textField != self.invoiceAmountTextField ? NumberFormatter.getFLCNumberFormatter() : NumberFormatter.getFLCNumberFormatter(withDecimals: 0)
 

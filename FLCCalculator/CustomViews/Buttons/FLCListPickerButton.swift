@@ -40,7 +40,7 @@ class FLCListPickerButton: UIButton {
         
         tintColor = .label
         setTitleColor(.label, for: .normal)
-        backgroundColor = UIColor.accent.withAlphaComponent(0.1)
+        backgroundColor = UIColor.flcNumberTextFieldBackground
         
         config.contentInsets = insets
         configuration = config

@@ -42,7 +42,7 @@ class FLCSmallLabelView: UIView {
         smallLabel.minimumScaleFactor = 0.5
         smallLabel.numberOfLines = 1
         smallLabel.text = text
-        smallLabel.textColor = .darkGray
+        smallLabel.textColor = .flcNumberTextFieldLabel
         smallLabel.layer.opacity = 1
         
         smallLabelTopConstraint = smallLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
