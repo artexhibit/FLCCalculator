@@ -1,7 +1,8 @@
 import UIKit
 
 extension UITextField {
-    func setCursorAfterTypedNumber() {
+    
+    func moveCursorAfterTypedNumber() {
         guard let newPosition = self.position(from: self.beginningOfDocument, offset: 1) else { return }
         self.selectedTextRange = self.textRange(from: newPosition, to: newPosition)
     }

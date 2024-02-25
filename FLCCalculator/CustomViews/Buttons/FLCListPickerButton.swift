@@ -33,17 +33,19 @@ class FLCListPickerButton: UIButton {
         
         contentHorizontalAlignment = .leading
         contentVerticalAlignment = .bottom
+        
         layer.cornerRadius = 14
+        layer.borderColor = UIColor.accent.cgColor
+        layer.borderWidth = 1
         
         tintColor = .label
         setTitleColor(.label, for: .normal)
-        backgroundColor = UIColor.accent.withAlphaComponent(0.6)
+        backgroundColor = UIColor.accent.withAlphaComponent(0.1)
         
         config.contentInsets = insets
         configuration = config
         
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
         smallLabelView.frame = self.frame
     }
     

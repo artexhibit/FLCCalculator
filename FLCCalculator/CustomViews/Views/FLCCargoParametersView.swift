@@ -5,9 +5,9 @@ class FLCCargoParametersView: UIView {
     private let padding: CGFloat = 15
     private let titleLabel = FLCTitleLabel(color: .label, textAlignment: .left)
     private let stackView = UIStackView()
+    private let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
     private let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
     private let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
-    private let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
     private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     private let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
@@ -25,6 +25,7 @@ class FLCCargoParametersView: UIView {
         configureCustomsClearanceLabel()
         configureCustomsClearanceSwitch()
         configureNextButton()
+        hideKeyboardWhenTappedAround()
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +34,7 @@ class FLCCargoParametersView: UIView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(titleLabel, stackView, cargoTypePickerButton, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, nextButton)
+        addSubviews(titleLabel, cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, nextButton)
         backgroundColor = .systemBackground
     }
     
@@ -47,11 +48,22 @@ class FLCCargoParametersView: UIView {
         ])
     }
     
+    private func configureCargoTypePickerButton() {
+        cargoTypePickerButton.delegate = self
+        
+        NSLayoutConstraint.activate([
+            cargoTypePickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3),
+            cargoTypePickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            cargoTypePickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            cargoTypePickerButton.heightAnchor.constraint(equalTo: cargoTypePickerButton.widthAnchor, multiplier: 0.3/2)
+        ])
+    }
+    
     private func configureStackView() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 10
+        stackView.spacing = padding
         stackView.addArrangedSubview(weightTextField)
         stackView.addArrangedSubview(volumeTextField)
         
@@ -59,21 +71,10 @@ class FLCCargoParametersView: UIView {
         volumeTextField.delegate = self
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3),
+            stackView.topAnchor.constraint(equalTo: cargoTypePickerButton.bottomAnchor, constant: padding),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             stackView.heightAnchor.constraint(equalTo: weightTextField.widthAnchor, multiplier: 0.31)
-        ])
-    }
-    
-    private func configureCargoTypePickerButton() {
-        cargoTypePickerButton.delegate = self
-        
-        NSLayoutConstraint.activate([
-            cargoTypePickerButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
-            cargoTypePickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            cargoTypePickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            cargoTypePickerButton.heightAnchor.constraint(equalTo: cargoTypePickerButton.widthAnchor, multiplier: 0.3/2)
         ])
     }
     
@@ -81,7 +82,7 @@ class FLCCargoParametersView: UIView {
         invoiceAmountTextField.delegate = self
         
         NSLayoutConstraint.activate([
-            invoiceAmountTextField.topAnchor.constraint(equalTo: cargoTypePickerButton.bottomAnchor, constant: padding),
+            invoiceAmountTextField.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
             invoiceAmountTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             invoiceAmountTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6),
             invoiceAmountTextField.heightAnchor.constraint(equalTo: cargoTypePickerButton.widthAnchor, multiplier: 0.3/2)
@@ -92,8 +93,8 @@ class FLCCargoParametersView: UIView {
         invoiceCurrencyPickerButton.delegate = self
         
         NSLayoutConstraint.activate([
-            invoiceCurrencyPickerButton.topAnchor.constraint(equalTo: cargoTypePickerButton.bottomAnchor, constant: padding),
-            invoiceCurrencyPickerButton.leadingAnchor.constraint(equalTo: invoiceAmountTextField.trailingAnchor, constant: padding / 2),
+            invoiceCurrencyPickerButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
+            invoiceCurrencyPickerButton.leadingAnchor.constraint(equalTo: invoiceAmountTextField.trailingAnchor, constant: padding),
             invoiceCurrencyPickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             invoiceCurrencyPickerButton.heightAnchor.constraint(equalTo: cargoTypePickerButton.widthAnchor, multiplier: 0.3/2)
         ])
@@ -148,7 +149,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             
             if text.isEmpty {
                 textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : ""
-                textField.setCursorAfterTypedNumber()
+                textField.moveCursorAfterTypedNumber()
             } else {
                 textField.text = text
             }
@@ -156,81 +157,35 @@ extension FLCCargoParametersView: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        var formatter = textField != self.invoiceAmountTextField ? NumberFormatter.getFLCNumberFormatter() : NumberFormatter.getFLCNumberFormatter(withDecimals: 0)
+        let formatter = textField != self.invoiceAmountTextField ? NumberFormatter.getFLCNumberFormatter() : NumberFormatter.getFLCNumberFormatter(withDecimals: 0)
 
         let decimalSeparator = formatter.decimalSeparator ?? ""
         guard let text = textField.text else { return false }
         let separatorIndex = text.firstIndex(of: Character(formatter.decimalSeparator ?? "")) ?? text.endIndex
         let separatorPositon = text.distance(from: text.startIndex, to: separatorIndex)
+ 
+        if textField.getCursorPosition() == text.count && text.contains(decimalSeparator) && !string.isEmpty { return false }
   
         if string == decimalSeparator {
-            if text.contains(decimalSeparator) {
-                if textField.getCursorPosition() > separatorPositon { return false }
-                textField.moveCursorTo(position: separatorPositon + 2)
-            } else {
-                textField.text = text + "\(decimalSeparator)00"
-                textField.moveCursorTo(position: separatorPositon + 2)
-                return false
-            }
+            return TextFieldManager.moveCursorToDecimals(in: textField, withText: text, decimalSeparator: decimalSeparator, separatorPositon: separatorPositon)
         }
    
-        if (textField.getCursorPosition() > separatorPositon) && !string.isEmpty {
-            let index = text.index(text.startIndex, offsetBy: textField.getCursorPosition() - 1)
-            guard let charBeforeCursorRange = Range(NSRange(location: textField.getCursorPosition() - 1, length: 1), in: text) else { return false }
-            
-            if text[index] == Character(decimalSeparator) {
-                var newText = text.replacingOccurrences(of: ",", with: ".")
-                
-                newText.insert(contentsOf: string, at: index)
-                if newText.contains(".") { formatter = NumberFormatter.getFLCNumberFormatter() }
-                textField.text = formatter.string(from: NSNumber(value: Double(newText) ?? 0)) ?? ""
-                
-               //textField.moveCursorTo(position: separatorPositon)
-            } else {
-                if string != formatter.decimalSeparator {
-                    textField.text = text.replacingCharacters(in: charBeforeCursorRange, with: string)
-                    textField.moveCursorTo(position: separatorPositon + 3)
-                }
-            }
+        if (textField.getCursorPosition() - 1 == separatorPositon) && string.isEmpty {
+            return TextFieldManager.removeCharacterBefore(positon: separatorPositon, and: textField, inText: text, withDecimalSeparator: decimalSeparator, using: formatter)
+        }
+      
+        if text == FLCNumberTextField.placeholderValue && !string.isEmpty && textField.getCursorPosition() == 1 {
+            TextFieldManager.replaceFirstCharacter(with: string, in: textField, and: text)
             return false
         }
-       
-        if textField.getCursorPosition() - 1 == separatorPositon && string.isEmpty {
-            guard let charBeforeSeparator = Range(NSRange(location: separatorPositon - 1, length: 1), in: text) else { return false }
-            textField.text = text.replacingCharacters(in: charBeforeSeparator, with: "")
-            textField.moveCursorTo(position: textField.getCursorPosition() - 3)
-            
-            if textField.text?.firstIndex(of: Character(decimalSeparator)) == textField.text?.startIndex {
-                textField.text = FLCNumberTextField.placeholderValue
-                textField.moveCursorTo(position: separatorPositon)
-            }
-            return false
-        }
-    
-        if text == FLCNumberTextField.placeholderValue && !string.isEmpty {
-            textField.text = string + text.dropFirst()
-            textField.setCursorAfterTypedNumber()
-            return false
-        }
-       
-        let newText = NSString(string: text).replacingCharacters(in: range, with: string)
-        let completeString = newText.replacingOccurrences(of: formatter.groupingSeparator, with: "").replacingOccurrences(of: ",", with: ".")
-
-        guard let value = Double(completeString) else {
-            textField.text = "0"
-            return false
-        }
-
-        if completeString.contains(".") { formatter = NumberFormatter.getFLCNumberFormatter() }
-        let formattedNumber = formatter.string(from: NSNumber(value: value)) ?? ""
-        textField.text = formattedNumber
-       
-        var cursorOffset = range.location + string.count
-        let oldNumberOfGroupingSeparators = text.filter { $0 == formatter.groupingSeparator.first }.count
-        let newNumberOfGroupingSeparators = formattedNumber.filter { $0 == formatter.groupingSeparator.first }.count
-        cursorOffset += (newNumberOfGroupingSeparators - oldNumberOfGroupingSeparators)
-        textField.moveCursorTo(position: cursorOffset)
         
+        let newText = NSString(string: text).replacingCharacters(in: range, with: string)
+        let formattedNumber = TextFieldManager.createFormattedNumber(from: newText, using: formatter)
+        textField.text = formattedNumber
+
+        let cursorOffset = TextFieldManager.calculateCursorOffset(range: range, text: text, string: string, formatter: formatter, number: formattedNumber)
+        textField.moveCursorTo(position: cursorOffset)
+
         if textField.getCursorPosition() == 0 && string.isEmpty {
             textField.moveCursorTo(position: textField.getCursorPosition() + 1)
         }

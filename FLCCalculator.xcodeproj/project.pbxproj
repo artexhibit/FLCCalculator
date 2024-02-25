@@ -46,6 +46,7 @@
 		0BD4DE252B88D5ED00B834DD /* FLCListPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */; };
 		0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */; };
 		0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */; };
+		0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */; };
 		0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */; };
 		0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938842B84F61700A18016 /* FLCTitleLabel.swift */; };
 		0BF938872B84F8C200A18016 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938862B84F8C200A18016 /* UIView+Ext.swift */; };
@@ -115,6 +116,7 @@
 		0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerVC.swift; sourceTree = "<group>"; };
 		0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
 		0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Ext.swift"; sourceTree = "<group>"; };
+		0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCEmptyStateView.swift; sourceTree = "<group>"; };
 		0BF938842B84F61700A18016 /* FLCTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTitleLabel.swift; sourceTree = "<group>"; };
 		0BF938862B84F8C200A18016 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				0B419FC42B82436000498ACE /* CoreDataManager.swift */,
+				0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */,
 				0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */,
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
+				0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */,
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,

@@ -42,17 +42,18 @@ class FLCNumberTextField: UITextField {
         addSubview(smallLabelView)
         
         layer.cornerRadius = 14
-        textColor = .label
-        tintColor = .label
+        layer.borderColor = UIColor.accent.cgColor
+        layer.borderWidth = 1
+        textColor = .accent
+        tintColor = .lightGray
         textAlignment = .left
         font = UIFont.systemFont(ofSize: 19, weight: .bold)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 15
         contentVerticalAlignment = .bottom
-        backgroundColor = UIColor.accent.withAlphaComponent(0.6)
+        backgroundColor = UIColor.accent.withAlphaComponent(0.1)
         
         autocorrectionType = .no
-        returnKeyType = .next
         keyboardType = .decimalPad
         clearButtonMode = .whileEditing
     }

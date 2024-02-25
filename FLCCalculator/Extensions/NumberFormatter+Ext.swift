@@ -1,6 +1,7 @@
 import Foundation
 
 extension NumberFormatter {
+    
     static func getFLCNumberFormatter(withDecimals digits: Int = 2) -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
