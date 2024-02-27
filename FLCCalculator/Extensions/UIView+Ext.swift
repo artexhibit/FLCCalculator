@@ -6,20 +6,14 @@ extension UIView {
         for view in views { addSubview(view) }
     }
     
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing))
-        tap.cancelsTouchesInView = false
-        self.addGestureRecognizer(tap)
-    }
-    
-    func pinToEdges(of superview: UIView) {
+    func pinToEdges(of superview: UIView, with padding: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: superview.topAnchor),
-            leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-            trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-            bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            topAnchor.constraint(equalTo: superview.topAnchor, constant: padding),
+            leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: padding),
+            trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -padding),
+            bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -padding)
         ])
     }
 }

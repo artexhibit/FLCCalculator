@@ -6,7 +6,7 @@ protocol FLCListPickerButtonDelegate: AnyObject {
 
 class FLCListPickerButton: UIButton {
 
-    private let smallLabelView = FLCSmallLabelView()
+    let smallLabelView = FLCSmallLabelView()
     private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 0)
     private var config = Configuration.plain()
     

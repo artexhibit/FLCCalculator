@@ -39,6 +39,8 @@ class CalculationVC: UIViewController {
     }
     
     private func configureScrollView() {
+        scrollView.delegate = self
+        
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         scrollView.pinToEdges(of: view)
@@ -58,6 +60,8 @@ class CalculationVC: UIViewController {
     
     private func configureCargoParametersView() {
         cargoParametersView.nextButton.delegate = self
+        cargoParametersView.cargoTypePickerButton.delegate = self
+        cargoParametersView.invoiceCurrencyPickerButton.delegate = self
         
         leadingConstraint = cargoParametersView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
         
@@ -101,4 +105,23 @@ extension CalculationVC: FLCButtonDelegate {
             break
         }
     }
+}
+
+extension CalculationVC: FLCListPickerButtonDelegate {
+    func buttonTapped(_ button: FLCListPickerButton) {
+        switch button {
+        case cargoParametersView.cargoTypePickerButton:
+            let listPickerVC = FLCListPickerVC(title: cargoParametersView.cargoTypePickerButton.smallLabelView.smallLabel.text ?? "", type: .cargo)
+            let navController = UINavigationController(rootViewController: listPickerVC)
+            present(navController, animated: true)
+        case cargoParametersView.invoiceCurrencyPickerButton:
+            break
+        default:
+            break
+        }
+    }
+}
+
+extension CalculationVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { view.endEditing(true) }
 }

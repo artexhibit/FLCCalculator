@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B33016F2B8D13FF00737A11 /* ListPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */; };
+		0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */; };
 		0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
 		0B419FC62B82436000498ACE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
 		0B419FC82B82451600498ACE /* FLCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC72B82451600498ACE /* FLCError.swift */; };
@@ -82,6 +84,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerCell.swift; sourceTree = "<group>"; };
+		0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCBodyLabel.swift; sourceTree = "<group>"; };
 		0B419FC42B82436000498ACE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0B419FC72B82451600498ACE /* FLCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCError.swift; sourceTree = "<group>"; };
 		0B419FCB2B82464000498ACE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				0B419FD32B82544800498ACE /* CalculationCell */,
+				0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF938842B84F61700A18016 /* FLCTitleLabel.swift */,
+				0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */,
 				0BF938892B85014700A18016 /* FLCSubtitleLabel.swift */,
 			);
 			path = Labels;
@@ -457,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BF938872B84F8C200A18016 /* UIView+Ext.swift in Sources */,
+				0B33016F2B8D13FF00737A11 /* ListPickerCell.swift in Sources */,
 				0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */,
 				0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */,
 				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
@@ -471,6 +478,7 @@
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,
+				0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */,
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,

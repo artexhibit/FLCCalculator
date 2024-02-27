@@ -5,11 +5,11 @@ class FLCCargoParametersView: UIView {
     private let padding: CGFloat = 15
     private let titleLabel = FLCTitleLabel(color: .label, textAlignment: .left)
     private let stackView = UIStackView()
-    private let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
+    let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
     private let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
     private let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
     private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
-    private let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
+    let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
     private let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
@@ -25,7 +25,6 @@ class FLCCargoParametersView: UIView {
         configureCustomsClearanceLabel()
         configureCustomsClearanceSwitch()
         configureNextButton()
-        hideKeyboardWhenTappedAround()
     }
     
     required init?(coder: NSCoder) {
@@ -49,8 +48,6 @@ class FLCCargoParametersView: UIView {
     }
     
     private func configureCargoTypePickerButton() {
-        cargoTypePickerButton.delegate = self
-        
         NSLayoutConstraint.activate([
             cargoTypePickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3),
             cargoTypePickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
@@ -89,9 +86,7 @@ class FLCCargoParametersView: UIView {
         ])
     }
     
-    private func configureInvoiceCurrencyPickerButton() {
-        invoiceCurrencyPickerButton.delegate = self
-        
+    private func configureInvoiceCurrencyPickerButton() {        
         NSLayoutConstraint.activate([
             invoiceCurrencyPickerButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
             invoiceCurrencyPickerButton.leadingAnchor.constraint(equalTo: invoiceAmountTextField.trailingAnchor, constant: padding),
@@ -149,7 +144,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             
             if text.isEmpty {
                 textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : ""
-                textField.moveCursorAfterTypedNumber()
+                textField.moveCursorTo(position: 0)
             } else {
                 textField.text = text
             }
@@ -179,31 +174,23 @@ extension FLCCargoParametersView: UITextFieldDelegate {
         if string == decimalSeparator {
             return TextFieldManager.moveCursorToDecimals(in: textField, withText: text, decimalSeparator: decimalSeparator, separatorPositon: separatorPositon)
         }
-   
+    
         if (textField.getCursorPosition() - 1 == separatorPositon) && string.isEmpty {
             return TextFieldManager.removeCharacterBefore(positon: separatorPositon, and: textField, inText: text, withDecimalSeparator: decimalSeparator, using: formatter)
         }
-      
-        if text == FLCNumberTextField.placeholderValue && !string.isEmpty && textField.getCursorPosition() == 1 {
+       
+        if text == FLCNumberTextField.placeholderValue && !string.isEmpty && textField.getCursorPosition() == 0 {
             TextFieldManager.replaceFirstCharacter(with: string, in: textField, and: text)
             return false
         }
-        
+      
         let newText = NSString(string: text).replacingCharacters(in: range, with: string)
         let formattedNumber = TextFieldManager.createFormattedNumber(from: newText, using: formatter)
         textField.text = formattedNumber
-
+       
         let cursorOffset = TextFieldManager.calculateCursorOffset(range: range, text: text, string: string, formatter: formatter, number: formattedNumber)
         textField.moveCursorTo(position: cursorOffset)
 
-        if textField.getCursorPosition() == 0 && string.isEmpty {
-            textField.moveCursorTo(position: textField.getCursorPosition() + 1)
-        }
         return false
-    }
-}
-
-extension FLCCargoParametersView: FLCListPickerButtonDelegate {
-    func buttonTapped(_ button: FLCListPickerButton) {
     }
 }

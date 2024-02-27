@@ -1,7 +1,7 @@
 import UIKit
 
-class FLCSubtitleLabel: UILabel {
-
+class FLCBodyLabel: UILabel {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -18,7 +18,7 @@ class FLCSubtitleLabel: UILabel {
     }
     
     private func configure() {
-        font = UIFont.preferredFont(forTextStyle: .callout)
+        font = UIFont.preferredFont(forTextStyle: .body)
         minimumScaleFactor = 0.9
         lineBreakMode = .byWordWrapping
         numberOfLines = 0

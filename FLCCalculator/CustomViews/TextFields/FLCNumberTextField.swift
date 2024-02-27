@@ -60,7 +60,7 @@ class FLCNumberTextField: UITextField {
     }
     
     private func configureToolBar() {
-        let toolbar =  UIToolbar(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 35))
+        let toolbar =  UIToolbar(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 45))
         toolbar.barStyle = .default
         
         let items = [
