@@ -194,3 +194,14 @@ extension FLCCargoParametersView: UITextFieldDelegate {
         return false
     }
 }
+
+extension FLCCargoParametersView: FLCListPickerDelegate {
+    func didSelectItem(pickedItem: String, listPickerType: FLCListPickerContentType) {
+        switch listPickerType {
+        case .cargo:
+            cargoTypePickerButton.set(title: pickedItem)
+        case .address:
+            break
+        }
+    }
+}

@@ -33,9 +33,7 @@ class CalculationVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.setHidesBackButton(true, animated: true)
         tabBarController?.tabBar.isHidden = true
-        
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonPressed))
-        navigationItem.rightBarButtonItem = closeButton
+        navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
     }
     
     private func configureScrollView() {
@@ -112,6 +110,7 @@ extension CalculationVC: FLCListPickerButtonDelegate {
         switch button {
         case cargoParametersView.cargoTypePickerButton:
             let listPickerVC = FLCListPickerVC(title: cargoParametersView.cargoTypePickerButton.smallLabelView.smallLabel.text ?? "", type: .cargo)
+            listPickerVC.delegate = cargoParametersView
             let navController = UINavigationController(rootViewController: listPickerVC)
             present(navController, animated: true)
         case cargoParametersView.invoiceCurrencyPickerButton:

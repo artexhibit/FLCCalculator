@@ -1,6 +1,8 @@
 import UIKit
 
-enum ListContentType { case cargo, address }
+protocol FLCListPickerDelegate: AnyObject {
+    func didSelectItem(pickedItem: String, listPickerType: FLCListPickerContentType)
+}
 
 class FLCListPickerVC: UIViewController {
     
@@ -8,8 +10,12 @@ class FLCListPickerVC: UIViewController {
     private var dataSource: UITableViewDiffableDataSource<String, String>!
     private var titlesToShow = [String]()
     private var subtitlesToShow = [String]()
+    private var sections = [String]()
+    private var listPickerType: FLCListPickerContentType = .cargo
     
-    init(title: String, type: ListContentType) {
+    weak var delegate: FLCListPickerDelegate!
+    
+    init(title: String, type: FLCListPickerContentType) {
         super.init(nibName: nil, bundle: nil)
         self.title = title
         self.set(according: type)
@@ -21,11 +27,16 @@ class FLCListPickerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        configure()
         configureSearchController()
         configureTableView()
         configureDataSource()
         updateDataSource()
+    }
+    
+    private func configure() {
+        view.backgroundColor = .systemBackground
+        navigationItem.createCloseButton(in: self, with: #selector(closeViewController))
     }
     
     private func configureSearchController() {
@@ -39,10 +50,11 @@ class FLCListPickerVC: UIViewController {
     
     private func configureTableView() {
         view.addSubview(tableView)
+        tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -52,30 +64,54 @@ class FLCListPickerVC: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) in
+        dataSource = FLCListPickerVCDataSource(tableView: tableView, sections: sections, cellProvider: { (tableView, indexPath, itemIdentifier) in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListPickerCell.reuseID, for: indexPath) as! ListPickerCell
-            cell.set(title: self.titlesToShow[indexPath.row], subtitle: self.subtitlesToShow[indexPath.row])
+            guard let index = self.titlesToShow.firstIndex(of: itemIdentifier) else { return cell }
+            
+            cell.set(title: itemIdentifier, subtitle: self.subtitlesToShow[index])
             return cell
         })
     }
     
     private func updateDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<String, String>()
-        snapshot.appendSections(["Main"])
-        snapshot.appendItems(titlesToShow, toSection: "Main")
+        snapshot.appendSections(sections)
+        
+        for section in sections {
+            let items = titlesToShow.filter { $0.first?.description == section }
+            snapshot.appendItems(items, toSection: section)
+        }
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    private func set(according type: ListContentType) {
+    private func set(according type: FLCListPickerContentType) {
+        self.listPickerType = type
+        
         switch type {
         case .cargo:
-            CalculationData.categories.sort { $0.title < $1.title }
-            titlesToShow = CalculationData.categories.map { $0.title }
-            subtitlesToShow = CalculationData.categories.map { $0.subtitle }
+            configureForCargoDataSource()
         case .address:
             break
         }
+    }
+    
+    private func configureForCargoDataSource() {
+        CalculationData.categories.sort { $0.title < $1.title }
+        titlesToShow = CalculationData.categories.map { $0.title }
+        subtitlesToShow = CalculationData.categories.map { $0.subtitle }
+        sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
+    }
+    
+    @objc private func closeViewController() { dismiss(animated: true) }
+}
+
+extension FLCListPickerVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        delegate.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", listPickerType: listPickerType)
+        closeViewController()
     }
 }
 

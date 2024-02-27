@@ -41,9 +41,18 @@ class FLCListPickerButton: UIButton {
         tintColor = .label
         setTitleColor(.label, for: .normal)
         backgroundColor = UIColor.flcNumberTextFieldBackground
+        setTitleColor(.accent, for: .normal)
         
         config.contentInsets = insets
+        
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { old in
+            var new = old
+            new.font = UIFont.systemFont(ofSize: 19, weight: .bold)
+            return new
+        }
         configuration = config
+        
+        titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         smallLabelView.frame = self.frame
