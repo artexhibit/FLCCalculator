@@ -2,14 +2,17 @@ import UIKit
 
 protocol FLCListPickerDelegate: AnyObject {
     func didSelectItem(pickedItem: String, listPickerType: FLCListPickerContentType)
+    func didClosePickerView(listPickerType: FLCListPickerContentType)
 }
 
 class FLCListPickerVC: UIViewController {
     
+    private let searchController = UISearchController()
     private let tableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<String, String>!
     private var titlesToShow = [String]()
     private var subtitlesToShow = [String]()
+    private var filteredTitles = [String]()
     private var sections = [String]()
     private var listPickerType: FLCListPickerContentType = .cargo
     
@@ -31,21 +34,35 @@ class FLCListPickerVC: UIViewController {
         configureSearchController()
         configureTableView()
         configureDataSource()
-        updateDataSource()
+        updateDataSource(with: titlesToShow)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate.didClosePickerView(listPickerType: listPickerType)
     }
     
     private func configure() {
         view.backgroundColor = .systemBackground
+        navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.createCloseButton(in: self, with: #selector(closeViewController))
     }
     
     private func configureSearchController() {
-        let searchController = UISearchController()
         searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Поиск"
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
+    }
+    
+    private func configureSearchController2() {
+        searchController.isActive = true
     }
     
     private func configureTableView() {
@@ -73,12 +90,12 @@ class FLCListPickerVC: UIViewController {
         })
     }
     
-    private func updateDataSource() {
+    private func updateDataSource(with titles: [String]) {
         var snapshot = NSDiffableDataSourceSnapshot<String, String>()
         snapshot.appendSections(sections)
         
         for section in sections {
-            let items = titlesToShow.filter { $0.first?.description == section }
+            let items = titles.filter { $0.first?.description == section }
             snapshot.appendItems(items, toSection: section)
         }
         
@@ -110,6 +127,7 @@ extension FLCListPickerVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        searchController.dismiss(animated: true)
         delegate.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", listPickerType: listPickerType)
         closeViewController()
     }
@@ -117,6 +135,23 @@ extension FLCListPickerVC: UITableViewDelegate {
 
 extension FLCListPickerVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            filteredTitles.removeAll()
+            sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
+            updateDataSource(with: titlesToShow)
+            return
+        }
+        filteredTitles = filterTitlesAndSubtitles(basedOn: filter).map { $0.0 }
+        sections = Array(Set(filteredTitles.map { $0.first?.description ?? "" })).sorted()
+        updateDataSource(with: filteredTitles)
+    }
+    
+    func filterTitlesAndSubtitles(basedOn filter: String) -> [(String, String)] {
+        let titlesAndSubtitles = zip(titlesToShow, subtitlesToShow).filter { titleAndSubtitle in
+            let (title, subtitle) = titleAndSubtitle
+            
+            return title.lowercased().contains(filter.lowercased()) || subtitle.lowercased().contains(filter.lowercased())
+        }
+        return titlesAndSubtitles
     }
 }

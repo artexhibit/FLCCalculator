@@ -34,7 +34,13 @@ class FLCNumberTextField: UITextField {
     
     override func becomeFirstResponder() -> Bool {
         let becomeFirstResponder = super.becomeFirstResponder()
-        becomeFirstResponder ? smallLabelView.moveUpSmallLabel() : smallLabelView.returnSmallLabelToIdentity()
+        
+        if becomeFirstResponder {
+            smallLabelView.moveUpSmallLabel()
+            makeOrange()
+        } else {
+            smallLabelView.returnSmallLabelToIdentity()
+        }
         return becomeFirstResponder
     }
     
@@ -42,17 +48,15 @@ class FLCNumberTextField: UITextField {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(smallLabelView)
         
+        makeOrange()
         layer.cornerRadius = 14
-        layer.borderColor = UIColor.accent.cgColor
         layer.borderWidth = 1
         textColor = .accent
-        tintColor = .lightGray
         textAlignment = .left
         font = UIFont.systemFont(ofSize: 19, weight: .bold)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 15
         contentVerticalAlignment = .bottom
-        backgroundColor = UIColor.flcNumberTextFieldBackground
         
         autocorrectionType = .no
         keyboardType = .decimalPad
@@ -71,5 +75,18 @@ class FLCNumberTextField: UITextField {
         toolbar.updateConstraintsIfNeeded()
         inputAccessoryView = toolbar
     }
+    
+    func makeRed() {
+        backgroundColor = .red.withAlphaComponent(0.2)
+        tintColor = .red
+        layer.borderColor = UIColor.red.cgColor
+    }
+    
+    private func makeOrange() {
+        backgroundColor = UIColor.flcNumberTextFieldBackground
+        tintColor = .lightGray
+        layer.borderColor = UIColor.accent.cgColor
+    }
+    
     @objc private func doneButtonTapped() { self.resignFirstResponder() }
 }

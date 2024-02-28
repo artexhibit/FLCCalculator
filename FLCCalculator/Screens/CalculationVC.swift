@@ -91,6 +91,11 @@ class CalculationVC: UIViewController {
         }
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func checkIfAllTextFieldsAreFilled() -> Bool {
+        cargoParametersView.flcTextFields.forEach { $0.text?.isEmpty ?? true ? $0.makeRed() : nil }
+        return cargoParametersView.flcTextFields.allSatisfy { !($0.text?.isEmpty ?? true) }
+    }
 }
 
 extension CalculationVC: FLCButtonDelegate {
@@ -98,7 +103,7 @@ extension CalculationVC: FLCButtonDelegate {
         
         switch button {
         case cargoParametersView.nextButton:
-            showNextView()
+            if checkIfAllTextFieldsAreFilled() { showNextView() }
         default:
             break
         }
@@ -107,6 +112,7 @@ extension CalculationVC: FLCButtonDelegate {
 
 extension CalculationVC: FLCListPickerButtonDelegate {
     func buttonTapped(_ button: FLCListPickerButton) {
+        
         switch button {
         case cargoParametersView.cargoTypePickerButton:
             let listPickerVC = FLCListPickerVC(title: cargoParametersView.cargoTypePickerButton.smallLabelView.smallLabel.text ?? "", type: .cargo)

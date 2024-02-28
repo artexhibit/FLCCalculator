@@ -119,6 +119,7 @@
 		0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCargoParametersView.swift; sourceTree = "<group>"; };
 		0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTransportParametersView.swift; sourceTree = "<group>"; };
 		0B6F61182B86750000929613 /* FLCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCNumberTextField.swift; sourceTree = "<group>"; };
+		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVCDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerVCDataSource.swift; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
 		0BD06AFA2B8E6A1B00942651 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -436,11 +437,12 @@
 			};
 			buildConfigurationList = 0B6E541F2B810BA00078C110 /* Build configuration list for PBXProject "FLCCalculator" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 0B6E541B2B810BA00078C110;
 			productRefGroup = 0B6E54252B810BA00078C110 /* Products */;
@@ -550,6 +552,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				0B6E54362B810BA20078C110 /* Base */,
+				0BC2EB892B8FA3A400E52E1C /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -625,6 +629,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

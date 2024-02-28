@@ -13,6 +13,7 @@ class FLCCargoParametersView: UIView {
     private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
     private let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
+    var flcTextFields = [FLCNumberTextField]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +36,8 @@ class FLCCargoParametersView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(titleLabel, cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, nextButton)
         backgroundColor = .systemBackground
+        
+        flcTextFields = [weightTextField, volumeTextField, invoiceAmountTextField]
     }
     
     private func configureTitleLabel() {
@@ -197,9 +200,21 @@ extension FLCCargoParametersView: UITextFieldDelegate {
 
 extension FLCCargoParametersView: FLCListPickerDelegate {
     func didSelectItem(pickedItem: String, listPickerType: FLCListPickerContentType) {
+        
         switch listPickerType {
         case .cargo:
             cargoTypePickerButton.set(title: pickedItem)
+        case .address:
+            break
+        }
+    }
+    
+    func didClosePickerView(listPickerType: FLCListPickerContentType) {
+        switch listPickerType {
+        case .cargo:
+            if cargoTypePickerButton.titleLabel?.text?.isEmpty ?? false {
+                cargoTypePickerButton.smallLabelView.returnSmallLabelToIdentity()
+            }
         case .address:
             break
         }
