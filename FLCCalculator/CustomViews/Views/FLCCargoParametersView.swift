@@ -14,6 +14,7 @@ class FLCCargoParametersView: UIView {
     private let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     var flcTextFields = [FLCNumberTextField]()
+    var flcListPickerButtons = [FLCListPickerButton]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,6 +39,7 @@ class FLCCargoParametersView: UIView {
         backgroundColor = .systemBackground
         
         flcTextFields = [weightTextField, volumeTextField, invoiceAmountTextField]
+        flcListPickerButtons = [cargoTypePickerButton, invoiceCurrencyPickerButton]
     }
     
     private func configureTitleLabel() {

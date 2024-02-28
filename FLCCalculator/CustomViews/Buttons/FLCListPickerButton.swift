@@ -60,7 +60,19 @@ class FLCListPickerButton: UIButton {
     
     func set(title: String) { setTitle(title, for: .normal) }
     
-   @objc private func buttonTapped() {
+    func makeRed() {
+        backgroundColor = .red.withAlphaComponent(0.2)
+        tintColor = .red
+        layer.borderColor = UIColor.red.cgColor
+    }
+    
+    func makeOrange() {
+        backgroundColor = UIColor.flcNumberTextFieldBackground
+        tintColor = .label
+        layer.borderColor = UIColor.accent.cgColor
+    }
+    
+    @objc private func buttonTapped() {
        smallLabelView.moveUpSmallLabel()
        delegate.buttonTapped(self)
     }

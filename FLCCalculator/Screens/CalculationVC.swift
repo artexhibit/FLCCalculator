@@ -92,9 +92,17 @@ class CalculationVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func checkIfAllTextFieldsAreFilled() -> Bool {
+   private func checkIfAllDataEntered() -> Bool {
         cargoParametersView.flcTextFields.forEach { $0.text?.isEmpty ?? true ? $0.makeRed() : nil }
-        return cargoParametersView.flcTextFields.allSatisfy { !($0.text?.isEmpty ?? true) }
+        cargoParametersView.flcListPickerButtons.forEach { $0.titleLabel?.text?.isEmpty ?? true ? $0.makeRed() : nil }
+        return cargoParametersView.flcTextFields.allSatisfy { !($0.text?.isEmpty ?? true) } && cargoParametersView.flcListPickerButtons.allSatisfy { !($0.titleLabel?.text?.isEmpty ?? true) }
+    }
+    
+    private func presentListPickerVC() {
+        let listPickerVC = FLCListPickerVC(title: cargoParametersView.cargoTypePickerButton.smallLabelView.smallLabel.text ?? "", type: .cargo)
+        listPickerVC.delegate = cargoParametersView
+        let navController = UINavigationController(rootViewController: listPickerVC)
+        present(navController, animated: true)
     }
 }
 
@@ -103,7 +111,7 @@ extension CalculationVC: FLCButtonDelegate {
         
         switch button {
         case cargoParametersView.nextButton:
-            if checkIfAllTextFieldsAreFilled() { showNextView() }
+            if checkIfAllDataEntered() { showNextView() }
         default:
             break
         }
@@ -112,13 +120,11 @@ extension CalculationVC: FLCButtonDelegate {
 
 extension CalculationVC: FLCListPickerButtonDelegate {
     func buttonTapped(_ button: FLCListPickerButton) {
+        button.makeOrange()
         
         switch button {
         case cargoParametersView.cargoTypePickerButton:
-            let listPickerVC = FLCListPickerVC(title: cargoParametersView.cargoTypePickerButton.smallLabelView.smallLabel.text ?? "", type: .cargo)
-            listPickerVC.delegate = cargoParametersView
-            let navController = UINavigationController(rootViewController: listPickerVC)
-            present(navController, animated: true)
+            presentListPickerVC()
         case cargoParametersView.invoiceCurrencyPickerButton:
             break
         default:
