@@ -91,7 +91,10 @@ class FLCCargoParametersView: UIView {
         ])
     }
     
-    private func configureInvoiceCurrencyPickerButton() {        
+    private func configureInvoiceCurrencyPickerButton() { 
+        invoiceCurrencyPickerButton.menu = invoiceCurrencyPickerButton.configureUIMenu(with: CalculationData.currencyOptions)
+        invoiceCurrencyPickerButton.showsMenuAsPrimaryAction = true
+        
         NSLayoutConstraint.activate([
             invoiceCurrencyPickerButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
             invoiceCurrencyPickerButton.leadingAnchor.constraint(equalTo: invoiceAmountTextField.trailingAnchor, constant: padding),
@@ -212,9 +215,10 @@ extension FLCCargoParametersView: FLCListPickerDelegate {
     }
     
     func didClosePickerView(listPickerType: FLCListPickerContentType) {
+        
         switch listPickerType {
         case .cargo:
-            if cargoTypePickerButton.titleLabel?.text?.isEmpty ?? false {
+            if cargoTypePickerButton.titleLabel?.text?.isEmpty ?? true {
                 cargoTypePickerButton.smallLabelView.returnSmallLabelToIdentity()
             }
         case .address:

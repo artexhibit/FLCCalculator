@@ -7,6 +7,7 @@ protocol FLCListPickerButtonDelegate: AnyObject {
 class FLCListPickerButton: UIButton {
 
     let smallLabelView = FLCSmallLabelView()
+    private var selectedUIMenuItem = ""
     private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 0)
     private var config = Configuration.plain()
     
@@ -70,6 +71,24 @@ class FLCListPickerButton: UIButton {
         backgroundColor = UIColor.flcNumberTextFieldBackground
         tintColor = .label
         layer.borderColor = UIColor.accent.cgColor
+    }
+    
+    func configureUIMenu(with options: [(title: String, subtitle: String)]) -> UIMenu {
+        var items = [UIAction]()
+        
+        options.forEach { option in
+            let isSelected = option.subtitle == self.selectedUIMenuItem
+            
+            let menuItem = UIAction(title: option.title, subtitle: option.subtitle, image: UIImage(named: option.subtitle), state: isSelected ? .on : .off, handler: { [weak self] _ in
+                guard let self else { return }
+                self.smallLabelView.moveUpSmallLabel()
+                self.set(title: option.subtitle)
+                self.selectedUIMenuItem = option.subtitle
+                self.menu = self.configureUIMenu(with: options)
+            })
+            items.append(menuItem)
+        }
+        return UIMenu(title: self.smallLabelView.smallLabel.text ?? "", children: items)
     }
     
     @objc private func buttonTapped() {

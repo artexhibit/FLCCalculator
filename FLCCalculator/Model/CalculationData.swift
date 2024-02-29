@@ -168,14 +168,22 @@ struct CalculationData {
         (title: "Пищевая пленка", subtitle: ""),
         (title: "Оптические приборы", subtitle: "И принадлежности"),
         (title: "Измерительные приборы", subtitle: "Весы, термометры, барометры и др."),
-        (title: "Хоз-бытовые товары", subtitle: ""),
+        (title: "Хозяйственно-бытовые товары", subtitle: ""),
         (title: "Швейные машины", subtitle: "Вязальные машины, оверлоки"),
         (title: "Чулки", subtitle: "Чулочно-носочные изделия"),
-        (title: "Электро товары", subtitle: ""),
+        (title: "Электротовары", subtitle: ""),
         (title: "Часы", subtitle: ""),
         (title: "Электроинструмент", subtitle: ""),
-        (title: "Электро оборудование", subtitle: "Лампы"),
+        (title: "Электрооборудование", subtitle: "Лампы"),
         (title: "Электротехнические изделия", subtitle: "Розетки, терморегуляторы и т.д."),
         (title: "Оборудование электрощитовое", subtitle: "")
+    ]
+    
+    static let currencyOptions = [
+        (title: "Рубль", subtitle: "RUB"),
+        (title: "Юань", subtitle: "CNY"),
+        (title: "Лира", subtitle: "TRY"),
+        (title: "Доллар", subtitle: "USD"),
+        (title: "Евро", subtitle: "EUR")
     ]
 }

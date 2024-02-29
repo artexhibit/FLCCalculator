@@ -30,7 +30,7 @@ struct CalculationView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 Spacer()
-                Image(.china)
+                Image(.CNY)
                     .resizable()
                     .frame(width: 40, height: 40)
             }
