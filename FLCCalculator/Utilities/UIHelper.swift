@@ -10,4 +10,9 @@ struct UIHelper {
         buttons.forEach { $0.titleLabel?.text?.isEmpty ?? true ? $0.switchToRedColors() : nil }
         return buttons.allSatisfy { !($0.titleLabel?.text?.isEmpty ?? true) }
     }
+    
+    static func addProgressTo(_ progressView: UIProgressView) {
+        let newProgress = progressView.progress + 0.1
+        progressView.setProgress(newProgress, animated: true)
+    }
 }

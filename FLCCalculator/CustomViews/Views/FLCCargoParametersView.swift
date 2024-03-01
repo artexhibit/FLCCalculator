@@ -1,5 +1,11 @@
 import UIKit
 
+protocol FLCCargoParametersViewDelegate: AnyObject {
+    func didEnterRequiredInfo()
+    func didTapListPickerButton(_ button: FLCListPickerButton)
+    func didTapFLCButton(_ button: FLCButton)
+}
+
 class FLCCargoParametersView: UIView {
     
     private let padding: CGFloat = 15
@@ -16,6 +22,10 @@ class FLCCargoParametersView: UIView {
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     var flcTextFields = [FLCNumberTextField]()
     var flcListPickerButtons = [FLCListPickerButton]()
+    var filledTextFileds = [UITextField: Bool]()
+    var filledButtons = [FLCListPickerButton: Bool]()
+    
+    weak var delegate: FLCCargoParametersViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +52,9 @@ class FLCCargoParametersView: UIView {
         
         flcTextFields = [weightTextField, volumeTextField, invoiceAmountTextField]
         flcListPickerButtons = [cargoTypePickerButton, invoiceCurrencyPickerButton]
+        
+        flcTextFields.forEach { filledTextFileds[$0] = false }
+        flcListPickerButtons.forEach { filledButtons[$0] = false }
     }
     
     private func configureTitleLabel() {
@@ -55,6 +68,8 @@ class FLCCargoParametersView: UIView {
     }
     
     private func configureCargoTypePickerButton() {
+        cargoTypePickerButton.delegate = self
+        
         NSLayoutConstraint.activate([
             cargoTypePickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3),
             cargoTypePickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
@@ -94,6 +109,8 @@ class FLCCargoParametersView: UIView {
     }
     
     private func configureInvoiceCurrencyPickerButton() { 
+        invoiceCurrencyPickerButton.delegate = self
+        
         invoiceCurrencyPickerButton.menu = invoiceCurrencyPickerButton.configureUIMenu(with: CalculationData.currencyOptions)
         invoiceCurrencyPickerButton.showsMenuAsPrimaryAction = true
         
@@ -139,6 +156,8 @@ class FLCCargoParametersView: UIView {
     }
     
     private func configureNextButton() {
+        nextButton.delegate = self
+        
         let widthConstraint = nextButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9)
         let heightConstraint = nextButton.heightAnchor.constraint(equalTo: nextButton.widthAnchor, multiplier: 1/2)
         widthConstraint.priority = UILayoutPriority(rawValue: 999)
@@ -178,6 +197,11 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             
             if text.isEmpty {
                 textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : "0"
+            } else {
+                if self.filledTextFileds[textField] == false {
+                    self.filledTextFileds[textField] = true
+                    self.delegate?.didEnterRequiredInfo()
+                }
             }
         }
     }
@@ -216,12 +240,23 @@ extension FLCCargoParametersView: UITextFieldDelegate {
     }
 }
 
+extension FLCCargoParametersView: FLCListPickerButtonDelegate {
+    func didTapButton(_ button: FLCListPickerButton) {
+        delegate?.didTapListPickerButton(button)
+    }
+}
+
+extension FLCCargoParametersView: FLCButtonDelegate {
+    func didTapButton(_ button: FLCButton) { delegate?.didTapFLCButton(button) }
+}
+
 extension FLCCargoParametersView: FLCListPickerDelegate {
     func didSelectItem(pickedItem: String, listPickerType: FLCListPickerContentType) {
         
         switch listPickerType {
         case .cargo:
             cargoTypePickerButton.set(title: pickedItem)
+            delegate?.didEnterRequiredInfo()
         case .address:
             break
         }

@@ -4,6 +4,7 @@ class CalculationVC: UIViewController {
     
     let scrollView = UIScrollView()
     let containerView = UIView()
+    let progressView = FLCProgressView()
     let cargoParametersView = FLCCargoParametersView()
     let transportParametersView = FLCTransportParametersView()
     
@@ -17,6 +18,12 @@ class CalculationVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureVCNavigation()
+        configureProgressBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        progressView.removeFromSuperview()
     }
     
     private func configureVC() {
@@ -27,6 +34,17 @@ class CalculationVC: UIViewController {
         configureContainerView()
         configureCargoParametersView()
         configureTransportParametersView()
+    }
+    
+    private func configureProgressBar() {
+        guard let navigationBar = self.navigationController?.navigationBar else { return }
+        navigationBar.addSubview(progressView)
+        
+        NSLayoutConstraint.activate([
+            progressView.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
+            progressView.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
+            progressView.widthAnchor.constraint(equalTo: navigationBar.widthAnchor, multiplier: 0.5)
+        ])
     }
     
     private func configureVCNavigation() {
@@ -57,9 +75,7 @@ class CalculationVC: UIViewController {
     }
     
     private func configureCargoParametersView() {
-        cargoParametersView.nextButton.delegate = self
-        cargoParametersView.cargoTypePickerButton.delegate = self
-        cargoParametersView.invoiceCurrencyPickerButton.delegate = self
+        cargoParametersView.delegate = self
         
         leadingConstraint = cargoParametersView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
         
@@ -100,8 +116,8 @@ class CalculationVC: UIViewController {
     }
 }
 
-extension CalculationVC: FLCButtonDelegate {
-    func didTapButton(_ button: FLCButton) {
+extension CalculationVC: FLCCargoParametersViewDelegate {
+    func didTapFLCButton(_ button: FLCButton) {
         
         switch button {
         case cargoParametersView.nextButton:
@@ -109,21 +125,24 @@ extension CalculationVC: FLCButtonDelegate {
         default:
             break
         }
+        
     }
-}
-
-extension CalculationVC: FLCListPickerButtonDelegate {
-    func buttonTapped(_ button: FLCListPickerButton) {
+    
+    func didTapListPickerButton(_ button: FLCListPickerButton) {
         button.switchToOrangeColors()
         
         switch button {
         case cargoParametersView.cargoTypePickerButton:
             presentListPickerVC()
         case cargoParametersView.invoiceCurrencyPickerButton:
-            break
+            UIHelper.addProgressTo(progressView)
         default:
             break
         }
+    }
+    
+    func didEnterRequiredInfo() {
+        UIHelper.addProgressTo(progressView)
     }
 }
 

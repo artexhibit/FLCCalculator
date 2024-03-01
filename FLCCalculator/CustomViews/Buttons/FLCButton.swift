@@ -6,7 +6,7 @@ protocol FLCButtonDelegate: AnyObject {
 
 class FLCButton: UIButton {
     
-    weak var delegate: FLCButtonDelegate!
+    weak var delegate: FLCButtonDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,5 +39,5 @@ class FLCButton: UIButton {
         configuration?.imagePlacement = .leading
     }
     
-    @objc private func buttonTapped() { delegate.didTapButton(self) }
+    @objc private func buttonTapped() { delegate?.didTapButton(self) }
 }

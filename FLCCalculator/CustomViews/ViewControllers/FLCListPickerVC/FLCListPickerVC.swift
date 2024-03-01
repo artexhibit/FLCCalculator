@@ -16,7 +16,7 @@ class FLCListPickerVC: UIViewController {
     private var sections = [String]()
     private var listPickerType: FLCListPickerContentType = .cargo
     
-    weak var delegate: FLCListPickerDelegate!
+    weak var delegate: FLCListPickerDelegate?
     
     init(title: String, type: FLCListPickerContentType) {
         super.init(nibName: nil, bundle: nil)
@@ -44,7 +44,7 @@ class FLCListPickerVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate.didClosePickerView(listPickerType: listPickerType)
+        delegate?.didClosePickerView(listPickerType: listPickerType)
     }
     
     private func configure() {
@@ -128,7 +128,7 @@ extension FLCListPickerVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         searchController.dismiss(animated: true)
-        delegate.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", listPickerType: listPickerType)
+        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", listPickerType: listPickerType)
         closeViewController()
     }
 }

@@ -45,6 +45,7 @@
 		0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */; };
 		0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61182B86750000929613 /* FLCNumberTextField.swift */; };
 		0B77F8DC2B91FC9A005AB5FD /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DB2B91FC9A005AB5FD /* UIHelper.swift */; };
+		0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVCDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVCDataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
@@ -121,6 +122,7 @@
 		0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTransportParametersView.swift; sourceTree = "<group>"; };
 		0B6F61182B86750000929613 /* FLCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCNumberTextField.swift; sourceTree = "<group>"; };
 		0B77F8DB2B91FC9A005AB5FD /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCProgressView.swift; sourceTree = "<group>"; };
 		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVCDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerVCDataSource.swift; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				0BF938882B84FD8900A18016 /* Labels */,
 				0BF9388D2B85194300A18016 /* Buttons */,
 				0B6F61202B86935600929613 /* TextFields */,
+				0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				0B6E54432B8111C60078C110 /* UsefulInfoVC.swift in Sources */,
 				0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */,
 				0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */,
+				0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */,
 				0BD4DE252B88D5ED00B834DD /* FLCListPickerVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

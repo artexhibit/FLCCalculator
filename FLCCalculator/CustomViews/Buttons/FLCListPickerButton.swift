@@ -1,7 +1,7 @@
 import UIKit
 
 protocol FLCListPickerButtonDelegate: AnyObject {
-    func buttonTapped(_ button: FLCListPickerButton)
+    func didTapButton(_ button: FLCListPickerButton)
 }
 
 class FLCListPickerButton: UIButton {
@@ -11,7 +11,7 @@ class FLCListPickerButton: UIButton {
     private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 0)
     private var config = Configuration.plain()
     
-    weak var delegate: FLCListPickerButtonDelegate!
+    weak var delegate: FLCListPickerButtonDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,6 +81,8 @@ class FLCListPickerButton: UIButton {
             
             let menuItem = UIAction(title: option.title, image: UIImage(named: option.subtitle), state: isSelected ? .on : .off, handler: { [weak self] _ in
                 guard let self else { return }
+                
+                if self.selectedUIMenuItem == "" { self.delegate?.didTapButton(self) }
                 self.smallLabelView.moveUpSmallLabel()
                 self.set(title: option.subtitle)
                 self.selectedUIMenuItem = option.subtitle
@@ -94,6 +96,6 @@ class FLCListPickerButton: UIButton {
     
     @objc private func buttonTapped() {
        smallLabelView.moveUpSmallLabel()
-       delegate.buttonTapped(self)
+       delegate?.didTapButton(self)
     }
 }
