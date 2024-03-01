@@ -180,10 +180,10 @@ struct CalculationData {
     ]
     
     static let currencyOptions = [
-        (title: "Рубль", subtitle: "RUB"),
-        (title: "Юань", subtitle: "CNY"),
-        (title: "Лира", subtitle: "TRY"),
-        (title: "Доллар", subtitle: "USD"),
+        (title: "Рубли", subtitle: "RUB"),
+        (title: "Юани", subtitle: "CNY"),
+        (title: "Лиры", subtitle: "TRY"),
+        (title: "Доллары", subtitle: "USD"),
         (title: "Евро", subtitle: "EUR")
     ]
 }

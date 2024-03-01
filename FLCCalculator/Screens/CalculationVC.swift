@@ -92,12 +92,6 @@ class CalculationVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-   private func checkIfAllDataEntered() -> Bool {
-        cargoParametersView.flcTextFields.forEach { $0.text?.isEmpty ?? true ? $0.makeRed() : nil }
-        cargoParametersView.flcListPickerButtons.forEach { $0.titleLabel?.text?.isEmpty ?? true ? $0.makeRed() : nil }
-        return cargoParametersView.flcTextFields.allSatisfy { !($0.text?.isEmpty ?? true) } && cargoParametersView.flcListPickerButtons.allSatisfy { !($0.titleLabel?.text?.isEmpty ?? true) }
-    }
-    
     private func presentListPickerVC() {
         let listPickerVC = FLCListPickerVC(title: cargoParametersView.cargoTypePickerButton.smallLabelView.smallLabel.text ?? "", type: .cargo)
         listPickerVC.delegate = cargoParametersView
@@ -111,7 +105,7 @@ extension CalculationVC: FLCButtonDelegate {
         
         switch button {
         case cargoParametersView.nextButton:
-            if checkIfAllDataEntered() { showNextView() }
+            UIHelper.checkIfFilledAll(textFields: cargoParametersView.flcTextFields) || UIHelper.checkIfFilledAll(buttons: cargoParametersView.flcListPickerButtons) ? showNextView() : cargoParametersView.errorLabel.showError(animDuration: 1.5)
         default:
             break
         }
@@ -120,7 +114,7 @@ extension CalculationVC: FLCButtonDelegate {
 
 extension CalculationVC: FLCListPickerButtonDelegate {
     func buttonTapped(_ button: FLCListPickerButton) {
-        button.makeOrange()
+        button.switchToOrangeColors()
         
         switch button {
         case cargoParametersView.cargoTypePickerButton:

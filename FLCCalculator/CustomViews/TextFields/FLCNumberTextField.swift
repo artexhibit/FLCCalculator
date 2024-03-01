@@ -37,7 +37,7 @@ class FLCNumberTextField: UITextField {
         
         if becomeFirstResponder {
             smallLabelView.moveUpSmallLabel()
-            makeOrange()
+            switchToOrangeColors()
         } else {
             smallLabelView.returnSmallLabelToIdentity()
         }
@@ -48,7 +48,7 @@ class FLCNumberTextField: UITextField {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(smallLabelView)
         
-        makeOrange()
+        switchToOrangeColors()
         layer.cornerRadius = 14
         layer.borderWidth = 1
         textColor = .accent
@@ -76,13 +76,13 @@ class FLCNumberTextField: UITextField {
         inputAccessoryView = toolbar
     }
     
-    func makeRed() {
+    func switchToRedColors() {
         backgroundColor = .red.withAlphaComponent(0.2)
         tintColor = .red
         layer.borderColor = UIColor.red.cgColor
     }
     
-    private func makeOrange() {
+    private func switchToOrangeColors() {
         backgroundColor = UIColor.flcNumberTextFieldBackground
         tintColor = .lightGray
         layer.borderColor = UIColor.accent.cgColor

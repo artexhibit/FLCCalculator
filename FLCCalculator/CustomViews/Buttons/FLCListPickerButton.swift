@@ -61,13 +61,13 @@ class FLCListPickerButton: UIButton {
     
     func set(title: String) { setTitle(title, for: .normal) }
     
-    func makeRed() {
+    func switchToRedColors() {
         backgroundColor = .red.withAlphaComponent(0.2)
         tintColor = .red
         layer.borderColor = UIColor.red.cgColor
     }
     
-    func makeOrange() {
+    func switchToOrangeColors() {
         backgroundColor = UIColor.flcNumberTextFieldBackground
         tintColor = .label
         layer.borderColor = UIColor.accent.cgColor
@@ -79,16 +79,17 @@ class FLCListPickerButton: UIButton {
         options.forEach { option in
             let isSelected = option.subtitle == self.selectedUIMenuItem
             
-            let menuItem = UIAction(title: option.title, subtitle: option.subtitle, image: UIImage(named: option.subtitle), state: isSelected ? .on : .off, handler: { [weak self] _ in
+            let menuItem = UIAction(title: option.title, image: UIImage(named: option.subtitle), state: isSelected ? .on : .off, handler: { [weak self] _ in
                 guard let self else { return }
                 self.smallLabelView.moveUpSmallLabel()
                 self.set(title: option.subtitle)
                 self.selectedUIMenuItem = option.subtitle
+                self.switchToOrangeColors()
                 self.menu = self.configureUIMenu(with: options)
             })
             items.append(menuItem)
         }
-        return UIMenu(title: self.smallLabelView.smallLabel.text ?? "", children: items)
+        return UIMenu(children: items)
     }
     
     @objc private func buttonTapped() {
