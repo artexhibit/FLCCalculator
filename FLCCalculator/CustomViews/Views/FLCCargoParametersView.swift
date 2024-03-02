@@ -53,6 +53,7 @@ class FLCCargoParametersView: UIView {
         flcTextFields = [weightTextField, volumeTextField, invoiceAmountTextField]
         flcListPickerButtons = [cargoTypePickerButton, invoiceCurrencyPickerButton]
         
+        flcTextFields.forEach { $0.navigationDelegate = self }
         flcTextFields.forEach { filledTextFileds[$0] = false }
         flcListPickerButtons.forEach { filledButtons[$0] = false }
     }
@@ -183,7 +184,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             guard let text = textField.text else { return }
             
             if text.isEmpty {
-                textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : ""
+                textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : "0"
                 textField.moveCursorTo(position: 0)
             } else {
                 textField.text = text
@@ -224,7 +225,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             return TextFieldManager.removeCharacterBefore(positon: separatorPositon, and: textField, inText: text, withDecimalSeparator: decimalSeparator, using: formatter)
         }
        
-        if text == FLCNumberTextField.placeholderValue && !string.isEmpty && textField.getCursorPosition() == 0 {
+        if text == FLCNumberTextField.placeholderValue || text == "0" && !string.isEmpty && textField.getCursorPosition() == 0 {
             TextFieldManager.replaceFirstCharacter(with: string, in: textField, and: text)
             return false
         }
@@ -272,5 +273,17 @@ extension FLCCargoParametersView: FLCListPickerDelegate {
         case .address:
             break
         }
+    }
+}
+
+extension FLCCargoParametersView: FLCNumberTextFieldDelegate {
+    func didRequestNextTextfield(_ textField: FLCNumberTextField) {
+        guard let targetTextFieldIndex = flcTextFields.firstIndex(where: { $0 == textField }), targetTextFieldIndex < flcTextFields.count - 1 else { return }
+       let _ = flcTextFields[targetTextFieldIndex + 1].becomeFirstResponder()
+    }
+    
+    func didRequestPreviousTextField(_ textField: FLCNumberTextField) {
+        guard let targetTextFieldIndex = flcTextFields.firstIndex(where: { $0 == textField }), targetTextFieldIndex > 0 else { return }
+        let _ = flcTextFields[targetTextFieldIndex - 1].becomeFirstResponder()
     }
 }

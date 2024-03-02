@@ -114,6 +114,17 @@ class CalculationVC: UIViewController {
         let navController = UINavigationController(rootViewController: listPickerVC)
         present(navController, animated: true)
     }
+    
+    private func checkFilledData() -> Bool {
+        if UIHelper.checkIfFilledAll(textFields: cargoParametersView.flcTextFields) && UIHelper.checkIfFilledAll(buttons: cargoParametersView.flcListPickerButtons)  {
+            return true
+        } else {
+            UIHelper.makeRedAll(textFields: cargoParametersView.flcTextFields)
+            UIHelper.makeRedAll(buttons: cargoParametersView.flcListPickerButtons)
+            cargoParametersView.errorLabel.showError(animDuration: 1.5)
+            return false
+        }
+    }
 }
 
 extension CalculationVC: FLCCargoParametersViewDelegate {
@@ -121,15 +132,15 @@ extension CalculationVC: FLCCargoParametersViewDelegate {
         
         switch button {
         case cargoParametersView.nextButton:
-            UIHelper.checkIfFilledAll(textFields: cargoParametersView.flcTextFields) || UIHelper.checkIfFilledAll(buttons: cargoParametersView.flcListPickerButtons) ? showNextView() : cargoParametersView.errorLabel.showError(animDuration: 1.5)
+            if checkFilledData() { showNextView() }
         default:
             break
         }
-        
     }
     
     func didTapListPickerButton(_ button: FLCListPickerButton) {
         button.switchToOrangeColors()
+        view.endEditing(true)
         
         switch button {
         case cargoParametersView.cargoTypePickerButton:
@@ -141,9 +152,7 @@ extension CalculationVC: FLCCargoParametersViewDelegate {
         }
     }
     
-    func didEnterRequiredInfo() {
-        UIHelper.addProgressTo(progressView)
-    }
+    func didEnterRequiredInfo() { UIHelper.addProgressTo(progressView) }
 }
 
 extension CalculationVC: UIScrollViewDelegate {

@@ -1,10 +1,17 @@
 import UIKit
 
+protocol FLCNumberTextFieldDelegate: AnyObject {
+    func didRequestNextTextfield(_ textField: FLCNumberTextField)
+    func didRequestPreviousTextField(_ textField: FLCNumberTextField)
+}
+
 class FLCNumberTextField: UITextField {
     
     private let smallLabelView = FLCSmallLabelView()
     private let insets = UIEdgeInsets(top: 0, left: 15, bottom: 7, right: 0)
     static let placeholderValue = "0\(NumberFormatter().decimalSeparator ?? "")00"
+    
+    weak var navigationDelegate: FLCNumberTextFieldDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,11 +71,13 @@ class FLCNumberTextField: UITextField {
     }
     
     private func configureToolBar() {
-        let toolbar =  UIToolbar(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 45))
+        let toolbar =  UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45))
         toolbar.barStyle = .default
-        
+                
         let items = [
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(goToPreviousTextField)),
+            UIBarButtonItem(image: UIImage(systemName: "chevron.right"), style: .plain, target: self, action: #selector(goToNextTextField)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneButtonTapped))
         ]
         toolbar.setItems(items, animated: false)
@@ -89,4 +98,6 @@ class FLCNumberTextField: UITextField {
     }
     
     @objc private func doneButtonTapped() { self.resignFirstResponder() }
+    @objc private func goToNextTextField() { navigationDelegate?.didRequestNextTextfield(self) }
+    @objc private func goToPreviousTextField() { navigationDelegate?.didRequestPreviousTextField(self) }
 }
