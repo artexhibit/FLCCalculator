@@ -88,6 +88,8 @@ class CalculationVC: UIViewController {
     }
     
     private func configureTransportParametersView() {
+        transportParametersView.delegate = self
+        
         NSLayoutConstraint.activate([
             transportParametersView.topAnchor.constraint(equalTo: containerView.topAnchor),
             transportParametersView.leadingAnchor.constraint(equalTo: cargoParametersView.trailingAnchor),
@@ -127,9 +129,8 @@ class CalculationVC: UIViewController {
     }
 }
 
-extension CalculationVC: FLCCargoParametersViewDelegate {
+extension CalculationVC: FLCCalculationViewDelegate {
     func didTapFLCButton(_ button: FLCButton) {
-        
         switch button {
         case cargoParametersView.nextButton:
             if checkFilledData() { showNextView() }
@@ -139,14 +140,19 @@ extension CalculationVC: FLCCargoParametersViewDelegate {
     }
     
     func didTapListPickerButton(_ button: FLCListPickerButton) {
-        button.switchToOrangeColors()
+        if !button.inDisabledState { button.switchToOrangeColors() }
         view.endEditing(true)
         
         switch button {
         case cargoParametersView.cargoTypePickerButton:
             presentListPickerVC()
         case cargoParametersView.invoiceCurrencyPickerButton:
-            UIHelper.addProgressTo(progressView)
+            if UIHelper.checkIfTitleIsEmpty(in: button) { UIHelper.addProgressTo(progressView) }
+        case transportParametersView.countryPickerButton:
+            UIHelper.setEnabledAll(buttons: transportParametersView.flcListPickerButtons)
+            UIHelper.setDeliveryTypeData(for: transportParametersView.deliveryTypePickerButton, basedOn: button)
+        case transportParametersView.deliveryTypePickerButton:
+            break
         default:
             break
         }

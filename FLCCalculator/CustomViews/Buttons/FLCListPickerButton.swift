@@ -8,8 +8,8 @@ class FLCListPickerButton: UIButton {
 
     let smallLabelView = FLCSmallLabelView()
     private var selectedUIMenuItem = ""
-    private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 0)
-    private var config = Configuration.plain()
+    private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 10)
+    var inDisabledState: Bool = false
     
     weak var delegate: FLCListPickerButtonDelegate?
     
@@ -36,24 +36,13 @@ class FLCListPickerButton: UIButton {
         contentVerticalAlignment = .bottom
         
         layer.cornerRadius = 14
-        layer.borderColor = UIColor.accent.cgColor
         layer.borderWidth = 1
         
-        tintColor = .label
-        setTitleColor(.label, for: .normal)
-        backgroundColor = UIColor.flcNumberTextFieldBackground
-        setTitleColor(.accent, for: .normal)
+        titleLabel?.adjustsFontSizeToFitWidth = true
+        titleLabel?.numberOfLines = 1
         
-        config.contentInsets = insets
-        
-        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { old in
-            var new = old
-            new.font = UIFont.systemFont(ofSize: 19, weight: .bold)
-            return new
-        }
-        configuration = config
-        
-        titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .bold)
+        setEnabled()
+        configuration = configureButtonConfig()
         
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         smallLabelView.frame = self.frame
@@ -68,24 +57,42 @@ class FLCListPickerButton: UIButton {
     }
     
     func switchToOrangeColors() {
-        backgroundColor = UIColor.flcNumberTextFieldBackground
+        backgroundColor = .flcNumberTextFieldBackground
         tintColor = .label
         layer.borderColor = UIColor.accent.cgColor
+    }
+    
+    func setEnabled() {
+        inDisabledState = false
+        layer.borderColor = UIColor.accent.cgColor
+        tintColor = .label
+        setTitleColor(.label, for: .normal)
+        backgroundColor = .flcNumberTextFieldBackground
+        setTitleColor(.accent, for: .normal)
+    }
+    
+    func setDisabled() {
+        inDisabledState = true
+        layer.borderColor = UIColor.flcNumberTextFieldDisabled.cgColor
+        tintColor = .label
+        setTitleColor(.label, for: .normal)
+        backgroundColor = .flcNumberTextFieldDisabled
+        setTitleColor(.accent, for: .normal)
     }
     
     func configureUIMenu(with options: [UIMenuItem]) -> UIMenu {
         var items = [UIAction]()
         
         options.forEach { option in
-            let isSelected = option.subtitle == self.selectedUIMenuItem
+            let isSelected = option.titleForButton == self.selectedUIMenuItem
             
-            let menuItem = UIAction(title: option.title, image: UIImage(named: option.imageID), state: isSelected ? .on : .off, handler: { [weak self] _ in
+            let menuItem = UIAction(title: option.title, subtitle: option.subtitle, image: option.image, state: isSelected ? .on : .off, handler: { [weak self] _ in
                 guard let self else { return }
                 
-                if self.selectedUIMenuItem == "" { self.delegate?.didTapButton(self) }
+                self.delegate?.didTapButton(self)
                 self.smallLabelView.moveUpSmallLabel()
-                self.set(title: option.subtitle)
-                self.selectedUIMenuItem = option.subtitle
+                self.set(title: option.titleForButton)
+                self.selectedUIMenuItem = option.titleForButton
                 self.switchToOrangeColors()
                 self.menu = self.configureUIMenu(with: options)
             })
@@ -94,8 +101,21 @@ class FLCListPickerButton: UIButton {
         return UIMenu(children: items)
     }
     
+    private func configureButtonConfig() -> UIButton.Configuration {
+        var config = Configuration.plain()
+        config.contentInsets = insets
+        
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { old in
+            var new = old
+            new.font = UIFont.systemFont(ofSize: 19, weight: .bold)
+            return new
+        }
+        config.titleLineBreakMode = .byTruncatingTail
+        return config
+    }
+    
     @objc private func buttonTapped() {
-       smallLabelView.moveUpSmallLabel()
-       delegate?.didTapButton(self)
+        if !inDisabledState { smallLabelView.moveUpSmallLabel() }
+        delegate?.didTapButton(self)
     }
 }

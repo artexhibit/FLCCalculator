@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0B32F16B2B93465D004BAB46 /* UIMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* UIMenuItem.swift */; };
 		0B32F16C2B93477D004BAB46 /* UIMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* UIMenuItem.swift */; };
+		0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */; };
+		0B32F1722B93862F004BAB46 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
 		0B33016F2B8D13FF00737A11 /* ListPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */; };
 		0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */; };
 		0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
@@ -92,6 +94,7 @@
 
 /* Begin PBXFileReference section */
 		0B32F16A2B93465D004BAB46 /* UIMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMenuItem.swift; sourceTree = "<group>"; };
+		0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCalculationView.swift; sourceTree = "<group>"; };
 		0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerCell.swift; sourceTree = "<group>"; };
 		0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCBodyLabel.swift; sourceTree = "<group>"; };
 		0B419FC42B82436000498ACE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -164,6 +167,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B32F16F2B9356C9004BAB46 /* FLCCalculationView */ = {
+			isa = PBXGroup;
+			children = (
+				0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */,
+				0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */,
+				0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */,
+			);
+			path = FLCCalculationView;
+			sourceTree = "<group>";
+		};
 		0B419FCA2B82451D00498ACE /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,8 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */,
-				0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */,
-				0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */,
+				0B32F16F2B9356C9004BAB46 /* FLCCalculationView */,
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 			);
 			path = Views;
@@ -525,6 +537,7 @@
 				0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */,
 				0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */,
 				0B6E54432B8111C60078C110 /* UsefulInfoVC.swift in Sources */,
+				0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */,
 				0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */,
 				0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */,
 				0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */,
@@ -543,6 +556,7 @@
 				0B419FC92B82451600498ACE /* FLCError.swift in Sources */,
 				0B419FCD2B82464000498ACE /* UITableView+Ext.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
+				0B32F1722B93862F004BAB46 /* Enums.swift in Sources */,
 				0B6E54682B811B8B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
 				0B32F16C2B93477D004BAB46 /* UIMenuItem.swift in Sources */,

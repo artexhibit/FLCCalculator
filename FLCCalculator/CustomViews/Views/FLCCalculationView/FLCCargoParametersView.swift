@@ -1,15 +1,7 @@
 import UIKit
 
-protocol FLCCargoParametersViewDelegate: AnyObject {
-    func didEnterRequiredInfo()
-    func didTapListPickerButton(_ button: FLCListPickerButton)
-    func didTapFLCButton(_ button: FLCButton)
-}
-
-class FLCCargoParametersView: UIView {
+class FLCCargoParametersView: FLCCalculationView {
     
-    private let padding: CGFloat = 15
-    private let titleLabel = FLCTitleLabel(color: .label, textAlignment: .left)
     private let stackView = UIStackView()
     let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
     private let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
@@ -24,9 +16,7 @@ class FLCCargoParametersView: UIView {
     var flcListPickerButtons = [FLCListPickerButton]()
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
-    
-    weak var delegate: FLCCargoParametersViewDelegate?
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -46,27 +36,17 @@ class FLCCargoParametersView: UIView {
     }
     
     private func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(titleLabel, cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, errorLabel, nextButton)
-        backgroundColor = .systemBackground
+        addSubviews(cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, errorLabel, nextButton)
         
-        flcTextFields = [weightTextField, volumeTextField, invoiceAmountTextField]
-        flcListPickerButtons = [cargoTypePickerButton, invoiceCurrencyPickerButton]
+        flcTextFields.append(contentsOf: [weightTextField, volumeTextField, invoiceAmountTextField])
+        flcListPickerButtons.append(contentsOf: [cargoTypePickerButton, invoiceCurrencyPickerButton])
         
         flcTextFields.forEach { $0.navigationDelegate = self }
         flcTextFields.forEach { filledTextFileds[$0] = false }
         flcListPickerButtons.forEach { filledButtons[$0] = false }
     }
     
-    private func configureTitleLabel() {
-        titleLabel.text = "Расскажите нам о вашем грузе"
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-        ])
-    }
+    private func configureTitleLabel() { titleLabel.text = "Расскажите нам о вашем грузе" }
     
     private func configureCargoTypePickerButton() {
         cargoTypePickerButton.delegate = self
@@ -239,16 +219,6 @@ extension FLCCargoParametersView: UITextFieldDelegate {
 
         return false
     }
-}
-
-extension FLCCargoParametersView: FLCListPickerButtonDelegate {
-    func didTapButton(_ button: FLCListPickerButton) {
-        delegate?.didTapListPickerButton(button)
-    }
-}
-
-extension FLCCargoParametersView: FLCButtonDelegate {
-    func didTapButton(_ button: FLCButton) { delegate?.didTapFLCButton(button) }
 }
 
 extension FLCCargoParametersView: FLCListPickerDelegate {

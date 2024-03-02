@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 struct CalculationData {
     static let chinaLocations = ["ANJI (ZHEJIANG)", "ANLU (HUBEI)", "ANPING (HEBEI)", "ANQING (ANHUI)", "ANSHAN (LIAONING)", "ANYANG (HENAN)", "BAODING (HEBEI)", "BAOSHAN (SHANGHAI)", "BAOYING (JIANGSU)", "BEIJING (BEIJING)", "BENGBU (ANHUI)", "BENXI (LIAONING)", "BINHAI (JIANGSU)", "BINZHOU (SHANDONG)", "CANGZHOU (HEBEI)", "CHANGDE (HUNAN)", "CHANGSHU (JIANGSU)", "CHANZHOU (JIANGSU)", "CHAOYANG (LIAONING)", "CHAOZHOU (GUANGDONG)", "CHIZHOU (ANHUI)", "CHONGQING (CHONGQING)", "CIXI (ZHEJIANG)", "DALIAN (LIAONING)", "DANDONG (LIAONING)", "DANYANG (JIANGSU)", "DEQING (ZHEJIANG)", "DEZHOU (SHANDONG)", "DINGZHOU (HEBEI)", "DONGGUAN (GUANGDONG)", "DONGYANG (ZHEJIANG)", "DONGYING (SHANDONG)", "FENGXIAN (SHANGHAI)", "FOSHAN (GUANGDONG)", "FUAN (FUJIAN)", "FUXIN (LIAONING)", "FUYANG (ZHEJIANG)", "FUYANG (ANHUI)", "FUZHOU (FUJIAN)", "GUANGZHOU (GUANGDONG)", "HAIYAN (ZHEJIANG)", "HANDAN (HEBEI)", "HANGZHOU (ZHEJIANG)", "HEBI (HENAN)", "HEFEI (ANHUI)", "HEZE (SHANDONG)", "HUAIAN (JIANGSU)", "HUANGSHAN (ANHUI)", "HUIZHOU (GUANGDONG)", "HULUDAO (LIAONING)", "HUZHOU (ZHEJIANG)", "JIADING (SHANGHAI)", "JIANDE (ZHEJIANG)", "JIANGMEN (GUANGDONG)", "JIANGYAN (JIANGSU)", "JIANGYING (JIANGSU)", "JIAOZUO (HENAN)", "JIASHAN (ZHEJIANG)", "JIAXING (ZHEJIANG)", "JINAN (SHANDONG)", "JINCHENG (SHANXI)", "JINHU (JIANGSU)", "JINHUA (ZHEJIANG)", "JINING (SHANDONG)", "JINJIANG (FUJIAN)", "JINSHAN (SHANGHAI)", "JINTAN (JIANGSU)", "JINZHOU (LIAONING)", "JURONG (JIANGSU)", "KAIFENG (HENAN)", "KUNSHAN (JIANGSU)", "LANGFANG (HEBEI)", "LIANYUNGANG (JIANGSU)", "LIAOCHENG (SHANDONG)", "LIAOYANG (LIAONING)", "LINAN (ZHEJIANG)", "LINQING (SHANDONG)", "LINYI (SHANDONG)", "LISHUI (ZHEJIANG)", "LIUAN (ANHUI)", "LIYANG (JIANGSU)", "LONGYAN (FUJIAN)", "LUOYANG (HENAN)", "MAANSHAN (ANHUI)", "MAOMING (GUANGDONG)", "NANJING (JIANGSU)", "NANPING (FUJIAN)", "NANTONG (JIANGSU)", "NANYANG (HENAN)", "NINGBO (ZHEJIANG)", "NINGDE (FUJIAN)", "PANJIN (LIAONING)", "PINGHU (ZHEJIANG)", "PUDONG (SHANGHAI)", "PUTIAN (FUJIAN)", "QIDONG (JIANGSU)", "QINGDAO (SHANDONG)", "QINHUANGDAO (HEBEI)", "QUANZHOU (FUJIAN)", "QUZHOU (ZHEJIANG)", "RIZHAO (SHANDONG)", "RUGAO (JIANGSU)", "SANMENXIA (HENAN)", "SANMING (FUJIAN)", "SHANGQIU (HENAN)", "SHANGYU (ZHEJIANG)", "SHANTOU (GUANGDONG)", "SHAOGUAN (GUANGDONG)", "SHAOXING (ZHEJIANG)", "SHENYANG (LIAONING)", "SHENZHEN (GUANGDONG)", "SHIJIAZHUANG (HEBEI)", "SHISHI (FUJIAN)", "SHIYAN (HUBEI)", "SONGJIANG (SHANGHAI)", "SUQIAN (JIANGSU)", "SUZHOU (JIANGSU)", "TAIAN (SHANDONG)", "TAICANG (JIANGSU)", "TAIZHOU (JIANGSU)", "TAIZHOU (ZHEJIANG)", "TANSHAN (HEBEI)", "TENGZHOU (SHANDONG)", "TIANJIN (TIANJIN)", "TONGLING (ANHUI)", "TONGLU (ZHEJIANG)", "WEIFANG (SHANDONG)", "WEIHAI (SHANDONG)", "WENLING (ZHEJIANG)", "WENZHOU (ZHEJIANG)", "WUHU (ANHUI)", "WUJIANG (JIANGSU)", "WUSHUN (LIAONING)", "WUXI (JIANGSU)", "WUZHOU (ZHEJIANG)", "XIAMEN (FUJIAN)", "XIAN (SHANXI)", "XIAOSHAN (ZHEJIANG)", "XINGTAI (HEBEI)", "XINXIANG (HENAN)", "XINYANG (HENAN)", "XUANCHENG (ANHUI)", "XUZHOU (JIANGSU)", "YANCHENG (JIANGSU)", "YANGZHOU (JIANGSU)", "YANTAI (SHANDONG)", "YINGKOU (LIAONING)", "YIWU (ZHEJIANG)", "YIXING (JIANGSU)", "YUEQING (ZHEJIANG)", "YUNFU (GUANGDONG)", "YUYAO (ZHEJIANG)", "ZAOZHUANG (SHANDONG)", "ZHANGJIAGANG (JIANGSU)", "ZHANGJIAKOU (HEBEI)", "ZHANGZHOU (FUJIAN)", "ZHANJIANG (GUANGDONG)", "ZHENGZHOU (HENAN)", "ZHENJIANG (JIANGSU)", "ZHONGSHAN (GUANGDONG)", "ZHOUKOU (HENAN)", "ZHOUSHAN (ZHEJIANG)", "ZHUHAI (GUANGDONG)", "ZHUJI (ZHEJIANG)", "ZHUMADIAN (HENAN)", "ZHUZHOU (HUNAN)", "ZIBO (SHANDONG)"]
@@ -180,15 +180,29 @@ struct CalculationData {
     ]
     
     static let currencyOptions = [
-        UIMenuItem(title: "Рубли", subtitle: "RUB", imageID: "RUB"),
-        UIMenuItem(title: "Юани", subtitle: "CNY", imageID: "CNY"),
-        UIMenuItem(title: "Лиры", subtitle: "TRY", imageID: "TRY"),
-        UIMenuItem(title: "Доллары", subtitle: "USD", imageID: "USD"),
-        UIMenuItem(title: "Евро", subtitle: "EUR", imageID: "EUR")
+        UIMenuItem(title: "Рубли", titleForButton: "RUB", subtitle: nil, image: UIImage(named: "RUB")),
+        UIMenuItem(title: "Юани", titleForButton: "CNY", subtitle: nil, image: UIImage(named: "CNY")),
+        UIMenuItem(title: "Лиры", titleForButton: "TRY", subtitle: nil, image: UIImage(named: "TRY")),
+        UIMenuItem(title: "Доллары", titleForButton: "USD", subtitle: nil, image: UIImage(named: "USD")),
+        UIMenuItem(title: "Евро", titleForButton: "EUR", subtitle: nil, image: UIImage(named: "EUR"))
     ]
     
     static let countriesOptions = [
-        UIMenuItem(title: "Китай", subtitle: "Китай", imageID: "CNY"),
-        UIMenuItem(title: "Турция", subtitle: "Турция", imageID: "TRY")
+        UIMenuItem(title: FLCCountryOptions.china.rawValue, titleForButton: FLCCountryOptions.china.rawValue, subtitle: nil, image: UIImage(named: "CNY")),
+        UIMenuItem(title: FLCCountryOptions.turkey.rawValue, titleForButton: FLCCountryOptions.turkey.rawValue, subtitle: nil, image: UIImage(named: "TRY"))
+    ]
+    
+    static let chinaDeliveryTypes = [
+        UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Клиент", subtitle: "От поставщика до ваc", image: nil),
+            UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),
+            UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Китай - Клиент", subtitle: "От склада в Китае до ваc", image: nil),
+            UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Китай - Склад Подольск", subtitle: "От склада в Китае до склада FLC", image: nil)
+    ]
+    
+    static let turkeyDeliveryTypes = [
+        UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Клиент", subtitle: "От поставщика до ваc", image: nil),
+        UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),
+        UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Стамбул - Клиент", subtitle: "От склада в Стамбуле до ваc", image: nil),
+        UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Стамбул - Склад Подольск", subtitle: "От склада в Стамбуле до склада FLC", image: nil)
     ]
 }

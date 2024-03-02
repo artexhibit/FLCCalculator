@@ -1,7 +1,8 @@
-import Foundation
+import UIKit
 
 struct UIMenuItem {
     let title: String
-    let subtitle: String
-    let imageID: String
+    let titleForButton: String
+    let subtitle: String?
+    let image: UIImage?
 }
