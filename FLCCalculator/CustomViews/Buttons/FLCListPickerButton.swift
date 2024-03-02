@@ -73,13 +73,13 @@ class FLCListPickerButton: UIButton {
         layer.borderColor = UIColor.accent.cgColor
     }
     
-    func configureUIMenu(with options: [(title: String, subtitle: String)]) -> UIMenu {
+    func configureUIMenu(with options: [UIMenuItem]) -> UIMenu {
         var items = [UIAction]()
         
         options.forEach { option in
             let isSelected = option.subtitle == self.selectedUIMenuItem
             
-            let menuItem = UIAction(title: option.title, image: UIImage(named: option.subtitle), state: isSelected ? .on : .off, handler: { [weak self] _ in
+            let menuItem = UIAction(title: option.title, image: UIImage(named: option.imageID), state: isSelected ? .on : .off, handler: { [weak self] _ in
                 guard let self else { return }
                 
                 if self.selectedUIMenuItem == "" { self.delegate?.didTapButton(self) }

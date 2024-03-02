@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B32F16B2B93465D004BAB46 /* UIMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* UIMenuItem.swift */; };
+		0B32F16C2B93477D004BAB46 /* UIMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* UIMenuItem.swift */; };
 		0B33016F2B8D13FF00737A11 /* ListPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */; };
 		0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */; };
 		0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
@@ -89,6 +91,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B32F16A2B93465D004BAB46 /* UIMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMenuItem.swift; sourceTree = "<group>"; };
 		0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerCell.swift; sourceTree = "<group>"; };
 		0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCBodyLabel.swift; sourceTree = "<group>"; };
 		0B419FC42B82436000498ACE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -291,6 +294,7 @@
 		0B6E546E2B811C4A0078C110 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0B32F16A2B93465D004BAB46 /* UIMenuItem.swift */,
 				0B6E54452B8115420078C110 /* Persistence.swift */,
 				0B6E54712B81228A0078C110 /* CalculationData.swift */,
 			);
@@ -514,6 +518,7 @@
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationData.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
+				0B32F16B2B93465D004BAB46 /* UIMenuItem.swift in Sources */,
 				0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */,
 				0BD06AF62B8E647400942651 /* FLCListPickerVCDataSource.swift in Sources */,
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
@@ -540,6 +545,7 @@
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
 				0B6E54682B811B8B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
+				0B32F16C2B93477D004BAB46 /* UIMenuItem.swift in Sources */,
 				0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */,
 				0B419FC62B82436000498ACE /* CoreDataManager.swift in Sources */,
 			);

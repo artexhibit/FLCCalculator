@@ -180,10 +180,15 @@ struct CalculationData {
     ]
     
     static let currencyOptions = [
-        (title: "Рубли", subtitle: "RUB"),
-        (title: "Юани", subtitle: "CNY"),
-        (title: "Лиры", subtitle: "TRY"),
-        (title: "Доллары", subtitle: "USD"),
-        (title: "Евро", subtitle: "EUR")
+        UIMenuItem(title: "Рубли", subtitle: "RUB", imageID: "RUB"),
+        UIMenuItem(title: "Юани", subtitle: "CNY", imageID: "CNY"),
+        UIMenuItem(title: "Лиры", subtitle: "TRY", imageID: "TRY"),
+        UIMenuItem(title: "Доллары", subtitle: "USD", imageID: "USD"),
+        UIMenuItem(title: "Евро", subtitle: "EUR", imageID: "EUR")
+    ]
+    
+    static let countriesOptions = [
+        UIMenuItem(title: "Китай", subtitle: "Китай", imageID: "CNY"),
+        UIMenuItem(title: "Турция", subtitle: "Турция", imageID: "TRY")
     ]
 }
