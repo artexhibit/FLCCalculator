@@ -39,5 +39,8 @@ class FLCButton: UIButton {
         configuration?.imagePlacement = .leading
     }
     
-    @objc private func buttonTapped() { delegate?.didTapButton(self) }
+    @objc private func buttonTapped() {
+        FeedbackGeneratorManager.addHaptic(style: .light)
+        delegate?.didTapButton(self)
+    }
 }

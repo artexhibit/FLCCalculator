@@ -10,7 +10,6 @@ class FLCCargoParametersView: FLCCalculationView {
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
     private let customsClearanceSwitch = UISwitch()
-    let errorLabel = FLCSubtitleLabel(color: .red, textAlignment: .center, isHided: true)
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     var flcTextFields = [FLCNumberTextField]()
     var flcListPickerButtons = [FLCListPickerButton]()
@@ -27,7 +26,6 @@ class FLCCargoParametersView: FLCCalculationView {
         configureInvoiceCurrencyPickerButton()
         configureCustomsClearanceLabel()
         configureCustomsClearanceSwitch()
-        configureErrorLabel()
         configureNextButton()
     }
     
@@ -36,7 +34,7 @@ class FLCCargoParametersView: FLCCalculationView {
     }
     
     private func configure() {
-        addSubviews(cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, errorLabel, nextButton)
+        addSubviews(cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, nextButton)
         
         flcTextFields.append(contentsOf: [weightTextField, volumeTextField, invoiceAmountTextField])
         flcListPickerButtons.append(contentsOf: [cargoTypePickerButton, invoiceCurrencyPickerButton])
@@ -125,17 +123,6 @@ class FLCCargoParametersView: FLCCalculationView {
         ])
     }
     
-    private func configureErrorLabel() {
-        errorLabel.text = "Сперва заполните все поля"
-        
-        NSLayoutConstraint.activate([
-            errorLabel.topAnchor.constraint(equalTo: customsClearanceLabel.bottomAnchor, constant: padding * 3),
-            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            errorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            errorLabel.heightAnchor.constraint(equalToConstant: 20)
-        ])
-    }
-    
     private func configureNextButton() {
         nextButton.delegate = self
         
@@ -145,7 +132,7 @@ class FLCCargoParametersView: FLCCalculationView {
         heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
-            nextButton.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: padding),
+            nextButton.topAnchor.constraint(equalTo: customsClearanceLabel.bottomAnchor, constant: padding * 5),
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
             widthConstraint, heightConstraint,
             

@@ -38,12 +38,13 @@ class FLCListPickerButton: UIButton {
         layer.cornerRadius = 14
         layer.borderWidth = 1
         
+        configuration = setButtonConfiguration()
+        
         titleLabel?.adjustsFontSizeToFitWidth = true
         titleLabel?.numberOfLines = 1
+        titleLabel?.minimumScaleFactor = 0.5
         
         setEnabled()
-        configuration = configureButtonConfig()
-        
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         smallLabelView.frame = self.frame
     }
@@ -101,7 +102,7 @@ class FLCListPickerButton: UIButton {
         return UIMenu(children: items)
     }
     
-    private func configureButtonConfig() -> UIButton.Configuration {
+    private func setButtonConfiguration() -> UIButton.Configuration {
         var config = Configuration.plain()
         config.contentInsets = insets
         

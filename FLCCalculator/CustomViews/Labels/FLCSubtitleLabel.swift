@@ -11,11 +11,10 @@ class FLCSubtitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, textAlignment: NSTextAlignment, isHided: Bool = false) {
+    convenience init(color: UIColor, textAlignment: NSTextAlignment) {
         self.init(frame: .zero)
         self.textColor = color
         self.textAlignment = textAlignment
-        if isHided { self.layer.opacity = 0 }
     }
     
     private func configure() {
@@ -24,20 +23,5 @@ class FLCSubtitleLabel: UILabel {
         lineBreakMode = .byWordWrapping
         numberOfLines = 0
         translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    func showError(animDuration: Double) {
-        animateIn()
-        animateOut(afterSeconds: animDuration)
-    }
-    
-    private func animateIn() {
-        DispatchQueue.main.async { UIView.animate(withDuration: 0.2) { self.layer.opacity = 1 } }
-    }
-    
-    private func animateOut(afterSeconds: Double) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + afterSeconds) { 
-            UIView.animate(withDuration: 0.5) { self.layer.opacity = 0 }
-        }
     }
 }
