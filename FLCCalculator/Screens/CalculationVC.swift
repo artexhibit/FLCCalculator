@@ -124,7 +124,7 @@ class CalculationVC: UIViewController {
             UIHelper.makeRedAll(textFields: cargoParametersView.flcTextFields)
             UIHelper.makeRedAll(buttons: cargoParametersView.flcListPickerButtons)
             FeedbackGeneratorManager.addErrorHaptic()
-            FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля", style: .error)
+            FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля")
             return false
         }
     }
@@ -153,7 +153,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
             UIHelper.setEnabledAll(buttons: transportParametersView.flcListPickerButtons)
             UIHelper.setDeliveryTypeData(for: transportParametersView.deliveryTypePickerButton, basedOn: button)
         case transportParametersView.deliveryTypePickerButton:
-            break
+            guard transportParametersView.countryPickerButton.titleLabel?.text == nil else { return }
+            FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
         default:
             break
         }

@@ -2,7 +2,7 @@ import UIKit
 
 class FLCPopupView: UIView {
     
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterial))
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     private let iconView = UIImageView()
     private let messageLabel = FLCSubtitleLabel(color: .red, textAlignment: .center)
     private let padding: CGFloat = 10
@@ -60,44 +60,52 @@ class FLCPopupView: UIView {
         switch style {
         case .error:
             iconView.tintColor = .red
-            messageLabel.tintColor = .red
+            messageLabel.textColor = .red
         case .normal:
-            iconView.tintColor = .black
-            messageLabel.tintColor = .black
+            iconView.tintColor = .label
+            messageLabel.textColor = .label
         }
     }
     
-    private func configureInWindow() {
+    private func configureInWindow(with position: FLCPopupViewPosition) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let window = windowScene.windows.first(where: { $0.isKeyWindow }) else { return }
+        let positionAnchor: NSLayoutConstraint
         
         window.addSubview(self)
         
+        switch position {
+        case .top:
+            positionAnchor = topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor, constant: padding * 5)
+        case .bottom:
+            positionAnchor = topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.bottomAnchor, constant: -padding * 15)
+        }
+        
         NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor, constant: padding * 5),
+            positionAnchor,
             centerXAnchor.constraint(equalTo: window.centerXAnchor),
             widthAnchor.constraint(equalTo: window.widthAnchor, multiplier: 0.7)
         ])
     }
     
-    static func showOnMainThread(systemImage: String, title: String, style: FLCPopupViewStyle = .normal) {
+    static func showOnMainThread(systemImage: String, title: String, style: FLCPopupViewStyle = .normal, position: FLCPopupViewPosition = .bottom) {
         DispatchQueue.main.async {
             guard let showingPopup = showingPopup else {
-                showNewPopup(systemImage: systemImage, title: title, style: style)
+                showNewPopup(systemImage: systemImage, title: title, style: style, position: position)
                 return
             }
             remove(popup: showingPopup) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { showNewPopup(systemImage: systemImage, title: title, style: style) }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { showNewPopup(systemImage: systemImage, title: title, style: style, position: position) }
             }
         }
     }
     
-    private static func showNewPopup(systemImage: String, title: String, style: FLCPopupViewStyle) {
+    private static func showNewPopup(systemImage: String, title: String, style: FLCPopupViewStyle, position: FLCPopupViewPosition) {
         let popup = FLCPopupView()
         popup.iconView.image = UIImage(systemName: systemImage)
         popup.messageLabel.text = title
         popup.set(with: style)
-        popup.configureInWindow()
+        popup.configureInWindow(with: position)
         FLCPopupView.showingPopup = popup
 
         UIView.animate(withDuration: 0.3) {
