@@ -70,6 +70,7 @@ class FLCEmptyStateView: UIView {
     }
     
     private func configureActionButton() {
+        actionButton.addShineEffect()
         let padding: CGFloat = 30
         let widthConstraint = actionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8)
         let heightConstraint = actionButton.heightAnchor.constraint(equalTo: placeholderImage.widthAnchor, multiplier: 1/4.5)
