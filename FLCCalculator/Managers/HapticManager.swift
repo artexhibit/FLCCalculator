@@ -1,6 +1,6 @@
 import UIKit
 
-struct FeedbackGeneratorManager {
+struct HapticManager {
     static private let notificationGenerator = UINotificationFeedbackGenerator()
     
     static func addSuccessHaptic() {

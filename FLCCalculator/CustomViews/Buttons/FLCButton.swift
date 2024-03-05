@@ -48,33 +48,35 @@ class FLCButton: UIButton {
     }
     
     @objc private func buttonTapped() {
-        FeedbackGeneratorManager.addHaptic(style: .light)
+        HapticManager.addHaptic(style: .light)
         delegate?.didTapButton(self)
     }
     
-    func addShineEffect() {
-        let gradientColorClear = UIColor.accent.withAlphaComponent(0.4).cgColor
-        let gradientColorWhite = UIColor.white.withAlphaComponent(0.5).cgColor
-        
+    func addShineEffect() {        
+        gradientLayer.removeAnimation(forKey: "shineAnimation")
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-        gradientLayer.cornerRadius = 14
+        gradientLayer.cornerRadius = 10
         
-        gradientLayer.colors = [gradientColorClear, gradientColorWhite, gradientColorClear]
-        gradientLayer.locations = [0.3, 0.5, 0.7]
+        gradientLayer.colors = [
+            UIColor.accent.withAlphaComponent(0.01).cgColor,
+            UIColor.white.withAlphaComponent(0.7).cgColor,
+            UIColor.accent.withAlphaComponent(0.01).cgColor
+        ]
+        gradientLayer.locations = [0.4, 0.5, 0.6]
         let animation = CABasicAnimation(keyPath: "locations")
-        animation.fromValue = [-0.8, -0.5, 0.0]
+        animation.fromValue = [-1.0, -0.5, 0.0]
         animation.toValue = [1.0, 1.5, 2.0]
         animation.repeatCount = 1
-        animation.duration = 2
+        animation.duration = 1.5
         animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         
         let group = CAAnimationGroup()
         group.animations = [animation]
-        group.duration = 6
+        group.duration = 4.5
         group.repeatCount = .infinity
         
-        gradientLayer.add(group, forKey: "glowAnimation")
+        gradientLayer.add(group, forKey: "shineAnimation")
     }
 }

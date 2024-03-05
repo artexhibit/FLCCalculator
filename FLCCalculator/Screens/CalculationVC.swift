@@ -123,7 +123,7 @@ class CalculationVC: UIViewController {
         } else {
             UIHelper.makeRedAll(textFields: cargoParametersView.flcTextFields)
             UIHelper.makeRedAll(buttons: cargoParametersView.flcListPickerButtons)
-            FeedbackGeneratorManager.addErrorHaptic()
+            HapticManager.addErrorHaptic()
             FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля")
             return false
         }

@@ -22,13 +22,21 @@ class FLCEmptyStateView: UIView {
         self.subtitleLabel.text = subtitleText
     }
     
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        if newWindow != nil { actionButton.addShineEffect() }
+    }
+    
     private func configure() {
+        NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartAnimations))
         addSubviews(placeholderImage, titleLabel, subtitleLabel, actionButton)
         configurePlaceholderImage()
         configureTitleLable()
         configureSubtitleLabel()
         configureActionButton()
     }
+    
+    @objc private func restartAnimations() { actionButton.addShineEffect() }
     
     private func configurePlaceholderImage() {
         placeholderImage.image = UIImage(resource: .emptyStateView)
