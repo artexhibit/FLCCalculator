@@ -1,8 +1,8 @@
 import UIKit
 
 protocol FLCListPickerDelegate: AnyObject {
-    func didSelectItem(pickedItem: String, listPickerType: FLCListPickerContentType)
-    func didClosePickerView(listPickerType: FLCListPickerContentType)
+    func didSelectItem(pickedItem: String, parentButton: FLCListPickerButton)
+    func didClosePickerView(parentButton: FLCListPickerButton)
 }
 
 class FLCListPickerVC: UIViewController {
@@ -14,13 +14,14 @@ class FLCListPickerVC: UIViewController {
     private var subtitlesToShow = [String]()
     private var filteredTitles = [String]()
     private var sections = [String]()
-    private var listPickerType: FLCListPickerContentType = .cargo
+    private var parentButton = FLCListPickerButton()
     
     weak var delegate: FLCListPickerDelegate?
     
-    init(title: String, type: FLCListPickerContentType) {
+    init(from button: FLCListPickerButton, type: FLCListPickerContentType) {
         super.init(nibName: nil, bundle: nil)
-        self.title = title
+        self.parentButton = button
+        self.title = parentButton.smallLabelView.smallLabel.text ?? ""
         self.set(according: type)
     }
     
@@ -44,7 +45,7 @@ class FLCListPickerVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        delegate?.didClosePickerView(listPickerType: listPickerType)
+        delegate?.didClosePickerView(parentButton: parentButton)
     }
     
     private func configure() {
@@ -103,20 +104,28 @@ class FLCListPickerVC: UIViewController {
     }
     
     private func set(according type: FLCListPickerContentType) {
-        self.listPickerType = type
-        
+
         switch type {
-        case .cargo:
-            configureForCargoDataSource()
-        case .address:
-            break
+        case .withSubtitle(let data):
+            configureDataSourceWithSubtitle(data: data)
+        case .onlyTitle(let data):
+            configureDataSourceWithTitle(data: data)
         }
     }
     
-    private func configureForCargoDataSource() {
-        CalculationData.categories.sort { $0.title < $1.title }
-        titlesToShow = CalculationData.categories.map { $0.title }
-        subtitlesToShow = CalculationData.categories.map { $0.subtitle }
+    private func configureDataSourceWithSubtitle(data: [(title: String, subtitle: String)]) {
+        var sortedData = data
+        sortedData.sort { $0.title < $1.title }
+        titlesToShow = sortedData.map { $0.title }
+        subtitlesToShow = sortedData.map { $0.subtitle }
+        sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
+    }
+    
+    private func configureDataSourceWithTitle(data: [String]) {
+        var sortedData = data
+        sortedData.sort { $0 < $1 }
+        titlesToShow = sortedData
+        subtitlesToShow = Array(repeating: "", count: titlesToShow.count)
         sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
     }
     
@@ -128,7 +137,7 @@ extension FLCListPickerVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         searchController.dismiss(animated: true)
-        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", listPickerType: listPickerType)
+        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", parentButton: parentButton)
         closeViewController()
     }
 }

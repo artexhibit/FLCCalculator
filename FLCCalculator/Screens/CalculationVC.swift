@@ -5,8 +5,8 @@ class CalculationVC: UIViewController {
     let scrollView = UIScrollView()
     let containerView = UIView()
     let progressView = FLCProgressView()
-    let cargoParametersView = FLCCargoParametersView()
-    let transportParametersView = FLCTransportParametersView()
+    let cargoView = FLCCargoParametersView()
+    let transportView = FLCTransportParametersView()
     
     var leadingConstraint: NSLayoutConstraint!
 
@@ -64,7 +64,7 @@ class CalculationVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(cargoParametersView, transportParametersView)
+        containerView.addSubviews(cargoView, transportView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.pinToEdges(of: scrollView)
         
@@ -75,57 +75,82 @@ class CalculationVC: UIViewController {
     }
     
     private func configureCargoParametersView() {
-        cargoParametersView.delegate = self
+        cargoView.delegate = self
         
-        leadingConstraint = cargoParametersView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
+        leadingConstraint = cargoView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
         
         NSLayoutConstraint.activate([
-            cargoParametersView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            cargoView.topAnchor.constraint(equalTo: containerView.topAnchor),
             leadingConstraint,
-            cargoParametersView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
-            cargoParametersView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            cargoView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            cargoView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
     }
     
     private func configureTransportParametersView() {
-        transportParametersView.delegate = self
+        transportView.delegate = self
         
         NSLayoutConstraint.activate([
-            transportParametersView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            transportParametersView.leadingAnchor.constraint(equalTo: cargoParametersView.trailingAnchor),
-            transportParametersView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            transportParametersView.widthAnchor.constraint(equalTo: containerView.widthAnchor)
+            transportView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            transportView.leadingAnchor.constraint(equalTo: cargoView.trailingAnchor),
+            transportView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            transportView.widthAnchor.constraint(equalTo: containerView.widthAnchor)
         ])
     }
     
     private func showNextView() {
-        leadingConstraint.constant = -(cargoParametersView.frame.width)
+        leadingConstraint.constant = -(cargoView.frame.width)
         UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
     }
     
     @objc func closeButtonPressed() {
-        if (leadingConstraint.constant == -(cargoParametersView.frame.width)) {
-            cargoParametersView.removeFromSuperview()
+        if (leadingConstraint.constant == -(cargoView.frame.width)) {
+            cargoView.removeFromSuperview()
         }
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func presentListPickerVC() {
-        let listPickerVC = FLCListPickerVC(title: cargoParametersView.cargoTypePickerButton.smallLabelView.smallLabel.text ?? "", type: .cargo)
-        listPickerVC.delegate = cargoParametersView
+    private func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, type: FLCListPickerContentType) {
+        let listPickerVC = FLCListPickerVC(from: button, type: type)
+        listPickerVC.delegate = listener as? any FLCListPickerDelegate
         let navController = UINavigationController(rootViewController: listPickerVC)
         present(navController, animated: true)
     }
     
-    private func checkFilledData() -> Bool {
-        if UIHelper.checkIfFilledAll(textFields: cargoParametersView.flcTextFields) && UIHelper.checkIfFilledAll(buttons: cargoParametersView.flcListPickerButtons)  {
+    private func confirmDataIsValid() -> Bool {
+        if UIHelper.checkIfFilledAll(textFields: cargoView.flcTextFields) && UIHelper.checkIfFilledAll(buttons: cargoView.flcListPickerButtons)  {
             return true
         } else {
-            UIHelper.makeRedAll(textFields: cargoParametersView.flcTextFields)
-            UIHelper.makeRedAll(buttons: cargoParametersView.flcListPickerButtons)
+            UIHelper.makeRedAll(textFields: cargoView.flcTextFields)
+            UIHelper.makeRedAll(buttons: cargoView.flcListPickerButtons)
             HapticManager.addErrorHaptic()
             FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля")
             return false
+        }
+    }
+    
+    private func confirmCountryIsPicked(completion: @escaping (FLCCountryOption?) -> Void) {
+        guard transportView.countryPickerButton.titleLabel?.text == nil else {
+            let pickedCountry = FLCCountryOption(rawValue: transportView.countryPickerButton.titleLabel?.text ?? "")
+            completion(pickedCountry)
+            return
+        }
+        FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
+        completion(nil)
+    }
+    
+    private func handleTap(in button: FLCListPickerButton) {
+        confirmCountryIsPicked { [weak self] country in
+            guard let self = self else { return }
+            
+            switch country {
+            case .china:
+                presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.chinaLocations))
+            case .turkey:
+                presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.turkeyLocations))
+            case nil:
+                break
+            }
         }
     }
 }
@@ -133,8 +158,8 @@ class CalculationVC: UIViewController {
 extension CalculationVC: FLCCalculationViewDelegate {
     func didTapFLCButton(_ button: FLCButton) {
         switch button {
-        case cargoParametersView.nextButton:
-            if checkFilledData() { showNextView() }
+        case cargoView.nextButton:
+            if confirmDataIsValid() { showNextView() }
         default:
             break
         }
@@ -145,16 +170,30 @@ extension CalculationVC: FLCCalculationViewDelegate {
         view.endEditing(true)
         
         switch button {
-        case cargoParametersView.cargoTypePickerButton:
-            presentListPickerVC()
-        case cargoParametersView.invoiceCurrencyPickerButton:
-            if UIHelper.checkIfTitleIsEmpty(in: button) { UIHelper.addProgressTo(progressView) }
-        case transportParametersView.countryPickerButton:
-            UIHelper.setEnabledAll(buttons: transportParametersView.flcListPickerButtons)
-            UIHelper.setDeliveryTypeData(for: transportParametersView.deliveryTypePickerButton, basedOn: button)
-        case transportParametersView.deliveryTypePickerButton:
-            guard transportParametersView.countryPickerButton.titleLabel?.text == nil else { return }
-            FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
+        case cargoView.cargoTypePickerButton:
+            presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories))
+            
+        case cargoView.invoiceCurrencyPickerButton:
+            if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
+        
+        case transportView.countryPickerButton:
+            UIHelper.setEnabledAll(buttons: transportView.flcListPickerButtons)
+            UIHelper.setDeliveryTypeData(for: transportView.deliveryTypePickerButton, basedOn: button)
+            if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
+        
+        case transportView.deliveryTypePickerButton:
+            confirmCountryIsPicked { [weak self] country in
+                guard let self else { return }
+                guard country != nil else { return }
+                if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
+            }
+        
+        case transportView.departurePickerButton:
+            handleTap(in: button)
+        
+        case transportView.destinationPickerButton:
+            confirmCountryIsPicked {_ in }
+        
         default:
             break
         }

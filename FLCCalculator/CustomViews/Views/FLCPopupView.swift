@@ -22,7 +22,7 @@ class FLCPopupView: UIView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .clear
+        backgroundColor = .accent.withAlphaComponent(0.2)
         clipsToBounds = true
         layer.cornerRadius = 15
         layer.opacity = 0
@@ -94,8 +94,10 @@ class FLCPopupView: UIView {
                 showNewPopup(systemImage: systemImage, title: title, style: style, position: position)
                 return
             }
-            remove(popup: showingPopup) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { showNewPopup(systemImage: systemImage, title: title, style: style, position: position) }
+            if showingPopup.messageLabel.text != title {
+                remove(popup: showingPopup) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { showNewPopup(systemImage: systemImage, title: title, style: style, position: position) }
+                }
             }
         }
     }
@@ -106,7 +108,7 @@ class FLCPopupView: UIView {
         popup.messageLabel.text = title
         popup.set(with: style)
         popup.configureInWindow(with: position)
-        FLCPopupView.showingPopup = popup
+        showingPopup = popup
 
         UIView.animate(withDuration: 0.3) {
             popup.layer.opacity = 1
@@ -119,8 +121,8 @@ class FLCPopupView: UIView {
         UIView.animate(withDuration: 0.2) {
             popup.layer.opacity = 0
         } completion: { _ in
+            showingPopup = nil
             popup.removeFromSuperview()
-            FLCPopupView.showingPopup = nil
             completion?()
         }
     }

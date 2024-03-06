@@ -4,6 +4,8 @@ class FLCTransportParametersView: FLCCalculationView {
     
     let countryPickerButton = FLCListPickerButton(placeholderText: "Страна Отправления")
     let deliveryTypePickerButton = FLCListPickerButton(placeholderText: "Условия Поставки")
+    let departurePickerButton = FLCListPickerButton(placeholderText: "Пункт отправления")
+    let destinationPickerButton = FLCListPickerButton(placeholderText: "Пункт назначения")
     var flcListPickerButtons = [FLCListPickerButton]()
 
     override init(frame: CGRect) {
@@ -12,6 +14,8 @@ class FLCTransportParametersView: FLCCalculationView {
         configureTitleLabel()
         configureCountryPickerButton()
         configureDeliveryTypePickerButton()
+        configureDeparturePickerButton()
+        configureDestinationPickerButton()
     }
     
     required init?(coder: NSCoder) {
@@ -19,8 +23,8 @@ class FLCTransportParametersView: FLCCalculationView {
     }
     
     private func configure() {
-        addSubviews(countryPickerButton, deliveryTypePickerButton)
-        flcListPickerButtons.append(contentsOf: [deliveryTypePickerButton])
+        addSubviews(countryPickerButton, deliveryTypePickerButton, departurePickerButton, destinationPickerButton)
+        flcListPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton])
     }
     
     private func configureTitleLabel() { titleLabel.text = "Осталось заполнить параметры перевозки" }
@@ -50,5 +54,54 @@ class FLCTransportParametersView: FLCCalculationView {
             deliveryTypePickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             deliveryTypePickerButton.heightAnchor.constraint(equalTo: deliveryTypePickerButton.widthAnchor, multiplier: 0.3/2)
         ])
+    }
+    
+    private func configureDeparturePickerButton() {
+        departurePickerButton.delegate = self
+        departurePickerButton.setDisabled()
+        
+        NSLayoutConstraint.activate([
+            departurePickerButton.topAnchor.constraint(equalTo: deliveryTypePickerButton.bottomAnchor, constant: padding),
+            departurePickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            departurePickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            departurePickerButton.heightAnchor.constraint(equalTo: departurePickerButton.widthAnchor, multiplier: 0.3/2)
+        ])
+    }
+    
+    private func configureDestinationPickerButton() {
+        destinationPickerButton.delegate = self
+        destinationPickerButton.setDisabled()
+        
+        NSLayoutConstraint.activate([
+            destinationPickerButton.topAnchor.constraint(equalTo: departurePickerButton.bottomAnchor, constant: padding),
+            destinationPickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            destinationPickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            destinationPickerButton.heightAnchor.constraint(equalTo: destinationPickerButton.widthAnchor, multiplier: 0.3/2)
+        ])
+    }
+}
+
+extension FLCTransportParametersView: FLCListPickerDelegate {
+    func didSelectItem(pickedItem: String, parentButton: FLCListPickerButton) {
+  
+        switch parentButton {
+        case departurePickerButton:
+            departurePickerButton.set(title: pickedItem)
+            delegate?.didEnterRequiredInfo()
+        default:
+            break
+        }
+    }
+    
+    func didClosePickerView(parentButton: FLCListPickerButton) {
+        
+        switch parentButton {
+        case departurePickerButton:
+            if departurePickerButton.titleLabel?.text?.isEmpty ?? true {
+                departurePickerButton.smallLabelView.returnSmallLabelToIdentity()
+            }
+        default:
+            break
+        }
     }
 }

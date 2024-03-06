@@ -32,7 +32,7 @@ struct UIHelper {
     static func setDeliveryTypeData(for destButton: FLCListPickerButton, basedOn button: FLCListPickerButton) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             guard let pickedCountryString = button.titleLabel?.text else { return }
-            let pickedOption = FLCCountryOptions(rawValue: pickedCountryString)
+            let pickedOption = FLCCountryOption(rawValue: pickedCountryString)
             
             switch pickedOption {
             case .china:
@@ -45,7 +45,7 @@ struct UIHelper {
         }
     }
     
-    static func checkIfTitleIsEmpty(in button: FLCListPickerButton) -> Bool {
+    static func checkIfTitleIsNotEmpty(in button: FLCListPickerButton) -> Bool {
         return button.titleLabel?.text == nil ? true : false
     }
 }

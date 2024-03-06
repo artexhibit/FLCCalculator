@@ -209,25 +209,25 @@ extension FLCCargoParametersView: UITextFieldDelegate {
 }
 
 extension FLCCargoParametersView: FLCListPickerDelegate {
-    func didSelectItem(pickedItem: String, listPickerType: FLCListPickerContentType) {
+    func didSelectItem(pickedItem: String, parentButton: FLCListPickerButton) {
         
-        switch listPickerType {
-        case .cargo:
+        switch parentButton {
+        case cargoTypePickerButton:
             cargoTypePickerButton.set(title: pickedItem)
             delegate?.didEnterRequiredInfo()
-        case .address:
+        default:
             break
         }
     }
     
-    func didClosePickerView(listPickerType: FLCListPickerContentType) {
+    func didClosePickerView(parentButton: FLCListPickerButton) {
         
-        switch listPickerType {
-        case .cargo:
+        switch parentButton {
+        case cargoTypePickerButton:
             if cargoTypePickerButton.titleLabel?.text?.isEmpty ?? true {
                 cargoTypePickerButton.smallLabelView.returnSmallLabelToIdentity()
             }
-        case .address:
+        default:
             break
         }
     }
