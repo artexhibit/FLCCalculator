@@ -60,6 +60,7 @@
 		0BD4DE252B88D5ED00B834DD /* FLCListPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */; };
 		0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */; };
 		0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */; };
+		0BD5E61F2B9A1C4D00240844 /* CalculationUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD5E61E2B9A1C4D00240844 /* CalculationUIHelper.swift */; };
 		0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */; };
 		0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */; };
 		0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938842B84F61700A18016 /* FLCTitleLabel.swift */; };
@@ -143,6 +144,7 @@
 		0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerVC.swift; sourceTree = "<group>"; };
 		0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
 		0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Ext.swift"; sourceTree = "<group>"; };
+		0BD5E61E2B9A1C4D00240844 /* CalculationUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationUIHelper.swift; sourceTree = "<group>"; };
 		0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCEmptyStateView.swift; sourceTree = "<group>"; };
 		0BF938842B84F61700A18016 /* FLCTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTitleLabel.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				0B419FC72B82451600498ACE /* FLCError.swift */,
 				0BD06AFA2B8E6A1B00942651 /* Enums.swift */,
 				0B77F8DB2B91FC9A005AB5FD /* UIHelper.swift */,
+				0BD5E61E2B9A1C4D00240844 /* CalculationUIHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */,
 				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
 				0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */,
+				0BD5E61F2B9A1C4D00240844 /* CalculationUIHelper.swift in Sources */,
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,
 				0B419FC82B82451600498ACE /* FLCError.swift in Sources */,
 				0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */,

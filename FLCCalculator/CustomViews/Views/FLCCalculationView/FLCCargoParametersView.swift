@@ -192,7 +192,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             return TextFieldManager.removeCharacterBefore(positon: separatorPositon, and: textField, inText: text, withDecimalSeparator: decimalSeparator, using: formatter)
         }
        
-        if text == FLCNumberTextField.placeholderValue || text == "0" && !string.isEmpty && textField.getCursorPosition() == 0 {
+        if text == FLCNumberTextField.placeholderValue && textField.getCursorPosition() == 0 || text == "0" && !string.isEmpty {
             TextFieldManager.replaceFirstCharacter(with: string, in: textField, and: text)
             return false
         }

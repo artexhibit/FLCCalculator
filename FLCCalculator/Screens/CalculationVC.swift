@@ -110,44 +110,15 @@ class CalculationVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, type: FLCListPickerContentType) {
-        let listPickerVC = FLCListPickerVC(from: button, type: type)
-        listPickerVC.delegate = listener as? any FLCListPickerDelegate
-        let navController = UINavigationController(rootViewController: listPickerVC)
-        present(navController, animated: true)
-    }
-    
-    private func confirmDataIsValid() -> Bool {
-        if UIHelper.checkIfFilledAll(textFields: cargoView.flcTextFields) && UIHelper.checkIfFilledAll(buttons: cargoView.flcListPickerButtons)  {
-            return true
-        } else {
-            UIHelper.makeRedAll(textFields: cargoView.flcTextFields)
-            UIHelper.makeRedAll(buttons: cargoView.flcListPickerButtons)
-            HapticManager.addErrorHaptic()
-            FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля")
-            return false
-        }
-    }
-    
-    private func confirmCountryIsPicked(completion: @escaping (FLCCountryOption?) -> Void) {
-        guard transportView.countryPickerButton.titleLabel?.text == nil else {
-            let pickedCountry = FLCCountryOption(rawValue: transportView.countryPickerButton.titleLabel?.text ?? "")
-            completion(pickedCountry)
-            return
-        }
-        FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
-        completion(nil)
-    }
-    
-    private func handleTap(in button: FLCListPickerButton) {
-        confirmCountryIsPicked { [weak self] country in
+    private func handleTapForDeparturePickerButton(_ button: FLCListPickerButton) {
+        CalculationUIHelper.confirmCountryIsPicked(in: transportView) { [weak self] country in
             guard let self = self else { return }
             
             switch country {
             case .china:
-                presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.chinaLocations))
+                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.chinaLocations), in: self)
             case .turkey:
-                presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.turkeyLocations))
+                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.turkeyLocations), in: self)
             case nil:
                 break
             }
@@ -159,7 +130,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
     func didTapFLCButton(_ button: FLCButton) {
         switch button {
         case cargoView.nextButton:
-            if confirmDataIsValid() { showNextView() }
+            if CalculationUIHelper.confirmDataIsValid(in: cargoView) { showNextView() }
         default:
             break
         }
@@ -171,28 +142,32 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case cargoView.cargoTypePickerButton:
-            presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories))
+            CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories), in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
             if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
         
         case transportView.countryPickerButton:
             UIHelper.setEnabledAll(buttons: transportView.flcListPickerButtons)
-            UIHelper.setDeliveryTypeData(for: transportView.deliveryTypePickerButton, basedOn: button)
+            CalculationUIHelper.setDeliveryTypeData(for: transportView.deliveryTypePickerButton, basedOn: button)
             if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
         
         case transportView.deliveryTypePickerButton:
-            confirmCountryIsPicked { [weak self] country in
+            CalculationUIHelper.confirmCountryIsPicked(in: transportView) { [weak self] country in
                 guard let self else { return }
                 guard country != nil else { return }
                 if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
+
+                CalculationUIHelper.setupDestinationButtonTitle(transportView.destinationPickerButton, basedOn: button) { titleWasSet in
+                    if titleWasSet { UIHelper.addProgressTo(self.progressView) }
+                }
             }
         
         case transportView.departurePickerButton:
-            handleTap(in: button)
+            handleTapForDeparturePickerButton(button)
         
         case transportView.destinationPickerButton:
-            confirmCountryIsPicked {_ in }
+            CalculationUIHelper.confirmCountryIsPicked(in: transportView) {_ in }
         
         default:
             break

@@ -22,7 +22,7 @@ class FLCPopupView: UIView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .accent.withAlphaComponent(0.2)
+        backgroundColor = .accent.withAlphaComponent(0.4)
         clipsToBounds = true
         layer.cornerRadius = 15
         layer.opacity = 0
