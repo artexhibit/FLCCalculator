@@ -213,8 +213,8 @@ extension FLCCargoParametersView: FLCListPickerDelegate {
         
         switch parentButton {
         case cargoTypePickerButton:
-            cargoTypePickerButton.set(title: pickedItem)
-            delegate?.didEnterRequiredInfo()
+           if parentButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
+            parentButton.set(title: pickedItem)
         default:
             break
         }

@@ -24,7 +24,7 @@ class FLCTransportParametersView: FLCCalculationView {
     
     private func configure() {
         addSubviews(countryPickerButton, deliveryTypePickerButton, departurePickerButton, destinationPickerButton)
-        flcListPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton])
+        flcListPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton, destinationPickerButton])
     }
     
     private func configureTitleLabel() { titleLabel.text = "Осталось заполнить параметры перевозки" }
@@ -86,8 +86,8 @@ extension FLCTransportParametersView: FLCListPickerDelegate {
   
         switch parentButton {
         case departurePickerButton:
+            if parentButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
             departurePickerButton.set(title: pickedItem)
-            delegate?.didEnterRequiredInfo()
         default:
             break
         }

@@ -70,6 +70,7 @@
 		0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938922B853A6900A18016 /* CalculationVC.swift */; };
+		0BFB7E582B9B29FE0010C401 /* UIProgressView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFB7E572B9B29FE0010C401 /* UIProgressView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		0BF9388B2B850EC600A18016 /* FLCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCButton.swift; sourceTree = "<group>"; };
 		0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTagView.swift; sourceTree = "<group>"; };
 		0BF938922B853A6900A18016 /* CalculationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationVC.swift; sourceTree = "<group>"; };
+		0BFB7E572B9B29FE0010C401 /* UIProgressView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIProgressView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +292,7 @@
 				0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */,
 				0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */,
 				0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */,
+				0BFB7E572B9B29FE0010C401 /* UIProgressView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
 				0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */,
+				0BFB7E582B9B29FE0010C401 /* UIProgressView+Ext.swift in Sources */,
 				0B77F8DC2B91FC9A005AB5FD /* UIHelper.swift in Sources */,
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationData.swift in Sources */,

@@ -10,6 +10,7 @@ class FLCListPickerButton: UIButton {
     private var selectedUIMenuItem = ""
     private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 10)
     var inDisabledState: Bool = false
+    var titleIsEmpty: Bool { titleLabel?.text == nil ? true : false }
     
     weak var delegate: FLCListPickerButtonDelegate?
     
@@ -79,6 +80,13 @@ class FLCListPickerButton: UIButton {
         setTitleColor(.label, for: .normal)
         backgroundColor = .flcNumberTextFieldDisabled
         setTitleColor(.accent, for: .normal)
+    }
+    
+    func resetState(disable: Bool = false) {
+        setTitle("", for: .normal)
+        titleLabel?.text = nil
+        smallLabelView.returnSmallLabelToIdentity()
+        if disable { setDisabled() }
     }
     
     func configureUIMenu(with options: [UIMenuItem]) -> UIMenu {

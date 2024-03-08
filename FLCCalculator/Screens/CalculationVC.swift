@@ -145,24 +145,35 @@ extension CalculationVC: FLCCalculationViewDelegate {
             CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories), in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
-            if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
-        
+            if button.titleIsEmpty { progressView.setProgress(.increase) }
+            
         case transportView.countryPickerButton:
-            UIHelper.setEnabledAll(buttons: transportView.flcListPickerButtons)
+            CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
             CalculationUIHelper.setDeliveryTypeData(for: transportView.deliveryTypePickerButton, basedOn: button)
-            if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
-        
+            if button.titleIsEmpty { progressView.setProgress(.increase) }
+            
+            if !transportView.deliveryTypePickerButton.titleIsEmpty {
+                transportView.destinationPickerButton.resetState(disable: true)
+            }
+   
         case transportView.deliveryTypePickerButton:
             CalculationUIHelper.confirmCountryIsPicked(in: transportView) { [weak self] country in
-                guard let self else { return }
-                guard country != nil else { return }
-                if UIHelper.checkIfTitleIsNotEmpty(in: button) { UIHelper.addProgressTo(progressView) }
-
-                CalculationUIHelper.setupDestinationButtonTitle(transportView.destinationPickerButton, basedOn: button) { titleWasSet in
-                    if titleWasSet { UIHelper.addProgressTo(self.progressView) }
+                guard let self, country != nil else { return }
+                if button.titleIsEmpty { progressView.setProgress(.increase) }
+                let oldTitle = transportView.destinationPickerButton.titleLabel?.text ?? ""
+                
+                if !button.titleIsEmpty {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                        let title = CalculationUIHelper.setupDestinationButtonTitle(self.transportView.destinationPickerButton, basedOn: button)
+                        
+                        if title != oldTitle {
+                            let progressType: ProgressViewOption = title != "" ? .increase : .decrease
+                            self.progressView.setProgress(progressType)
+                        }
+                    }
                 }
             }
-        
+            
         case transportView.departurePickerButton:
             handleTapForDeparturePickerButton(button)
         
@@ -174,7 +185,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
         }
     }
     
-    func didEnterRequiredInfo() { UIHelper.addProgressTo(progressView) }
+    func didEnterRequiredInfo() { progressView.setProgress(.increase) }
 }
 
 extension CalculationVC: UIScrollViewDelegate {

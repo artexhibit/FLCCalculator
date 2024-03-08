@@ -1,6 +1,14 @@
 import UIKit
 
 struct CalculationUIHelper {
+    static func enableAll(buttons: [FLCListPickerButton]) {
+        buttons.forEach {
+            $0.setEnabled()
+            $0.showsMenuAsPrimaryAction = true
+            $0.resetState()
+        }
+    }
+    
     static func setDeliveryTypeData(for destButton: FLCListPickerButton, basedOn button: FLCListPickerButton) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             guard let pickedCountryString = button.titleLabel?.text else { return }
@@ -46,21 +54,17 @@ struct CalculationUIHelper {
         completion(nil)
     }
     
-    static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton, completion: @escaping (Bool) -> Void) {
+    static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton) -> String {
+        guard let text = deliveryTypeButton.titleLabel?.text else { return "" }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            guard let text = deliveryTypeButton.titleLabel?.text else {
-                completion(false)
-                return
-            }
-            
-            if text.contains(CalculationData.russianWarehouseCity) {
-                button.smallLabelView.moveUpSmallLabel()
-                button.setTitle(CalculationData.russianWarehouseCity, for: .normal)
-                completion(true)
-            }
-            button.setEnabled()
-            completion(false)
+        if text.contains(CalculationData.russianWarehouseCity) {
+            button.smallLabelView.moveUpSmallLabel()
+            button.setTitle(CalculationData.russianWarehouseCity, for: .normal)
+            button.titleLabel?.text = CalculationData.russianWarehouseCity
+        } else {
+            button.resetState()
         }
+        button.setEnabled()
+        return button.titleLabel?.text ?? ""
     }
 }
