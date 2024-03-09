@@ -1,34 +1,42 @@
 import UIKit
 
 struct CalculationUIHelper {
+    private static var previousTitle = ""
+    
     static func enableAll(buttons: [FLCListPickerButton]) {
         buttons.forEach {
             $0.setEnabled()
-            $0.showsMenuAsPrimaryAction = true
             $0.resetState()
         }
     }
     
-    static func setDeliveryTypeData(for destButton: FLCListPickerButton, basedOn button: FLCListPickerButton) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            guard let pickedCountryString = button.titleLabel?.text else { return }
+    static func getItems(basedOn button: FLCListPickerButton) -> [FLCPickerItem] {
+            guard let pickedCountryString = button.titleLabel?.text else { return [] }
             let pickedOption = FLCCountryOption(rawValue: pickedCountryString)
             
             switch pickedOption {
             case .china:
-                destButton.menu = destButton.configureUIMenu(with: CalculationData.chinaDeliveryTypes)
+                return CalculationData.chinaDeliveryTypes
             case .turkey:
-                destButton.menu = destButton.configureUIMenu(with: CalculationData.turkeyDeliveryTypes)
+                return CalculationData.turkeyDeliveryTypes
             case nil:
-                return
+                return []
             }
-        }
     }
     
     static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, type: FLCListPickerContentType, in viewController: UIViewController) {
         let listPickerVC = FLCListPickerVC(from: button, type: type)
-        listPickerVC.delegate = listener as? any FLCListPickerDelegate
+        listPickerVC.delegate = listener as? any FLCPickerDelegate
         let navController = UINavigationController(rootViewController: listPickerVC)
+        viewController.present(navController, animated: true)
+    }
+    
+    static func presentSheetPickerVC(items: [FLCPickerItem], triggerButton: FLCListPickerButton, listener: FLCCalculationView, in viewController: UIViewController) {
+        let sheetPickerVC = FLCSheetPickerVC(items: items, triggerButton: triggerButton)
+        sheetPickerVC.delegate = listener as? FLCPickerDelegate
+        let navController = UINavigationController(rootViewController: sheetPickerVC)
+        guard let sheet = navController.sheetPresentationController else { return }
+        sheet.detents = [.medium()]
         viewController.present(navController, animated: true)
     }
     
@@ -54,9 +62,9 @@ struct CalculationUIHelper {
         completion(nil)
     }
     
-    static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton) -> String {
-        guard let text = deliveryTypeButton.titleLabel?.text else { return "" }
-        
+    static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton) {
+        guard let text = deliveryTypeButton.titleLabel?.text else { return }
+      
         if text.contains(CalculationData.russianWarehouseCity) {
             button.smallLabelView.moveUpSmallLabel()
             button.setTitle(CalculationData.russianWarehouseCity, for: .normal)
@@ -65,6 +73,23 @@ struct CalculationUIHelper {
             button.resetState()
         }
         button.setEnabled()
-        return button.titleLabel?.text ?? ""
+    }
+    
+    static func adjustProgressView(basedOn destButton: FLCListPickerButton, and deliveryButton: FLCListPickerButton) -> ProgressViewOption? {
+        let destTitle = destButton.titleLabel?.text ?? ""
+        let deliveryTitle = deliveryButton.titleLabel?.text ?? ""
+        
+        if previousTitle.contains(CalculationData.russianWarehouseCity) && deliveryTitle.contains(CalculationData.russianWarehouseCity) { return nil }
+        
+        if deliveryTitle.contains(CalculationData.russianWarehouseCity) {
+            previousTitle = deliveryTitle
+            return destTitle.contains(CalculationData.russianWarehouseCity) ? .increase : .decrease
+        } else {
+            if previousTitle.contains(CalculationData.russianWarehouseCity) && destTitle == "" {
+                previousTitle = deliveryTitle
+                return .decrease
+            }
+        }
+        return nil
     }
 }

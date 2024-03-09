@@ -31,8 +31,6 @@ class FLCTransportParametersView: FLCCalculationView {
     
     private func configureCountryPickerButton() {
         countryPickerButton.delegate = self
-        countryPickerButton.menu = countryPickerButton.configureUIMenu(with: CalculationData.countriesOptions)
-        countryPickerButton.showsMenuAsPrimaryAction = true
         
         NSLayoutConstraint.activate([
             countryPickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3),
@@ -44,8 +42,6 @@ class FLCTransportParametersView: FLCCalculationView {
     
     private func configureDeliveryTypePickerButton() {
         deliveryTypePickerButton.delegate = self
-        deliveryTypePickerButton.menu = deliveryTypePickerButton.configureUIMenu(with: CalculationData.chinaDeliveryTypes)
-        deliveryTypePickerButton.showsMenuAsPrimaryAction = false
         deliveryTypePickerButton.setDisabled()
         
         NSLayoutConstraint.activate([
@@ -81,27 +77,14 @@ class FLCTransportParametersView: FLCCalculationView {
     }
 }
 
-extension FLCTransportParametersView: FLCListPickerDelegate {
-    func didSelectItem(pickedItem: String, parentButton: FLCListPickerButton) {
-  
-        switch parentButton {
-        case departurePickerButton:
-            if parentButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
-            departurePickerButton.set(title: pickedItem)
-        default:
-            break
-        }
+extension FLCTransportParametersView: FLCPickerDelegate {
+    func didSelectItem(pickedItem: String, triggerButton: FLCListPickerButton) {
+        if triggerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
+        triggerButton.set(title: pickedItem)
+        triggerButton.titleLabel?.text = pickedItem
+        
+        delegate?.didSelectItem(triggerButton: triggerButton)
     }
     
-    func didClosePickerView(parentButton: FLCListPickerButton) {
-        
-        switch parentButton {
-        case departurePickerButton:
-            if departurePickerButton.titleLabel?.text?.isEmpty ?? true {
-                departurePickerButton.smallLabelView.returnSmallLabelToIdentity()
-            }
-        default:
-            break
-        }
-    }
+    func didClosePickerView(parentButton: FLCListPickerButton) {}
 }

@@ -89,27 +89,6 @@ class FLCListPickerButton: UIButton {
         if disable { setDisabled() }
     }
     
-    func configureUIMenu(with options: [UIMenuItem]) -> UIMenu {
-        var items = [UIAction]()
-        
-        options.forEach { option in
-            let isSelected = option.titleForButton == self.selectedUIMenuItem
-            
-            let menuItem = UIAction(title: option.title, subtitle: option.subtitle, image: option.image, state: isSelected ? .on : .off, handler: { [weak self] _ in
-                guard let self else { return }
-                
-                self.delegate?.didTapButton(self)
-                self.smallLabelView.moveUpSmallLabel()
-                self.set(title: option.titleForButton)
-                self.selectedUIMenuItem = option.titleForButton
-                self.switchToOrangeColors()
-                self.menu = self.configureUIMenu(with: options)
-            })
-            items.append(menuItem)
-        }
-        return UIMenu(children: items)
-    }
-    
     private func setButtonConfiguration() -> UIButton.Configuration {
         var config = Configuration.plain()
         config.contentInsets = insets
@@ -123,8 +102,5 @@ class FLCListPickerButton: UIButton {
         return config
     }
     
-    @objc private func buttonTapped() {
-        if !inDisabledState { smallLabelView.moveUpSmallLabel() }
-        delegate?.didTapButton(self)
-    }
+    @objc private func buttonTapped() { delegate?.didTapButton(self) }
 }

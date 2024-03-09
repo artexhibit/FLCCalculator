@@ -1,11 +1,6 @@
 import UIKit
 
-protocol FLCListPickerDelegate: AnyObject {
-    func didSelectItem(pickedItem: String, parentButton: FLCListPickerButton)
-    func didClosePickerView(parentButton: FLCListPickerButton)
-}
-
-class FLCListPickerVC: UIViewController {
+class FLCListPickerVC: FLCPickerVC {
     
     private let searchController = UISearchController()
     private let tableView = UITableView()
@@ -14,14 +9,11 @@ class FLCListPickerVC: UIViewController {
     private var subtitlesToShow = [String]()
     private var filteredTitles = [String]()
     private var sections = [String]()
-    private var parentButton = FLCListPickerButton()
-    
-    weak var delegate: FLCListPickerDelegate?
-    
+        
     init(from button: FLCListPickerButton, type: FLCListPickerContentType) {
         super.init(nibName: nil, bundle: nil)
-        self.parentButton = button
-        self.title = parentButton.smallLabelView.smallLabel.text ?? ""
+        self.triggerButton = button
+        self.title = triggerButton.smallLabelView.smallLabel.text ?? ""
         self.set(according: type)
     }
     
@@ -31,7 +23,6 @@ class FLCListPickerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
         configureSearchController()
         configureTableView()
         configureDataSource()
@@ -41,17 +32,6 @@ class FLCListPickerVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        delegate?.didClosePickerView(parentButton: parentButton)
-    }
-    
-    private func configure() {
-        view.backgroundColor = .systemBackground
-        navigationItem.hidesSearchBarWhenScrolling = false
-        navigationItem.createCloseButton(in: self, with: #selector(closeViewController))
     }
     
     private func configureSearchController() {
@@ -128,8 +108,6 @@ class FLCListPickerVC: UIViewController {
         subtitlesToShow = Array(repeating: "", count: titlesToShow.count)
         sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
     }
-    
-    @objc private func closeViewController() { dismiss(animated: true) }
 }
 
 extension FLCListPickerVC: UITableViewDelegate {
@@ -137,7 +115,8 @@ extension FLCListPickerVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         searchController.dismiss(animated: true)
-        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", parentButton: parentButton)
+        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", triggerButton: triggerButton)
+        triggerButton.smallLabelView.moveUpSmallLabel()
         closeViewController()
     }
 }

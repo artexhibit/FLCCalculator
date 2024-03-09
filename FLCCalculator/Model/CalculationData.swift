@@ -181,30 +181,30 @@ struct CalculationData {
     ]
     
     static let currencyOptions = [
-        UIMenuItem(title: "Рубли", titleForButton: "RUB", subtitle: nil, image: UIImage(named: "RUB")),
-        UIMenuItem(title: "Юани", titleForButton: "CNY", subtitle: nil, image: UIImage(named: "CNY")),
-        UIMenuItem(title: "Лиры", titleForButton: "TRY", subtitle: nil, image: UIImage(named: "TRY")),
-        UIMenuItem(title: "Доллары", titleForButton: "USD", subtitle: nil, image: UIImage(named: "USD")),
-        UIMenuItem(title: "Евро", titleForButton: "EUR", subtitle: nil, image: UIImage(named: "EUR"))
+        FLCPickerItem(title: "RUB", subtitle: "Рубли", image: UIImage(named: "RUB")),
+        FLCPickerItem(title: "CNY", subtitle: "Юани", image: UIImage(named: "CNY")),
+        FLCPickerItem(title: "TRY", subtitle: "Лиры", image: UIImage(named: "TRY")),
+        FLCPickerItem(title: "USD", subtitle: "Доллары", image: UIImage(named: "USD")),
+        FLCPickerItem(title: "EUR", subtitle: "Евро", image: UIImage(named: "EUR"))
     ]
     
     static let countriesOptions = [
-        UIMenuItem(title: FLCCountryOption.china.rawValue, titleForButton: FLCCountryOption.china.rawValue, subtitle: nil, image: UIImage(named: "CNY")),
-        UIMenuItem(title: FLCCountryOption.turkey.rawValue, titleForButton: FLCCountryOption.turkey.rawValue, subtitle: nil, image: UIImage(named: "TRY"))
+        FLCPickerItem(title: FLCCountryOption.china.rawValue, subtitle: "", image: UIImage(named: "CNY")),
+        FLCPickerItem(title: FLCCountryOption.turkey.rawValue, subtitle: "", image: UIImage(named: "TRY"))
     ]
     
     static let chinaDeliveryTypes = [
-        UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Клиент", subtitle: "От поставщика до ваc", image: nil),
-            UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),
-            UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Китай - Клиент", subtitle: "От склада в Китае до ваc", image: nil),
-            UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Китай - Склад Подольск", subtitle: "От склада в Китае до склада FLC", image: nil)
+        FLCPickerItem(title: "EXW, Поставщик - Клиент", subtitle: "От поставщика до ваc", image: nil),
+        FLCPickerItem(title: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),
+        FLCPickerItem(title: "FCA, Склад Китай - Клиент", subtitle: "От склада в Китае до ваc", image: nil),
+        FLCPickerItem(title: "FCA, Склад Китай - Склад Подольск", subtitle: "От склада в Китае до склада FLC", image: nil)
     ]
     
     static let turkeyDeliveryTypes = [
-        UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Клиент", subtitle: "От поставщика до ваc", image: nil),
-        UIMenuItem(title: "EXW", titleForButton: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),
-        UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Стамбул - Клиент", subtitle: "От склада в Стамбуле до ваc", image: nil),
-        UIMenuItem(title: "FCA", titleForButton: "FCA, Склад Стамбул - Склад Подольск", subtitle: "От склада в Стамбуле до склада FLC", image: nil)
+        FLCPickerItem(title: "EXW, Поставщик - Клиент", subtitle: "От поставщика до ваc", image: nil),
+        FLCPickerItem(title: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),
+        FLCPickerItem(title: "FCA, Склад Стамбул - Клиент", subtitle: "От склада в Стамбуле до ваc", image: nil),
+        FLCPickerItem(title: "FCA, Склад Стамбул - Склад Подольск", subtitle: "От склада в Стамбуле до склада FLC", image: nil)
     ]
     
     static let russianWarehouseCity = "Подольск"

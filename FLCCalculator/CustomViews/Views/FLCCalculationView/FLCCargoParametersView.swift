@@ -90,9 +90,6 @@ class FLCCargoParametersView: FLCCalculationView {
     private func configureInvoiceCurrencyPickerButton() { 
         invoiceCurrencyPickerButton.delegate = self
         
-        invoiceCurrencyPickerButton.menu = invoiceCurrencyPickerButton.configureUIMenu(with: CalculationData.currencyOptions)
-        invoiceCurrencyPickerButton.showsMenuAsPrimaryAction = true
-        
         NSLayoutConstraint.activate([
             invoiceCurrencyPickerButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
             invoiceCurrencyPickerButton.leadingAnchor.constraint(equalTo: invoiceAmountTextField.trailingAnchor, constant: padding),
@@ -208,29 +205,15 @@ extension FLCCargoParametersView: UITextFieldDelegate {
     }
 }
 
-extension FLCCargoParametersView: FLCListPickerDelegate {
-    func didSelectItem(pickedItem: String, parentButton: FLCListPickerButton) {
+extension FLCCargoParametersView: FLCPickerDelegate {
+    func didSelectItem(pickedItem: String, triggerButton: FLCListPickerButton) {
+        if triggerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
+        triggerButton.set(title: pickedItem)
         
-        switch parentButton {
-        case cargoTypePickerButton:
-           if parentButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
-            parentButton.set(title: pickedItem)
-        default:
-            break
-        }
+        delegate?.didSelectItem(triggerButton: triggerButton)
     }
     
-    func didClosePickerView(parentButton: FLCListPickerButton) {
-        
-        switch parentButton {
-        case cargoTypePickerButton:
-            if cargoTypePickerButton.titleLabel?.text?.isEmpty ?? true {
-                cargoTypePickerButton.smallLabelView.returnSmallLabelToIdentity()
-            }
-        default:
-            break
-        }
-    }
+    func didClosePickerView(parentButton: FLCListPickerButton) {}
 }
 
 extension FLCCargoParametersView: FLCNumberTextFieldDelegate {

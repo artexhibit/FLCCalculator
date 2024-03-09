@@ -145,34 +145,18 @@ extension CalculationVC: FLCCalculationViewDelegate {
             CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories), in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
-            if button.titleIsEmpty { progressView.setProgress(.increase) }
+            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.currencyOptions, triggerButton: button, listener: cargoView, in: self)
             
         case transportView.countryPickerButton:
-            CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
-            CalculationUIHelper.setDeliveryTypeData(for: transportView.deliveryTypePickerButton, basedOn: button)
-            if button.titleIsEmpty { progressView.setProgress(.increase) }
-            
-            if !transportView.deliveryTypePickerButton.titleIsEmpty {
-                transportView.destinationPickerButton.resetState(disable: true)
-            }
+            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.countriesOptions, triggerButton: button, listener: transportView, in: self)
    
         case transportView.deliveryTypePickerButton:
-            CalculationUIHelper.confirmCountryIsPicked(in: transportView) { [weak self] country in
-                guard let self, country != nil else { return }
-                if button.titleIsEmpty { progressView.setProgress(.increase) }
-                let oldTitle = transportView.destinationPickerButton.titleLabel?.text ?? ""
-                
-                if !button.titleIsEmpty {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                        let title = CalculationUIHelper.setupDestinationButtonTitle(self.transportView.destinationPickerButton, basedOn: button)
-                        
-                        if title != oldTitle {
-                            let progressType: ProgressViewOption = title != "" ? .increase : .decrease
-                            self.progressView.setProgress(progressType)
-                        }
-                    }
-                }
+            guard !transportView.countryPickerButton.titleIsEmpty else {
+                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
+                return
             }
+            let items = CalculationUIHelper.getItems(basedOn: transportView.countryPickerButton)
+            CalculationUIHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self)
             
         case transportView.departurePickerButton:
             handleTapForDeparturePickerButton(button)
@@ -180,6 +164,25 @@ extension CalculationVC: FLCCalculationViewDelegate {
         case transportView.destinationPickerButton:
             CalculationUIHelper.confirmCountryIsPicked(in: transportView) {_ in }
         
+        default:
+            break
+        }
+    }
+    
+    func didSelectItem(triggerButton button: FLCListPickerButton) {
+        
+        switch button {
+        case transportView.countryPickerButton:
+            CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
+            
+            if !transportView.deliveryTypePickerButton.titleIsEmpty {
+                transportView.destinationPickerButton.resetState(disable: true)
+            }
+        case transportView.deliveryTypePickerButton:
+            CalculationUIHelper.setupDestinationButtonTitle(transportView.destinationPickerButton, basedOn: button)
+            guard let progress = CalculationUIHelper.adjustProgressView(basedOn: transportView.destinationPickerButton, and: button) else { return }
+            progressView.setProgress(progress)
+
         default:
             break
         }

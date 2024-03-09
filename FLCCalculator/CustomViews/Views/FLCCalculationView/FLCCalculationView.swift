@@ -4,6 +4,7 @@ protocol FLCCalculationViewDelegate: AnyObject {
     func didEnterRequiredInfo()
     func didTapListPickerButton(_ button: FLCListPickerButton)
     func didTapFLCButton(_ button: FLCButton)
+    func didSelectItem(triggerButton button: FLCListPickerButton)
 }
 
 class FLCCalculationView: UIView {
