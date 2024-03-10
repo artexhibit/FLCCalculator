@@ -24,6 +24,7 @@ struct CalculationUIHelper {
             $0.setEnabled()
             $0.resetState()
         }
+        previousTitle = ""
     }
     
     static func getItems<T: Hashable>(basedOn pickedCountry: FLCCountryOption, for button: FLCListPickerButton) -> [T] {
@@ -100,5 +101,13 @@ struct CalculationUIHelper {
             }
         }
         return nil
+    }
+    
+    static func adjustProgressView(in view: FLCTransportParametersView) -> Float {
+        var times: Float = 0
+        
+        view.listPickerButtonsWithTitle.forEach { if $0.value == true { times += 1 } }
+        view.listPickerButtons.forEach { view.listPickerButtonsWithTitle[$0] = false }
+        return times
     }
 }

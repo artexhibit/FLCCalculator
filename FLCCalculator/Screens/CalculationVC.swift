@@ -136,6 +136,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
         case transportView.countryPickerButton:
             CalculationUIHelper.presentSheetPickerVC(items: CalculationData.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
+            transportView.listPickerButtons.forEach { if !$0.titleIsEmpty { transportView.listPickerButtonsWithTitle[$0] = true } }
    
         case transportView.deliveryTypePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {
@@ -150,7 +151,6 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
                 return
             }
-            
             let items: [String] = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
             CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(items), in: self)
             
@@ -169,11 +169,14 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case transportView.countryPickerButton:
-            CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
+            CalculationUIHelper.enableAll(buttons: transportView.listPickerButtons.dropLast())
             
-            if !transportView.deliveryTypePickerButton.titleIsEmpty {
+            if transportView.deliveryTypePickerButton.titleIsEmpty {
                 transportView.destinationPickerButton.resetState(disable: true)
             }
+            progressView.setProgress(.decrease, times: CalculationUIHelper.adjustProgressView(in: transportView))
+            transportView.removeExtraTopPaddingBetweenFirstButtons()
+            
         case transportView.deliveryTypePickerButton:
             CalculationUIHelper.setupDestinationButtonTitle(transportView.destinationPickerButton, basedOn: button)
             guard let progress = CalculationUIHelper.adjustProgressView(basedOn: transportView.destinationPickerButton, and: button) else { return }

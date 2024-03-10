@@ -3,6 +3,7 @@ import UIKit
 class FLCCargoParametersView: FLCCalculationView {
     
     private let stackView = UIStackView()
+    
     let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
     private let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
     private let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
@@ -11,6 +12,7 @@ class FLCCargoParametersView: FLCCalculationView {
     private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
     private let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
+    
     var flcTextFields = [FLCNumberTextField]()
     var flcListPickerButtons = [FLCListPickerButton]()
     var filledTextFileds = [UITextField: Bool]()

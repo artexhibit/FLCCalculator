@@ -6,7 +6,10 @@ class FLCTransportParametersView: FLCCalculationView {
     let deliveryTypePickerButton = FLCListPickerButton(placeholderText: "Условия Поставки")
     let departurePickerButton = FLCListPickerButton(placeholderText: "Пункт отправления")
     let destinationPickerButton = FLCListPickerButton(placeholderText: "Пункт назначения")
-    var flcListPickerButtons = [FLCListPickerButton]()
+    
+    var listPickerButtons = [FLCListPickerButton]()
+    var listPickerButtonsWithTitle = [FLCListPickerButton: Bool]()
+    private var deliveryTypeTopContraint: NSLayoutConstraint!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +27,8 @@ class FLCTransportParametersView: FLCCalculationView {
     
     private func configure() {
         addSubviews(countryPickerButton, deliveryTypePickerButton, departurePickerButton, destinationPickerButton)
-        flcListPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton, destinationPickerButton])
+        listPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton, destinationPickerButton])
+        listPickerButtons.forEach { listPickerButtonsWithTitle[$0] = false }
     }
     
     private func configureTitleLabel() { titleLabel.text = "Осталось заполнить параметры перевозки" }
@@ -43,9 +47,10 @@ class FLCTransportParametersView: FLCCalculationView {
     private func configureDeliveryTypePickerButton() {
         deliveryTypePickerButton.delegate = self
         deliveryTypePickerButton.setDisabled()
+        deliveryTypeTopContraint = deliveryTypePickerButton.topAnchor.constraint(equalTo: countryPickerButton.bottomAnchor, constant: padding * 5)
         
         NSLayoutConstraint.activate([
-            deliveryTypePickerButton.topAnchor.constraint(equalTo: countryPickerButton.bottomAnchor, constant: padding * 2),
+            deliveryTypeTopContraint,
             deliveryTypePickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             deliveryTypePickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             deliveryTypePickerButton.heightAnchor.constraint(equalTo: deliveryTypePickerButton.widthAnchor, multiplier: 0.3/2)
@@ -75,14 +80,22 @@ class FLCTransportParametersView: FLCCalculationView {
             destinationPickerButton.heightAnchor.constraint(equalTo: destinationPickerButton.widthAnchor, multiplier: 0.3/2)
         ])
     }
+    
+    func removeExtraTopPaddingBetweenFirstButtons() {
+        deliveryTypeTopContraint.constant = padding
+        UIView.animate(withDuration: 0.3) { self.layoutIfNeeded() }
+    }
 }
 
 extension FLCTransportParametersView: FLCPickerDelegate {
     func didSelectItem(pickedItem: String, triggerButton: FLCListPickerButton) {
         if triggerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
-        triggerButton.set(title: pickedItem)
-        triggerButton.titleLabel?.text = pickedItem
         
+        UIView.performWithoutAnimation {
+            triggerButton.set(title: pickedItem)
+            triggerButton.titleLabel?.text = pickedItem
+            triggerButton.layoutIfNeeded()
+        }
         delegate?.didSelectItem(triggerButton: triggerButton)
     }
     
