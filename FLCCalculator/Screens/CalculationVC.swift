@@ -132,7 +132,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories), in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
-            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.currencyOptions, triggerButton: button, listener: cargoView, in: self, size: 0.45)
+            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.currencyOptions, triggerButton: button, listener: cargoView, in: self)
             
         case transportView.countryPickerButton:
             CalculationUIHelper.presentSheetPickerVC(items: CalculationData.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
@@ -144,7 +144,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 return
             }
             let items: [FLCPickerItem] = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
-            CalculationUIHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self)
+            CalculationUIHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self, size: 0.45)
             
         case transportView.departurePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {

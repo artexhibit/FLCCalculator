@@ -10,7 +10,7 @@ struct CoreDataManager {
         do {
             return try context.fetch(request)
         } catch {
-            print(FLCError.unableToFetch)
+            print(FLCError.unableToFetchCategories)
             return nil
         }
     }
