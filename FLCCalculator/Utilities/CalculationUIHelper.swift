@@ -3,6 +3,22 @@ import UIKit
 struct CalculationUIHelper {
     private static var previousTitle = ""
     
+    static func checkIfFilledAll(textFields: [FLCNumberTextField]) -> Bool {
+        textFields.allSatisfy { !($0.text?.isEmpty ?? true) }
+    }
+    
+    static func makeRedAll(textFields: [FLCNumberTextField]) {
+        textFields.forEach { $0.text?.isEmpty ?? true ? $0.switchToRedColors() : nil }
+    }
+    
+    static func checkIfFilledAll(buttons: [FLCListPickerButton]) -> Bool {
+        buttons.allSatisfy { !($0.titleLabel?.text?.isEmpty ?? true) }
+    }
+    
+    static func makeRedAll(buttons: [FLCListPickerButton]) {
+        buttons.forEach { $0.titleLabel?.text?.isEmpty ?? true ? $0.switchToRedColors() : nil }
+    }
+    
     static func enableAll(buttons: [FLCListPickerButton]) {
         buttons.forEach {
             $0.setEnabled()
@@ -10,18 +26,22 @@ struct CalculationUIHelper {
         }
     }
     
-    static func getItems(basedOn button: FLCListPickerButton) -> [FLCPickerItem] {
-            guard let pickedCountryString = button.titleLabel?.text else { return [] }
-            let pickedOption = FLCCountryOption(rawValue: pickedCountryString)
-            
-            switch pickedOption {
-            case .china:
-                return CalculationData.chinaDeliveryTypes
-            case .turkey:
-                return CalculationData.turkeyDeliveryTypes
-            case nil:
-                return []
+    static func getItems<T: Hashable>(basedOn pickedCountry: FLCCountryOption, for button: FLCListPickerButton) -> [T] {
+        
+        switch pickedCountry {
+        case .china:
+            if button.smallLabelView.smallLabel.text == "Условия Поставки" {
+                return CalculationData.chinaDeliveryTypes as? [T] ?? []
+            } else {
+                return CalculationData.chinaLocations as? [T] ?? []
             }
+        case .turkey:
+            if button.smallLabelView.smallLabel.text == "Условия Поставки" {
+                return CalculationData.turkeyDeliveryTypes as? [T] ?? []
+            } else {
+                return CalculationData.turkeyLocations as? [T] ?? []
+            }
+        }
     }
     
     static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, type: FLCListPickerContentType, in viewController: UIViewController) {
@@ -31,35 +51,24 @@ struct CalculationUIHelper {
         viewController.present(navController, animated: true)
     }
     
-    static func presentSheetPickerVC(items: [FLCPickerItem], triggerButton: FLCListPickerButton, listener: FLCCalculationView, in viewController: UIViewController) {
+    static func presentSheetPickerVC(items: [FLCPickerItem], triggerButton: FLCListPickerButton, listener: FLCCalculationView, in viewController: UIViewController, size: CGFloat = 0.5) {
         let sheetPickerVC = FLCSheetPickerVC(items: items, triggerButton: triggerButton)
         sheetPickerVC.delegate = listener as? FLCPickerDelegate
         let navController = UINavigationController(rootViewController: sheetPickerVC)
-        guard let sheet = navController.sheetPresentationController else { return }
-        sheet.detents = [.medium()]
+        navController.sheetPresentationController?.getFLCSheetPresentationController(in: viewController.view, size: size)
         viewController.present(navController, animated: true)
     }
     
     static func confirmDataIsValid(in view: FLCCargoParametersView) -> Bool {
-        if UIHelper.checkIfFilledAll(textFields: view.flcTextFields) && UIHelper.checkIfFilledAll(buttons: view.flcListPickerButtons)  {
+        if checkIfFilledAll(textFields: view.flcTextFields) && checkIfFilledAll(buttons: view.flcListPickerButtons)  {
             return true
         } else {
-            UIHelper.makeRedAll(textFields: view.flcTextFields)
-            UIHelper.makeRedAll(buttons: view.flcListPickerButtons)
+            makeRedAll(textFields: view.flcTextFields)
+            makeRedAll(buttons: view.flcListPickerButtons)
             HapticManager.addErrorHaptic()
             FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля")
             return false
         }
-    }
-    
-    static func confirmCountryIsPicked(in view: FLCTransportParametersView, completion: @escaping (FLCCountryOption?) -> Void) {
-        guard view.countryPickerButton.titleLabel?.text == nil else {
-            let pickedCountry = FLCCountryOption(rawValue: view.countryPickerButton.titleLabel?.text ?? "")
-            completion(pickedCountry)
-            return
-        }
-        FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
-        completion(nil)
     }
     
     static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton) {

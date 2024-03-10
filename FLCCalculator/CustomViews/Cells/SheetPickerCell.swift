@@ -8,6 +8,8 @@ class SheetPickerCell: UITableViewCell {
     private let iconImageView = UIImageView()
     private let checkmarkImageView = UIImageView()
     private let padding: CGFloat = 12
+    private var iconImageViewWidthConstraint: NSLayoutConstraint!
+    private var iconImageViewLeadingConstraint: NSLayoutConstraint!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -22,6 +24,9 @@ class SheetPickerCell: UITableViewCell {
         self.title.text = pickerItem.title
         self.subtitle.text = pickerItem.subtitle
         self.iconImageView.image = pickerItem.image != nil ? pickerItem.image : nil
+        self.iconImageViewWidthConstraint.constant = pickerItem.image != nil ? 30 : 0.01
+        if subtitle.text == "" { self.iconImageViewWidthConstraint.constant = 25 }
+        self.iconImageViewLeadingConstraint.constant = pickerItem.image != nil ? padding * 2.5 : padding
         self.checkmarkImageView.image = title.text == buttonTitle ? UIImage(systemName: "checkmark") : nil
     }
     
@@ -37,11 +42,14 @@ class SheetPickerCell: UITableViewCell {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         iconImageView.contentMode = .scaleAspectFit
         
+        iconImageViewWidthConstraint = iconImageView.widthAnchor.constraint(equalToConstant: 30)
+        iconImageViewLeadingConstraint = iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2.5)
+        
         NSLayoutConstraint.activate([
-            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2.5),
+            iconImageViewLeadingConstraint,
             iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 30),
-            iconImageView.heightAnchor.constraint(equalToConstant: 30)
+            iconImageViewWidthConstraint,
+            iconImageView.heightAnchor.constraint(equalTo: iconImageView.widthAnchor)
         ])
     }
     
@@ -52,8 +60,8 @@ class SheetPickerCell: UITableViewCell {
         NSLayoutConstraint.activate([
             checkmarkImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 2.5),
             checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkmarkImageView.widthAnchor.constraint(equalToConstant: 20),
-            checkmarkImageView.heightAnchor.constraint(equalToConstant: 20)
+            checkmarkImageView.widthAnchor.constraint(equalToConstant: 25),
+            checkmarkImageView.heightAnchor.constraint(equalTo: checkmarkImageView.widthAnchor)
         ])
     }
     

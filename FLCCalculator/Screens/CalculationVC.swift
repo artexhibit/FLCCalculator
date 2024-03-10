@@ -109,21 +109,6 @@ class CalculationVC: UIViewController {
         }
         self.navigationController?.popViewController(animated: true)
     }
-    
-    private func handleTapForDeparturePickerButton(_ button: FLCListPickerButton) {
-        CalculationUIHelper.confirmCountryIsPicked(in: transportView) { [weak self] country in
-            guard let self = self else { return }
-            
-            switch country {
-            case .china:
-                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.chinaLocations), in: self)
-            case .turkey:
-                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(CalculationData.turkeyLocations), in: self)
-            case nil:
-                break
-            }
-        }
-    }
 }
 
 extension CalculationVC: FLCCalculationViewDelegate {
@@ -137,6 +122,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
     }
     
     func didTapListPickerButton(_ button: FLCListPickerButton) {
+        let pickedCountry = FLCCountryOption(rawValue: transportView.countryPickerButton.titleLabel?.text ?? "") ?? .china
+        
         if !button.inDisabledState { button.switchToOrangeColors() }
         view.endEditing(true)
         
@@ -145,25 +132,34 @@ extension CalculationVC: FLCCalculationViewDelegate {
             CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories), in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
-            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.currencyOptions, triggerButton: button, listener: cargoView, in: self)
+            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.currencyOptions, triggerButton: button, listener: cargoView, in: self, size: 0.45)
             
         case transportView.countryPickerButton:
-            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.countriesOptions, triggerButton: button, listener: transportView, in: self)
+            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
    
         case transportView.deliveryTypePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
                 return
             }
-            let items = CalculationUIHelper.getItems(basedOn: transportView.countryPickerButton)
+            let items: [FLCPickerItem] = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
             CalculationUIHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self)
             
         case transportView.departurePickerButton:
-            handleTapForDeparturePickerButton(button)
-        
+            guard !transportView.countryPickerButton.titleIsEmpty else {
+                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
+                return
+            }
+            
+            let items: [String] = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
+            CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(items), in: self)
+            
         case transportView.destinationPickerButton:
-            CalculationUIHelper.confirmCountryIsPicked(in: transportView) {_ in }
-        
+            guard !transportView.deliveryTypePickerButton.titleIsEmpty else {
+                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
+                return
+            }
+            
         default:
             break
         }
