@@ -1,10 +1,10 @@
 import UIKit
 
-class FLCListPickerVCDataSource: UITableViewDiffableDataSource<String, String> {
+class FLCListPickerVCDataSource: UITableViewDiffableDataSource<String, FLCPickerItem> {
     
     private var sections = [String]()
     
-    init(tableView: UITableView, sections: [String], cellProvider: @escaping UITableViewDiffableDataSource<String, String>.CellProvider) {
+    init(tableView: UITableView, sections: [String], cellProvider: @escaping UITableViewDiffableDataSource<String, FLCPickerItem>.CellProvider) {
         super.init(tableView: tableView, cellProvider: cellProvider)
         self.sections = sections
     }

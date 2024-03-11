@@ -16,9 +16,9 @@ class ListPickerCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(title: String, subtitle: String) {
-        self.title.text = title
-        self.subtitle.text = subtitle
+    func set(with item: FLCPickerItem) {
+        self.title.text = item.title
+        self.subtitle.text = item.subtitle
     }
     
     private func configure() {

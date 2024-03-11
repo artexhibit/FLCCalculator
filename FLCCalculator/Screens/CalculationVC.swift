@@ -129,7 +129,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case cargoView.cargoTypePickerButton:
-            CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, type: .withSubtitle(CalculationData.categories), in: self)
+            CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, items: CalculationData.categories, in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
             CalculationUIHelper.presentSheetPickerVC(items: CalculationData.currencyOptions, triggerButton: button, listener: cargoView, in: self)
@@ -143,7 +143,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
                 return
             }
-            let items: [FLCPickerItem] = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
+            let items = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
             CalculationUIHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self, size: 0.45)
             
         case transportView.departurePickerButton:
@@ -151,8 +151,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
                 return
             }
-            let items: [String] = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
-            CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, type: .onlyTitle(items), in: self)
+            let items = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
+            CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, in: self)
             
         case transportView.destinationPickerButton:
             guard !transportView.deliveryTypePickerButton.titleIsEmpty else {

@@ -4,17 +4,16 @@ class FLCListPickerVC: FLCPickerVC {
     
     private let searchController = UISearchController()
     private let tableView = UITableView()
-    private var dataSource: UITableViewDiffableDataSource<String, String>!
-    private var titlesToShow = [String]()
-    private var subtitlesToShow = [String]()
-    private var filteredTitles = [String]()
+    private var dataSource: UITableViewDiffableDataSource<String, FLCPickerItem>!
+    private var items = [FLCPickerItem]()
+    private var filteredItems = [FLCPickerItem]()
     private var sections = [String]()
         
-    init(from button: FLCListPickerButton, type: FLCListPickerContentType) {
+    init(from button: FLCListPickerButton, items: [FLCPickerItem]) {
         super.init(nibName: nil, bundle: nil)
         self.triggerButton = button
         self.title = triggerButton.smallLabelView.smallLabel.text ?? ""
-        self.set(according: type)
+        self.items = items
     }
     
     required init?(coder: NSCoder) {
@@ -25,8 +24,9 @@ class FLCListPickerVC: FLCPickerVC {
         super.viewDidLoad()
         configureSearchController()
         configureTableView()
+        configureInitialData()
         configureDataSource()
-        updateDataSource(with: titlesToShow)
+        updateDataSource(with: items)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,51 +62,28 @@ class FLCListPickerVC: FLCPickerVC {
     }
     
     private func configureDataSource() {
-        dataSource = FLCListPickerVCDataSource(tableView: tableView, sections: sections, cellProvider: { (tableView, indexPath, itemIdentifier) in
-            let cell = tableView.dequeueReusableCell(withIdentifier: ListPickerCell.reuseID, for: indexPath) as! ListPickerCell
-            guard let index = self.titlesToShow.firstIndex(of: itemIdentifier) else { return cell }
-            
-            cell.set(title: itemIdentifier, subtitle: self.subtitlesToShow[index])
+        dataSource = FLCListPickerVCDataSource(tableView: tableView, sections: sections, cellProvider: { (tableView, indexPath, listItem) in
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListPickerCell.reuseID, for: indexPath) as! ListPickerCell            
+            cell.set(with: listItem)
             return cell
         })
     }
     
-    private func updateDataSource(with titles: [String]) {
-        var snapshot = NSDiffableDataSourceSnapshot<String, String>()
+    private func updateDataSource(with itemsToShow: [FLCPickerItem]) {
+        var snapshot = NSDiffableDataSourceSnapshot<String, FLCPickerItem>()
         snapshot.appendSections(sections)
         
         for section in sections {
-            let items = titles.filter { $0.first?.description == section }
+            let items = itemsToShow.filter { $0.title.first?.description == section }
             snapshot.appendItems(items, toSection: section)
         }
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    private func set(according type: FLCListPickerContentType) {
-
-        switch type {
-        case .withSubtitle(let data):
-            configureDataSourceWithSubtitle(data: data)
-        case .onlyTitle(let data):
-            configureDataSourceWithTitle(data: data)
-        }
-    }
-    
-    private func configureDataSourceWithSubtitle(data: [(title: String, subtitle: String)]) {
-        var sortedData = data
-        sortedData.sort { $0.title < $1.title }
-        titlesToShow = sortedData.map { $0.title }
-        subtitlesToShow = sortedData.map { $0.subtitle }
-        sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
-    }
-    
-    private func configureDataSourceWithTitle(data: [String]) {
-        var sortedData = data
-        sortedData.sort { $0 < $1 }
-        titlesToShow = sortedData
-        subtitlesToShow = Array(repeating: "", count: titlesToShow.count)
-        sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
+    private func configureInitialData() {
+        items.sort { $0.title < $1.title }
+        sections = Array(Set(items.map { $0.title.first?.description ?? "" })).sorted()
     }
 }
 
@@ -115,7 +92,7 @@ extension FLCListPickerVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         searchController.dismiss(animated: true)
-        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath) ?? "", triggerButton: triggerButton)
+        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath)?.title ?? "", triggerButton: triggerButton)
         triggerButton.smallLabelView.moveUpSmallLabel()
         closeViewController()
     }
@@ -124,22 +101,13 @@ extension FLCListPickerVC: UITableViewDelegate {
 extension FLCListPickerVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else {
-            filteredTitles.removeAll()
-            sections = Array(Set(titlesToShow.map { $0.first?.description ?? "" })).sorted()
-            updateDataSource(with: titlesToShow)
+            filteredItems.removeAll()
+            sections = Array(Set(items.map { $0.title.first?.description ?? "" })).sorted()
+            updateDataSource(with: items)
             return
         }
-        filteredTitles = filterTitlesAndSubtitles(basedOn: filter).map { $0.0 }
-        sections = Array(Set(filteredTitles.map { $0.first?.description ?? "" })).sorted()
-        updateDataSource(with: filteredTitles)
-    }
-    
-    func filterTitlesAndSubtitles(basedOn filter: String) -> [(String, String)] {
-        let titlesAndSubtitles = zip(titlesToShow, subtitlesToShow).filter { titleAndSubtitle in
-            let (title, subtitle) = titleAndSubtitle
-            
-            return title.lowercased().contains(filter.lowercased()) || subtitle.lowercased().contains(filter.lowercased())
-        }
-        return titlesAndSubtitles
+        filteredItems = items.filter { $0.title.lowercased().contains(filter.lowercased()) || $0.subtitle.lowercased().contains(filter.lowercased()) }
+        sections = Array(Set(filteredItems.map { $0.title.first?.description ?? "" })).sorted()
+        updateDataSource(with: filteredItems)
     }
 }

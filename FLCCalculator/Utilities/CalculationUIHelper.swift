@@ -27,26 +27,26 @@ struct CalculationUIHelper {
         previousTitle = ""
     }
     
-    static func getItems<T: Hashable>(basedOn pickedCountry: FLCCountryOption, for button: FLCListPickerButton) -> [T] {
+    static func getItems(basedOn pickedCountry: FLCCountryOption, for button: FLCListPickerButton) -> [FLCPickerItem] {
         
         switch pickedCountry {
         case .china:
             if button.smallLabelView.smallLabel.text == "Условия Поставки" {
-                return CalculationData.chinaDeliveryTypes as? [T] ?? []
+                return CalculationData.chinaDeliveryTypes
             } else {
-                return CalculationData.chinaLocations as? [T] ?? []
+                return CalculationData.chinaLocations
             }
         case .turkey:
             if button.smallLabelView.smallLabel.text == "Условия Поставки" {
-                return CalculationData.turkeyDeliveryTypes as? [T] ?? []
+                return CalculationData.turkeyDeliveryTypes
             } else {
-                return CalculationData.turkeyLocations as? [T] ?? []
+                return CalculationData.turkeyLocations
             }
         }
     }
     
-    static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, type: FLCListPickerContentType, in viewController: UIViewController) {
-        let listPickerVC = FLCListPickerVC(from: button, type: type)
+    static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, items: [FLCPickerItem], in viewController: UIViewController) {
+        let listPickerVC = FLCListPickerVC(from: button, items: items)
         listPickerVC.delegate = listener as? any FLCPickerDelegate
         let navController = UINavigationController(rootViewController: listPickerVC)
         viewController.present(navController, animated: true)
