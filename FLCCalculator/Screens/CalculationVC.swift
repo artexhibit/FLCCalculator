@@ -103,6 +103,21 @@ class CalculationVC: UIViewController {
         UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
     }
     
+    private func getCities(target button: FLCListPickerButton) {
+        Task {
+            do {
+                let items = try await NetworkManager.shared.getPecCities()
+                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, in: self)
+                FLCPopupView.removePopupFromMainThread()
+            } catch  {
+                if let error = error as? URLError, error.code == .timedOut {
+                    FLCPopupView.showOnMainThread(systemImage: "exclamationmark.icloud", title: "Плохое соединение. Попробуйте позже", style: .error)
+                }
+                FLCPopupView.showOnMainThread(systemImage: "exclamationmark.icloud", title: "Ошибка при загрузке городов", style: .error)
+            }
+        }
+    }
+    
     @objc func closeButtonPressed() {
         if (leadingConstraint.constant == -(cargoView.frame.width)) {
             cargoView.removeFromSuperview()
@@ -159,14 +174,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
                 return
             }
-            Task {
-                do {
-                    let items = try await NetworkManager.shared.getPecCities()
-                    CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, in: self)
-                } catch  {
-                    FLCPopupView.showOnMainThread(systemImage: "exclamationmark.icloud", title: "Ошибка при загрузке городов")
-                }
-            }
+            FLCPopupView.showOnMainThread(title: "Загружаем города", style: .spinner)
+            getCities(target: button)
             
         default:
             break

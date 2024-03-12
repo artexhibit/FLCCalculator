@@ -4,6 +4,7 @@ class FLCPopupView: UIView {
     
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     private let iconView = UIImageView()
+    private let spinner = UIActivityIndicatorView(style: .medium)
     private let messageLabel = FLCSubtitleLabel(color: .red, textAlignment: .center)
     private let padding: CGFloat = 10
     private static var showingPopup: FLCPopupView?
@@ -13,6 +14,7 @@ class FLCPopupView: UIView {
         configure()
         configureBlurView()
         configureIconView()
+        configureSpinner()
         configureMessageLabel()
     }
     
@@ -32,7 +34,7 @@ class FLCPopupView: UIView {
     private func configureBlurView() {
         blurView.translatesAutoresizingMaskIntoConstraints = false
         blurView.pinToEdges(of: self)
-        blurView.contentView.addSubviews(iconView, messageLabel)
+        blurView.contentView.addSubviews(iconView, spinner, messageLabel)
     }
     
     private func configureIconView() {
@@ -47,11 +49,21 @@ class FLCPopupView: UIView {
         ])
     }
     
+    private func configureSpinner() {
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            spinner.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: padding + 5),
+            spinner.centerYAnchor.constraint(equalTo: blurView.centerYAnchor)
+        ])
+    }
+    
     private func configureMessageLabel() {
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: blurView.topAnchor, constant: padding * 1.5),
-            messageLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor),
-            messageLabel.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -padding),
+            messageLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: padding),
+            messageLabel.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -padding * 1.5),
             messageLabel.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant: -padding * 1.5)
         ])
     }
@@ -64,6 +76,11 @@ class FLCPopupView: UIView {
         case .normal:
             iconView.tintColor = .label
             messageLabel.textColor = .label
+        case .spinner:
+            messageLabel.textColor = .label
+            iconView.isHidden = true
+            spinner.isHidden = false
+            spinner.startAnimating()
         }
     }
     
@@ -84,11 +101,11 @@ class FLCPopupView: UIView {
         NSLayoutConstraint.activate([
             positionAnchor,
             centerXAnchor.constraint(equalTo: window.centerXAnchor),
-            widthAnchor.constraint(equalTo: window.widthAnchor, multiplier: 0.7)
+            widthAnchor.constraint(lessThanOrEqualTo: window.widthAnchor, multiplier: 0.9)
         ])
     }
     
-    static func showOnMainThread(systemImage: String, title: String, style: FLCPopupViewStyle = .normal, position: FLCPopupViewPosition = .bottom) {
+    static func showOnMainThread(systemImage: String = "xmark", title: String, style: FLCPopupViewStyle = .normal, position: FLCPopupViewPosition = .bottom) {
         DispatchQueue.main.async {
             guard let showingPopup = showingPopup else {
                 showNewPopup(systemImage: systemImage, title: title, style: style, position: position)
@@ -99,6 +116,16 @@ class FLCPopupView: UIView {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { showNewPopup(systemImage: systemImage, title: title, style: style, position: position) }
                 }
             }
+        }
+    }
+    
+    static func removePopupFromMainThread() {
+        DispatchQueue.main.async {
+            guard let currentPopup = self.showingPopup else { return }
+            
+            self.showingPopup?.spinner.stopAnimating()
+            FLCPopupView.remove(popup: currentPopup)
+            self.showingPopup = nil
         }
     }
     
@@ -113,7 +140,9 @@ class FLCPopupView: UIView {
         UIView.animate(withDuration: 0.3) {
             popup.layer.opacity = 1
         } completion: { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) { remove(popup: popup) }
+            if style != .spinner {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) { remove(popup: popup) }
+            }
         }
     }
     

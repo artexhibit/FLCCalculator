@@ -1,6 +1,6 @@
 import Foundation
 
-enum FLCPopupViewStyle { case error, normal }
+enum FLCPopupViewStyle { case error, normal, spinner }
 enum FLCPopupViewPosition { case top, bottom }
 enum ProgressViewOption { case increase, decrease }
 enum FLCListPickerSortType { case byTitle, bySubtitle }

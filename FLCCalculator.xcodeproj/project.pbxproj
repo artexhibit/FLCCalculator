@@ -349,7 +349,7 @@
 				0BF938882B84FD8900A18016 /* Labels */,
 				0BF9388D2B85194300A18016 /* Buttons */,
 				0B6F61202B86935600929613 /* TextFields */,
-				0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */,
+				0B86E92B2BA0D2290057A400 /* ProgressView */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -368,6 +368,14 @@
 				0B6F61182B86750000929613 /* FLCNumberTextField.swift */,
 			);
 			path = TextFields;
+			sourceTree = "<group>";
+		};
+		0B86E92B2BA0D2290057A400 /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */,
+			);
+			path = ProgressView;
 			sourceTree = "<group>";
 		};
 		0BD06AF72B8E64CE00942651 /* FLCListPickerVC */ = {
