@@ -8,12 +8,14 @@ class FLCListPickerVC: FLCPickerVC {
     private var items = [FLCPickerItem]()
     private var filteredItems = [FLCPickerItem]()
     private var sections = [String]()
+    private var sortType: FLCListPickerSortType = .byTitle
         
-    init(from button: FLCListPickerButton, items: [FLCPickerItem]) {
+    init(from button: FLCListPickerButton, items: [FLCPickerItem], sort sortType: FLCListPickerSortType) {
         super.init(nibName: nil, bundle: nil)
         self.triggerButton = button
         self.title = triggerButton.smallLabelView.smallLabel.text ?? ""
         self.items = items
+        self.sortType = sortType
     }
     
     required init?(coder: NSCoder) {
@@ -72,9 +74,18 @@ class FLCListPickerVC: FLCPickerVC {
     private func updateDataSource(with itemsToShow: [FLCPickerItem]) {
         var snapshot = NSDiffableDataSourceSnapshot<String, FLCPickerItem>()
         snapshot.appendSections(sections)
+        var items = [FLCPickerItem]()
         
         for section in sections {
-            let items = itemsToShow.filter { $0.title.first?.description == section }
+            
+            switch sortType {
+            case .byTitle:
+                items = itemsToShow.filter { $0.title.first?.description == section }
+            case .bySubtitle:
+                items = itemsToShow
+                    .filter { $0.subtitle.first?.description == section }
+                    .sorted { $0.subtitle < $1.subtitle }
+            }
             snapshot.appendItems(items, toSection: section)
         }
         
@@ -83,7 +94,17 @@ class FLCListPickerVC: FLCPickerVC {
     
     private func configureInitialData() {
         items.sort { $0.title < $1.title }
-        sections = Array(Set(items.map { $0.title.first?.description ?? "" })).sorted()
+        configureSections(with: items)
+    }
+    
+    private func configureSections(with items: [FLCPickerItem]) {
+        
+        switch sortType {
+        case .byTitle:
+            sections = Array(Set(items.map { $0.title.first?.description ?? "" })).sorted()
+        case .bySubtitle:
+            sections = Array(Set(items.map { $0.subtitle.first?.description ?? "" })).sorted()
+        }
     }
 }
 
@@ -102,12 +123,12 @@ extension FLCListPickerVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else {
             filteredItems.removeAll()
-            sections = Array(Set(items.map { $0.title.first?.description ?? "" })).sorted()
+            configureSections(with: items)
             updateDataSource(with: items)
             return
         }
         filteredItems = items.filter { $0.title.lowercased().contains(filter.lowercased()) || $0.subtitle.lowercased().contains(filter.lowercased()) }
-        sections = Array(Set(filteredItems.map { $0.title.first?.description ?? "" })).sorted()
+        configureSections(with: filteredItems)
         updateDataSource(with: filteredItems)
     }
 }

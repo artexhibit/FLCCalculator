@@ -159,6 +159,14 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
                 return
             }
+            Task {
+                do {
+                    let items = try await NetworkManager.shared.getPecCities()
+                    CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, in: self)
+                } catch  {
+                    FLCPopupView.showOnMainThread(systemImage: "exclamationmark.icloud", title: "Ошибка при загрузке городов")
+                }
+            }
             
         default:
             break

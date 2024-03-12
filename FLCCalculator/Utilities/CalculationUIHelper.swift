@@ -45,8 +45,8 @@ struct CalculationUIHelper {
         }
     }
     
-    static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, items: [FLCPickerItem], in viewController: UIViewController) {
-        let listPickerVC = FLCListPickerVC(from: button, items: items)
+    static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, items: [FLCPickerItem], sort: FLCListPickerSortType = .byTitle, in viewController: UIViewController) {
+        let listPickerVC = FLCListPickerVC(from: button, items: items, sort: sort)
         listPickerVC.delegate = listener as? any FLCPickerDelegate
         let navController = UINavigationController(rootViewController: listPickerVC)
         viewController.present(navController, animated: true)
