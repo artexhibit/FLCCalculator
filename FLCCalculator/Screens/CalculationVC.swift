@@ -98,8 +98,14 @@ class CalculationVC: UIViewController {
         ])
     }
     
-    private func showNextView() {
-        leadingConstraint.constant = -(cargoView.frame.width)
+    private func goToView(direction: FLCGoToViewDirections) {
+        
+        switch direction {
+        case .forward:
+            leadingConstraint.constant = -(cargoView.frame.width)
+        case .backward:
+            leadingConstraint.constant = 0
+        }
         UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
     }
     
@@ -128,13 +134,15 @@ class CalculationVC: UIViewController {
 
 extension CalculationVC: FLCCalculationViewDelegate {
     func didTapFLCButton(_ button: FLCButton) {
+        
         switch button {
         case cargoView.nextButton:
-            if CalculationUIHelper.confirmDataIsValid(in: cargoView) { showNextView() }
+            if CalculationUIHelper.confirmDataIsValid(in: cargoView) { goToView(direction: .forward) }
+            
         case transportView.calculateButton:
             if CalculationUIHelper.confirmDataIsValid(in: transportView) { }
-        default:
-            break
+            
+        default: break
         }
     }
     
@@ -183,8 +191,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             FLCPopupView.showOnMainThread(title: "Загружаем города", style: .spinner)
             getCities(target: button)
             
-        default:
-            break
+        default: break
         }
     }
     
@@ -205,8 +212,16 @@ extension CalculationVC: FLCCalculationViewDelegate {
             guard let progress = CalculationUIHelper.adjustProgressView(basedOn: transportView.destinationPickerButton, and: button) else { return }
             progressView.setProgress(progress)
 
-        default:
-            break
+        default: break
+        }
+    }
+    
+    func didTapFLCTextButton(_ button: FLCTextButton) {
+        
+        switch button {
+        case transportView.returnToPreviousViewButton: goToView(direction: .backward)
+            
+        default: break
         }
     }
     

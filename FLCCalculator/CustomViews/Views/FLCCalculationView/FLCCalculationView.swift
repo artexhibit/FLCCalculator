@@ -4,6 +4,7 @@ protocol FLCCalculationViewDelegate: AnyObject {
     func didEnterRequiredInfo()
     func didTapListPickerButton(_ button: FLCListPickerButton)
     func didTapFLCButton(_ button: FLCButton)
+    func didTapFLCTextButton(_ button: FLCTextButton)
     func didSelectItem(triggerButton button: FLCListPickerButton)
 }
 
@@ -35,7 +36,7 @@ class FLCCalculationView: UIView {
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding * 2),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
         ])
@@ -52,4 +53,8 @@ extension FLCCargoParametersView: FLCButtonDelegate {
 
 extension FLCTransportParametersView: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) { delegate?.didTapFLCButton(button) }
+}
+
+extension FLCTransportParametersView: FLCTextButtonDelegate {
+    func didTapButton(_ button: FLCTextButton) { delegate?.didTapFLCTextButton(button) }
 }

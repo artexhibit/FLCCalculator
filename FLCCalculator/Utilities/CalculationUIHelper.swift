@@ -85,7 +85,7 @@ struct CalculationUIHelper {
         button.setEnabled()
     }
     
-    static func adjustProgressView(basedOn destButton: FLCListPickerButton, and deliveryButton: FLCListPickerButton) -> ProgressViewOption? {
+    static func adjustProgressView(basedOn destButton: FLCListPickerButton, and deliveryButton: FLCListPickerButton) -> FLCProgressViewOption? {
         let destinationTitle = destButton.showingTitle
         let deliveryTitle = deliveryButton.showingTitle
         
