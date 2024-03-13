@@ -11,6 +11,10 @@ class FLCListPickerButton: UIButton {
     private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 10)
     var inDisabledState: Bool = false
     var titleIsEmpty: Bool { titleLabel?.text == nil ? true : false }
+    var showingTitle: String {
+        get { titleLabel?.text ?? "" }
+        set { titleLabel?.text = newValue }
+    }
     
     weak var delegate: FLCListPickerButtonDelegate?
     

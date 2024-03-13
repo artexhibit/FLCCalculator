@@ -12,11 +12,11 @@ struct CalculationUIHelper {
     }
     
     static func checkIfFilledAll(buttons: [FLCListPickerButton]) -> Bool {
-        buttons.allSatisfy { !($0.titleLabel?.text?.isEmpty ?? true) }
+        buttons.allSatisfy { !($0.showingTitle.isEmpty) }
     }
     
     static func makeRedAll(buttons: [FLCListPickerButton]) {
-        buttons.forEach { $0.titleLabel?.text?.isEmpty ?? true ? $0.switchToRedColors() : nil }
+        buttons.forEach { if $0.showingTitle.isEmpty && !$0.inDisabledState { $0.switchToRedColors() } }
     }
     
     static func enableAll(buttons: [FLCListPickerButton]) {
@@ -60,7 +60,7 @@ struct CalculationUIHelper {
         viewController.present(navController, animated: true)
     }
     
-    static func confirmDataIsValid(in view: FLCCargoParametersView) -> Bool {
+    static func confirmDataIsValid(in view: FLCCalculationView) -> Bool {
         if checkIfFilledAll(textFields: view.flcTextFields) && checkIfFilledAll(buttons: view.flcListPickerButtons)  {
             return true
         } else {
@@ -78,7 +78,7 @@ struct CalculationUIHelper {
         if text.contains(CalculationData.russianWarehouseCity) {
             button.smallLabelView.moveUpSmallLabel()
             button.setTitle(CalculationData.russianWarehouseCity, for: .normal)
-            button.titleLabel?.text = CalculationData.russianWarehouseCity
+            button.showingTitle = CalculationData.russianWarehouseCity
         } else {
             button.resetState()
         }
@@ -86,16 +86,16 @@ struct CalculationUIHelper {
     }
     
     static func adjustProgressView(basedOn destButton: FLCListPickerButton, and deliveryButton: FLCListPickerButton) -> ProgressViewOption? {
-        let destTitle = destButton.titleLabel?.text ?? ""
-        let deliveryTitle = deliveryButton.titleLabel?.text ?? ""
+        let destinationTitle = destButton.showingTitle
+        let deliveryTitle = deliveryButton.showingTitle
         
         if previousTitle.contains(CalculationData.russianWarehouseCity) && deliveryTitle.contains(CalculationData.russianWarehouseCity) { return nil }
         
         if deliveryTitle.contains(CalculationData.russianWarehouseCity) {
             previousTitle = deliveryTitle
-            return destTitle.contains(CalculationData.russianWarehouseCity) ? .increase : .decrease
+            return destinationTitle.contains(CalculationData.russianWarehouseCity) ? .increase : .decrease
         } else {
-            if previousTitle.contains(CalculationData.russianWarehouseCity) && destTitle == "" {
+            if previousTitle.contains(CalculationData.russianWarehouseCity) && destinationTitle == "" {
                 previousTitle = deliveryTitle
                 return .decrease
             }
@@ -107,7 +107,7 @@ struct CalculationUIHelper {
         var times: Float = 0
         
         view.listPickerButtonsWithTitle.forEach { if $0.value == true { times += 1 } }
-        view.listPickerButtons.forEach { view.listPickerButtonsWithTitle[$0] = false }
+        view.flcListPickerButtons.forEach { view.listPickerButtonsWithTitle[$0] = false }
         return times
     }
 }

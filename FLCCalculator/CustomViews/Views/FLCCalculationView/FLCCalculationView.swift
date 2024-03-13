@@ -11,6 +11,8 @@ class FLCCalculationView: UIView {
     
     let padding: CGFloat = 15
     let titleLabel = FLCTitleLabel(color: .label, textAlignment: .left)
+    var flcTextFields = [FLCNumberTextField]()
+    var flcListPickerButtons = [FLCListPickerButton]()
     
     weak var delegate: FLCCalculationViewDelegate?
     
@@ -45,5 +47,9 @@ extension FLCCalculationView: FLCListPickerButtonDelegate {
 }
 
 extension FLCCargoParametersView: FLCButtonDelegate {
+    func didTapButton(_ button: FLCButton) { delegate?.didTapFLCButton(button) }
+}
+
+extension FLCTransportParametersView: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) { delegate?.didTapFLCButton(button) }
 }

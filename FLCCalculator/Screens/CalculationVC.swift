@@ -131,13 +131,15 @@ extension CalculationVC: FLCCalculationViewDelegate {
         switch button {
         case cargoView.nextButton:
             if CalculationUIHelper.confirmDataIsValid(in: cargoView) { showNextView() }
+        case transportView.calculateButton:
+            if CalculationUIHelper.confirmDataIsValid(in: transportView) { }
         default:
             break
         }
     }
     
     func didTapListPickerButton(_ button: FLCListPickerButton) {
-        let pickedCountry = FLCCountryOption(rawValue: transportView.countryPickerButton.titleLabel?.text ?? "") ?? .china
+        let pickedCountry = FLCCountryOption(rawValue: transportView.countryPickerButton.showingTitle) ?? .china
         
         if !button.inDisabledState { button.switchToOrangeColors() }
         view.endEditing(true)
@@ -151,7 +153,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
         case transportView.countryPickerButton:
             CalculationUIHelper.presentSheetPickerVC(items: CalculationData.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
-            transportView.listPickerButtons.forEach { if !$0.titleIsEmpty { transportView.listPickerButtonsWithTitle[$0] = true } }
+            transportView.flcListPickerButtons.forEach { if !$0.titleIsEmpty { transportView.listPickerButtonsWithTitle[$0] = true } }
    
         case transportView.deliveryTypePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {
@@ -174,6 +176,10 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
                 return
             }
+            guard !transportView.deliveryTypePickerButton.showingTitle.contains(CalculationData.russianWarehouseCity) else {
+                FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на клиента")
+                return
+            }
             FLCPopupView.showOnMainThread(title: "Загружаем города", style: .spinner)
             getCities(target: button)
             
@@ -186,7 +192,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case transportView.countryPickerButton:
-            CalculationUIHelper.enableAll(buttons: transportView.listPickerButtons.dropLast())
+            CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
             
             if transportView.deliveryTypePickerButton.titleIsEmpty {
                 transportView.destinationPickerButton.resetState(disable: true)

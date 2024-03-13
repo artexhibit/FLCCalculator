@@ -13,8 +13,6 @@ class FLCCargoParametersView: FLCCalculationView {
     private let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     
-    var flcTextFields = [FLCNumberTextField]()
-    var flcListPickerButtons = [FLCListPickerButton]()
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
         

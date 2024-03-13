@@ -51,11 +51,13 @@
 		0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */; };
 		0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */; };
 		0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61182B86750000929613 /* FLCNumberTextField.swift */; };
+		0B7548FE2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7548FD2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift */; };
+		0B7549002BA1C9870029807B /* FLCListPickerVC + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */; };
 		0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */; };
 		0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */; };
 		0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A422B94C2C30058FC95 /* HapticManager.swift */; };
 		0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
-		0BD06AF62B8E647400942651 /* FLCListPickerVCDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVCDataSource.swift */; };
+		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
 		0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */; };
@@ -139,12 +141,14 @@
 		0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCargoParametersView.swift; sourceTree = "<group>"; };
 		0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTransportParametersView.swift; sourceTree = "<group>"; };
 		0B6F61182B86750000929613 /* FLCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCNumberTextField.swift; sourceTree = "<group>"; };
+		0B7548FD2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + SearchController.swift"; sourceTree = "<group>"; };
+		0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + Delegate.swift"; sourceTree = "<group>"; };
 		0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCProgressView.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
 		0B9D3A422B94C2C30058FC95 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		0BD06AF52B8E647400942651 /* FLCListPickerVCDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerVCDataSource.swift; sourceTree = "<group>"; };
+		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
 		0BD06AFA2B8E6A1B00942651 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCSmallLabelView.swift; sourceTree = "<group>"; };
@@ -382,7 +386,9 @@
 			isa = PBXGroup;
 			children = (
 				0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */,
-				0BD06AF52B8E647400942651 /* FLCListPickerVCDataSource.swift */,
+				0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */,
+				0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */,
+				0B7548FD2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift */,
 			);
 			path = FLCListPickerVC;
 			sourceTree = "<group>";
@@ -547,6 +553,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B7549002BA1C9870029807B /* FLCListPickerVC + Delegate.swift in Sources */,
 				0BF938872B84F8C200A18016 /* UIView+Ext.swift in Sources */,
 				0B33016F2B8D13FF00737A11 /* ListPickerCell.swift in Sources */,
 				0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */,
@@ -565,6 +572,7 @@
 				0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */,
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
 				0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */,
+				0B7548FE2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift in Sources */,
 				0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */,
@@ -581,7 +589,7 @@
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
 				0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */,
 				0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */,
-				0BD06AF62B8E647400942651 /* FLCListPickerVCDataSource.swift in Sources */,
+				0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */,
 				0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */,
 				0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */,
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,

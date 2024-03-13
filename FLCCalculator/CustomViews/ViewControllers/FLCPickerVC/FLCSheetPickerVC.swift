@@ -56,7 +56,7 @@ extension FLCSheetPickerVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SheetPickerCell.reuseID, for: indexPath) as! SheetPickerCell
-        cell.set(pickerItem: pickerItems[indexPath.row], buttonTitle: triggerButton.titleLabel?.text ?? "")
+        cell.set(pickerItem: pickerItems[indexPath.row], buttonTitle: triggerButton.showingTitle)
         if indexPath.row == pickerItems.count - 1 { cell.separatorInset.left = UIScreen.main.bounds.width }
         
         return cell

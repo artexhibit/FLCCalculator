@@ -403,5 +403,5 @@ struct CalculationData {
         FLCPickerItem(title: "FCA, Склад Стамбул - Склад Подольск", subtitle: "От склада в Стамбуле до склада FLC", image: nil)
     ]
     
-    static let russianWarehouseCity = "Подольск"
+    static let russianWarehouseCity = "Склад Подольск"
 }

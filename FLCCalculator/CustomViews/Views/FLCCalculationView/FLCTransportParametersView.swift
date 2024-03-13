@@ -6,8 +6,8 @@ class FLCTransportParametersView: FLCCalculationView {
     let deliveryTypePickerButton = FLCListPickerButton(placeholderText: "Условия Поставки")
     let departurePickerButton = FLCListPickerButton(placeholderText: "Пункт отправления")
     let destinationPickerButton = FLCListPickerButton(placeholderText: "Пункт назначения")
+    let calculateButton = FLCButton(color: .accent, title: "Рассчитать", systemImageName: "dollarsign.arrow.circlepath")
     
-    var listPickerButtons = [FLCListPickerButton]()
     var listPickerButtonsWithTitle = [FLCListPickerButton: Bool]()
     private var deliveryTypeTopContraint: NSLayoutConstraint!
 
@@ -19,6 +19,7 @@ class FLCTransportParametersView: FLCCalculationView {
         configureDeliveryTypePickerButton()
         configureDeparturePickerButton()
         configureDestinationPickerButton()
+        configureCalculateButton()
     }
     
     required init?(coder: NSCoder) {
@@ -26,9 +27,9 @@ class FLCTransportParametersView: FLCCalculationView {
     }
     
     private func configure() {
-        addSubviews(countryPickerButton, deliveryTypePickerButton, departurePickerButton, destinationPickerButton)
-        listPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton, destinationPickerButton])
-        listPickerButtons.forEach { listPickerButtonsWithTitle[$0] = false }
+        addSubviews(countryPickerButton, deliveryTypePickerButton, departurePickerButton, destinationPickerButton, calculateButton)
+        flcListPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton, destinationPickerButton])
+        flcListPickerButtons.forEach { listPickerButtonsWithTitle[$0] = false }
     }
     
     private func configureTitleLabel() { titleLabel.text = "Осталось заполнить параметры перевозки" }
@@ -81,9 +82,35 @@ class FLCTransportParametersView: FLCCalculationView {
         ])
     }
     
+    private func configureCalculateButton() {
+        calculateButton.delegate = self
+        
+        let widthConstraint = calculateButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9)
+        let heightConstraint = calculateButton.heightAnchor.constraint(equalTo: calculateButton.widthAnchor, multiplier: 1/2)
+        widthConstraint.priority = UILayoutPriority(rawValue: 999)
+        heightConstraint.priority = UILayoutPriority(rawValue: 999)
+        
+        NSLayoutConstraint.activate([
+            calculateButton.topAnchor.constraint(equalTo: destinationPickerButton.bottomAnchor, constant: padding * 5),
+            calculateButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
+            widthConstraint, heightConstraint,
+            
+            calculateButton.heightAnchor.constraint(lessThanOrEqualToConstant: 60),
+            calculateButton.widthAnchor.constraint(lessThanOrEqualToConstant: 450)
+        ])
+    }
+    
     func removeExtraTopPaddingBetweenFirstButtons() {
         deliveryTypeTopContraint.constant = padding
         UIView.animate(withDuration: 0.3) { self.layoutIfNeeded() }
+    }
+    
+    private func makeCalculationButtonActiveIfAllDataFilled() {
+        let allButtonsHaveTitles = flcListPickerButtons.allSatisfy { !$0.titleIsEmpty }
+        if allButtonsHaveTitles {
+            calculateButton.addShineEffect()
+            HapticManager.addSuccessHaptic()
+        }
     }
 }
 
@@ -93,9 +120,10 @@ extension FLCTransportParametersView: FLCPickerDelegate {
         
         UIView.performWithoutAnimation {
             triggerButton.set(title: pickedItem)
-            triggerButton.titleLabel?.text = pickedItem
+            triggerButton.showingTitle = pickedItem
             triggerButton.layoutIfNeeded()
         }
+        makeCalculationButtonActiveIfAllDataFilled()
         delegate?.didSelectItem(triggerButton: triggerButton)
     }
     
