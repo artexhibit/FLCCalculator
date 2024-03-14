@@ -50,7 +50,7 @@ class FLCCargoParametersView: FLCCalculationView {
         cargoTypePickerButton.delegate = self
         
         NSLayoutConstraint.activate([
-            cargoTypePickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 5),
+            cargoTypePickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3.5),
             cargoTypePickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             cargoTypePickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             cargoTypePickerButton.heightAnchor.constraint(equalTo: cargoTypePickerButton.widthAnchor, multiplier: 0.3/2)

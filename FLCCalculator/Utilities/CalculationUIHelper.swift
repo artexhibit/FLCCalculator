@@ -32,15 +32,15 @@ struct CalculationUIHelper {
         switch pickedCountry {
         case .china:
             if button.smallLabelView.smallLabel.text == "Условия Поставки" {
-                return CalculationData.chinaDeliveryTypes
+                return CalculationInfo.chinaDeliveryTypes
             } else {
-                return CalculationData.chinaLocations
+                return CalculationInfo.chinaLocations
             }
         case .turkey:
             if button.smallLabelView.smallLabel.text == "Условия Поставки" {
-                return CalculationData.turkeyDeliveryTypes
+                return CalculationInfo.turkeyDeliveryTypes
             } else {
-                return CalculationData.turkeyLocations
+                return CalculationInfo.turkeyLocations
             }
         }
     }
@@ -75,10 +75,10 @@ struct CalculationUIHelper {
     static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton) {
         guard let text = deliveryTypeButton.titleLabel?.text else { return }
       
-        if text.contains(CalculationData.russianWarehouseCity) {
+        if text.contains(CalculationInfo.russianWarehouseCity) {
             button.smallLabelView.moveUpSmallLabel()
-            button.setTitle(CalculationData.russianWarehouseCity, for: .normal)
-            button.showingTitle = CalculationData.russianWarehouseCity
+            button.setTitle(CalculationInfo.russianWarehouseCity, for: .normal)
+            button.showingTitle = CalculationInfo.russianWarehouseCity
         } else {
             button.resetState()
         }
@@ -89,13 +89,13 @@ struct CalculationUIHelper {
         let destinationTitle = destButton.showingTitle
         let deliveryTitle = deliveryButton.showingTitle
         
-        if previousTitle.contains(CalculationData.russianWarehouseCity) && deliveryTitle.contains(CalculationData.russianWarehouseCity) { return nil }
+        if previousTitle.contains(CalculationInfo.russianWarehouseCity) && deliveryTitle.contains(CalculationInfo.russianWarehouseCity) { return nil }
         
-        if deliveryTitle.contains(CalculationData.russianWarehouseCity) {
+        if deliveryTitle.contains(CalculationInfo.russianWarehouseCity) {
             previousTitle = deliveryTitle
-            return destinationTitle.contains(CalculationData.russianWarehouseCity) ? .increase : .decrease
+            return destinationTitle.contains(CalculationInfo.russianWarehouseCity) ? .increase : .decrease
         } else {
-            if previousTitle.contains(CalculationData.russianWarehouseCity) && destinationTitle == "" {
+            if previousTitle.contains(CalculationInfo.russianWarehouseCity) && destinationTitle == "" {
                 previousTitle = deliveryTitle
                 return .decrease
             }

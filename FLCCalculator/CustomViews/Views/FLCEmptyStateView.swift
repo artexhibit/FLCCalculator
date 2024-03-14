@@ -28,16 +28,13 @@ class FLCEmptyStateView: UIView {
     }
     
     private func configure() {
-        NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartAnimations))
         addSubviews(placeholderImage, titleLabel, subtitleLabel, actionButton)
         configurePlaceholderImage()
         configureTitleLable()
         configureSubtitleLabel()
         configureActionButton()
     }
-    
-    @objc private func restartAnimations() { actionButton.addShineEffect() }
-    
+        
     private func configurePlaceholderImage() {
         placeholderImage.image = UIImage(resource: .emptyStateView)
         placeholderImage.translatesAutoresizingMaskIntoConstraints = false

@@ -28,6 +28,11 @@ class FLCTransportParametersView: FLCCalculationView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        if newWindow != nil { calculateButton.addShineEffect() }
+    }
+    
     private func configure() {
         addSubviews(countryPickerButton, deliveryTypePickerButton, departurePickerButton, destinationPickerButton, calculateButton, returnToPreviousViewButton)
         flcListPickerButtons.append(contentsOf: [deliveryTypePickerButton, departurePickerButton, destinationPickerButton])
@@ -40,7 +45,7 @@ class FLCTransportParametersView: FLCCalculationView {
         countryPickerButton.delegate = self
         
         NSLayoutConstraint.activate([
-            countryPickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 5),
+            countryPickerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding * 3.5),
             countryPickerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             countryPickerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             countryPickerButton.heightAnchor.constraint(equalTo: countryPickerButton.widthAnchor, multiplier: 0.3/2)
@@ -116,11 +121,14 @@ class FLCTransportParametersView: FLCCalculationView {
         UIView.animate(withDuration: 0.3) { self.layoutIfNeeded() }
     }
     
-    private func makeCalculationButtonActiveIfAllDataFilled() {
+    private func configureCalculationButtonShineEffect() {
         let allButtonsHaveTitles = flcListPickerButtons.allSatisfy { !$0.titleIsEmpty }
+        
         if allButtonsHaveTitles {
             calculateButton.addShineEffect()
             HapticManager.addSuccessHaptic()
+        } else {
+            calculateButton.removeShineEffect()
         }
     }
 }
@@ -134,7 +142,7 @@ extension FLCTransportParametersView: FLCPickerDelegate {
             triggerButton.showingTitle = pickedItem
             triggerButton.layoutIfNeeded()
         }
-        makeCalculationButtonActiveIfAllDataFilled()
+        configureCalculationButtonShineEffect()
         delegate?.didSelectItem(triggerButton: triggerButton)
     }
     

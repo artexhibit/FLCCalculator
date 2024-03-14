@@ -86,11 +86,11 @@ class FLCListPickerButton: UIButton {
         setTitleColor(.accent, for: .normal)
     }
     
-    func resetState(disable: Bool = false) {
+    func resetState(isDisabled: Bool = false) {
         setTitle("", for: .normal)
         titleLabel?.text = nil
         smallLabelView.returnSmallLabelToIdentity()
-        if disable { setDisabled() }
+        if isDisabled { setDisabled() }
     }
     
     private func setButtonConfiguration() -> UIButton.Configuration {

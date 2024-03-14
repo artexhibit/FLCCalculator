@@ -5,12 +5,14 @@
         <attribute name="countryFrom" attributeType="String"/>
         <attribute name="countryTo" attributeType="String"/>
         <attribute name="deliveryType" attributeType="String"/>
+        <attribute name="deliveryTypeCode" attributeType="String"/>
         <attribute name="fromLocation" attributeType="String"/>
         <attribute name="goodsType" attributeType="String"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="logisticsType" attributeType="String"/>
         <attribute name="status" attributeType="String"/>
         <attribute name="toLocation" attributeType="String"/>
+        <attribute name="toLocationCode" attributeType="String"/>
         <attribute name="volume" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CalculationResult" inverseName="calculation" inverseEntity="CalculationResult"/>

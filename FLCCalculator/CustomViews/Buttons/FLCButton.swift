@@ -7,6 +7,7 @@ protocol FLCButtonDelegate: AnyObject {
 class FLCButton: UIButton {
     
     let gradientLayer = CAGradientLayer()
+    var isShining = false
     
     weak var delegate: FLCButtonDelegate?
 
@@ -36,8 +37,9 @@ class FLCButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         layer.addSublayer(gradientLayer)
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShineEffect))
     }
-    
+        
     final func set(color: UIColor, title: String, systemImageName: String) {
         configuration?.baseBackgroundColor = color
         configuration?.title = title
@@ -51,6 +53,8 @@ class FLCButton: UIButton {
         HapticManager.addHaptic(style: .light)
         delegate?.didTapButton(self)
     }
+    
+    @objc private func restartShineEffect() { if isShining { self.addShineEffect() } }
     
     func addShineEffect() {        
         gradientLayer.removeAnimation(forKey: "shineAnimation")
@@ -77,6 +81,17 @@ class FLCButton: UIButton {
         group.duration = 4.5
         group.repeatCount = .infinity
         
+        isShining = true
         gradientLayer.add(group, forKey: "shineAnimation")
+    }
+    
+    func removeShineEffect() {
+        gradientLayer.removeAnimation(forKey: "shineAnimation")
+        
+        gradientLayer.colors = nil
+        gradientLayer.locations = nil
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+        isShining = false
     }
 }

@@ -154,13 +154,13 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case cargoView.cargoTypePickerButton:
-            CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, items: CalculationData.categories, in: self)
+            CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, items: CalculationInfo.categories, in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
-            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.currencyOptions, triggerButton: button, listener: cargoView, in: self)
+            CalculationUIHelper.presentSheetPickerVC(items: CalculationInfo.currencyOptions, triggerButton: button, listener: cargoView, in: self)
             
         case transportView.countryPickerButton:
-            CalculationUIHelper.presentSheetPickerVC(items: CalculationData.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
+            CalculationUIHelper.presentSheetPickerVC(items: CalculationInfo.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
             transportView.flcListPickerButtons.forEach { if !$0.titleIsEmpty { transportView.listPickerButtonsWithTitle[$0] = true } }
    
         case transportView.deliveryTypePickerButton:
@@ -184,7 +184,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
                 return
             }
-            guard !transportView.deliveryTypePickerButton.showingTitle.contains(CalculationData.russianWarehouseCity) else {
+            guard !transportView.deliveryTypePickerButton.showingTitle.contains(CalculationInfo.russianWarehouseCity) else {
                 FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на клиента")
                 return
             }
@@ -202,10 +202,11 @@ extension CalculationVC: FLCCalculationViewDelegate {
             CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
             
             if transportView.deliveryTypePickerButton.titleIsEmpty {
-                transportView.destinationPickerButton.resetState(disable: true)
+                transportView.destinationPickerButton.resetState(isDisabled: true)
             }
             progressView.setProgress(.decrease, times: CalculationUIHelper.adjustProgressView(in: transportView))
             transportView.removeExtraTopPaddingBetweenFirstButtons()
+            transportView.calculateButton.removeShineEffect()
             
         case transportView.deliveryTypePickerButton:
             CalculationUIHelper.setupDestinationButtonTitle(transportView.destinationPickerButton, basedOn: button)
