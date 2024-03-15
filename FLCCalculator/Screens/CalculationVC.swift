@@ -136,7 +136,8 @@ class CalculationVC: UIViewController {
             toLocationCode: pickedDestinationCode,
             goodsType: cargoView.cargoTypePickerButton.showingTitle,
             volume: cargoView.volumeTextField.text?.createDouble() ?? 0.0,
-            weight: cargoView.weightTextField.text?.createDouble() ?? 0.0)
+            weight: cargoView.weightTextField.text?.createDouble() ?? 0.0, 
+            needCustomClearance: cargoView.customsClearanceSwitch.isOn)
         return calcData
     }
     

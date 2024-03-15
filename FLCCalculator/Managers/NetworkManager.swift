@@ -4,6 +4,8 @@ import CoreData
 class NetworkManager {
     static let shared = NetworkManager()
     
+    let delivery = "http://calc.pecom.ru/bitrix/components/pecom/calc/ajax.php?places[0][0]=1&places[0][1]=1&places[0][2]=1&places[0][3]=2&places[0][4]=900&places[0][5]=0&places[0][6]=0&take[town]=249780&deliver[town]=-477"
+    
     func getPecCities() async throws -> [FLCPickerItem] {
         let pecCitiesEndpoint = "https://pecom.ru/ru/calc/towns.php"
         

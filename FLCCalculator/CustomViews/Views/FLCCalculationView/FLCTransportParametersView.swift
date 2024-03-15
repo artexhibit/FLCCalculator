@@ -30,7 +30,7 @@ class FLCTransportParametersView: FLCCalculationView {
     
     override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: newWindow)
-        if newWindow != nil { calculateButton.addShineEffect() }
+        if newWindow != nil { if calculateButton.isShining { calculateButton.addShineEffect() } }
     }
     
     private func configure() {

@@ -9,8 +9,9 @@ class FLCCargoParametersView: FLCCalculationView {
     let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
     private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
+    private let tintedView = FLCTintedView(color: .accent)
     private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
-    private let customsClearanceSwitch = UISwitch()
+    let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     
     var filledTextFileds = [UITextField: Bool]()
@@ -24,6 +25,7 @@ class FLCCargoParametersView: FLCCalculationView {
         configureCargoTypePickerButton()
         configureInvoiceAmountTextField()
         configureInvoiceCurrencyPickerButton()
+        configureTintedView()
         configureCustomsClearanceLabel()
         configureCustomsClearanceSwitch()
         configureNextButton()
@@ -34,7 +36,7 @@ class FLCCargoParametersView: FLCCalculationView {
     }
     
     private func configure() {
-        addSubviews(cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, customsClearanceLabel, customsClearanceSwitch, nextButton)
+        addSubviews(cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, tintedView, nextButton)
         
         flcTextFields.append(contentsOf: [weightTextField, volumeTextField, invoiceAmountTextField])
         flcListPickerButtons.append(contentsOf: [cargoTypePickerButton, invoiceCurrencyPickerButton])
@@ -98,13 +100,24 @@ class FLCCargoParametersView: FLCCalculationView {
         ])
     }
     
+    private func configureTintedView() {
+        tintedView.addSubviews(customsClearanceLabel, customsClearanceSwitch)
+        
+        NSLayoutConstraint.activate([
+            tintedView.topAnchor.constraint(equalTo: invoiceAmountTextField.bottomAnchor, constant: padding * 1.5),
+            tintedView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            tintedView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding)
+        ])
+    }
+    
     private func configureCustomsClearanceLabel() {
         customsClearanceLabel.text = "Нужно таможенное оформление (подача ДТ, ЭЦП)"
         
         NSLayoutConstraint.activate([
-            customsClearanceLabel.topAnchor.constraint(equalTo: invoiceAmountTextField.bottomAnchor, constant: padding),
-            customsClearanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding * 1.5),
-            customsClearanceLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7),
+            customsClearanceLabel.topAnchor.constraint(equalTo: tintedView.topAnchor, constant: padding),
+            customsClearanceLabel.leadingAnchor.constraint(equalTo: tintedView.leadingAnchor, constant: padding * 1.5),
+            customsClearanceLabel.widthAnchor.constraint(equalTo: tintedView.widthAnchor, multiplier: 0.7),
+            customsClearanceLabel.bottomAnchor.constraint(equalTo: tintedView.bottomAnchor, constant: -padding)
         ])
     }
     
@@ -116,7 +129,7 @@ class FLCCargoParametersView: FLCCalculationView {
         
         NSLayoutConstraint.activate([
             customsClearanceSwitch.centerYAnchor.constraint(equalTo: customsClearanceLabel.centerYAnchor),
-            customsClearanceSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding * 1.5)
+            customsClearanceSwitch.trailingAnchor.constraint(equalTo: tintedView.trailingAnchor, constant: -padding * 1.5)
         ])
     }
     
@@ -129,7 +142,7 @@ class FLCCargoParametersView: FLCCalculationView {
         heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
-            nextButton.topAnchor.constraint(equalTo: customsClearanceLabel.bottomAnchor, constant: padding * 4),
+            nextButton.topAnchor.constraint(equalTo: tintedView.bottomAnchor, constant: padding * 4),
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
             widthConstraint, heightConstraint,
             

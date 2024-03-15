@@ -10,6 +10,7 @@
 		0B2002B12B9DCE7B00B8DF5C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
 		0B2002B42B9E0D5100B8DF5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
+		0B2130622BA4B51E00A30394 /* FLCTintedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2130612BA4B51E00A30394 /* FLCTintedView.swift */; };
 		0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */; };
 		0B32F16C2B93477D004BAB46 /* FLCPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */; };
 		0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */; };
@@ -114,6 +115,7 @@
 /* Begin PBXFileReference section */
 		0B2002B02B9DCE7B00B8DF5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		0B2130612BA4B51E00A30394 /* FLCTintedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTintedView.swift; sourceTree = "<group>"; };
 		0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerItem.swift; sourceTree = "<group>"; };
 		0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCalculationView.swift; sourceTree = "<group>"; };
 		0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerCell.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 				0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */,
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
+				0B2130612BA4B51E00A30394 /* FLCTintedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */,
 				0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */,
 				0BFBD7432BA37E2B00B485B8 /* CalculationResultVC.swift in Sources */,
+				0B2130622BA4B51E00A30394 /* FLCTintedView.swift in Sources */,
 				0BFBD7402BA37B9F00B485B8 /* CalculationData.swift in Sources */,
 				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
 				0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */,

@@ -12,4 +12,5 @@ struct CalculationData {
     let goodsType: String
     let volume: Double
     let weight: Double
+    let needCustomClearance: Bool
 }
