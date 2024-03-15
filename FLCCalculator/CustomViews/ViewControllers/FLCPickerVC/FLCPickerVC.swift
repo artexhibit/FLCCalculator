@@ -1,7 +1,7 @@
 import UIKit
 
 protocol FLCPickerDelegate: AnyObject {
-    func didSelectItem(pickedItem: String, triggerButton: FLCListPickerButton)
+    func didSelectItem(pickedItem: FLCPickerItem, triggerButton: FLCListPickerButton)
     func didClosePickerView(parentButton: FLCListPickerButton)
 }
 

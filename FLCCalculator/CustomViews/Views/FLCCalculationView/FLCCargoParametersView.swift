@@ -5,8 +5,8 @@ class FLCCargoParametersView: FLCCalculationView {
     private let stackView = UIStackView()
     
     let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
-    private let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
-    private let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
+    let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
+    let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
     private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
@@ -206,11 +206,11 @@ extension FLCCargoParametersView: UITextFieldDelegate {
 }
 
 extension FLCCargoParametersView: FLCPickerDelegate {
-    func didSelectItem(pickedItem: String, triggerButton: FLCListPickerButton) {
+    func didSelectItem(pickedItem: FLCPickerItem, triggerButton: FLCListPickerButton) {
         if triggerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
-        triggerButton.set(title: pickedItem)
+        triggerButton.set(title: pickedItem.title)
         
-        delegate?.didSelectItem(triggerButton: triggerButton)
+        delegate?.didSelectItem(pickedItem: pickedItem, triggerButton: triggerButton)
     }
     
     func didClosePickerView(parentButton: FLCListPickerButton) {}

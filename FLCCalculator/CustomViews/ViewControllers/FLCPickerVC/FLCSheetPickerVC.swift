@@ -43,7 +43,7 @@ class FLCSheetPickerVC: FLCPickerVC {
 extension FLCSheetPickerVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.didSelectItem(pickedItem: pickerItems[indexPath.row].title, triggerButton: triggerButton)
+        delegate?.didSelectItem(pickedItem: pickerItems[indexPath.row], triggerButton: triggerButton)
         triggerButton.smallLabelView.moveUpSmallLabel()
         closeViewController()
     }

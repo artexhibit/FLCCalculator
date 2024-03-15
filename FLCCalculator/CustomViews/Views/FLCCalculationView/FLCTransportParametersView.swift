@@ -134,16 +134,16 @@ class FLCTransportParametersView: FLCCalculationView {
 }
 
 extension FLCTransportParametersView: FLCPickerDelegate {
-    func didSelectItem(pickedItem: String, triggerButton: FLCListPickerButton) {
+    func didSelectItem(pickedItem: FLCPickerItem, triggerButton: FLCListPickerButton) {
         if triggerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
         
         UIView.performWithoutAnimation {
-            triggerButton.set(title: pickedItem)
-            triggerButton.showingTitle = pickedItem
+            triggerButton.set(title: pickedItem.title)
+            triggerButton.showingTitle = pickedItem.title
             triggerButton.layoutIfNeeded()
         }
         configureCalculationButtonShineEffect()
-        delegate?.didSelectItem(triggerButton: triggerButton)
+        delegate?.didSelectItem(pickedItem: pickedItem, triggerButton: triggerButton)
     }
     
     func didClosePickerView(parentButton: FLCListPickerButton) {}

@@ -8,7 +8,8 @@ class CalculationVC: UIViewController {
     let cargoView = FLCCargoParametersView()
     let transportView = FLCTransportParametersView()
     
-    var leadingConstraint: NSLayoutConstraint!
+    private var pickedDestinationCode: String = ""
+    private var leadingConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,15 +99,15 @@ class CalculationVC: UIViewController {
         ])
     }
     
-    private func goToView(direction: FLCGoToViewDirections) {
+    private func moveView(direction: FLCGoToViewDirections, times: CGFloat = 1, duration: Double = 0.3) {
         
         switch direction {
         case .forward:
-            leadingConstraint.constant = -(cargoView.frame.width)
+            leadingConstraint.constant = -(cargoView.frame.width * times)
         case .backward:
             leadingConstraint.constant = 0
         }
-        UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
+        UIView.animate(withDuration: duration) { self.view.layoutIfNeeded() }
     }
     
     private func getCities(target button: FLCListPickerButton) {
@@ -124,6 +125,21 @@ class CalculationVC: UIViewController {
         }
     }
     
+    private func getCalculationData() -> CalculationData {
+        let calcData = CalculationData(
+            countryFrom: transportView.countryPickerButton.showingTitle,
+            countryTo: "Россия",
+            deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(3),
+            deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3),
+            fromLocation: transportView.departurePickerButton.showingTitle,
+            toLocation: transportView.destinationPickerButton.showingTitle,
+            toLocationCode: pickedDestinationCode,
+            goodsType: cargoView.cargoTypePickerButton.showingTitle,
+            volume: cargoView.volumeTextField.text?.createDouble() ?? 0.0,
+            weight: cargoView.weightTextField.text?.createDouble() ?? 0.0)
+        return calcData
+    }
+    
     @objc func closeButtonPressed() {
         if (leadingConstraint.constant == -(cargoView.frame.width)) {
             cargoView.removeFromSuperview()
@@ -137,10 +153,16 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case cargoView.nextButton:
-            if CalculationUIHelper.confirmDataIsValid(in: cargoView) { goToView(direction: .forward) }
+            if CalculationUIHelper.confirmDataIsValid(in: cargoView) { moveView(direction: .forward) }
             
         case transportView.calculateButton:
-            if CalculationUIHelper.confirmDataIsValid(in: transportView) { }
+            if CalculationUIHelper.confirmDataIsValid(in: transportView) {
+                let calculationResultVC = CalculationResultVC()
+                calculationResultVC.calculationData = getCalculationData()
+                navigationController?.pushViewController(calculationResultVC, animated: true)
+                moveView(direction: .forward, times: 2, duration: 0.25)
+                navigationController?.removeVCFromStack(numberInStack: 2)
+            }
             
         default: break
         }
@@ -195,7 +217,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
         }
     }
     
-    func didSelectItem(triggerButton button: FLCListPickerButton) {
+    func didSelectItem(pickedItem: FLCPickerItem, triggerButton button: FLCListPickerButton) {
+        pickedDestinationCode = pickedItem.id
         
         switch button {
         case transportView.countryPickerButton:
@@ -220,7 +243,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
     func didTapFLCTextButton(_ button: FLCTextButton) {
         
         switch button {
-        case transportView.returnToPreviousViewButton: goToView(direction: .backward)
+        case transportView.returnToPreviousViewButton: moveView(direction: .backward)
             
         default: break
         }

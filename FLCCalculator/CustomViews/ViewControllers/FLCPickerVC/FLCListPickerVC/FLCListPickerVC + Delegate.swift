@@ -5,7 +5,9 @@ extension FLCListPickerVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         searchController.dismiss(animated: true)
-        delegate?.didSelectItem(pickedItem: dataSource.itemIdentifier(for: indexPath)?.title ?? "", triggerButton: triggerButton)
+        
+        guard let pickedItem = dataSource.itemIdentifier(for: indexPath) else { return }
+        delegate?.didSelectItem(pickedItem: pickedItem, triggerButton: triggerButton)
         triggerButton.smallLabelView.moveUpSmallLabel()
         closeViewController()
     }

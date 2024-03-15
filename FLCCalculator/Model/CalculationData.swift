@@ -10,7 +10,6 @@ struct CalculationData {
     let toLocation: String
     let toLocationCode: String
     let goodsType: String
-    let logisticsType: String
     let volume: Double
     let weight: Double
 }
