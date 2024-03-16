@@ -6,7 +6,7 @@ extension UIView {
         for view in views { addSubview(view) }
     }
     
-    func pinToEdges(of superview: UIView, with padding: CGFloat = 0) {
+    func pinToEdges(of superview: UIView, withPadding padding: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

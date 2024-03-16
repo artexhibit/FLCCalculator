@@ -3,12 +3,10 @@ import CoreData
 
 class CalculationsVC: UIViewController {
     
-    enum Section { case main }
-    
     private let tableView = UITableView()
     private var emptyStateView = FLCEmptyStateView()
     private var calculations: [Calculation] = []
-    private var dataSource: UITableViewDiffableDataSource<Section, Calculation>!
+    private var dataSource: UITableViewDiffableDataSource<FLCSection, Calculation>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +27,7 @@ class CalculationsVC: UIViewController {
         tabBarController?.tabBar.isHidden = false
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
-        navigationItem.rightBarButtonItem = addButton
+        if navigationItem.rightBarButtonItem != nil { navigationItem.rightBarButtonItem = addButton }
     }
     
     @objc func addButtonPressed() {
@@ -56,7 +54,7 @@ class CalculationsVC: UIViewController {
     }
     
     private func updateDataSource(on calculations: [Calculation]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Calculation>()
+        var snapshot = NSDiffableDataSourceSnapshot<FLCSection, Calculation>()
         snapshot.appendSections([.main])
         snapshot.appendItems(calculations)
         

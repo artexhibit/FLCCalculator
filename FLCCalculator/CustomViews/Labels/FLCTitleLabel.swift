@@ -11,14 +11,14 @@ class FLCTitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, textAlignment: NSTextAlignment) {
+    convenience init(color: UIColor, textAlignment: NSTextAlignment, size: CGFloat = 24) {
         self.init(frame: .zero)
         self.textColor = color
         self.textAlignment = textAlignment
+        self.font = UIFont.systemFont(ofSize: size, weight: .bold)
     }
     
     private func configure() {
-        font = UIFont.systemFont(ofSize: 24, weight: .bold)
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.7
         numberOfLines = 0
