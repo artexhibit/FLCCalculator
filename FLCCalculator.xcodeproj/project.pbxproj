@@ -26,6 +26,11 @@
 		0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FD42B82546D00498ACE /* CalculationCell.swift */; };
+		0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
+		0B60E35B2BA6ED720008000B /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
+		0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double + Ext.swift */; };
+		0B60E35E2BA70F810008000B /* Double + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double + Ext.swift */; };
+		0B60E35F2BA73AFB0008000B /* CalculationResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */; };
 		0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */; };
 		0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54272B810BA00078C110 /* AppDelegate.swift */; };
 		0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54292B810BA00078C110 /* SceneDelegate.swift */; };
@@ -128,6 +133,8 @@
 		0B419FCB2B82464000498ACE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		0B419FCF2B824BED00498ACE /* CalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationView.swift; sourceTree = "<group>"; };
 		0B419FD42B82546D00498ACE /* CalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
+		0B60E3592BA6ED720008000B /* RussianDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianDelivery.swift; sourceTree = "<group>"; };
+		0B60E35C2BA70F810008000B /* Double + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Ext.swift"; sourceTree = "<group>"; };
 		0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerButton.swift; sourceTree = "<group>"; };
 		0B6E54242B810BA00078C110 /* FLCCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLCCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6E54272B810BA00078C110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -332,6 +339,7 @@
 				0BFBD7442BA38B3400B485B8 /* UINavigationController + Ext.swift */,
 				0BFBD7462BA38FEC00B485B8 /* String+Ext.swift */,
 				0BDCE6F82BA59FB30043AB64 /* UIViewController + Ext.swift */,
+				0B60E35C2BA70F810008000B /* Double + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -366,6 +374,7 @@
 				0B6E54712B81228A0078C110 /* CalculationInfo.swift */,
 				0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */,
 				0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */,
+				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -615,6 +624,7 @@
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
+				0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */,
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
 				0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */,
 				0BFBD7452BA38B3500B485B8 /* UINavigationController + Ext.swift in Sources */,
@@ -629,6 +639,7 @@
 				0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */,
 				0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */,
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
+				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,
 				0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */,
 				0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */,
@@ -652,7 +663,10 @@
 				0BFBD7412BA37B9F00B485B8 /* CalculationData.swift in Sources */,
 				0B6E54732B81228A0078C110 /* CalculationInfo.swift in Sources */,
 				0B6E54622B811B700078C110 /* Persistence.swift in Sources */,
+				0B60E35F2BA73AFB0008000B /* CalculationResultItem.swift in Sources */,
+				0B60E35B2BA6ED720008000B /* RussianDelivery.swift in Sources */,
 				0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */,
+				0B60E35E2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B419FC92B82451600498ACE /* FLCError.swift in Sources */,
 				0B419FCD2B82464000498ACE /* UITableView+Ext.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,

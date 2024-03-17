@@ -6,4 +6,5 @@ enum FLCError: String, Error {
     case invalidResponce = "Invalid responce from the server"
     case decodingError = "Error decoding data"
     case unableToDownload = "Can't download data"
+    case invalidData = "The data received from the server was invalid"
 }

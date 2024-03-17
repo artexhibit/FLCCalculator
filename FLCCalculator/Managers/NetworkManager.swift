@@ -3,8 +3,23 @@ import CoreData
 
 class NetworkManager {
     static let shared = NetworkManager()
-    
-    let delivery = "http://calc.pecom.ru/bitrix/components/pecom/calc/ajax.php?places[0][0]=1&places[0][1]=1&places[0][2]=1&places[0][3]=2&places[0][4]=900&places[0][5]=0&places[0][6]=0&take[town]=249780&deliver[town]=-477"
+    private let decoder = JSONDecoder()
+        
+    func getRussianDelivery(for item: CalculationResultItem) async throws -> RussianDelivery {
+        let endPoint = "https://calc.pecom.ru/bitrix/components/pecom/calc/ajax.php?places[0][0]=1&places[0][1]=1&places[0][2]=1&places[0][3]=\(item.calculationData.volume)&places[0][4]=\(item.calculationData.weight)&places[0][5]=0&places[0][6]=0&take[town]=249780&deliver[town]=\(item.calculationData.toLocationCode)"
+        
+        guard let url = URL(string: endPoint) else { throw FLCError.invalidEndpoint }
+        
+        let (data, responce) = try await URLSession.shared.data(from: url)
+  
+        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
+   
+        do {
+            return try decoder.decode(RussianDelivery.self, from: data)
+        } catch  {
+            throw FLCError.invalidData
+        }
+    }
     
     func getPecCities() async throws -> [FLCPickerItem] {
         let pecCitiesEndpoint = "https://pecom.ru/ru/calc/towns.php"

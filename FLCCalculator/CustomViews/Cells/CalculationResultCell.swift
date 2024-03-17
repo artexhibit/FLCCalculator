@@ -9,11 +9,11 @@ class CalculationResultCell: UITableViewCell {
     
     private let title = FLCTitleLabel(color: .label, textAlignment: .left, size: 23)
     private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
-    private let daysLabel = FLCTitleLabel(color: .gray, textAlignment: .right, size: 16)
-    private let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 20)
+    private let daysLabel = FLCTitleLabel(color: .lightGray, textAlignment: .right, size: 19)
+    private let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     
     private let padding: CGFloat = 20
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -30,10 +30,24 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func set(with item: CalculationResultItem) {
+        addShimmerAnimation()
+        
         self.title.text = item.title
         self.subtitle.text = item.subtitle
-        self.priceLabel.text = item.price
-        self.daysLabel.text = item.daysAmount
+        
+        switch item.type {
+        case .russianDelivery:
+            Task {
+                do {
+                    let data = try await NetworkManager.shared.getRussianDelivery(for: item)
+                    let price = data.getPrice().add(markup: .russianDelivery).formatIntoCurrency(symbol: .rub)
+                    
+                    priceLabel.text = price
+                    daysLabel.text = "дней: \(data.getDays() ?? "?")"
+                    removeShimmerAnimation()
+                }
+            }
+        }
     }
     
     private func configure() {
@@ -45,13 +59,6 @@ class CalculationResultCell: UITableViewCell {
         configureDaysLabel()
         configurePriceLabel()
         configureGradient()
-        addShimmerAnimation()
-    }
-    
-    func updateData(with item: CalculationResultItem) {
-        self.priceLabel.text = item.price
-        self.daysLabel.text = item.daysAmount
-        removeShimmerAnimation()
     }
     
     private func configureContainerView() {
@@ -77,7 +84,7 @@ class CalculationResultCell: UITableViewCell {
         NSLayoutConstraint.activate([
             subtitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
             subtitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            subtitle.bottomAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: -padding)
+            subtitle.bottomAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: -padding * 1.5)
         ])
     }
     
@@ -85,7 +92,8 @@ class CalculationResultCell: UITableViewCell {
         NSLayoutConstraint.activate([
             daysLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
             daysLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            daysLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.1)
+            daysLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.1),
+            daysLabel.heightAnchor.constraint(equalToConstant: 21)
         ])
     }
     
@@ -93,6 +101,7 @@ class CalculationResultCell: UITableViewCell {
         NSLayoutConstraint.activate([
             priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
             priceLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5),
+            priceLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
     
@@ -109,7 +118,7 @@ class CalculationResultCell: UITableViewCell {
         ]
     }
     
-    func addShimmerAnimation() {
+    private func addShimmerAnimation() {
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = [-0.7, -0.5, -0.3]
         animation.toValue = [1.3, 1.5, 1.7]
@@ -127,7 +136,7 @@ class CalculationResultCell: UITableViewCell {
         gradientLayer.add(group, forKey: "shimmer")
     }
     
-    func removeShimmerAnimation() {
+    private func removeShimmerAnimation() {
         gradientLayer.removeAnimation(forKey: "shimmer")
         
         gradientLayer.colors = nil

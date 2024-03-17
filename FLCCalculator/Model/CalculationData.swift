@@ -1,6 +1,6 @@
 import Foundation
 
-struct CalculationData {
+struct CalculationData: Hashable {
     let calculationDate: String = Date().formatted(date: .numeric, time: .omitted)
     let countryFrom: String
     let countryTo: String

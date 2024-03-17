@@ -11,3 +11,17 @@ enum FLCCountryOption: String {
     case china = "Китай"
     case turkey = "Турция"
 }
+
+enum FLCCalculationResultCellType: Int {
+    case russianDelivery = 1
+}
+
+enum FLCMarkupType: Double {
+    case russianDelivery = 1.17
+}
+
+enum FLCCurrencySymbol: String {
+    case rub = "₽"
+    case usd = "$"
+    case eur = "€"
+}

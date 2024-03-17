@@ -7,7 +7,7 @@ class CalculationResultVC: UIViewController {
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
     private var calculationResultItems = [CalculationResultItem]()
     
-    var calculationData: CalculationData?
+    var calculationData: CalculationData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,14 +16,6 @@ class CalculationResultVC: UIViewController {
         configureInitialData()
         configureDataSource()
         updateDataSource(on: calculationResultItems)
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//            guard let index = self.calculationResultItems.firstIndex(where: { $0.id == 1 }) else { return }
-//            self.calculationResultItems[index].price = "2 998,44 $"
-//            self.calculationResultItems[index].daysAmount = "4-5 дней"
-//            guard let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? CalculationResultCell else { return }
-//                    cell.updateData(with: self.calculationResultItems[index])
-//        }
     }
     
     private func configureVC() {
@@ -32,7 +24,7 @@ class CalculationResultVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
         tabBarController?.tabBar.isHidden = true
-        navigationItem.title = "\(calculationData?.goodsType ?? "")"
+        navigationItem.title = "\(calculationData.goodsType)"
         navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
     }
     
@@ -46,8 +38,8 @@ class CalculationResultVC: UIViewController {
     }
     
     private func configureInitialData() {
-        let deliveryItem = CalculationResultItem(id: 1, title: "Доставка по России", subtitle: "Подольск - \(calculationData?.toLocation ?? "")")
-        calculationResultItems.append(deliveryItem)
+        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: calculationData, title: "Доставка по России", subtitle: "Подольск - \(calculationData.toLocation)")
+        calculationResultItems.append(russianDeliveryItem)
     }
     
     private func configureDataSource() {
