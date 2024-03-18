@@ -9,6 +9,7 @@ class CalculationResultCell: UITableViewCell {
     
     private let title = FLCTitleLabel(color: .label, textAlignment: .left, size: 23)
     private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
+    private let daysIcon = UIImageView()
     private let daysLabel = FLCTitleLabel(color: .lightGray, textAlignment: .right, size: 19)
     private let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     
@@ -33,7 +34,7 @@ class CalculationResultCell: UITableViewCell {
         addShimmerAnimation()
         
         self.title.text = item.title
-        self.subtitle.text = item.subtitle
+        self.subtitle.attributedText = item.subtitle.makeAttributed(imageName: "truck.box", width: 24, height: 17, paddingAfter: 5)
         
         switch item.type {
         case .russianDelivery:
@@ -43,7 +44,7 @@ class CalculationResultCell: UITableViewCell {
                     let price = data.getPrice().add(markup: .russianDelivery).formatIntoCurrency(symbol: .rub)
                     
                     priceLabel.text = price
-                    daysLabel.text = "дней: \(data.getDays() ?? "?")"
+                    daysLabel.text = "\(data.getDays() ?? "?") дн."
                     removeShimmerAnimation()
                 }
             }
@@ -51,11 +52,13 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configure() {
+        selectionStyle = .none
         contentView.addSubviews(containerView)
         
         configureContainerView()
         configureTitle()
         configureSubtitle()
+        configureDaysIcon()
         configureDaysLabel()
         configurePriceLabel()
         configureGradient()
@@ -63,7 +66,7 @@ class CalculationResultCell: UITableViewCell {
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(title, subtitle, daysLabel, priceLabel)
+        containerView.addSubviews(title, subtitle, daysIcon, daysLabel, priceLabel)
         containerView.layer.addSublayer(gradientLayer)
         containerView.pinToEdges(of: contentView, withPadding: padding / 2)
         
@@ -74,32 +77,45 @@ class CalculationResultCell: UITableViewCell {
     private func configureTitle() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 0.5),
-            title.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            title.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
             title.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            title.bottomAnchor.constraint(equalTo: subtitle.topAnchor, constant: -padding * 0.2),
+            title.bottomAnchor.constraint(equalTo: subtitle.topAnchor, constant: -padding * 0.15),
         ])
     }
     
     private func configureSubtitle() {
+        
         NSLayoutConstraint.activate([
-            subtitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            subtitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
             subtitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            subtitle.bottomAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: -padding * 1.5)
+            subtitle.bottomAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: -padding * 2)
+        ])
+    }
+    
+    private func configureDaysIcon() {
+        daysIcon.translatesAutoresizingMaskIntoConstraints = false
+        daysIcon.contentMode = .scaleAspectFit
+        daysIcon.tintColor = .lightGray
+        daysIcon.image = UIImage(systemName: "clock.badge.checkmark")
+        
+        NSLayoutConstraint.activate([
+            daysIcon.centerYAnchor.constraint(equalTo: daysLabel.centerYAnchor, constant: 1),
+            daysIcon.trailingAnchor.constraint(equalTo: daysLabel.leadingAnchor, constant: -3),
+            daysIcon.heightAnchor.constraint(equalTo: daysLabel.heightAnchor)
         ])
     }
     
     private func configureDaysLabel() {
         NSLayoutConstraint.activate([
-            daysLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            daysLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            daysLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.1),
+            daysLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
+            daysLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.2),
             daysLabel.heightAnchor.constraint(equalToConstant: 21)
         ])
     }
     
     private func configurePriceLabel() {
         NSLayoutConstraint.activate([
-            priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
             priceLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5),
             priceLabel.heightAnchor.constraint(equalToConstant: 25)
         ])

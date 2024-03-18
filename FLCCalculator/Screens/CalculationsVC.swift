@@ -27,7 +27,7 @@ class CalculationsVC: UIViewController {
         tabBarController?.tabBar.isHidden = false
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
-        if navigationItem.rightBarButtonItem != nil { navigationItem.rightBarButtonItem = addButton }
+        if navigationItem.rightBarButtonItem == nil { navigationItem.rightBarButtonItem = addButton }
     }
     
     @objc func addButtonPressed() {

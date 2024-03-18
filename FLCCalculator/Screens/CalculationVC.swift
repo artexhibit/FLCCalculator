@@ -114,7 +114,7 @@ class CalculationVC: UIViewController {
         Task {
             do {
                 let items = try await NetworkManager.shared.getPecCities()
-                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, in: self)
+                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, searchType: .onlyByTitle, in: self)
                 FLCPopupView.removePopupFromMainThread()
             } catch  {
                 if let error = error as? URLError, error.code == .timedOut {

@@ -25,6 +25,8 @@ struct TextFieldManager {
     }
     
     static func removeCharacterBefore(positon: Int, and textField: UITextField, inText text: String, withDecimalSeparator decimalSeparator: String, using formatter: NumberFormatter) -> Bool {
+        guard positon > 0, positon <= text.count else { return false }
+        
         guard let charBeforeSeparator = Range(NSRange(location: positon - 1, length: 1), in: text) else { return false }
         let newValue = text.replacingCharacters(in: charBeforeSeparator, with: "")
         textField.text = createFormattedNumber(from: newValue, using: formatter)

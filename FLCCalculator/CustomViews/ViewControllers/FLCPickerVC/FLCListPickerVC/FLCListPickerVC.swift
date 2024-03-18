@@ -6,13 +6,15 @@ class FLCListPickerVC: FLCPickerVC {
     let tableView = UITableView()
     var items = [FLCPickerItem]()
     var sortType: FLCListPickerSortType = .byTitle
+    var searchType: FLCListPickerSearchType = .both
         
-    init(from button: FLCListPickerButton, items: [FLCPickerItem], sort sortType: FLCListPickerSortType) {
+    init(from button: FLCListPickerButton, items: [FLCPickerItem], sort sortType: FLCListPickerSortType, searchType: FLCListPickerSearchType) {
         super.init(nibName: nil, bundle: nil)
         self.triggerButton = button
         self.title = triggerButton.smallLabelView.smallLabel.text ?? ""
         self.items = items
         self.sortType = sortType
+        self.searchType = searchType
     }
     
     required init?(coder: NSCoder) {

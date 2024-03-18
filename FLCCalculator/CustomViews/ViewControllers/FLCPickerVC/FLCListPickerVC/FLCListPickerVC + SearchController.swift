@@ -11,7 +11,18 @@ extension FLCListPickerVC: UISearchResultsUpdating {
             updateDataSource(with: items)
             return
         }
-        filteredItems = items.filter { $0.title.lowercased().contains(filter.lowercased()) || $0.subtitle.lowercased().contains(filter.lowercased()) }
+        
+        switch searchType {
+            
+        case .onlyByTitle:
+            filteredItems = items.filter { $0.title.lowercased().contains(filter.lowercased()) }
+            
+        case .onlyBySubtitle:
+            filteredItems = items.filter { $0.subtitle.lowercased().contains(filter.lowercased()) }
+            
+        case .both:
+            filteredItems = items.filter { $0.title.lowercased().contains(filter.lowercased()) || $0.subtitle.lowercased().contains(filter.lowercased()) }
+        }
         configureSections(with: filteredItems)
         updateDataSource(with: filteredItems)
     }
