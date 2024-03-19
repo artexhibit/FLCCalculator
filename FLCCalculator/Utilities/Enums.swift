@@ -7,6 +7,7 @@ enum FLCListPickerSortType { case byTitle, bySubtitle }
 enum FLCListPickerSearchType { case onlyByTitle, onlyBySubtitle, both }
 enum FLCGoToViewDirections { case forward, backward }
 enum FLCSection { case main }
+enum FLCTextViewLabelImagePlacing { case afterText, beforeText }
 
 enum FLCCountryOption: String {
     case china = "Китай"

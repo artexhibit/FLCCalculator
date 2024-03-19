@@ -34,7 +34,7 @@ class CalculationResultCell: UITableViewCell {
         addShimmerAnimation()
         
         self.title.text = item.title
-        self.subtitle.attributedText = item.subtitle.makeAttributed(imageName: "truck.box", width: 24, height: 17, paddingAfter: 5)
+        self.subtitle.attributedText = item.subtitle.makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), imagePlace: .beforeText)
         
         switch item.type {
         case .russianDelivery:

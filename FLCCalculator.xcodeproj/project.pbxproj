@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */; };
 		0B2002B12B9DCE7B00B8DF5C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
 		0B2002B42B9E0D5100B8DF5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
@@ -121,6 +122,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextViewLabel.swift; sourceTree = "<group>"; };
 		0B2002B02B9DCE7B00B8DF5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0B2130612BA4B51E00A30394 /* FLCTintedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTintedView.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				0BF9388D2B85194300A18016 /* Buttons */,
 				0B6F61202B86935600929613 /* TextFields */,
 				0B86E92B2BA0D2290057A400 /* ProgressView */,
+				0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */,
 				0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */,
 				0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */,
+				0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */,
 				0BD4DE252B88D5ED00B834DD /* FLCListPickerVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

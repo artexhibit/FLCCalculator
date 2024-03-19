@@ -10,7 +10,7 @@ class FLCCargoParametersView: FLCCalculationView {
     private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let tintedView = FLCTintedView(color: .accent)
-    private let customsClearanceLabel = FLCSubtitleLabel(color: .label, textAlignment: .left)
+    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.questionMark, size: (0, -5, 24, 23), imagePlace: .afterText), color: .flcNumberTextFieldLabel, textAlignment: .left)
     let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     
@@ -101,24 +101,28 @@ class FLCCargoParametersView: FLCCalculationView {
     }
     
     private func configureTintedView() {
-        tintedView.addSubviews(customsClearanceLabel, customsClearanceSwitch)
+        tintedView.addSubviews(customsClearanceTextViewLabel, customsClearanceSwitch)
         
         NSLayoutConstraint.activate([
             tintedView.topAnchor.constraint(equalTo: invoiceAmountTextField.bottomAnchor, constant: padding * 1.5),
             tintedView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            tintedView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding)
+            tintedView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
         ])
     }
     
     private func configureCustomsClearanceLabel() {
-        customsClearanceLabel.text = "Нужно таможенное оформление (подача ДТ, ЭЦП)"
+        customsClearanceTextViewLabel.delegate = self
         
-        NSLayoutConstraint.activate([
-            customsClearanceLabel.topAnchor.constraint(equalTo: tintedView.topAnchor, constant: padding),
-            customsClearanceLabel.leadingAnchor.constraint(equalTo: tintedView.leadingAnchor, constant: padding * 1.5),
-            customsClearanceLabel.widthAnchor.constraint(equalTo: tintedView.widthAnchor, multiplier: 0.7),
-            customsClearanceLabel.bottomAnchor.constraint(equalTo: tintedView.bottomAnchor, constant: -padding)
-        ])
+        DispatchQueue.main.async { [self] in
+            let labelWidth = tintedView.frame.width - customsClearanceSwitch.frame.width - 3 * padding
+            
+            NSLayoutConstraint.activate([
+                customsClearanceTextViewLabel.topAnchor.constraint(equalTo: tintedView.topAnchor, constant: padding),
+                customsClearanceTextViewLabel.leadingAnchor.constraint(equalTo: tintedView.leadingAnchor, constant: padding),
+                customsClearanceTextViewLabel.widthAnchor.constraint(equalToConstant: labelWidth),
+                customsClearanceTextViewLabel.bottomAnchor.constraint(equalTo: tintedView.bottomAnchor, constant: -padding)
+            ])
+        }
     }
     
     private func configureCustomsClearanceSwitch() {
@@ -128,7 +132,7 @@ class FLCCargoParametersView: FLCCalculationView {
         customsClearanceSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
         
         NSLayoutConstraint.activate([
-            customsClearanceSwitch.centerYAnchor.constraint(equalTo: customsClearanceLabel.centerYAnchor),
+            customsClearanceSwitch.centerYAnchor.constraint(equalTo: customsClearanceTextViewLabel.centerYAnchor),
             customsClearanceSwitch.trailingAnchor.constraint(equalTo: tintedView.trailingAnchor, constant: -padding * 1.5)
         ])
     }
@@ -238,5 +242,14 @@ extension FLCCargoParametersView: FLCNumberTextFieldDelegate {
     func didRequestPreviousTextField(_ textField: FLCNumberTextField) {
         guard let targetTextFieldIndex = flcTextFields.firstIndex(where: { $0 == textField }), targetTextFieldIndex > 0 else { return }
         let _ = flcTextFields[targetTextFieldIndex - 1].becomeFirstResponder()
+    }
+}
+
+extension FLCCargoParametersView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if let imageName = textAttachment.image, imageName.description.contains("questionmark") {
+            return false
+        }
+        return true
     }
 }
