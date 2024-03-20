@@ -10,7 +10,7 @@ class FLCCargoParametersView: FLCCalculationView {
     private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let tintedView = FLCTintedView(color: .accent)
-    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.questionMark, size: (0, -5, 24, 23), imagePlace: .afterText), color: .flcNumberTextFieldLabel, textAlignment: .left)
+    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText), color: .flcNumberTextFieldLabel, textAlignment: .left)
     let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     
@@ -247,7 +247,8 @@ extension FLCCargoParametersView: FLCNumberTextFieldDelegate {
 
 extension FLCCargoParametersView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if let imageName = textAttachment.image, imageName.description.contains("questionmark") {
+        if let imageName = textAttachment.image, imageName.description.contains("info.circle") {
+            FLCTipView.showTip(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: self, target: textView)
             return false
         }
         return true

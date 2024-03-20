@@ -27,6 +27,7 @@
 		0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FD42B82546D00498ACE /* CalculationCell.swift */; };
+		0B50DE062BAB603000B5A447 /* FLCTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B50DE052BAB603000B5A447 /* FLCTipView.swift */; };
 		0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
 		0B60E35B2BA6ED720008000B /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
 		0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double + Ext.swift */; };
@@ -135,6 +136,7 @@
 		0B419FCB2B82464000498ACE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		0B419FCF2B824BED00498ACE /* CalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationView.swift; sourceTree = "<group>"; };
 		0B419FD42B82546D00498ACE /* CalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
+		0B50DE052BAB603000B5A447 /* FLCTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTipView.swift; sourceTree = "<group>"; };
 		0B60E3592BA6ED720008000B /* RussianDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianDelivery.swift; sourceTree = "<group>"; };
 		0B60E35C2BA70F810008000B /* Double + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Ext.swift"; sourceTree = "<group>"; };
 		0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerButton.swift; sourceTree = "<group>"; };
@@ -272,6 +274,14 @@
 			path = CalculationCell;
 			sourceTree = "<group>";
 		};
+		0B50DE042BAB601100B5A447 /* TextViews */ = {
+			isa = PBXGroup;
+			children = (
+				0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */,
+			);
+			path = TextViews;
+			sourceTree = "<group>";
+		};
 		0B6E541B2B810BA00078C110 = {
 			isa = PBXGroup;
 			children = (
@@ -390,9 +400,9 @@
 				0BF938832B84F5FD00A18016 /* Views */,
 				0BF938882B84FD8900A18016 /* Labels */,
 				0BF9388D2B85194300A18016 /* Buttons */,
+				0B50DE042BAB601100B5A447 /* TextViews */,
 				0B6F61202B86935600929613 /* TextFields */,
 				0B86E92B2BA0D2290057A400 /* ProgressView */,
-				0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -458,6 +468,7 @@
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
 				0B2130612BA4B51E00A30394 /* FLCTintedView.swift */,
+				0B50DE052BAB603000B5A447 /* FLCTipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -604,6 +615,7 @@
 				0BFBD7402BA37B9F00B485B8 /* CalculationData.swift in Sources */,
 				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
 				0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */,
+				0B50DE062BAB603000B5A447 /* FLCTipView.swift in Sources */,
 				0BDCE6F72BA59AB70043AB64 /* CalculationResultCell.swift in Sources */,
 				0BD5E61F2B9A1C4D00240844 /* CalculationUIHelper.swift in Sources */,
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,

@@ -9,20 +9,19 @@ extension String {
         return formatter.number(from: string)?.doubleValue ?? 0.0
     }
     
-    func makeAttributed(icon: UIImage, size: (x: Int, y: Int, w: Int, h: Int), imagePlace: FLCTextViewLabelImagePlacing) -> NSMutableAttributedString {
+    func makeAttributed(icon: UIImage, tint: UIColor = .flcNumberTextFieldLabel, size: (x: Int, y: Int, w: Int, h: Int), placeIcon: FLCTextViewLabelImagePlacing) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
-        let tintedImage = icon.withRenderingMode(.alwaysTemplate)
-        let tintedImageView = UIImageView(image: tintedImage)
+        let imageView = UIImageView(image: icon.withTintColor(tint).withRenderingMode(.alwaysTemplate))
         
         let icon = NSTextAttachment()
-        icon.image = tintedImageView.image
+        icon.image = imageView.image
         icon.bounds = CGRect(x: size.x, y: size.y, width: size.w, height: size.h)
         
         let padding = NSTextAttachment()
         padding.image = UIImage()
         padding.bounds = CGRect(x: 0, y: 0, width: 5, height: 1)
         
-        switch imagePlace {
+        switch placeIcon {
         case .afterText:
             attributedString.append(NSAttributedString(string: self))
             attributedString.append(NSAttributedString(attachment: padding))
