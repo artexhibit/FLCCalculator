@@ -2,9 +2,10 @@ import UIKit
 
 class FLCTipView: UIView {
     
+    private let triangleView = UIView()
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     private let closeButton = UIButton()
-    private let textLabel = FLCSubtitleLabel(color: .label.withAlphaComponent(0.7), textAlignment: .left)
+    private let textLabel = FLCSubtitleLabel(color: .label.withAlphaComponent(0.85), textAlignment: .left)
     
     private let padding: CGFloat = 15
 
@@ -20,11 +21,16 @@ class FLCTipView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureTriangle()
+    }
+
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        addSubview(blurView)
+        addSubviews(triangleView, blurView)
         
-        backgroundColor = .label.withAlphaComponent(0.2)
+        backgroundColor = .label.withAlphaComponent(0.5)
         
         layer.cornerRadius = 15
         layer.shadowColor = UIColor.darkGray.cgColor
@@ -32,6 +38,29 @@ class FLCTipView: UIView {
         layer.shadowOffset = CGSize(width: 0.0, height: 6.0)
         layer.shadowRadius = 6.0
         layer.masksToBounds = false
+    }
+    
+    private func configureTriangle() {
+        triangleView.translatesAutoresizingMaskIntoConstraints = false
+        triangleView.backgroundColor = .clear
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = createTriangle(height: triangleView.frame.height)
+        
+        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
+        blurEffectView.frame = bounds
+        blurEffectView.contentView.backgroundColor = .label.withAlphaComponent(0.04)
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.layer.mask = maskLayer
+        
+        triangleView.addSubview(blurEffectView)
+        
+        NSLayoutConstraint.activate([
+            triangleView.bottomAnchor.constraint(equalTo: topAnchor),
+            triangleView.widthAnchor.constraint(equalToConstant: 25),
+            triangleView.heightAnchor.constraint(equalToConstant: 21),
+            triangleView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -45)
+        ])
     }
     
     private func configureBlurView() {
@@ -74,7 +103,7 @@ class FLCTipView: UIView {
         view.addSubview(tip)
         
         NSLayoutConstraint.activate([
-            tip.topAnchor.constraint(equalTo: target.bottomAnchor, constant: 15),
+            tip.topAnchor.constraint(equalTo: target.bottomAnchor, constant: 23),
             tip.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             tip.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
@@ -84,6 +113,21 @@ class FLCTipView: UIView {
         let tip = FLCTipView()
         tip.textLabel.text = withText
         configureTip(tip: tip, in: view, target: target)
+    }
+    
+    private func createTriangle(height: CGFloat) -> CGPath {
+        let point1 = CGPoint(x: height/2, y:0)
+        let point2 = CGPoint(x: height , y: height)
+        let point3 =  CGPoint(x: 0, y: height)
+        
+        let path = CGMutablePath()
+        
+        path.move(to: CGPoint(x: 0, y: height))
+        path.addArc(tangent1End: point1, tangent2End: point2, radius: 3)
+        path.addArc(tangent1End: point2, tangent2End: point3, radius: 0)
+        path.addArc(tangent1End: point3, tangent2End: point1, radius: 0)
+        path.closeSubpath()
+        return path
     }
     
     @objc private func closeButtonTapped() {
