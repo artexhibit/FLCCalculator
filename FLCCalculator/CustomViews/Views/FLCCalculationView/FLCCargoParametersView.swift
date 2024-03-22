@@ -13,6 +13,7 @@ class FLCCargoParametersView: FLCCalculationView {
     private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText), color: .flcNumberTextFieldLabel, textAlignment: .left)
     let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
+    private let tipView = FLCTipView()
     
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
@@ -26,13 +27,17 @@ class FLCCargoParametersView: FLCCalculationView {
         configureInvoiceAmountTextField()
         configureInvoiceCurrencyPickerButton()
         configureTintedView()
-        configureCustomsClearanceLabel()
         configureCustomsClearanceSwitch()
         configureNextButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureCustomsClearanceLabel()
     }
     
     private func configure() {
@@ -113,16 +118,14 @@ class FLCCargoParametersView: FLCCalculationView {
     private func configureCustomsClearanceLabel() {
         customsClearanceTextViewLabel.delegate = self
         
-        DispatchQueue.main.async { [self] in
-            let labelWidth = tintedView.frame.width - customsClearanceSwitch.frame.width - 3 * padding
-            
-            NSLayoutConstraint.activate([
-                customsClearanceTextViewLabel.topAnchor.constraint(equalTo: tintedView.topAnchor, constant: padding),
-                customsClearanceTextViewLabel.leadingAnchor.constraint(equalTo: tintedView.leadingAnchor, constant: padding),
-                customsClearanceTextViewLabel.widthAnchor.constraint(equalToConstant: labelWidth),
-                customsClearanceTextViewLabel.bottomAnchor.constraint(equalTo: tintedView.bottomAnchor, constant: -padding)
-            ])
-        }
+        let labelWidth = tintedView.frame.width - customsClearanceSwitch.frame.width - 3 * padding
+        
+        NSLayoutConstraint.activate([
+            customsClearanceTextViewLabel.topAnchor.constraint(equalTo: tintedView.topAnchor, constant: padding),
+            customsClearanceTextViewLabel.leadingAnchor.constraint(equalTo: tintedView.leadingAnchor, constant: padding),
+            customsClearanceTextViewLabel.widthAnchor.constraint(equalToConstant: labelWidth),
+            customsClearanceTextViewLabel.bottomAnchor.constraint(equalTo: tintedView.bottomAnchor, constant: -padding)
+        ])
     }
     
     private func configureCustomsClearanceSwitch() {
@@ -248,7 +251,10 @@ extension FLCCargoParametersView: FLCNumberTextFieldDelegate {
 extension FLCCargoParametersView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if let imageName = textAttachment.image, imageName.description.contains("info.circle") {
-            FLCTipView.showTip(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: self, target: textView)
+            HapticManager.addHaptic(style: .light)
+            
+           let iconPosition = textView.getIconAttachmentPosition(for: characterRange)
+            tipView.showTip(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: self, target: textView, trianglePosition: iconPosition)
             return false
         }
         return true

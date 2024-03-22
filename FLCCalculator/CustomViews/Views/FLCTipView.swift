@@ -5,8 +5,9 @@ class FLCTipView: UIView {
     private let triangleView = UIView()
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     private let closeButton = UIButton()
-    private let textLabel = FLCSubtitleLabel(color: .label.withAlphaComponent(0.85), textAlignment: .left)
+    private let textLabel = FLCSubtitleLabel(color: .label.withAlphaComponent(0.7), textAlignment: .left)
     
+    var triangleLeadingConstraint: NSLayoutConstraint!
     private let padding: CGFloat = 15
 
     override init(frame: CGRect) {
@@ -31,6 +32,8 @@ class FLCTipView: UIView {
         addSubviews(triangleView, blurView)
         
         backgroundColor = .label.withAlphaComponent(0.5)
+        transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        alpha = 0
         
         layer.cornerRadius = 15
         layer.shadowColor = UIColor.darkGray.cgColor
@@ -43,23 +46,14 @@ class FLCTipView: UIView {
     private func configureTriangle() {
         triangleView.translatesAutoresizingMaskIntoConstraints = false
         triangleView.backgroundColor = .clear
+        triangleView.addSubview(addBlurToTriangle())
         
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = createTriangle(height: triangleView.frame.height)
-        
-        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
-        blurEffectView.frame = bounds
-        blurEffectView.contentView.backgroundColor = .label.withAlphaComponent(0.04)
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurEffectView.layer.mask = maskLayer
-        
-        triangleView.addSubview(blurEffectView)
+        triangleLeadingConstraint = triangleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 137)
         
         NSLayoutConstraint.activate([
             triangleView.bottomAnchor.constraint(equalTo: topAnchor),
-            triangleView.widthAnchor.constraint(equalToConstant: 25),
-            triangleView.heightAnchor.constraint(equalToConstant: 21),
-            triangleView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -45)
+            triangleView.widthAnchor.constraint(equalToConstant: 22),
+            triangleView.heightAnchor.constraint(equalToConstant: 22)
         ])
     }
     
@@ -75,47 +69,74 @@ class FLCTipView: UIView {
     
     private func configureCloseButton() {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.configuration = .plain()
-        closeButton.configuration?.image = Icons.xmark
-        closeButton.configuration?.baseBackgroundColor = .clear
-        closeButton.configuration?.baseForegroundColor = .lightGray
+        
+        closeButton.setImage(Icons.xmark, for: .normal)
+        closeButton.tintColor = .gray
+        closeButton.contentVerticalAlignment = .fill
+        closeButton.contentHorizontalAlignment = .fill
+        closeButton.imageView?.contentMode = .scaleAspectFit
         
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: blurView.topAnchor, constant: padding),
-            closeButton.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -padding),
-            closeButton.widthAnchor.constraint(equalToConstant: 15),
+            closeButton.topAnchor.constraint(equalTo: blurView.topAnchor, constant: padding / 1.5),
+            closeButton.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -padding / 1.5),
+            closeButton.widthAnchor.constraint(equalToConstant: 18),
             closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor)
         ])
     }
     
     private func configureTextLabel() {
         NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: padding),
+            textLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor),
             textLabel.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: padding),
             textLabel.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -padding),
             textLabel.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant: -padding)
         ])
     }
     
-    private static func configureTip(tip: FLCTipView, in view: UIView, target: UIView) {
+    private func configureTip(tip: FLCTipView, in view: UIView, target: UIView) {
         view.addSubview(tip)
         
         NSLayoutConstraint.activate([
-            tip.topAnchor.constraint(equalTo: target.bottomAnchor, constant: 23),
+            tip.topAnchor.constraint(equalTo: target.bottomAnchor, constant: 18),
             tip.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             tip.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
-    static func showTip(withText: String, in view: UIView, target: UIView) {
-        let tip = FLCTipView()
-        tip.textLabel.text = withText
-        configureTip(tip: tip, in: view, target: target)
+    func showTip(withText: String, in view: UIView, target: UIView, trianglePosition: CGFloat) {
+        self.textLabel.text = withText
+        self.configureTrianglePosition(position: trianglePosition)
+        
+        configureTip(tip: self, in: view, target: target)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.55, initialSpringVelocity: 2, options: .curveEaseOut) {
+            self.alpha = 1.0
+            self.transform = .identity
+        }
     }
     
-    private func createTriangle(height: CGFloat) -> CGPath {
+    func hideTip() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.55, initialSpringVelocity: 2, options: .curveEaseOut) {
+            self.alpha = 0.0
+            self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        } completion: { _ in
+            self.removeFromSuperview()
+        }
+    }
+    
+    private func configureTrianglePosition(position: CGFloat) {
+        layoutIfNeeded()
+        
+        let screenWidth = UIScreen.main.bounds.size.width
+        let adjustmentWidth = (screenWidth - (screenWidth * 0.9)) / 2
+        
+        triangleLeadingConstraint.constant = position - adjustmentWidth
+        triangleLeadingConstraint.isActive = true
+    }
+    
+    private func addTriangle(height: CGFloat) -> CGPath {
         let point1 = CGPoint(x: height/2, y:0)
         let point2 = CGPoint(x: height , y: height)
         let point3 =  CGPoint(x: 0, y: height)
@@ -123,14 +144,27 @@ class FLCTipView: UIView {
         let path = CGMutablePath()
         
         path.move(to: CGPoint(x: 0, y: height))
-        path.addArc(tangent1End: point1, tangent2End: point2, radius: 3)
+        path.addArc(tangent1End: point1, tangent2End: point2, radius: 5)
         path.addArc(tangent1End: point2, tangent2End: point3, radius: 0)
         path.addArc(tangent1End: point3, tangent2End: point1, radius: 0)
         path.closeSubpath()
         return path
     }
     
+    private func addBlurToTriangle() -> UIVisualEffectView {
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = addTriangle(height: triangleView.frame.height)
+        
+        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
+        blurEffectView.frame = bounds
+        blurEffectView.contentView.backgroundColor = .label.withAlphaComponent(0.04)
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.layer.mask = maskLayer
+        return blurEffectView
+    }
+    
     @objc private func closeButtonTapped() {
         HapticManager.addHaptic(style: .light)
+        hideTip()
     }
 }
