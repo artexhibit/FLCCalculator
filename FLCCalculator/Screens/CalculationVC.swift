@@ -1,5 +1,9 @@
 import UIKit
 
+protocol CalculationVCDelegate: AnyObject {
+    func scrollViewDidScroll()
+}
+
 class CalculationVC: UIViewController {
     
     let scrollView = UIScrollView()
@@ -10,6 +14,8 @@ class CalculationVC: UIViewController {
     
     private var pickedDestinationCode: String = ""
     private var leadingConstraint: NSLayoutConstraint!
+    
+    var delegate: CalculationVCDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -254,5 +260,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
 }
 
 extension CalculationVC: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) { view.endEditing(true) }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+        delegate?.scrollViewDidScroll()
+    }
 }

@@ -16,4 +16,14 @@ extension UIView {
             bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -padding)
         ])
     }
+    
+    func findParentViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next as? UIView {
+            return nextResponder.findParentViewController()
+        } else {
+            return nil
+        }
+    }
 }

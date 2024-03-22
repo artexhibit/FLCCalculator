@@ -13,7 +13,6 @@ class FLCCargoParametersView: FLCCalculationView {
     private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText), color: .flcNumberTextFieldLabel, textAlignment: .left)
     let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
-    private let tipView = FLCTipView()
     
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
@@ -38,6 +37,12 @@ class FLCCargoParametersView: FLCCalculationView {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureCustomsClearanceLabel()
+        setCalculationVCDelegate()
+    }
+    
+    private func setCalculationVCDelegate() {
+        guard let vc = self.findParentViewController() as? CalculationVC else { return }
+        vc.delegate = self
     }
     
     private func configure() {
@@ -254,7 +259,8 @@ extension FLCCargoParametersView: UITextViewDelegate {
             HapticManager.addHaptic(style: .light)
             
            let iconPosition = textView.getIconAttachmentPosition(for: characterRange)
-            tipView.showTip(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: self, target: textView, trianglePosition: iconPosition)
+            guard !tipView.isShowing else { return false }
+            tipView.showTipOnMainThread(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: self, target: textView, trianglePosition: iconPosition)
             return false
         }
         return true

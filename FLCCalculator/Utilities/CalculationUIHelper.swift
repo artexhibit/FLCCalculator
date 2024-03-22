@@ -62,7 +62,7 @@ struct CalculationUIHelper {
     
     static func confirmDataIsValid(in view: FLCCalculationView) -> Bool {
         if checkIfFilledAll(textFields: view.flcTextFields) && checkIfFilledAll(buttons: view.flcListPickerButtons)  {
-            return true
+            return checkIfTextFieldsValueNotZero(in: view)
         } else {
             makeRedAll(textFields: view.flcTextFields)
             makeRedAll(buttons: view.flcListPickerButtons)
@@ -70,6 +70,19 @@ struct CalculationUIHelper {
             FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля")
             return false
         }
+    }
+    
+    private static func checkIfTextFieldsValueNotZero(in view: FLCCalculationView) -> Bool {
+        var isWithZero = false
+        
+        view.flcTextFields.forEach {
+            if $0.text == FLCNumberTextField.placeholderValue {
+                $0.switchToRedColors()
+                FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Значение не должно быть нулевым")
+                isWithZero = true
+            }
+        }
+        return isWithZero ? false : true
     }
     
     static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton) {

@@ -6,6 +6,7 @@ class FLCTipView: UIView {
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     private let closeButton = UIButton()
     private let textLabel = FLCSubtitleLabel(color: .label.withAlphaComponent(0.7), textAlignment: .left)
+    var isShowing = false
     
     var triangleLeadingConstraint: NSLayoutConstraint!
     private let padding: CGFloat = 15
@@ -105,24 +106,31 @@ class FLCTipView: UIView {
         ])
     }
     
-    func showTip(withText: String, in view: UIView, target: UIView, trianglePosition: CGFloat) {
-        self.textLabel.text = withText
-        self.configureTrianglePosition(position: trianglePosition)
-        
-        configureTip(tip: self, in: view, target: target)
-        
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.55, initialSpringVelocity: 2, options: .curveEaseOut) {
-            self.alpha = 1.0
-            self.transform = .identity
+    func showTipOnMainThread(withText: String, in view: UIView, target: UIView, trianglePosition: CGFloat) {
+        DispatchQueue.main.async {
+            self.isShowing = true
+            self.textLabel.text = withText
+            self.configureTrianglePosition(position: trianglePosition)
+            
+            self.configureTip(tip: self, in: view, target: target)
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.55, initialSpringVelocity: 2, options: .curveEaseOut) {
+                self.alpha = 1.0
+                self.transform = .identity
+            }
         }
     }
     
-    func hideTip() {
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.55, initialSpringVelocity: 2, options: .curveEaseOut) {
-            self.alpha = 0.0
-            self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        } completion: { _ in
-            self.removeFromSuperview()
+    func hideTipOnMainThread() {
+        DispatchQueue.main.async {
+            self.isShowing = false
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.55, initialSpringVelocity: 2, options: .curveEaseOut) {
+                self.alpha = 0.0
+                self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            } completion: { _ in
+                self.removeFromSuperview()
+            }
         }
     }
     
@@ -165,6 +173,6 @@ class FLCTipView: UIView {
     
     @objc private func closeButtonTapped() {
         HapticManager.addHaptic(style: .light)
-        hideTip()
+        hideTipOnMainThread()
     }
 }

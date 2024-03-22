@@ -30,7 +30,9 @@ struct TextFieldManager {
         guard let charBeforeSeparator = Range(NSRange(location: positon - 1, length: 1), in: text) else { return false }
         let newValue = text.replacingCharacters(in: charBeforeSeparator, with: "")
         textField.text = createFormattedNumber(from: newValue, using: formatter)
-        textField.moveCursorTo(position: textField.getCursorPosition() - 3)
+        
+        let cursorPosition = textField.text == FLCNumberTextField.placeholderValue ? 2 : 3
+        textField.moveCursorTo(position: textField.getCursorPosition() - cursorPosition)
         
         if textField.text?.firstIndex(of: Character(decimalSeparator)) == textField.text?.startIndex {
             textField.text = FLCNumberTextField.placeholderValue

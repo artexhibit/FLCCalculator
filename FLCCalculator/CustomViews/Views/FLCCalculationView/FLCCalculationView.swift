@@ -11,6 +11,7 @@ protocol FLCCalculationViewDelegate: AnyObject {
 class FLCCalculationView: UIView {
     
     let padding: CGFloat = 15
+    let tipView = FLCTipView()
     let titleLabel = FLCTitleLabel(color: .label, textAlignment: .left)
     var flcTextFields = [FLCNumberTextField]()
     var flcListPickerButtons = [FLCListPickerButton]()
@@ -48,7 +49,10 @@ extension FLCCalculationView: FLCListPickerButtonDelegate {
 }
 
 extension FLCCargoParametersView: FLCButtonDelegate {
-    func didTapButton(_ button: FLCButton) { delegate?.didTapFLCButton(button) }
+    func didTapButton(_ button: FLCButton) {
+        if self.tipView.isShowing { self.tipView.hideTipOnMainThread() }
+        delegate?.didTapFLCButton(button)
+    }
 }
 
 extension FLCTransportParametersView: FLCButtonDelegate {
@@ -57,4 +61,8 @@ extension FLCTransportParametersView: FLCButtonDelegate {
 
 extension FLCTransportParametersView: FLCTextButtonDelegate {
     func didTapButton(_ button: FLCTextButton) { delegate?.didTapFLCTextButton(button) }
+}
+
+extension FLCCargoParametersView: CalculationVCDelegate {
+    func scrollViewDidScroll() { if self.tipView.isShowing { self.tipView.hideTipOnMainThread() } }
 }
