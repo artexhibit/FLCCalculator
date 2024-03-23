@@ -7,6 +7,7 @@ class FLCPopupView: UIView {
     private let spinner = UIActivityIndicatorView(style: .medium)
     private let messageLabel = FLCSubtitleLabel(color: .red, textAlignment: .center)
     private let padding: CGFloat = 10
+    private var previousStyle: FLCPopupViewStyle?
     private static var showingPopup: FLCPopupView?
 
     override init(frame: CGRect) {
@@ -107,52 +108,55 @@ class FLCPopupView: UIView {
     
     static func showOnMainThread(systemImage: String = "xmark", title: String, style: FLCPopupViewStyle = .normal, position: FLCPopupViewPosition = .bottom) {
         DispatchQueue.main.async {
-            guard let showingPopup = showingPopup else {
+            if showingPopup != nil {
+                if style == .spinner {
+                    showingPopup?.layer.removeAllAnimations()
+                    showingPopup?.removeFromSuperview()
+                }
+                
+                if showingPopup?.messageLabel.text != title {
+                    removeFromMainThread() {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { showNewPopup(systemImage: systemImage, title: title, style: style, position: position) }
+                    }
+                }
+            } else {
                 showNewPopup(systemImage: systemImage, title: title, style: style, position: position)
-                return
             }
-            if showingPopup.messageLabel.text != title {
-                remove(popup: showingPopup) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { showNewPopup(systemImage: systemImage, title: title, style: style, position: position) }
+        }
+    }
+    
+    static func removeFromMainThread(completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            if let currentPopup = showingPopup {
+                currentPopup.spinner.stopAnimating()
+                
+                UIView.animate(withDuration: 0.2, animations: {
+                    currentPopup.layer.opacity = 0
+                }) { _ in
+                    currentPopup.removeFromSuperview()
+                    showingPopup = nil
+                    completion?()
                 }
             }
         }
     }
     
-    static func removePopupFromMainThread() {
-        DispatchQueue.main.async {
-            guard let currentPopup = self.showingPopup else { return }
-            
-            self.showingPopup?.spinner.stopAnimating()
-            FLCPopupView.remove(popup: currentPopup)
-            self.showingPopup = nil
-        }
-    }
-    
     private static func showNewPopup(systemImage: String, title: String, style: FLCPopupViewStyle, position: FLCPopupViewPosition) {
         let popup = FLCPopupView()
+        
         popup.iconView.image = UIImage(systemName: systemImage)
         popup.messageLabel.text = title
         popup.set(with: style)
         popup.configureInWindow(with: position)
-        showingPopup = popup
-
+        popup.previousStyle = style
+        
         UIView.animate(withDuration: 0.3) {
             popup.layer.opacity = 1
         } completion: { _ in
             if style != .spinner {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) { remove(popup: popup) }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) { if showingPopup?.previousStyle == style { removeFromMainThread() } }
             }
         }
-    }
-    
-    private static func remove(popup: FLCPopupView, completion: (() -> Void)? = nil) {
-        UIView.animate(withDuration: 0.2) {
-            popup.layer.opacity = 0
-        } completion: { _ in
-            showingPopup = nil
-            popup.removeFromSuperview()
-            completion?()
-        }
+        showingPopup = popup
     }
 }

@@ -14,6 +14,7 @@ class CalculationResultCell: UITableViewCell {
     private let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     
     private let padding: CGFloat = 20
+    private var isShimmering = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,6 +29,12 @@ class CalculationResultCell: UITableViewCell {
         super.layoutSubviews()
         containerView.layoutIfNeeded()
         gradientLayer.frame = containerView.bounds
+        NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShimmerEffect))
+    }
+    
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        if newWindow != nil { if isShimmering { addShimmerAnimation() } }
     }
     
     func set(with item: CalculationResultItem) {
@@ -150,9 +157,11 @@ class CalculationResultCell: UITableViewCell {
         group.repeatCount = .infinity
         
         gradientLayer.add(group, forKey: "shimmer")
+        isShimmering = true
     }
     
     private func removeShimmerAnimation() {
+        isShimmering = false
         gradientLayer.removeAnimation(forKey: "shimmer")
         
         gradientLayer.colors = nil
@@ -160,4 +169,6 @@ class CalculationResultCell: UITableViewCell {
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
     }
+    
+    @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }
 }

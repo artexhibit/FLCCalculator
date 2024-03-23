@@ -121,7 +121,7 @@ class CalculationVC: UIViewController {
             do {
                 let items = try await NetworkManager.shared.getPecCities()
                 CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, searchType: .onlyByTitle, in: self)
-                FLCPopupView.removePopupFromMainThread()
+                FLCPopupView.removeFromMainThread()
             } catch  {
                 if let error = error as? URLError, error.code == .timedOut {
                     FLCPopupView.showOnMainThread(systemImage: "exclamationmark.icloud", title: "Плохое соединение. Попробуйте позже", style: .error)
