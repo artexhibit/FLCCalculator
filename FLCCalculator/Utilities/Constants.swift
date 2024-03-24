@@ -7,6 +7,10 @@ enum Icons {
     static let xmark = UIImage(systemName: "xmark") ?? UIImage()
 }
 
+enum Keys {
+    static let tariffs = "tariffs"
+}
+
 enum ScreenSize {
     static let width = UIScreen.main.bounds.size.width
     static let height = UIScreen.main.bounds.size.height

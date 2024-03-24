@@ -12,6 +12,13 @@
 		0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
 		0B2002B42B9E0D5100B8DF5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
 		0B2130622BA4B51E00A30394 /* FLCTintedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2130612BA4B51E00A30394 /* FLCTintedView.swift */; };
+		0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
+		0B32CBBF2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
+		0B32CBCB2BAF3D1A00E756A5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBCA2BAF3D1A00E756A5 /* FirebaseAnalytics */; };
+		0B32CBCD2BAF3D1A00E756A5 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBCC2BAF3D1A00E756A5 /* FirebaseCrashlytics */; };
+		0B32CBCF2BAF3D1A00E756A5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBCE2BAF3D1A00E756A5 /* FirebaseFirestore */; };
+		0B32CBD12BAF3D1A00E756A5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBD02BAF3D1A00E756A5 /* FirebaseMessaging */; };
+		0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */; };
 		0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */; };
 		0B32F16C2B93477D004BAB46 /* FLCPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */; };
 		0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */; };
@@ -63,6 +70,11 @@
 		0B7549002BA1C9870029807B /* FLCListPickerVC + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */; };
 		0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7549012BA2322B0029807B /* FLCTextButton.swift */; };
 		0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */; };
+		0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC32BB0283100ED658B /* Tariff.swift */; };
+		0B9CABC52BB0283100ED658B /* Tariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC32BB0283100ED658B /* Tariff.swift */; };
+		0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
+		0B9CABC82BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
+		0B9CABC92BB040DC00ED658B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */; };
 		0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A422B94C2C30058FC95 /* HapticManager.swift */; };
 		0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
@@ -128,6 +140,8 @@
 		0B2002B02B9DCE7B00B8DF5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0B2130612BA4B51E00A30394 /* FLCTintedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTintedView.swift; sourceTree = "<group>"; };
+		0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerItem.swift; sourceTree = "<group>"; };
 		0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCalculationView.swift; sourceTree = "<group>"; };
 		0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerCell.swift; sourceTree = "<group>"; };
@@ -169,6 +183,8 @@
 		0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + Delegate.swift"; sourceTree = "<group>"; };
 		0B7549012BA2322B0029807B /* FLCTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextButton.swift; sourceTree = "<group>"; };
 		0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCProgressView.swift; sourceTree = "<group>"; };
+		0B9CABC32BB0283100ED658B /* Tariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tariff.swift; sourceTree = "<group>"; };
+		0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
 		0B9D3A422B94C2C30058FC95 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
@@ -208,6 +224,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B32CBD12BAF3D1A00E756A5 /* FirebaseMessaging in Frameworks */,
+				0B32CBCB2BAF3D1A00E756A5 /* FirebaseAnalytics in Frameworks */,
+				0B32CBCD2BAF3D1A00E756A5 /* FirebaseCrashlytics in Frameworks */,
+				0B32CBCF2BAF3D1A00E756A5 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +272,8 @@
 				0B9D3A422B94C2C30058FC95 /* HapticManager.swift */,
 				0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */,
 				0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */,
+				0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */,
+				0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -315,6 +337,7 @@
 				0B6E546E2B811C4A0078C110 /* Model */,
 				0B6E546C2B811C060078C110 /* Screens */,
 				0B6E54442B8114AB0078C110 /* FLCCalculator.entitlements */,
+				0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */,
 				0B6E54382B810BA20078C110 /* Info.plist */,
 			);
 			path = FLCCalculator;
@@ -390,6 +413,7 @@
 				0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */,
 				0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */,
 				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
+				0B9CABC32BB0283100ED658B /* Tariff.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -523,6 +547,12 @@
 				0B6E545C2B811B550078C110 /* PBXTargetDependency */,
 			);
 			name = FLCCalculator;
+			packageProductDependencies = (
+				0B32CBCA2BAF3D1A00E756A5 /* FirebaseAnalytics */,
+				0B32CBCC2BAF3D1A00E756A5 /* FirebaseCrashlytics */,
+				0B32CBCE2BAF3D1A00E756A5 /* FirebaseFirestore */,
+				0B32CBD02BAF3D1A00E756A5 /* FirebaseMessaging */,
+			);
 			productName = FLCCalculator;
 			productReference = 0B6E54242B810BA00078C110 /* FLCCalculator.app */;
 			productType = "com.apple.product-type.application";
@@ -572,6 +602,9 @@
 				ru,
 			);
 			mainGroup = 0B6E541B2B810BA00078C110;
+			packageReferences = (
+				0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 0B6E54252B810BA00078C110 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -589,6 +622,7 @@
 			files = (
 				0B6E54372B810BA20078C110 /* LaunchScreen.storyboard in Resources */,
 				0B6E54342B810BA20078C110 /* Assets.xcassets in Resources */,
+				0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +632,7 @@
 			files = (
 				0B6E546A2B811BA40078C110 /* Assets.xcassets in Resources */,
 				0B6E54592B811B550078C110 /* Assets.xcassets in Resources */,
+				0B32CBBF2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +664,7 @@
 				0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */,
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
+				0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */,
 				0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */,
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
 				0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */,
@@ -636,6 +672,7 @@
 				0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */,
+				0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */,
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,
 				0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */,
 				0B2002B12B9DCE7B00B8DF5C /* Constants.swift in Sources */,
@@ -660,6 +697,7 @@
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
 				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,
+				0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */,
 				0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */,
 				0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */,
 				0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */,
@@ -680,16 +718,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */,
+				0B9CABC92BB040DC00ED658B /* Constants.swift in Sources */,
 				0BFBD7412BA37B9F00B485B8 /* CalculationData.swift in Sources */,
 				0B6E54732B81228A0078C110 /* CalculationInfo.swift in Sources */,
 				0B6E54622B811B700078C110 /* Persistence.swift in Sources */,
 				0B60E35F2BA73AFB0008000B /* CalculationResultItem.swift in Sources */,
 				0B60E35B2BA6ED720008000B /* RussianDelivery.swift in Sources */,
+				0B9CABC82BB02CCD00ED658B /* PersistenceManager.swift in Sources */,
 				0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */,
 				0B60E35E2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B419FC92B82451600498ACE /* FLCError.swift in Sources */,
 				0B419FCD2B82464000498ACE /* UITableView+Ext.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
+				0B9CABC52BB0283100ED658B /* Tariff.swift in Sources */,
 				0B32F1722B93862F004BAB46 /* Enums.swift in Sources */,
 				0B6E54682B811B8B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
@@ -1004,6 +1045,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.23.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0B32CBCA2BAF3D1A00E756A5 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0B32CBCC2BAF3D1A00E756A5 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		0B32CBCE2BAF3D1A00E756A5 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		0B32CBD02BAF3D1A00E756A5 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */ = {

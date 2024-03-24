@@ -13,6 +13,7 @@ class CalculationsVC: UIViewController {
         configureTableView()
         configureDataSource()
         updateUI(with: calculations)
+        FirebaseManager.updateTariffs()
     }
     
     override func viewWillAppear(_ animated: Bool) {

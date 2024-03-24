@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyD_MDvFSPVargN20a4Kb92Z1e6IRFEkPXE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>310425929233</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ru.igorcodes.FLCCalculator</string>
+	<key>PROJECT_ID</key>
+	<string>flc-calculator</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flc-calculator.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:310425929233:ios:aaf184c0a688f29dca53b0</string>
+</dict>
+</plist>
