@@ -18,13 +18,16 @@ class FLCTextViewLabel: UITextView {
         return true
     }
     
-    convenience init(text: NSAttributedString, color: UIColor, textAlignment: NSTextAlignment) {
+    convenience init(text: NSAttributedString? = nil) {
         self.init(frame: .zero, textContainer: nil)
         self.attributedText = text
+        configure()
+    }
+    
+    func setStyle(color: UIColor, textAlignment: NSTextAlignment, fontWeight: UIFont.Weight = .regular, fontSize: CGFloat) {
         self.textColor = color
         self.textAlignment = textAlignment
-        
-        configure()
+        self.font = UIFont.systemFont(ofSize: fontSize, weight: fontWeight)
     }
     
     private func configure() {
@@ -33,8 +36,7 @@ class FLCTextViewLabel: UITextView {
         isScrollEnabled = false
         isEditable = false
         backgroundColor = .clear
-        font = UIFont.preferredFont(forTextStyle: .body)
-        
+    
         textContainerInset = .zero
         textContainer.lineFragmentPadding = 0
         textContainer.lineBreakMode = .byWordWrapping

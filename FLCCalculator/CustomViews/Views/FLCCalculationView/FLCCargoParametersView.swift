@@ -10,7 +10,7 @@ class FLCCargoParametersView: FLCCalculationView {
     private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let tintedView = FLCTintedView(color: .accent)
-    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText), color: .flcNumberTextFieldLabel, textAlignment: .left)
+    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText))
     let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
     
@@ -122,6 +122,7 @@ class FLCCargoParametersView: FLCCalculationView {
     
     private func configureCustomsClearanceLabel() {
         customsClearanceTextViewLabel.delegate = self
+        customsClearanceTextViewLabel.setStyle(color: .flcNumberTextFieldLabel, textAlignment: .left, fontSize: 17)
         
         let labelWidth = tintedView.frame.width - customsClearanceSwitch.frame.width - 3 * padding
         

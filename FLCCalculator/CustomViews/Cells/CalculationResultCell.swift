@@ -7,14 +7,18 @@ class CalculationResultCell: UITableViewCell {
     private let containerView = UIView()
     private let gradientLayer = CAGradientLayer()
     
-    private let title = FLCTitleLabel(color: .label, textAlignment: .left, size: 23)
-    private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
+    var titleTextView = FLCTextViewLabel()
+    let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
     private let daysIcon = UIImageView()
-    private let daysLabel = FLCTitleLabel(color: .lightGray, textAlignment: .right, size: 19)
-    private let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
+    let daysLabel = FLCTitleLabel(color: .lightGray, textAlignment: .right, size: 19)
+    let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     
     private let padding: CGFloat = 20
+    private var daysLabelHeightConstraint: NSLayoutConstraint!
+    private var subtitleBottomConstraint: NSLayoutConstraint!
     private var isShimmering = false
+    
+    var type: FLCCalculationResultCellType = .russianDelivery
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,25 +41,25 @@ class CalculationResultCell: UITableViewCell {
         if newWindow != nil { if isShimmering { addShimmerAnimation() } }
     }
     
-    func set(with item: CalculationResultItem) {
+    func set(with item: CalculationResultItem, in viewController: UIViewController) {
+        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 24, 23), placeIcon: .afterText)
+        
         addShimmerAnimation()
         
-        self.title.text = item.title
-        self.subtitle.attributedText = item.subtitle.makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), placeIcon: .beforeText)
-        
-        switch item.type {
+        self.type = item.type
+        self.titleTextView.delegate = viewController as? UITextViewDelegate
+        self.titleTextView.text = item.title
+     
+        switch type {
         case .russianDelivery:
-            Task {
-                do {
-                    let data = try await NetworkManager.shared.getRussianDelivery(for: item)
-                    let price = data.getPrice().add(markup: .russianDelivery).formatIntoCurrency(symbol: .rub)
-                    
-                    priceLabel.text = price
-                    daysLabel.text = "\(data.getDays() ?? "?") дн."
-                    removeShimmerAnimation()
-                }
-            }
+            CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
+        case .insurance:
+            self.titleTextView.attributedText = attributedText
+            priceLabel.text = "1 299"
+            removeDaysContent()
+            removeShimmerAnimation()
         }
+        self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 23)
     }
     
     private func configure() {
@@ -63,7 +67,7 @@ class CalculationResultCell: UITableViewCell {
         contentView.addSubviews(containerView)
         
         configureContainerView()
-        configureTitle()
+        configureTitleTextView()
         configureSubtitle()
         configureDaysIcon()
         configureDaysLabel()
@@ -73,7 +77,7 @@ class CalculationResultCell: UITableViewCell {
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(title, subtitle, daysIcon, daysLabel, priceLabel)
+        containerView.addSubviews(titleTextView, subtitle, daysIcon, daysLabel, priceLabel)
         containerView.layer.addSublayer(gradientLayer)
         containerView.pinToEdges(of: contentView, withPadding: padding / 2)
         
@@ -81,21 +85,22 @@ class CalculationResultCell: UITableViewCell {
         containerView.layer.cornerRadius = 10
     }
     
-    private func configureTitle() {
+    private func configureTitleTextView() {
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 0.5),
-            title.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
-            title.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            title.bottomAnchor.constraint(equalTo: subtitle.topAnchor, constant: -padding * 0.15),
+            titleTextView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 0.5),
+            titleTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
+            titleTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            titleTextView.bottomAnchor.constraint(equalTo: subtitle.topAnchor, constant: -padding * 0.15),
         ])
     }
     
     private func configureSubtitle() {
+        subtitleBottomConstraint = subtitle.bottomAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: -padding * 2)
         
         NSLayoutConstraint.activate([
             subtitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
             subtitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            subtitle.bottomAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: -padding * 2)
+            subtitleBottomConstraint
         ])
     }
     
@@ -113,10 +118,12 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configureDaysLabel() {
+        daysLabelHeightConstraint = daysLabel.heightAnchor.constraint(equalToConstant: 21)
+        
         NSLayoutConstraint.activate([
             daysLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
             daysLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.2),
-            daysLabel.heightAnchor.constraint(equalToConstant: 21)
+            daysLabelHeightConstraint
         ])
     }
     
@@ -160,7 +167,7 @@ class CalculationResultCell: UITableViewCell {
         isShimmering = true
     }
     
-    private func removeShimmerAnimation() {
+    func removeShimmerAnimation() {
         isShimmering = false
         gradientLayer.removeAnimation(forKey: "shimmer")
         
@@ -168,6 +175,11 @@ class CalculationResultCell: UITableViewCell {
         gradientLayer.locations = nil
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+    }
+    
+    private func removeDaysContent() {
+        daysLabelHeightConstraint.constant = 1
+        subtitleBottomConstraint.constant = -padding
     }
     
     @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }

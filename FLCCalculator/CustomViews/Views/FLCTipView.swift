@@ -89,7 +89,7 @@ class FLCTipView: UIView {
     
     private func configureTextLabel() {
         NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor),
+            textLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: padding / 2),
             textLabel.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: padding),
             textLabel.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -padding),
             textLabel.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant: -padding)

@@ -16,6 +16,7 @@ enum FLCCountryOption: String {
 
 enum FLCCalculationResultCellType: Int {
     case russianDelivery = 1
+    case insurance = 2
 }
 
 enum FLCMarkupType: Double {

@@ -7,7 +7,7 @@ extension Double {
         return Double(String(format: "%.2f", result)) ?? 0.0
     }
     
-    func formatIntoCurrency(symbol: FLCCurrencySymbol) -> String {
+    func formatAsCurrency(symbol: FLCCurrencySymbol) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.usesGroupingSeparator = true
