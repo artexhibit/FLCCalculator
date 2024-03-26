@@ -143,6 +143,8 @@ class CalculationVC: UIViewController {
             goodsType: cargoView.cargoTypePickerButton.showingTitle,
             volume: cargoView.volumeTextField.text?.createDouble() ?? 0.0,
             weight: cargoView.weightTextField.text?.createDouble() ?? 0.0, 
+            invoiceAmount: cargoView.invoiceAmountTextField.text?.createDouble() ?? 0.0, 
+            invoiceCurrency: cargoView.invoiceCurrencyPickerButton.showingTitle,
             needCustomClearance: cargoView.customsClearanceSwitch.isOn)
         return calcData
     }

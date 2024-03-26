@@ -49,13 +49,16 @@ class CalculationResultCell: UITableViewCell {
         self.type = item.type
         self.titleTextView.delegate = viewController as? UITextViewDelegate
         self.titleTextView.text = item.title
-     
+        
         switch type {
         case .russianDelivery:
             CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
         case .insurance:
             self.titleTextView.attributedText = attributedText
-            priceLabel.text = "1 299"
+            let currencyCode = FLCCurrencySymbol(currencyCode: item.calculationData.invoiceCurrency) ?? .USD
+            
+            priceLabel.text = PriceCalculationManager.calculateInsurance(for: .chinaTruck, invoiceAmount: item.calculationData.invoiceAmount).formatAsCurrency(symbol: .USD)
+            subtitle.text = "\(PriceCalculationManager.getInsurancePersentage(for: .chinaTruck))% от стоимости инвойса (\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: currencyCode)))"
             removeDaysContent()
             removeShimmerAnimation()
         }

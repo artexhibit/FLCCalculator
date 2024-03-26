@@ -8,7 +8,7 @@ struct CalculationCellUIHelper {
         Task {
             do {
                 let data = try await NetworkManager.shared.getRussianDelivery(for: item)
-                let price = data.getPrice().add(markup: .russianDelivery).formatAsCurrency(symbol: .rub)
+                let price = data.getPrice().add(markup: .russianDelivery).formatAsCurrency(symbol: .RUB)
                 
                 DispatchQueue.main.async {
                     cell.priceLabel.text = price

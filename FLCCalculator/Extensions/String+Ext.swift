@@ -34,6 +34,13 @@ extension String {
         return attributedString
     }
     
+    func createRange() -> ClosedRange<Double>? {
+        let components = self.split(separator: "-")
+        guard components.count == 2, let lowerBound = Double(components[0]), let upperBound = Double(components[1]) else { return nil }
+        return lowerBound...upperBound
+    }
+    
+    func formatAsSymbol() -> String { FLCCurrencySymbol(rawValue: self)?.symbol ?? "" }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }
     func removeFirstCharacters(_ amount: Int) -> String { String(self.dropFirst(amount)) }
 }

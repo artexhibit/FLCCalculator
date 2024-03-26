@@ -24,7 +24,37 @@ enum FLCMarkupType: Double {
 }
 
 enum FLCCurrencySymbol: String {
-    case rub = "₽"
-    case usd = "$"
-    case eur = "€"
+    case RUB = "RUB"
+    case USD = "USD"
+    case EUR = "EUR"
+    case TRY = "TRY"
+    case CNY = "CNY"
+    
+    var symbol: String {
+        switch self {
+        case .RUB: return "₽"
+        case .USD: return "$"
+        case .EUR: return "€"
+        case .TRY: return "₺"
+        case .CNY: return "¥"
+        }
+    }
+    
+    init?(currencyCode: String) {
+        switch currencyCode {
+        case "RUB": self = .RUB
+        case "USD": self = .USD
+        case "EUR": self = .EUR
+        case "TRY": self = .TRY
+        case "CNY": self = .CNY
+        default: return nil
+        }
+    }
+}
+
+enum FLCLogisticsType: String {
+    case chinaTruck = "chinaTruck"
+    case chinaRailway = "chinaRailway"
+    case chinaAir = "chinaAir"
+    case turkeyTruck = "turkeyTruck"
 }

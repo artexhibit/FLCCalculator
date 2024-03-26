@@ -12,5 +12,7 @@ struct CalculationData: Hashable {
     let goodsType: String
     let volume: Double
     let weight: Double
+    let invoiceAmount: Double
+    let invoiceCurrency: String
     let needCustomClearance: Bool
 }

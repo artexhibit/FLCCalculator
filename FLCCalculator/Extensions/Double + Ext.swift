@@ -10,10 +10,12 @@ extension Double {
     func formatAsCurrency(symbol: FLCCurrencySymbol) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
         formatter.usesGroupingSeparator = true
         
         let result = formatter.string(from: NSNumber(value: self)) ?? ""
-        return "\(result) \(symbol.rawValue)"
+        return "\(result) \(symbol.symbol)"
     }
 }
 

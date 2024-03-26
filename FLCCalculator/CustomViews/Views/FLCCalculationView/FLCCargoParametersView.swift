@@ -7,7 +7,7 @@ class FLCCargoParametersView: FLCCalculationView {
     let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
     let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
     let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
-    private let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
+    let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let tintedView = FLCTintedView(color: .accent)
     private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText))
