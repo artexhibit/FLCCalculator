@@ -39,8 +39,8 @@ class CalculationResultVC: UIViewController {
     }
     
     private func configureInitialData() {
-        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: calculationData, title: "Доставка по России", subtitle: "Подольск - \(calculationData.toLocation)")
-        let insuranceItem = CalculationResultItem(type: .insurance, calculationData: calculationData, title: "Страхование", subtitle: "")
+        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: calculationData, title: "Доставка по России", subtitle: "Подольск - \(calculationData.toLocation)", itemCellPriceCurrency: .RUB)
+        let insuranceItem = CalculationResultItem(type: .insurance, calculationData: calculationData, title: "Страхование", subtitle: "", itemCellPriceCurrency: .USD)
         calculationResultItems.append(contentsOf: [russianDeliveryItem, insuranceItem])
     }
     

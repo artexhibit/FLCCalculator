@@ -13,9 +13,9 @@ class CalculationResultCell: UITableViewCell {
     let daysLabel = FLCTitleLabel(color: .lightGray, textAlignment: .right, size: 19)
     let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     
-    private let padding: CGFloat = 20
-    private var daysLabelHeightConstraint: NSLayoutConstraint!
-    private var subtitleBottomConstraint: NSLayoutConstraint!
+    let padding: CGFloat = 20
+    var daysLabelHeightConstraint: NSLayoutConstraint!
+    var subtitleBottomConstraint: NSLayoutConstraint!
     private var isShimmering = false
     
     var type: FLCCalculationResultCellType = .russianDelivery
@@ -54,13 +54,7 @@ class CalculationResultCell: UITableViewCell {
         case .russianDelivery:
             CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
         case .insurance:
-            self.titleTextView.attributedText = attributedText
-            let currencyCode = FLCCurrencySymbol(currencyCode: item.calculationData.invoiceCurrency) ?? .USD
-            
-            priceLabel.text = PriceCalculationManager.calculateInsurance(for: .chinaTruck, invoiceAmount: item.calculationData.invoiceAmount).formatAsCurrency(symbol: .USD)
-            subtitle.text = "\(PriceCalculationManager.getInsurancePersentage(for: .chinaTruck))% от стоимости инвойса (\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: currencyCode)))"
-            removeDaysContent()
-            removeShimmerAnimation()
+            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText)
         }
         self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 23)
     }
@@ -178,11 +172,6 @@ class CalculationResultCell: UITableViewCell {
         gradientLayer.locations = nil
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
-    }
-    
-    private func removeDaysContent() {
-        daysLabelHeightConstraint.constant = 1
-        subtitleBottomConstraint.constant = -padding
     }
     
     @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }

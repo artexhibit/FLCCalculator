@@ -9,6 +9,7 @@ enum Icons {
 
 enum Keys {
     static let tariffs = "tariffs"
+    static let currencyData = "currencyData"
 }
 
 enum ScreenSize {

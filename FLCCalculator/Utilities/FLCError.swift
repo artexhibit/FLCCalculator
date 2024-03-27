@@ -9,6 +9,6 @@ enum FLCError: String, Error {
     case invalidData = "The data received from the server was invalid"
     case unableToGetDocuments = "This collection doesn't have documents"
     case castingError = "The value is not a string"
-    case unableToSaveTariffs = "There was an error saving the tariffs"
-    case unableToRetrieveTariffs = "There was an error retrieving the tariffs"
+    case unableToSaveToUserDefaults = "There was an error saving to User Defaults"
+    case unableToRetrieveFromUserDefaults = "There was an error retrieving from User Defaults"
 }

@@ -23,7 +23,7 @@ enum FLCMarkupType: Double {
     case russianDelivery = 1.17
 }
 
-enum FLCCurrencySymbol: String {
+enum FLCCurrency: String {
     case RUB = "RUB"
     case USD = "USD"
     case EUR = "EUR"

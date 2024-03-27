@@ -4,6 +4,22 @@ import CoreData
 class NetworkManager {
     static let shared = NetworkManager()
     private let decoder = JSONDecoder()
+    
+    func getCurrencyData() async throws -> CurrencyData {
+        let endpoint = "https://www.cbr-xml-daily.ru/daily_json.js"
+        
+        guard let url = URL(string: endpoint) else { throw FLCError.invalidEndpoint }
+        
+        let (data, responce) = try await URLSession.shared.data(from: url)
+        
+        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else {  throw FLCError.invalidResponce }
+        
+        do {
+            return try decoder.decode(CurrencyData.self, from: data)
+        } catch {
+            throw FLCError.invalidData
+        }
+    }
         
     func getRussianDelivery(for item: CalculationResultItem) async throws -> RussianDelivery {
         let endPoint = "https://calc.pecom.ru/bitrix/components/pecom/calc/ajax.php?places[0][0]=1&places[0][1]=1&places[0][2]=1&places[0][3]=\(item.calculationData.volume)&places[0][4]=\(item.calculationData.weight)&places[0][5]=0&places[0][6]=0&take[town]=249780&deliver[town]=\(item.calculationData.toLocationCode)"

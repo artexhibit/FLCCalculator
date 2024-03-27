@@ -43,6 +43,8 @@
 		0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double + Ext.swift */; };
 		0B60E35E2BA70F810008000B /* Double + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double + Ext.swift */; };
 		0B60E35F2BA73AFB0008000B /* CalculationResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */; };
+		0B625C372BB340D400A9392A /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
+		0B625C382BB340D400A9392A /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
 		0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */; };
 		0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54272B810BA00078C110 /* AppDelegate.swift */; };
 		0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54292B810BA00078C110 /* SceneDelegate.swift */; };
@@ -159,6 +161,7 @@
 		0B50DE052BAB603000B5A447 /* FLCTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTipView.swift; sourceTree = "<group>"; };
 		0B60E3592BA6ED720008000B /* RussianDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianDelivery.swift; sourceTree = "<group>"; };
 		0B60E35C2BA70F810008000B /* Double + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Ext.swift"; sourceTree = "<group>"; };
+		0B625C362BB340D400A9392A /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerButton.swift; sourceTree = "<group>"; };
 		0B6E54242B810BA00078C110 /* FLCCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLCCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6E54272B810BA00078C110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -429,6 +432,7 @@
 				0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */,
 				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
 				0B9CABC32BB0283100ED658B /* Tariff.swift */,
+				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -676,6 +680,7 @@
 				0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */,
 				0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */,
 				0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */,
+				0B625C372BB340D400A9392A /* CurrencyData.swift in Sources */,
 				0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */,
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
@@ -752,6 +757,7 @@
 				0B246B532BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */,
 				0B6E54682B811B8B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
+				0B625C382BB340D400A9392A /* CurrencyData.swift in Sources */,
 				0B2002B42B9E0D5100B8DF5C /* NetworkManager.swift in Sources */,
 				0B32F16C2B93477D004BAB46 /* FLCPickerItem.swift in Sources */,
 				0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */,

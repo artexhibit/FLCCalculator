@@ -36,7 +36,7 @@ class FLCTipView: UIView {
         transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         alpha = 0
         
-        layer.cornerRadius = 15
+        layer.cornerRadius = 17
         layer.shadowColor = UIColor.darkGray.cgColor
         layer.shadowOpacity = 0.2
         layer.shadowOffset = CGSize(width: 0.0, height: 6.0)

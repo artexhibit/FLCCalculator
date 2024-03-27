@@ -40,7 +40,7 @@ extension String {
         return lowerBound...upperBound
     }
     
-    func formatAsSymbol() -> String { FLCCurrencySymbol(rawValue: self)?.symbol ?? "" }
+    func formatAsSymbol() -> String { FLCCurrency(rawValue: self)?.symbol ?? "" }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }
     func removeFirstCharacters(_ amount: Int) -> String { String(self.dropFirst(amount)) }
 }
