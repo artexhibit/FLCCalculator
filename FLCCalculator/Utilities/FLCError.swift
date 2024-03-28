@@ -10,5 +10,6 @@ enum FLCError: String, Error {
     case unableToGetDocuments = "This collection doesn't have documents"
     case castingError = "The value is not a string"
     case unableToSaveToUserDefaults = "There was an error saving to User Defaults"
+    case unableToUpdateUserDefaults = "There was an error updating User Defaults"
     case unableToRetrieveFromUserDefaults = "There was an error retrieving from User Defaults"
 }

@@ -17,27 +17,20 @@ struct FirebaseManager {
         } catch {
             throw FLCError.invalidData
         }
-    }
+     }
     
-   static func updateTariffs() {
+    static func updateTariffs() {
         Task {
             do {
                 let tariffs = try await getTariffs()
                 
-                PersistenceManager.update(tariffs: tariffs, completed: { result in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(_):
-                            FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Тарифы обновлены")
-                        case .failure(_):
-                            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить тарифы", style: .error)
-                        }
-                    }
-                })
-            } catch {
-                DispatchQueue.main.async {
-                    FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить тарифы", style: .error)
+                guard let _ = PersistenceManager.update(tariffs: tariffs) else {
+                    await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить тарифы", style: .error)
+                    return
                 }
+                await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Тарифы обновлены")
+            } catch {
+                await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить тарифы", style: .error)
             }
         }
     }

@@ -41,24 +41,6 @@ class CalculationResultCell: UITableViewCell {
         if newWindow != nil { if isShimmering { addShimmerAnimation() } }
     }
     
-    func set(with item: CalculationResultItem, in viewController: UIViewController) {
-        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 24, 23), placeIcon: .afterText)
-        
-        addShimmerAnimation()
-        
-        self.type = item.type
-        self.titleTextView.delegate = viewController as? UITextViewDelegate
-        self.titleTextView.text = item.title
-        
-        switch type {
-        case .russianDelivery:
-            CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
-        case .insurance:
-            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText)
-        }
-        self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 23)
-    }
-    
     private func configure() {
         selectionStyle = .none
         contentView.addSubviews(containerView)
@@ -86,7 +68,7 @@ class CalculationResultCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleTextView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 0.5),
             titleTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
-            titleTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            titleTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 2),
             titleTextView.bottomAnchor.constraint(equalTo: subtitle.topAnchor, constant: -padding * 0.15),
         ])
     }
@@ -109,7 +91,7 @@ class CalculationResultCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             daysIcon.centerYAnchor.constraint(equalTo: daysLabel.centerYAnchor, constant: 1),
-            daysIcon.trailingAnchor.constraint(equalTo: daysLabel.leadingAnchor, constant: -3),
+            daysIcon.trailingAnchor.constraint(equalTo: daysLabel.leadingAnchor),
             daysIcon.heightAnchor.constraint(equalTo: daysLabel.heightAnchor)
         ])
     }
@@ -143,6 +125,28 @@ class CalculationResultCell: UITableViewCell {
             UIColor.flcGradientColorTwo.cgColor,
             UIColor.flcGradientColorOne.cgColor
         ]
+    }
+    
+    func set(with item: CalculationResultItem, in viewController: UIViewController) {
+        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 23, 22), placeIcon: .afterText)
+        
+        addShimmerAnimation()
+        
+        self.type = item.type
+        self.titleTextView.delegate = viewController as? UITextViewDelegate
+        self.titleTextView.text = item.title
+        
+        switch type {
+        case .russianDelivery:
+            CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
+        case .insurance:
+            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText)
+        case .deliveryFromWarehouse:
+            CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText)
+        case .cargoHandling:
+            CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText)
+        }
+        self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 23)
     }
     
     private func addShimmerAnimation() {

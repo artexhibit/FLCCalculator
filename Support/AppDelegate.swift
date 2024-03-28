@@ -13,14 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Task {
             do {
                 let currencyData = try await NetworkManager.shared.getCurrencyData()
-                PersistenceManager.update(currencyData: currencyData) { result in
-                    switch result {
-                    case .success(_):
-                        FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Курсы валют обновлены", style: .normal)
-                    case .failure(_):
-                        FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
-                    }
+                guard let _ = PersistenceManager.update(currencyData: currencyData) else {
+                    FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
+                    return
                 }
+                FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Курсы валют обновлены", style: .normal)
             } catch {
                 FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить курсы валют", style: .error)
             }

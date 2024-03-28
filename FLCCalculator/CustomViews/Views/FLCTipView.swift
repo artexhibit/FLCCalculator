@@ -108,9 +108,9 @@ class FLCTipView: UIView {
     
     func showTipOnMainThread(withText: String, in view: UIView, target: UIView, trianglePosition: CGFloat) {
         DispatchQueue.main.async {
+            self.configureTrianglePosition(position: trianglePosition)
             self.isShowing = true
             self.textLabel.text = withText
-            self.configureTrianglePosition(position: trianglePosition)
             
             self.configureTip(tip: self, in: view, target: target)
             
@@ -139,8 +139,15 @@ class FLCTipView: UIView {
         
         let screenWidth = UIScreen.main.bounds.size.width
         let adjustmentWidth = (screenWidth - (screenWidth * 0.9)) / 2
+        let finalPosition = position - adjustmentWidth
         
-        triangleLeadingConstraint.constant = position - adjustmentWidth
+        if finalPosition < 13 {
+            triangleLeadingConstraint.constant = 13
+        } else if finalPosition > screenWidth * 0.8 {
+            triangleLeadingConstraint.constant = screenWidth * 0.8
+        } else {
+            triangleLeadingConstraint.constant = finalPosition
+        }
         triangleLeadingConstraint.isActive = true
     }
     
@@ -165,7 +172,7 @@ class FLCTipView: UIView {
         
         let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
         blurEffectView.frame = bounds
-        blurEffectView.contentView.backgroundColor = .label.withAlphaComponent(0.04)
+        blurEffectView.contentView.backgroundColor = .label.withAlphaComponent(0.06)
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurEffectView.layer.mask = maskLayer
         return blurEffectView

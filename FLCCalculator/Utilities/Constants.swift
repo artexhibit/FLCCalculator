@@ -5,6 +5,7 @@ enum Icons {
     static let infoSign = UIImage(systemName: "info.circle.fill") ?? UIImage()
     static let truck = UIImage(systemName: "truck.box") ?? UIImage()
     static let xmark = UIImage(systemName: "xmark") ?? UIImage()
+    static let warehouse = UIImage(systemName: "door.garage.closed") ?? UIImage()
 }
 
 enum Keys {
