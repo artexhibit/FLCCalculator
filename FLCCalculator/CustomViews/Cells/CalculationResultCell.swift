@@ -68,7 +68,7 @@ class CalculationResultCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleTextView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 0.5),
             titleTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
-            titleTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 2),
+            titleTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5),
             titleTextView.bottomAnchor.constraint(equalTo: subtitle.topAnchor, constant: -padding * 0.15),
         ])
     }
@@ -128,7 +128,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func set(with item: CalculationResultItem, in viewController: UIViewController) {
-        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 23, 22), placeIcon: .afterText)
+        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
         
         addShimmerAnimation()
         
@@ -145,8 +145,12 @@ class CalculationResultCell: UITableViewCell {
             CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText)
         case .cargoHandling:
             CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText)
+        case .customsClearancePrice:
+            CalculationCellUIHelper.configureCustomsClearancePrice(cell: self, with: item, and: attributedText)
+        case .customsWarehouseServices:
+            CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
         }
-        self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 23)
+        self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 20)
     }
     
     private func addShimmerAnimation() {

@@ -58,4 +58,14 @@ class PriceCalculationManager {
         
         return handlingData.pricePerKg * weight > handlingData.minPrice ? handlingData.pricePerKg * weight : handlingData.minPrice
     }
+    
+    static func getCustomsClearancePrice(for logisticsType: FLCLogisticsType) -> Double {
+        guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }
+        return logisticsTypeData.customsClearance
+    }
+    
+    static func getCustomsWarehouseServices(for logisticsType: FLCLogisticsType) -> Double {
+        guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }
+        return logisticsTypeData.customsWarehousePrice
+    }
 }

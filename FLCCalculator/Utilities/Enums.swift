@@ -8,6 +8,7 @@ enum FLCListPickerSearchType { case onlyByTitle, onlyBySubtitle, both }
 enum FLCGoToViewDirections { case forward, backward }
 enum FLCSection { case main }
 enum FLCTextViewLabelImagePlacing { case afterText, beforeText }
+enum FLCTipPosition {case top, bottom }
 
 enum FLCCountryOption: String {
     case china = "Китай"
@@ -19,6 +20,8 @@ enum FLCCalculationResultCellType: Int {
     case insurance = 2
     case deliveryFromWarehouse = 3
     case cargoHandling = 4
+    case customsClearancePrice = 5
+    case customsWarehouseServices = 6
 }
 
 enum FLCMarkupType: Double {

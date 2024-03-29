@@ -41,9 +41,11 @@ class CalculationResultVC: UIViewController {
     private func configureInitialData() {
         let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: calculationData, title: "Доставка по России", itemCellPriceCurrency: .RUB)
         let insuranceItem = CalculationResultItem(type: .insurance, calculationData: calculationData, title: "Страхование", itemCellPriceCurrency: .USD)
-        let deliveryFromWarehouseIttem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: calculationData, title: "Перевозка Сборного Груза", itemCellPriceCurrency: .USD)
+        let deliveryFromWarehouseItem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: calculationData, title: "Перевозка Сборного Груза", itemCellPriceCurrency: .USD)
         let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: calculationData, title: "Погрузо-разгрузочные работы", itemCellPriceCurrency: .USD)
-        calculationResultItems.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseIttem, cargoHandling])
+        let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: calculationData, title: "Услуги по Таможенному Оформлению", itemCellPriceCurrency: .RUB)
+        let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: calculationData, title: "Услуги СВХ", itemCellPriceCurrency: .RUB)
+        calculationResultItems.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem])
     }
     
     private func configureDataSource() {
@@ -96,13 +98,17 @@ extension CalculationResultVC: UITextViewDelegate {
     private func configureTipMessage(in cell: CalculationResultCell) -> String {
         switch cell.type {
         case .russianDelivery:
-            return "Наш партнёр по доставке - ПЭК. Груз будет доставлен для Вас согласно высочайшим стандартам компании."
+             "Наш партнёр по доставке - ПЭК. Груз будет доставлен для Вас согласно высочайшим стандартам компании."
         case .insurance:
-            return "Наш многолетний партнёр по страхованию - компания СК Пари. Страховка от полной стоимости инвойса."
+             "Наш многолетний партнёр по страхованию - компания СК Пари. Страховка от полной стоимости инвойса."
         case .deliveryFromWarehouse:
-            return "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник."
+             "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник."
         case .cargoHandling:
-            return "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
+             "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
+        case .customsClearancePrice:
+            "В стоимость входит подача Таможенной Декларации, услуги брокера и ЭЦП брокера."
+        case .customsWarehouseServices:
+            "Услуги таможенного Склада Временного Хранения на время оформления груза. Дополнительные услуги по погрузке, разгрузке, хранению сверх норматива оплачиваются по тарифу с СВХ отдельно."
         }
     }
 }

@@ -35,6 +35,7 @@ struct CalculationCellUIHelper {
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Шанхай - Подольск".makeAttributed(icon: Icons.warehouse, size: (0, -2, 22, 16), placeIcon: .beforeText)
         cell.priceLabel.text = "\(PriceCalculationManager.calculateDeliveryFromWarehouse(for: .chinaTruck, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
+        
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation()
     }
@@ -45,6 +46,25 @@ struct CalculationCellUIHelper {
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.text = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.itemCellPriceCurrency)) за кг, минимум \(handlingData.minPrice.formatAsCurrency(symbol: item.itemCellPriceCurrency))"
         cell.priceLabel.text = "\(PriceCalculationManager.calculateCargoHandling(for: .chinaTruck, weight: item.calculationData.weight).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
+        
+        removeDaysContent(in: cell)
+        cell.removeShimmerAnimation()
+    }
+    
+    static func configureCustomsClearancePrice(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+        cell.titleTextView.attributedText = attributedText
+        cell.subtitle.attributedText = "Лицензия таможенного брокера № 0998".makeAttributed(icon: Icons.document, size: (0, -3, 18, 17), placeIcon: .beforeText)
+        cell.priceLabel.text = "\(PriceCalculationManager.getCustomsClearancePrice(for: .chinaTruck).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
+        
+        removeDaysContent(in: cell)
+        cell.removeShimmerAnimation()
+    }
+    
+    static func configureCustomsWarehouseServices(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+        cell.titleTextView.attributedText = attributedText
+        cell.subtitle.attributedText = "Включено 2 дня ожидания".makeAttributed(icon: Icons.clock, size: (0, -2, 18, 17), placeIcon: .beforeText)
+        cell.priceLabel.text = "\(PriceCalculationManager.getCustomsWarehouseServices(for: .chinaTruck).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
+        
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation()
     }
