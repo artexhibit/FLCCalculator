@@ -11,4 +11,8 @@ extension UIViewController {
     }
     
     func showPreview() -> some View { Preview(viewController: self).edgesIgnoringSafeArea(.all) }
+    
+    //struct ViewControllerProvider: PreviewProvider {
+    //  static var previews: some View { CalculationResultVC().showPreview() }
+    //}
 }

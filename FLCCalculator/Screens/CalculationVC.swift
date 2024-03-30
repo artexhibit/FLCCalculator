@@ -267,3 +267,9 @@ extension CalculationVC: UIScrollViewDelegate {
         delegate?.scrollViewDidScroll()
     }
 }
+
+extension CalculationVC: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        .none
+    }
+}

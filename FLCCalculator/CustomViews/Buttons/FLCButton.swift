@@ -36,6 +36,7 @@ class FLCButton: UIButton {
         
         translatesAutoresizingMaskIntoConstraints = false
         layer.addSublayer(gradientLayer)
+        tintAdjustmentMode = .normal
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShineEffect))
     }

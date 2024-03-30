@@ -37,7 +37,6 @@
 		0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FD42B82546D00498ACE /* CalculationCell.swift */; };
-		0B50DE062BAB603000B5A447 /* FLCTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B50DE052BAB603000B5A447 /* FLCTipView.swift */; };
 		0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
 		0B60E35B2BA6ED720008000B /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
 		0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double + Ext.swift */; };
@@ -108,6 +107,7 @@
 		0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938922B853A6900A18016 /* CalculationVC.swift */; };
+		0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */; };
 		0BFBD7402BA37B9F00B485B8 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */; };
 		0BFBD7412BA37B9F00B485B8 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */; };
 		0BFBD7432BA37E2B00B485B8 /* CalculationResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD7422BA37E2B00B485B8 /* CalculationResultVC.swift */; };
@@ -158,7 +158,6 @@
 		0B419FCB2B82464000498ACE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		0B419FCF2B824BED00498ACE /* CalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationView.swift; sourceTree = "<group>"; };
 		0B419FD42B82546D00498ACE /* CalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
-		0B50DE052BAB603000B5A447 /* FLCTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTipView.swift; sourceTree = "<group>"; };
 		0B60E3592BA6ED720008000B /* RussianDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianDelivery.swift; sourceTree = "<group>"; };
 		0B60E35C2BA70F810008000B /* Double + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Ext.swift"; sourceTree = "<group>"; };
 		0B625C362BB340D400A9392A /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
@@ -221,6 +220,7 @@
 		0BF9388B2B850EC600A18016 /* FLCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCButton.swift; sourceTree = "<group>"; };
 		0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTagView.swift; sourceTree = "<group>"; };
 		0BF938922B853A6900A18016 /* CalculationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationVC.swift; sourceTree = "<group>"; };
+		0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopoverVC.swift; sourceTree = "<group>"; };
 		0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationData.swift; sourceTree = "<group>"; };
 		0BFBD7422BA37E2B00B485B8 /* CalculationResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultVC.swift; sourceTree = "<group>"; };
 		0BFBD7442BA38B3400B485B8 /* UINavigationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Ext.swift"; sourceTree = "<group>"; };
@@ -492,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				0BE046732B9CA05900BA6F21 /* FLCPickerVC */,
+				0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -514,7 +515,6 @@
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
 				0B2130612BA4B51E00A30394 /* FLCTintedView.swift */,
-				0B50DE052BAB603000B5A447 /* FLCTipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -672,7 +672,6 @@
 				0BFBD7402BA37B9F00B485B8 /* CalculationData.swift in Sources */,
 				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
 				0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */,
-				0B50DE062BAB603000B5A447 /* FLCTipView.swift in Sources */,
 				0BDCE6F72BA59AB70043AB64 /* CalculationResultCell.swift in Sources */,
 				0BD5E61F2B9A1C4D00240844 /* CalculationUIHelper.swift in Sources */,
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,
@@ -706,6 +705,7 @@
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationInfo.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
+				0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */,
 				0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */,
 				0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */,
 				0BDCE6F92BA59FB30043AB64 /* UIViewController + Ext.swift in Sources */,

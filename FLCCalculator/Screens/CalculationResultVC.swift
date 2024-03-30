@@ -4,7 +4,7 @@ import SwiftUI
 class CalculationResultVC: UIViewController {
     
     private let tableView = UITableView()
-    private var showingTipView = FLCTipView()
+    private var showingPopover = FLCPopoverVC()
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
     private var calculationResultItems = [CalculationResultItem]()
     
@@ -21,6 +21,7 @@ class CalculationResultVC: UIViewController {
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
+        view.configureTapGesture(selector: #selector(self.viewTapped))
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
@@ -64,6 +65,9 @@ class CalculationResultVC: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
+    @objc private func viewTapped(_ gesture: UITapGestureRecognizer) {
+        if showingPopover.isShowing {  showingPopover.hidePopoverFromMainThread() }
+    }
     @objc func closeButtonPressed() { navigationController?.popViewController(animated: true) }
 }
 
@@ -73,7 +77,7 @@ extension CalculationResultVC: UITableViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if showingTipView.isShowing { showingTipView.hideTipOnMainThread() }
+        if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
     }
 }
 
@@ -82,14 +86,12 @@ extension CalculationResultVC: UITextViewDelegate {
         if let imageName = textAttachment.image, imageName.description.contains("info.circle") {
             HapticManager.addHaptic(style: .light)
             
-            let tipView = FLCTipView()
-            if showingTipView.isShowing != tipView.isShowing { showingTipView.hideTipOnMainThread() }
-            showingTipView = tipView
+            let popover = FLCPopoverVC()
+            if showingPopover.isShowing != popover.isShowing { showingPopover.hidePopoverFromMainThread() }
+            showingPopover = popover
             
             guard let cell = textView.superview?.superview?.superview as? CalculationResultCell else { return false }
-            let iconPosition = textView.getIconAttachmentPosition(for: characterRange)
-            
-            tipView.showTipOnMainThread(withText: configureTipMessage(in: cell), in: self.view, target: textView, trianglePosition: iconPosition)
+            popover.showPopoverOnMainThread(withText: configureTipMessage(in: cell), in: self, target: textView, characterRange: characterRange)
             return false
         }
         return true
@@ -113,6 +115,8 @@ extension CalculationResultVC: UITextViewDelegate {
     }
 }
 
-//struct ViewControllerProvider: PreviewProvider {
-//  static var previews: some View { CalculationResultVC().showPreview() }
-//}
+extension CalculationResultVC: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        .none
+    }
+}

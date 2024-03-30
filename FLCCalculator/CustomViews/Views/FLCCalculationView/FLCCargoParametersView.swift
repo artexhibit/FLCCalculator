@@ -16,6 +16,7 @@ class FLCCargoParametersView: FLCCalculationView {
     
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
+    var showingPopover = FLCPopoverVC()
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,15 +38,10 @@ class FLCCargoParametersView: FLCCalculationView {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureCustomsClearanceLabel()
-        setCalculationVCDelegate()
-    }
-    
-    private func setCalculationVCDelegate() {
-        guard let vc = self.findParentViewController() as? CalculationVC else { return }
-        vc.delegate = self
     }
     
     private func configure() {
+        configureTapGesture(selector: #selector(self.viewTapped))
         addSubviews(cargoTypePickerButton, stackView, invoiceAmountTextField, invoiceCurrencyPickerButton, tintedView, nextButton)
         
         flcTextFields.append(contentsOf: [weightTextField, volumeTextField, invoiceAmountTextField])
@@ -138,7 +134,6 @@ class FLCCargoParametersView: FLCCalculationView {
         customsClearanceSwitch.translatesAutoresizingMaskIntoConstraints = false
         customsClearanceSwitch.onTintColor = .accent
         customsClearanceSwitch.isOn = true
-        customsClearanceSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
         
         NSLayoutConstraint.activate([
             customsClearanceSwitch.centerYAnchor.constraint(equalTo: customsClearanceTextViewLabel.centerYAnchor),
@@ -164,13 +159,17 @@ class FLCCargoParametersView: FLCCalculationView {
         ])
     }
     
-    @objc private func switchValueChanged(_ sender: UISwitch) {
+    @objc private func viewTapped(_ gesture: UITapGestureRecognizer) {
+        if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
+        endEditing(true)
     }
 }
 
 extension FLCCargoParametersView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         DispatchQueue.main.async {
+            if self.showingPopover.isShowing { self.showingPopover.hidePopoverFromMainThread() }
+    
             guard let text = textField.text else { return }
             
             if text.isEmpty {
@@ -259,9 +258,14 @@ extension FLCCargoParametersView: UITextViewDelegate {
         if let imageName = textAttachment.image, imageName.description.contains("info.circle") {
             HapticManager.addHaptic(style: .light)
             
-           let iconPosition = textView.getIconAttachmentPosition(for: characterRange)
-            guard !tipView.isShowing else { return false }
-            tipView.showTipOnMainThread(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: self, target: textView, trianglePosition: iconPosition)
+            let popover = FLCPopoverVC()
+            if showingPopover.isShowing != popover.isShowing { showingPopover.hidePopoverFromMainThread() }
+            showingPopover = popover
+            
+            guard !popover.isShowing else { return false }
+            guard let vc = self.findParentViewController() as? CalculationVC else { return false }
+            
+            popover.showPopoverOnMainThread(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: vc, target: textView, characterRange: characterRange)
             return false
         }
         return true
