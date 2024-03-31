@@ -13,10 +13,11 @@ class FLCCargoParametersView: FLCCalculationView {
     private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText))
     let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
-    
+        
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
     var showingPopover = FLCPopoverVC()
+    var parentVC: UIViewController { get { self.findParentViewController() as! CalculationVC } }
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,6 +39,7 @@ class FLCCargoParametersView: FLCCalculationView {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureCustomsClearanceLabel()
+        setCalculationVCDelegate()
     }
     
     private func configure() {
@@ -50,6 +52,10 @@ class FLCCargoParametersView: FLCCalculationView {
         flcTextFields.forEach { $0.navigationDelegate = self }
         flcTextFields.forEach { filledTextFileds[$0] = false }
         flcListPickerButtons.forEach { filledButtons[$0] = false }
+    }
+    
+    private func setCalculationVCDelegate() {
+        if let parentVC = parentVC as? CalculationVC { parentVC.delegate = self }
     }
     
     private func configureTitleLabel() { titleLabel.text = "Расскажите нам о вашем грузе" }

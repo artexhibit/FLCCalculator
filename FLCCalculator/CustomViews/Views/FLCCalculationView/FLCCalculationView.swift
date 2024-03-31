@@ -63,5 +63,6 @@ extension FLCTransportParametersView: FLCTextButtonDelegate {
 }
 
 extension FLCCargoParametersView: CalculationVCDelegate {
+    func closeButtonPressed() { if self.showingPopover.isShowing { self.showingPopover.hidePopoverFromMainThread() } }
     func scrollViewDidScroll() { if self.showingPopover.isShowing { self.showingPopover.hidePopoverFromMainThread() } }
 }

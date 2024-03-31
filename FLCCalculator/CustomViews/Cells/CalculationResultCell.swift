@@ -174,12 +174,14 @@ class CalculationResultCell: UITableViewCell {
     
     func removeShimmerAnimation() {
         isShimmering = false
-        gradientLayer.removeAnimation(forKey: "shimmer")
-        
-        gradientLayer.colors = nil
-        gradientLayer.locations = nil
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.gradientLayer.removeAnimation(forKey: "shimmer")
+            
+            self.gradientLayer.colors = nil
+            self.gradientLayer.locations = nil
+            self.gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+            self.gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+        }
     }
     
     @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }

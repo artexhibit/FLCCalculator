@@ -2,6 +2,7 @@ import UIKit
 
 protocol CalculationVCDelegate: AnyObject {
     func scrollViewDidScroll()
+    func closeButtonPressed()
 }
 
 class CalculationVC: UIViewController {
@@ -34,6 +35,8 @@ class CalculationVC: UIViewController {
     }
     
     private func configureVC() {
+        configureTapGesture(selector: #selector(viewTapped))
+        
         view.addSubview(containerView)
         view.backgroundColor = .systemBackground
         
@@ -154,6 +157,12 @@ class CalculationVC: UIViewController {
             cargoView.removeFromSuperview()
         }
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func viewTapped(_ gesture: UITapGestureRecognizer) {
+        let detected = CalculationUIHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
+        if detected { closeButtonPressed() }
+        delegate?.closeButtonPressed()
     }
 }
 

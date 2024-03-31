@@ -123,4 +123,21 @@ struct CalculationUIHelper {
         view.flcListPickerButtons.forEach { view.listPickerButtonsWithTitle[$0] = false }
         return times
     }
+    
+    static func detectCloseButtonPressed(with gesture: UITapGestureRecognizer, in navController: UINavigationController) -> Bool {
+        let navigationBar = navController.navigationBar
+        let tapLocation = gesture.location(in: navigationBar)
+        
+        let potentialRightItemViews = navigationBar.subviews.filter { subview in
+            return subview.frame.maxX >= navigationBar.frame.width - subview.frame.width
+        }
+        
+        for rightItemView in potentialRightItemViews {
+            let buttonLocation = navigationBar.convert(tapLocation, to: rightItemView)
+            if rightItemView.bounds.contains(buttonLocation) {
+                return true
+            }
+        }
+        return false
+    }
 }

@@ -7,7 +7,7 @@ class FLCPopoverVC: UIViewController {
     
     private let padding: CGFloat = 15
     private var closeButtonTopConstraint: NSLayoutConstraint!
-    private var textLabelBottoConstraint: NSLayoutConstraint!
+    private var textLabelBottomConstraint: NSLayoutConstraint!
     
     var isShowing = false
     
@@ -30,7 +30,6 @@ class FLCPopoverVC: UIViewController {
             
             self.isShowing = true
             self.textLabel.text = withText
-            self.view.layoutIfNeeded()
             
             self.preferredContentSize = self.setupPreferredContentSize(in: viewController)
             self.configurePresentationVC(with: position, target: target, vc: viewController, characterRange: characterRange)
@@ -61,12 +60,12 @@ class FLCPopoverVC: UIViewController {
     }
     
     private func configureTextLabel() {
-        textLabelBottoConstraint = textLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 1.5)
+        textLabelBottomConstraint = textLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 1.5)
         NSLayoutConstraint.activate([
             textLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: padding / 2),
             textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            textLabelBottoConstraint
+            textLabelBottomConstraint
         ])
     }
     
@@ -74,12 +73,12 @@ class FLCPopoverVC: UIViewController {
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
-        let tipHeight = self.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        let popupHeight = self.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
         let activeWindow = view.window?.windowScene?.windows.first { $0.isKeyWindow }
         let targetFrameInWindow = target.convert(target.bounds, to: activeWindow)
         let safeAreaVerticalInsets = (activeWindow?.safeAreaInsets.bottom ?? 0) + (activeWindow?.safeAreaInsets.top ?? 0)
         let spaceBelowTarget = (activeWindow?.frame.maxY ?? 0) - targetFrameInWindow.maxY - safeAreaVerticalInsets
-        return tipHeight > spaceBelowTarget ? .top : .bottom
+        return popupHeight > spaceBelowTarget ? .top : .bottom
     }
     
     private func configurePresentationVC(with position: FLCPopoverPosition, target: UIView, vc: UIViewController, characterRange: NSRange? = nil) {
@@ -94,12 +93,12 @@ class FLCPopoverVC: UIViewController {
         case .top:
             presentationVC.permittedArrowDirections = .down
             self.closeButtonTopConstraint.constant = self.padding / 1.5
-            self.textLabelBottoConstraint.constant = -self.padding * 1.5
+            self.textLabelBottomConstraint.constant = -self.padding * 1.5
             sourceRectY = iconPosition.y - 15
         case .bottom:
             presentationVC.permittedArrowDirections = .up
-            self.closeButtonTopConstraint.constant = self.padding * 1.5
-            self.textLabelBottoConstraint.constant = -self.padding / 1.2
+            self.closeButtonTopConstraint.constant = self.padding * 1.7
+            self.textLabelBottomConstraint.constant = -self.padding / 1.3
             sourceRectY = iconPosition.y + 15
         }
         presentationVC.backgroundColor = .clear
@@ -110,10 +109,11 @@ class FLCPopoverVC: UIViewController {
     }
     
     private func setupPreferredContentSize(in vc: UIViewController) -> CGSize {
-        let textLabelHeight = self.textLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        let popoverHeight = textLabelHeight + (self.padding * 2) + self.closeButton.frame.height
-        let popoverWidth = vc.view.frame.width * 0.9
-        return CGSize(width: popoverWidth, height: popoverHeight)
+        self.view.layoutIfNeeded()
+        let targetSize = CGSize(width: vc.view.bounds.width * 0.9, height: UIView.layoutFittingCompressedSize.height)
+        let contentSize = self.view.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+
+        return contentSize
     }
     
     @objc func hidePopoverFromMainThread() {

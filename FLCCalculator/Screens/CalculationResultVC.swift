@@ -21,7 +21,7 @@ class CalculationResultVC: UIViewController {
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
-        view.configureTapGesture(selector: #selector(self.viewTapped))
+        configureTapGesture(selector: #selector(viewTapped))
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
@@ -66,7 +66,9 @@ class CalculationResultVC: UIViewController {
     }
     
     @objc private func viewTapped(_ gesture: UITapGestureRecognizer) {
-        if showingPopover.isShowing {  showingPopover.hidePopoverFromMainThread() }
+        if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
+       let detected = CalculationUIHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
+        if detected { closeButtonPressed() }
     }
     @objc func closeButtonPressed() { navigationController?.popViewController(animated: true) }
 }
@@ -87,7 +89,7 @@ extension CalculationResultVC: UITextViewDelegate {
             HapticManager.addHaptic(style: .light)
             
             let popover = FLCPopoverVC()
-            if showingPopover.isShowing != popover.isShowing { showingPopover.hidePopoverFromMainThread() }
+            if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
             showingPopover = popover
             
             guard let cell = textView.superview?.superview?.superview as? CalculationResultCell else { return false }
