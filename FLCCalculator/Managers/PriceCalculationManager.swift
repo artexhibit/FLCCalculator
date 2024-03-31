@@ -2,12 +2,12 @@ import Foundation
 
 class PriceCalculationManager {
     
-    private static let tariffs = PersistenceManager.retrieveTariffs()
+    private static let tariffs: [Tariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let currencyData = PersistenceManager.retrieveCurrencyData()
     
     static func getInsurancePersentage(for logisticsType: FLCLogisticsType) -> Double {
         guard let tariff = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }
-        return tariff.insurancePersentage
+        return tariff.insurancePercentage
     }
     
     static func getRatioBetween(_ cellPriceCurrency: FLCCurrency, and invoiceCurrency: FLCCurrency) -> Double {

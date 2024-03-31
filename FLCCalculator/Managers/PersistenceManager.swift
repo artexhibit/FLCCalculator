@@ -3,42 +3,42 @@ import Foundation
 struct PersistenceManager {
     private static let ud = UserDefaults.sharedContainer
     
-    static func update(tariffs: [Tariff]) -> [Tariff]? {
-        if let tariffs = retrieveTariffs() {
-            let storedTariffs = tariffs
+    static func updateItemsInUserDefaults<T: UserDefaultsStorable>(items: [T]) -> [T]? {
+        if let items: [T] = retrieveItemsFromUserDefaults() {
+            let storedItems = items
             
-            ud.removeObject(forKey: Keys.tariffs)
-            guard let _ = save(tariffs: tariffs) else { return tariffs }
-            let savingError = save(tariffs: storedTariffs)
+            ud.removeObject(forKey: T.userDefaultsKey)
+            guard let _ = saveItemsToUserDefaults(items: items) else { return items }
+            let savingError = saveItemsToUserDefaults(items: storedItems)
             print(savingError!)
             return nil
         } else {
-            let savingError = save(tariffs: tariffs) ?? .unableToUpdateUserDefaults
+            let savingError = saveItemsToUserDefaults(items: items) ?? .unableToUpdateUserDefaults
             print(savingError)
-            return nil
+            return items
         }
     }
     
-    static func retrieveTariffs() -> [Tariff]? {
-        guard let tariffsData = ud.object(forKey: Keys.tariffs) as? Data else {
+    static func retrieveItemsFromUserDefaults<T: UserDefaultsStorable>() -> [T]? {
+        guard let itemsData = ud.object(forKey: T.userDefaultsKey) as? Data else {
             print(FLCError.unableToRetrieveFromUserDefaults)
             return nil
         }
         
         do {
             let decoder = JSONDecoder()
-            return try decoder.decode([Tariff].self, from: tariffsData)
+            return try decoder.decode([T].self, from: itemsData)
         } catch {
             print(FLCError.unableToRetrieveFromUserDefaults)
             return nil
         }
     }
     
-    private static func save(tariffs: [Tariff]) -> FLCError? {
+    private static func saveItemsToUserDefaults<T: UserDefaultsStorable>(items: [T]) -> FLCError? {
         do {
             let encoder = JSONEncoder()
-            let encodedTariffs = try encoder.encode(tariffs)
-            ud.setValue(encodedTariffs, forKey: Keys.tariffs)
+            let encodedItems = try encoder.encode(items)
+            ud.setValue(encodedItems, forKey: T.userDefaultsKey)
             return nil
         } catch  {
             return .unableToSaveToUserDefaults

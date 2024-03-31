@@ -6,25 +6,25 @@ struct FirebaseManager {
     
     static func configureFirebase() { FirebaseApp.configure() }
     
-     static func getTariffs() async throws -> [Tariff] {
-        let snapshot = try await Firestore.firestore().collection("tariffs").getDocuments()
-        guard let tariffs = snapshot.documents.first?.data().values.first else { throw FLCError.unableToGetDocuments }
-        guard let tariffsString = tariffs as? String else { throw FLCError.castingError }
-        guard let tariffsData = tariffsString.data(using: .utf8) else { throw FLCError.castingError }
-         
+    static func getDataFromFirebase<T: FirebaseIdentifiable>() async throws -> [T]? {
+        let snapshot = try await Firestore.firestore().collection(T.collectionNameKey).getDocuments()
+        guard let items = snapshot.documents.first?.data().values.first else { throw FLCError.unableToGetDocuments }
+        guard let itemsString = items as? String else { throw FLCError.castingError }
+        guard let itemsData = itemsString.data(using: .utf8) else { throw FLCError.castingError }
+        
         do {
-           return try decoder.decode([Tariff].self, from: tariffsData)
+            return try decoder.decode([T].self, from: itemsData)
         } catch {
             throw FLCError.invalidData
         }
-     }
+    }
     
     static func updateTariffs() {
         Task {
             do {
-                let tariffs = try await getTariffs()
+                let tariffs: [Tariff]? = try await getDataFromFirebase()
                 
-                guard let _ = PersistenceManager.update(tariffs: tariffs) else {
+                guard let _ = PersistenceManager.updateItemsInUserDefaults(items: tariffs ?? []) else {
                     await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить тарифы", style: .error)
                     return
                 }
@@ -34,4 +34,20 @@ struct FirebaseManager {
             }
         }
     }
+    
+    static func updatePickups() {
+            Task {
+                do {
+                    let pickups: [Pickup]? = try await getDataFromFirebase()
+                    
+                    guard let _ = PersistenceManager.updateItemsInUserDefaults(items: pickups ?? []) else {
+                        await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить данные по пикапам", style: .error)
+                        return
+                    }
+                    await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Данные по пикапам обновлены")
+                } catch {
+                    await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить данные по пикапам", style: .error)
+                }
+            }
+        }
 }

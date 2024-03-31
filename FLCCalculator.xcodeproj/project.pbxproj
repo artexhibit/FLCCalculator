@@ -14,7 +14,6 @@
 		0B2130622BA4B51E00A30394 /* FLCTintedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2130612BA4B51E00A30394 /* FLCTintedView.swift */; };
 		0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */; };
 		0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */; };
-		0B246B532BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */; };
 		0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B32CBBF2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B32CBCB2BAF3D1A00E756A5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBCA2BAF3D1A00E756A5 /* FirebaseAnalytics */; };
@@ -75,12 +74,12 @@
 		0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7549012BA2322B0029807B /* FLCTextButton.swift */; };
 		0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */; };
 		0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC32BB0283100ED658B /* Tariff.swift */; };
-		0B9CABC52BB0283100ED658B /* Tariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC32BB0283100ED658B /* Tariff.swift */; };
 		0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
-		0B9CABC82BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
 		0B9CABC92BB040DC00ED658B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */; };
 		0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A422B94C2C30058FC95 /* HapticManager.swift */; };
+		0B9D5A6F2BB980900016A991 /* Pickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A6E2BB980900016A991 /* Pickup.swift */; };
+		0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
 		0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
 		0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
@@ -194,6 +193,8 @@
 		0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
 		0B9D3A422B94C2C30058FC95 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		0B9D5A6E2BB980900016A991 /* Pickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickup.swift; sourceTree = "<group>"; };
+		0B9D5A722BB9914D0016A991 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -275,8 +276,9 @@
 			children = (
 				0B419FC72B82451600498ACE /* FLCError.swift */,
 				0BD06AFA2B8E6A1B00942651 /* Enums.swift */,
-				0B246B502BB1F05E006E90A8 /* Helpers */,
+				0B9D5A722BB9914D0016A991 /* Protocols.swift */,
 				0B2002B02B9DCE7B00B8DF5C /* Constants.swift */,
+				0B246B502BB1F05E006E90A8 /* Helpers */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -431,8 +433,7 @@
 				0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */,
 				0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */,
 				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
-				0B9CABC32BB0283100ED658B /* Tariff.swift */,
-				0B625C362BB340D400A9392A /* CurrencyData.swift */,
+				0B9D5A742BB991AE0016A991 /* Networking */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -475,6 +476,16 @@
 				0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */,
 			);
 			path = ProgressView;
+			sourceTree = "<group>";
+		};
+		0B9D5A742BB991AE0016A991 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0B9CABC32BB0283100ED658B /* Tariff.swift */,
+				0B9D5A6E2BB980900016A991 /* Pickup.swift */,
+				0B625C362BB340D400A9392A /* CurrencyData.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		0BD06AF72B8E64CE00942651 /* FLCListPickerVC */ = {
@@ -685,6 +696,7 @@
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
 				0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */,
 				0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */,
+				0B9D5A6F2BB980900016A991 /* Pickup.swift in Sources */,
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
 				0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */,
 				0B7548FE2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift in Sources */,
@@ -700,6 +712,7 @@
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
 				0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */,
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
+				0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */,
 				0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */,
 				0BFBD7452BA38B3500B485B8 /* UINavigationController + Ext.swift in Sources */,
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
@@ -746,15 +759,12 @@
 				0B6E54622B811B700078C110 /* Persistence.swift in Sources */,
 				0B60E35F2BA73AFB0008000B /* CalculationResultItem.swift in Sources */,
 				0B60E35B2BA6ED720008000B /* RussianDelivery.swift in Sources */,
-				0B9CABC82BB02CCD00ED658B /* PersistenceManager.swift in Sources */,
 				0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */,
 				0B60E35E2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B419FC92B82451600498ACE /* FLCError.swift in Sources */,
 				0B419FCD2B82464000498ACE /* UITableView+Ext.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
-				0B9CABC52BB0283100ED658B /* Tariff.swift in Sources */,
 				0B32F1722B93862F004BAB46 /* Enums.swift in Sources */,
-				0B246B532BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */,
 				0B6E54682B811B8B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
 				0B625C382BB340D400A9392A /* CurrencyData.swift in Sources */,
