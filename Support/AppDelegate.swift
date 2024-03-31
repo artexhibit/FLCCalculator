@@ -5,23 +5,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseManager.configureFirebase()
-        updateCurrencyData()
+        AppDelegateHelper.updateCurrencyData()
+        AppDelegateHelper.updateCalculationData()
+        
         return true
-    }
-    
-    private func updateCurrencyData() {
-        Task {
-            do {
-                let currencyData = try await NetworkManager.shared.getCurrencyData()
-                guard let _ = PersistenceManager.update(currencyData: currencyData) else {
-                    FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
-                    return
-                }
-                FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Курсы валют обновлены", style: .normal)
-            } catch {
-                FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить курсы валют", style: .error)
-            }
-        }
     }
 
     // MARK: UISceneSession Lifecycle

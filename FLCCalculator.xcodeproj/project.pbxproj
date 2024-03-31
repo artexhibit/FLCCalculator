@@ -80,6 +80,9 @@
 		0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A422B94C2C30058FC95 /* HapticManager.swift */; };
 		0B9D5A6F2BB980900016A991 /* Pickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A6E2BB980900016A991 /* Pickup.swift */; };
 		0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
+		0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */; };
+		0B9D5A772BB9AB230016A991 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */; };
+		0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */; };
 		0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
 		0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
@@ -195,6 +198,8 @@
 		0B9D3A422B94C2C30058FC95 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		0B9D5A6E2BB980900016A991 /* Pickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickup.swift; sourceTree = "<group>"; };
 		0B9D5A722BB9914D0016A991 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateHelper.swift; sourceTree = "<group>"; };
 		0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -257,6 +262,7 @@
 			children = (
 				0BD5E61E2B9A1C4D00240844 /* CalculationUIHelper.swift */,
 				0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */,
+				0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -294,6 +300,7 @@
 				0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */,
 				0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */,
 				0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */,
+				0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -703,6 +710,8 @@
 				0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */,
+				0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */,
+				0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
 				0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */,
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,
 				0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */,
@@ -756,6 +765,7 @@
 				0B9CABC92BB040DC00ED658B /* Constants.swift in Sources */,
 				0BFBD7412BA37B9F00B485B8 /* CalculationData.swift in Sources */,
 				0B6E54732B81228A0078C110 /* CalculationInfo.swift in Sources */,
+				0B9D5A772BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
 				0B6E54622B811B700078C110 /* Persistence.swift in Sources */,
 				0B60E35F2BA73AFB0008000B /* CalculationResultItem.swift in Sources */,
 				0B60E35B2BA6ED720008000B /* RussianDelivery.swift in Sources */,
