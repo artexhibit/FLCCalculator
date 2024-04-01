@@ -7,10 +7,10 @@ class CalculationResultCell: UITableViewCell {
     private let containerView = UIView()
     private let gradientLayer = CAGradientLayer()
     
-    var titleTextView = FLCTextViewLabel()
+    let titleTextView = FLCTextViewLabel()
     let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
     private let daysIcon = UIImageView()
-    let daysLabel = FLCTitleLabel(color: .lightGray, textAlignment: .right, size: 19)
+    let daysTextView = FLCTextViewLabel()
     let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     
     let padding: CGFloat = 20
@@ -19,6 +19,7 @@ class CalculationResultCell: UITableViewCell {
     private var isShimmering = false
     
     var type: FLCCalculationResultCellType = .russianDelivery
+    var calculationResultItem: CalculationResultItem?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -56,7 +57,7 @@ class CalculationResultCell: UITableViewCell {
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(titleTextView, subtitle, daysIcon, daysLabel, priceLabel)
+        containerView.addSubviews(titleTextView, subtitle, daysIcon, daysTextView, priceLabel)
         containerView.layer.addSublayer(gradientLayer)
         containerView.pinToEdges(of: contentView, withPadding: padding / 2)
         
@@ -65,6 +66,8 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configureTitleTextView() {
+        titleTextView.delegate = self
+        
         NSLayoutConstraint.activate([
             titleTextView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 0.5),
             titleTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
@@ -74,7 +77,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configureSubtitle() {
-        subtitleBottomConstraint = subtitle.bottomAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: -padding * 2)
+        subtitleBottomConstraint = subtitle.bottomAnchor.constraint(equalTo: daysTextView.bottomAnchor, constant: -padding * 2)
         
         NSLayoutConstraint.activate([
             subtitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
@@ -90,18 +93,19 @@ class CalculationResultCell: UITableViewCell {
         daysIcon.image = UIImage(systemName: "clock.badge.checkmark")
         
         NSLayoutConstraint.activate([
-            daysIcon.centerYAnchor.constraint(equalTo: daysLabel.centerYAnchor, constant: 1),
-            daysIcon.trailingAnchor.constraint(equalTo: daysLabel.leadingAnchor),
-            daysIcon.heightAnchor.constraint(equalTo: daysLabel.heightAnchor)
+            daysIcon.centerYAnchor.constraint(equalTo: daysTextView.centerYAnchor, constant: 1),
+            daysIcon.trailingAnchor.constraint(equalTo: daysTextView.leadingAnchor, constant: -10),
+            daysIcon.heightAnchor.constraint(equalTo: daysTextView.heightAnchor)
         ])
     }
     
     private func configureDaysLabel() {
-        daysLabelHeightConstraint = daysLabel.heightAnchor.constraint(equalToConstant: 21)
+        daysTextView.delegate = self
+        daysLabelHeightConstraint = daysTextView.heightAnchor.constraint(equalToConstant: 21)
         
         NSLayoutConstraint.activate([
-            daysLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
-            daysLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.2),
+            daysTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
+            daysTextView.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.3),
             daysLabelHeightConstraint
         ])
     }
@@ -133,7 +137,6 @@ class CalculationResultCell: UITableViewCell {
         addShimmerAnimation()
         
         self.type = item.type
-        self.titleTextView.delegate = viewController as? UITextViewDelegate
         self.titleTextView.text = item.title
         
         switch type {
@@ -149,8 +152,12 @@ class CalculationResultCell: UITableViewCell {
             CalculationCellUIHelper.configureCustomsClearancePrice(cell: self, with: item, and: attributedText)
         case .customsWarehouseServices:
             CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
+        case .deliveryToWarehouse:
+            calculationResultItem = item
+            CalculationCellUIHelper.configureDeliveryToWarehouse(cell: self, with: item, and: attributedText)
         }
         self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 20)
+        self.daysTextView.setStyle(color: .lightGray, textAlignment: .right, fontWeight: .bold, fontSize: 19)
     }
     
     private func addShimmerAnimation() {
@@ -185,4 +192,28 @@ class CalculationResultCell: UITableViewCell {
     }
     
     @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }
+}
+
+extension CalculationResultCell: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if let imageName = textAttachment.image {
+            HapticManager.addHaptic(style: .light)
+            
+            guard let parentVC = self.findParentViewController() as? CalculationResultVC else { return false }
+            let popover = FLCPopoverVC()
+            var iconType = ""
+            
+            if parentVC.showingPopover.isShowing { parentVC.showingPopover.hidePopoverFromMainThread() }
+            parentVC.showingPopover = popover
+            
+            if imageName.description.contains("info.circle") {
+                iconType = "info.circle"
+            } else if imageName.description.contains("questionmark.circle.fill") {
+                iconType = "questionmark.circle.fill"
+            }
+            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configureTipMessage(in: self, iconType: iconType), in: parentVC, target: textView, characterRange: characterRange)
+            return false
+        }
+        return true
+    }
 }

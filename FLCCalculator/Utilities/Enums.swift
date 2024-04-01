@@ -13,6 +13,27 @@ enum FLCPopoverPosition {case top, bottom }
 enum FLCCountryOption: String {
     case china = "Китай"
     case turkey = "Турция"
+    
+    var engName: String {
+        switch self {
+        case .china: return "china"
+        case .turkey: return "turkey"
+        }
+    }
+}
+
+enum FLCWarehouse: String {
+    case guangzhou = "Guangzhou"
+    case shanghai = "Shanghai"
+    case istanbul = "Istanbul"
+    
+    var rusName: String {
+            switch self {
+            case .guangzhou: return "Гуанчжоу"
+            case .shanghai: return "Шанхай"
+            case .istanbul: return "Стамбул"
+            }
+        }
 }
 
 enum FLCCalculationResultCellType: Int {
@@ -22,10 +43,11 @@ enum FLCCalculationResultCellType: Int {
     case cargoHandling = 4
     case customsClearancePrice = 5
     case customsWarehouseServices = 6
+    case deliveryToWarehouse = 7
 }
 
 enum FLCMarkupType: Double {
-    case russianDelivery = 1.17
+    case russianDelivery, deliveryToWarehouse = 1.17
 }
 
 enum FLCCurrency: String {

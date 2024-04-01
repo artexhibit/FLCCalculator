@@ -1,6 +1,8 @@
 import UIKit
 
 extension String {
+    var flcWarehouse: FLCWarehouse? { return FLCWarehouse(rawValue: self) }
+    
     func createDouble() -> Double {
         let string = self.replacingOccurrences(of: " ", with: "")
         let formatter = NumberFormatter()
@@ -49,6 +51,11 @@ extension String {
         return nil
     }
     
+    func getCityName() -> String? {
+        let components = self.components(separatedBy: "(")
+        guard let cityName = components.first else { return nil }
+        return cityName.trimmingCharacters(in: .whitespaces)
+    }
     func formatAsSymbol() -> String { FLCCurrency(rawValue: self)?.symbol ?? "" }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }
     func removeFirstCharacters(_ amount: Int) -> String { String(self.dropFirst(amount)) }

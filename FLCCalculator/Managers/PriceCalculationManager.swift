@@ -3,6 +3,7 @@ import Foundation
 class PriceCalculationManager {
     
     private static let tariffs: [Tariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
+    private static let pickups: [Pickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let currencyData = PersistenceManager.retrieveCurrencyData()
     
     static func getInsurancePersentage(for logisticsType: FLCLogisticsType) -> Double {
@@ -35,7 +36,7 @@ class PriceCalculationManager {
         return (invoiceAmountInSellCurrency * insurancePercentage) / 100
     }
     
-    static func calculateDeliveryFromWarehouse(for logisticsType: FLCLogisticsType, weight: Double, volume: Double) -> Double {
+    static func getDeliveryFromWarehouse(for logisticsType: FLCLogisticsType, weight: Double, volume: Double) -> Double {
         guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }
         let densityCoefficient = weight / volume
         
@@ -67,5 +68,46 @@ class PriceCalculationManager {
     static func getCustomsWarehouseServices(for logisticsType: FLCLogisticsType) -> Double {
         guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }
         return logisticsTypeData.customsWarehousePrice
+    }
+    
+    static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> Double {
+        switch forCountry {
+        case .china:
+            guard let cityName = city.getCityName() else { return 0 }
+            
+            let pickupsCountry = pickups?.first(where: { $0.country == forCountry.engName })
+            let yuanRate = pickupsCountry?.yuanRate ?? 6.9
+            let density = pickupsCountry?.density ?? 0
+            let chargeableWeight = max(weight, volume * density)
+            
+            let warehouse = pickupsCountry?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
+            let weightData = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.weight
+            let weightRange = weightData?.first(where: { $0.key.createRange()?.contains(weight) == true })
+            
+            let totalPart3CoefficientOne = warehouse?.totalPart3CoefficientOne ?? 0
+            let totalPart3CoefficientTwo = warehouse?.totalPart3CoefficientTwo ?? 0
+            let totalPart3CoefficientThree = warehouse?.totalPart3CoefficientThree ?? 0
+            
+            let totalPart1 = weightRange?.value.totalPart1Coefficient ?? 0
+            let totalPart2 = chargeableWeight * (weightRange?.value.totalPart2Coefficient ?? 0)
+            let totalPart3 = totalPart3CoefficientOne + (totalPart3CoefficientTwo * max(weight/1000, volume) + totalPart3CoefficientThree)
+            
+            return ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .deliveryToWarehouse)
+        case .turkey:
+            break
+        }
+        return 0
+    }
+    
+    static func getDeliveryToWarehouseData(forCountry: FLCCountryOption, city: String) -> (warehouseName: String, transitDays: Int) {
+        guard let cityName = city.getCityName() else { return ("", 0) }
+        
+        let pickupsCountry = pickups?.first(where: { $0.country == forCountry.engName })
+        let warehouse = pickupsCountry?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
+        
+        let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")?.rusName ?? ""
+        let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
+
+        return (warehouseName, transitDays)
     }
 }

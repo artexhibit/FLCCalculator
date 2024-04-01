@@ -4,7 +4,7 @@ import SwiftUI
 class CalculationResultVC: UIViewController {
     
     private let tableView = UITableView()
-    private var showingPopover = FLCPopoverVC()
+    var showingPopover = FLCPopoverVC()
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
     private var calculationResultItems = [CalculationResultItem]()
     
@@ -46,7 +46,9 @@ class CalculationResultVC: UIViewController {
         let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: calculationData, title: "Погрузо-разгрузочные работы", itemCellPriceCurrency: .USD)
         let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: calculationData, title: "Услуги по Таможенному Оформлению", itemCellPriceCurrency: .RUB)
         let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: calculationData, title: "Услуги СВХ", itemCellPriceCurrency: .RUB)
-        calculationResultItems.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem])
+        let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: calculationData, title: "Доставка до Склада Консолидации", itemCellPriceCurrency: .USD)
+        
+        calculationResultItems.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem])
     }
     
     private func configureDataSource() {
@@ -80,40 +82,6 @@ extension CalculationResultVC: UITableViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
-    }
-}
-
-extension CalculationResultVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if let imageName = textAttachment.image, imageName.description.contains("info.circle") {
-            HapticManager.addHaptic(style: .light)
-            
-            let popover = FLCPopoverVC()
-            if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
-            showingPopover = popover
-            
-            guard let cell = textView.superview?.superview?.superview as? CalculationResultCell else { return false }
-            popover.showPopoverOnMainThread(withText: configureTipMessage(in: cell), in: self, target: textView, characterRange: characterRange)
-            return false
-        }
-        return true
-    }
-    
-    private func configureTipMessage(in cell: CalculationResultCell) -> String {
-        switch cell.type {
-        case .russianDelivery:
-             "Наш партнёр по доставке - ПЭК. Груз будет доставлен для Вас согласно высочайшим стандартам компании."
-        case .insurance:
-             "Наш многолетний партнёр по страхованию - компания СК Пари. Страховка от полной стоимости инвойса."
-        case .deliveryFromWarehouse:
-             "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник."
-        case .cargoHandling:
-             "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
-        case .customsClearancePrice:
-            "В стоимость входит подача Таможенной Декларации, услуги брокера и ЭЦП брокера."
-        case .customsWarehouseServices:
-            "Услуги таможенного Склада Временного Хранения на время оформления груза. Дополнительные услуги по погрузке, разгрузке, хранению сверх норматива оплачиваются по тарифу с СВХ отдельно."
-        }
     }
 }
 
