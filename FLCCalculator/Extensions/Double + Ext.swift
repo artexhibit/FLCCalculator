@@ -2,10 +2,7 @@ import Foundation
 
 extension Double {
     
-    func add(markup: FLCMarkupType) -> Double {
-        let result = self * markup.rawValue
-        return Double(String(format: "%.2f", result)) ?? 0.0
-    }
+    func add(markup: FLCMarkupType) -> Double { return (self * markup.rawValue).formatDecimalsTo(amount: 2) }
     
     func formatAsCurrency(symbol: FLCCurrency) -> String {
         let formatter = NumberFormatter()

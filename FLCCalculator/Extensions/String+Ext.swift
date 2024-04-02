@@ -1,7 +1,7 @@
 import UIKit
 
 extension String {
-    var flcWarehouse: FLCWarehouse? { return FLCWarehouse(rawValue: self) }
+    var flcWarehouseFromRusName: FLCWarehouse? { return FLCWarehouse.allCases.first(where: { $0.rusName == self }) }
     
     func createDouble() -> Double {
         let string = self.replacingOccurrences(of: " ", with: "")

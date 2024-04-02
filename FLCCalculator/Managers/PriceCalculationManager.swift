@@ -92,7 +92,7 @@ class PriceCalculationManager {
             let totalPart2 = chargeableWeight * (weightRange?.value.totalPart2Coefficient ?? 0)
             let totalPart3 = totalPart3CoefficientOne + (totalPart3CoefficientTwo * max(weight/1000, volume) + totalPart3CoefficientThree)
             
-            return ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .deliveryToWarehouse)
+            return ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .seventeenPercents)
         case .turkey:
             break
         }

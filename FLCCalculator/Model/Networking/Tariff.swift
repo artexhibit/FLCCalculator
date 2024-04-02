@@ -10,6 +10,7 @@ struct Tariff: Codable, Hashable {
     let customsClearance: Double
     let customsWarehousePrice: Double
     let targetWeight: Double
+    let transitDays: Int
     let tariffs: Tariffs
     
     func hash(into hasher: inout Hasher) {
@@ -22,6 +23,7 @@ struct Tariff: Codable, Hashable {
         hasher.combine(customsClearance)
         hasher.combine(customsWarehousePrice)
         hasher.combine(targetWeight)
+        hasher.combine(transitDays)
         hasher.combine(tariffs)
     }
 }

@@ -22,7 +22,7 @@ enum FLCCountryOption: String {
     }
 }
 
-enum FLCWarehouse: String {
+enum FLCWarehouse: String, CaseIterable {
     case guangzhou = "Guangzhou"
     case shanghai = "Shanghai"
     case istanbul = "Istanbul"
@@ -47,7 +47,7 @@ enum FLCCalculationResultCellType: Int {
 }
 
 enum FLCMarkupType: Double {
-    case russianDelivery, deliveryToWarehouse = 1.17
+    case seventeenPercents = 1.17
 }
 
 enum FLCCurrency: String {

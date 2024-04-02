@@ -20,7 +20,7 @@ struct FirebaseManager {
         guard let items = snapshot.documents.first?.data().values.first else { throw FLCError.unableToGetDocuments }
         guard let itemsString = items as? String else { throw FLCError.castingError }
         guard let itemsData = itemsString.data(using: .utf8) else { throw FLCError.castingError }
-        
+
         do {
             return try decoder.decode([T].self, from: itemsData)
         } catch {
@@ -31,7 +31,6 @@ struct FirebaseManager {
     static func updateTariffs() async -> Bool {
         do {
             let tariffs: [Tariff]? = try await getDataFromFirebase()
-            
             guard let _ = PersistenceManager.updateItemsInUserDefaults(items: tariffs ?? []) else {
                 return false
             }

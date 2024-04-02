@@ -8,7 +8,7 @@ struct CalculationCellUIHelper {
         Task {
             do {
                 let data = try await NetworkManager.shared.getRussianDelivery(for: item)
-                let price = data.getPrice().add(markup: .russianDelivery).formatAsCurrency(symbol: item.itemCellPriceCurrency)
+                let price = data.getPrice().add(markup: .seventeenPercents).formatAsCurrency(symbol: item.itemCellPriceCurrency)
                 
                 DispatchQueue.main.async {
                     cell.priceLabel.text = price
@@ -33,7 +33,7 @@ struct CalculationCellUIHelper {
     
     static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "Шанхай - Подольск".makeAttributed(icon: Icons.warehouse, size: (0, -2, 22, 16), placeIcon: .beforeText)
+        cell.subtitle.attributedText = "Шанхай - Подольск".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
         cell.priceLabel.text = "\(PriceCalculationManager.getDeliveryFromWarehouse(for: .chinaTruck, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
         
         removeDaysContent(in: cell)
@@ -71,11 +71,12 @@ struct CalculationCellUIHelper {
     
     static func configureDeliveryToWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         let deliveryData = PriceCalculationManager.getDeliveryToWarehouseData(forCountry: .china, city: item.calculationData.fromLocation)
-        let days = deliveryData.warehouseName.flcWarehouse == .guangzhou ? "\(deliveryData.transitDays + 4) дн." : "\(deliveryData.transitDays) дн."
+        let days = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou ? "\(deliveryData.transitDays + 4) дн." : "\(deliveryData.transitDays) дн."
+        let addShaghaiWarehouse = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou ? "- Склад Шанхай" : ""
         
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "\(item.calculationData.fromLocation) - Склад \(deliveryData.warehouseName)".makeAttributed(icon: Icons.warehouse, size: (0, -2, 22, 16), placeIcon: .beforeText)
-        cell.daysTextView.attributedText = days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 20, 19), placeIcon: .afterText)
+        cell.subtitle.attributedText = "\(item.calculationData.fromLocation) - Склад \(deliveryData.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
+        cell.daysTextView.attributedText = days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = "\(PriceCalculationManager.getDeliveryToWarehouse(forCountry: .china, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
         
         cell.removeShimmerAnimation()
@@ -91,7 +92,7 @@ struct CalculationCellUIHelper {
             guard let item = cell.calculationResultItem else { return "" }
             let deliveryData = PriceCalculationManager.getDeliveryToWarehouseData(forCountry: .china, city: item.calculationData.fromLocation)
             
-            if deliveryData.warehouseName.flcWarehouse == .guangzhou {
+            if deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou {
                 return "Поставщик - Склад Гуанчжоу: \(deliveryData.transitDays) дн. \nСклад Гуанчжоу - Склад Шанхай: 4 дн."
             } else {
                 return "Доставка с адреса поставщика до нашего склада в Шанхае."

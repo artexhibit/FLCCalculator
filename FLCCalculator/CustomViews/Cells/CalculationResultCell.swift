@@ -94,7 +94,7 @@ class CalculationResultCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             daysIcon.centerYAnchor.constraint(equalTo: daysTextView.centerYAnchor, constant: 1),
-            daysIcon.trailingAnchor.constraint(equalTo: daysTextView.leadingAnchor, constant: -10),
+            daysIcon.trailingAnchor.constraint(equalTo: daysTextView.leadingAnchor, constant: -7),
             daysIcon.heightAnchor.constraint(equalTo: daysTextView.heightAnchor)
         ])
     }
@@ -105,7 +105,7 @@ class CalculationResultCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             daysTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
-            daysTextView.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.3),
+            daysTextView.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -padding * 0.25),
             daysLabelHeightConstraint
         ])
     }
@@ -132,7 +132,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func set(with item: CalculationResultItem, in viewController: UIViewController) {
-        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .beforeText)
         
         addShimmerAnimation()
         

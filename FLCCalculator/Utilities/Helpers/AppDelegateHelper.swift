@@ -28,7 +28,6 @@ struct  AppDelegateHelper {
                 } else {
                     guard let storedDate = UserDefaultsManager.dateWhenDataWasUpdated.createDate() else { return }
                     guard let receivedDate = dateString.createDate() else { return }
-                    
                     if storedDate != receivedDate {
                         let isTariffsUpdated = await FirebaseManager.updateTariffs()
                         let isPickupsUpdated = await FirebaseManager.updatePickups()
