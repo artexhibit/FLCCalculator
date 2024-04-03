@@ -17,6 +17,7 @@ class CalculationResultCell: UITableViewCell {
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
     private var isShimmering = false
+    private var presentedVC: UIViewController?
     
     var type: FLCCalculationResultCellType = .russianDelivery
     var calculationResultItem: CalculationResultItem?
@@ -131,13 +132,14 @@ class CalculationResultCell: UITableViewCell {
         ]
     }
     
-    func set(with item: CalculationResultItem, in viewController: UIViewController) {
+    func set(with item: CalculationResultItem, in viewController: UIViewController, presentedVC: UIViewController) {
         let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .beforeText)
         
         addShimmerAnimation()
         
         self.type = item.type
         self.titleTextView.text = item.title
+        self.presentedVC = presentedVC
         
         switch type {
         case .russianDelivery:
@@ -211,7 +213,7 @@ extension CalculationResultCell: UITextViewDelegate {
             } else if imageName.description.contains("questionmark.circle.fill") {
                 iconType = "questionmark.circle.fill"
             }
-            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configureTipMessage(in: self, iconType: iconType), in: parentVC, target: textView, characterRange: characterRange)
+            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configureTipMessage(in: self, iconType: iconType), in: parentVC, target: textView, characterRange: characterRange, presentedVC: presentedVC)
             return false
         }
         return true

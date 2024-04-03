@@ -13,12 +13,13 @@
 		0B2130622BA4B51E00A30394 /* FLCTintedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2130612BA4B51E00A30394 /* FLCTintedView.swift */; };
 		0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */; };
 		0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */; };
+		0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */; };
+		0B2DD22A2BBDD9F4006F1CA7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2DD2292BBDD9F4006F1CA7 /* FirebaseAnalytics */; };
+		0B2DD22C2BBDD9F4006F1CA7 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2DD22B2BBDD9F4006F1CA7 /* FirebaseCrashlytics */; };
+		0B2DD22E2BBDD9F4006F1CA7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2DD22D2BBDD9F4006F1CA7 /* FirebaseFirestore */; };
+		0B2DD2302BBDD9F4006F1CA7 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2DD22F2BBDD9F4006F1CA7 /* FirebaseMessaging */; };
 		0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B32CBBF2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
-		0B32CBCB2BAF3D1A00E756A5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBCA2BAF3D1A00E756A5 /* FirebaseAnalytics */; };
-		0B32CBCD2BAF3D1A00E756A5 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBCC2BAF3D1A00E756A5 /* FirebaseCrashlytics */; };
-		0B32CBCF2BAF3D1A00E756A5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBCE2BAF3D1A00E756A5 /* FirebaseFirestore */; };
-		0B32CBD12BAF3D1A00E756A5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32CBD02BAF3D1A00E756A5 /* FirebaseMessaging */; };
 		0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */; };
 		0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */; };
 		0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */; };
@@ -71,6 +72,7 @@
 		0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */; };
 		0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
 		0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */; };
+		0BC11B182BBD8FE900B215D4 /* TotalPriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
@@ -133,6 +135,7 @@
 		0B2130612BA4B51E00A30394 /* FLCTintedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTintedView.swift; sourceTree = "<group>"; };
 		0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCellUIHelper.swift; sourceTree = "<group>"; };
 		0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCalculationManager.swift; sourceTree = "<group>"; };
+		0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextLayer.swift; sourceTree = "<group>"; };
 		0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerItem.swift; sourceTree = "<group>"; };
@@ -186,6 +189,7 @@
 		0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateHelper.swift; sourceTree = "<group>"; };
 		0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
+		0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceVC.swift; sourceTree = "<group>"; };
 		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
@@ -222,10 +226,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B32CBD12BAF3D1A00E756A5 /* FirebaseMessaging in Frameworks */,
-				0B32CBCB2BAF3D1A00E756A5 /* FirebaseAnalytics in Frameworks */,
-				0B32CBCD2BAF3D1A00E756A5 /* FirebaseCrashlytics in Frameworks */,
-				0B32CBCF2BAF3D1A00E756A5 /* FirebaseFirestore in Frameworks */,
+				0B2DD2302BBDD9F4006F1CA7 /* FirebaseMessaging in Frameworks */,
+				0B2DD22A2BBDD9F4006F1CA7 /* FirebaseAnalytics in Frameworks */,
+				0B2DD22C2BBDD9F4006F1CA7 /* FirebaseCrashlytics in Frameworks */,
+				0B2DD22E2BBDD9F4006F1CA7 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +253,14 @@
 				0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0B2DD2272BBDD38E006F1CA7 /* TextLayers */ = {
+			isa = PBXGroup;
+			children = (
+				0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */,
+			);
+			path = TextLayers;
 			sourceTree = "<group>";
 		};
 		0B32F16F2B9356C9004BAB46 /* FLCCalculationView */ = {
@@ -400,6 +412,7 @@
 				0B6E54422B8111C60078C110 /* UsefulInfoVC.swift */,
 				0BF938922B853A6900A18016 /* CalculationVC.swift */,
 				0BFBD7422BA37E2B00B485B8 /* CalculationResultVC.swift */,
+				0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -441,6 +454,7 @@
 				0B50DE042BAB601100B5A447 /* TextViews */,
 				0B6F61202B86935600929613 /* TextFields */,
 				0B86E92B2BA0D2290057A400 /* ProgressView */,
+				0B2DD2272BBDD38E006F1CA7 /* TextLayers */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -569,10 +583,10 @@
 			);
 			name = FLCCalculator;
 			packageProductDependencies = (
-				0B32CBCA2BAF3D1A00E756A5 /* FirebaseAnalytics */,
-				0B32CBCC2BAF3D1A00E756A5 /* FirebaseCrashlytics */,
-				0B32CBCE2BAF3D1A00E756A5 /* FirebaseFirestore */,
-				0B32CBD02BAF3D1A00E756A5 /* FirebaseMessaging */,
+				0B2DD2292BBDD9F4006F1CA7 /* FirebaseAnalytics */,
+				0B2DD22B2BBDD9F4006F1CA7 /* FirebaseCrashlytics */,
+				0B2DD22D2BBDD9F4006F1CA7 /* FirebaseFirestore */,
+				0B2DD22F2BBDD9F4006F1CA7 /* FirebaseMessaging */,
 			);
 			productName = FLCCalculator;
 			productReference = 0B6E54242B810BA00078C110 /* FLCCalculator.app */;
@@ -624,7 +638,7 @@
 			);
 			mainGroup = 0B6E541B2B810BA00078C110;
 			packageReferences = (
-				0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				0B2DD2282BBDD9F4006F1CA7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0B6E54252B810BA00078C110 /* Products */;
 			projectDirPath = "";
@@ -720,6 +734,7 @@
 				0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */,
 				0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */,
 				0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */,
+				0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */,
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
 				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */,
@@ -738,6 +753,7 @@
 				0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */,
 				0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */,
 				0BD4DE252B88D5ED00B834DD /* FLCListPickerVC.swift in Sources */,
+				0BC11B182BBD8FE900B215D4 /* TotalPriceVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1059,35 +1075,35 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		0B2DD2282BBDD9F4006F1CA7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.23.0;
+				minimumVersion = 10.23.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0B32CBCA2BAF3D1A00E756A5 /* FirebaseAnalytics */ = {
+		0B2DD2292BBDD9F4006F1CA7 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 0B2DD2282BBDD9F4006F1CA7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		0B32CBCC2BAF3D1A00E756A5 /* FirebaseCrashlytics */ = {
+		0B2DD22B2BBDD9F4006F1CA7 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 0B2DD2282BBDD9F4006F1CA7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
-		0B32CBCE2BAF3D1A00E756A5 /* FirebaseFirestore */ = {
+		0B2DD22D2BBDD9F4006F1CA7 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 0B2DD2282BBDD9F4006F1CA7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		0B32CBD02BAF3D1A00E756A5 /* FirebaseMessaging */ = {
+		0B2DD22F2BBDD9F4006F1CA7 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0B32CBC92BAF3D1A00E756A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 0B2DD2282BBDD9F4006F1CA7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */

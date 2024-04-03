@@ -6,7 +6,8 @@ class CalculationResultVC: UIViewController {
     private let tableView = UITableView()
     var showingPopover = FLCPopoverVC()
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
-    private var calculationResultItems = [CalculationResultItem]()
+    var calculationResultItems = [CalculationResultItem]()
+    private var totalPriceVC = TotalPriceVC()
     
     var calculationData: CalculationData!
 
@@ -17,6 +18,7 @@ class CalculationResultVC: UIViewController {
         configureInitialData()
         configureDataSource()
         updateDataSource(on: calculationResultItems)
+        CalculationUIHelper.showTotalPrice(vc: totalPriceVC, from: self)
     }
     
     private func configureVC() {
@@ -54,7 +56,7 @@ class CalculationResultVC: UIViewController {
     private func configureDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) in
             let cell = tableView.dequeueReusableCell(withIdentifier: CalculationResultCell.reuseID, for: indexPath) as! CalculationResultCell
-            cell.set(with: self.calculationResultItems[indexPath.row], in: self)
+            cell.set(with: self.calculationResultItems[indexPath.row], in: self, presentedVC: self.totalPriceVC)
             return cell
         })
     }

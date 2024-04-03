@@ -24,17 +24,17 @@ class FLCPopoverVC: UIViewController {
         view.addSubviews(closeButton, textLabel)
     }
     
-    func showPopoverOnMainThread(withText: String, in viewController: UIViewController, target: UIView, characterRange: NSRange? = nil) {
+    func showPopoverOnMainThread(withText: String, in viewController: UIViewController, target: UIView, characterRange: NSRange? = nil, presentedVC: UIViewController? = nil) {
         DispatchQueue.main.async {
-            let position = self.setTipPosition(in: viewController.view, target: target)
-            
             self.isShowing = true
             self.textLabel.text = withText
-            
             self.preferredContentSize = self.setupPreferredContentSize(in: viewController)
+            
+            let position = self.setTipPosition(in: viewController.view, target: target, popoverHeight: self.preferredContentSize.height)
+            
             self.configurePresentationVC(with: position, target: target, vc: viewController, characterRange: characterRange)
             
-            viewController.present(self, animated: true)
+            presentedVC == nil ? viewController.present(self, animated: true) : presentedVC?.present(self, animated: true)
         }
     }
     
@@ -69,16 +69,15 @@ class FLCPopoverVC: UIViewController {
         ])
     }
     
-    private func setTipPosition(in view: UIView, target: UIView) -> FLCPopoverPosition {
+    private func setTipPosition(in view: UIView, target: UIView, popoverHeight: CGFloat) -> FLCPopoverPosition {
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
-        let popupHeight = self.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
         let activeWindow = view.window?.windowScene?.windows.first { $0.isKeyWindow }
         let targetFrameInWindow = target.convert(target.bounds, to: activeWindow)
         let safeAreaVerticalInsets = (activeWindow?.safeAreaInsets.bottom ?? 0) + (activeWindow?.safeAreaInsets.top ?? 0)
         let spaceBelowTarget = (activeWindow?.frame.maxY ?? 0) - targetFrameInWindow.maxY - safeAreaVerticalInsets
-        return popupHeight > spaceBelowTarget ? .top : .bottom
+        return popoverHeight > spaceBelowTarget ? .top : .bottom
     }
     
     private func configurePresentationVC(with position: FLCPopoverPosition, target: UIView, vc: UIViewController, characterRange: NSRange? = nil) {
