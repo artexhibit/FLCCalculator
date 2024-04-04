@@ -50,7 +50,7 @@ enum FLCMarkupType: Double {
     case seventeenPercents = 1.17
 }
 
-enum FLCCurrency: String {
+enum FLCCurrency: String, CaseIterable {
     case RUB = "RUB"
     case USD = "USD"
     case EUR = "EUR"

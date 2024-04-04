@@ -3,12 +3,20 @@ import UIKit
 extension String {
     var flcWarehouseFromRusName: FLCWarehouse? { return FLCWarehouse.allCases.first(where: { $0.rusName == self }) }
     
-    func createDouble() -> Double {
-        let string = self.replacingOccurrences(of: " ", with: "")
+    func createDouble(removeSymbols: Bool = false) -> Double {
+        var string = self.replacingOccurrences(of: " ", with: "")
+        if removeSymbols { string = string.removeCurrencySymbols() }
+        
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.decimalSeparator = ","
         return formatter.number(from: string)?.doubleValue ?? 0.0
+    }
+    
+    func removeCurrencySymbols() -> String {
+        return FLCCurrency.allCases.reduce(self) { result, currency in
+            result.replacingOccurrences(of: currency.symbol, with: "")
+        }
     }
     
     func makeAttributed(icon: UIImage, tint: UIColor = .flcNumberTextFieldLabel, size: (x: Int, y: Int, w: Int, h: Int), placeIcon: FLCTextViewLabelImagePlacing) -> NSMutableAttributedString {

@@ -3,9 +3,14 @@ import UIKit
 class TotalPriceVC: UIViewController {
     
     private var titleLayerContainerView = UIView()
-    private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .bold, color: .label, alignment: .left)
+    private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .heavy, color: .accent, alignment: .left)
+    private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
     private let padding: CGFloat = 15
+    
     var amountOfCells = 0
+    private var calculatedCells: Int = 0
+    private var calculationTitles = [String]()
+    private var calculationResults = [String]()
     
     var titleLayerContainerViewHeightConstraint: NSLayoutConstraint!
     
@@ -26,8 +31,9 @@ class TotalPriceVC: UIViewController {
     private func configureTitleLayerContainerView() {
         titleLayerContainerView.translatesAutoresizingMaskIntoConstraints = false
         titleLayerContainerView.layer.addSublayer(titleLayer)
+        titleLayerContainerView.layer.addSublayer(totalAmountLayer)
         
-        titleLayerContainerViewHeightConstraint = titleLayerContainerView.heightAnchor.constraint(equalToConstant: titleLayer.fontSize + 5)
+        titleLayerContainerViewHeightConstraint = titleLayerContainerView.heightAnchor.constraint(equalToConstant: titleLayer.fontSize + totalAmountLayer.fontSize + (padding / 2) + 5)
         
         NSLayoutConstraint.activate([
             titleLayerContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding * 1.5),
@@ -39,11 +45,20 @@ class TotalPriceVC: UIViewController {
     
     private func configureTitleLayer() {
         titleLayer.string = "Итого"
+        titleLayer.frame = CGRect(x: 0, y: 0, width: titleLayerContainerView.bounds.width, height: titleLayer.fontSize + 5)
+    }
+    
+    private func configureTotalAmountLayer() {
+        let totalAmountLayerY = titleLayer.frame.maxY + (padding / 2)
+        let estimatedTotalHeight = (totalAmountLayer.fontSize * 1.2) * 2
+        
+        totalAmountLayer.frame = CGRect(x: 0, y: totalAmountLayerY, width: titleLayerContainerView.bounds.width, height: estimatedTotalHeight)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        titleLayer.frame = titleLayerContainerView.bounds
+        configureTitleLayer()
+        configureTotalAmountLayer()
     }
 }
 
@@ -53,13 +68,29 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
         switch sheetPresentationController.selectedDetentIdentifier {
         case .customSizeDetent:
             titleLayer.animateFont(toSize: 35, key: "increase")
-            titleLayerContainerViewHeightConstraint.constant = titleLayer.fontSize + 5
+            totalAmountLayer.animateFont(toSize: 26, key: "increase")
+            titleLayerContainerViewHeightConstraint = titleLayerContainerView.heightAnchor.constraint(equalToConstant: titleLayer.fontSize + totalAmountLayer.fontSize + (padding / 2) + 5)
             
         case .smallDetent:
             titleLayer.animateFont(toSize: 25, key: "decrease")
-            titleLayerContainerViewHeightConstraint.constant = titleLayer.fontSize + 5
+            totalAmountLayer.animateFont(toSize: 20, key: "increase")
+            titleLayerContainerViewHeightConstraint = titleLayerContainerView.heightAnchor.constraint(equalToConstant: titleLayer.fontSize + totalAmountLayer.fontSize + (padding / 2) + 5)
         case .none, .some(_):
             break
+        }
+    }
+}
+
+extension TotalPriceVC: CalculationResultCellDelegate {
+    func didEndCalculation(result: String, title: String) {
+        calculatedCells += 1
+        
+        if !calculationTitles.contains(title) {
+            calculationTitles.append(title)
+            calculationResults.append(result)
+        }
+        if calculatedCells == amountOfCells {
+            totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(calculationResults: calculationResults)
         }
     }
 }

@@ -150,4 +150,18 @@ struct CalculationUIHelper {
         }
         return false
     }
+    
+    static func calculateTotalPrice(calculationResults: [String]) -> String {
+        var rubleTotal = 0.0
+        var currencyTotal = 0.0
+        
+        calculationResults.forEach {
+            if $0.contains(FLCCurrency.RUB.symbol) {
+                rubleTotal += $0.createDouble(removeSymbols: true)
+            } else {
+                currencyTotal += $0.createDouble(removeSymbols: true)
+            }
+        }
+        return "\(currencyTotal.formatAsCurrency(symbol: .USD)) + \(rubleTotal.formatAsCurrency(symbol: .RUB))"
+    }
 }

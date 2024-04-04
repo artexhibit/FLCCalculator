@@ -1,11 +1,17 @@
 import UIKit
 
+protocol CalculationResultCellDelegate: AnyObject {
+    func didEndCalculation(result: String, title: String)
+}
+
 class CalculationResultCell: UITableViewCell {
     
     static let reuseID = "CalculationResultCell"
     
     private let containerView = UIView()
     private let gradientLayer = CAGradientLayer()
+    
+    var delegate: CalculationResultCellDelegate?
     
     let titleTextView = FLCTextViewLabel()
     let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
@@ -140,23 +146,45 @@ class CalculationResultCell: UITableViewCell {
         self.type = item.type
         self.titleTextView.text = item.title
         self.presentedVC = presentedVC
+        self.delegate = presentedVC as? CalculationResultCellDelegate
         
         switch type {
         case .russianDelivery:
-            CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
+                guard let self else { return }
+                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
+            }
         case .insurance:
-            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
+                guard let self else { return }
+                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
+            }
         case .deliveryFromWarehouse:
-            CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
+                guard let self else { return }
+                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
+            }
         case .cargoHandling:
-            CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
+                guard let self else { return }
+                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
+            }
         case .customsClearancePrice:
-            CalculationCellUIHelper.configureCustomsClearancePrice(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureCustomsClearancePrice(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
+                guard let self else { return }
+                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
+            }
         case .customsWarehouseServices:
-            CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
+                guard let self else { return }
+                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
+            }
         case .deliveryToWarehouse:
             calculationResultItem = item
-            CalculationCellUIHelper.configureDeliveryToWarehouse(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureDeliveryToWarehouse(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
+                guard let self else { return }
+                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
+            }
         }
         self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 20)
         self.daysTextView.setStyle(color: .lightGray, textAlignment: .right, fontWeight: .bold, fontSize: 19)

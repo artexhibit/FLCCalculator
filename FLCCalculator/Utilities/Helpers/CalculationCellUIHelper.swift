@@ -1,7 +1,7 @@
 import UIKit
 
 struct CalculationCellUIHelper {
-    static func configureRussianDelivery(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureRussianDelivery(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, completion: @escaping (String) -> Void) {
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Подольск - \(item.calculationData.toLocation)".makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), placeIcon: .beforeText)
         
@@ -14,12 +14,13 @@ struct CalculationCellUIHelper {
                     cell.priceLabel.text = price
                     cell.daysTextView.text = "\(data.getDays() ?? "?") дн."
                     cell.removeShimmerAnimation()
+                    completion(price)
                 }
             }
         }
     }
     
-    static func configureInsurance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureInsurance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, completion: @escaping (String) -> Void) {
         let currencyCode = FLCCurrency(currencyCode: item.calculationData.invoiceCurrency) ?? .USD
         let ratio = PriceCalculationManager.getRatioBetween(item.itemCellPriceCurrency, and: currencyCode)
         
@@ -29,18 +30,20 @@ struct CalculationCellUIHelper {
         
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation()
+        completion(cell.priceLabel.text ?? "")
     }
     
-    static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, completion: @escaping (String) -> Void) {
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Шанхай - Подольск".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
         cell.priceLabel.text = "\(PriceCalculationManager.getDeliveryFromWarehouse(for: .chinaTruck, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
         
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation()
+        completion(cell.priceLabel.text ?? "")
     }
     
-    static func configureCargoHandling(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureCargoHandling(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, completion: @escaping (String) -> Void) {
         let handlingData = PriceCalculationManager.getCagoHandlingData(for: .chinaTruck)
         
         cell.titleTextView.attributedText = attributedText
@@ -49,27 +52,30 @@ struct CalculationCellUIHelper {
         
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation()
+        completion(cell.priceLabel.text ?? "")
     }
     
-    static func configureCustomsClearancePrice(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureCustomsClearancePrice(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, completion: @escaping (String) -> Void) {
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Свидетельство таможенного представителя № 0998/00".makeAttributed(icon: Icons.document, size: (0, -3, 18, 17), placeIcon: .beforeText)
         cell.priceLabel.text = "\(PriceCalculationManager.getCustomsClearancePrice(for: .chinaTruck).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
         
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation()
+        completion(cell.priceLabel.text ?? "")
     }
     
-    static func configureCustomsWarehouseServices(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureCustomsWarehouseServices(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, completion: @escaping (String) -> Void) {
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Включено 2 дня ожидания".makeAttributed(icon: Icons.clock, size: (0, -2, 18, 17), placeIcon: .beforeText)
         cell.priceLabel.text = "\(PriceCalculationManager.getCustomsWarehouseServices(for: .chinaTruck).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
         
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation()
+        completion(cell.priceLabel.text ?? "")
     }
     
-    static func configureDeliveryToWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureDeliveryToWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, completion: @escaping (String) -> Void) {
         let deliveryData = PriceCalculationManager.getDeliveryToWarehouseData(forCountry: .china, city: item.calculationData.fromLocation)
         let days = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou ? "\(deliveryData.transitDays + 4) дн." : "\(deliveryData.transitDays) дн."
         let addShaghaiWarehouse = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou ? "- Склад Шанхай" : ""
@@ -80,6 +86,7 @@ struct CalculationCellUIHelper {
         cell.priceLabel.text = "\(PriceCalculationManager.getDeliveryToWarehouse(forCountry: .china, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.itemCellPriceCurrency))"
         
         cell.removeShimmerAnimation()
+        completion(cell.priceLabel.text ?? "")
     }
     
     private static func removeDaysContent(in cell: CalculationResultCell) {
