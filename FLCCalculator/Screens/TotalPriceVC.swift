@@ -81,7 +81,7 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
     }
 }
 
-extension TotalPriceVC: CalculationResultCellDelegate {
+extension TotalPriceVC: CalculationResultVCDelegate {
     func didEndCalculation(result: String, title: String) {
         calculatedCells += 1
         

@@ -1,30 +1,24 @@
 import UIKit
 
-protocol CalculationResultCellDelegate: AnyObject {
-    func didEndCalculation(result: String, title: String)
-}
-
 class CalculationResultCell: UITableViewCell {
     
     static let reuseID = "CalculationResultCell"
     
     private let containerView = UIView()
     private let gradientLayer = CAGradientLayer()
-    
-    var delegate: CalculationResultCellDelegate?
-    
+        
     let titleTextView = FLCTextViewLabel()
     let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
     private let daysIcon = UIImageView()
     let daysTextView = FLCTextViewLabel()
     let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     
-    let padding: CGFloat = 20
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
+    
+    let padding: CGFloat = 20
     private var isShimmering = false
     private var presentedVC: UIViewController?
-    
     var type: FLCCalculationResultCellType = .russianDelivery
     var calculationResultItem: CalculationResultItem?
     
@@ -138,7 +132,7 @@ class CalculationResultCell: UITableViewCell {
         ]
     }
     
-    func set(with item: CalculationResultItem, in viewController: UIViewController, presentedVC: UIViewController) {
+    func set(with item: CalculationResultItem, presentedVC: UIViewController) {
         let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .beforeText)
         
         addShimmerAnimation()
@@ -146,45 +140,23 @@ class CalculationResultCell: UITableViewCell {
         self.type = item.type
         self.titleTextView.text = item.title
         self.presentedVC = presentedVC
-        self.delegate = presentedVC as? CalculationResultCellDelegate
+        guard item.price != nil else { return }
         
         switch type {
         case .russianDelivery:
-            CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
-                guard let self else { return }
-                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
-            }
+            CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
         case .insurance:
-            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
-                guard let self else { return }
-                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
-            }
+            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText)
         case .deliveryFromWarehouse:
-            CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
-                guard let self else { return }
-                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
-            }
+            CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText)
         case .cargoHandling:
-            CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
-                guard let self else { return }
-                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
-            }
+            CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText)
         case .customsClearancePrice:
-            CalculationCellUIHelper.configureCustomsClearancePrice(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
-                guard let self else { return }
-                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
-            }
+            CalculationCellUIHelper.configureCustomsClearance(cell: self, with: item, and: attributedText)
         case .customsWarehouseServices:
-            CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
-                guard let self else { return }
-                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
-            }
+            CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
         case .deliveryToWarehouse:
-            calculationResultItem = item
-            CalculationCellUIHelper.configureDeliveryToWarehouse(cell: self, with: item, and: attributedText) { [weak self] calculationResult in
-                guard let self else { return }
-                delegate?.didEndCalculation(result: calculationResult, title: self.titleTextView.text)
-            }
+            CalculationCellUIHelper.configureDeliveryToWarehouse(cell: self, with: item, and: attributedText)
         }
         self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 20)
         self.daysTextView.setStyle(color: .lightGray, textAlignment: .right, fontWeight: .bold, fontSize: 19)
@@ -209,9 +181,10 @@ class CalculationResultCell: UITableViewCell {
         isShimmering = true
     }
     
-    func removeShimmerAnimation() {
+    func removeShimmerAnimation(delay: Double = 0.0) {
         isShimmering = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             self.gradientLayer.removeAnimation(forKey: "shimmer")
             
             self.gradientLayer.colors = nil
@@ -220,7 +193,6 @@ class CalculationResultCell: UITableViewCell {
             self.gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
         }
     }
-    
     @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }
 }
 
