@@ -149,6 +149,14 @@ extension CalculationResultVC: UITableViewDelegate {
         calculationResultItems.count
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.2 : view.frame.height * 0.11
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        UIView()
+    }
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
     }

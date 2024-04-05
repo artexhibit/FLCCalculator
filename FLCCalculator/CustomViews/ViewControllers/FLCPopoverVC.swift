@@ -30,7 +30,7 @@ class FLCPopoverVC: UIViewController {
             self.textLabel.text = withText
             self.preferredContentSize = self.setupPreferredContentSize(in: viewController)
             
-            let position = self.setTipPosition(in: viewController.view, target: target, popoverHeight: self.preferredContentSize.height)
+            let position = self.setTipPosition(in: viewController.view, target: target, presentedVC: presentedVC, popoverHeight: self.preferredContentSize.height)
             
             self.configurePresentationVC(with: position, target: target, vc: viewController, characterRange: characterRange)
             
@@ -69,14 +69,14 @@ class FLCPopoverVC: UIViewController {
         ])
     }
     
-    private func setTipPosition(in view: UIView, target: UIView, popoverHeight: CGFloat) -> FLCPopoverPosition {
+    private func setTipPosition(in view: UIView, target: UIView, presentedVC: UIViewController?, popoverHeight: CGFloat) -> FLCPopoverPosition {
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
         let activeWindow = view.window?.windowScene?.windows.first { $0.isKeyWindow }
         let targetFrameInWindow = target.convert(target.bounds, to: activeWindow)
         let safeAreaVerticalInsets = (activeWindow?.safeAreaInsets.bottom ?? 0) + (activeWindow?.safeAreaInsets.top ?? 0)
-        let spaceBelowTarget = (activeWindow?.frame.maxY ?? 0) - targetFrameInWindow.maxY - safeAreaVerticalInsets
+        let spaceBelowTarget = (activeWindow?.frame.maxY ?? 0) - targetFrameInWindow.maxY - safeAreaVerticalInsets - (presentedVC?.view.frame.height ?? 0)
         return popoverHeight > spaceBelowTarget ? .top : .bottom
     }
     

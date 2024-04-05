@@ -2,9 +2,8 @@ import UIKit
 
 extension UIView {
     
-    func addSubviews(_ views: UIView...) {
-        for view in views { addSubview(view) }
-    }
+    func addSubviews(_ views: UIView...) { for view in views { addSubview(view) } }
+    func addSublayers(_ layers: CALayer...) { for layer in layers { self.layer.addSublayer(layer) } }
     
     func pinToEdges(of superview: UIView, withPadding padding: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
