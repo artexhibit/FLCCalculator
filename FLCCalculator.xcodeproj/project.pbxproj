@@ -89,6 +89,7 @@
 		0BE046702B9C863500BA6F21 /* SheetPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0466F2B9C863500BA6F21 /* SheetPickerCell.swift */; };
 		0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE046712B9C9F8800BA6F21 /* FLCPickerVC.swift */; };
 		0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE046742B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift */; };
+		0BF860FB2BC0544D0065359C /* TotalPriceVCUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */; };
 		0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */; };
 		0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */; };
 		0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938842B84F61700A18016 /* FLCTitleLabel.swift */; };
@@ -208,6 +209,7 @@
 		0BE0466F2B9C863500BA6F21 /* SheetPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetPickerCell.swift; sourceTree = "<group>"; };
 		0BE046712B9C9F8800BA6F21 /* FLCPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerVC.swift; sourceTree = "<group>"; };
 		0BE046742B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISheetPresentationController + Ext.swift"; sourceTree = "<group>"; };
+		0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceVCUIHelper.swift; sourceTree = "<group>"; };
 		0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCEmptyStateView.swift; sourceTree = "<group>"; };
 		0BF938842B84F61700A18016 /* FLCTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTitleLabel.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */,
 				0B9F40F42BBEF8F20072561B /* CalculationResultHelper.swift */,
 				0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */,
+				0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -691,6 +694,7 @@
 				0BFBD7402BA37B9F00B485B8 /* CalculationData.swift in Sources */,
 				0B6E543F2B8110580078C110 /* FLCTabBarController.swift in Sources */,
 				0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */,
+				0BF860FB2BC0544D0065359C /* TotalPriceVCUIHelper.swift in Sources */,
 				0BDCE6F72BA59AB70043AB64 /* CalculationResultCell.swift in Sources */,
 				0BD5E61F2B9A1C4D00240844 /* CalculationUIHelper.swift in Sources */,
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,

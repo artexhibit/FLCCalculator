@@ -7,7 +7,7 @@ extension UISheetPresentationController {
         self.prefersGrabberVisible = true
                 
         let smallDetent = UISheetPresentationController.Detent.custom(identifier: .smallDetent) { context in
-            return DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.2 : view.frame.height * 0.11
+            return DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.23 : view.frame.height * 0.13
         }
         let customSizeDetent = UISheetPresentationController.Detent.custom(identifier: .customSizeDetent) { context in
             return DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.7 : view.frame.height * size

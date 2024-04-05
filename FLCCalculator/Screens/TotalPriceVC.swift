@@ -4,6 +4,7 @@ class TotalPriceVC: UIViewController {
     
     private var smallDetentContainerView = UIView()
     private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .heavy, color: .accent, alignment: .left)
+    private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .gray, alignment: .left)
     private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
     private var spinner = UIActivityIndicatorView()
     private let spinnerMessageLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
@@ -12,7 +13,8 @@ class TotalPriceVC: UIViewController {
     var amountOfCells = 0
     private var calculatedCells: Int = 0
     private var calculationTitles = [String]()
-    private var calculationResults = [String]()
+    private var prices = [String]()
+    private var days = [String]()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,7 @@ class TotalPriceVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureTitleLayer()
+        configureTotalDaysLayer()
         configureTotalAmountLayer()
         configureSpinnerMessageLayer()
     }
@@ -37,14 +40,14 @@ class TotalPriceVC: UIViewController {
     
     private func configureSmallDetentContainerView() {
         smallDetentContainerView.translatesAutoresizingMaskIntoConstraints = false
-        smallDetentContainerView.addSublayers(titleLayer, totalAmountLayer, spinnerMessageLayer)
+        smallDetentContainerView.addSublayers(titleLayer, totalDaysLayer, totalAmountLayer, spinnerMessageLayer)
         smallDetentContainerView.addSubviews(spinner)
         
         NSLayoutConstraint.activate([
             smallDetentContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding * 1.5),
             smallDetentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding * 1.5),
             smallDetentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            smallDetentContainerView.heightAnchor.constraint(equalToConstant: titleLayer.fontSize + totalAmountLayer.fontSize + (padding / 2) + 5)
+            smallDetentContainerView.heightAnchor.constraint(equalToConstant: titleLayer.fontSize + totalDaysLayer.fontSize + (padding / 2) + totalAmountLayer.fontSize + 5)
         ])
     }
     
@@ -53,8 +56,14 @@ class TotalPriceVC: UIViewController {
         titleLayer.frame = CGRect(x: 0, y: 0, width: smallDetentContainerView.bounds.width, height: titleLayer.fontSize + 5)
     }
     
+    private func configureTotalDaysLayer() {
+        let totalDaysLayerY = titleLayer.frame.maxY + (padding / 2)
+        
+        totalDaysLayer.frame = CGRect(x: 0, y: totalDaysLayerY, width: smallDetentContainerView.bounds.width, height: totalDaysLayer.fontSize + 2)
+    }
+    
     private func configureTotalAmountLayer() {
-        let totalAmountLayerY = titleLayer.frame.maxY + (padding / 2)
+        let totalAmountLayerY = totalDaysLayer.frame.maxY + 3
         let estimatedTotalHeight = (totalAmountLayer.fontSize * 1.2) * 2
         
         totalAmountLayer.frame = CGRect(x: 0, y: totalAmountLayerY, width: smallDetentContainerView.bounds.width, height: estimatedTotalHeight)
@@ -78,7 +87,7 @@ class TotalPriceVC: UIViewController {
         smallDetentContainerView.layoutIfNeeded()
         let spinnerMessageLayerY = titleLayer.frame.maxY + (padding / 2)
     
-        spinnerMessageLayer.frame = CGRect(x: spinner.frame.maxX + (padding / 2), y: spinnerMessageLayerY, width: smallDetentContainerView.bounds.width - spinner.frame.width, height: spinnerMessageLayer.fontSize + 5)
+        spinnerMessageLayer.frame = CGRect(x: spinner.frame.maxX + (padding / 2.5), y: spinnerMessageLayerY, width: smallDetentContainerView.bounds.width - spinner.frame.width, height: spinnerMessageLayer.fontSize + 5)
     }
 }
 
@@ -88,27 +97,17 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
         switch sheetPresentationController.selectedDetentIdentifier {
         case .customSizeDetent:
             titleLayer.animateFont(toSize: 35, key: "increase")
+            totalDaysLayer.animateFont(toSize: 22, key: "increase")
             totalAmountLayer.animateFont(toSize: 26, key: "increase")
             spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
-            
-            UIView.animate(withDuration: 0.2) {
-                self.spinner.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
-                self.spinner.center.y += self.padding / 1.1
-                self.view.layoutIfNeeded()
-            }
+            TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: self.view, with: padding)
             
         case .smallDetent:
             titleLayer.animateFont(toSize: 25, key: "decrease")
+            totalDaysLayer.animateFont(toSize: 17, key: "decrease")
             totalAmountLayer.animateFont(toSize: 20, key: "decrease")
             spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
-            
-            UIView.animate(withDuration: 0.2) {
-                self.spinner.transform = .identity
-                self.spinner.center.y -= self.padding / 1.1
-                
-                self.spinnerMessageLayer.frame = CGRect(x: self.spinner.frame.maxX + (self.padding / 2), y: self.titleLayer.frame.maxY - 3, width: self.smallDetentContainerView.bounds.width - self.spinner.frame.width, height: self.spinnerMessageLayer.fontSize + 5)
-                self.view.layoutIfNeeded()
-            }
+            TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: self.view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
             
         case .none, .some(_):
             break
@@ -117,18 +116,18 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
 }
 
 extension TotalPriceVC: CalculationResultVCDelegate {
-    func didEndCalculation(result: String, title: String) {
+    func didEndCalculation(price: String, days: String?, title: String) {
         calculatedCells += 1
         
         if !calculationTitles.contains(title) {
             calculationTitles.append(title)
-            calculationResults.append(result)
+            prices.append(price)
+            if days != nil { self.days.append(days ?? "") }
         }
         if calculatedCells == amountOfCells {
-            spinner.stopAnimating()
-            spinnerMessageLayer.opacity = 0
-            
-            totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(calculationResults: calculationResults)
+            TotalPriceVCUIHelper.removeLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
+            totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: self.days)
+            totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
         }
     }
 }

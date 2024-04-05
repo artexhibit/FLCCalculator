@@ -20,8 +20,10 @@ struct CalculationResultHelper {
         return (currencyCode, ratio, price)
     }
     
-    static func getDeliveryFromWarehousePrice(item: CalculationResultItem) -> String {
-        PriceCalculationManager.getDeliveryFromWarehouse(for: .chinaTruck, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.currency)
+    static func getDeliveryFromWarehousePrice(item: CalculationResultItem) -> (price: String, days: String) {
+       let price = PriceCalculationManager.getDeliveryFromWarehouse(for: .chinaTruck, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.currency)
+        let days = "от " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: .chinaTruck) + " дн."
+        return (price, days)
     }
     
     static func getCargoHandlingPrice(item: CalculationResultItem) -> String {

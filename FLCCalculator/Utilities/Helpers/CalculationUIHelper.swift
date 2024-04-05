@@ -151,11 +151,11 @@ struct CalculationUIHelper {
         return false
     }
     
-    static func calculateTotalPrice(calculationResults: [String]) -> String {
+    static func calculateTotalPrice(prices: [String]) -> String {
         var rubleTotal = 0.0
         var currencyTotal = 0.0
         
-        calculationResults.forEach {
+        prices.forEach {
             if $0.contains(FLCCurrency.RUB.symbol) {
                 rubleTotal += $0.createDouble(removeSymbols: true)
             } else {
@@ -163,5 +163,21 @@ struct CalculationUIHelper {
             }
         }
         return "\(currencyTotal.formatAsCurrency(symbol: .USD)) + \(rubleTotal.formatAsCurrency(symbol: .RUB))"
+    }
+    
+    static func calculateTotalDays(days: [String]) -> String {
+        var totalDays = 0
+        var fromDay = 0
+        
+        days.forEach { day in
+            if day.contains("-") {
+                fromDay = Int(day.components(separatedBy: "-").first?.filter { $0.isNumber } ?? "") ?? 0
+                totalDays += fromDay
+                fromDay = 0
+            } else {
+                totalDays += Int(day.filter { $0.isNumber }) ?? 0
+            }
+        }
+        return "от \(totalDays) дн."
     }
 }

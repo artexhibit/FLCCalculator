@@ -49,6 +49,11 @@ class PriceCalculationManager {
         return densityCoefficient > logisticsTypeData.targetWeight ? weight * value : volume * value
     }
     
+    static func getDeliveryFromWarehouseTransitTime(for logisticsType: FLCLogisticsType) -> String {
+        guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return "" }
+        return String(logisticsTypeData.transitDays)
+    }
+    
     static func getCagoHandlingData(for logisticsType: FLCLogisticsType) -> (pricePerKg: Double, minPrice: Double) {
         guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return (0,0) }
         return (logisticsTypeData.cargoHandling, logisticsTypeData.minCargoHandling)

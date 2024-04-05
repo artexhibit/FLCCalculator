@@ -140,6 +140,7 @@ class CalculationResultCell: UITableViewCell {
         self.type = item.type
         self.titleTextView.text = item.title
         self.presentedVC = presentedVC
+        self.calculationResultItem = item
         guard item.price != nil else { return }
         
         switch type {
@@ -213,7 +214,7 @@ extension CalculationResultCell: UITextViewDelegate {
             } else if imageName.description.contains("questionmark.circle.fill") {
                 iconType = "questionmark.circle.fill"
             }
-            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configureTipMessage(in: self, iconType: iconType), in: parentVC, target: textView, characterRange: characterRange, presentedVC: presentedVC)
+            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configurePopoverMessage(in: self, iconType: iconType), in: parentVC, target: textView, characterRange: characterRange, presentedVC: presentedVC)
             return false
         }
         return true

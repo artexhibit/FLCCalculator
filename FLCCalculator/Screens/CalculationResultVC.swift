@@ -1,18 +1,19 @@
 import UIKit
 
 protocol CalculationResultVCDelegate: AnyObject {
-    func didEndCalculation(result: String, title: String)
+    func didEndCalculation(price: String, days: String?, title: String)
 }
 
 class CalculationResultVC: UIViewController {
     
     private let tableView = UITableView()
-    var showingPopover = FLCPopoverVC()
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
     var calculationResultItems = [CalculationResultItem]()
     private var totalPriceVC = TotalPriceVC()
     
+    var showingPopover = FLCPopoverVC()
     var calculationData: CalculationData!
+    
     private var delegate: CalculationResultVCDelegate?
 
     override func viewDidLoad() {
@@ -70,7 +71,7 @@ class CalculationResultVC: UIViewController {
                         self.calculationResultItems[index].price = result.price
                         self.calculationResultItems[index].daysAmount = result.days
                         self.updateDataSource(on: self.calculationResultItems)
-                        self.delegate?.didEndCalculation(result: result.price, title: item.title)
+                        self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
                     }
                 }
             case .insurance:
@@ -78,43 +79,43 @@ class CalculationResultVC: UIViewController {
                     let result = CalculationResultHelper.getInsurancePrice(item: item).price
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
-                    self.delegate?.didEndCalculation(result: result, title: item.title)
+                    self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                 }
             case .deliveryFromWarehouse:
                 DispatchQueue.main.async {
                     let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item)
-                    self.calculationResultItems[index].price = result
+                    self.calculationResultItems[index].price = result.price
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
-                    self.delegate?.didEndCalculation(result: result, title: item.title)
+                    self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
                 }
             case .cargoHandling:
                 DispatchQueue.main.async {
                     let result = CalculationResultHelper.getCargoHandlingPrice(item: item)
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
-                    self.delegate?.didEndCalculation(result: result, title: item.title)
+                    self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                 }
             case .customsClearancePrice:
                 DispatchQueue.main.async {
                     let result = CalculationResultHelper.getCustomsClearancePrice(item: item)
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
-                    self.delegate?.didEndCalculation(result: result, title: item.title)
+                    self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                 }
             case .customsWarehouseServices:
                 DispatchQueue.main.async {
                     let result = CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item)
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
-                    self.delegate?.didEndCalculation(result: result, title: item.title)
+                    self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                 }
             case .deliveryToWarehouse:
                 DispatchQueue.main.async {
-                    let result = CalculationResultHelper.getDeliveryToWarehousePrice(item: item).price
-                    self.calculationResultItems[index].price = result
+                    let result = CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
+                    self.calculationResultItems[index].price = result.price
                     self.calculationResultItems[index].daysAmount = CalculationResultHelper.getDeliveryToWarehousePrice(item: item).days
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
-                    self.delegate?.didEndCalculation(result: result, title: item.title)
+                    self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
                 }
             }
         }
@@ -150,7 +151,7 @@ extension CalculationResultVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.2 : view.frame.height * 0.11
+        DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.23 : view.frame.height * 0.13
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
