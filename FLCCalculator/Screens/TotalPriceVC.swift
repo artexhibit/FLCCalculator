@@ -3,11 +3,13 @@ import UIKit
 class TotalPriceVC: UIViewController {
     
     private var smallDetentContainerView = UIView()
+    private var spinner = UIActivityIndicatorView()
+    private let spinnerMessageLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
+    
     private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .heavy, color: .accent, alignment: .left)
     private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .gray, alignment: .left)
     private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
-    private var spinner = UIActivityIndicatorView()
-    private let spinnerMessageLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
+    private let detailsButton = FLCTintedButton(color: .accent, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
     private let padding: CGFloat = 15
     
     var amountOfCells = 0
@@ -22,6 +24,7 @@ class TotalPriceVC: UIViewController {
         configureSmallDetentContainerView()
         configureTitleLayer()
         configureSpinner()
+        configureDetailsButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,7 +44,7 @@ class TotalPriceVC: UIViewController {
     private func configureSmallDetentContainerView() {
         smallDetentContainerView.translatesAutoresizingMaskIntoConstraints = false
         smallDetentContainerView.addSublayers(titleLayer, totalDaysLayer, totalAmountLayer, spinnerMessageLayer)
-        smallDetentContainerView.addSubviews(spinner)
+        smallDetentContainerView.addSubviews(spinner, detailsButton)
         
         NSLayoutConstraint.activate([
             smallDetentContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding * 1.5),
@@ -67,6 +70,16 @@ class TotalPriceVC: UIViewController {
         let estimatedTotalHeight = (totalAmountLayer.fontSize * 1.2) * 2
         
         totalAmountLayer.frame = CGRect(x: 0, y: totalAmountLayerY, width: smallDetentContainerView.bounds.width, height: estimatedTotalHeight)
+    }
+    
+    private func configureDetailsButton() {
+        detailsButton.delegate = self
+        detailsButton.hide()
+        
+        NSLayoutConstraint.activate([
+            detailsButton.trailingAnchor.constraint(equalTo: smallDetentContainerView.trailingAnchor, constant: -padding / 2.5),
+            detailsButton.centerYAnchor.constraint(equalTo: smallDetentContainerView.topAnchor, constant: titleLayer.frame.midY + 2)
+        ])
     }
     
     private func configureSpinner() {
@@ -101,6 +114,7 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
             totalAmountLayer.animateFont(toSize: 26, key: "increase")
             spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
             TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: self.view, with: padding)
+            detailsButton.hide()
             
         case .smallDetent:
             titleLayer.animateFont(toSize: 25, key: "decrease")
@@ -108,6 +122,7 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
             totalAmountLayer.animateFont(toSize: 20, key: "decrease")
             spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
             TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: self.view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
+            if !spinner.isAnimating { detailsButton.show() }
             
         case .none, .some(_):
             break
@@ -126,8 +141,15 @@ extension TotalPriceVC: CalculationResultVCDelegate {
         }
         if calculatedCells == amountOfCells {
             TotalPriceVCUIHelper.removeLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
+            detailsButton.show()
             totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: self.days)
             totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
         }
+    }
+}
+
+extension TotalPriceVC: FLCTintedButtonDelegate {
+    func didTapButton(_ button: FLCTintedButton) {
+        TotalPriceVCUIHelper.showCustomSizeDetent(in: self, and: detailsButton)
     }
 }

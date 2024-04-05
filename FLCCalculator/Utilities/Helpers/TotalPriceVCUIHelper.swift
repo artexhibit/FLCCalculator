@@ -23,4 +23,13 @@ struct TotalPriceVCUIHelper {
         spinner.stopAnimating()
         spinnerMessage.opacity = 0
     }
+    
+    static func showCustomSizeDetent(in vc: UIViewController, and button: FLCTintedButton) {
+        if let sheet = vc.sheetPresentationController {
+            sheet.animateChanges {
+                sheet.selectedDetentIdentifier = .customSizeDetent
+                button.hide()
+            }
+        }
+    }
 }

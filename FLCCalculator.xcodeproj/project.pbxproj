@@ -90,6 +90,7 @@
 		0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE046712B9C9F8800BA6F21 /* FLCPickerVC.swift */; };
 		0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE046742B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift */; };
 		0BF860FB2BC0544D0065359C /* TotalPriceVCUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */; };
+		0BF860FD2BC05BA20065359C /* FLCTintedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF860FC2BC05BA20065359C /* FLCTintedButton.swift */; };
 		0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */; };
 		0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */; };
 		0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938842B84F61700A18016 /* FLCTitleLabel.swift */; };
@@ -210,6 +211,7 @@
 		0BE046712B9C9F8800BA6F21 /* FLCPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerVC.swift; sourceTree = "<group>"; };
 		0BE046742B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISheetPresentationController + Ext.swift"; sourceTree = "<group>"; };
 		0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceVCUIHelper.swift; sourceTree = "<group>"; };
+		0BF860FC2BC05BA20065359C /* FLCTintedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTintedButton.swift; sourceTree = "<group>"; };
 		0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCEmptyStateView.swift; sourceTree = "<group>"; };
 		0BF938842B84F61700A18016 /* FLCTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTitleLabel.swift; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				0BF9388B2B850EC600A18016 /* FLCButton.swift */,
 				0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */,
 				0B7549012BA2322B0029807B /* FLCTextButton.swift */,
+				0BF860FC2BC05BA20065359C /* FLCTintedButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */,
 				0B6E54432B8111C60078C110 /* UsefulInfoVC.swift in Sources */,
 				0B9F40F52BBEF8F20072561B /* CalculationResultHelper.swift in Sources */,
+				0BF860FD2BC05BA20065359C /* FLCTintedButton.swift in Sources */,
 				0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */,
 				0BE046702B9C863500BA6F21 /* SheetPickerCell.swift in Sources */,
 				0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */,
