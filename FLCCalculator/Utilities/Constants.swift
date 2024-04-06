@@ -8,6 +8,7 @@ enum Icons {
     static let map = UIImage(systemName: "map") ?? UIImage()
     static let document = UIImage(systemName: "doc.plaintext") ?? UIImage()
     static let clock = UIImage(systemName: "clock") ?? UIImage()
+    static let dots = UIImage(systemName: "ellipsis.circle.fill") ?? UIImage()
 }
 
 enum Keys {

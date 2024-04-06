@@ -40,20 +40,6 @@ class FLCTintedButton: UIButton {
         configuration?.imagePlacement = .leading
     }
     
-    final func hide() {
-        UIView.animate(withDuration: 0.1) {
-            self.alpha = 0
-            self.isUserInteractionEnabled = false
-        }
-    }
-    
-    final func show() {
-        UIView.animate(withDuration: 0.1) {
-            self.alpha = 1
-            self.isUserInteractionEnabled = true
-        }
-    }
-    
     @objc private func buttonTapped() {
         HapticManager.addHaptic(style: .light)
         delegate?.didTapButton(self)

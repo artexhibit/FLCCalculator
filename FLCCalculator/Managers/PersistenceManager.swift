@@ -45,17 +45,15 @@ struct PersistenceManager {
         }
     }
     
-    static func update(currencyData: CurrencyData) -> CurrencyData? {
+    static func update(newCurrencyData: CurrencyData) -> CurrencyData? {
         if let currencyData = retrieveCurrencyData() {
-            let storedCurrencyData = currencyData
-            
             ud.removeObject(forKey: Keys.currencyData)
-            guard let _ = save(currencyData: currencyData) else { return currencyData }
-            let savingError = save(currencyData: storedCurrencyData) ?? .unableToUpdateUserDefaults
+            guard let _ = save(currencyData: newCurrencyData) else { return newCurrencyData }
+            let savingError = save(currencyData: currencyData) ?? .unableToUpdateUserDefaults
             print(savingError)
             return nil
         } else {
-            let savingError = save(currencyData: currencyData) ?? .unableToUpdateUserDefaults
+            let savingError = save(currencyData: newCurrencyData) ?? .unableToUpdateUserDefaults
             print(savingError)
             return nil
         }
@@ -69,7 +67,8 @@ struct PersistenceManager {
         
         do {
             let decoder = JSONDecoder()
-            return try decoder.decode(CurrencyData.self, from: currencyData)
+            let data = try decoder.decode(CurrencyData.self, from: currencyData)
+            return data
         } catch {
             print(FLCError.unableToRetrieveFromUserDefaults)
             return nil

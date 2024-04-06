@@ -6,6 +6,12 @@ extension UIViewController {
         self.view.addGestureRecognizer(tapGesture)
     }
     
+    func configurePanGesture(selector: Selector) {
+        let panGesture = UIPanGestureRecognizer(target: self, action: selector)
+        panGesture.delegate = self as? UIGestureRecognizerDelegate
+        self.view.addGestureRecognizer(panGesture)
+    }
+    
     private struct Preview: UIViewControllerRepresentable {
         
         let viewController: UIViewController

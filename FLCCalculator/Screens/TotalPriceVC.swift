@@ -3,6 +3,9 @@ import UIKit
 class TotalPriceVC: UIViewController {
     
     private var smallDetentContainerView = UIView()
+    private var customDetentContainerView = FLCTintedView(color: .clear, alpha: 0)
+    private let padding: CGFloat = 15
+    
     private var spinner = UIActivityIndicatorView()
     private let spinnerMessageLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
     
@@ -10,13 +13,18 @@ class TotalPriceVC: UIViewController {
     private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .gray, alignment: .left)
     private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
     private let detailsButton = FLCTintedButton(color: .accent, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
-    private let padding: CGFloat = 15
+    private let pricePerKgTextView = FLCTextViewLabel()
     
-    var amountOfCells = 0
-    private var calculatedCells: Int = 0
+    private var customDetentContainerBottomView: NSLayoutConstraint?
+    
+    private var totalCells = 0
+    private var totalCalculatedCells: Int = 0
     private var calculationTitles = [String]()
     private var prices = [String]()
     private var days = [String]()
+    
+    private var calculationData: CalculationData?
+    private var showingPopover = FLCPopoverVC()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +45,13 @@ class TotalPriceVC: UIViewController {
     
     private func configure() {
         view.backgroundColor = .systemBackground
-        view.addSubview(smallDetentContainerView)
+        view.addSubviews(smallDetentContainerView, customDetentContainerView)
         sheetPresentationController?.delegate = self
+        configurePanGesture(selector: #selector(viewDragged))
+    }
+    
+    @objc private func viewDragged(_ gesture: UIPanGestureRecognizer) {
+        if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
     }
     
     private func configureSmallDetentContainerView() {
@@ -52,6 +65,21 @@ class TotalPriceVC: UIViewController {
             smallDetentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             smallDetentContainerView.heightAnchor.constraint(equalToConstant: titleLayer.fontSize + totalDaysLayer.fontSize + (padding / 2) + totalAmountLayer.fontSize + 5)
         ])
+    }
+    
+    private func configureCustomDetentContainerView() {
+        customDetentContainerView.addSubviews(pricePerKgTextView)
+        customDetentContainerBottomView = customDetentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 2)
+        
+        NSLayoutConstraint.activate([
+            customDetentContainerView.topAnchor.constraint(equalTo: smallDetentContainerView.topAnchor, constant: totalAmountLayer.frame.maxY),
+            customDetentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            customDetentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            customDetentContainerBottomView!
+        ])
+        view.layoutIfNeeded()
+        
+        if !spinner.isAnimating { configurePricePerKgTextView() }
     }
     
     private func configureTitleLayer() {
@@ -82,10 +110,19 @@ class TotalPriceVC: UIViewController {
         ])
     }
     
+    private func configurePricePerKgTextView() {
+        pricePerKgTextView.delegate = self
+        
+        NSLayoutConstraint.activate([
+            pricePerKgTextView.topAnchor.constraint(equalTo: customDetentContainerView.topAnchor),
+            pricePerKgTextView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
+            pricePerKgTextView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
+        ])
+    }
+    
     private func configureSpinner() {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.style = .medium
-        spinner.startAnimating()
         
         NSLayoutConstraint.activate([
             spinner.topAnchor.constraint(equalTo: smallDetentContainerView.topAnchor, constant: titleLayer.frame.maxY + (padding / 1.5)),
@@ -102,6 +139,31 @@ class TotalPriceVC: UIViewController {
     
         spinnerMessageLayer.frame = CGRect(x: spinner.frame.maxX + (padding / 2.5), y: spinnerMessageLayerY, width: smallDetentContainerView.bounds.width - spinner.frame.width, height: spinnerMessageLayer.fontSize + 5)
     }
+    
+    private func setupUIForCustomSizeDetent() {
+        titleLayer.animateFont(toSize: 35, key: "increase")
+        totalDaysLayer.animateFont(toSize: 22, key: "increase")
+        totalAmountLayer.animateFont(toSize: 26, key: "increase")
+        spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
+        pricePerKgTextView.show()
+        
+        detailsButton.hide()
+        TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: view, with: padding)
+        if !spinner.isAnimating { configureCustomDetentContainerView() }
+    }
+    
+    func setupUIForSmallDetent() {
+        titleLayer.animateFont(toSize: 25, key: "decrease")
+        totalDaysLayer.animateFont(toSize: 17, key: "decrease")
+        totalAmountLayer.animateFont(toSize: 20, key: "decrease")
+        spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
+        pricePerKgTextView.hide()
+        
+        if !spinner.isAnimating { detailsButton.show() }
+        TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
+        
+        if !spinner.isAnimating, let bottomConstraint = customDetentContainerBottomView, bottomConstraint.isActive { customDetentContainerBottomView?.isActive = false }
+    }
 }
 
 extension TotalPriceVC: UISheetPresentationControllerDelegate {
@@ -109,47 +171,83 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
         
         switch sheetPresentationController.selectedDetentIdentifier {
         case .customSizeDetent:
-            titleLayer.animateFont(toSize: 35, key: "increase")
-            totalDaysLayer.animateFont(toSize: 22, key: "increase")
-            totalAmountLayer.animateFont(toSize: 26, key: "increase")
-            spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
-            TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: self.view, with: padding)
-            detailsButton.hide()
+            setupUIForCustomSizeDetent()
             
         case .smallDetent:
-            titleLayer.animateFont(toSize: 25, key: "decrease")
-            totalDaysLayer.animateFont(toSize: 17, key: "decrease")
-            totalAmountLayer.animateFont(toSize: 20, key: "decrease")
-            spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
-            TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: self.view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
-            if !spinner.isAnimating { detailsButton.show() }
+            setupUIForSmallDetent()
             
         case .none, .some(_):
             break
         }
+  
     }
 }
 
 extension TotalPriceVC: CalculationResultVCDelegate {
+    func didReceiveCellsAmount(amount: Int, calculationData: CalculationData) {
+        if totalCells == 0 { spinner.startAnimating() }
+        totalCells = amount
+        self.calculationData = calculationData
+    }
+    
     func didEndCalculation(price: String, days: String?, title: String) {
-        calculatedCells += 1
+        totalCalculatedCells += 1
         
         if !calculationTitles.contains(title) {
             calculationTitles.append(title)
             prices.append(price)
             if days != nil { self.days.append(days ?? "") }
         }
-        if calculatedCells == amountOfCells {
+    
+        if totalCalculatedCells == totalCells {
             TotalPriceVCUIHelper.removeLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
             detailsButton.show()
             totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: self.days)
             totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
+            TotalPriceVCUIHelper.setPricePerKgTextView(view: pricePerKgTextView, data: calculationData, totalAmount: totalAmountLayer)
+            if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent { configureCustomDetentContainerView()
+            }
         }
     }
 }
 
 extension TotalPriceVC: FLCTintedButtonDelegate {
     func didTapButton(_ button: FLCTintedButton) {
-        TotalPriceVCUIHelper.showCustomSizeDetent(in: self, and: detailsButton)
+        TotalPriceVCUIHelper.showDetent(in: self, type: .customSizeDetent) { [weak self] in
+            guard let self else { return }
+            detailsButton.hide()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { self.setupUIForCustomSizeDetent() }
+        }
+    }
+}
+
+extension TotalPriceVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if let imageName = textAttachment.image, imageName.description.contains("ellipsis.circle.fill") {
+            HapticManager.addHaptic(style: .light)
+
+            let popover = FLCPopoverVC()
+            if showingPopover.isShowing != popover.isShowing { showingPopover.hidePopoverFromMainThread() }
+            showingPopover = popover
+            
+            guard !popover.isShowing else { return false }
+            
+            let message = TotalPriceVCUIHelper.setPopoverMessage(in: textView, pricePerKg: pricePerKgTextView, with: calculationData, and: totalAmountLayer)
+            popover.showPopoverOnMainThread(withText: message, in: self, target: textView, characterRange: characterRange)
+            return false
+        }
+        return true
+    }
+}
+
+extension TotalPriceVC: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        .none
+    }
+}
+
+extension TotalPriceVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

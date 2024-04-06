@@ -2,6 +2,7 @@ import UIKit
 
 protocol CalculationResultVCDelegate: AnyObject {
     func didEndCalculation(price: String, days: String?, title: String)
+    func didReceiveCellsAmount(amount: Int, calculationData: CalculationData)
 }
 
 class CalculationResultVC: UIViewController {
@@ -61,6 +62,8 @@ class CalculationResultVC: UIViewController {
     }
     
     func performCalculations() {
+        delegate?.didReceiveCellsAmount(amount: calculationResultItems.count, calculationData: calculationData)
+        
         for (index, item) in calculationResultItems.enumerated() {
             switch item.type {
             case .russianDelivery:

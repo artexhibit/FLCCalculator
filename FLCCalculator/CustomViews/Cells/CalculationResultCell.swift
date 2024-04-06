@@ -202,6 +202,9 @@ extension CalculationResultCell: UITextViewDelegate {
         if let imageName = textAttachment.image {
             HapticManager.addHaptic(style: .light)
             
+            guard let totalPriceVC = presentedVC as? TotalPriceVC else { return false }
+            TotalPriceVCUIHelper.showDetent(in: totalPriceVC, type: .smallDetent) { totalPriceVC.setupUIForSmallDetent() }
+            
             guard let parentVC = self.findParentViewController() as? CalculationResultVC else { return false }
             let popover = FLCPopoverVC()
             var iconType = ""

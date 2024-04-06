@@ -63,7 +63,6 @@ struct CalculationUIHelper {
     static func showTotalPrice(vc: UIViewController, from parentVC: UIViewController) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             guard let totalPriceVC = vc as? TotalPriceVC, let parentVC = parentVC as? CalculationResultVC else { return }
-            totalPriceVC.amountOfCells = parentVC.calculationResultItems.count
             totalPriceVC.isModalInPresentation = true
             totalPriceVC.sheetPresentationController?.getFLCSheetPresentationController(in: parentVC.view, size: 0.6, dimmed: false, cornerRadius: 35, addSmallDetent: true)
             parentVC.present(totalPriceVC, animated: true)

@@ -112,7 +112,27 @@ class PriceCalculationManager {
         
         let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")?.rusName ?? ""
         let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
-
+        
         return (warehouseName, transitDays)
+    }
+    
+    static func getPricePerKg(totalPrice: String? = "0+0", weight: Double? = 0) -> (result: String, currency: FLCCurrency, secondCurrency: FLCCurrency, exchangeRate: Double, currencyValue: Double, rubleValue: Double) {
+        let totalPriceParts = totalPrice?.components(separatedBy: "+")
+        let currency = totalPriceParts?.first?.extractCurrencySymbol() ?? .USD
+        let secondCurrency = totalPriceParts?.last?.extractCurrencySymbol() ?? .RUB
+        let currencyKey = currencyData?.Valute.keys.first(where: { $0 == currency.rawValue }) ?? ""
+        let currencyExchangeRate = currencyData?.Valute[currencyKey]?.Value ?? 0
+        
+        let currencyValue = totalPriceParts?.first?.createDouble(removeSymbols: true) ?? 0
+        let rubleValue = totalPriceParts?.last?.createDouble(removeSymbols: true) ?? 0
+        
+        let currencyTotal = currencyValue + (rubleValue / currencyExchangeRate)
+
+        let currencyPricePerKg = (currencyTotal / (weight ?? 1)).formatDecimalsTo(amount: 2)
+        let rublePricePerKg = ((currencyTotal * currencyExchangeRate) / (weight ?? 1)).formatAsCurrency(symbol: secondCurrency)
+        
+        let result = "~" + currencyPricePerKg.formatAsCurrency(symbol: currency) + "/кг" + " или ~" + rublePricePerKg + "/кг"
+        
+        return (result, currency, secondCurrency, currencyExchangeRate, currencyValue, rubleValue)
     }
 }

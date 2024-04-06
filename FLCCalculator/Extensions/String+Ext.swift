@@ -59,6 +59,15 @@ extension String {
         return nil
     }
     
+    func extractCurrencySymbol() -> FLCCurrency? {
+        for char in self {
+            if let currency = FLCCurrency.allCases.first(where: { $0.symbol == String(char) }) {
+                return currency
+            }
+        }
+        return nil
+    }
+    
     func getCityName() -> String? {
         let components = self.components(separatedBy: "(")
         guard let cityName = components.first else { return nil }

@@ -5,7 +5,7 @@ struct  AppDelegateHelper {
         Task {
             do {
                 let currencyData = try await NetworkManager.shared.getCurrencyData()
-                guard let _ = PersistenceManager.update(currencyData: currencyData) else {
+                guard let _ = PersistenceManager.update(newCurrencyData: currencyData) else {
                     await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
                     return
                 }
