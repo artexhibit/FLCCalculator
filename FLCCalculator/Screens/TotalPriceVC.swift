@@ -13,6 +13,7 @@ class TotalPriceVC: UIViewController {
     private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .gray, alignment: .left)
     private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
     private let detailsButton = FLCTintedButton(color: .accent, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
+    private let priceAsOneCurrencyTextView = FLCTextViewLabel()
     private let pricePerKgTextView = FLCTextViewLabel()
     
     private var customDetentContainerBottomView: NSLayoutConstraint?
@@ -68,7 +69,7 @@ class TotalPriceVC: UIViewController {
     }
     
     private func configureCustomDetentContainerView() {
-        customDetentContainerView.addSubviews(pricePerKgTextView)
+        customDetentContainerView.addSubviews(priceAsOneCurrencyTextView, pricePerKgTextView)
         customDetentContainerBottomView = customDetentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 2)
         
         NSLayoutConstraint.activate([
@@ -79,7 +80,10 @@ class TotalPriceVC: UIViewController {
         ])
         view.layoutIfNeeded()
         
-        if !spinner.isAnimating { configurePricePerKgTextView() }
+        if !spinner.isAnimating {
+            configurePriceAsOneCurrencyTextView()
+            configurePricePerKgTextView()
+        }
     }
     
     private func configureTitleLayer() {
@@ -110,11 +114,21 @@ class TotalPriceVC: UIViewController {
         ])
     }
     
+    private func configurePriceAsOneCurrencyTextView() {
+        priceAsOneCurrencyTextView.delegate = self
+        
+        NSLayoutConstraint.activate([
+            priceAsOneCurrencyTextView.topAnchor.constraint(equalTo: customDetentContainerView.topAnchor, constant: 5),
+            priceAsOneCurrencyTextView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
+            priceAsOneCurrencyTextView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
+        ])
+    }
+    
     private func configurePricePerKgTextView() {
         pricePerKgTextView.delegate = self
         
         NSLayoutConstraint.activate([
-            pricePerKgTextView.topAnchor.constraint(equalTo: customDetentContainerView.topAnchor),
+            pricePerKgTextView.topAnchor.constraint(equalTo: priceAsOneCurrencyTextView.bottomAnchor),
             pricePerKgTextView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
             pricePerKgTextView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
         ])
@@ -145,6 +159,7 @@ class TotalPriceVC: UIViewController {
         totalDaysLayer.animateFont(toSize: 22, key: "increase")
         totalAmountLayer.animateFont(toSize: 26, key: "increase")
         spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
+        priceAsOneCurrencyTextView.show()
         pricePerKgTextView.show()
         
         detailsButton.hide()
@@ -157,6 +172,7 @@ class TotalPriceVC: UIViewController {
         totalDaysLayer.animateFont(toSize: 17, key: "decrease")
         totalAmountLayer.animateFont(toSize: 20, key: "decrease")
         spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
+        priceAsOneCurrencyTextView.hide()
         pricePerKgTextView.hide()
         
         if !spinner.isAnimating { detailsButton.show() }
@@ -204,7 +220,8 @@ extension TotalPriceVC: CalculationResultVCDelegate {
             detailsButton.show()
             totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: self.days)
             totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
-            TotalPriceVCUIHelper.setPricePerKgTextView(view: pricePerKgTextView, data: calculationData, totalAmount: totalAmountLayer)
+            TotalPriceVCUIHelper.setPriceForTextView(view: priceAsOneCurrencyTextView, data: calculationData, totalAmount: totalAmountLayer, type: .asOneCurrency)
+            TotalPriceVCUIHelper.setPriceForTextView(view: pricePerKgTextView, data: calculationData, totalAmount: totalAmountLayer, type: .perKG)
             if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent { configureCustomDetentContainerView()
             }
         }
@@ -232,7 +249,7 @@ extension TotalPriceVC: UITextViewDelegate {
             
             guard !popover.isShowing else { return false }
             
-            let message = TotalPriceVCUIHelper.setPopoverMessage(in: textView, pricePerKg: pricePerKgTextView, with: calculationData, and: totalAmountLayer)
+            let message = TotalPriceVCUIHelper.setPopoverMessage(in: textView, priceAsOneCurrency: priceAsOneCurrencyTextView, pricePerKg: pricePerKgTextView, with: calculationData, and: totalAmountLayer)
             popover.showPopoverOnMainThread(withText: message, in: self, target: textView, characterRange: characterRange)
             return false
         }

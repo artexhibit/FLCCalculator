@@ -8,7 +8,8 @@ enum FLCListPickerSearchType { case onlyByTitle, onlyBySubtitle, both }
 enum FLCGoToViewDirections { case forward, backward }
 enum FLCSection { case main }
 enum FLCTextViewLabelImagePlacing { case afterText, beforeText }
-enum FLCPopoverPosition {case top, bottom }
+enum FLCPopoverPosition { case top, bottom }
+enum FLCTotalType { case perKG, asOneCurrency }
 
 enum FLCCountryOption: String {
     case china = "Китай"

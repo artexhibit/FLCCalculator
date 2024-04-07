@@ -33,28 +33,43 @@ struct TotalPriceVCUIHelper {
         }
     }
     
-    static func setPricePerKgTextView(view: FLCTextViewLabel, data: CalculationData?, totalAmount: FLCTextLayer) {
-        let priceValue = PriceCalculationManager.getPricePerKg(totalPrice: totalAmount.string as? String, weight: data?.weight ?? 0).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+    static func setPriceForTextView(view: FLCTextViewLabel, data: CalculationData?, totalAmount: FLCTextLayer, type: FLCTotalType) {
+        var priceValue: NSMutableAttributedString?
+        
+        switch type {
+        case .perKG:
+            priceValue = PriceCalculationManager.getPrice(totalPrice: totalAmount.string as? String, weight: data?.weight, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+        case .asOneCurrency:
+            priceValue = PriceCalculationManager.getPrice(totalPrice: totalAmount.string as? String, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+        }
         view.attributedText = priceValue
         view.setStyle(color: .lightGray, textAlignment: .left, fontWeight: .medium, fontSize: 17)
     }
     
-    static private func getPopoverMessage(data: CalculationData?, totalAmount: FLCTextLayer) -> String {
-        let dataPerKg = PriceCalculationManager.getPricePerKg(totalPrice: totalAmount.string as? String, weight: data?.weight ?? 0)
-        let currencyTotal = dataPerKg.currencyValue + (dataPerKg.rubleValue / dataPerKg.exchangeRate).formatDecimalsTo(amount: 2)
+    static private func getTotal(data: CalculationData?, totalAmount: FLCTextLayer, type: FLCTotalType) -> String {
+        let priceData = PriceCalculationManager.getPrice(totalPrice: totalAmount.string as? String, weight: data?.weight, type: type)
         
-        let currencyString = "в \(dataPerKg.currency.symbol): \(dataPerKg.currencyValue.formatAsCurrency(symbol: dataPerKg.currency)) + \((dataPerKg.rubleValue / dataPerKg.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: dataPerKg.currency)) (\(dataPerKg.rubleValue.formatAsCurrency(symbol: dataPerKg.secondCurrency)) по курсу \(dataPerKg.exchangeRate)) = \((dataPerKg.currencyValue + (dataPerKg.rubleValue / dataPerKg.exchangeRate).formatDecimalsTo(amount: 2)).formatAsCurrency(symbol: dataPerKg.currency))"
+        let currencyTotal = priceData.currencyValue + (priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2)
         
-        let rubleString = "в \(dataPerKg.secondCurrency.symbol): \(currencyTotal.formatAsCurrency(symbol: dataPerKg.currency)) по курсу \(dataPerKg.exchangeRate) = \((currencyTotal * dataPerKg.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: dataPerKg.secondCurrency))"
+        let currencyString = "в \(priceData.currency.symbol): \(priceData.currencyValue.formatAsCurrency(symbol: priceData.currency)) + \((priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: priceData.currency)) (\(priceData.rubleValue.formatAsCurrency(symbol: priceData.secondCurrency)) по курсу \(priceData.exchangeRate)) = \((priceData.currencyValue + (priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2)).formatAsCurrency(symbol: priceData.currency))"
         
-        return currencyString + "\n\n" + rubleString + "\n\n" + "Сумма разделена на вес \(data?.weight ?? 0) кг"
+        let rubleString = "в \(priceData.secondCurrency.symbol): \(currencyTotal.formatAsCurrency(symbol: priceData.currency)) по курсу \(priceData.exchangeRate) = \((currencyTotal * priceData.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: priceData.secondCurrency))"
+        
+        switch type {
+        case .perKG:
+            return currencyString + "\n\n" + rubleString + "\n\n" + "Сумма разделена на вес \(data?.weight ?? 0) кг"
+        case .asOneCurrency:
+            return currencyString + "\n\n" + rubleString
+        }
     }
     
-    static func setPopoverMessage(in textView: UITextView, pricePerKg: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) -> String {
+    static func setPopoverMessage(in textView: UITextView, priceAsOneCurrency: UITextView, pricePerKg: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) -> String {
         
         switch textView.text {
+        case priceAsOneCurrency.text:
+            return getTotal(data: data, totalAmount: totalAmount, type: .asOneCurrency)
         case pricePerKg.text:
-            return getPopoverMessage(data: data, totalAmount: totalAmount)
+            return getTotal(data: data, totalAmount: totalAmount, type: .perKG)
         case .none, .some(_):
             return ""
         }
