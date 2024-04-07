@@ -2,6 +2,7 @@ import UIKit
 
 enum Icons {
     static let questionMark = UIImage(systemName: "questionmark.circle.fill") ?? UIImage()
+    static let exclamationMark = UIImage(systemName: "exclamationmark.circle.fill") ?? UIImage()
     static let infoSign = UIImage(systemName: "info.circle.fill") ?? UIImage()
     static let truck = UIImage(systemName: "truck.box") ?? UIImage()
     static let xmark = UIImage(systemName: "xmark") ?? UIImage()

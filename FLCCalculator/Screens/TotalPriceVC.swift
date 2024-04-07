@@ -15,9 +15,11 @@ class TotalPriceVC: UIViewController {
     private let detailsButton = FLCTintedButton(color: .accent, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
     private let priceAsOneCurrencyTextView = FLCTextViewLabel()
     private let pricePerKgTextView = FLCTextViewLabel()
+    private let invoiceIssueTintedView = FLCTintedView(color: .accent, alpha: 0.15, withText: true)
+    private let priceWarningTintedView = FLCTintedView(color: .red, alpha: 0.15, withText: true)
     
-    private var customDetentContainerBottomView: NSLayoutConstraint?
-    
+    private var isCustomDetentContainerViewConfigured: Bool = false
+        
     private var totalCells = 0
     private var totalCalculatedCells: Int = 0
     private var calculationTitles = [String]()
@@ -69,20 +71,21 @@ class TotalPriceVC: UIViewController {
     }
     
     private func configureCustomDetentContainerView() {
-        customDetentContainerView.addSubviews(priceAsOneCurrencyTextView, pricePerKgTextView)
-        customDetentContainerBottomView = customDetentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 2)
+        customDetentContainerView.addSubviews(priceAsOneCurrencyTextView, pricePerKgTextView, invoiceIssueTintedView, priceWarningTintedView)
         
         NSLayoutConstraint.activate([
             customDetentContainerView.topAnchor.constraint(equalTo: smallDetentContainerView.topAnchor, constant: totalAmountLayer.frame.maxY),
             customDetentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             customDetentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            customDetentContainerBottomView!
+            customDetentContainerView.heightAnchor.constraint(equalToConstant: self.view.frame.height)
         ])
         view.layoutIfNeeded()
         
         if !spinner.isAnimating {
             configurePriceAsOneCurrencyTextView()
             configurePricePerKgTextView()
+            configureInvoiceIssueTintedView()
+            configurePriceWarningTintedView()
         }
     }
     
@@ -134,6 +137,26 @@ class TotalPriceVC: UIViewController {
         ])
     }
     
+    private func configureInvoiceIssueTintedView() {
+        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: UIImage(), size: (0,0,0,0), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        
+        NSLayoutConstraint.activate([
+            invoiceIssueTintedView.topAnchor.constraint(equalTo: pricePerKgTextView.bottomAnchor, constant: padding * 1.5),
+            invoiceIssueTintedView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
+            invoiceIssueTintedView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
+        ])
+    }
+    
+    private func configurePriceWarningTintedView() {
+        priceWarningTintedView.setTextLabel(text: "Тариф действует только на первую перевозку. Не является офертой".makeAttributed(icon: Icons.exclamationMark, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        
+        NSLayoutConstraint.activate([
+            priceWarningTintedView.topAnchor.constraint(equalTo: invoiceIssueTintedView.bottomAnchor, constant: padding / 1.5),
+            priceWarningTintedView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
+            priceWarningTintedView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
+        ])
+    }
+    
     private func configureSpinner() {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.style = .medium
@@ -161,10 +184,15 @@ class TotalPriceVC: UIViewController {
         spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
         priceAsOneCurrencyTextView.show()
         pricePerKgTextView.show()
-        
+        invoiceIssueTintedView.show()
+        priceWarningTintedView.show()
         detailsButton.hide()
         TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: view, with: padding)
-        if !spinner.isAnimating { configureCustomDetentContainerView() }
+        
+        if !spinner.isAnimating && !isCustomDetentContainerViewConfigured {
+            configureCustomDetentContainerView()
+            isCustomDetentContainerViewConfigured = true
+        }
     }
     
     func setupUIForSmallDetent() {
@@ -174,11 +202,15 @@ class TotalPriceVC: UIViewController {
         spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
         priceAsOneCurrencyTextView.hide()
         pricePerKgTextView.hide()
+        invoiceIssueTintedView.hide()
+        priceWarningTintedView.hide()
         
         if !spinner.isAnimating { detailsButton.show() }
         TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
         
-        if !spinner.isAnimating, let bottomConstraint = customDetentContainerBottomView, bottomConstraint.isActive { customDetentContainerBottomView?.isActive = false }
+        configureTitleLayer()
+        configureTotalDaysLayer()
+        configureTotalAmountLayer()
     }
 }
 

@@ -19,7 +19,7 @@ extension String {
         }
     }
     
-    func makeAttributed(icon: UIImage, tint: UIColor = .flcNumberTextFieldLabel, size: (x: Int, y: Int, w: Int, h: Int), placeIcon: FLCTextViewLabelImagePlacing) -> NSMutableAttributedString {
+    func makeAttributed(icon: UIImage, tint: UIColor = .flcNumberTextFieldLabel, size: (x: Double, y: Double, w: Double, h: Double), placeIcon: FLCTextViewLabelImagePlacing) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
         let imageView = UIImageView(image: icon.withTintColor(tint).withRenderingMode(.alwaysTemplate))
         
