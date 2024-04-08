@@ -7,4 +7,5 @@ struct CalculationResultItem: Hashable {
     var daysAmount: String?
     var price: String?
     let currency: FLCCurrency
+    var hasError: Bool = false
 }

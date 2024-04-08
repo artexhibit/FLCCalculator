@@ -2,7 +2,7 @@ import UIKit
 
 class FLCTintedView: UIView {
     
-    private let tintedViewLabel = FLCTextViewLabel()
+    let tintedViewLabel = FLCTextViewLabel()
     private let padding: CGFloat = 10
     private var color: UIColor = .clear
 

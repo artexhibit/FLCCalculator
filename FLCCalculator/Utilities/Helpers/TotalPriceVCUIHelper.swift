@@ -63,13 +63,15 @@ struct TotalPriceVCUIHelper {
         }
     }
     
-    static func setPopoverMessage(in textView: UITextView, priceAsOneCurrency: UITextView, pricePerKg: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) -> String {
+    static func setPopoverMessage(in textView: UITextView, priceAsOneCurrency: UITextView, pricePerKg: UITextView, invoiceIssue: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) -> String {
         
         switch textView.text {
         case priceAsOneCurrency.text:
             return getTotal(data: data, totalAmount: totalAmount, type: .asOneCurrency)
         case pricePerKg.text:
             return getTotal(data: data, totalAmount: totalAmount, type: .perKG)
+        case invoiceIssue.text:
+            return "3% только к валютной части из-за колебаний курса, поскольку расчёты с контрагентами у нас в валюте."
         case .none, .some(_):
             return ""
         }

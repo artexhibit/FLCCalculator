@@ -157,7 +157,7 @@ class FLCCargoParametersView: FLCCalculationView {
         
         NSLayoutConstraint.activate([
             nextButton.topAnchor.constraint(equalTo: tintedView.bottomAnchor, constant: padding * 4),
-            nextButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
+            nextButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             widthConstraint, heightConstraint,
             
             nextButton.heightAnchor.constraint(lessThanOrEqualToConstant: 60),

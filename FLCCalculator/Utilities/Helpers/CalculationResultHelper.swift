@@ -1,14 +1,14 @@
 import Foundation
 
 struct CalculationResultHelper {
-    static func getRussianDeliveryPrice(item: CalculationResultItem, completion: @escaping ((price: String, days: String)) -> Void) {
-        Task {
-            do {
-                let data = try await NetworkManager.shared.getRussianDelivery(for: item)
-                let price = data.getPrice().add(markup: .seventeenPercents).formatAsCurrency(symbol: item.currency)
-                let days = data.getDays() ?? ""
-                completion((price, days))
-            }
+    static func getRussianDeliveryPrice(item: CalculationResultItem) async -> Result<(price: String, days: String), FLCError> {
+        do {
+            let data = try await NetworkManager.shared.getRussianDelivery(for: item)
+            let price = data.getPrice().add(markup: .seventeenPercents).formatAsCurrency(symbol: item.currency)
+            let days = data.getDays() ?? ""
+            return .success((price, days))
+        } catch {
+            return .failure(.invalidResponce)
         }
     }
     

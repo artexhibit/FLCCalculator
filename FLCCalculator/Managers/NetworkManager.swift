@@ -26,7 +26,10 @@ class NetworkManager {
         
         guard let url = URL(string: endPoint) else { throw FLCError.invalidEndpoint }
         
-        let (data, responce) = try await URLSession.shared.data(from: url)
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 20
+        
+        let (data, responce) = try await URLSession.shared.data(for: request)
   
         guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
    

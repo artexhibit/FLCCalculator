@@ -32,16 +32,12 @@ extension UIView {
     }
     
     func hide() {
-        UIView.animate(withDuration: 0.1) {
-            self.alpha = 0
-            self.isUserInteractionEnabled = false
-        }
+        UIView.animate(withDuration: 0.1) { self.alpha = 0 }
+        self.isUserInteractionEnabled = false
     }
     
     func show() {
-        UIView.animate(withDuration: 0.1) {
-            self.alpha = 1
-            self.isUserInteractionEnabled = true
-        }
+        UIView.animate(withDuration: 0.1) { self.alpha = 1 }
+        self.isUserInteractionEnabled = true
     }
 }

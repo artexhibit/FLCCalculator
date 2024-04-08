@@ -67,14 +67,19 @@ class CalculationResultVC: UIViewController {
         for (index, item) in calculationResultItems.enumerated() {
             switch item.type {
             case .russianDelivery:
-                CalculationResultHelper.getRussianDeliveryPrice(item: item) { [weak self] result in
-                    guard let self else { return }
+                Task {
+                    let result = await CalculationResultHelper.getRussianDeliveryPrice(item: item)
                     
-                    DispatchQueue.main.async {
-                        self.calculationResultItems[index].price = result.price
-                        self.calculationResultItems[index].daysAmount = result.days
-                        self.updateDataSource(on: self.calculationResultItems)
-                        self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
+                    switch result {
+                    case .success(let items):
+                        DispatchQueue.main.async {
+                            self.calculationResultItems[index].price = items.price
+                            self.calculationResultItems[index].daysAmount = items.days
+                            self.updateDataSource(on: self.calculationResultItems)
+                            self.delegate?.didEndCalculation(price: items.price, days: items.days, title: item.title)
+                        }
+                    case .failure(_):
+                        self.calculationResultItems[index].hasError = true
                     }
                 }
             case .insurance:

@@ -15,8 +15,11 @@ class TotalPriceVC: UIViewController {
     private let detailsButton = FLCTintedButton(color: .accent, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
     private let priceAsOneCurrencyTextView = FLCTextViewLabel()
     private let pricePerKgTextView = FLCTextViewLabel()
-    private let invoiceIssueTintedView = FLCTintedView(color: .accent, alpha: 0.15, withText: true)
     private let priceWarningTintedView = FLCTintedView(color: .red, alpha: 0.15, withText: true)
+    private let invoiceIssueTintedView = FLCTintedView(color: .accent, alpha: 0.15, withText: true)
+    private let confirmButton = FLCButton(color: .accent, title: "Подтвердить заявку", systemImageName: "hand.thumbsup")
+    private let saveButton = FLCButton(color: .accent.makeLighter(), title: "Сохранить", systemImageName: "sdcard")
+    private let closeButton = FLCButton(color: .accent.makeLighter(), title: "Закрыть", systemImageName: "xmark")
     
     private var isCustomDetentContainerViewConfigured: Bool = false
         
@@ -25,6 +28,7 @@ class TotalPriceVC: UIViewController {
     private var calculationTitles = [String]()
     private var prices = [String]()
     private var days = [String]()
+    private var items = [UIView]()
     
     private var calculationData: CalculationData?
     private var showingPopover = FLCPopoverVC()
@@ -51,6 +55,8 @@ class TotalPriceVC: UIViewController {
         view.addSubviews(smallDetentContainerView, customDetentContainerView)
         sheetPresentationController?.delegate = self
         configurePanGesture(selector: #selector(viewDragged))
+        
+        items.append(contentsOf: [priceAsOneCurrencyTextView, pricePerKgTextView, priceWarningTintedView, invoiceIssueTintedView, confirmButton, saveButton, closeButton])
     }
     
     @objc private func viewDragged(_ gesture: UIPanGestureRecognizer) {
@@ -71,22 +77,23 @@ class TotalPriceVC: UIViewController {
     }
     
     private func configureCustomDetentContainerView() {
-        customDetentContainerView.addSubviews(priceAsOneCurrencyTextView, pricePerKgTextView, invoiceIssueTintedView, priceWarningTintedView)
+        customDetentContainerView.addSubviews(priceAsOneCurrencyTextView, pricePerKgTextView, invoiceIssueTintedView, priceWarningTintedView, confirmButton, saveButton, closeButton)
         
         NSLayoutConstraint.activate([
             customDetentContainerView.topAnchor.constraint(equalTo: smallDetentContainerView.topAnchor, constant: totalAmountLayer.frame.maxY),
             customDetentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             customDetentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            customDetentContainerView.heightAnchor.constraint(equalToConstant: self.view.frame.height)
+            customDetentContainerView.heightAnchor.constraint(equalToConstant: self.view.frame.height * 2)
         ])
         view.layoutIfNeeded()
         
-        if !spinner.isAnimating {
-            configurePriceAsOneCurrencyTextView()
-            configurePricePerKgTextView()
-            configureInvoiceIssueTintedView()
-            configurePriceWarningTintedView()
-        }
+        configurePriceAsOneCurrencyTextView()
+        configurePricePerKgTextView()
+        configurePriceWarningTintedView()
+        configureInvoiceIssueTintedView()
+        configureConfirmButton()
+        configureSaveButton()
+        configureCloseButton()
     }
     
     private func configureTitleLayer() {
@@ -137,23 +144,58 @@ class TotalPriceVC: UIViewController {
         ])
     }
     
-    private func configureInvoiceIssueTintedView() {
-        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: UIImage(), size: (0,0,0,0), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+    private func configurePriceWarningTintedView() {
+        priceWarningTintedView.setTextLabel(text: "Тариф действует только на первую перевозку. Не является офертой".makeAttributed(icon: Icons.exclamationMark, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
-            invoiceIssueTintedView.topAnchor.constraint(equalTo: pricePerKgTextView.bottomAnchor, constant: padding * 1.5),
+            priceWarningTintedView.topAnchor.constraint(equalTo: pricePerKgTextView.bottomAnchor, constant: padding * 1.5),
+            priceWarningTintedView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
+            priceWarningTintedView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
+        ])
+    }
+    
+    private func configureInvoiceIssueTintedView() {
+        invoiceIssueTintedView.tintedViewLabel.delegate = self
+        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: Icons.questionMark, tint: .accent, size: (0, -4, 22, 21), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        
+        NSLayoutConstraint.activate([
+            invoiceIssueTintedView.topAnchor.constraint(equalTo: priceWarningTintedView.bottomAnchor, constant: padding / 1.5),
             invoiceIssueTintedView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
             invoiceIssueTintedView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
         ])
     }
     
-    private func configurePriceWarningTintedView() {
-        priceWarningTintedView.setTextLabel(text: "Тариф действует только на первую перевозку. Не является офертой".makeAttributed(icon: Icons.exclamationMark, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+    private func configureConfirmButton() {
+        confirmButton.delegate = self
+        confirmButton.addShineEffect()
         
         NSLayoutConstraint.activate([
-            priceWarningTintedView.topAnchor.constraint(equalTo: invoiceIssueTintedView.bottomAnchor, constant: padding / 1.5),
-            priceWarningTintedView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
-            priceWarningTintedView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
+            confirmButton.topAnchor.constraint(equalTo: invoiceIssueTintedView.bottomAnchor, constant: padding * 3),
+            confirmButton.leadingAnchor.constraint(equalTo: invoiceIssueTintedView.leadingAnchor),
+            confirmButton.trailingAnchor.constraint(equalTo: invoiceIssueTintedView.trailingAnchor),
+            confirmButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    private func configureSaveButton() {
+        saveButton.delegate = self
+        
+        NSLayoutConstraint.activate([
+            saveButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: padding / 2),
+            saveButton.leadingAnchor.constraint(equalTo: confirmButton.leadingAnchor),
+            saveButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: 0.49),
+            saveButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor, multiplier: 0.9)
+        ])
+    }
+    
+    private func configureCloseButton() {
+        closeButton.delegate = self
+        
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: padding / 2),
+            closeButton.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor),
+            closeButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: 0.49),
+            closeButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor, multiplier: 0.9)
         ])
     }
     
@@ -182,10 +224,7 @@ class TotalPriceVC: UIViewController {
         totalDaysLayer.animateFont(toSize: 22, key: "increase")
         totalAmountLayer.animateFont(toSize: 26, key: "increase")
         spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
-        priceAsOneCurrencyTextView.show()
-        pricePerKgTextView.show()
-        invoiceIssueTintedView.show()
-        priceWarningTintedView.show()
+        items.forEach { $0.show() }
         detailsButton.hide()
         TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: view, with: padding)
         
@@ -200,17 +239,10 @@ class TotalPriceVC: UIViewController {
         totalDaysLayer.animateFont(toSize: 17, key: "decrease")
         totalAmountLayer.animateFont(toSize: 20, key: "decrease")
         spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
-        priceAsOneCurrencyTextView.hide()
-        pricePerKgTextView.hide()
-        invoiceIssueTintedView.hide()
-        priceWarningTintedView.hide()
+        items.forEach { $0.hide() }
         
         if !spinner.isAnimating { detailsButton.show() }
         TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
-        
-        configureTitleLayer()
-        configureTotalDaysLayer()
-        configureTotalAmountLayer()
     }
 }
 
@@ -227,7 +259,8 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
         case .none, .some(_):
             break
         }
-  
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
 }
 
@@ -272,7 +305,7 @@ extension TotalPriceVC: FLCTintedButtonDelegate {
 
 extension TotalPriceVC: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if let imageName = textAttachment.image, imageName.description.contains("ellipsis.circle.fill") {
+        if let imageName = textAttachment.image, imageName.description.contains("ellipsis.circle.fill") || imageName.description.contains("questionmark.circle.fill") {
             HapticManager.addHaptic(style: .light)
 
             let popover = FLCPopoverVC()
@@ -281,7 +314,7 @@ extension TotalPriceVC: UITextViewDelegate {
             
             guard !popover.isShowing else { return false }
             
-            let message = TotalPriceVCUIHelper.setPopoverMessage(in: textView, priceAsOneCurrency: priceAsOneCurrencyTextView, pricePerKg: pricePerKgTextView, with: calculationData, and: totalAmountLayer)
+            let message = TotalPriceVCUIHelper.setPopoverMessage(in: textView, priceAsOneCurrency: priceAsOneCurrencyTextView, pricePerKg: pricePerKgTextView, invoiceIssue: invoiceIssueTintedView.tintedViewLabel, with: calculationData, and: totalAmountLayer)
             popover.showPopoverOnMainThread(withText: message, in: self, target: textView, characterRange: characterRange)
             return false
         }
@@ -298,5 +331,20 @@ extension TotalPriceVC: UIPopoverPresentationControllerDelegate {
 extension TotalPriceVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+extension TotalPriceVC: FLCButtonDelegate {
+    func didTapButton(_ button: FLCButton) {
+        switch button {
+        case confirmButton:
+            break
+        case saveButton:
+            break
+        case closeButton:
+            break
+        default:
+            break
+        }
     }
 }
