@@ -80,6 +80,7 @@ class CalculationResultVC: UIViewController {
                         }
                     case .failure(_):
                         self.calculationResultItems[index].hasError = true
+                        self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     }
                 }
             case .insurance:

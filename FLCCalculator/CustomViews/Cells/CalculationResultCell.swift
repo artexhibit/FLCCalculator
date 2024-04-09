@@ -12,6 +12,11 @@ class CalculationResultCell: UITableViewCell {
     private let daysIcon = UIImageView()
     let daysTextView = FLCTextViewLabel()
     let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
+    let failedPriceCalcContainer = UIView()
+    private let failedPriceCalcContentStackView = UIStackView()
+    private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
+    let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
+    let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Обновить", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
@@ -58,7 +63,7 @@ class CalculationResultCell: UITableViewCell {
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(titleTextView, subtitle, daysIcon, daysTextView, priceLabel)
+        containerView.addSubviews(titleTextView, subtitle, daysIcon, daysTextView, priceLabel, failedPriceCalcContainer)
         containerView.layer.addSublayer(gradientLayer)
         containerView.pinToEdges(of: contentView, withPadding: padding / 2)
         
@@ -119,6 +124,43 @@ class CalculationResultCell: UITableViewCell {
         ])
     }
     
+    private func configureFailedPriceCalcContainer() {
+        failedPriceCalcContainer.hide()
+        failedPriceCalcContainer.translatesAutoresizingMaskIntoConstraints = false
+        failedPriceCalcContainer.pinToEdges(of: containerView)
+        failedPriceCalcContainer.layer.cornerRadius = 10
+        failedPriceCalcContainer.clipsToBounds = true
+        failedPriceCalcContainer.backgroundColor = .secondarySystemBackground
+        failedPriceCalcContainer.addSubviews(failedPriceCalcContentStackView)
+        
+        configureFailedPriceCalcContainerContentStackView()
+        configureFailedPriceCalcErrorTitleLabel()
+    }
+    
+    private func configureFailedPriceCalcContainerContentStackView() {
+        failedPriceCalcContentStackView.addArrangedSubview(failedPriceCalcErrorTitleLabel)
+        failedPriceCalcContentStackView.addArrangedSubview(failedPriceCalcErrorSubtitleLabel)
+        failedPriceCalcContentStackView.addArrangedSubview(failedPriceCalcRetryButton)
+        
+        failedPriceCalcContentStackView.axis = .vertical
+        failedPriceCalcContentStackView.alignment = .center
+        failedPriceCalcContentStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        failedPriceCalcContentStackView.setCustomSpacing(-4, after: failedPriceCalcErrorTitleLabel)
+        failedPriceCalcContentStackView.setCustomSpacing(10, after: failedPriceCalcErrorSubtitleLabel)
+        
+        NSLayoutConstraint.activate([
+            failedPriceCalcContentStackView.centerXAnchor.constraint(equalTo: failedPriceCalcContainer.centerXAnchor),
+            failedPriceCalcContentStackView.centerYAnchor.constraint(equalTo: failedPriceCalcContainer.centerYAnchor),
+            failedPriceCalcContentStackView.leadingAnchor.constraint(greaterThanOrEqualTo: failedPriceCalcContainer.leadingAnchor, constant: padding / 2.5),
+            failedPriceCalcContentStackView.trailingAnchor.constraint(lessThanOrEqualTo: failedPriceCalcContainer.trailingAnchor, constant: -padding / 2.5)
+        ])
+    }
+    
+    private func configureFailedPriceCalcErrorTitleLabel() {
+        failedPriceCalcErrorTitleLabel.text = "Не удалось получить расчёт"
+    }
+    
     private func configureGradient() {
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
@@ -141,7 +183,14 @@ class CalculationResultCell: UITableViewCell {
         self.titleTextView.text = item.title
         self.presentedVC = presentedVC
         self.calculationResultItem = item
-        guard item.price != nil else { return }
+        
+        guard !item.hasError else {
+            configureFailedPriceCalcContainer()
+            failedPriceCalcErrorSubtitleLabel.text = item.title
+            failedPriceCalcContainer.show()
+            removeShimmerAnimation()
+            return
+        }
         
         switch type {
         case .russianDelivery:

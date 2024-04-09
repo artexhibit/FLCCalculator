@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B04C0D82BC59F0F0007A316 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04C0D72BC59F0F0007A316 /* UIImageView.swift */; };
 		0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */; };
 		0B2002B12B9DCE7B00B8DF5C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
@@ -133,6 +134,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B04C0D72BC59F0F0007A316 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextViewLabel.swift; sourceTree = "<group>"; };
 		0B2002B02B9DCE7B00B8DF5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				0B60E35C2BA70F810008000B /* Double + Ext.swift */,
 				0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */,
 				0B53286D2BC2DFCC00B02A73 /* UIColor+Ext.swift */,
+				0B04C0D72BC59F0F0007A316 /* UIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -745,6 +748,7 @@
 				0BDCE6F92BA59FB30043AB64 /* UIViewController + Ext.swift in Sources */,
 				0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */,
 				0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */,
+				0B04C0D82BC59F0F0007A316 /* UIImageView.swift in Sources */,
 				0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */,
 				0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */,
 				0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */,

@@ -45,9 +45,7 @@ class TotalPriceVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureTitleLayer()
-        configureTotalDaysLayer()
-        configureTotalAmountLayer()
-        configureSpinnerMessageLayer()
+        setupTextViews()
     }
     
     private func configure() {
@@ -232,6 +230,7 @@ class TotalPriceVC: UIViewController {
             configureCustomDetentContainerView()
             isCustomDetentContainerViewConfigured = true
         }
+        setupTextViews()
     }
     
     func setupUIForSmallDetent() {
@@ -243,6 +242,13 @@ class TotalPriceVC: UIViewController {
         
         if !spinner.isAnimating { detailsButton.show() }
         TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
+        setupTextViews()
+    }
+    
+    private func setupTextViews() {
+        configureTitleLayer()
+        configureTotalDaysLayer()
+        configureTotalAmountLayer()
     }
 }
 
@@ -259,8 +265,6 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
         case .none, .some(_):
             break
         }
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
     }
 }
 
@@ -323,15 +327,11 @@ extension TotalPriceVC: UITextViewDelegate {
 }
 
 extension TotalPriceVC: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        .none
-    }
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle { .none }
 }
 
 extension TotalPriceVC: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool { true }
 }
 
 extension TotalPriceVC: FLCButtonDelegate {

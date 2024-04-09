@@ -32,6 +32,7 @@ class FLCTintedButton: UIButton {
     
     final func set(color: UIColor, title: String, systemImageName: String, size: UIButton.Configuration.Size) {
         configuration?.baseBackgroundColor = color
+        configuration?.baseForegroundColor = color
         configuration?.title = title
         configuration?.buttonSize = size
         

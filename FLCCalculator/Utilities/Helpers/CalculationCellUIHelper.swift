@@ -2,9 +2,12 @@ import UIKit
 
 struct CalculationCellUIHelper {
     static func configureRussianDelivery(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+        
+        guard item.price != nil else { return }
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Подольск - \(item.calculationData.toLocation)".makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), placeIcon: .beforeText)
         
+        resetDaysContent(in: cell)
         cell.priceLabel.text = item.price
         cell.daysTextView.text = "\(item.daysAmount ?? "?") дн."
         cell.removeShimmerAnimation()
@@ -29,6 +32,7 @@ struct CalculationCellUIHelper {
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
+        resetDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
     
@@ -70,12 +74,18 @@ struct CalculationCellUIHelper {
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
+        resetDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
     
     private static func removeDaysContent(in cell: CalculationResultCell) {
         cell.daysLabelHeightConstraint.constant = 0.1
-        cell.subtitleBottomConstraint.constant = -cell.padding
+        cell.subtitleBottomConstraint.constant = -cell.padding / 4
+    }
+    
+    private static func resetDaysContent(in cell: CalculationResultCell) {
+        cell.daysLabelHeightConstraint.constant = 21
+        cell.subtitleBottomConstraint.constant = -cell.padding * 2
     }
     
     static func configurePopoverMessage(in cell: CalculationResultCell, iconType: String) -> String {
