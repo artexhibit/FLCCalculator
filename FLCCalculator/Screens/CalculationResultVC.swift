@@ -16,7 +16,7 @@ class CalculationResultVC: UIViewController {
     var calculationData: CalculationData!
     
     private var delegate: CalculationResultVCDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
@@ -61,65 +61,69 @@ class CalculationResultVC: UIViewController {
         calculationResultItems.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem])
     }
     
-    func performCalculations() {
+    func performCalculations(for cell: CalculationResultCell? = nil) {
         delegate?.didReceiveCellsAmount(amount: calculationResultItems.count, calculationData: calculationData)
         
-        for (index, item) in calculationResultItems.enumerated() {
-            switch item.type {
-            case .russianDelivery:
-                Task {
-                    let result = await CalculationResultHelper.getRussianDeliveryPrice(item: item)
-                    
-                    switch result {
-                    case .success(let items):
-                        DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            for (index, item) in self.calculationResultItems.enumerated() {
+                if let cell = cell, item.type != cell.type { continue }
+                
+                switch item.type {
+                case .russianDelivery:
+                    Task {
+                        let result = await CalculationResultHelper.getRussianDeliveryPrice(item: item)
+                        
+                        switch result {
+                        case .success(let items):
                             self.calculationResultItems[index].price = items.price
                             self.calculationResultItems[index].daysAmount = items.days
+                            self.calculationResultItems[index].hasError = false
                             self.updateDataSource(on: self.calculationResultItems)
                             self.delegate?.didEndCalculation(price: items.price, days: items.days, title: item.title)
+                            cell?.failedPriceCalcContainer.hide()
+                            
+                        case .failure(_):
+                            self.calculationResultItems[index].hasError = true
+                            self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
+                            self.delegate?.didEndCalculation(price: "", days: "0", title: item.title)
+                            
+                            cell?.failedPriceCalcRetryButton.isUserInteractionEnabled = true
+                            self.calculationResultItems[index].hasError = false
                         }
-                    case .failure(_):
-                        self.calculationResultItems[index].hasError = true
-                        self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
+                        cell?.failedPriceCalcRetryButton.imageView?.stopRotationAnimation()
                     }
-                }
-            case .insurance:
-                DispatchQueue.main.async {
+                
+                case .insurance:
                     let result = CalculationResultHelper.getInsurancePrice(item: item).price
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
-                }
-            case .deliveryFromWarehouse:
-                DispatchQueue.main.async {
+                    
+                case .deliveryFromWarehouse:
                     let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item)
                     self.calculationResultItems[index].price = result.price
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
-                }
-            case .cargoHandling:
-                DispatchQueue.main.async {
+                    
+                case .cargoHandling:
                     let result = CalculationResultHelper.getCargoHandlingPrice(item: item)
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
-                }
-            case .customsClearancePrice:
-                DispatchQueue.main.async {
+                    
+                case .customsClearancePrice:
                     let result = CalculationResultHelper.getCustomsClearancePrice(item: item)
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
-                }
-            case .customsWarehouseServices:
-                DispatchQueue.main.async {
+                    
+                case .customsWarehouseServices:
                     let result = CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item)
                     self.calculationResultItems[index].price = result
                     self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
-                }
-            case .deliveryToWarehouse:
-                DispatchQueue.main.async {
+                    
+                case .deliveryToWarehouse:
                     let result = CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
                     self.calculationResultItems[index].price = result.price
                     self.calculationResultItems[index].daysAmount = CalculationResultHelper.getDeliveryToWarehousePrice(item: item).days
@@ -133,6 +137,7 @@ class CalculationResultVC: UIViewController {
     private func configureDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) in
             let cell = tableView.dequeueReusableCell(withIdentifier: CalculationResultCell.reuseID, for: indexPath) as! CalculationResultCell
+            cell.delegate = self
             cell.set(with: self.calculationResultItems[indexPath.row], presentedVC: self.totalPriceVC)
             return cell
         })
@@ -176,4 +181,8 @@ extension CalculationResultVC: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         .none
     }
+}
+
+extension CalculationResultVC: CalculationResultCellDelegate {
+    func didPressRetryButton(cell: CalculationResultCell) { performCalculations(for: cell) }
 }

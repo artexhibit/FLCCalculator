@@ -29,6 +29,8 @@ class TotalPriceVC: UIViewController {
     private var prices = [String]()
     private var days = [String]()
     private var items = [UIView]()
+    private var failedToFetchPrice: Bool = false
+    private var priceAsOneCurrencyTextViewTopConstraint: NSLayoutConstraint!
     
     private var calculationData: CalculationData?
     private var showingPopover = FLCPopoverVC()
@@ -39,6 +41,7 @@ class TotalPriceVC: UIViewController {
         configureSmallDetentContainerView()
         configureTitleLayer()
         configureSpinner()
+        configureSpinnerMessageLayer()
         configureDetailsButton()
     }
     
@@ -125,8 +128,10 @@ class TotalPriceVC: UIViewController {
     private func configurePriceAsOneCurrencyTextView() {
         priceAsOneCurrencyTextView.delegate = self
         
+        priceAsOneCurrencyTextViewTopConstraint = priceAsOneCurrencyTextView.topAnchor.constraint(equalTo: customDetentContainerView.topAnchor, constant: 5)
+        
         NSLayoutConstraint.activate([
-            priceAsOneCurrencyTextView.topAnchor.constraint(equalTo: customDetentContainerView.topAnchor, constant: 5),
+            priceAsOneCurrencyTextViewTopConstraint,
             priceAsOneCurrencyTextView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
             priceAsOneCurrencyTextView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
         ])
@@ -143,7 +148,8 @@ class TotalPriceVC: UIViewController {
     }
     
     private func configurePriceWarningTintedView() {
-        priceWarningTintedView.setTextLabel(text: "Тариф действует только на первую перевозку. Не является офертой".makeAttributed(icon: Icons.exclamationMark, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        let message = failedToFetchPrice ? "Не все услуги рассчитаны! Попробуйте пересчитать." : "Тариф действует только на первую перевозку. Не является офертой"
+        priceWarningTintedView.setTextLabel(text: message.makeAttributed(icon: Icons.exclamationMark, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             priceWarningTintedView.topAnchor.constraint(equalTo: pricePerKgTextView.bottomAnchor, constant: padding * 1.5),
@@ -168,7 +174,7 @@ class TotalPriceVC: UIViewController {
         confirmButton.addShineEffect()
         
         NSLayoutConstraint.activate([
-            confirmButton.topAnchor.constraint(equalTo: invoiceIssueTintedView.bottomAnchor, constant: padding * 3),
+            confirmButton.topAnchor.constraint(equalTo: invoiceIssueTintedView.bottomAnchor, constant: padding * 2.5),
             confirmButton.leadingAnchor.constraint(equalTo: invoiceIssueTintedView.leadingAnchor),
             confirmButton.trailingAnchor.constraint(equalTo: invoiceIssueTintedView.trailingAnchor),
             confirmButton.heightAnchor.constraint(equalToConstant: 50)
@@ -218,10 +224,10 @@ class TotalPriceVC: UIViewController {
     }
     
     private func setupUIForCustomSizeDetent() {
-        titleLayer.animateFont(toSize: 35, key: "increase")
-        totalDaysLayer.animateFont(toSize: 22, key: "increase")
-        totalAmountLayer.animateFont(toSize: 26, key: "increase")
-        spinnerMessageLayer.animateFont(toSize: 24, key: "increase")
+        titleLayer.animateFont(toSize: 35, key: FLCTextLayer.increaseKey)
+        totalDaysLayer.animateFont(toSize: 22, key: FLCTextLayer.increaseKey)
+        totalAmountLayer.animateFont(toSize: 26, key: FLCTextLayer.increaseKey)
+        spinnerMessageLayer.animateFont(toSize: 24, key: FLCTextLayer.increaseKey)
         items.forEach { $0.show() }
         detailsButton.hide()
         TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: view, with: padding)
@@ -230,14 +236,15 @@ class TotalPriceVC: UIViewController {
             configureCustomDetentContainerView()
             isCustomDetentContainerViewConfigured = true
         }
+        updateCustomDetentContainerViewTopConstraint()
         setupTextViews()
     }
     
     func setupUIForSmallDetent() {
-        titleLayer.animateFont(toSize: 25, key: "decrease")
-        totalDaysLayer.animateFont(toSize: 17, key: "decrease")
-        totalAmountLayer.animateFont(toSize: 20, key: "decrease")
-        spinnerMessageLayer.animateFont(toSize: 20, key: "decrease")
+        titleLayer.animateFont(toSize: 25, key: FLCTextLayer.decreaseKey)
+        totalDaysLayer.animateFont(toSize: 17, key: FLCTextLayer.decreaseKey)
+        totalAmountLayer.animateFont(toSize: 20, key: FLCTextLayer.decreaseKey)
+        spinnerMessageLayer.animateFont(toSize: 20, key: FLCTextLayer.decreaseKey)
         items.forEach { $0.hide() }
         
         if !spinner.isAnimating { detailsButton.show() }
@@ -249,6 +256,12 @@ class TotalPriceVC: UIViewController {
         configureTitleLayer()
         configureTotalDaysLayer()
         configureTotalAmountLayer()
+    }
+    
+    private func updateCustomDetentContainerViewTopConstraint() {
+        if TotalPriceVCUIHelper.textWillWrap(text: totalAmountLayer.string as! String, font: UIFont.systemFont(ofSize: 26, weight: .semibold), width: customDetentContainerView.frame.width - padding) {
+            priceAsOneCurrencyTextViewTopConstraint.constant = 33
+        }
     }
 }
 
@@ -285,12 +298,17 @@ extension TotalPriceVC: CalculationResultVCDelegate {
         }
     
         if totalCalculatedCells == totalCells {
-            TotalPriceVCUIHelper.removeLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
             detailsButton.show()
+            
+            TotalPriceVCUIHelper.removeLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
             totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: self.days)
             totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
+            
+            failedToFetchPrice = prices.contains(where: { $0.isEmpty }) ? true : false
+            TotalPriceVCUIHelper.setTitleStyleBasedOnPriceFetchResult(prices: prices, layer: totalAmountLayer)
             TotalPriceVCUIHelper.setPriceForTextView(view: priceAsOneCurrencyTextView, data: calculationData, totalAmount: totalAmountLayer, type: .asOneCurrency)
             TotalPriceVCUIHelper.setPriceForTextView(view: pricePerKgTextView, data: calculationData, totalAmount: totalAmountLayer, type: .perKG)
+            
             if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent { configureCustomDetentContainerView()
             }
         }

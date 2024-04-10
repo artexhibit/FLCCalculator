@@ -1,6 +1,8 @@
 import UIKit
 
 class FLCTextLayer: CATextLayer {
+    static let increaseKey = "increase"
+    static let decreaseKey = "decrease"
     
     override init() {
         super.init()

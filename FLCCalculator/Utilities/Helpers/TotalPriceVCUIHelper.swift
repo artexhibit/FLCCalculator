@@ -35,12 +35,14 @@ struct TotalPriceVCUIHelper {
     
     static func setPriceForTextView(view: FLCTextViewLabel, data: CalculationData?, totalAmount: FLCTextLayer, type: FLCTotalType) {
         var priceValue: NSMutableAttributedString?
+        let totalPriceString = (totalAmount.string as? String) ?? ""
+        let totalPrice = totalPriceString.contains("*") ? totalPriceString.filter { $0 != "*" } : totalPriceString
         
         switch type {
         case .perKG:
-            priceValue = PriceCalculationManager.getPrice(totalPrice: totalAmount.string as? String, weight: data?.weight, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+            priceValue = PriceCalculationManager.getPrice(totalPrice: totalPrice, weight: data?.weight, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
         case .asOneCurrency:
-            priceValue = PriceCalculationManager.getPrice(totalPrice: totalAmount.string as? String, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+            priceValue = PriceCalculationManager.getPrice(totalPrice: totalPrice, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
         }
         view.attributedText = priceValue
         view.setStyle(color: .lightGray, textAlignment: .left, fontWeight: .medium, fontSize: 17)
@@ -61,6 +63,25 @@ struct TotalPriceVCUIHelper {
         case .asOneCurrency:
             return currencyString + "\n\n" + rubleString
         }
+    }
+    
+    static func setTitleStyleBasedOnPriceFetchResult(prices: [String], layer: FLCTextLayer) {
+        if prices.contains(where: { $0.isEmpty }) {
+            layer.string = CalculationUIHelper.calculateTotalPrice(prices: prices) + "*"
+            layer.foregroundColor = UIColor.red.makeLighter(componentDelta: 0.4).cgColor
+        } else {
+            layer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
+            layer.foregroundColor = UIColor.label.cgColor
+        }
+    }
+    
+    static func textWillWrap(text: String, font: UIFont, width: CGFloat) -> Bool {
+        let tempLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        tempLabel.numberOfLines = 0
+        tempLabel.font = font
+        tempLabel.text = text
+        tempLabel.sizeToFit()
+        return Int(floor(tempLabel.frame.size.height / font.lineHeight)) > 1
     }
     
     static func setPopoverMessage(in textView: UITextView, priceAsOneCurrency: UITextView, pricePerKg: UITextView, invoiceIssue: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) -> String {

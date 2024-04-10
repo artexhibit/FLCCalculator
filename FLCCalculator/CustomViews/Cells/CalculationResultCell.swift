@@ -1,5 +1,9 @@
 import UIKit
 
+protocol CalculationResultCellDelegate: AnyObject {
+    func didPressRetryButton(cell: CalculationResultCell)
+}
+
 class CalculationResultCell: UITableViewCell {
     
     static let reuseID = "CalculationResultCell"
@@ -16,10 +20,11 @@ class CalculationResultCell: UITableViewCell {
     private let failedPriceCalcContentStackView = UIStackView()
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
     let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
-    let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Обновить", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
+    let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
+    var delegate: CalculationResultCellDelegate?
     
     let padding: CGFloat = 20
     private var isShimmering = false
@@ -124,7 +129,7 @@ class CalculationResultCell: UITableViewCell {
         ])
     }
     
-    private func configureFailedPriceCalcContainer() {
+    func configureFailedPriceCalcContainer() {
         failedPriceCalcContainer.hide()
         failedPriceCalcContainer.translatesAutoresizingMaskIntoConstraints = false
         failedPriceCalcContainer.pinToEdges(of: containerView)
@@ -135,6 +140,7 @@ class CalculationResultCell: UITableViewCell {
         
         configureFailedPriceCalcContainerContentStackView()
         configureFailedPriceCalcErrorTitleLabel()
+        configureFailedPriceCalcRetryButton()
     }
     
     private func configureFailedPriceCalcContainerContentStackView() {
@@ -146,7 +152,7 @@ class CalculationResultCell: UITableViewCell {
         failedPriceCalcContentStackView.alignment = .center
         failedPriceCalcContentStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        failedPriceCalcContentStackView.setCustomSpacing(-4, after: failedPriceCalcErrorTitleLabel)
+        failedPriceCalcContentStackView.setCustomSpacing(-2, after: failedPriceCalcErrorTitleLabel)
         failedPriceCalcContentStackView.setCustomSpacing(10, after: failedPriceCalcErrorSubtitleLabel)
         
         NSLayoutConstraint.activate([
@@ -160,6 +166,8 @@ class CalculationResultCell: UITableViewCell {
     private func configureFailedPriceCalcErrorTitleLabel() {
         failedPriceCalcErrorTitleLabel.text = "Не удалось получить расчёт"
     }
+    
+    private func configureFailedPriceCalcRetryButton() { failedPriceCalcRetryButton.delegate = self }
     
     private func configureGradient() {
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
@@ -183,14 +191,6 @@ class CalculationResultCell: UITableViewCell {
         self.titleTextView.text = item.title
         self.presentedVC = presentedVC
         self.calculationResultItem = item
-        
-        guard !item.hasError else {
-            configureFailedPriceCalcContainer()
-            failedPriceCalcErrorSubtitleLabel.text = item.title
-            failedPriceCalcContainer.show()
-            removeShimmerAnimation()
-            return
-        }
         
         switch type {
         case .russianDelivery:
@@ -270,5 +270,19 @@ extension CalculationResultCell: UITextViewDelegate {
             return false
         }
         return true
+    }
+}
+
+extension CalculationResultCell: FLCTintedButtonDelegate {
+    func didTapButton(_ button: FLCTintedButton) {
+        
+        switch button {
+        case failedPriceCalcRetryButton:
+            failedPriceCalcRetryButton.imageView?.addRotationAnimation()
+            failedPriceCalcRetryButton.isUserInteractionEnabled = false
+            delegate?.didPressRetryButton(cell: self)
+        default:
+            break
+        }
     }
 }

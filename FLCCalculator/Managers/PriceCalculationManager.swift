@@ -46,7 +46,8 @@ class PriceCalculationManager {
         let range = tariffs.first(where: { $0.key.createRange()?.contains(targetParameter) == true })
 
         let value = range?.value ?? 0
-        return densityCoefficient > logisticsTypeData.targetWeight ? weight * value : volume * value
+        let price = densityCoefficient > logisticsTypeData.targetWeight ? weight * value : volume * value
+        return price > logisticsTypeData.minLogisticsPrice ? price : logisticsTypeData.minLogisticsPrice
     }
     
     static func getDeliveryFromWarehouseTransitTime(for logisticsType: FLCLogisticsType) -> String {

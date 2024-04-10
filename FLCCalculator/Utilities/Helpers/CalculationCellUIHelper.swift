@@ -3,7 +3,12 @@ import UIKit
 struct CalculationCellUIHelper {
     static func configureRussianDelivery(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         
+        guard !item.hasError else {
+            showFailedPriceFetchView(in: cell, with: item)
+            return
+        }
         guard item.price != nil else { return }
+        
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Подольск - \(item.calculationData.toLocation)".makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), placeIcon: .beforeText)
         
@@ -20,6 +25,7 @@ struct CalculationCellUIHelper {
         cell.priceLabel.text = item.price
         cell.subtitle.text = "\(PriceCalculationManager.getInsurancePersentage(for: .chinaTruck))% от стоимости инвойса \n\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)), 1 \(item.currency.symbol) ~ \(data.ratio) \(data.code.symbol)"
         
+        item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
@@ -32,6 +38,7 @@ struct CalculationCellUIHelper {
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
+        item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
@@ -43,6 +50,7 @@ struct CalculationCellUIHelper {
         cell.subtitle.text = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг, минимум \(handlingData.minPrice.formatAsCurrency(symbol: item.currency))"
         cell.priceLabel.text = item.price
         
+        item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
@@ -52,6 +60,7 @@ struct CalculationCellUIHelper {
         cell.subtitle.attributedText = "Свидетельство таможенного представителя № 0998/00".makeAttributed(icon: Icons.document, size: (0, -3, 18, 17), placeIcon: .beforeText)
         cell.priceLabel.text = item.price
         
+        item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
@@ -61,6 +70,7 @@ struct CalculationCellUIHelper {
         cell.subtitle.attributedText = "Включено 2 дня ожидания".makeAttributed(icon: Icons.clock, size: (0, -2, 18, 17), placeIcon: .beforeText)
         cell.priceLabel.text = item.price
         
+        item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
@@ -74,6 +84,7 @@ struct CalculationCellUIHelper {
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
+        item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
         cell.removeShimmerAnimation(delay: 0.5)
     }
@@ -86,6 +97,13 @@ struct CalculationCellUIHelper {
     private static func resetDaysContent(in cell: CalculationResultCell) {
         cell.daysLabelHeightConstraint.constant = 21
         cell.subtitleBottomConstraint.constant = -cell.padding * 2
+    }
+    
+    private static func showFailedPriceFetchView(in cell: CalculationResultCell, with item: CalculationResultItem) {
+        cell.configureFailedPriceCalcContainer()
+        cell.failedPriceCalcErrorSubtitleLabel.text = item.title
+        cell.failedPriceCalcContainer.show()
+        cell.removeShimmerAnimation()
     }
     
     static func configurePopoverMessage(in cell: CalculationResultCell, iconType: String) -> String {
