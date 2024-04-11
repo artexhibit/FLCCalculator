@@ -28,8 +28,9 @@ class TotalPriceVC: UIViewController {
     private var calculationTitles = [String]()
     private var prices = [String]()
     private var days = [String]()
-    private var items = [UIView]()
+    private var customDetentContent = [UIView]()
     private var failedToFetchPrice: Bool = false
+    private var spinnerIsIncreased: Bool = false
     private var priceAsOneCurrencyTextViewTopConstraint: NSLayoutConstraint!
     
     private var calculationData: CalculationData?
@@ -43,11 +44,6 @@ class TotalPriceVC: UIViewController {
         configureSpinner()
         configureSpinnerMessageLayer()
         configureDetailsButton()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configureTitleLayer()
         setupTextViews()
     }
     
@@ -57,7 +53,7 @@ class TotalPriceVC: UIViewController {
         sheetPresentationController?.delegate = self
         configurePanGesture(selector: #selector(viewDragged))
         
-        items.append(contentsOf: [priceAsOneCurrencyTextView, pricePerKgTextView, priceWarningTintedView, invoiceIssueTintedView, confirmButton, saveButton, closeButton])
+        customDetentContent.append(contentsOf: [priceAsOneCurrencyTextView, pricePerKgTextView, priceWarningTintedView, invoiceIssueTintedView, confirmButton, saveButton, closeButton])
     }
     
     @objc private func viewDragged(_ gesture: UIPanGestureRecognizer) {
@@ -228,15 +224,16 @@ class TotalPriceVC: UIViewController {
         totalDaysLayer.animateFont(toSize: 22, key: FLCTextLayer.increaseKey)
         totalAmountLayer.animateFont(toSize: 26, key: FLCTextLayer.increaseKey)
         spinnerMessageLayer.animateFont(toSize: 24, key: FLCTextLayer.increaseKey)
-        items.forEach { $0.show() }
+        customDetentContent.forEach { $0.show() }
         detailsButton.hide()
         TotalPriceVCUIHelper.increaseSizeOf(spinner: spinner, in: view, with: padding)
+        spinnerIsIncreased = true
         
         if !spinner.isAnimating && !isCustomDetentContainerViewConfigured {
             configureCustomDetentContainerView()
             isCustomDetentContainerViewConfigured = true
         }
-        updateCustomDetentContainerViewTopConstraint()
+        if !spinner.isAnimating { updateCustomDetentContainerViewTopConstraint() }
         setupTextViews()
     }
     
@@ -245,10 +242,11 @@ class TotalPriceVC: UIViewController {
         totalDaysLayer.animateFont(toSize: 17, key: FLCTextLayer.decreaseKey)
         totalAmountLayer.animateFont(toSize: 20, key: FLCTextLayer.decreaseKey)
         spinnerMessageLayer.animateFont(toSize: 20, key: FLCTextLayer.decreaseKey)
-        items.forEach { $0.hide() }
+        customDetentContent.forEach { $0.hide() }
         
         if !spinner.isAnimating { detailsButton.show() }
-        TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding, messageLayer: spinnerMessageLayer, titleLayer: titleLayer, container: smallDetentContainerView)
+        TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding)
+        spinnerIsIncreased = false
         setupTextViews()
     }
     
@@ -256,6 +254,7 @@ class TotalPriceVC: UIViewController {
         configureTitleLayer()
         configureTotalDaysLayer()
         configureTotalAmountLayer()
+        configureSpinnerMessageLayer()
     }
     
     private func updateCustomDetentContainerViewTopConstraint() {
@@ -305,11 +304,14 @@ extension TotalPriceVC: CalculationResultVCDelegate {
             totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
             
             failedToFetchPrice = prices.contains(where: { $0.isEmpty }) ? true : false
+            if prices.contains(where: { $0.isEmpty }) { totalCalculatedCells -= 1 }
             TotalPriceVCUIHelper.setTitleStyleBasedOnPriceFetchResult(prices: prices, layer: totalAmountLayer)
             TotalPriceVCUIHelper.setPriceForTextView(view: priceAsOneCurrencyTextView, data: calculationData, totalAmount: totalAmountLayer, type: .asOneCurrency)
             TotalPriceVCUIHelper.setPriceForTextView(view: pricePerKgTextView, data: calculationData, totalAmount: totalAmountLayer, type: .perKG)
             
-            if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent { configureCustomDetentContainerView()
+            if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent {
+                if totalCalculatedCells != totalCells - 1 { configureCustomDetentContainerView() }
+                updateCustomDetentContainerViewTopConstraint()
             }
         }
     }
