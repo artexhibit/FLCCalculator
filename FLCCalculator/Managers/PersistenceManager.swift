@@ -4,9 +4,7 @@ struct PersistenceManager {
     private static let ud = UserDefaults.sharedContainer
     
     static func updateItemsInUserDefaults<T: UserDefaultsStorable>(items: [T]) -> [T]? {
-        if let items: [T] = retrieveItemsFromUserDefaults() {
-            let storedItems = items
-            
+        if let storedItems: [T] = retrieveItemsFromUserDefaults() {
             ud.removeObject(forKey: T.userDefaultsKey)
             guard let _ = saveItemsToUserDefaults(items: items) else { return items }
             let savingError = saveItemsToUserDefaults(items: storedItems)

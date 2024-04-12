@@ -24,7 +24,6 @@ struct CalculationUIHelper {
             $0.setEnabled()
             $0.resetState()
         }
-        previousTitle = ""
     }
     
     static func getItems(basedOn pickedCountry: FLCCountryOption, for button: FLCListPickerButton) -> [FLCPickerItem] {
@@ -94,17 +93,19 @@ struct CalculationUIHelper {
         return isWithZero ? false : true
     }
     
-    static func setupDestinationButtonTitle(_ button: FLCListPickerButton, basedOn deliveryTypeButton: FLCListPickerButton) {
-        guard let text = deliveryTypeButton.titleLabel?.text else { return }
-      
-        if text.contains(CalculationInfo.russianWarehouseCity) {
-            button.smallLabelView.moveUpSmallLabel()
-            button.setTitle(CalculationInfo.russianWarehouseCity, for: .normal)
-            button.showingTitle = CalculationInfo.russianWarehouseCity
-        } else {
-            button.resetState()
+    static func setupTitleFor(buttons: [(button: FLCListPickerButton, text: String)], basedOn deliveryTypeButton: FLCListPickerButton) {
+        buttons.forEach { entry in
+            guard let text = deliveryTypeButton.titleLabel?.text else { return }
+            
+            if text.contains(entry.text) {
+                entry.button.smallLabelView.moveUpSmallLabel()
+                entry.button.setTitle(entry.text, for: .normal)
+                entry.button.showingTitle = entry.text
+            } else {
+                entry.button.resetState()
+            }
+            entry.button.setEnabled()
         }
-        button.setEnabled()
     }
     
     static func adjustProgressView(basedOn destButton: FLCListPickerButton, and deliveryButton: FLCListPickerButton) -> FLCProgressViewOption? {

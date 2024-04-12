@@ -76,10 +76,10 @@ class PriceCalculationManager {
         return logisticsTypeData.customsWarehousePrice
     }
     
-    static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> Double {
+    static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
         switch forCountry {
         case .china:
-            guard let cityName = city.getCityName() else { return 0 }
+            guard let cityName = city.getCityName() else { return ("", 0, 0.0) }
             
             let pickupsCountry = pickups?.first(where: { $0.country == forCountry.engName })
             let yuanRate = pickupsCountry?.yuanRate ?? 6.9
@@ -87,6 +87,8 @@ class PriceCalculationManager {
             let chargeableWeight = max(weight, volume * density)
             
             let warehouse = pickupsCountry?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
+            let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")
+            let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
             let weightData = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.weight
             let weightRange = weightData?.first(where: { $0.key.createRange()?.contains(weight) == true })
             
@@ -96,25 +98,21 @@ class PriceCalculationManager {
             
             let totalPart1 = weightRange?.value.totalPart1Coefficient ?? 0
             let totalPart2 = chargeableWeight * (weightRange?.value.totalPart2Coefficient ?? 0)
-            let totalPart3 = totalPart3CoefficientOne + (totalPart3CoefficientTwo * max(weight/1000, volume) + totalPart3CoefficientThree)
+            var totalPart3: Double =  0
             
-            return ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .seventeenPercents)
+            switch warehouseName {
+            case .guangzhou:
+                totalPart3 = totalPart3CoefficientOne + (totalPart3CoefficientTwo * max(weight/1000, volume) + totalPart3CoefficientThree)
+            case .shanghai:
+                totalPart3 = max(volume * totalPart3CoefficientOne, (weight * totalPart3CoefficientOne)/1000) + max(volume * totalPart3CoefficientOne * 0.06, totalPart3CoefficientTwo) + max(volume, totalPart3CoefficientTwo) + totalPart3CoefficientThree
+            case .istanbul, nil: break
+            }
+            let result = ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .seventeenPercents)
+            return (warehouseName?.rusName ?? "", transitDays, result)
         case .turkey:
             break
         }
-        return 0
-    }
-    
-    static func getDeliveryToWarehouseData(forCountry: FLCCountryOption, city: String) -> (warehouseName: String, transitDays: Int) {
-        guard let cityName = city.getCityName() else { return ("", 0) }
-        
-        let pickupsCountry = pickups?.first(where: { $0.country == forCountry.engName })
-        let warehouse = pickupsCountry?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
-        
-        let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")?.rusName ?? ""
-        let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
-        
-        return (warehouseName, transitDays)
+        return ("", 0, 0.0)
     }
     
     static func getPrice(totalPrice: String? = "0+0", weight: Double? = 1, type: FLCTotalType) -> (result: String, currency: FLCCurrency, secondCurrency: FLCCurrency, exchangeRate: Double, currencyValue: Double, rubleValue: Double) {

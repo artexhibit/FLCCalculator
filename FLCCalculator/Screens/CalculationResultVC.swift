@@ -3,6 +3,7 @@ import UIKit
 protocol CalculationResultVCDelegate: AnyObject {
     func didEndCalculation(price: String, days: String?, title: String)
     func didReceiveCellsAmount(amount: Int, calculationData: CalculationData)
+    func didPressRetryButton(in cell: CalculationResultCell)
 }
 
 class CalculationResultVC: UIViewController {
@@ -15,7 +16,7 @@ class CalculationResultVC: UIViewController {
     var showingPopover = FLCPopoverVC()
     var calculationData: CalculationData!
     
-    private var delegate: CalculationResultVCDelegate?
+    private weak var delegate: CalculationResultVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,5 +185,8 @@ extension CalculationResultVC: UIPopoverPresentationControllerDelegate {
 }
 
 extension CalculationResultVC: CalculationResultCellDelegate {
-    func didPressRetryButton(cell: CalculationResultCell) { performCalculations(for: cell) }
+    func didPressRetryButton(cell: CalculationResultCell) {
+        delegate?.didPressRetryButton(in: cell)
+        performCalculations(for: cell)
+    }
 }

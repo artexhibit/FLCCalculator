@@ -250,7 +250,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
             transportView.calculateButton.removeShineEffect()
             
         case transportView.deliveryTypePickerButton:
-            CalculationUIHelper.setupDestinationButtonTitle(transportView.destinationPickerButton, basedOn: button)
+            CalculationUIHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, CalculationInfo.russianWarehouseCity), (transportView.departurePickerButton, "Склад Китай")], basedOn: button)
+            
             guard let progress = CalculationUIHelper.adjustProgressView(basedOn: transportView.destinationPickerButton, and: button) else { return }
             progressView.setProgress(progress)
 

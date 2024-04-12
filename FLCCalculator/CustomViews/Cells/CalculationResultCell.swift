@@ -24,7 +24,7 @@ class CalculationResultCell: UITableViewCell {
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
-    var delegate: CalculationResultCellDelegate?
+    weak var delegate: CalculationResultCellDelegate?
     
     let padding: CGFloat = 20
     private var isShimmering = false

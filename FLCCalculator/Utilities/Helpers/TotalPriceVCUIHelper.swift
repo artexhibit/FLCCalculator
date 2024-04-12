@@ -22,6 +22,11 @@ struct TotalPriceVCUIHelper {
         spinnerMessage.opacity = 0
     }
     
+    static func showLoading(spinner: UIActivityIndicatorView, spinnerMessage: CATextLayer) {
+        spinner.startAnimating()
+        spinnerMessage.opacity = 1
+    }
+    
     static func showDetent(in vc: UIViewController, type: UISheetPresentationController.Detent.Identifier, completion: (() -> Void)? = nil) {
         if let sheet = vc.sheetPresentationController {
             sheet.animateChanges {

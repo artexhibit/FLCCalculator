@@ -10,7 +10,7 @@ extension UISheetPresentationController {
             return DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.23 : view.frame.height * 0.13
         }
         let customSizeDetent = UISheetPresentationController.Detent.custom(identifier: .customSizeDetent) { context in
-            return DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.7 : view.frame.height * size
+            return DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.85 : view.frame.height * size
         }
         
         if !dimmed { self.largestUndimmedDetentIdentifier = .customSizeDetent }

@@ -22,15 +22,14 @@ class TotalPriceVC: UIViewController {
     private let closeButton = FLCButton(color: .accent.makeLighter(), title: "Закрыть", systemImageName: "xmark")
     
     private var isCustomDetentContainerViewConfigured: Bool = false
-        
-    private var totalCells = 0
-    private var totalCalculatedCells: Int = 0
-    private var calculationTitles = [String]()
-    private var prices = [String]()
-    private var days = [String]()
-    private var customDetentContent = [UIView]()
     private var failedToFetchPrice: Bool = false
     private var spinnerIsIncreased: Bool = false
+    
+    private var totalCells = 0
+    private var totalCalculatedCells: Int = 0
+    private var calculationResults = [String: (price: String, days: String?)]()
+    private var customDetentContent = [UIView]()
+    private var smallDetentContent = [FLCTextLayer]()
     private var priceAsOneCurrencyTextViewTopConstraint: NSLayoutConstraint!
     
     private var calculationData: CalculationData?
@@ -54,6 +53,7 @@ class TotalPriceVC: UIViewController {
         configurePanGesture(selector: #selector(viewDragged))
         
         customDetentContent.append(contentsOf: [priceAsOneCurrencyTextView, pricePerKgTextView, priceWarningTintedView, invoiceIssueTintedView, confirmButton, saveButton, closeButton])
+        smallDetentContent.append(contentsOf: [totalDaysLayer, totalAmountLayer])
     }
     
     @objc private func viewDragged(_ gesture: UIPanGestureRecognizer) {
@@ -245,7 +245,7 @@ class TotalPriceVC: UIViewController {
         customDetentContent.forEach { $0.hide() }
         
         if !spinner.isAnimating { detailsButton.show() }
-        TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding)
+        if spinnerIsIncreased { TotalPriceVCUIHelper.returnToIdentitySizeOf(spinner: spinner, in: view, with: padding) }
         spinnerIsIncreased = false
         setupTextViews()
     }
@@ -289,31 +289,40 @@ extension TotalPriceVC: CalculationResultVCDelegate {
     
     func didEndCalculation(price: String, days: String?, title: String) {
         totalCalculatedCells += 1
-        
-        if !calculationTitles.contains(title) {
-            calculationTitles.append(title)
-            prices.append(price)
-            if days != nil { self.days.append(days ?? "") }
-        }
+        if !calculationResults.keys.contains(title) { calculationResults[title] = (price: price, days: days) }
     
         if totalCalculatedCells == totalCells {
             detailsButton.show()
+            let allDays = calculationResults.compactMap { $0.value.days }
+            let allPrices = calculationResults.map { $0.value.price }
             
             TotalPriceVCUIHelper.removeLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
-            totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: self.days)
-            totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
+            totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: allDays)
+            totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: allPrices)
             
-            failedToFetchPrice = prices.contains(where: { $0.isEmpty }) ? true : false
-            if prices.contains(where: { $0.isEmpty }) { totalCalculatedCells -= 1 }
-            TotalPriceVCUIHelper.setTitleStyleBasedOnPriceFetchResult(prices: prices, layer: totalAmountLayer)
+            failedToFetchPrice = allPrices.contains(where: { $0.isEmpty }) ? true : false
+            if allPrices.contains(where: { $0.isEmpty }) { totalCalculatedCells -= 1 }
+            
+            TotalPriceVCUIHelper.setTitleStyleBasedOnPriceFetchResult(prices: allPrices, layer: totalAmountLayer)
             TotalPriceVCUIHelper.setPriceForTextView(view: priceAsOneCurrencyTextView, data: calculationData, totalAmount: totalAmountLayer, type: .asOneCurrency)
             TotalPriceVCUIHelper.setPriceForTextView(view: pricePerKgTextView, data: calculationData, totalAmount: totalAmountLayer, type: .perKG)
+            
+            smallDetentContent.forEach { $0.opacity = 1 }
+            customDetentContent.forEach { $0.show() }
             
             if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent {
                 if totalCalculatedCells != totalCells - 1 { configureCustomDetentContainerView() }
                 updateCustomDetentContainerViewTopConstraint()
+                configurePriceWarningTintedView()
             }
         }
+    }
+    
+    func didPressRetryButton(in cell: CalculationResultCell) {
+        customDetentContent.forEach { $0.hide() }
+        smallDetentContent.forEach { $0.opacity = 0 }
+        calculationResults.removeValue(forKey: cell.titleTextView.text ?? "")
+        TotalPriceVCUIHelper.showLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
     }
 }
 
