@@ -392,8 +392,8 @@ struct CalculationInfo {
     static let chinaDeliveryTypes = [
         FLCPickerItem(title: "EXW, Поставщик - Клиент", subtitle: "От поставщика до ваc", image: nil),
         FLCPickerItem(title: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),
-        FLCPickerItem(title: "FCA, Склад Китай - Клиент", subtitle: "От склада в Китае до ваc", image: nil),
-        FLCPickerItem(title: "FCA, Склад Китай - Склад Подольск", subtitle: "От склада в Китае до склада FLC", image: nil)
+        FLCPickerItem(title: "FCA, \(WarehouseStrings.chinaWarehouse) - Клиент", subtitle: "От склада в Китае до ваc", image: nil),
+        FLCPickerItem(title: "FCA, \(WarehouseStrings.chinaWarehouse) - Склад Подольск", subtitle: "От склада в Китае до склада FLC", image: nil)
     ]
     
     static let turkeyDeliveryTypes = [
@@ -402,6 +402,4 @@ struct CalculationInfo {
         FLCPickerItem(title: "FCA, Склад Стамбул - Клиент", subtitle: "От склада в Стамбуле до ваc", image: nil),
         FLCPickerItem(title: "FCA, Склад Стамбул - Склад Подольск", subtitle: "От склада в Стамбуле до склада FLC", image: nil)
     ]
-    
-    static let russianWarehouseCity = "Склад Подольск"
 }

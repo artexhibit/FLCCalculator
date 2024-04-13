@@ -216,6 +216,14 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
                 return
             }
+            guard !transportView.deliveryTypePickerButton.titleIsEmpty else {
+                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
+                return
+            }
+            guard !transportView.deliveryTypePickerButton.showingTitle.contains(WarehouseStrings.chinaWarehouse) else {
+                FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на забор от поставщика")
+                return
+            }
             let items = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
             CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, in: self)
             
@@ -224,7 +232,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
                 return
             }
-            guard !transportView.deliveryTypePickerButton.showingTitle.contains(CalculationInfo.russianWarehouseCity) else {
+            guard !transportView.deliveryTypePickerButton.showingTitle.contains(WarehouseStrings.russianWarehouseCity) else {
                 FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на клиента")
                 return
             }
@@ -243,6 +251,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
             
             if transportView.deliveryTypePickerButton.titleIsEmpty {
+                transportView.departurePickerButton.resetState(isDisabled: true)
                 transportView.destinationPickerButton.resetState(isDisabled: true)
             }
             progressView.setProgress(.decrease, times: CalculationUIHelper.adjustProgressView(in: transportView))
@@ -250,11 +259,13 @@ extension CalculationVC: FLCCalculationViewDelegate {
             transportView.calculateButton.removeShineEffect()
             
         case transportView.deliveryTypePickerButton:
-            CalculationUIHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, CalculationInfo.russianWarehouseCity), (transportView.departurePickerButton, "Склад Китай")], basedOn: button)
+            CalculationUIHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, WarehouseStrings.chinaWarehouse)], basedOn: button)
             
-            guard let progress = CalculationUIHelper.adjustProgressView(basedOn: transportView.destinationPickerButton, and: button) else { return }
-            progressView.setProgress(progress)
-
+            let destProgress = CalculationUIHelper.adjustProgressView(basedOn: transportView.destinationPickerButton)
+            let depProgress = CalculationUIHelper.adjustProgressView(basedOn: transportView.departurePickerButton)
+            if let destProgress { progressView.setProgress(destProgress) }
+            if let depProgress { progressView.setProgress(depProgress) }
+            
         default: break
         }
     }

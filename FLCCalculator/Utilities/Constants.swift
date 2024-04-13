@@ -19,6 +19,11 @@ enum Keys {
     static let dateWhenDataWasUpdated = "dateWhenDataWasUpdated"
 }
 
+enum WarehouseStrings {
+    static let russianWarehouseCity = "Склад Подольск"
+    static let chinaWarehouse = "Склад Китай"
+}
+
 enum ScreenSize {
     static let width = UIScreen.main.bounds.size.width
     static let height = UIScreen.main.bounds.size.height

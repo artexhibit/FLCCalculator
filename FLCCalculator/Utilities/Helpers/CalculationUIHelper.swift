@@ -1,7 +1,8 @@
 import UIKit
 
 struct CalculationUIHelper {
-    private static var previousTitle = ""
+    private static var destinationButtonTitles: (old: String?, new: String?)
+    private static var departureButtonTitles: (old: String?, new: String?)
     
     static func checkIfFilledAll(textFields: [FLCNumberTextField]) -> Bool {
         textFields.allSatisfy { !($0.text?.isEmpty ?? true) }
@@ -60,7 +61,7 @@ struct CalculationUIHelper {
     }
     
     static func showTotalPrice(vc: UIViewController, from parentVC: UIViewController) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             guard let totalPriceVC = vc as? TotalPriceVC, let parentVC = parentVC as? CalculationResultVC else { return }
             totalPriceVC.isModalInPresentation = true
             totalPriceVC.sheetPresentationController?.getFLCSheetPresentationController(in: parentVC.view, size: 0.65, dimmed: false, cornerRadius: 35, addSmallDetent: true)
@@ -108,22 +109,43 @@ struct CalculationUIHelper {
         }
     }
     
-    static func adjustProgressView(basedOn destButton: FLCListPickerButton, and deliveryButton: FLCListPickerButton) -> FLCProgressViewOption? {
-        let destinationTitle = destButton.showingTitle
-        let deliveryTitle = deliveryButton.showingTitle
+    static func adjustProgressView(basedOn button: FLCListPickerButton) -> FLCProgressViewOption? {
+        var tempData = retrieveTempData(button: button)
+        tempData.new = button.titleLabel?.text
         
-        if previousTitle.contains(CalculationInfo.russianWarehouseCity) && deliveryTitle.contains(CalculationInfo.russianWarehouseCity) { return nil }
-        
-        if deliveryTitle.contains(CalculationInfo.russianWarehouseCity) {
-            previousTitle = deliveryTitle
-            return destinationTitle.contains(CalculationInfo.russianWarehouseCity) ? .increase : .decrease
-        } else {
-            if previousTitle.contains(CalculationInfo.russianWarehouseCity) && destinationTitle == "" {
-                previousTitle = deliveryTitle
-                return .decrease
-            }
+        if tempData.old == nil && tempData.new != nil {
+            tempData.old = tempData.new
+            saveTempData(data: tempData, button: button)
+            return .increase
+        } else if tempData.old != nil && tempData.new == nil {
+            tempData.old = tempData.new
+            saveTempData(data: tempData, button: button)
+            return .decrease
         }
         return nil
+    }
+    
+    private static func retrieveTempData(button: FLCListPickerButton) -> (old: String?, new: String?) {
+        var tempData: (old: String?, new: String?)
+        
+        switch button.smallLabelView.smallLabel.text {
+        case "Пункт отправления":
+            tempData = departureButtonTitles
+        case "Пункт назначения":
+            tempData = destinationButtonTitles
+        case .none, .some(_): break
+        }
+        return tempData
+    }
+    
+    private static func saveTempData(data: (old: String?, new: String?), button: FLCListPickerButton) {
+        switch button.smallLabelView.smallLabel.text {
+        case "Пункт отправления":
+            departureButtonTitles = data
+        case "Пункт назначения":
+            destinationButtonTitles = data
+        case .none, .some(_): break
+        }
     }
     
     static func adjustProgressView(in view: FLCTransportParametersView) -> Float {

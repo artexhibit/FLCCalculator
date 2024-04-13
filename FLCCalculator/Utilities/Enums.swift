@@ -21,6 +21,14 @@ enum FLCCountryOption: String {
         case .turkey: return "turkey"
         }
     }
+    
+    init?(countryName: String) {
+        switch countryName {
+        case "Китай": self = .china
+        case "Турция": self = .turkey
+        default: return nil
+        }
+    }
 }
 
 enum FLCWarehouse: String, CaseIterable {
@@ -29,12 +37,12 @@ enum FLCWarehouse: String, CaseIterable {
     case istanbul = "Istanbul"
     
     var rusName: String {
-            switch self {
-            case .guangzhou: return "Гуанчжоу"
-            case .shanghai: return "Шанхай"
-            case .istanbul: return "Стамбул"
-            }
+        switch self {
+        case .guangzhou: return "Гуанчжоу"
+        case .shanghai: return "Шанхай"
+        case .istanbul: return "Стамбул"
         }
+    }
 }
 
 enum FLCCalculationResultCellType: Int {

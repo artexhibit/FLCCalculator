@@ -8,4 +8,5 @@ struct CalculationResultItem: Hashable {
     var price: String?
     let currency: FLCCurrency
     var hasError: Bool = false
+    var canDisplay: Bool = true
 }

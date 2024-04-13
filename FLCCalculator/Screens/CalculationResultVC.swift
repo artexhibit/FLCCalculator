@@ -22,8 +22,8 @@ class CalculationResultVC: UIViewController {
         super.viewDidLoad()
         configureVC()
         configureTableView()
-        configureInitialData()
         configureDataSource()
+        calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: .chinaTruck)
         updateDataSource(on: calculationResultItems)
         performCalculations()
         CalculationUIHelper.showTotalPrice(vc: totalPriceVC, from: self)
@@ -48,18 +48,6 @@ class CalculationResultVC: UIViewController {
         
         tableView.delegate = self
         tableView.register(CalculationResultCell.self, forCellReuseIdentifier: CalculationResultCell.reuseID)
-    }
-    
-    private func configureInitialData() {
-        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: calculationData, title: "Доставка по России", currency: .RUB)
-        let insuranceItem = CalculationResultItem(type: .insurance, calculationData: calculationData, title: "Страхование", currency: .USD)
-        let deliveryFromWarehouseItem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: calculationData, title: "Перевозка Сборного Груза", currency: .USD)
-        let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: calculationData, title: "Погрузо-разгрузочные работы", currency: .USD)
-        let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: calculationData, title: "Услуги по Таможенному Оформлению", currency: .RUB)
-        let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: calculationData, title: "Услуги СВХ", currency: .RUB)
-        let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: calculationData, title: "Доставка до Склада Консолидации", currency: .USD)
-        
-        calculationResultItems.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem])
     }
     
     func performCalculations(for cell: CalculationResultCell? = nil) {
