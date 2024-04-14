@@ -3,6 +3,7 @@ import SwiftUI
 extension UIViewController {
     func configureTapGesture(selector: Selector) {
         let tapGesture = UITapGestureRecognizer(target: self, action: selector)
+        tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
     }
     

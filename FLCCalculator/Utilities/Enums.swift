@@ -10,6 +10,7 @@ enum FLCSection { case main }
 enum FLCTextViewLabelImagePlacing { case afterText, beforeText }
 enum FLCPopoverPosition { case top, bottom }
 enum FLCTotalType { case perKG, asOneCurrency }
+enum FLCPaddingType { case horizontal, vertical, all }
 
 enum FLCCountryOption: String {
     case china = "Китай"
@@ -19,14 +20,6 @@ enum FLCCountryOption: String {
         switch self {
         case .china: return "china"
         case .turkey: return "turkey"
-        }
-    }
-    
-    init?(countryName: String) {
-        switch countryName {
-        case "Китай": self = .china
-        case "Турция": self = .turkey
-        default: return nil
         }
     }
 }
@@ -88,7 +81,7 @@ enum FLCCurrency: String, CaseIterable {
     }
 }
 
-enum FLCLogisticsType: String {
+enum FLCLogisticsType: String, CaseIterable {
     case chinaTruck = "chinaTruck"
     case chinaRailway = "chinaRailway"
     case chinaAir = "chinaAir"

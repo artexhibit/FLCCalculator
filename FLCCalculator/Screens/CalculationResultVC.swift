@@ -34,6 +34,7 @@ class CalculationResultVC: UIViewController {
         configureTapGesture(selector: #selector(viewTapped))
         self.delegate = totalPriceVC
         
+        navigationController?.removeBottomBorder()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
         tabBarController?.tabBar.isHidden = true
@@ -48,6 +49,7 @@ class CalculationResultVC: UIViewController {
         
         tableView.delegate = self
         tableView.register(CalculationResultCell.self, forCellReuseIdentifier: CalculationResultCell.reuseID)
+        tableView.register(FLCOptionsTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCOptionsTableViewHeader.reuseID)
     }
     
     func performCalculations(for cell: CalculationResultCell? = nil) {
@@ -142,7 +144,7 @@ class CalculationResultVC: UIViewController {
     
     @objc private func viewTapped(_ gesture: UITapGestureRecognizer) {
         if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
-       let detected = CalculationUIHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
+        let detected = CalculationUIHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
         if detected { closeButtonPressed() }
     }
     @objc func closeButtonPressed() { navigationController?.popViewController(animated: true) }
@@ -157,8 +159,13 @@ extension CalculationResultVC: UITableViewDelegate {
         DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.23 : view.frame.height * 0.13
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        UIView()
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 65 }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? { UIView() }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCOptionsTableViewHeader.reuseID) as! FLCOptionsTableViewHeader
+        headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: calculationData))
+        return headerView
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

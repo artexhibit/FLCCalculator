@@ -15,7 +15,7 @@ class TotalPriceVC: UIViewController {
     private let detailsButton = FLCTintedButton(color: .accent, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
     private let priceAsOneCurrencyTextView = FLCTextViewLabel()
     private let pricePerKgTextView = FLCTextViewLabel()
-    private let priceWarningTintedView = FLCTintedView(color: .red, alpha: 0.15, withText: true)
+    private let priceWarningTintedView = FLCTintedView(color: .red.makeLighter(delta: 0.5), alpha: 0.15, withText: true)
     private let invoiceIssueTintedView = FLCTintedView(color: .accent, alpha: 0.15, withText: true)
     private let confirmButton = FLCButton(color: .accent, title: "Подтвердить заявку", systemImageName: "hand.thumbsup")
     private let saveButton = FLCButton(color: .accent.makeLighter(), title: "Сохранить", systemImageName: "sdcard")

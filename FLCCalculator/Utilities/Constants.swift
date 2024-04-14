@@ -10,6 +10,9 @@ enum Icons {
     static let document = UIImage(systemName: "doc.plaintext") ?? UIImage()
     static let clock = UIImage(systemName: "clock") ?? UIImage()
     static let dots = UIImage(systemName: "ellipsis.circle.fill") ?? UIImage()
+    static let truckFill = UIImage(systemName: "truck.box.fill") ?? UIImage()
+    static let train = UIImage(systemName: "train.side.front.car") ?? UIImage()
+    static let plane = UIImage(systemName: "airplane") ?? UIImage()
 }
 
 enum Keys {

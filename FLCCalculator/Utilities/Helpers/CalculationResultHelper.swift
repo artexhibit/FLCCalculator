@@ -93,4 +93,22 @@ struct CalculationResultHelper {
         items.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem])
         return items
     }
+    
+    static func getOptions(basedOn calculationData: CalculationData) -> [FLCLogisticsOption] {
+        var options = [FLCLogisticsOption]()
+        let pickedCountry = FLCCountryOption(rawValue: calculationData.countryFrom)
+        
+        let truckOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто")
+        let trainOption = FLCLogisticsOption(image: Icons.train, title: "ЖД")
+        let airOption = FLCLogisticsOption(image: Icons.plane, title: "Авиа")
+        
+        switch pickedCountry {
+        case .china:
+            options.append(contentsOf: [truckOption, trainOption, airOption])
+        case .turkey:
+            options.append(contentsOf: [truckOption])
+        case nil: break
+        }
+        return options
+    }
 }
