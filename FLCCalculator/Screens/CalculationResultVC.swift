@@ -12,9 +12,15 @@ class CalculationResultVC: UIViewController {
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
     var calculationResultItems = [CalculationResultItem]()
     private var totalPriceVC = TotalPriceVC()
+    var pickedLogisticsType: FLCLogisticsType = .chinaTruck
     
     var showingPopover = FLCPopoverVC()
-    var calculationData: CalculationData!
+    var calculationData: CalculationData! {
+        didSet {
+            let country = FLCCountryOption(rawValue: calculationData.countryFrom)
+            pickedLogisticsType = FLCLogisticsType.firstCase(for: country ?? .china) ?? .chinaTruck
+        }
+    }
     
     private weak var delegate: CalculationResultVCDelegate?
     
@@ -23,9 +29,8 @@ class CalculationResultVC: UIViewController {
         configureVC()
         configureTableView()
         configureDataSource()
-        calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: .chinaTruck)
-        updateDataSource(on: calculationResultItems)
-        performCalculations()
+        calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
+        performCalculations(pickedLogisticsType: pickedLogisticsType)
         CalculationUIHelper.showTotalPrice(vc: totalPriceVC, from: self)
     }
     
@@ -52,7 +57,7 @@ class CalculationResultVC: UIViewController {
         tableView.register(FLCOptionsTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCOptionsTableViewHeader.reuseID)
     }
     
-    func performCalculations(for cell: CalculationResultCell? = nil) {
+    func performCalculations(for cell: CalculationResultCell? = nil, pickedLogisticsType: FLCLogisticsType) {
         delegate?.didReceiveCellsAmount(amount: calculationResultItems.count, calculationData: calculationData)
         
         DispatchQueue.main.async {
@@ -85,43 +90,38 @@ class CalculationResultVC: UIViewController {
                     }
                 
                 case .insurance:
-                    let result = CalculationResultHelper.getInsurancePrice(item: item).price
+                    let result = CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType).price
                     self.calculationResultItems[index].price = result
-                    self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                     
                 case .deliveryFromWarehouse:
-                    let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item)
+                    let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
                     self.calculationResultItems[index].price = result.price
-                    self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
                     
                 case .cargoHandling:
-                    let result = CalculationResultHelper.getCargoHandlingPrice(item: item)
+                    let result = CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: pickedLogisticsType)
                     self.calculationResultItems[index].price = result
-                    self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                     
                 case .customsClearancePrice:
-                    let result = CalculationResultHelper.getCustomsClearancePrice(item: item)
+                    let result = CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
                     self.calculationResultItems[index].price = result
-                    self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                     
                 case .customsWarehouseServices:
-                    let result = CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item)
+                    let result = CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item, pickedLogisticsType: pickedLogisticsType)
                     self.calculationResultItems[index].price = result
-                    self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                     
                 case .deliveryToWarehouse:
                     let result = CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
                     self.calculationResultItems[index].price = result.price
                     self.calculationResultItems[index].daysAmount = CalculationResultHelper.getDeliveryToWarehousePrice(item: item).days
-                    self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
                 }
             }
+            self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
         }
     }
     
@@ -129,7 +129,7 @@ class CalculationResultVC: UIViewController {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) in
             let cell = tableView.dequeueReusableCell(withIdentifier: CalculationResultCell.reuseID, for: indexPath) as! CalculationResultCell
             cell.delegate = self
-            cell.set(with: self.calculationResultItems[indexPath.row], presentedVC: self.totalPriceVC)
+            cell.set(with: self.calculationResultItems[indexPath.row], presentedVC: self.totalPriceVC, pickedLogisticsType: self.pickedLogisticsType)
             return cell
         })
     }
@@ -164,6 +164,8 @@ extension CalculationResultVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCOptionsTableViewHeader.reuseID) as! FLCOptionsTableViewHeader
+        headerView.optionsCollectionView.optionsDelegate = self
+        headerView.optionsCollectionView.pickedCountry = FLCCountryOption(rawValue: calculationData.countryFrom)
         headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: calculationData))
         return headerView
     }
@@ -182,6 +184,14 @@ extension CalculationResultVC: UIPopoverPresentationControllerDelegate {
 extension CalculationResultVC: CalculationResultCellDelegate {
     func didPressRetryButton(cell: CalculationResultCell) {
         delegate?.didPressRetryButton(in: cell)
-        performCalculations(for: cell)
+        performCalculations(for: cell, pickedLogisticsType: pickedLogisticsType)
+    }
+}
+
+extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
+    func didPickLogisticsType(type: FLCLogisticsType) {
+        pickedLogisticsType = type
+        calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: type)
+        performCalculations(pickedLogisticsType: type)
     }
 }

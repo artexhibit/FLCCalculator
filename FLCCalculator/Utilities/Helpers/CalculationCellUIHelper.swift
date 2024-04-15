@@ -18,8 +18,8 @@ struct CalculationCellUIHelper {
         cell.removeShimmerAnimation()
     }
     
-    static func configureInsurance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
-        let data = CalculationResultHelper.getInsurancePrice(item: item)
+    static func configureInsurance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
+        let data = CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
         
         cell.titleTextView.attributedText = attributedText
         cell.priceLabel.text = item.price
@@ -30,8 +30,8 @@ struct CalculationCellUIHelper {
         cell.removeShimmerAnimation(delay: 0.5)
     }
     
-    static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
-        let data = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item)
+    static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
+        let data = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Шанхай - Подольск".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
@@ -43,8 +43,8 @@ struct CalculationCellUIHelper {
         cell.removeShimmerAnimation(delay: 0.5)
     }
     
-    static func configureCargoHandling(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
-        let handlingData = PriceCalculationManager.getCagoHandlingData(for: .chinaTruck)
+    static func configureCargoHandling(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
+        let handlingData = PriceCalculationManager.getCagoHandlingData(for: pickedLogisticsType)
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.text = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг, минимум \(handlingData.minPrice.formatAsCurrency(symbol: item.currency))"

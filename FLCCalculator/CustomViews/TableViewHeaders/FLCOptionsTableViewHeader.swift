@@ -21,6 +21,6 @@ class FLCOptionsTableViewHeader: UITableViewHeaderFooterView {
     }
     
     private func configureOptionsCollectionsView() {
-        optionsCollectionView.pinToEdges(of: contentView, withPadding: 10, paddingType: .horizontal)
+        optionsCollectionView.pinToEdges(of: contentView, withPadding: 7, paddingType: .horizontal)
     }
 }

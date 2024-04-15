@@ -86,4 +86,30 @@ enum FLCLogisticsType: String, CaseIterable {
     case chinaRailway = "chinaRailway"
     case chinaAir = "chinaAir"
     case turkeyTruck = "turkeyTruck"
+    
+    static func firstCase(for country: FLCCountryOption) -> FLCLogisticsType? {
+        switch country {
+        case .china:
+            return .chinaTruck
+        case .turkey:
+            return .turkeyTruck
+        }
+    }
+    
+    init?(logisticsName: String, country: FLCCountryOption) {
+        switch country {
+        case .china:
+            switch logisticsName {
+            case "Авто": self = .chinaTruck
+            case "ЖД": self = .chinaRailway
+            case "Авиа": self = .chinaAir
+            default: return nil
+            }
+        case .turkey:
+            switch logisticsName {
+            case "Авто+Паром": self = .turkeyTruck
+            default: return nil
+            }
+        }
+    }
 }

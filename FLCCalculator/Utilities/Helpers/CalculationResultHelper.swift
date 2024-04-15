@@ -12,30 +12,30 @@ struct CalculationResultHelper {
         }
     }
     
-    static func getInsurancePrice(item: CalculationResultItem) -> (code: FLCCurrency, ratio: Double, price: String) {
+    static func getInsurancePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (code: FLCCurrency, ratio: Double, price: String) {
         let currencyCode = FLCCurrency(currencyCode: item.calculationData.invoiceCurrency) ?? .USD
         let ratio = PriceCalculationManager.getRatioBetween(item.currency, and: currencyCode)
         
-        let price = PriceCalculationManager.calculateInsurance(for: .chinaTruck, invoiceAmount: item.calculationData.invoiceAmount, cellPriceCurrency: item.currency, invoiceCurrency: currencyCode).formatAsCurrency(symbol: item.currency)
+        let price = PriceCalculationManager.calculateInsurance(for: pickedLogisticsType, invoiceAmount: item.calculationData.invoiceAmount, cellPriceCurrency: item.currency, invoiceCurrency: currencyCode).formatAsCurrency(symbol: item.currency)
         return (currencyCode, ratio, price)
     }
     
-    static func getDeliveryFromWarehousePrice(item: CalculationResultItem) -> (price: String, days: String) {
-       let price = PriceCalculationManager.getDeliveryFromWarehouse(for: .chinaTruck, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.currency)
+    static func getDeliveryFromWarehousePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (price: String, days: String) {
+       let price = PriceCalculationManager.getDeliveryFromWarehouse(for: pickedLogisticsType, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.currency)
         let days = "от " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: .chinaTruck) + " дн."
         return (price, days)
     }
     
-    static func getCargoHandlingPrice(item: CalculationResultItem) -> String {
-        PriceCalculationManager.calculateCargoHandling(for: .chinaTruck, weight: item.calculationData.weight).formatAsCurrency(symbol: item.currency)
+    static func getCargoHandlingPrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
+        PriceCalculationManager.calculateCargoHandling(for: pickedLogisticsType, weight: item.calculationData.weight).formatAsCurrency(symbol: item.currency)
     }
     
-    static func getCustomsClearancePrice(item: CalculationResultItem) -> String {
-        PriceCalculationManager.getCustomsClearancePrice(for: .chinaTruck).formatAsCurrency(symbol: item.currency)
+    static func getCustomsClearancePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
+        PriceCalculationManager.getCustomsClearancePrice(for: pickedLogisticsType).formatAsCurrency(symbol: item.currency)
     }
     
-    static func getCustomsWarehouseServicesPrice(item: CalculationResultItem) -> String {
-        PriceCalculationManager.getCustomsWarehouseServices(for: .chinaTruck).formatAsCurrency(symbol: item.currency)
+    static func getCustomsWarehouseServicesPrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
+        PriceCalculationManager.getCustomsWarehouseServices(for: pickedLogisticsType).formatAsCurrency(symbol: item.currency)
     }
     
     static func getDeliveryToWarehousePrice(item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
@@ -101,12 +101,13 @@ struct CalculationResultHelper {
         let truckOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто")
         let trainOption = FLCLogisticsOption(image: Icons.train, title: "ЖД")
         let airOption = FLCLogisticsOption(image: Icons.plane, title: "Авиа")
+        let truckPlusFerryOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром")
         
         switch pickedCountry {
         case .china:
             options.append(contentsOf: [truckOption, trainOption, airOption])
         case .turkey:
-            options.append(contentsOf: [truckOption])
+            options.append(contentsOf: [truckPlusFerryOption])
         case nil: break
         }
         return options

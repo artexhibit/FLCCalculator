@@ -1,9 +1,16 @@
 import UIKit
 
+protocol FLCOptionsCollectionViewDelegate: AnyObject {
+    func didPickLogisticsType(type: FLCLogisticsType)
+}
+
 final class FLCOptionsCollectionView: UICollectionView {
     
     private let optionsLayout = UICollectionViewFlowLayout()
     var options = [FLCLogisticsOption]()
+    var pickedCountry: FLCCountryOption?
+    
+    var optionsDelegate: FLCOptionsCollectionViewDelegate?
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: optionsLayout)

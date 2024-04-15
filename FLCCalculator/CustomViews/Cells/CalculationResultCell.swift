@@ -182,7 +182,7 @@ class CalculationResultCell: UITableViewCell {
         ]
     }
     
-    func set(with item: CalculationResultItem, presentedVC: UIViewController) {
+    func set(with item: CalculationResultItem, presentedVC: UIViewController, pickedLogisticsType: FLCLogisticsType) {
         let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .beforeText)
         
         addShimmerAnimation()
@@ -196,11 +196,11 @@ class CalculationResultCell: UITableViewCell {
         case .russianDelivery:
             CalculationCellUIHelper.configureRussianDelivery(cell: self, with: item, and: attributedText)
         case .insurance:
-            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureInsurance(cell: self, with: item, and: attributedText, pickedLogisticsType: pickedLogisticsType)
         case .deliveryFromWarehouse:
-            CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureDeliveryFromWarehouse(cell: self, with: item, and: attributedText, pickedLogisticsType: pickedLogisticsType)
         case .cargoHandling:
-            CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureCargoHandling(cell: self, with: item, and: attributedText, pickedLogisticsType: pickedLogisticsType)
         case .customsClearancePrice:
             CalculationCellUIHelper.configureCustomsClearance(cell: self, with: item, and: attributedText)
         case .customsWarehouseServices:
@@ -212,7 +212,7 @@ class CalculationResultCell: UITableViewCell {
         self.daysTextView.setStyle(color: .lightGray, textAlignment: .right, fontWeight: .bold, fontSize: 19)
     }
     
-    private func addShimmerAnimation() {
+    func addShimmerAnimation() {
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = [-0.7, -0.5, -0.3]
         animation.toValue = [1.3, 1.5, 1.7]
@@ -232,9 +232,8 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func removeShimmerAnimation(delay: Double = 0.0) {
-        isShimmering = false
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.isShimmering = false
             self.gradientLayer.removeAnimation(forKey: "shimmer")
             
             self.gradientLayer.colors = nil
