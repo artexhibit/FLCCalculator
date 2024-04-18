@@ -9,4 +9,5 @@ struct CalculationResultItem: Hashable {
     let currency: FLCCurrency
     var hasError: Bool = false
     var canDisplay: Bool = true
+    var isShimmering: Bool = true
 }

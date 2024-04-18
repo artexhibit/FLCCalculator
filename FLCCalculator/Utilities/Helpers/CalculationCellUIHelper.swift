@@ -15,7 +15,6 @@ struct CalculationCellUIHelper {
         resetDaysContent(in: cell)
         cell.priceLabel.text = item.price
         cell.daysTextView.text = "\(item.daysAmount ?? "?") дн."
-        cell.removeShimmerAnimation()
     }
     
     static func configureInsurance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
@@ -27,7 +26,6 @@ struct CalculationCellUIHelper {
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
-        cell.removeShimmerAnimation(delay: 0.5)
     }
     
     static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
@@ -40,7 +38,6 @@ struct CalculationCellUIHelper {
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
-        cell.removeShimmerAnimation(delay: 0.5)
     }
     
     static func configureCargoHandling(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
@@ -52,7 +49,6 @@ struct CalculationCellUIHelper {
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
-        cell.removeShimmerAnimation(delay: 0.5)
     }
     
     static func configureCustomsClearance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
@@ -62,7 +58,6 @@ struct CalculationCellUIHelper {
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
-        cell.removeShimmerAnimation(delay: 0.5)
     }
     
     static func configureCustomsWarehouseServices(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
@@ -72,7 +67,6 @@ struct CalculationCellUIHelper {
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
-        cell.removeShimmerAnimation(delay: 0.5)
     }
     
     static func configureDeliveryToWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
@@ -86,10 +80,10 @@ struct CalculationCellUIHelper {
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
-        cell.removeShimmerAnimation(delay: 0.5)
     }
     
     private static func removeDaysContent(in cell: CalculationResultCell) {
+        cell.daysTextView.text = ""
         cell.daysLabelHeightConstraint.constant = 0.1
         cell.subtitleBottomConstraint.constant = -cell.padding / 4
     }

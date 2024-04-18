@@ -24,6 +24,7 @@ class CalculationResultCell: UITableViewCell {
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
+    
     weak var delegate: CalculationResultCellDelegate?
     
     let padding: CGFloat = 20
@@ -185,7 +186,7 @@ class CalculationResultCell: UITableViewCell {
     func set(with item: CalculationResultItem, presentedVC: UIViewController, pickedLogisticsType: FLCLogisticsType) {
         let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .beforeText)
         
-        addShimmerAnimation()
+        item.isShimmering ? addShimmerAnimation() : removeShimmerAnimation()
         
         self.type = item.type
         self.titleTextView.text = item.title
@@ -213,6 +214,8 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func addShimmerAnimation() {
+        configureGradient()
+        
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = [-0.7, -0.5, -0.3]
         animation.toValue = [1.3, 1.5, 1.7]
