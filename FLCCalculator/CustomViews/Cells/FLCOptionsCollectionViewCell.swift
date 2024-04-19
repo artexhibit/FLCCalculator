@@ -41,7 +41,7 @@ final class FLCOptionsCollectionViewCell: UICollectionViewCell {
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubviews(imageView, optionTitle)
-        containerView.pinToEdges(of: contentView, withPadding: 3, paddingType: .vertical)
+        containerView.pinToEdges(of: contentView, withPadding: 4.5, paddingType: .vertical)
         
         containerView.layer.cornerRadius = 13
         containerView.layer.borderWidth = 1
@@ -54,7 +54,7 @@ final class FLCOptionsCollectionViewCell: UICollectionViewCell {
         imageView.tintColor = .accent
         
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 1.3),
+            imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding / 1.1),
             imageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 29),
             imageView.heightAnchor.constraint(equalToConstant: 31)
@@ -64,7 +64,7 @@ final class FLCOptionsCollectionViewCell: UICollectionViewCell {
     private func configureTitle() {
         NSLayoutConstraint.activate([
             optionTitle.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: padding / 1.5),
-            optionTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 1.3),
+            optionTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding / 1.1),
             optionTitle.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
         ])
     }

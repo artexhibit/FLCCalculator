@@ -46,6 +46,7 @@ enum FLCCalculationResultCellType: Int {
     case customsClearancePrice = 5
     case customsWarehouseServices = 6
     case deliveryToWarehouse = 7
+    case groupageDocs = 8
 }
 
 enum FLCMarkupType: Double {

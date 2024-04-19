@@ -22,7 +22,7 @@ struct CalculationCellUIHelper {
         
         cell.titleTextView.attributedText = attributedText
         cell.priceLabel.text = item.price
-        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePersentage(for: .chinaTruck))% от стоимости инвойса \n\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)), 1 \(item.currency.symbol) ~ \(data.ratio) \(data.code.symbol)"
+        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePersentage(for: pickedLogisticsType))% от стоимости инвойса \n\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)), 1 \(item.currency.symbol) ~ \(data.ratio) \(data.code.symbol)"
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
@@ -30,9 +30,10 @@ struct CalculationCellUIHelper {
     
     static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
         let data = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
+        let subtitle = pickedLogisticsType == .chinaAir ? "Шанхай - Аэропорт Шереметьево" : "Шанхай - Подольск"
         
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "Шанхай - Подольск".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
+        cell.subtitle.attributedText = subtitle.makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
@@ -63,6 +64,15 @@ struct CalculationCellUIHelper {
     static func configureCustomsWarehouseServices(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Включено 2 дня ожидания".makeAttributed(icon: Icons.clock, size: (0, -2, 18, 17), placeIcon: .beforeText)
+        cell.priceLabel.text = item.price
+        
+        item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
+        removeDaysContent(in: cell)
+    }
+    
+    static func configureGroupageDocs(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+        cell.titleTextView.attributedText = attributedText
+        cell.subtitle.text = "В составе сборного груза"
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
@@ -132,6 +142,8 @@ struct CalculationCellUIHelper {
             } else {
                 return  "Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию"
             }
+        case .groupageDocs:
+            return "В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!"
         }
     }
 }

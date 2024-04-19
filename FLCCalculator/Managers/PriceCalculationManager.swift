@@ -76,6 +76,11 @@ class PriceCalculationManager {
         return logisticsTypeData.customsWarehousePrice
     }
     
+    static func getGroupageDocs(for logisticsType: FLCLogisticsType) -> Double {
+        guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }
+        return logisticsTypeData.groupageDocs
+    }
+    
     static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
         switch forCountry {
         case .china:

@@ -22,7 +22,7 @@ struct CalculationResultHelper {
     
     static func getDeliveryFromWarehousePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (price: String, days: String) {
        let price = PriceCalculationManager.getDeliveryFromWarehouse(for: pickedLogisticsType, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.currency)
-        let days = "от " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: .chinaTruck) + " дн."
+        let days = "от " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: pickedLogisticsType) + " дн."
         return (price, days)
     }
     
@@ -36,6 +36,10 @@ struct CalculationResultHelper {
     
     static func getCustomsWarehouseServicesPrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
         PriceCalculationManager.getCustomsWarehouseServices(for: pickedLogisticsType).formatAsCurrency(symbol: item.currency)
+    }
+    
+    static func getGroupageDocs(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
+        PriceCalculationManager.getGroupageDocs(for: pickedLogisticsType).formatAsCurrency(symbol: item.currency)
     }
     
     static func getDeliveryToWarehousePrice(item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
@@ -52,34 +56,54 @@ struct CalculationResultHelper {
         
         switch pickedLogisticsType {
         case .chinaTruck, .chinaRailway:
-            baseItems = getGroundLogisticsItems(with: data).map { item in
-                var modifiedItem = item
+            baseItems = getLogisticsItems(with: data).map { item in
+                var newItem = item
                 
-                switch modifiedItem.type {
+                switch newItem.type {
                 case .russianDelivery:
-                    if data.toLocation == WarehouseStrings.russianWarehouseCity { modifiedItem.canDisplay = false }
+                    if data.toLocation == WarehouseStrings.russianWarehouseCity { newItem.canDisplay = false }
                     
                 case .customsClearancePrice:
-                    if !data.needCustomClearance { modifiedItem.canDisplay = false }
+                    if !data.needCustomClearance { newItem.canDisplay = false }
                     
                 case .deliveryToWarehouse:
-                    if data.fromLocation == WarehouseStrings.chinaWarehouse { modifiedItem.canDisplay = false }
+                    if data.fromLocation == WarehouseStrings.chinaWarehouse { newItem.canDisplay = false }
                     
-                case .deliveryFromWarehouse, .cargoHandling, .customsWarehouseServices, .insurance:
+                case .deliveryFromWarehouse, .cargoHandling, .customsWarehouseServices, .insurance, .groupageDocs:
                     break
                 }
-                return modifiedItem
+                return newItem
             }
             
         case .chinaAir:
-            baseItems = getGroundLogisticsItems(with: data)
+            baseItems = getLogisticsItems(with: data).map { item in
+                var newItem = item
+                
+                switch newItem.type {
+                case .russianDelivery:
+                    if data.toLocation == WarehouseStrings.russianWarehouseCity { newItem.canDisplay = false }
+                    
+                case .customsClearancePrice:
+                    if !data.needCustomClearance { newItem.canDisplay = false }
+                    
+                case .deliveryToWarehouse, .cargoHandling, .customsWarehouseServices:
+                    newItem.canDisplay = false
+                    
+                case .deliveryFromWarehouse:
+                    newItem.title = "Авиаперевозка"
+                    
+                case .insurance, .groupageDocs:
+                    break
+                }
+                return newItem
+            }
         case .turkeyTruck:
-            baseItems = getGroundLogisticsItems(with: data)
+            baseItems = getLogisticsItems(with: data)
         }
         return baseItems.filter { $0.canDisplay == true }
     }
     
-    private static func getGroundLogisticsItems(with data: CalculationData) -> [CalculationResultItem] {
+    private static func getLogisticsItems(with data: CalculationData) -> [CalculationResultItem] {
         var items = [CalculationResultItem]()
         
         let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: data, title: "Доставка по России", currency: .RUB)
@@ -89,8 +113,9 @@ struct CalculationResultHelper {
         let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: data, title: "Услуги по Таможенному Оформлению", currency: .RUB)
         let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: data, title: "Услуги СВХ", currency: .RUB)
         let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: data, title: "Доставка до Склада Консолидации", currency: .USD)
+        let groupageDocs = CalculationResultItem(type: .groupageDocs, calculationData: data, title: "Оформление пакета документов", currency: .USD)
         
-        items.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem])
+        items.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem, groupageDocs])
         return items
     }
     

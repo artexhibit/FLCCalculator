@@ -44,8 +44,7 @@ class CalculationResultCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        containerView.layoutIfNeeded()
-        gradientLayer.frame = containerView.bounds
+        setupGradientLayerAnimation()
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShimmerEffect))
     }
     
@@ -208,6 +207,8 @@ class CalculationResultCell: UITableViewCell {
             CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
         case .deliveryToWarehouse:
             CalculationCellUIHelper.configureDeliveryToWarehouse(cell: self, with: item, and: attributedText)
+        case .groupageDocs:
+            CalculationCellUIHelper.configureGroupageDocs(cell: self, with: item, and: attributedText)
         }
         self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 20)
         self.daysTextView.setStyle(color: .lightGray, textAlignment: .right, fontWeight: .bold, fontSize: 19)
@@ -243,6 +244,18 @@ class CalculationResultCell: UITableViewCell {
             self.gradientLayer.locations = nil
             self.gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
             self.gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+        }
+    }
+    
+    private func setupGradientLayerAnimation() {
+        if type != .russianDelivery {
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            gradientLayer.frame = containerView.bounds
+            CATransaction.commit()
+        } else {
+            containerView.layoutIfNeeded()
+            gradientLayer.frame = containerView.bounds
         }
     }
     @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }

@@ -89,10 +89,9 @@ class CalculationResultVC: UIViewController {
                             self.calculationResultItems[index].hasError = false
                         }
                         self.calculationResultItems[index].isShimmering = false
-                        self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
+                        self.updateDataSource(on: self.calculationResultItems)
                         cell?.failedPriceCalcRetryButton.imageView?.stopRotationAnimation()
                     }
-                    
                 case .insurance:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType).price
@@ -101,7 +100,6 @@ class CalculationResultVC: UIViewController {
                         self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     }
-                    
                 case .deliveryFromWarehouse:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
@@ -110,7 +108,6 @@ class CalculationResultVC: UIViewController {
                         self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     }
-                    
                 case .cargoHandling:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: pickedLogisticsType)
@@ -119,7 +116,6 @@ class CalculationResultVC: UIViewController {
                         self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     }
-                    
                 case .customsClearancePrice:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
@@ -128,7 +124,6 @@ class CalculationResultVC: UIViewController {
                         self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     }
-                    
                 case .customsWarehouseServices:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item, pickedLogisticsType: pickedLogisticsType)
@@ -137,7 +132,6 @@ class CalculationResultVC: UIViewController {
                         self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     }
-                    
                 case .deliveryToWarehouse:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
@@ -145,6 +139,14 @@ class CalculationResultVC: UIViewController {
                         self.calculationResultItems[index].daysAmount = CalculationResultHelper.getDeliveryToWarehousePrice(item: item).days
                         self.calculationResultItems[index].isShimmering = false
                         self.delegate?.didEndCalculation(price: result.price, days: result.days, title: item.title)
+                        self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
+                    }
+                case .groupageDocs:
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        let result = CalculationResultHelper.getGroupageDocs(item: item, pickedLogisticsType: pickedLogisticsType)
+                        self.calculationResultItems[index].price = result
+                        self.calculationResultItems[index].isShimmering = false
+                        self.delegate?.didEndCalculation(price: result, days: nil, title: item.title)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
                     }
                 }
@@ -218,6 +220,7 @@ extension CalculationResultVC: CalculationResultCellDelegate {
 extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
     func didPickLogisticsType(type: FLCLogisticsType) {
         pickedLogisticsType = type
+        calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         performCalculations(pickedLogisticsType: type)
     }
 }
