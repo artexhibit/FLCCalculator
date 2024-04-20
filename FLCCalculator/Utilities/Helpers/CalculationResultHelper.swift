@@ -56,24 +56,7 @@ struct CalculationResultHelper {
         
         switch pickedLogisticsType {
         case .chinaTruck, .chinaRailway:
-            baseItems = getLogisticsItems(with: data).map { item in
-                var newItem = item
-                
-                switch newItem.type {
-                case .russianDelivery:
-                    if data.toLocation == WarehouseStrings.russianWarehouseCity { newItem.canDisplay = false }
-                    
-                case .customsClearancePrice:
-                    if !data.needCustomClearance { newItem.canDisplay = false }
-                    
-                case .deliveryToWarehouse:
-                    if data.fromLocation == WarehouseStrings.chinaWarehouse { newItem.canDisplay = false }
-                    
-                case .deliveryFromWarehouse, .cargoHandling, .customsWarehouseServices, .insurance, .groupageDocs:
-                    break
-                }
-                return newItem
-            }
+            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, abroadWarehouse: WarehouseStrings.chinaWarehouse)
             
         case .chinaAir:
             baseItems = getLogisticsItems(with: data).map { item in
@@ -98,9 +81,31 @@ struct CalculationResultHelper {
                 return newItem
             }
         case .turkeyTruck:
-            baseItems = getLogisticsItems(with: data)
+            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, abroadWarehouse: WarehouseStrings.turkeyWarehouse)
         }
         return baseItems.filter { $0.canDisplay == true }
+    }
+    
+    private static func getBaseItems(with data: CalculationData, rusWarehouse: String, abroadWarehouse: String) -> [CalculationResultItem] {
+        
+        return getLogisticsItems(with: data).map { item in
+            var newItem = item
+            
+            switch newItem.type {
+            case .russianDelivery:
+                if data.toLocation == rusWarehouse { newItem.canDisplay = false }
+                
+            case .customsClearancePrice:
+                if !data.needCustomClearance { newItem.canDisplay = false }
+                
+            case .deliveryToWarehouse:
+                if data.fromLocation == abroadWarehouse { newItem.canDisplay = false }
+                
+            case .deliveryFromWarehouse, .cargoHandling, .customsWarehouseServices, .insurance, .groupageDocs:
+                break
+            }
+            return newItem
+        }
     }
     
     private static func getLogisticsItems(with data: CalculationData) -> [CalculationResultItem] {
@@ -136,5 +141,11 @@ struct CalculationResultHelper {
         case nil: break
         }
         return options
+    }
+    
+    static func saveNetworkingData(oldItems: [CalculationResultItem], newItems: [CalculationResultItem]) -> [CalculationResultItem] {
+        let russianDeliveryItem = oldItems.filter { $0.type == .russianDelivery }
+        let filteredNewItems = newItems.filter { $0.type != .russianDelivery }
+        return russianDeliveryItem + filteredNewItems
     }
 }

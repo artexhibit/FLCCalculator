@@ -30,7 +30,7 @@ struct CalculationCellUIHelper {
     
     static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
         let data = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
-        let subtitle = pickedLogisticsType == .chinaAir ? "Шанхай - Аэропорт Шереметьево" : "Шанхай - Подольск"
+        let subtitle = getDeliveryFromWarehouseSubtitle(from: pickedLogisticsType)
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = subtitle.makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
@@ -110,7 +110,18 @@ struct CalculationCellUIHelper {
         cell.removeShimmerAnimation()
     }
     
-    static func configurePopoverMessage(in cell: CalculationResultCell, iconType: String) -> String {
+    private static func getDeliveryFromWarehouseSubtitle(from pickedLogisticsType: FLCLogisticsType) -> String {
+        switch pickedLogisticsType {
+        case .chinaTruck, .chinaRailway:
+            "Шанхай - Подольск"
+        case .chinaAir:
+            "Шанхай - Аэропорт Шереметьево"
+        case .turkeyTruck:
+            "Стамбул - Подольск"
+        }
+    }
+    
+    static func configurePopoverMessage(in cell: CalculationResultCell, iconType: String, pickedLogisticsType: FLCLogisticsType) -> String {
         
         switch cell.type {
         case .russianDelivery:
@@ -119,7 +130,15 @@ struct CalculationCellUIHelper {
             return "Наш многолетний партнёр по страхованию - компания СК Пари. Страховка от полной стоимости инвойса."
         case .deliveryFromWarehouse:
             if iconType == "questionmark.circle.fill" {
-                return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
+                
+                switch pickedLogisticsType {
+                case .chinaTruck, .chinaRailway:
+                    return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
+                case .chinaAir:
+                    return "С момента вылета из аэропорта отправления и до разгрузки на нашем складе в Подольске."
+                case .turkeyTruck:
+                    return "С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске."
+                }
             } else {
                 return "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник."
             }

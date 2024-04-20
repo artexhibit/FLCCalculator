@@ -4,6 +4,7 @@ protocol CalculationResultVCDelegate: AnyObject {
     func didEndCalculation(price: String, days: String?, title: String)
     func didReceiveCellsAmount(amount: Int, calculationData: CalculationData)
     func didPressRetryButton(in cell: CalculationResultCell)
+    func didPickLogisticsType()
 }
 
 class CalculationResultVC: UIViewController {
@@ -69,6 +70,15 @@ class CalculationResultVC: UIViewController {
                 
                 switch item.type {
                 case .russianDelivery:
+                    
+                    guard !item.hasPrice else {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.calculationResultItems[index].isShimmering = false
+                            self.delegate?.didEndCalculation(price: item.price ?? "", days: item.daysAmount ?? "", title: item.title)
+                            self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
+                        }
+                        continue
+                    }
                     Task {
                         let result = await CalculationResultHelper.getRussianDeliveryPrice(item: item)
                         
@@ -77,6 +87,7 @@ class CalculationResultVC: UIViewController {
                             self.calculationResultItems[index].price = items.price
                             self.calculationResultItems[index].daysAmount = items.days
                             self.calculationResultItems[index].hasError = false
+                            self.calculationResultItems[index].hasPrice = true
                             
                             self.delegate?.didEndCalculation(price: items.price, days: items.days, title: item.title)
                             cell?.failedPriceCalcContainer.hide()
@@ -219,8 +230,11 @@ extension CalculationResultVC: CalculationResultCellDelegate {
 
 extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
     func didPickLogisticsType(type: FLCLogisticsType) {
+        delegate?.didPickLogisticsType()
         pickedLogisticsType = type
-        calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
+        
+        let newItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
+        calculationResultItems = CalculationResultHelper.saveNetworkingData(oldItems: calculationResultItems, newItems: newItems)
         performCalculations(pickedLogisticsType: type)
     }
 }

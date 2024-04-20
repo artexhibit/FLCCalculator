@@ -120,29 +120,17 @@ class FLCTransportParametersView: FLCCalculationView {
         deliveryTypeTopContraint.constant = padding
         UIView.animate(withDuration: 0.3) { self.layoutIfNeeded() }
     }
-    
-    private func configureCalculationButtonShineEffect() {
-        let allButtonsHaveTitles = flcListPickerButtons.allSatisfy { !$0.titleIsEmpty }
-        
-        if allButtonsHaveTitles {
-            calculateButton.addShineEffect()
-            HapticManager.addSuccessHaptic()
-        } else {
-            calculateButton.removeShineEffect()
-        }
-    }
 }
 
 extension FLCTransportParametersView: FLCPickerDelegate {
     func didSelectItem(pickedItem: FLCPickerItem, triggerButton: FLCListPickerButton) {
-        if triggerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
+        if countryPickerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
         
         UIView.performWithoutAnimation {
             triggerButton.set(title: pickedItem.title)
             triggerButton.showingTitle = pickedItem.title
             triggerButton.layoutIfNeeded()
         }
-        configureCalculationButtonShineEffect()
         delegate?.didSelectItem(pickedItem: pickedItem, triggerButton: triggerButton)
     }
     

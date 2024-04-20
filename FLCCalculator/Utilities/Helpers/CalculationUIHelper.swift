@@ -1,8 +1,7 @@
 import UIKit
 
 struct CalculationUIHelper {
-    private static var destinationButtonTitles: (old: String?, new: String?)
-    private static var departureButtonTitles: (old: String?, new: String?)
+    private static var storedTitlesAmount: Float = 0
     
     static func checkIfFilledAll(textFields: [FLCNumberTextField]) -> Bool {
         textFields.allSatisfy { !($0.text?.isEmpty ?? true) }
@@ -109,51 +108,28 @@ struct CalculationUIHelper {
         }
     }
     
-    static func adjustProgressView(basedOn button: FLCListPickerButton) -> FLCProgressViewOption? {
-        var tempData = retrieveTempData(button: button)
-        tempData.new = button.titleLabel?.text
+    static func adjustProgressView(for buttons: [FLCListPickerButton], in progressView: FLCProgressView) {
+        var titlesAmount: Float = 0
         
-        if tempData.old == nil && tempData.new != nil {
-            tempData.old = tempData.new
-            saveTempData(data: tempData, button: button)
-            return .increase
-        } else if tempData.old != nil && tempData.new == nil {
-            tempData.old = tempData.new
-            saveTempData(data: tempData, button: button)
-            return .decrease
+        buttons.forEach { if !$0.showingTitle.isEmpty { titlesAmount += 1 } }
+        let times = abs(titlesAmount - storedTitlesAmount)
+        if titlesAmount > storedTitlesAmount {
+            progressView.setProgress(.increase, times: times)
+        } else if titlesAmount < storedTitlesAmount {
+            progressView.setProgress(.decrease, times: times)
         }
-        return nil
+        storedTitlesAmount = titlesAmount
     }
     
-    private static func retrieveTempData(button: FLCListPickerButton) -> (old: String?, new: String?) {
-        var tempData: (old: String?, new: String?)
+    static func configureShineEffect(for button: FLCButton, basedOn buttons: [FLCListPickerButton]) {
+        let allButtonsHaveTitles = buttons.allSatisfy { !$0.titleIsEmpty }
         
-        switch button.smallLabelView.smallLabel.text {
-        case "Пункт отправления":
-            tempData = departureButtonTitles
-        case "Пункт назначения":
-            tempData = destinationButtonTitles
-        case .none, .some(_): break
+        if allButtonsHaveTitles {
+            button.addShineEffect()
+            HapticManager.addSuccessHaptic()
+        } else {
+            button.removeShineEffect()
         }
-        return tempData
-    }
-    
-    private static func saveTempData(data: (old: String?, new: String?), button: FLCListPickerButton) {
-        switch button.smallLabelView.smallLabel.text {
-        case "Пункт отправления":
-            departureButtonTitles = data
-        case "Пункт назначения":
-            destinationButtonTitles = data
-        case .none, .some(_): break
-        }
-    }
-    
-    static func adjustProgressView(in view: FLCTransportParametersView) -> Float {
-        var times: Float = 0
-        
-        view.listPickerButtonsWithTitle.forEach { if $0.value == true { times += 1 } }
-        view.flcListPickerButtons.forEach { view.listPickerButtonsWithTitle[$0] = false }
-        return times
     }
     
     static func detectCloseButtonPressed(with gesture: UITapGestureRecognizer, in navController: UINavigationController) -> Bool {

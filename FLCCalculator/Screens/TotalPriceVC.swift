@@ -281,6 +281,12 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
 }
 
 extension TotalPriceVC: CalculationResultVCDelegate {
+    func didPickLogisticsType() {
+        totalCalculatedCells = 0
+        calculationResults.removeAll()
+        TotalPriceVCUIHelper.turnOnLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer, button: detailsButton, customDetentContent: customDetentContent, smallDetentContent: smallDetentContent)
+    }
+    
     func didReceiveCellsAmount(amount: Int, calculationData: CalculationData) {
         if totalCells == 0 { spinner.startAnimating() }
         totalCells = amount
@@ -308,21 +314,19 @@ extension TotalPriceVC: CalculationResultVCDelegate {
             TotalPriceVCUIHelper.setPriceForTextView(view: pricePerKgTextView, data: calculationData, totalAmount: totalAmountLayer, type: .perKG)
             
             smallDetentContent.forEach { $0.opacity = 1 }
-            customDetentContent.forEach { $0.show() }
             
             if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent {
                 if totalCalculatedCells != totalCells - 1 { configureCustomDetentContainerView() }
                 updateCustomDetentContainerViewTopConstraint()
                 configurePriceWarningTintedView()
+                customDetentContent.forEach { $0.show() }
             }
         }
     }
     
     func didPressRetryButton(in cell: CalculationResultCell) {
-        customDetentContent.forEach { $0.hide() }
-        smallDetentContent.forEach { $0.opacity = 0 }
         calculationResults.removeValue(forKey: cell.titleTextView.text ?? "")
-        TotalPriceVCUIHelper.showLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
+        TotalPriceVCUIHelper.turnOnLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer, button: detailsButton, customDetentContent: customDetentContent, smallDetentContent: smallDetentContent)
     }
 }
 

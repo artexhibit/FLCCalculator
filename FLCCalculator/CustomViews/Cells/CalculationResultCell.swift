@@ -31,6 +31,7 @@ class CalculationResultCell: UITableViewCell {
     private var isShimmering = false
     private var presentedVC: UIViewController?
     var type: FLCCalculationResultCellType = .russianDelivery
+    private var pickedLogisticsType: FLCLogisticsType = .chinaTruck
     var calculationResultItem: CalculationResultItem?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -191,6 +192,7 @@ class CalculationResultCell: UITableViewCell {
         self.titleTextView.text = item.title
         self.presentedVC = presentedVC
         self.calculationResultItem = item
+        self.pickedLogisticsType = pickedLogisticsType
         
         switch type {
         case .russianDelivery:
@@ -248,7 +250,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func setupGradientLayerAnimation() {
-        if type != .russianDelivery {
+        if type != .russianDelivery || (type == .russianDelivery && calculationResultItem?.hasPrice == true) {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             gradientLayer.frame = containerView.bounds
@@ -281,7 +283,7 @@ extension CalculationResultCell: UITextViewDelegate {
             } else if imageName.description.contains("questionmark.circle.fill") {
                 iconType = "questionmark.circle.fill"
             }
-            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configurePopoverMessage(in: self, iconType: iconType), in: parentVC, target: textView, characterRange: characterRange, presentedVC: presentedVC)
+            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configurePopoverMessage(in: self, iconType: iconType, pickedLogisticsType: pickedLogisticsType), in: parentVC, target: textView, characterRange: characterRange, presentedVC: presentedVC)
             return false
         }
         return true

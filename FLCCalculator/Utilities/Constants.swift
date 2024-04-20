@@ -25,6 +25,7 @@ enum Keys {
 enum WarehouseStrings {
     static let russianWarehouseCity = "Склад Подольск"
     static let chinaWarehouse = "Склад Китай"
+    static let turkeyWarehouse = "Склад Стамбул"
 }
 
 enum ScreenSize {

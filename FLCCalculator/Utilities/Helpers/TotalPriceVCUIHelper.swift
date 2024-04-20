@@ -22,7 +22,10 @@ struct TotalPriceVCUIHelper {
         spinnerMessage.opacity = 0
     }
     
-    static func showLoading(spinner: UIActivityIndicatorView, spinnerMessage: CATextLayer) {
+    static func turnOnLoading(spinner: UIActivityIndicatorView, spinnerMessage: CATextLayer, button: FLCTintedButton, customDetentContent: [UIView], smallDetentContent: [FLCTextLayer]) {
+        button.hide()
+        customDetentContent.forEach { $0.hide() }
+        smallDetentContent.forEach { $0.opacity = 0 }
         spinner.startAnimating()
         spinnerMessage.opacity = 1
     }

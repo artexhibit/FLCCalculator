@@ -220,7 +220,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
                 return
             }
-            guard !transportView.deliveryTypePickerButton.showingTitle.contains(WarehouseStrings.chinaWarehouse) else {
+            guard !transportView.deliveryTypePickerButton.showingTitle.contains(WarehouseStrings.chinaWarehouse) && !transportView.deliveryTypePickerButton.showingTitle.contains(WarehouseStrings.turkeyWarehouse) else {
                 FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на забор от поставщика")
                 return
             }
@@ -254,20 +254,18 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 transportView.departurePickerButton.resetState(isDisabled: true)
                 transportView.destinationPickerButton.resetState(isDisabled: true)
             }
-            progressView.setProgress(.decrease, times: CalculationUIHelper.adjustProgressView(in: transportView))
             transportView.removeExtraTopPaddingBetweenFirstButtons()
             transportView.calculateButton.removeShineEffect()
             
         case transportView.deliveryTypePickerButton:
-            CalculationUIHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, WarehouseStrings.chinaWarehouse)], basedOn: button)
+            let warehouse = button.showingTitle.contains(WarehouseStrings.chinaWarehouse) ? WarehouseStrings.chinaWarehouse : WarehouseStrings.turkeyWarehouse
             
-            let destProgress = CalculationUIHelper.adjustProgressView(basedOn: transportView.destinationPickerButton)
-            let depProgress = CalculationUIHelper.adjustProgressView(basedOn: transportView.departurePickerButton)
-            if let destProgress { progressView.setProgress(destProgress) }
-            if let depProgress { progressView.setProgress(depProgress) }
+            CalculationUIHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, warehouse)], basedOn: button)
             
         default: break
         }
+        CalculationUIHelper.adjustProgressView(for: transportView.flcListPickerButtons, in: progressView)
+        CalculationUIHelper.configureShineEffect(for: transportView.calculateButton, basedOn: transportView.flcListPickerButtons)
     }
     
     func didTapFLCTextButton(_ button: FLCTextButton) {
