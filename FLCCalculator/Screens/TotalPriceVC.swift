@@ -281,7 +281,7 @@ extension TotalPriceVC: UISheetPresentationControllerDelegate {
 }
 
 extension TotalPriceVC: CalculationResultVCDelegate {
-    func didPickLogisticsType() {
+    func didChangeLogisticsType() {
         totalCalculatedCells = 0
         calculationResults.removeAll()
         TotalPriceVCUIHelper.turnOnLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer, button: detailsButton, customDetentContent: customDetentContent, smallDetentContent: smallDetentContent)

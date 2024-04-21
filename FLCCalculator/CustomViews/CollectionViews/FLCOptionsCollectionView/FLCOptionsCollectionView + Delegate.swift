@@ -5,6 +5,6 @@ extension FLCOptionsCollectionView: UICollectionViewDelegate {
         scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         guard let selectedLogisticsType = FLCLogisticsType(logisticsName: options[indexPath.item].title, country: pickedCountry ?? .china) else { return }
-        optionsDelegate?.didPickLogisticsType(type: selectedLogisticsType)
+        optionsDelegate?.didChangeLogisticsType(type: selectedLogisticsType)
     }
 }

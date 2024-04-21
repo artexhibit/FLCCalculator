@@ -10,5 +10,5 @@ struct CalculationResultItem: Hashable {
     var hasError: Bool = false
     var hasPrice: Bool = false
     var canDisplay: Bool = true
-    var isShimmering: Bool = true
+    var isShimmering: Bool = false
 }

@@ -121,7 +121,7 @@ class PriceCalculationManager {
     }
     
     static func getPrice(totalPrice: String? = "0+0", weight: Double? = 1, type: FLCTotalType) -> (result: String, currency: FLCCurrency, secondCurrency: FLCCurrency, exchangeRate: Double, currencyValue: Double, rubleValue: Double) {
-        let totalPriceParts = totalPrice?.components(separatedBy: "+")
+        let totalPriceParts = totalPrice?.filter { $0 != "*" }.components(separatedBy: "+")
         let currency = totalPriceParts?.first?.extractCurrencySymbol() ?? .USD
         let secondCurrency = totalPriceParts?.last?.extractCurrencySymbol() ?? .RUB
         let currencyKey = currencyData?.Valute.keys.first(where: { $0 == currency.rawValue }) ?? ""

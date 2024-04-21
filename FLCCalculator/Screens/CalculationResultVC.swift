@@ -4,7 +4,7 @@ protocol CalculationResultVCDelegate: AnyObject {
     func didEndCalculation(price: String, days: String?, title: String)
     func didReceiveCellsAmount(amount: Int, calculationData: CalculationData)
     func didPressRetryButton(in cell: CalculationResultCell)
-    func didPickLogisticsType()
+    func didChangeLogisticsType()
 }
 
 class CalculationResultVC: UIViewController {
@@ -62,8 +62,12 @@ class CalculationResultVC: UIViewController {
         delegate?.didReceiveCellsAmount(amount: calculationResultItems.count, calculationData: calculationData)
         
         DispatchQueue.main.async {
-            for i in self.calculationResultItems.indices { self.calculationResultItems[i].isShimmering = true }
-            self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
+            if cell == nil {
+                for i in self.calculationResultItems.indices {
+                    if !self.calculationResultItems[i].hasError { self.calculationResultItems[i].isShimmering = true }
+                }
+                self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
+            }
             
             for (index, item) in self.calculationResultItems.enumerated() {
                 if let cell = cell, item.type != cell.type { continue }
@@ -88,20 +92,20 @@ class CalculationResultVC: UIViewController {
                             self.calculationResultItems[index].daysAmount = items.days
                             self.calculationResultItems[index].hasError = false
                             self.calculationResultItems[index].hasPrice = true
+                            self.calculationResultItems[index].isShimmering = false
                             
+                            self.updateDataSource(on: self.calculationResultItems)
                             self.delegate?.didEndCalculation(price: items.price, days: items.days, title: item.title)
                             cell?.failedPriceCalcContainer.hide()
                             
                         case .failure(_):
                             self.calculationResultItems[index].hasError = true
+                            self.calculationResultItems[index].isShimmering = false
                             
+                            self.updateDataSource(on: self.calculationResultItems, animateChanges:  false)
                             self.delegate?.didEndCalculation(price: "", days: "0", title: item.title)
-                            
                             cell?.failedPriceCalcRetryButton.isUserInteractionEnabled = true
-                            self.calculationResultItems[index].hasError = false
                         }
-                        self.calculationResultItems[index].isShimmering = false
-                        self.updateDataSource(on: self.calculationResultItems)
                         cell?.failedPriceCalcRetryButton.imageView?.stopRotationAnimation()
                     }
                 case .insurance:
@@ -230,8 +234,8 @@ extension CalculationResultVC: CalculationResultCellDelegate {
 }
 
 extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
-    func didPickLogisticsType(type: FLCLogisticsType) {
-        delegate?.didPickLogisticsType()
+    func didChangeLogisticsType(type: FLCLogisticsType) {
+        delegate?.didChangeLogisticsType()
         pickedLogisticsType = type
         
         let newItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)

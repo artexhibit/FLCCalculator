@@ -5,14 +5,14 @@ struct CalculationCellUIHelper {
         
         guard !item.hasError else {
             showFailedPriceFetchView(in: cell, with: item)
+            resetDaysContent(in: cell)
+            cell.subtitle.text = ""
             return
         }
         guard item.price != nil else { return }
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Подольск - \(item.calculationData.toLocation)".makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), placeIcon: .beforeText)
-        
-        resetDaysContent(in: cell)
         cell.priceLabel.text = item.price
         cell.daysTextView.text = "\(item.daysAmount ?? "?") дн."
     }
@@ -23,7 +23,7 @@ struct CalculationCellUIHelper {
         cell.titleTextView.attributedText = attributedText
         cell.priceLabel.text = item.price
         cell.subtitle.text = "\(PriceCalculationManager.getInsurancePersentage(for: pickedLogisticsType))% от стоимости инвойса \n\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)), 1 \(item.currency.symbol) ~ \(data.ratio) \(data.code.symbol)"
-        
+
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
     }

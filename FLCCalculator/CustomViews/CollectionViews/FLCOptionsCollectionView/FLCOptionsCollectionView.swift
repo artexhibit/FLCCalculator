@@ -1,7 +1,7 @@
 import UIKit
 
 protocol FLCOptionsCollectionViewDelegate: AnyObject {
-    func didPickLogisticsType(type: FLCLogisticsType)
+    func didChangeLogisticsType(type: FLCLogisticsType)
 }
 
 final class FLCOptionsCollectionView: UICollectionView {
