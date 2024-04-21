@@ -94,6 +94,7 @@ class CalculationResultVC: UIViewController {
                             
                         case .failure(_):
                             self.calculationResultItems[index].hasError = true
+                            
                             self.delegate?.didEndCalculation(price: "", days: "0", title: item.title)
                             
                             cell?.failedPriceCalcRetryButton.isUserInteractionEnabled = true
