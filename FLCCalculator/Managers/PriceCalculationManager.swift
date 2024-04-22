@@ -3,7 +3,7 @@ import Foundation
 class PriceCalculationManager {
     
     private static let tariffs: [Tariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let pickups: [Pickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
+    private static let chinaPickup: [ChinaPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let currencyData = PersistenceManager.retrieveCurrencyData()
     
     static func getInsurancePersentage(for logisticsType: FLCLogisticsType) -> Double {
@@ -86,12 +86,11 @@ class PriceCalculationManager {
         case .china:
             guard let cityName = city.getCityName() else { return ("", 0, 0.0) }
             
-            let pickupsCountry = pickups?.first(where: { $0.country == forCountry.engName })
-            let yuanRate = pickupsCountry?.yuanRate ?? 6.9
-            let density = pickupsCountry?.density ?? 0
+            let yuanRate = chinaPickup?.first?.yuanRate ?? 6.9
+            let density = chinaPickup?.first?.density ?? 0
             let chargeableWeight = max(weight, volume * density)
             
-            let warehouse = pickupsCountry?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
+            let warehouse = chinaPickup?.first?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
             let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")
             let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
             let weightData = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.weight

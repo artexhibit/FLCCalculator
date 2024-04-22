@@ -11,6 +11,7 @@ struct CalculationCellUIHelper {
         }
         guard item.price != nil else { return }
         
+        resetDaysContent(in: cell)
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "Подольск - \(item.calculationData.toLocation)".makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), placeIcon: .beforeText)
         cell.priceLabel.text = item.price

@@ -1,13 +1,11 @@
 import Foundation
 
-struct Pickup: Codable, Hashable {
-    let country: String
+struct ChinaPickup: Codable, Hashable {
     let density: Double
     let yuanRate: Double
     let warehouse: [Warehouse]
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(country)
         hasher.combine(density)
         hasher.combine(yuanRate)
         hasher.combine(warehouse)
@@ -34,10 +32,10 @@ struct Weight: Codable, Hashable {
     let totalPart2Coefficient: Double
 }
 
-extension Pickup: UserDefaultsStorable {
-    static var userDefaultsKey: String { Keys.pickups }
+extension ChinaPickup: UserDefaultsStorable {
+    static var userDefaultsKey: String { Keys.chinaPickup }
 }
 
-extension Pickup: FirebaseIdentifiable {
-    static var collectionNameKey: String { Keys.pickups }
+extension ChinaPickup: FirebaseIdentifiable {
+    static var collectionNameKey: String { Keys.chinaPickup }
 }

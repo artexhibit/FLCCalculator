@@ -68,7 +68,7 @@
 		0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
 		0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */; };
 		0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A422B94C2C30058FC95 /* HapticManager.swift */; };
-		0B9D5A6F2BB980900016A991 /* Pickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A6E2BB980900016A991 /* Pickup.swift */; };
+		0B9D5A6F2BB980900016A991 /* ChinaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A6E2BB980900016A991 /* ChinaPickup.swift */; };
 		0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
 		0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */; };
 		0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */; };
@@ -196,7 +196,7 @@
 		0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
 		0B9D3A422B94C2C30058FC95 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
-		0B9D5A6E2BB980900016A991 /* Pickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickup.swift; sourceTree = "<group>"; };
+		0B9D5A6E2BB980900016A991 /* ChinaPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaPickup.swift; sourceTree = "<group>"; };
 		0B9D5A722BB9914D0016A991 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateHelper.swift; sourceTree = "<group>"; };
@@ -517,7 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				0B9CABC32BB0283100ED658B /* Tariff.swift */,
-				0B9D5A6E2BB980900016A991 /* Pickup.swift */,
+				0B9D5A6E2BB980900016A991 /* ChinaPickup.swift */,
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 			);
 			path = Networking;
@@ -760,7 +760,7 @@
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
 				0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */,
 				0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */,
-				0B9D5A6F2BB980900016A991 /* Pickup.swift in Sources */,
+				0B9D5A6F2BB980900016A991 /* ChinaPickup.swift in Sources */,
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
 				0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */,
 				0B7548FE2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift in Sources */,

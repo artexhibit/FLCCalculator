@@ -42,7 +42,7 @@ struct FirebaseManager {
     
     static func updatePickups() async -> Bool {
         do {
-            let pickups: [Pickup]? = try await getDataFromFirebase()
+            let pickups: [ChinaPickup]? = try await getDataFromFirebase()
             
             guard let _ = PersistenceManager.updateItemsInUserDefaults(items: pickups ?? []) else {
                 return false
