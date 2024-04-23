@@ -26,6 +26,7 @@
 		0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */; };
 		0B33016F2B8D13FF00737A11 /* ListPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */; };
 		0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */; };
+		0B3849D02BD82BCF0002F233 /* TurkeyPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3849CF2BD82BCF0002F233 /* TurkeyPickup.swift */; };
 		0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
 		0B419FC82B82451600498ACE /* FLCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC72B82451600498ACE /* FLCError.swift */; };
 		0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCB2B82464000498ACE /* UITableView+Ext.swift */; };
@@ -154,6 +155,7 @@
 		0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCalculationView.swift; sourceTree = "<group>"; };
 		0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerCell.swift; sourceTree = "<group>"; };
 		0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCBodyLabel.swift; sourceTree = "<group>"; };
+		0B3849CF2BD82BCF0002F233 /* TurkeyPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyPickup.swift; sourceTree = "<group>"; };
 		0B419FC42B82436000498ACE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0B419FC72B82451600498ACE /* FLCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCError.swift; sourceTree = "<group>"; };
 		0B419FCB2B82464000498ACE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 			children = (
 				0B9CABC32BB0283100ED658B /* Tariff.swift */,
 				0B9D5A6E2BB980900016A991 /* ChinaPickup.swift */,
+				0B3849CF2BD82BCF0002F233 /* TurkeyPickup.swift */,
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 			);
 			path = Networking;
@@ -804,6 +807,7 @@
 				0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */,
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,
 				0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */,
+				0B3849D02BD82BCF0002F233 /* TurkeyPickup.swift in Sources */,
 				0BC7357F2BCAEA6100EF8B0D /* FLCOptionsCollectionView + Delegate.swift in Sources */,
 				0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */,
 				0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */,

@@ -43,11 +43,12 @@ struct CalculationResultHelper {
     }
     
     static func getDeliveryToWarehousePrice(item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
-        let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(forCountry: .china, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
+        let country = FLCCountryOption(rawValue: item.calculationData.countryFrom) ?? .china
+        let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
         let isGuangzhou = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou
         let days = isGuangzhou ? "\(deliveryData.transitDays + 4) дн." : "\(deliveryData.transitDays) дн."
         
-        let price = PriceCalculationManager.getDeliveryToWarehouse(forCountry: .china, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume).result.formatAsCurrency(symbol: item.currency)
+        let price = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume).result.formatAsCurrency(symbol: item.currency)
         return (price, days, isGuangzhou, deliveryData.warehouseName)
     }
     

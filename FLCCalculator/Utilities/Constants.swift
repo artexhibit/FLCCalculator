@@ -18,6 +18,7 @@ enum Icons {
 enum Keys {
     static let tariffs = "tariffs"
     static let chinaPickup = "chinaPickup"
+    static let turkeyPickup = "turkeyPickup"
     static let currencyData = "currencyData"
     static let dateWhenDataWasUpdated = "dateWhenDataWasUpdated"
 }

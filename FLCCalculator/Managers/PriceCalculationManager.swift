@@ -4,6 +4,7 @@ class PriceCalculationManager {
     
     private static let tariffs: [Tariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let chinaPickup: [ChinaPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
+    private static let turkeyPickup: [TurkeyPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let currencyData = PersistenceManager.retrieveCurrencyData()
     
     static func getInsurancePersentage(for logisticsType: FLCLogisticsType) -> Double {
@@ -84,35 +85,7 @@ class PriceCalculationManager {
     static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
         switch forCountry {
         case .china:
-            guard let cityName = city.getCityName() else { return ("", 0, 0.0) }
-            
-            let yuanRate = chinaPickup?.first?.yuanRate ?? 6.9
-            let density = chinaPickup?.first?.density ?? 0
-            let chargeableWeight = max(weight, volume * density)
-            
-            let warehouse = chinaPickup?.first?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
-            let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")
-            let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
-            let weightData = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.weight
-            let weightRange = weightData?.first(where: { $0.key.createRange()?.contains(weight) == true })
-            
-            let totalPart3CoefficientOne = warehouse?.totalPart3CoefficientOne ?? 0
-            let totalPart3CoefficientTwo = warehouse?.totalPart3CoefficientTwo ?? 0
-            let totalPart3CoefficientThree = warehouse?.totalPart3CoefficientThree ?? 0
-            
-            let totalPart1 = weightRange?.value.totalPart1Coefficient ?? 0
-            let totalPart2 = chargeableWeight * (weightRange?.value.totalPart2Coefficient ?? 0)
-            var totalPart3: Double =  0
-            
-            switch warehouseName {
-            case .guangzhou:
-                totalPart3 = totalPart3CoefficientOne + (totalPart3CoefficientTwo * max(weight/1000, volume) + totalPart3CoefficientThree)
-            case .shanghai:
-                totalPart3 = max(volume * totalPart3CoefficientOne, (weight * totalPart3CoefficientOne)/1000) + max(volume * totalPart3CoefficientOne * 0.06, totalPart3CoefficientTwo) + max(volume, totalPart3CoefficientTwo) + totalPart3CoefficientThree
-            case .istanbul, nil: break
-            }
-            let result = ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .seventeenPercents)
-            return (warehouseName?.rusName ?? "", transitDays, result)
+          return calculateChinaDeliveryToWarehouse(city: city, weight: weight, volume: volume)
         case .turkey:
             break
         }
@@ -144,5 +117,37 @@ class PriceCalculationManager {
             let result = "~" + currencyTotal.formatAsCurrency(symbol: currency) + " или ~" + secondCurrencyTotal.formatAsCurrency(symbol: secondCurrency)
             return (result, currency, secondCurrency, currencyExchangeRate, currencyValue, secondValue)
         }
+    }
+    
+    private static func calculateChinaDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
+        guard let cityName = city.getCityName() else { return ("", 0, 0.0) }
+        
+        let yuanRate = chinaPickup?.first?.yuanRate ?? 6.9
+        let density = chinaPickup?.first?.density ?? 0
+        let chargeableWeight = max(weight, volume * density)
+        
+        let warehouse = chinaPickup?.first?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
+        let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")
+        let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
+        let weightData = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.weight
+        let weightRange = weightData?.first(where: { $0.key.createRange()?.contains(weight) == true })
+        
+        let totalPart3CoefficientOne = warehouse?.totalPart3CoefficientOne ?? 0
+        let totalPart3CoefficientTwo = warehouse?.totalPart3CoefficientTwo ?? 0
+        let totalPart3CoefficientThree = warehouse?.totalPart3CoefficientThree ?? 0
+        
+        let totalPart1 = weightRange?.value.totalPart1Coefficient ?? 0
+        let totalPart2 = chargeableWeight * (weightRange?.value.totalPart2Coefficient ?? 0)
+        var totalPart3: Double =  0
+        
+        switch warehouseName {
+        case .guangzhou:
+            totalPart3 = totalPart3CoefficientOne + (totalPart3CoefficientTwo * max(weight/1000, volume) + totalPart3CoefficientThree)
+        case .shanghai:
+            totalPart3 = max(volume * totalPart3CoefficientOne, (weight * totalPart3CoefficientOne)/1000) + max(volume * totalPart3CoefficientOne * 0.06, totalPart3CoefficientTwo) + max(volume, totalPart3CoefficientTwo) + totalPart3CoefficientThree
+        case .istanbul, nil: break
+        }
+        let result = ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .seventeenPercents)
+        return (warehouseName?.rusName ?? "", transitDays, result)
     }
 }

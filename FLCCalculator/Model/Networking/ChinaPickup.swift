@@ -3,7 +3,7 @@ import Foundation
 struct ChinaPickup: Codable, Hashable {
     let density: Double
     let yuanRate: Double
-    let warehouse: [Warehouse]
+    let warehouse: [ChinaWarehouse]
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(density)
@@ -12,22 +12,22 @@ struct ChinaPickup: Codable, Hashable {
     }
 }
 
-struct Warehouse: Codable, Hashable {
+struct ChinaWarehouse: Codable, Hashable {
     let name: String
     let totalPart3CoefficientOne: Double
     let totalPart3CoefficientTwo: Double
     let totalPart3CoefficientThree: Double
-    let cities: [City]
+    let cities: [ChinaCity]
 }
 
-struct City: Codable, Hashable {
+struct ChinaCity: Codable, Hashable {
     let name: String
     let province: String
     let transitDays: Int
-    let weight: [String: Weight]
+    let weight: [String: ChinaWeight]
 }
 
-struct Weight: Codable, Hashable {
+struct ChinaWeight: Codable, Hashable {
     let totalPart1Coefficient: Double
     let totalPart2Coefficient: Double
 }

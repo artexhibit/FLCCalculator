@@ -152,7 +152,8 @@ struct CalculationCellUIHelper {
         case .deliveryToWarehouse:
             if iconType == "questionmark.circle.fill" {
                 guard let item = cell.calculationResultItem else { return "" }
-                let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(forCountry: .china, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
+                let country = FLCCountryOption(rawValue: item.calculationData.countryFrom) ?? .china
+                let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
                 
                 if deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou {
                     return "Поставщик - Склад Гуанчжоу: \(deliveryData.transitDays) дн. \nСклад Гуанчжоу - Склад Шанхай: 4 дн."
