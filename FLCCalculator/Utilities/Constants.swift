@@ -44,3 +44,7 @@ enum DeviceTypes {
     static let isiPhoneSE1stGen = idiom == .phone && ScreenSize.maxLength == 568.0
     static let isiPhoneSE3rdGen = idiom == .phone && ScreenSize.maxLength == 667.0
 }
+
+enum Cities {
+    static let istanbul = "Istanbul"
+}

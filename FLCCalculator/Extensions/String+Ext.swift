@@ -68,10 +68,10 @@ extension String {
         return nil
     }
     
-    func getCityName() -> String? {
-        let components = self.components(separatedBy: "(")
-        guard let cityName = components.first else { return nil }
-        return cityName.trimmingCharacters(in: .whitespaces)
+    func getDataInsideCharacters(char: String = "()") -> String? {
+        let components = self.components(separatedBy: CharacterSet(charactersIn: char))
+        guard components.count > 1 else { return nil }
+        return components[1].trimmingCharacters(in: .whitespaces)
     }
     func formatAsSymbol() -> String { FLCCurrency(rawValue: self)?.symbol ?? "" }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }

@@ -224,6 +224,11 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на забор от поставщика")
                 return
             }
+            
+            if transportView.departurePickerButton.showingTitle == Cities.istanbul {
+                CalculationUIHelper.showIstanbulZones(in: transportView, and: self)
+                return
+            }
             let items = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
             CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, in: self)
             
@@ -262,6 +267,10 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
             CalculationUIHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, warehouse)], basedOn: button)
             
+        case transportView.departurePickerButton:
+            if transportView.departurePickerButton.showingTitle == Cities.istanbul {
+                CalculationUIHelper.showIstanbulZones(in: transportView, and: self)
+            }
         default: break
         }
         CalculationUIHelper.adjustProgressView(for: transportView.flcListPickerButtons, in: progressView)

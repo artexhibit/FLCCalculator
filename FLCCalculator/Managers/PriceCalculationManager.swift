@@ -85,11 +85,10 @@ class PriceCalculationManager {
     static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
         switch forCountry {
         case .china:
-          return calculateChinaDeliveryToWarehouse(city: city, weight: weight, volume: volume)
+            return calculateChinaDeliveryToWarehouse(city: city, weight: weight, volume: volume)
         case .turkey:
-            break
+            return calculateTurkeyDeliveryToWarehouse(city: city, weight: weight, volume: volume)
         }
-        return ("", 0, 0.0)
     }
     
     static func getPrice(totalPrice: String? = "0+0", weight: Double? = 1, type: FLCTotalType) -> (result: String, currency: FLCCurrency, secondCurrency: FLCCurrency, exchangeRate: Double, currencyValue: Double, rubleValue: Double) {
@@ -119,8 +118,42 @@ class PriceCalculationManager {
         }
     }
     
+    private static func calculateTurkeyDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
+        guard let pickedCityZipCode = city.getDataInsideCharacters() else { return ("", 0, 0.0) }
+        
+        let vat = turkeyPickup?.first?.vat ?? 1.2
+        var result = 0.0
+        var transitDays = 1
+        let crossRatio = getRatioBetween(.EUR, and: .USD)
+        
+        if city.contains(Cities.istanbul) {
+            let istanbul = turkeyPickup?.first?.cities.first(where: { $0.name == Cities.istanbul })
+            let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode })
+            transitDays = istanbul?.transitDays ?? 1
+            
+            let weightRange = targetCity?.weight.first(where: { $0.key.createRange()?.contains(weight) == true })
+            let volumeRange = targetCity?.volume.first(where: { $0.key.createRange()?.contains(volume) == true })
+            let weightPrice = weightRange?.value.totalPriceInEuro ?? 0
+            let volumePrice = volumeRange?.value.totalPriceInEuro ?? 0
+            
+            let targetPrice = weightPrice > volumePrice ? weightPrice : volumePrice
+            result = (targetPrice * vat * crossRatio).add(markup: .seventeenPercents)
+        } else {
+            let targetCity = turkeyPickup?.first?.cities.first(where: { $0.zipCode == pickedCityZipCode })
+            transitDays = targetCity?.transitDays ?? 1
+            
+            let volumeRange = targetCity?.volume.first(where: { $0.key.createRange()?.contains(volume) == true })
+            let pricePerCbm = volumeRange?.value.pricePerCbmInEuro ?? 0
+            let minimumPrice = (((volumeRange?.value.minTotalPriceInEuro ?? 0) * vat) * crossRatio).add(markup: .seventeenPercents)
+            
+            let price = ((pricePerCbm * volume) * vat * crossRatio).add(markup: .seventeenPercents)
+            result = price < minimumPrice ? minimumPrice : price
+        }
+        return (FLCWarehouse.istanbul.rusName, transitDays, result)
+    }
+    
     private static func calculateChinaDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
-        guard let cityName = city.getCityName() else { return ("", 0, 0.0) }
+        guard let cityName = city.getDataInsideCharacters() else { return ("", 0, 0.0) }
         
         let yuanRate = chinaPickup?.first?.yuanRate ?? 6.9
         let density = chinaPickup?.first?.density ?? 0

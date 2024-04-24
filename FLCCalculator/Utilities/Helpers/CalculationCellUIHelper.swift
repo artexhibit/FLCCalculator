@@ -157,8 +157,10 @@ struct CalculationCellUIHelper {
                 
                 if deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou {
                     return "Поставщик - Склад Гуанчжоу: \(deliveryData.transitDays) дн. \nСклад Гуанчжоу - Склад Шанхай: 4 дн."
-                } else {
+                } else if deliveryData.warehouseName.flcWarehouseFromRusName == .shanghai  {
                     return "Доставка с адреса поставщика до нашего склада в Шанхае."
+                } else {
+                    return "Доставка с адреса поставщика до нашего склада в Стамбуле"
                 }
             } else {
                 return  "Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию"

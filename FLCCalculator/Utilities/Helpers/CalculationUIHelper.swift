@@ -26,6 +26,18 @@ struct CalculationUIHelper {
         }
     }
     
+    static func setTitle(for triggerButton: FLCListPickerButton, pickedItem: FLCPickerItem, addString: String = "") {
+        triggerButton.set(title: "\(pickedItem.title)\(addString)")
+        triggerButton.showingTitle = "\(pickedItem.title)\(addString)"
+        triggerButton.layoutIfNeeded()
+    }
+    
+    static func showIstanbulZones(in view: FLCTransportParametersView, and vc: UIViewController) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            presentListPickerVC(from: view.departurePickerButton, listener: view, items: CalculationInfo.istanbulLocations, in: vc)
+        }
+    }
+    
     static func getItems(basedOn pickedCountry: FLCCountryOption, for button: FLCListPickerButton) -> [FLCPickerItem] {
         
         switch pickedCountry {
@@ -70,7 +82,7 @@ struct CalculationUIHelper {
     
     static func confirmDataIsValid(in view: FLCCalculationView) -> Bool {
         if checkIfFilledAll(textFields: view.flcTextFields) && checkIfFilledAll(buttons: view.flcListPickerButtons)  {
-            return checkIfTextFieldsValueNotZero(in: view)
+            return checkIfDataCompliesWithRules(in: view)
         } else {
             makeRedAll(textFields: view.flcTextFields)
             makeRedAll(buttons: view.flcListPickerButtons)
@@ -80,13 +92,20 @@ struct CalculationUIHelper {
         }
     }
     
-    private static func checkIfTextFieldsValueNotZero(in view: FLCCalculationView) -> Bool {
+    private static func checkIfDataCompliesWithRules(in view: FLCCalculationView) -> Bool {
         var isWithZero = false
         
         view.flcTextFields.forEach {
             if $0.text == FLCNumberTextField.placeholderValue {
                 $0.switchToRedColors()
                 FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Значение не должно быть нулевым")
+                isWithZero = true
+            }
+        }
+        view.flcListPickerButtons.forEach {
+            if $0.showingTitle == Cities.istanbul {
+                FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите область Стамбула в Пункте Отправления")
+                $0.switchToRedColors()
                 isWithZero = true
             }
         }
