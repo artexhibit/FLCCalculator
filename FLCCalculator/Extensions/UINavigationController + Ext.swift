@@ -2,10 +2,10 @@ import Foundation
 import UIKit
 
 extension UINavigationController {
-    func removeVCFromStack(numberInStack: Int) {
-        var navigationArray = self.viewControllers
-        navigationArray.remove(at: navigationArray.count - numberInStack)
-        self.viewControllers = navigationArray
+    func removeVCFromStack(vc: UIViewController) {
+        let navigationArray = self.viewControllers
+        let filteredArray = navigationArray.filter { $0 != vc }
+        self.viewControllers = filteredArray
     }
     
     func removeBottomBorder() {

@@ -1,5 +1,9 @@
 import UIKit
 
+protocol TotalPriceVCDelegate: AnyObject {
+    func didPressConfirmButton()
+}
+
 class TotalPriceVC: UIViewController {
     
     private var smallDetentContainerView = UIView()
@@ -34,6 +38,8 @@ class TotalPriceVC: UIViewController {
     
     private var calculationData: CalculationData?
     private var showingPopover = FLCPopoverVC()
+    
+    weak var delegate: TotalPriceVCDelegate?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -371,7 +377,8 @@ extension TotalPriceVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
         case confirmButton:
-            break
+            self.dismiss(animated: true)
+            delegate?.didPressConfirmButton()
         case saveButton:
             break
         case closeButton:

@@ -39,6 +39,7 @@ class CalculationResultVC: UIViewController {
         view.backgroundColor = .systemBackground
         configureTapGesture(selector: #selector(viewTapped))
         self.delegate = totalPriceVC
+        totalPriceVC.delegate = self
         
         navigationController?.removeBottomBorder()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -241,5 +242,16 @@ extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
         let newItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         calculationResultItems = CalculationResultHelper.saveNetworkingData(oldItems: calculationResultItems, newItems: newItems)
         performCalculations(pickedLogisticsType: type)
+    }
+}
+
+extension CalculationResultVC: TotalPriceVCDelegate {
+    func didPressConfirmButton() {
+        let confirmOrderVC = ConfirmOrderVC()
+        navigationController?.pushViewController(confirmOrderVC, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.navigationController?.removeVCFromStack(vc: self)
+        }
     }
 }

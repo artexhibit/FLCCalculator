@@ -14,6 +14,7 @@
 		0B2130622BA4B51E00A30394 /* FLCTintedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2130612BA4B51E00A30394 /* FLCTintedView.swift */; };
 		0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */; };
 		0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */; };
+		0B25ABA02BDAD00B0031844A /* ConfirmOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */; };
 		0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */; };
 		0B2DD22A2BBDD9F4006F1CA7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2DD2292BBDD9F4006F1CA7 /* FirebaseAnalytics */; };
 		0B2DD22C2BBDD9F4006F1CA7 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2DD22B2BBDD9F4006F1CA7 /* FirebaseCrashlytics */; };
@@ -148,6 +149,7 @@
 		0B2130612BA4B51E00A30394 /* FLCTintedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTintedView.swift; sourceTree = "<group>"; };
 		0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCellUIHelper.swift; sourceTree = "<group>"; };
 		0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCalculationManager.swift; sourceTree = "<group>"; };
+		0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderVC.swift; sourceTree = "<group>"; };
 		0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextLayer.swift; sourceTree = "<group>"; };
 		0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				0BF938922B853A6900A18016 /* CalculationVC.swift */,
 				0BFBD7422BA37E2B00B485B8 /* CalculationResultVC.swift */,
 				0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */,
+				0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -750,6 +753,7 @@
 				0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */,
 				0BF860FB2BC0544D0065359C /* TotalPriceVCUIHelper.swift in Sources */,
 				0BDCE6F72BA59AB70043AB64 /* CalculationResultCell.swift in Sources */,
+				0B25ABA02BDAD00B0031844A /* ConfirmOrderVC.swift in Sources */,
 				0BC735832BCAECEA00EF8B0D /* FLCLogisticsOption.swift in Sources */,
 				0BD5E61F2B9A1C4D00240844 /* CalculationUIHelper.swift in Sources */,
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,

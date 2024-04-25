@@ -179,7 +179,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 calculationResultVC.calculationData = getCalculationData()
                 navigationController?.pushViewController(calculationResultVC, animated: true)
                 moveView(direction: .forward, times: 2, duration: 0.25)
-                navigationController?.removeVCFromStack(numberInStack: 2)
+                navigationController?.removeVCFromStack(vc: self)
             }
             
         default: break
