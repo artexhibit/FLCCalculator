@@ -37,7 +37,7 @@ class CalculationVC: UIViewController {
     private func configureVC() {
         configureTapGesture(selector: #selector(viewTapped))
         
-        view.addSubview(containerView)
+        view.addSubview(scrollView)
         view.backgroundColor = .systemBackground
         
         configureScrollView()
@@ -67,7 +67,6 @@ class CalculationVC: UIViewController {
     private func configureScrollView() {
         scrollView.delegate = self
         
-        view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         scrollView.pinToEdges(of: view)
         scrollView.showsVerticalScrollIndicator = false

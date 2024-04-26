@@ -3,9 +3,11 @@ import UIKit
 struct HapticManager {
     static private let notificationGenerator = UINotificationFeedbackGenerator()
     
-    static func addSuccessHaptic() {
-        notificationGenerator.prepare()
-        notificationGenerator.notificationOccurred(.success)
+    static func addSuccessHaptic(delay: Double = 0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            notificationGenerator.prepare()
+            notificationGenerator.notificationOccurred(.success)
+        }
     }
     
     static func addErrorHaptic() {

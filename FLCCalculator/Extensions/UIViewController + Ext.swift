@@ -13,6 +13,16 @@ extension UIViewController {
         self.view.addGestureRecognizer(panGesture)
     }
     
+    func showConfetti() {
+        let confetti = FLCConfettiLayer(view: self.view)
+        self.view.layer.addSublayer(confetti)
+        confetti.addBehaviors()
+        confetti.addAnimations()
+      
+        HapticManager.addSuccessHaptic(delay: 1)
+        HapticManager.addSuccessHaptic(delay: 1.4)
+    }
+    
     private struct Preview: UIViewControllerRepresentable {
         
         let viewController: UIViewController
