@@ -84,6 +84,10 @@ enum FLCCurrency: String, CaseIterable {
     }
 }
 
+enum FLCSalesManager: String, CaseIterable {
+    case igorVolkov = "Игорь Волков"
+}
+
 enum FLCLogisticsType: String, CaseIterable {
     case chinaTruck = "chinaTruck"
     case chinaRailway = "chinaRailway"

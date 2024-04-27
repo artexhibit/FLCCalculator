@@ -38,6 +38,7 @@ class FLCEmptyStateView: UIView {
     private func configurePlaceholderImage() {
         placeholderImage.image = UIImage(resource: .emptyStateView)
         placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+        placeholderImage.contentMode = .scaleAspectFit
         
         let widthConstraint = placeholderImage.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.65)
         let heightConstraint = placeholderImage.heightAnchor.constraint(equalTo: placeholderImage.widthAnchor, multiplier: 74/175)
@@ -58,7 +59,7 @@ class FLCEmptyStateView: UIView {
         let padding: CGFloat = 15
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: placeholderImage.bottomAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: placeholderImage.bottomAnchor, constant: -10),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
         ])

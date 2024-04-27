@@ -250,7 +250,7 @@ extension CalculationResultVC: TotalPriceVCDelegate {
         let confirmOrderVC = ConfirmOrderVC()
         navigationController?.pushViewController(confirmOrderVC, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             self.navigationController?.removeVCFromStack(vc: self)
         }
     }
