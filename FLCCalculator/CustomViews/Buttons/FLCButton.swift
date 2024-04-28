@@ -64,9 +64,9 @@ class FLCButton: UIButton {
         gradientLayer.cornerRadius = 10
         
         gradientLayer.colors = [
-            UIColor.accent.withAlphaComponent(0.01).cgColor,
+            UIColor.flcOrange.withAlphaComponent(0.01).cgColor,
             UIColor.white.withAlphaComponent(0.7).cgColor,
-            UIColor.accent.withAlphaComponent(0.01).cgColor
+            UIColor.flcOrange.withAlphaComponent(0.01).cgColor
         ]
         gradientLayer.locations = [0.4, 0.5, 0.6]
         let animation = CABasicAnimation(keyPath: "locations")

@@ -25,7 +25,7 @@ class FLCConfettiLayer: CAEmitterLayer {
     }
     
     private func configureConfettiTypes() {
-        let confettiColors = [UIColor.accent, UIColor.gray, UIColor.systemOrange]
+        let confettiColors = [UIColor.flcOrange, UIColor.gray, UIColor.systemOrange]
         
         confettiTypes = [FLCConfettiPosition.foreground, FLCConfettiPosition.background].flatMap { position in
             return [FLCConfettiShape.rectangle, FLCConfettiShape.circle].flatMap { shape in

@@ -2,10 +2,10 @@ import UIKit
 
 class FLCEmptyStateView: UIView {
     
-    private let placeholderImage = UIImageView()
+    private let placeholderImage = FLCImageView(image: UIImage(resource: .emptyStateView))
     private let titleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center)
     private let subtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
-    let actionButton = FLCButton(color: .accent, title: "Новый расчёт", systemImageName: "plus")
+    let actionButton = FLCButton(color: .flcOrange, title: "Новый расчёт", systemImageName: "plus")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,10 +36,6 @@ class FLCEmptyStateView: UIView {
     }
         
     private func configurePlaceholderImage() {
-        placeholderImage.image = UIImage(resource: .emptyStateView)
-        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
-        placeholderImage.contentMode = .scaleAspectFit
-        
         let widthConstraint = placeholderImage.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.65)
         let heightConstraint = placeholderImage.heightAnchor.constraint(equalTo: placeholderImage.widthAnchor, multiplier: 74/175)
         widthConstraint.priority = UILayoutPriority(rawValue: 999)

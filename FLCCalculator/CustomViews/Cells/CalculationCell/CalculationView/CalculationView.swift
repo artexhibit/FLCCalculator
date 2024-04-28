@@ -16,7 +16,7 @@ struct CalculationView: View {
                         .padding(.horizontal, 8)
                         .padding(.vertical, 5)
                 }
-                .background(.accent)
+                .background(.flcOrange)
                 .clipShape(Circle())
                 
                 HStack {
@@ -26,7 +26,7 @@ struct CalculationView: View {
                         .padding(.horizontal, 8)
                         .padding(.vertical, 5)
                 }
-                .background(.accent)
+                .background(.flcOrange)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 Spacer()
@@ -51,7 +51,7 @@ struct CalculationView: View {
                     Image(systemName: "circle.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
-                        .foregroundStyle(.accent)
+                        .foregroundStyle(.flcOrange)
                     
                     Path { path in
                         path.move(to: CGPoint(x: 0, y: 0))
@@ -59,12 +59,12 @@ struct CalculationView: View {
                     }
                     .stroke(style: StrokeStyle(lineWidth: 1, dash: [4.1]))
                     .frame(width: 1, height: 28, alignment: .center)
-                    .foregroundStyle(.accent)
+                    .foregroundStyle(.flcOrange)
                     
                     Image(systemName: "mappin.and.ellipse")
                         .resizable()
                         .frame(width: 18, height: 23)
-                        .foregroundStyle(.accent)
+                        .foregroundStyle(.flcOrange)
                 }
                 
                 VStack(alignment: .leading, spacing: 20) {

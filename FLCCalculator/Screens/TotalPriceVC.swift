@@ -13,17 +13,17 @@ class TotalPriceVC: UIViewController {
     private var spinner = UIActivityIndicatorView()
     private let spinnerMessageLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
     
-    private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .heavy, color: .accent, alignment: .left)
+    private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .heavy, color: .flcOrange, alignment: .left)
     private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .gray, alignment: .left)
     private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
-    private let detailsButton = FLCTintedButton(color: .accent, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
+    private let detailsButton = FLCTintedButton(color: .flcOrange, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
     private let priceAsOneCurrencyTextView = FLCTextViewLabel()
     private let pricePerKgTextView = FLCTextViewLabel()
     private let priceWarningTintedView = FLCTintedView(color: .red.makeLighter(delta: 0.5), alpha: 0.15, withText: true)
-    private let invoiceIssueTintedView = FLCTintedView(color: .accent, alpha: 0.15, withText: true)
-    private let confirmButton = FLCButton(color: .accent, title: "Подтвердить заявку", systemImageName: "hand.thumbsup")
-    private let saveButton = FLCButton(color: .accent.makeLighter(), title: "Сохранить", systemImageName: "sdcard")
-    private let closeButton = FLCButton(color: .accent.makeLighter(), title: "Закрыть", systemImageName: "xmark")
+    private let invoiceIssueTintedView = FLCTintedView(color: .flcOrange, alpha: 0.15, withText: true)
+    private let confirmButton = FLCButton(color: .flcOrange, title: "Подтвердить заявку", systemImageName: "hand.thumbsup")
+    private let saveButton = FLCButton(color: .flcOrange.makeLighter(), title: "Сохранить", systemImageName: "sdcard")
+    private let closeButton = FLCButton(color: .flcOrange.makeLighter(), title: "Закрыть", systemImageName: "xmark")
     
     private var isCustomDetentContainerViewConfigured: Bool = false
     private var failedToFetchPrice: Bool = false
@@ -34,7 +34,7 @@ class TotalPriceVC: UIViewController {
     private var calculationResults = [String: (price: String, days: String?)]()
     private var customDetentContent = [UIView]()
     private var smallDetentContent = [FLCTextLayer]()
-    private var priceAsOneCurrencyTextViewTopConstraint: NSLayoutConstraint!
+    private var priceAsOneCurrencyTextViewTopConstraint: NSLayoutConstraint?
     
     private var calculationData: CalculationData?
     private var showingPopover = FLCPopoverVC()
@@ -50,6 +50,14 @@ class TotalPriceVC: UIViewController {
         configureSpinnerMessageLayer()
         configureDetailsButton()
         setupTextViews()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            smallDetentContent.forEach { $0.setColorOnThemeChange() }
+        }
     }
     
     private func configure() {
@@ -81,7 +89,7 @@ class TotalPriceVC: UIViewController {
     
     private func configureCustomDetentContainerView() {
         customDetentContainerView.addSubviews(priceAsOneCurrencyTextView, pricePerKgTextView, invoiceIssueTintedView, priceWarningTintedView, confirmButton, saveButton, closeButton)
-        
+ 
         NSLayoutConstraint.activate([
             customDetentContainerView.topAnchor.constraint(equalTo: smallDetentContainerView.topAnchor, constant: totalAmountLayer.frame.maxY),
             customDetentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -133,7 +141,7 @@ class TotalPriceVC: UIViewController {
         priceAsOneCurrencyTextViewTopConstraint = priceAsOneCurrencyTextView.topAnchor.constraint(equalTo: customDetentContainerView.topAnchor, constant: 5)
         
         NSLayoutConstraint.activate([
-            priceAsOneCurrencyTextViewTopConstraint,
+            priceAsOneCurrencyTextViewTopConstraint!,
             priceAsOneCurrencyTextView.leadingAnchor.constraint(equalTo: customDetentContainerView.leadingAnchor, constant: padding / 2),
             priceAsOneCurrencyTextView.trailingAnchor.constraint(equalTo: customDetentContainerView.trailingAnchor)
         ])
@@ -162,7 +170,7 @@ class TotalPriceVC: UIViewController {
     
     private func configureInvoiceIssueTintedView() {
         invoiceIssueTintedView.tintedViewLabel.delegate = self
-        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: Icons.questionMark, tint: .accent, size: (0, -4, 22, 21), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: Icons.questionMark, tint: .flcOrange, size: (0, -4, 22, 21), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             invoiceIssueTintedView.topAnchor.constraint(equalTo: priceWarningTintedView.bottomAnchor, constant: padding / 1.5),
@@ -265,7 +273,9 @@ class TotalPriceVC: UIViewController {
     
     private func updateCustomDetentContainerViewTopConstraint() {
         if TotalPriceVCUIHelper.textWillWrap(text: totalAmountLayer.string as! String, font: UIFont.systemFont(ofSize: 26, weight: .semibold), width: customDetentContainerView.frame.width - padding) {
-            priceAsOneCurrencyTextViewTopConstraint.constant = 33
+            priceAsOneCurrencyTextViewTopConstraint?.constant = 33
+        } else {
+            if spinner.isAnimating { priceAsOneCurrencyTextViewTopConstraint?.constant = -25 }
         }
     }
 }
@@ -322,9 +332,12 @@ extension TotalPriceVC: CalculationResultVCDelegate {
             smallDetentContent.forEach { $0.opacity = 1 }
             
             if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent {
-                if totalCalculatedCells != totalCells - 1 { configureCustomDetentContainerView() }
+                if totalCalculatedCells != totalCells - 1 {
+                    configureCustomDetentContainerView()
+                    configurePriceWarningTintedView()
+                    isCustomDetentContainerViewConfigured = true
+                }
                 updateCustomDetentContainerViewTopConstraint()
-                configurePriceWarningTintedView()
                 customDetentContent.forEach { $0.show() }
             }
         }

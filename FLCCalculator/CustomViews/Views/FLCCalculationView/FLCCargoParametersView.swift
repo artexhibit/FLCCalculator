@@ -9,10 +9,10 @@ class FLCCargoParametersView: FLCCalculationView {
     let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
     let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
-    private let tintedView = FLCTintedView(color: .accent)
-    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .accent, size: (0, -5, 24, 23), placeIcon: .afterText))
+    private let tintedView = FLCTintedView(color: .flcOrange)
+    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .flcOrange, size: (0, -5, 24, 23), placeIcon: .afterText))
     let customsClearanceSwitch = UISwitch()
-    let nextButton = FLCButton(color: .accent, title: "Далее", systemImageName: "arrowshape.forward.fill")
+    let nextButton = FLCButton(color: .flcOrange, title: "Далее", systemImageName: "arrowshape.forward.fill")
         
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
@@ -138,7 +138,7 @@ class FLCCargoParametersView: FLCCalculationView {
     
     private func configureCustomsClearanceSwitch() {
         customsClearanceSwitch.translatesAutoresizingMaskIntoConstraints = false
-        customsClearanceSwitch.onTintColor = .accent
+        customsClearanceSwitch.onTintColor = .flcOrange
         customsClearanceSwitch.isOn = true
         
         NSLayoutConstraint.activate([

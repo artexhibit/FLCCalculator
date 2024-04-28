@@ -58,7 +58,7 @@ class FLCNumberTextField: UITextField {
         switchToOrangeColors()
         layer.cornerRadius = 14
         layer.borderWidth = 1
-        textColor = .accent
+        textColor = .flcOrange
         textAlignment = .left
         font = UIFont.systemFont(ofSize: 19, weight: .bold)
         adjustsFontSizeToFitWidth = true
@@ -94,7 +94,7 @@ class FLCNumberTextField: UITextField {
     private func switchToOrangeColors() {
         backgroundColor = UIColor.flcNumberTextFieldBackground
         tintColor = .lightGray
-        layer.borderColor = UIColor.accent.cgColor
+        layer.borderColor = UIColor.flcOrange.cgColor
     }
     
     @objc private func doneButtonTapped() { self.resignFirstResponder() }

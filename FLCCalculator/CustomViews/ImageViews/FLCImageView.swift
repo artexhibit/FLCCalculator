@@ -1,6 +1,6 @@
 import UIKit
 
-class FLCTitleLabel: UILabel {
+class FLCImageView: UIImageView {
     
     private var shimmeringView = FLCShimmeringView()
     
@@ -14,11 +14,11 @@ class FLCTitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, textAlignment: NSTextAlignment, size: CGFloat = 24, weight: UIFont.Weight = .bold) {
+    convenience init(mode: UIView.ContentMode = .scaleAspectFit, image: UIImage? = nil, tint: UIColor? = nil) {
         self.init(frame: .zero)
-        self.textColor = color
-        self.textAlignment = textAlignment
-        self.font = UIFont.systemFont(ofSize: size, weight: weight)
+        self.contentMode = mode
+        self.image = image
+        self.tintColor = tint
     }
     
     override func layoutSubviews() {
@@ -26,13 +26,7 @@ class FLCTitleLabel: UILabel {
         shimmeringView.frame = self.bounds
     }
     
-    private func configure() {
-        adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.7
-        numberOfLines = 0
-        lineBreakMode = .byTruncatingTail
-        translatesAutoresizingMaskIntoConstraints = false
-    }
+    private func configure() { translatesAutoresizingMaskIntoConstraints = false }
     
     private func addShimmeringView() {
         shimmeringView = FLCShimmeringView(frame: self.bounds)

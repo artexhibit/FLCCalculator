@@ -5,8 +5,8 @@ struct CalculationTagView: View {
     var imageSize: (width: CGFloat, height: CGFloat) = (15, 15)
     let text: String
     var textColor: Color = .orange
-    var imageColor: Color = .accent
-    var backgroundColor: Color = .accent
+    var imageColor: Color = .flcOrange
+    var backgroundColor: Color = .flcOrange
     
     var body: some View {
         HStack {

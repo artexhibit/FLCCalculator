@@ -108,12 +108,12 @@ class PriceCalculationManager {
             let currencyPricePerKg = (currencyTotal / (weight ?? 1)).formatDecimalsTo(amount: 2)
             let rublePricePerKg = ((currencyTotal * currencyExchangeRate) / (weight ?? 1)).formatAsCurrency(symbol: secondCurrency)
             
-            let result = "~" + currencyPricePerKg.formatAsCurrency(symbol: currency) + " / " + rublePricePerKg + " за кг"
+            let result = "~" + currencyPricePerKg.formatAsCurrency(symbol: currency) + " (\(rublePricePerKg))" + " за 1 кг"
             
             return (result, currency, secondCurrency, currencyExchangeRate, currencyValue, secondValue)
         case .asOneCurrency:
             let secondCurrencyTotal = currencyTotal * currencyExchangeRate
-            let result = "~" + currencyTotal.formatAsCurrency(symbol: currency) + " или ~" + secondCurrencyTotal.formatAsCurrency(symbol: secondCurrency)
+            let result = "~" + currencyTotal.formatAsCurrency(symbol: currency) + " (\(secondCurrencyTotal.formatAsCurrency(symbol: secondCurrency)))"
             return (result, currency, secondCurrency, currencyExchangeRate, currencyValue, secondValue)
         }
     }

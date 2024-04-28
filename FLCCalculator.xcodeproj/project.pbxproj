@@ -69,6 +69,8 @@
 		0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7549012BA2322B0029807B /* FLCTextButton.swift */; };
 		0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */; };
 		0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882812BDD79E900BDCA16 /* FLCPersonalManagerView.swift */; };
+		0B7882842BDE7C8100BDCA16 /* FLCShimmeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */; };
+		0B7882862BDEA8F500BDCA16 /* FLCImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882852BDEA8F500BDCA16 /* FLCImageView.swift */; };
 		0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC32BB0283100ED658B /* Tariff.swift */; };
 		0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
 		0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */; };
@@ -202,6 +204,8 @@
 		0B7549012BA2322B0029807B /* FLCTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextButton.swift; sourceTree = "<group>"; };
 		0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCProgressView.swift; sourceTree = "<group>"; };
 		0B7882812BDD79E900BDCA16 /* FLCPersonalManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerView.swift; sourceTree = "<group>"; };
+		0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCShimmeringView.swift; sourceTree = "<group>"; };
+		0B7882852BDEA8F500BDCA16 /* FLCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCImageView.swift; sourceTree = "<group>"; };
 		0B9CABC32BB0283100ED658B /* Tariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tariff.swift; sourceTree = "<group>"; };
 		0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
@@ -501,11 +505,12 @@
 				0BF9388D2B85194300A18016 /* Buttons */,
 				0B50DE042BAB601100B5A447 /* TextViews */,
 				0B6F61202B86935600929613 /* TextFields */,
-				0B86E92B2BA0D2290057A400 /* ProgressView */,
+				0B86E92B2BA0D2290057A400 /* ProgressViews */,
 				0B20775B2BDAFA010095460D /* EmitterLayers */,
 				0B2DD2272BBDD38E006F1CA7 /* TextLayers */,
 				0BC735792BCAE88C00EF8B0D /* TableViewHeaders */,
 				0BC7357C2BCAEA2000EF8B0D /* CollectionViews */,
+				0B7882872BDEAC4E00BDCA16 /* ImageViews */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -526,12 +531,20 @@
 			path = TextFields;
 			sourceTree = "<group>";
 		};
-		0B86E92B2BA0D2290057A400 /* ProgressView */ = {
+		0B7882872BDEAC4E00BDCA16 /* ImageViews */ = {
+			isa = PBXGroup;
+			children = (
+				0B7882852BDEA8F500BDCA16 /* FLCImageView.swift */,
+			);
+			path = ImageViews;
+			sourceTree = "<group>";
+		};
+		0B86E92B2BA0D2290057A400 /* ProgressViews */ = {
 			isa = PBXGroup;
 			children = (
 				0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */,
 			);
-			path = ProgressView;
+			path = ProgressViews;
 			sourceTree = "<group>";
 		};
 		0B9D5A742BB991AE0016A991 /* Networking */ = {
@@ -609,6 +622,7 @@
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
 				0B2130612BA4B51E00A30394 /* FLCTintedView.swift */,
+				0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */,
 				0B7882812BDD79E900BDCA16 /* FLCPersonalManagerView.swift */,
 			);
 			path = Views;
@@ -812,6 +826,7 @@
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationInfo.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
+				0B7882842BDE7C8100BDCA16 /* FLCShimmeringView.swift in Sources */,
 				0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */,
 				0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */,
 				0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */,
@@ -825,6 +840,7 @@
 				0BC7357B2BCAE8B500EF8B0D /* FLCOptionsCollectionView.swift in Sources */,
 				0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */,
 				0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */,
+				0B7882862BDEA8F500BDCA16 /* FLCImageView.swift in Sources */,
 				0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */,
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
 				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,

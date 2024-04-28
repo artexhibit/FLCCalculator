@@ -4,7 +4,7 @@ class FLCTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBar.appearance().tintColor = UIColor(resource: .accent)
+        UITabBar.appearance().tintColor = UIColor(resource: .flcOrange)
         viewControllers = [createCalculationsVC(), createUsefulInfoVC()]
     }
     

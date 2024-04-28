@@ -4,10 +4,10 @@ class ConfirmOrderVC: UIViewController {
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
-    private let welcomeLabelOne = FLCTitleLabel(color: .label, textAlignment: .center, size: 37, weight: .heavy)
-    private let welcomeLabelTwo = FLCTitleLabel(color: .label, textAlignment: .center, size: 37, weight: .heavy)
-    private let welcomeLabelThree = FLCTitleLabel(color: .accent, textAlignment: .center, size: 37, weight: .heavy)
-    private let flcLogoImageView = UIImageView()
+    private let welcomeLabelOne = FLCTitleLabel(color: .flcGray, textAlignment: .center, size: 37, weight: .heavy)
+    private let welcomeLabelTwo = FLCTitleLabel(color: .flcGray, textAlignment: .center, size: 37, weight: .heavy)
+    private let welcomeLabelThree = FLCTitleLabel(color: .flcOrange, textAlignment: .center, size: 37, weight: .heavy)
+    private let flcLogoImageView = FLCImageView(image: UIImage(resource: .flcIcon))
     private let companyLogoNameContainerView = UIView()
     private let salesManagerView = FLCPersonalManagerView()
     
@@ -113,10 +113,6 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureFlcLogoImageView() {
-        flcLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        flcLogoImageView.image = UIImage(resource: .flcIcon)
-        flcLogoImageView.contentMode = .scaleAspectFit
-        
         NSLayoutConstraint.activate([
             flcLogoImageView.centerYAnchor.constraint(equalTo: welcomeLabelThree.centerYAnchor),
             flcLogoImageView.trailingAnchor.constraint(equalTo: welcomeLabelThree.leadingAnchor),

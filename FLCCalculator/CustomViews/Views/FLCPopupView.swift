@@ -3,7 +3,7 @@ import UIKit
 class FLCPopupView: UIView {
     
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
-    private let iconView = UIImageView()
+    private let iconView = FLCImageView()
     private let spinner = UIActivityIndicatorView(style: .medium)
     private let messageLabel = FLCSubtitleLabel(color: .red, textAlignment: .center)
     private let padding: CGFloat = 10
@@ -25,7 +25,7 @@ class FLCPopupView: UIView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .accent.withAlphaComponent(0.4)
+        backgroundColor = .flcOrange.withAlphaComponent(0.4)
         clipsToBounds = true
         layer.cornerRadius = 15
         layer.opacity = 0
@@ -38,10 +38,7 @@ class FLCPopupView: UIView {
         blurView.contentView.addSubviews(iconView, spinner, messageLabel)
     }
     
-    private func configureIconView() {
-        iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.contentMode = .scaleAspectFit
-        
+    private func configureIconView() {        
         NSLayoutConstraint.activate([
             iconView.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: padding + 5),
             iconView.centerYAnchor.constraint(equalTo: blurView.centerYAnchor),

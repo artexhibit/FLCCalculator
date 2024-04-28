@@ -5,8 +5,8 @@ class SheetPickerCell: UITableViewCell {
     static let reuseID = "SheetPickerCell"
     private let title = FLCBodyLabel(color: .label, textAlignment: .left)
     private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
-    private let iconImageView = UIImageView()
-    private let checkmarkImageView = UIImageView()
+    private let iconImageView = FLCImageView()
+    private let checkmarkImageView = FLCImageView()
     private let padding: CGFloat = 12
     private var iconImageViewWidthConstraint: NSLayoutConstraint!
     private var iconImageViewLeadingConstraint: NSLayoutConstraint!
@@ -39,9 +39,6 @@ class SheetPickerCell: UITableViewCell {
     }
     
     private func configureIconImageView() {
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        iconImageView.contentMode = .scaleAspectFit
-        
         iconImageViewWidthConstraint = iconImageView.widthAnchor.constraint(equalToConstant: 30)
         iconImageViewLeadingConstraint = iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2.5)
         
@@ -53,10 +50,7 @@ class SheetPickerCell: UITableViewCell {
         ])
     }
     
-    private func configureCheckmarkImageView() {
-        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
-        checkmarkImageView.contentMode = .scaleAspectFit
-        
+    private func configureCheckmarkImageView() {        
         NSLayoutConstraint.activate([
             checkmarkImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 2.5),
             checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

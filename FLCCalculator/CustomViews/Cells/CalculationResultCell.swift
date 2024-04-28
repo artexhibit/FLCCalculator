@@ -13,7 +13,7 @@ class CalculationResultCell: UITableViewCell {
         
     let titleTextView = FLCTextViewLabel()
     let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
-    private let daysIcon = UIImageView()
+    private let daysIconView = FLCImageView(image: UIImage(systemName: "clock.badge.checkmark"), tint: .lightGray)
     let daysTextView = FLCTextViewLabel()
     let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
     let failedPriceCalcContainer = UIView()
@@ -69,7 +69,7 @@ class CalculationResultCell: UITableViewCell {
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(titleTextView, subtitle, daysIcon, daysTextView, priceLabel, failedPriceCalcContainer)
+        containerView.addSubviews(titleTextView, subtitle, daysIconView, daysTextView, priceLabel, failedPriceCalcContainer)
         containerView.layer.addSublayer(gradientLayer)
         containerView.pinToEdges(of: contentView, withPadding: padding / 2)
         
@@ -99,15 +99,10 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configureDaysIcon() {
-        daysIcon.translatesAutoresizingMaskIntoConstraints = false
-        daysIcon.contentMode = .scaleAspectFit
-        daysIcon.tintColor = .lightGray
-        daysIcon.image = UIImage(systemName: "clock.badge.checkmark")
-        
         NSLayoutConstraint.activate([
-            daysIcon.centerYAnchor.constraint(equalTo: daysTextView.centerYAnchor, constant: 1),
-            daysIcon.trailingAnchor.constraint(equalTo: daysTextView.leadingAnchor, constant: -7),
-            daysIcon.heightAnchor.constraint(equalTo: daysTextView.heightAnchor)
+            daysIconView.centerYAnchor.constraint(equalTo: daysTextView.centerYAnchor, constant: 1),
+            daysIconView.trailingAnchor.constraint(equalTo: daysTextView.leadingAnchor, constant: -7),
+            daysIconView.heightAnchor.constraint(equalTo: daysTextView.heightAnchor)
         ])
     }
     

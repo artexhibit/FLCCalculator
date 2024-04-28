@@ -65,16 +65,16 @@ class FLCListPickerButton: UIButton {
     func switchToOrangeColors() {
         backgroundColor = .flcNumberTextFieldBackground
         tintColor = .label
-        layer.borderColor = UIColor.accent.cgColor
+        layer.borderColor = UIColor.flcOrange.cgColor
     }
     
     func setEnabled() {
         inDisabledState = false
-        layer.borderColor = UIColor.accent.cgColor
+        layer.borderColor = UIColor.flcOrange.cgColor
         tintColor = .label
         setTitleColor(.label, for: .normal)
         backgroundColor = .flcNumberTextFieldBackground
-        setTitleColor(.accent, for: .normal)
+        setTitleColor(.flcOrange, for: .normal)
     }
     
     func setDisabled() {
@@ -83,7 +83,7 @@ class FLCListPickerButton: UIButton {
         tintColor = .label
         setTitleColor(.label, for: .normal)
         backgroundColor = .flcNumberTextFieldDisabled
-        setTitleColor(.accent, for: .normal)
+        setTitleColor(.flcOrange, for: .normal)
     }
     
     func resetState(isDisabled: Bool = false) {

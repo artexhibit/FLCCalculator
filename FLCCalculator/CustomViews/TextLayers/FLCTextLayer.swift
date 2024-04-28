@@ -4,6 +4,8 @@ class FLCTextLayer: CATextLayer {
     static let increaseKey = "increase"
     static let decreaseKey = "decrease"
     
+    private var color: UIColor = .label
+    
     override init() {
         super.init()
         configure()
@@ -23,6 +25,7 @@ class FLCTextLayer: CATextLayer {
         self.fontSize = fontSize
         self.foregroundColor = color.cgColor
         self.alignmentMode = alignment
+        self.color = color
     }
     
     private func configure() {
@@ -38,4 +41,6 @@ class FLCTextLayer: CATextLayer {
         self.add(animation, forKey: nil)
         self.fontSize = toSize
     }
+    
+    func setColorOnThemeChange() { self.foregroundColor = self.color.cgColor }
 }

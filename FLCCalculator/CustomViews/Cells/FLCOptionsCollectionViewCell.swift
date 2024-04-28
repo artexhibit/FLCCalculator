@@ -5,15 +5,15 @@ final class FLCOptionsCollectionViewCell: UICollectionViewCell {
     static let reuseID = "FLCOptionsCollectionViewCell"
     
     private let containerView = UIView()
-    private let imageView = UIImageView()
-    private let optionTitle = FLCTitleLabel(color: .accent, textAlignment: .center, size: 18)
+    private let imageView = FLCImageView(tint: .flcOrange)
+    private let optionTitle = FLCTitleLabel(color: .flcOrange, textAlignment: .center, size: 18)
     
     private let padding: CGFloat = 10
     
     override var isSelected: Bool {
         didSet {
             containerView.backgroundColor = isSelected ? .flcNumberTextFieldBackground : .clear
-            containerView.layer.borderColor = isSelected ? UIColor.accent.cgColor : UIColor.accent.withAlphaComponent(0.4).cgColor
+            containerView.layer.borderColor = isSelected ? UIColor.flcOrange.cgColor : UIColor.flcOrange.withAlphaComponent(0.4).cgColor
         }
     }
     
@@ -45,14 +45,10 @@ final class FLCOptionsCollectionViewCell: UICollectionViewCell {
         
         containerView.layer.cornerRadius = 13
         containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = UIColor.accent.withAlphaComponent(0.4).cgColor
+        containerView.layer.borderColor = UIColor.flcOrange.withAlphaComponent(0.4).cgColor
     }
     
     private func configureImageView() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .accent
-        
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding / 1.1),
             imageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),

@@ -14,7 +14,7 @@ class FLCProgressView: UIProgressView {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         progressViewStyle = .default
-        progressTintColor = .accent
+        progressTintColor = .flcOrange
         trackTintColor = .lightGray.withAlphaComponent(0.2)
         layer.opacity = 0
         animateIn()

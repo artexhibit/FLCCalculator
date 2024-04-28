@@ -3,7 +3,7 @@ import UIKit
 class FLCPersonalManagerView: UIView {
     
     private let backgroundView = FLCTintedView(color: .secondarySystemBackground, alpha: 1)
-    private let managerPhotoView = UIImageView()
+    private let managerPhotoView = FLCImageView(image: UIImage(resource: .personPlaceholder))
     private let managerNameLabel = FLCTitleLabel(color: .label, textAlignment: .left, size: 28)
     private let managerPositionLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left)
     private var salesManager: FLCSalesManager = .igorVolkov
@@ -23,6 +23,11 @@ class FLCPersonalManagerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        managerPositionLabel.addShimmerAnimation()
+    }
+    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .clear
@@ -35,17 +40,18 @@ class FLCPersonalManagerView: UIView {
     }
     
     private func configureManagerPhotoView() {
-        managerPhotoView.translatesAutoresizingMaskIntoConstraints = false
-        managerPhotoView.layer.cornerRadius = managerPhotoView.frame.height / 2
-        managerPhotoView.contentMode = .scaleAspectFit
-        managerPhotoView.image = UIImage(resource: .personPlaceholder)
+        managerPhotoView.layer.borderWidth = 1
+        managerPhotoView.layer.borderColor = UIColor.flcGray.cgColor
         
         NSLayoutConstraint.activate([
-            managerPhotoView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: padding * 2),
-            managerPhotoView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: padding * 2),
+            managerPhotoView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: padding * 1.5),
+            managerPhotoView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: padding * 1.5),
             managerPhotoView.widthAnchor.constraint(equalToConstant: 68),
             managerPhotoView.heightAnchor.constraint(equalTo: managerPhotoView.widthAnchor)
         ])
+        layoutIfNeeded()
+        managerPhotoView.layer.cornerRadius = managerPhotoView.bounds.height / 2
+        managerPhotoView.clipsToBounds = true
     }
     
     private func configureManagerNameLabel() {
@@ -54,8 +60,7 @@ class FLCPersonalManagerView: UIView {
         NSLayoutConstraint.activate([
             managerNameLabel.topAnchor.constraint(equalTo: managerPhotoView.topAnchor, constant: -2),
             managerNameLabel.leadingAnchor.constraint(equalTo: managerPhotoView.trailingAnchor, constant: padding * 1.5),
-            managerNameLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -padding),
-            managerNameLabel.heightAnchor.constraint(equalToConstant: 30)
+            managerNameLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -padding * 1.5),
         ])
     }
     
@@ -65,7 +70,7 @@ class FLCPersonalManagerView: UIView {
         NSLayoutConstraint.activate([
             managerPositionLabel.topAnchor.constraint(equalTo: managerNameLabel.bottomAnchor),
             managerPositionLabel.leadingAnchor.constraint(equalTo: managerPhotoView.trailingAnchor, constant: padding * 1.5),
-            managerPositionLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -padding)
+            managerPositionLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -padding * 1.5)
         ])
     }
     
