@@ -42,12 +42,12 @@ extension UIView {
         self.addGestureRecognizer(tapGesture)
     }
     
-    func hide(withDuration duration: Double = 0.1) {
+    func hide(withAnimationDuration duration: Double = 0.1) {
         UIView.animate(withDuration: duration) { self.alpha = 0 }
         self.isUserInteractionEnabled = false
     }
     
-    func show(withDuration duration: Double = 0.1) {
+    func show(withAnimationDuration duration: Double = 0.1) {
         UIView.animate(withDuration: duration) { self.alpha = 1 }
         self.isUserInteractionEnabled = true
     }

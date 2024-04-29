@@ -13,6 +13,10 @@ enum Icons {
     static let truckFill = UIImage(systemName: "truck.box.fill") ?? UIImage()
     static let train = UIImage(systemName: "train.side.front.car") ?? UIImage()
     static let plane = UIImage(systemName: "airplane") ?? UIImage()
+    static let phone = UIImage(systemName: "phone.fill") ?? UIImage()
+    static let envelope = UIImage(systemName: "envelope.fill") ?? UIImage()
+    static let telegram = UIImage(resource: .telegram)
+    static let whatsapp = UIImage(resource: .whatsappFill)
 }
 
 enum Keys {

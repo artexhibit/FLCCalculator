@@ -9,7 +9,9 @@ class ConfirmOrderVC: UIViewController {
     private let welcomeLabelThree = FLCTitleLabel(color: .flcOrange, textAlignment: .center, size: 37, weight: .heavy)
     private let flcLogoImageView = FLCImageView(image: UIImage(resource: .flcIcon))
     private let companyLogoNameContainerView = UIView()
+    private let salesManagerTitle = FLCTitleLabel(color: .label, textAlignment: .left, size: 21)
     private let salesManagerView = FLCPersonalManagerView()
+    private let tintedMessageView = FLCTintedView(color: .flcGray, withText: true)
     
     private let padding: CGFloat = 10
     private var itemsToAnimate = [(UIView, NSLayoutConstraint?)]()
@@ -30,7 +32,9 @@ class ConfirmOrderVC: UIViewController {
         configureCompanyLogoNameContainerView()
         configureFlcLogoImageView()
         configureWelcomeLabelThree()
+        configureSalesManagerTitle()
         configureSalesManagerView()
+        configureTintedMessageView()
         
         configureItemsToAnimate()
         animateWelcomeLabels()
@@ -47,7 +51,9 @@ class ConfirmOrderVC: UIViewController {
         itemsToAnimate.append((welcomeLabelOne, welcomeLabelOneTopContraint))
         itemsToAnimate.append((welcomeLabelTwo, welcomeLabelTwoTopContraint))
         itemsToAnimate.append((companyLogoNameContainerView, companyLogoNameContainerTopContraint))
+        itemsToAnimate.append((salesManagerTitle, nil))
         itemsToAnimate.append((salesManagerView, nil))
+        itemsToAnimate.append((tintedMessageView, nil))
     }
     
     private func configureScrollView() {
@@ -59,7 +65,7 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(welcomeLabelOne, welcomeLabelTwo, companyLogoNameContainerView, salesManagerView)
+        containerView.addSubviews(welcomeLabelOne, welcomeLabelTwo, companyLogoNameContainerView, salesManagerTitle, salesManagerView, tintedMessageView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.pinToEdges(of: scrollView)
         
@@ -71,7 +77,7 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureWelcomeLabelOne() {
         welcomeLabelOne.text = "Добро пожаловать"
-        welcomeLabelOne.hide(withDuration: 0)
+        welcomeLabelOne.hide(withAnimationDuration: 0)
         
         welcomeLabelOneTopContraint = welcomeLabelOne.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 7)
         
@@ -85,7 +91,7 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureWelcomeLabelTwo() {
         welcomeLabelTwo.text = "на борт"
-        welcomeLabelTwo.hide(withDuration: 0)
+        welcomeLabelTwo.hide(withAnimationDuration: 0)
         
         welcomeLabelTwoTopContraint = welcomeLabelTwo.topAnchor.constraint(equalTo: welcomeLabelOne.bottomAnchor, constant: padding * 5)
         
@@ -99,7 +105,7 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureCompanyLogoNameContainerView() {
         companyLogoNameContainerView.translatesAutoresizingMaskIntoConstraints = false
-        companyLogoNameContainerView.hide(withDuration: 0)
+        companyLogoNameContainerView.hide(withAnimationDuration: 0)
         companyLogoNameContainerView.addSubviews(flcLogoImageView, welcomeLabelThree)
         
         companyLogoNameContainerTopContraint = companyLogoNameContainerView.topAnchor.constraint(equalTo: welcomeLabelTwo.bottomAnchor)
@@ -131,14 +137,35 @@ class ConfirmOrderVC: UIViewController {
         ])
     }
     
-    private func configureSalesManagerView() {
-        salesManagerView.hide(withDuration: 0)
+    private func configureSalesManagerTitle() {
+        salesManagerTitle.text = "Ваш персональный менеджер"
+        salesManagerTitle.hide(withAnimationDuration: 0)
         
         NSLayoutConstraint.activate([
-            salesManagerView.topAnchor.constraint(equalTo: companyLogoNameContainerView.bottomAnchor, constant: 100),
-            salesManagerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2),
-            salesManagerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2),
-            salesManagerView.heightAnchor.constraint(equalToConstant: 150)
+            salesManagerTitle.topAnchor.constraint(equalTo: companyLogoNameContainerView.bottomAnchor, constant: 80),
+            salesManagerTitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
+            salesManagerTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
+        ])
+    }
+    
+    private func configureSalesManagerView() {
+        salesManagerView.hide(withAnimationDuration: 0)
+        
+        NSLayoutConstraint.activate([
+            salesManagerView.topAnchor.constraint(equalTo: salesManagerTitle.bottomAnchor, constant: padding * 1.5),
+            salesManagerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
+            salesManagerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
+        ])
+    }
+    
+    private func configureTintedMessageView() {
+        tintedMessageView.hide(withAnimationDuration: 0)
+        tintedMessageView.setTextLabel(text: "Контакты сохранены. Вы всегда можете вернуться к ним на вкладке Полезное".makeAttributed(icon: Icons.infoSign, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        
+        NSLayoutConstraint.activate([
+            tintedMessageView.topAnchor.constraint(equalTo: salesManagerView.bottomAnchor, constant: padding * 2),
+            tintedMessageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
+            tintedMessageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
         ])
     }
     
