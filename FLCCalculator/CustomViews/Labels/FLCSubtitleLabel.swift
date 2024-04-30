@@ -14,10 +14,11 @@ class FLCSubtitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, textAlignment: NSTextAlignment) {
+    convenience init(color: UIColor, textAlignment: NSTextAlignment, textStyle: UIFont.TextStyle = .callout) {
         self.init(frame: .zero)
         self.textColor = color
         self.textAlignment = textAlignment
+        self.font = UIFont.preferredFont(forTextStyle: textStyle)
     }
     
     override func layoutSubviews() {
@@ -26,7 +27,6 @@ class FLCSubtitleLabel: UILabel {
     }
     
     private func configure() {
-        font = UIFont.preferredFont(forTextStyle: .callout)
         minimumScaleFactor = 0.9
         lineBreakMode = .byWordWrapping
         numberOfLines = 0

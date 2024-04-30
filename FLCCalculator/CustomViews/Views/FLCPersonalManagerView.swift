@@ -3,17 +3,17 @@ import UIKit
 class FLCPersonalManagerView: UIView {
     
     private let backgroundView = FLCTintedView(color: .secondarySystemBackground, alpha: 1)
-    private let managerPhotoView = FLCImageView(image: UIImage(resource: .personPlaceholder))
+    private let managerAvatarView = FLCImageView()
     private let managerContactsContainerView = UIView()
-    private let managerNameLabel = FLCTitleLabel(color: .label, textAlignment: .left, size: 23)
-    private let managerContactsLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left)
+    private let managerNameLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23)
+    private let managerContactsLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left, textStyle: .footnote)
     private let roundButtonsStackView = UIStackView()
     private var roundButtons = [FLCRoundButton]()
     private let phoneButton = FLCRoundButton(image: Icons.phone, tint: .flcOrange)
     private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcOrange)
     private let telegramButton = FLCRoundButton(image: Icons.telegram, tint: .systemBlue)
     private let whatsappButton = FLCRoundButton(image: Icons.whatsapp, tint: .green)
-    private var salesManager: FLCSalesManager = .igorVolkov
+    private var manager: FLCManager?
     
     private var padding: CGFloat = 10
     
@@ -21,7 +21,7 @@ class FLCPersonalManagerView: UIView {
         super.init(frame: frame)
         configure()
         configureBackgroundView()
-        configureManagerPhotoView()
+        configureManagerAvatarView()
         configureManagerContactsContainerView()
         configureManagerNameLabel()
         configureManagerContactsLabel()
@@ -47,22 +47,23 @@ class FLCPersonalManagerView: UIView {
     
     private func configureBackgroundView() {
         backgroundView.pinToEdges(of: self)
-        backgroundView.addSubviews(managerPhotoView, managerContactsContainerView, roundButtonsStackView)
+        backgroundView.addSubviews(managerAvatarView, managerContactsContainerView, roundButtonsStackView)
     }
     
-    private func configureManagerPhotoView() {
-        managerPhotoView.layer.borderWidth = 1
-        managerPhotoView.layer.borderColor = UIColor.flcGray.cgColor
+    private func configureManagerAvatarView() {
+        managerAvatarView.layer.borderWidth = 1
+        managerAvatarView.layer.borderColor = UIColor.clear.cgColor
+        managerAvatarView.image = UIImage(resource: .personPlaceholder)
         
         NSLayoutConstraint.activate([
-            managerPhotoView.centerYAnchor.constraint(equalTo: managerContactsContainerView.centerYAnchor),
-            managerPhotoView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: padding * 1.5),
-            managerPhotoView.widthAnchor.constraint(equalToConstant: 70),
-            managerPhotoView.heightAnchor.constraint(equalTo: managerPhotoView.widthAnchor)
+            managerAvatarView.centerYAnchor.constraint(equalTo: managerContactsContainerView.centerYAnchor),
+            managerAvatarView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: padding * 1.5),
+            managerAvatarView.widthAnchor.constraint(equalToConstant: 70),
+            managerAvatarView.heightAnchor.constraint(equalTo: managerAvatarView.widthAnchor)
         ])
         layoutIfNeeded()
-        managerPhotoView.layer.cornerRadius = managerPhotoView.bounds.height / 2
-        managerPhotoView.clipsToBounds = true
+        managerAvatarView.layer.cornerRadius = managerAvatarView.bounds.height / 2
+        managerAvatarView.clipsToBounds = true
     }
     
     private func configureManagerContactsContainerView() {
@@ -71,13 +72,13 @@ class FLCPersonalManagerView: UIView {
         
         NSLayoutConstraint.activate([
             managerContactsContainerView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: padding * 1.5),
-            managerContactsContainerView.leadingAnchor.constraint(equalTo: managerPhotoView.trailingAnchor, constant: padding * 1.5),
+            managerContactsContainerView.leadingAnchor.constraint(equalTo: managerAvatarView.trailingAnchor, constant: padding * 1.5),
             managerContactsContainerView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -padding * 1.5),
         ])
     }
     
     private func configureManagerNameLabel() {
-        managerNameLabel.text = salesManager.rawValue
+        managerNameLabel.text = CalculationInfo.defaultManager.name
         
         NSLayoutConstraint.activate([
             managerNameLabel.topAnchor.constraint(equalTo: managerContactsContainerView.topAnchor),
@@ -87,7 +88,7 @@ class FLCPersonalManagerView: UIView {
     }
     
     private func configureManagerContactsLabel() {
-        managerContactsLabel.text = "i.volkov@free-lines.ru \n+7 (980)-800-21-24"
+        managerContactsLabel.text = "\(CalculationInfo.defaultManager.email) \n\(CalculationInfo.defaultManager.landlinePhone)"
         
         NSLayoutConstraint.activate([
             managerContactsLabel.topAnchor.constraint(equalTo: managerNameLabel.bottomAnchor, constant: padding / 2),
@@ -99,7 +100,6 @@ class FLCPersonalManagerView: UIView {
     
     private func configureRoundButtons() {
         roundButtons.forEach { button in
-            
             button.delegate = self
             
             NSLayoutConstraint.activate([
@@ -107,6 +107,11 @@ class FLCPersonalManagerView: UIView {
                 button.heightAnchor.constraint(equalToConstant: 45)
             ])
         }
+    }
+    
+    private func configurePhoneButtonMenu() {
+        phoneButton.menu = FLCPersonalManagerViewHelper.showPhoneCallUIMenu(of: manager)
+        phoneButton.showsMenuAsPrimaryAction = true
     }
     
     private func configureRoundButtonsStackView() {
@@ -129,18 +134,28 @@ class FLCPersonalManagerView: UIView {
         ])
     }
     
-    func setPersonalManagerInfo(manager: FLCSalesManager) {
-        self.salesManager = manager
+    func setPersonalManagerInfo(manager: FLCManager) {
+        self.manager = manager
+        configurePhoneButtonMenu()
+        downloadManagerAvatar(manager: manager)
+    }
+    
+    private func downloadManagerAvatar(manager: FLCManager) {
+        managerAvatarView.addShimmerAnimation()
+        Task {
+            managerAvatarView.image = await FirebaseManager.downloadAvatar(for: manager) ?? UIImage(resource: .personPlaceholder)
+            managerAvatarView.layer.borderColor = UIColor.lightGray.makeLighter().cgColor
+            managerAvatarView.removeShimmerAnimation()
+        }
     }
 }
 
 extension FLCPersonalManagerView: FLCRoundButtonDelegate {
     func didTapButton(_ button: FLCRoundButton) {
         switch button {
-        case phoneButton: break
-        case emailButton: break
-        case telegramButton: break
-        case whatsappButton: break
+        case emailButton: FLCPersonalManagerViewHelper.sendEmail(from: self, manager: manager)
+        case telegramButton: FLCPersonalManagerViewHelper.goToTelegram(of: manager)
+        case whatsappButton: FLCPersonalManagerViewHelper.goToWhatsapp(of: manager)
         default: break
         }
     }

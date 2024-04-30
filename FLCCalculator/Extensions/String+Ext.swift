@@ -75,5 +75,8 @@ extension String {
     }
     func formatAsSymbol() -> String { FLCCurrency(rawValue: self)?.symbol ?? "" }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }
+    func getLastCharacters(_ amount: Int) -> String { String(self.suffix(amount)) }
     func removeFirstCharacters(_ amount: Int) -> String { String(self.dropFirst(amount)) }
+    func removeLastCharacters(_ amount: Int) -> String { String(self.dropLast(amount)) }
+    func extractDigits() -> String { self.filter { $0.isNumber } }
 }

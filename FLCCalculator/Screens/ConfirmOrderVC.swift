@@ -1,4 +1,5 @@
 import UIKit
+import MessageUI
 
 class ConfirmOrderVC: UIViewController {
     
@@ -9,12 +10,15 @@ class ConfirmOrderVC: UIViewController {
     private let welcomeLabelThree = FLCTitleLabel(color: .flcOrange, textAlignment: .center, size: 37, weight: .heavy)
     private let flcLogoImageView = FLCImageView(image: UIImage(resource: .flcIcon))
     private let companyLogoNameContainerView = UIView()
-    private let salesManagerTitle = FLCTitleLabel(color: .label, textAlignment: .left, size: 21)
+    private let salesManagerTitle = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 21)
     private let salesManagerView = FLCPersonalManagerView()
-    private let tintedMessageView = FLCTintedView(color: .flcGray, withText: true)
+    private let tintedMessageView = FLCTintedView(color: .lightGray, withText: true)
+    private let closeButton = FLCButton(color: .flcOrange, title: "Закрыть", subtitle: "расчёты будут сохранены")
     
     private let padding: CGFloat = 10
+    private let containerHeight: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 665 : 600
     private var itemsToAnimate = [(UIView, NSLayoutConstraint?)]()
+    private var manager: FLCManager = CalculationInfo.defaultManager
     
     private var welcomeLabelOneTopContraint: NSLayoutConstraint!
     private var welcomeLabelTwoTopContraint: NSLayoutConstraint!
@@ -33,9 +37,11 @@ class ConfirmOrderVC: UIViewController {
         configureFlcLogoImageView()
         configureWelcomeLabelThree()
         configureSalesManagerTitle()
-        configureSalesManagerView()
+        configureSalesManagerView(manager: manager)
         configureTintedMessageView()
+        configureCloseButton()
         
+        salesManagerView.setPersonalManagerInfo(manager: manager)
         configureItemsToAnimate()
         animateWelcomeLabels()
     }
@@ -54,6 +60,7 @@ class ConfirmOrderVC: UIViewController {
         itemsToAnimate.append((salesManagerTitle, nil))
         itemsToAnimate.append((salesManagerView, nil))
         itemsToAnimate.append((tintedMessageView, nil))
+        itemsToAnimate.append((closeButton, nil))
     }
     
     private func configureScrollView() {
@@ -65,13 +72,13 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(welcomeLabelOne, welcomeLabelTwo, companyLogoNameContainerView, salesManagerTitle, salesManagerView, tintedMessageView)
+        containerView.addSubviews(welcomeLabelOne, welcomeLabelTwo, companyLogoNameContainerView, salesManagerTitle, salesManagerView, tintedMessageView, closeButton)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
             containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 500)
+            containerView.heightAnchor.constraint(equalToConstant: containerHeight)
         ])
     }
     
@@ -142,17 +149,17 @@ class ConfirmOrderVC: UIViewController {
         salesManagerTitle.hide(withAnimationDuration: 0)
         
         NSLayoutConstraint.activate([
-            salesManagerTitle.topAnchor.constraint(equalTo: companyLogoNameContainerView.bottomAnchor, constant: 80),
+            salesManagerTitle.topAnchor.constraint(equalTo: companyLogoNameContainerView.bottomAnchor, constant: 65),
             salesManagerTitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
             salesManagerTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
         ])
     }
     
-    private func configureSalesManagerView() {
+    private func configureSalesManagerView(manager: FLCManager) {
         salesManagerView.hide(withAnimationDuration: 0)
         
         NSLayoutConstraint.activate([
-            salesManagerView.topAnchor.constraint(equalTo: salesManagerTitle.bottomAnchor, constant: padding * 1.5),
+            salesManagerView.topAnchor.constraint(equalTo: salesManagerTitle.bottomAnchor, constant: padding),
             salesManagerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
             salesManagerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
         ])
@@ -160,12 +167,31 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureTintedMessageView() {
         tintedMessageView.hide(withAnimationDuration: 0)
-        tintedMessageView.setTextLabel(text: "Контакты сохранены. Вы всегда можете вернуться к ним на вкладке Полезное".makeAttributed(icon: Icons.infoSign, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        tintedMessageView.setTextLabel(text: "Вы всегда можете посмотреть контакты вашего менеджера на вкладке Полезное".makeAttributed(icon: Icons.infoSign, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             tintedMessageView.topAnchor.constraint(equalTo: salesManagerView.bottomAnchor, constant: padding * 2),
             tintedMessageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
             tintedMessageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
+        ])
+    }
+    
+    private func configureCloseButton() {
+        closeButton.delegate = self
+        closeButton.hide(withAnimationDuration: 0)
+        
+        let widthConstraint = closeButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.9)
+        let heightConstraint = closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 1/2)
+        widthConstraint.priority = UILayoutPriority(rawValue: 999)
+        heightConstraint.priority = UILayoutPriority(rawValue: 999)
+        
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: tintedMessageView.bottomAnchor, constant: padding * 4),
+            closeButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            widthConstraint, heightConstraint,
+            
+            closeButton.heightAnchor.constraint(lessThanOrEqualToConstant: 60),
+            closeButton.widthAnchor.constraint(lessThanOrEqualToConstant: 450)
         ])
     }
     
@@ -184,6 +210,35 @@ class ConfirmOrderVC: UIViewController {
     }
     
     @objc func closeViewController() { navigationController?.popViewController(animated: true) }
+}
+
+extension ConfirmOrderVC: FLCButtonDelegate {
+    func didTapButton(_ button: FLCButton) {
+        switch button {
+        case closeButton: closeViewController()
+        default: break
+        }
+    }
+}
+
+extension ConfirmOrderVC: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        switch result {
+        case .cancelled:
+            dismiss(animated: true, completion: nil)
+        case .saved:
+            dismiss(animated: true, completion: nil)
+        case .sent:
+            FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Письмо отправлено")
+            dismiss(animated: true, completion: nil)
+        case .failed:
+            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось отправить сообщение", style: .error)
+            dismiss(animated: true, completion: nil)
+        @unknown default:
+            dismiss(animated: true, completion: nil)
+        }
+    }
 }
 
 extension ConfirmOrderVC: UIScrollViewDelegate {}

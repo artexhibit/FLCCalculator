@@ -469,4 +469,16 @@ struct CalculationInfo {
         FLCPickerItem(title: "FCA, Склад Стамбул - Клиент", subtitle: "От склада в Стамбуле до ваc", image: nil),
         FLCPickerItem(title: "FCA, Склад Стамбул - Склад Подольск", subtitle: "От склада в Стамбуле до склада FLC", image: nil)
     ]
+    
+    static let defaultManager = FLCManager(
+        name: FLCSalesManager.igorVolkov.rawValue,
+        position: "Менеджер по привлечению клиентов",
+        mobilePhone: "8 (980) 800-21-24",
+        landlinePhone: "8 (495) 640-63-55 доб. 609",
+        telegram: "igorVolkovFLC",
+        whatsapp: "7(980)-800-21-24",
+        email: "i.volkov@free-lines.ru",
+        avatarRef: "managerPhotos/igorVolkov.png", 
+        avatarDate: Date()
+    )
 }

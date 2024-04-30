@@ -1,5 +1,6 @@
-import Foundation
+import UIKit
 import Firebase
+import FirebaseStorage
 
 struct FirebaseManager {
     private static let decoder = JSONDecoder()
@@ -50,6 +51,34 @@ struct FirebaseManager {
             return true
         } catch {
             return false
+        }
+    }
+    
+    static func downloadAvatar(for manager: FLCManager) async -> UIImage? {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let photoRef = storageRef.child(manager.avatarRef)
+        
+        do {
+            let data = try await getAvatarData(ref: photoRef)
+            guard let image = UIImage(data: data) else { return nil }
+            return image
+        } catch {
+            return nil
+        }
+    }
+    
+    private static func getAvatarData(ref: StorageReference) async throws -> Data {
+        return try await withCheckedThrowingContinuation { continuation in
+            ref.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let data = data {
+                    continuation.resume(returning: data)
+                } else {
+                    continuation.resume(throwing: FLCError.unknownFirebaseStorageError)
+                }
+            }
         }
     }
 }

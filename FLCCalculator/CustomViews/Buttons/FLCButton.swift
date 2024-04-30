@@ -20,9 +20,9 @@ class FLCButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, title: String, systemImageName: String) {
+    convenience init(color: UIColor, title: String, subtitle: String? = nil, systemImageName: String? = nil) {
         self.init(frame: .zero)
-        set(color: color, title: title, systemImageName: systemImageName)
+        set(color: color, title: title, subtitle: subtitle, systemImageName: systemImageName)
     }
     
     override func layoutSubviews() {
@@ -41,11 +41,13 @@ class FLCButton: UIButton {
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShineEffect))
     }
         
-    final func set(color: UIColor, title: String, systemImageName: String) {
+    final func set(color: UIColor, title: String, subtitle: String?, systemImageName: String?) {
         configuration?.baseBackgroundColor = color
         configuration?.title = title
+        configuration?.titleAlignment = .center
+        configuration?.subtitle = subtitle
         
-        configuration?.image = UIImage(systemName: systemImageName)
+        if let imageName = systemImageName { configuration?.image = UIImage(systemName: imageName) }
         configuration?.imagePadding = 6
         configuration?.imagePlacement = .leading
     }
