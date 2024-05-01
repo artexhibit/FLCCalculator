@@ -471,14 +471,16 @@ struct CalculationInfo {
     ]
     
     static let defaultManager = FLCManager(
-        name: FLCSalesManager.igorVolkov.rawValue,
+        id: 1,
+        name: "Igor Volkov",
         position: "Менеджер по привлечению клиентов",
         mobilePhone: "8 (980) 800-21-24",
         landlinePhone: "8 (495) 640-63-55 доб. 609",
         telegram: "igorVolkovFLC",
         whatsapp: "7(980)-800-21-24",
         email: "i.volkov@free-lines.ru",
-        avatarRef: "managerPhotos/igorVolkov.png", 
-        avatarDate: Date()
+        avatarRef: "managerPhotos/igorVolkov.png",
+        dataDate: "01.05.2024",
+        avatarData: UIImage(named: "personPlaceholder")?.pngData()
     )
 }

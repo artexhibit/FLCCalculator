@@ -8,7 +8,7 @@ struct PersistenceManager {
             ud.removeObject(forKey: T.userDefaultsKey)
             guard let _ = saveItemsToUserDefaults(items: items) else { return items }
             let savingError = saveItemsToUserDefaults(items: storedItems)
-            print(savingError!)
+            print(savingError ?? .unableToSaveToUserDefaults)
             return nil
         } else {
             let savingError = saveItemsToUserDefaults(items: items) ?? .unableToUpdateUserDefaults
@@ -43,41 +43,40 @@ struct PersistenceManager {
         }
     }
     
-    static func update(newCurrencyData: CurrencyData) -> CurrencyData? {
-        if let currencyData = retrieveCurrencyData() {
-            ud.removeObject(forKey: Keys.currencyData)
-            guard let _ = save(currencyData: newCurrencyData) else { return newCurrencyData }
-            let savingError = save(currencyData: currencyData) ?? .unableToUpdateUserDefaults
-            print(savingError)
+    static func updateItemInUserDefaults<T: UserDefaultsStorable>(item: T) -> T? {
+        if let storedItem: T = retrieveItemFromUserDefaults() {
+            ud.removeObject(forKey: T.userDefaultsKey)
+            guard let _ = saveItemToUserDefaults(item: item) else { return item }
+            let savingError = saveItemToUserDefaults(item: storedItem)
+            print(savingError ?? .unableToSaveToUserDefaults)
             return nil
         } else {
-            let savingError = save(currencyData: newCurrencyData) ?? .unableToUpdateUserDefaults
+            let savingError = saveItemToUserDefaults(item: item) ?? .unableToUpdateUserDefaults
             print(savingError)
-            return nil
+            return item
         }
     }
     
-    static func retrieveCurrencyData() -> CurrencyData? {
-        guard let currencyData = ud.object(forKey: Keys.currencyData) as? Data else {
+    static func retrieveItemFromUserDefaults<T: UserDefaultsStorable>() -> T? {
+        guard let itemData = ud.object(forKey: T.userDefaultsKey) as? Data else {
             print(FLCError.unableToRetrieveFromUserDefaults)
             return nil
         }
         
         do {
             let decoder = JSONDecoder()
-            let data = try decoder.decode(CurrencyData.self, from: currencyData)
-            return data
+            return try decoder.decode(T.self, from: itemData)
         } catch {
             print(FLCError.unableToRetrieveFromUserDefaults)
             return nil
         }
     }
     
-    private static func save(currencyData: CurrencyData) -> FLCError? {
+    static func saveItemToUserDefaults<T: UserDefaultsStorable>(item: T) -> FLCError? {
         do {
             let encoder = JSONEncoder()
-            let encodedCurrencyData = try encoder.encode(currencyData)
-            ud.setValue(encodedCurrencyData, forKey: Keys.currencyData)
+            let encodedItem = try encoder.encode(item)
+            ud.setValue(encodedItem, forKey: T.userDefaultsKey)
             return nil
         } catch  {
             return .unableToSaveToUserDefaults

@@ -26,10 +26,13 @@ class FLCImageView: UIImageView {
         shimmeringView.frame = self.bounds
     }
     
-    private func configure() { translatesAutoresizingMaskIntoConstraints = false }
+    private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
+        clipsToBounds = true
+    }
     
     private func addShimmeringView() {
-        shimmeringView = FLCShimmeringView(frame: self.bounds)
+        shimmeringView = FLCShimmeringView(frame: self.bounds, insets: (0, 0))
         addSubview(shimmeringView)
     }
     

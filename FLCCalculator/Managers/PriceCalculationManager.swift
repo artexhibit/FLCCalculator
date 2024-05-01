@@ -5,7 +5,7 @@ class PriceCalculationManager {
     private static let tariffs: [Tariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let chinaPickup: [ChinaPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let turkeyPickup: [TurkeyPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let currencyData = PersistenceManager.retrieveCurrencyData()
+    private static let currencyData: CurrencyData? = PersistenceManager.retrieveItemFromUserDefaults()
     
     static func getInsurancePersentage(for logisticsType: FLCLogisticsType) -> Double {
         guard let tariff = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }

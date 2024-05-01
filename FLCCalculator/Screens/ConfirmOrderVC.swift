@@ -37,11 +37,11 @@ class ConfirmOrderVC: UIViewController {
         configureFlcLogoImageView()
         configureWelcomeLabelThree()
         configureSalesManagerTitle()
-        configureSalesManagerView(manager: manager)
+        configureSalesManagerView()
         configureTintedMessageView()
         configureCloseButton()
         
-        salesManagerView.setPersonalManagerInfo(manager: manager)
+        getPersonalManagerInfo()
         configureItemsToAnimate()
         animateWelcomeLabels()
     }
@@ -155,7 +155,7 @@ class ConfirmOrderVC: UIViewController {
         ])
     }
     
-    private func configureSalesManagerView(manager: FLCManager) {
+    private func configureSalesManagerView() {
         salesManagerView.hide(withAnimationDuration: 0)
         
         NSLayoutConstraint.activate([
@@ -206,6 +206,34 @@ class ConfirmOrderVC: UIViewController {
                     self.view.layoutIfNeeded()
                 }
             }
+        }
+    }
+    
+    private func getPersonalManagerInfo() {
+        Task {
+            do {
+                if let storedManager: FLCManager = PersistenceManager.retrieveItemFromUserDefaults() {
+                    let managers: [FLCManager] = try await FirebaseManager.getDataFromFirebase() ?? [CalculationInfo.defaultManager]
+                    var manager = managers.first(where: { $0.id == storedManager.id }) ?? CalculationInfo.defaultManager
+                    
+                    if manager.dataDate != storedManager.dataDate {
+                        let avatar = await FirebaseManager.downloadAvatar(for: manager)
+                        manager.avatar = avatar ?? UIImage(resource: .personPlaceholder)
+                        let _ = PersistenceManager.updateItemInUserDefaults(item: manager)
+                        self.manager = manager
+                    } else {
+                        self.manager = storedManager
+                    }
+                } else {
+                    let managers: [FLCManager] = try await FirebaseManager.getDataFromFirebase() ?? [CalculationInfo.defaultManager]
+                    var manager = managers.randomElement() ?? CalculationInfo.defaultManager
+                    let avatar = await FirebaseManager.downloadAvatar(for: manager)
+                    manager.avatar = avatar ?? UIImage(resource: .personPlaceholder)
+                    let _ = PersistenceManager.saveItemToUserDefaults(item: manager)
+                    self.manager = manager
+                }
+            }
+            salesManagerView.setPersonalManagerInfo(manager: self.manager)
         }
     }
     

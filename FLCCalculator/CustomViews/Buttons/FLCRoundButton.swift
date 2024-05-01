@@ -6,11 +6,18 @@ protocol FLCRoundButtonDelegate: AnyObject {
 
 class FLCRoundButton: UIButton {
     
+    private var shimmeringView = FLCShimmeringView()
+    
     weak var delegate: FLCRoundButtonDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        addShimmeringView()
     }
     
     required init?(coder: NSCoder) {
@@ -24,6 +31,11 @@ class FLCRoundButton: UIButton {
         configuration?.baseForegroundColor = tint
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        shimmeringView.frame = self.bounds
+    }
+    
     private func configure(size: Double = 0) {
         configuration = .tinted()
         configuration?.cornerStyle = .capsule
@@ -31,6 +43,15 @@ class FLCRoundButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
+    
+    private func addShimmeringView() {
+        shimmeringView = FLCShimmeringView(frame: self.bounds, insets: (0,0))
+        addSubview(shimmeringView)
+        bringSubviewToFront(shimmeringView)
+    }
+    
+    func addShimmerAnimation() { shimmeringView.addShimmerAnimation() }
+    func removeShimmerAnimation() { shimmeringView.removeShimmerAnimation() }
     
     @objc private func buttonTapped() {
         HapticManager.addHaptic(style: .light)

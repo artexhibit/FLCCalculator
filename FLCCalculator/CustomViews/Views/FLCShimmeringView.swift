@@ -4,15 +4,21 @@ class FLCShimmeringView: UIView {
     
     private let gradientLayer = CAGradientLayer()
     private var isShimmering = false
+    private var insets: (dx: CGFloat, dy: CGFloat) = (-3, 1)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
     
+    convenience init(frame: CGRect, insets: (dx: CGFloat, dy: CGFloat) = (-3, 1)) {
+        self.init(frame: frame)
+        self.insets = insets
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupGradientLayerAnimation()
+        setupGradientLayerAnimation(insets: insets)
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShimmerEffect))
     }
     
@@ -71,9 +77,9 @@ class FLCShimmeringView: UIView {
         }
     }
     
-    private func setupGradientLayerAnimation() {
+    private func setupGradientLayerAnimation(insets: (dx: CGFloat, dy: CGFloat)) {
         self.layoutIfNeeded()
-        gradientLayer.frame = self.bounds.insetBy(dx: -3, dy: 1)
+        gradientLayer.frame = self.bounds.insetBy(dx: insets.dx, dy: insets.dy)
     }
     @objc private func restartShimmerEffect() { if isShimmering { addShimmerAnimation() } }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-struct FLCPersonalManagerViewHelper {
+struct FLCPersonalManagerViewUIHelper {
     static func createPhoneCall(with number: String) {
         var finalNumber = "tel://\(number)"
         
@@ -67,5 +67,38 @@ struct FLCPersonalManagerViewHelper {
             createPhoneCall(with: manager?.landlinePhone ?? "")
         }
         return UIMenu(title: "Контактные номера телефонов", children: [mobileNumberItem, landlineNumberItem])
+    }
+    
+    static func configurePhoneButtonMenu(phoneButton: FLCRoundButton, of manager: FLCManager) {
+        phoneButton.menu = showPhoneCallUIMenu(of: manager)
+        phoneButton.showsMenuAsPrimaryAction = true
+    }
+    
+    static func configureItemsContent(manager: FLCManager, avatarView: FLCImageView, nameLabel: FLCTitleLabel, contactsLabel: FLCSubtitleLabel) {
+        avatarView.image = manager.avatar ?? CalculationInfo.defaultManager.avatar
+        nameLabel.text = manager.name
+        contactsLabel.text = "\(manager.email) \n\(manager.landlinePhone)"
+    }
+    
+    static func addShimmerAnimationToItems(avatarView: FLCImageView, nameLabel: FLCTitleLabel, contactsLabel: FLCSubtitleLabel, roundButtons: [FLCRoundButton]) {
+        avatarView.addShimmerAnimation()
+        nameLabel.addShimmerAnimation()
+        contactsLabel.addShimmerAnimation()
+        roundButtons.forEach {
+            $0.addShimmerAnimation()
+            $0.isUserInteractionEnabled = false
+        }
+    }
+    
+    static func removeShimmerAnimationFromItems(avatarView: FLCImageView, nameLabel: FLCTitleLabel, contactsLabel: FLCSubtitleLabel, roundButtons: [FLCRoundButton]) {
+        avatarView.removeShimmerAnimation()
+        avatarView.layer.borderColor = UIColor.lightGray.cgColor
+        nameLabel.removeShimmerAnimation()
+        contactsLabel.removeShimmerAnimation()
+        
+        roundButtons.forEach {
+            $0.removeShimmerAnimation()
+            $0.isUserInteractionEnabled = true
+        }
     }
 }
