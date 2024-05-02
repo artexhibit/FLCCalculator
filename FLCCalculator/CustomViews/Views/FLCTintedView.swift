@@ -43,6 +43,11 @@ class FLCTintedView: UIView {
         tintedViewLabel.setStyle(color: color.makeDarker(), textAlignment: textAlignment, fontWeight: fontWeight, fontSize: fontSize)
     }
     
+    func updateColor(to color: UIColor) {
+        backgroundColor = color
+        layer.borderColor = color.cgColor
+    }
+    
     private func configureTintedViewLabel() {
         NSLayoutConstraint.activate([
             tintedViewLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),

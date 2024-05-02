@@ -15,11 +15,6 @@ class FLCRoundButton: UIButton {
         configure()
     }
     
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        addShimmeringView()
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -50,8 +45,15 @@ class FLCRoundButton: UIButton {
         bringSubviewToFront(shimmeringView)
     }
     
-    func addShimmerAnimation() { shimmeringView.addShimmerAnimation() }
-    func removeShimmerAnimation() { shimmeringView.removeShimmerAnimation() }
+    func addShimmerAnimation() {
+        addShimmeringView()
+        shimmeringView.addShimmerAnimation()
+    }
+    
+    func removeShimmerAnimation() {
+        shimmeringView.removeShimmerAnimation()
+        shimmeringView.removeFromSuperview()
+    }
     
     @objc private func buttonTapped() {
         HapticManager.addHaptic(style: .light)

@@ -55,7 +55,7 @@ struct FLCPersonalManagerViewUIHelper {
     static func sendEmail(from view: UIView, manager: FLCManager?) {
         guard let parentVC = view.findParentViewController() else { return }
         let subject = "Подтверждение заявки на импортную перевозку груза"
-        let message = "Игорь, Ддобрый день, \nГотов подтвердить заявку. \nИнформация в прикреплённом файле"
+        let message = "\(manager?.name.getDataBetweenCharacter() ?? ""), добрый день, \nГотов подтвердить заявку. \nИнформация в прикреплённом файле"
         FLCMailComposeVC.sendEmailTo(email: manager?.email ?? "", subject: subject, message: message, from: parentVC)
     }
     

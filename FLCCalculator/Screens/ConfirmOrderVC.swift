@@ -11,7 +11,7 @@ class ConfirmOrderVC: UIViewController {
     private let flcLogoImageView = FLCImageView(image: UIImage(resource: .flcIcon))
     private let companyLogoNameContainerView = UIView()
     private let salesManagerTitle = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 21)
-    private let salesManagerView = FLCPersonalManagerView()
+    private let managerView = FLCPersonalManagerView()
     private let tintedMessageView = FLCTintedView(color: .lightGray, withText: true)
     private let closeButton = FLCButton(color: .flcOrange, title: "Закрыть", subtitle: "расчёты будут сохранены")
     
@@ -37,7 +37,7 @@ class ConfirmOrderVC: UIViewController {
         configureFlcLogoImageView()
         configureWelcomeLabelThree()
         configureSalesManagerTitle()
-        configureSalesManagerView()
+        configureManagerView()
         configureTintedMessageView()
         configureCloseButton()
         
@@ -58,7 +58,7 @@ class ConfirmOrderVC: UIViewController {
         itemsToAnimate.append((welcomeLabelTwo, welcomeLabelTwoTopContraint))
         itemsToAnimate.append((companyLogoNameContainerView, companyLogoNameContainerTopContraint))
         itemsToAnimate.append((salesManagerTitle, nil))
-        itemsToAnimate.append((salesManagerView, nil))
+        itemsToAnimate.append((managerView, nil))
         itemsToAnimate.append((tintedMessageView, nil))
         itemsToAnimate.append((closeButton, nil))
     }
@@ -72,7 +72,7 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(welcomeLabelOne, welcomeLabelTwo, companyLogoNameContainerView, salesManagerTitle, salesManagerView, tintedMessageView, closeButton)
+        containerView.addSubviews(welcomeLabelOne, welcomeLabelTwo, companyLogoNameContainerView, salesManagerTitle, managerView, tintedMessageView, closeButton)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.pinToEdges(of: scrollView)
         
@@ -155,13 +155,13 @@ class ConfirmOrderVC: UIViewController {
         ])
     }
     
-    private func configureSalesManagerView() {
-        salesManagerView.hide(withAnimationDuration: 0)
+    private func configureManagerView() {
+        managerView.hide(withAnimationDuration: 0)
         
         NSLayoutConstraint.activate([
-            salesManagerView.topAnchor.constraint(equalTo: salesManagerTitle.bottomAnchor, constant: padding),
-            salesManagerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
-            salesManagerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
+            managerView.topAnchor.constraint(equalTo: salesManagerTitle.bottomAnchor, constant: padding),
+            managerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
+            managerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
         ])
     }
     
@@ -170,7 +170,7 @@ class ConfirmOrderVC: UIViewController {
         tintedMessageView.setTextLabel(text: "Вы всегда можете посмотреть контакты вашего менеджера на вкладке Полезное".makeAttributed(icon: Icons.infoSign, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
-            tintedMessageView.topAnchor.constraint(equalTo: salesManagerView.bottomAnchor, constant: padding * 2),
+            tintedMessageView.topAnchor.constraint(equalTo: managerView.bottomAnchor, constant: padding * 2),
             tintedMessageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 2.5),
             tintedMessageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -padding * 2.5)
         ])
@@ -210,6 +210,8 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func getPersonalManagerInfo() {
+        managerView.addShimmerAnimationToAllItems()
+        
         Task {
             do {
                 if let storedManager: FLCManager = PersistenceManager.retrieveItemFromUserDefaults() {
@@ -233,7 +235,7 @@ class ConfirmOrderVC: UIViewController {
                     self.manager = manager
                 }
             }
-            salesManagerView.setPersonalManagerInfo(manager: self.manager)
+            managerView.setPersonalManagerInfo(manager: self.manager)
         }
     }
     
@@ -249,23 +251,9 @@ extension ConfirmOrderVC: FLCButtonDelegate {
     }
 }
 
-extension ConfirmOrderVC: MFMailComposeViewControllerDelegate {
+extension ConfirmOrderVC: FLCMailComposeDelegate, MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        
-        switch result {
-        case .cancelled:
-            dismiss(animated: true, completion: nil)
-        case .saved:
-            dismiss(animated: true, completion: nil)
-        case .sent:
-            FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Письмо отправлено")
-            dismiss(animated: true, completion: nil)
-        case .failed:
-            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось отправить сообщение", style: .error)
-            dismiss(animated: true, completion: nil)
-        @unknown default:
-            dismiss(animated: true, completion: nil)
-        }
+        handleMailComposeResult(result)
     }
 }
 

@@ -3,6 +3,7 @@ import UIKit
 class ListPickerCell: UITableViewCell {
     
     static let reuseID = "ListPickerCell"
+    
     private let title = FLCBodyLabel(color: .label, textAlignment: .left)
     private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
     private let padding: CGFloat = 15

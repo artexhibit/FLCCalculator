@@ -1,5 +1,25 @@
 import MessageUI
 
+protocol FLCMailComposeDelegate: MFMailComposeViewControllerDelegate {
+    func handleMailComposeResult(_ result: MFMailComposeResult)
+}
+
+extension FLCMailComposeDelegate where Self: UIViewController {
+    func handleMailComposeResult(_ result: MFMailComposeResult) {
+        switch result {
+        case .cancelled, .saved, .failed, .sent:
+            if result == .sent {
+                FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Письмо отправлено")
+            } else if result == .failed {
+                FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось отправить сообщение", style: .error)
+            }
+            dismiss(animated: true, completion: nil)
+        @unknown default:
+            dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
 class FLCMailComposeVC: MFMailComposeViewController {
     
     init(recipient: String, subject: String, message: String, delegate: MFMailComposeViewControllerDelegate?) {

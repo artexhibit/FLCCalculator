@@ -13,6 +13,7 @@ enum FLCTotalType { case perKG, asOneCurrency }
 enum FLCPaddingType { case horizontal, vertical, all }
 enum FLCConfettiShape { case rectangle, circle }
 enum FLCConfettiPosition { case foreground, background }
+enum FLCUsefulInfoSections { case managerContacts, usefulInfo }
 
 enum FLCCountryOption: String {
     case china = "Китай"

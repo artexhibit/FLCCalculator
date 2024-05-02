@@ -16,6 +16,7 @@ class FLCPersonalManagerView: UIView {
     
     private var manager: FLCManager?
     private var padding: CGFloat = 10
+    private var backgroundViewColor: UIColor = .secondarySystemBackground
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,9 +34,18 @@ class FLCPersonalManagerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        FLCPersonalManagerViewUIHelper.addShimmerAnimationToItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
+    convenience init(backgroundColor: UIColor) {
+        self.init(frame: .zero)
+        self.backgroundViewColor = backgroundColor
+        self.backgroundView.updateColor(to: backgroundViewColor)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            self.backgroundView.updateColor(to: backgroundViewColor)
+        }
     }
     
     private func configure() {
@@ -135,6 +145,10 @@ class FLCPersonalManagerView: UIView {
         FLCPersonalManagerViewUIHelper.configurePhoneButtonMenu(phoneButton: phoneButton, of: manager)
         FLCPersonalManagerViewUIHelper.configureItemsContent(manager: manager, avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel)
         FLCPersonalManagerViewUIHelper.removeShimmerAnimationFromItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
+    }
+    
+    func addShimmerAnimationToAllItems() {
+        FLCPersonalManagerViewUIHelper.addShimmerAnimationToItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
     }
 }
 
