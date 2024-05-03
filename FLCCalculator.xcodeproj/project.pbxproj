@@ -67,8 +67,10 @@
 		0B7882842BDE7C8100BDCA16 /* FLCShimmeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */; };
 		0B7882862BDEA8F500BDCA16 /* FLCImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882852BDEA8F500BDCA16 /* FLCImageView.swift */; };
 		0B7882892BDEB0CE00BDCA16 /* FLCRoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882882BDEB0CE00BDCA16 /* FLCRoundButton.swift */; };
+		0B7EBA692BE55C41004BE990 /* NetworkAvailabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */; };
 		0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */; };
 		0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */; };
+		0B9894382BE41C2F00EB8516 /* BackgroundTasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */; };
 		0B9AB5FE2BE265E700E926EB /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
 		0B9AB5FF2BE265EB00E926EB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
 		0B9AB6002BE265FB00E926EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
@@ -216,8 +218,10 @@
 		0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCShimmeringView.swift; sourceTree = "<group>"; };
 		0B7882852BDEA8F500BDCA16 /* FLCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCImageView.swift; sourceTree = "<group>"; };
 		0B7882882BDEB0CE00BDCA16 /* FLCRoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCRoundButton.swift; sourceTree = "<group>"; };
+		0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAvailabilityManager.swift; sourceTree = "<group>"; };
 		0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerViewUIHelper.swift; sourceTree = "<group>"; };
 		0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCMailComposeVC.swift; sourceTree = "<group>"; };
+		0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTasksManager.swift; sourceTree = "<group>"; };
 		0B9AB6012BE2ACC200E926EB /* UsefulInfoManagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoManagerCell.swift; sourceTree = "<group>"; };
 		0B9CABC32BB0283100ED658B /* Tariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tariff.swift; sourceTree = "<group>"; };
 		0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
@@ -356,6 +360,8 @@
 				0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */,
 				0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */,
 				0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */,
+				0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */,
+				0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -847,6 +853,7 @@
 				0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */,
 				0B2002B12B9DCE7B00B8DF5C /* Constants.swift in Sources */,
 				0B53286E2BC2DFCC00B02A73 /* UIColor+Ext.swift in Sources */,
+				0B9894382BE41C2F00EB8516 /* BackgroundTasksManager.swift in Sources */,
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
 				0BC735812BCAEAA900EF8B0D /* FLCOptionsCollectionView + DataSource.swift in Sources */,
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
@@ -856,6 +863,7 @@
 				0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */,
 				0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */,
 				0BFBD7452BA38B3500B485B8 /* UINavigationController + Ext.swift in Sources */,
+				0B7EBA692BE55C41004BE990 /* NetworkAvailabilityManager.swift in Sources */,
 				0BC735852BCBEDD700EF8B0D /* FLCOptionsCollectionViewCell.swift in Sources */,
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationInfo.swift in Sources */,

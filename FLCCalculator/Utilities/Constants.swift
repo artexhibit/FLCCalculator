@@ -26,6 +26,9 @@ enum Keys {
     static let turkeyPickup = "turkeyPickup"
     static let currencyData = "currencyData"
     static let dateWhenDataWasUpdated = "dateWhenDataWasUpdated"
+    static let lastCurrencyDataUpdate = "lastCurrencyDataUpdate"
+    static let lastCalculationDataUpdate = "lastCalculationDataUpdate"
+    static let lastManagerDataUpdate = "lastManagerDataUpdate"
 }
 
 enum WarehouseStrings {

@@ -4,10 +4,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        NetworkAvailabilityManager.shared.startMonitoring()
         FirebaseManager.configureFirebase()
-        AppDelegateHelper.updateCurrencyData()
-        AppDelegateHelper.updateCalculationData()
-        
+        AppDelegateHelper.registerBackgroundTasks()
+        AppDelegateHelper.updateDataOnAppLaunch()
         return true
     }
 
