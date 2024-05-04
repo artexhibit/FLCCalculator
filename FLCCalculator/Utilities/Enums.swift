@@ -32,6 +32,12 @@ enum FLCCountryOption: String {
         case .turkey: return "turkey"
         }
     }
+    var shortCode: String {
+        switch self {
+        case .china: return "CNY"
+        case .turkey: return "TRY"
+        }
+    }
 }
 
 enum FLCWarehouse: String, CaseIterable {

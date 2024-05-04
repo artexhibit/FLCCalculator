@@ -246,6 +246,11 @@ extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
 }
 
 extension CalculationResultVC: TotalPriceVCDelegate {
+    func didPressSaveButton(data: TotalPriceData) {
+        CoreDataManager.createCalculationRecord(with: calculationData, totalPriceData: data)
+        closeButtonPressed()
+    }
+    
     func didPressConfirmButton() {
         let confirmOrderVC = ConfirmOrderVC()
         navigationController?.pushViewController(confirmOrderVC, animated: true)

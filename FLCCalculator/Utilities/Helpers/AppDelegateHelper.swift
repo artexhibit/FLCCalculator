@@ -81,20 +81,22 @@ struct  AppDelegateHelper {
     }
     
     static func updateDataOnAppLaunch() {
-        guard NetworkAvailabilityManager.shared.currentStatus() == .connected else { return }
-        
-        if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCurrencyDataUpdate) {
-            updateCurrencyData(canShowPopup: false)
-            UserDefaultsManager.lastCurrencyDataUpdate = Date()
-        }
-        if shouldUpdateData(afterDays: 0, for: UserDefaultsManager.lastCalculationDataUpdate) {
-            updateCalculationData(canShowPopup: false)
-            UserDefaultsManager.lastCalculationDataUpdate = Date()
-        }
-        
-        if shouldUpdateData(afterDays: 14, for: UserDefaultsManager.lastManagerDataUpdate) {
-            updateManagerData()
-            UserDefaultsManager.lastManagerDataUpdate = Date()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            guard NetworkAvailabilityManager.shared.currentStatus() == .connected else { return }
+            
+            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCurrencyDataUpdate) {
+                updateCurrencyData(canShowPopup: false)
+                UserDefaultsManager.lastCurrencyDataUpdate = Date()
+            }
+            if shouldUpdateData(afterDays: 3, for: UserDefaultsManager.lastCalculationDataUpdate) {
+                updateCalculationData(canShowPopup: false)
+                UserDefaultsManager.lastCalculationDataUpdate = Date()
+            }
+            
+            if shouldUpdateData(afterDays: 14, for: UserDefaultsManager.lastManagerDataUpdate) {
+                updateManagerData()
+                UserDefaultsManager.lastManagerDataUpdate = Date()
+            }
         }
     }
     

@@ -2,6 +2,7 @@ import UIKit
 
 protocol TotalPriceVCDelegate: AnyObject {
     func didPressConfirmButton()
+    func didPressSaveButton(data: TotalPriceData)
 }
 
 class TotalPriceVC: UIViewController {
@@ -271,6 +272,12 @@ class TotalPriceVC: UIViewController {
         configureSpinnerMessageLayer()
     }
     
+    private func setupTotalPriceData() -> TotalPriceData {
+        let totalPrice = totalAmountLayer.string as? String ?? ""
+        let totalPriceData = TotalPriceData(totalPrice: totalPrice)
+        return totalPriceData
+    }
+    
     private func updateCustomDetentContainerViewTopConstraint() {
         if TotalPriceVCUIHelper.textWillWrap(text: totalAmountLayer.string as! String, font: UIFont.systemFont(ofSize: 26, weight: .semibold), width: customDetentContainerView.frame.width - padding) {
             priceAsOneCurrencyTextViewTopConstraint?.constant = 33
@@ -393,7 +400,8 @@ extension TotalPriceVC: FLCButtonDelegate {
             self.dismiss(animated: true)
             delegate?.didPressConfirmButton()
         case saveButton:
-            break
+            delegate?.didPressSaveButton(data: setupTotalPriceData())
+            self.dismiss(animated: true)
         case closeButton:
             break
         default:

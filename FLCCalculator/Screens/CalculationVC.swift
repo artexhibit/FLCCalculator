@@ -137,7 +137,7 @@ class CalculationVC: UIViewController {
         let calcData = CalculationData(
             countryFrom: transportView.countryPickerButton.showingTitle,
             countryTo: "Россия",
-            deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(3),
+            deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
             deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3),
             fromLocation: transportView.departurePickerButton.showingTitle,
             toLocation: transportView.destinationPickerButton.showingTitle,

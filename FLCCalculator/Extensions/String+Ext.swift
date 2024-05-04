@@ -73,6 +73,11 @@ extension String {
         guard components.count > 1 else { return nil }
         return components[1].trimmingCharacters(in: .whitespaces)
     }
+    func getDataOutsideCharacters(char: String = "()") -> String? {
+        let components = self.components(separatedBy: CharacterSet(charactersIn: char))
+        guard components.count > 1 else { return nil }
+        return components.first?.trimmingCharacters(in: .whitespaces)
+    }
     func getDataBetweenCharacter(char: String = " ", returnFirstHalf: Bool = true) -> String? {
         let components = self.components(separatedBy: CharacterSet(charactersIn: char))
         guard components.count > 1 else { return nil }

@@ -12,12 +12,17 @@ class CalculationsVC: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureDataSource()
-        updateUI(with: calculations)
+        getCalculations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureVC()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getCalculations()
     }
     
     private func configureVC() {
@@ -30,11 +35,7 @@ class CalculationsVC: UIViewController {
         if navigationItem.rightBarButtonItem == nil { navigationItem.rightBarButtonItem = addButton }
     }
     
-    @objc func addButtonPressed() {
-        let calc = Calculation(context: Persistence.shared.container.viewContext)
-        calculations.append(calc)
-        updateUI(with: calculations)
-    }
+    @objc func addButtonPressed() { goToCalculation() }
     
     private func configureTableView() {
         view.addSubview(tableView)
@@ -81,6 +82,17 @@ class CalculationsVC: UIViewController {
             updateDataSource(on: self.calculations)
         }
     }
+    
+    private func getCalculations() {
+        calculations = CoreDataManager.loadCalculations() ?? []
+        updateUI(with: calculations)
+    }
+    
+    private func goToCalculation() {
+        navigationItem.title = ""
+        let calculationVC = CalculationVC()
+        navigationController?.pushViewController(calculationVC, animated: true)
+    }
 }
 
 extension CalculationsVC: UITableViewDelegate {
@@ -93,12 +105,8 @@ extension CalculationsVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         
         switch button {
-        case emptyStateView.actionButton:
-            navigationItem.title = ""
-            let calculationVC = CalculationVC()
-            navigationController?.pushViewController(calculationVC, animated: true)
-        default:
-            break
+        case emptyStateView.actionButton: goToCalculation()
+        default: break
         }
     }
 }

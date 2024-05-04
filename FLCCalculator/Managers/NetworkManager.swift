@@ -1,5 +1,4 @@
 import Foundation
-import CoreData
 
 class NetworkManager {
     static let shared = NetworkManager()

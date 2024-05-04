@@ -153,7 +153,7 @@ class PriceCalculationManager {
     }
     
     private static func calculateChinaDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
-        guard let cityName = city.getDataInsideCharacters() else { return ("", 0, 0.0) }
+        guard let cityName = city.getDataOutsideCharacters() else { return ("", 0, 0.0) }
         
         let yuanRate = chinaPickup?.first?.yuanRate ?? 6.9
         let density = chinaPickup?.first?.density ?? 0

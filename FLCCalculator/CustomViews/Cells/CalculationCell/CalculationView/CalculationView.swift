@@ -10,7 +10,7 @@ struct CalculationView: View {
         VStack {
             HStack(alignment: .top) {
                 HStack {
-                    Text("1")
+                    Text(String(calculation.id))
                         .font(.caption.bold())
                         .foregroundStyle(.bar)
                         .padding(.horizontal, 8)
@@ -20,7 +20,7 @@ struct CalculationView: View {
                 .clipShape(Circle())
                 
                 HStack {
-                    Text("12.05.2024")
+                    Text(calculation.calculationDate?.makeString() ?? "")
                         .font(.caption.bold())
                         .foregroundStyle(.bar)
                         .padding(.horizontal, 8)
@@ -30,13 +30,13 @@ struct CalculationView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 Spacer()
-                Image(.CNY)
+                Image(FLCCountryOption(rawValue: calculation.countryFrom ?? "")?.shortCode ?? "")
                     .resizable()
                     .frame(width: 40, height: 40)
             }
             
             HStack {
-                Text("Одежда мужская")
+                Text(calculation.goodsType ?? "")
                     .font(.title2)
                     .foregroundStyle(.primary)
                     .bold()
@@ -74,7 +74,7 @@ struct CalculationView: View {
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                             
-                            Text("Китай, Zhanjiang (Guangdong)")
+                            Text("\(calculation.countryFrom ?? ""), \(calculation.fromLocation ?? "")")
                                 .font(.footnote)
                                 .foregroundStyle(.primary)
                                 .lineLimit(1)
@@ -86,7 +86,7 @@ struct CalculationView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("Россия, г.Москва, ул.Носовихинское шоссе, д.19, кв.700")
+                        Text("\(calculation.countryTo ?? ""), \(calculation.toLocation ?? "")")
                             .font(.footnote)
                             .foregroundStyle(.primary)
                             .lineLimit(4)
@@ -98,21 +98,21 @@ struct CalculationView: View {
             
             VStack {
                 HStack {
-                    CalculationTagView(systemImageName: "shippingbox.and.arrow.backward.fill", imageSize: (20, 15), text: "EXW")
-                    CalculationTagView(systemImageName: "scalemass.fill", text: "450,55 кг")
-                    CalculationTagView(systemImageName: "shippingbox.fill", text: "3 м3")
+                    CalculationTagView(systemImageName: "shippingbox.and.arrow.backward.fill", imageSize: (20, 15), text: calculation.deliveryTypeCode ?? "")
+                    CalculationTagView(systemImageName: "scalemass.fill", text: "\(String(calculation.weight)) кг")
+                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(String(calculation.volume)) м3")
                     
                     Spacer()
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "door.garage.closed", text: "СK Турция - Склад клиента")
+                    CalculationTagView(systemImageName: "door.garage.closed", text: calculation.deliveryType ?? "")
                     
                     Spacer()
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "cart.fill", imageSize: (20, 16), text: "1266$ + 17500₽", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
+                    CalculationTagView(systemImageName: "cart.fill", imageSize: (20, 16), text: calculation.totalPrice ?? "", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
                     
                     Spacer()
                 }

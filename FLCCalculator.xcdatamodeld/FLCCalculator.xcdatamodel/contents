@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Calculation" representedClassName="Calculation" syncable="YES" codeGenerationType="class">
         <attribute name="calculationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="countryFrom" attributeType="String"/>
@@ -9,11 +9,10 @@
         <attribute name="fromLocation" attributeType="String"/>
         <attribute name="goodsType" attributeType="String"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="logisticsType" attributeType="String"/>
         <attribute name="needCustomsClearance" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="status" attributeType="String"/>
         <attribute name="toLocation" attributeType="String"/>
         <attribute name="toLocationCode" attributeType="String"/>
+        <attribute name="totalPrice" attributeType="String"/>
         <attribute name="volume" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="result" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CalculationResult" inverseName="calculation" inverseEntity="CalculationResult"/>

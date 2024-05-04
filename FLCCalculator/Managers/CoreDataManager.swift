@@ -14,4 +14,24 @@ struct CoreDataManager {
             return nil
         }
     }
+    
+    static func createCalculationRecord(with calculationData: CalculationData, totalPriceData: TotalPriceData) {
+        let calc = Calculation(context: context)
+        calc.calculationDate = Date()
+        calc.id = Int32(CoreDataManager.loadCalculations()?.count ?? 0)
+        calc.toLocation = calculationData.toLocation
+        calc.toLocationCode = calculationData.toLocationCode
+        calc.deliveryType = calculationData.deliveryType
+        calc.goodsType = calculationData.goodsType
+        calc.fromLocation = calculationData.fromLocation
+        calc.deliveryTypeCode = calculationData.deliveryTypeCode
+        calc.countryTo = calculationData.countryTo
+        calc.countryFrom = calculationData.countryFrom
+        calc.weight = calculationData.weight
+        calc.volume = calculationData.volume
+        calc.totalPrice = totalPriceData.totalPrice
+        calc.needCustomsClearance = calculationData.needCustomClearance
+        
+        Persistence.shared.saveContext()
+    }
 }
