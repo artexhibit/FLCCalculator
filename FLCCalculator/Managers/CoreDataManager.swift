@@ -15,7 +15,7 @@ struct CoreDataManager {
         }
     }
     
-    static func createCalculationRecord(with calculationData: CalculationData, totalPriceData: TotalPriceData) {
+    static func createCalculationRecord(with calculationData: CalculationData, totalPriceData: [TotalPriceData]) {
         let calc = Calculation(context: context)
         calc.calculationDate = Date()
         calc.id = Int32(CoreDataManager.loadCalculations()?.count ?? 0)
@@ -29,7 +29,7 @@ struct CoreDataManager {
         calc.countryFrom = calculationData.countryFrom
         calc.weight = calculationData.weight
         calc.volume = calculationData.volume
-        calc.totalPrice = totalPriceData.totalPrice
+        calc.totalPrice = totalPriceData.first(where: { $0.isFavourite })?.totalPrice
         calc.needCustomsClearance = calculationData.needCustomClearance
         
         Persistence.shared.saveContext()

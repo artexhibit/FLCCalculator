@@ -149,4 +149,90 @@ struct CalculationResultHelper {
         let filteredNewItems = newItems.filter { $0.type != .russianDelivery }
         return russianDeliveryItem + filteredNewItems
     }
+    
+    static func setFavouriteLogisticsType(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType) -> [TotalPriceData] {
+        return totalPriceDataItems.map { item in
+            var modifiedItem = item
+            if modifiedItem.logisticsType == pickedLogisticsType { modifiedItem.isFavourite = true }
+            return modifiedItem
+        }
+    }
+    
+    static func getAllCalculationsFor(allLogisticsTypes: [FLCLogisticsType], calculationData: CalculationData) async -> [TotalPriceData] {
+        var totalPriceDataItems = [TotalPriceData]()
+        
+        for logisticsType in allLogisticsTypes {
+            let data = await setupTotalPriceData(logisticsType: logisticsType, calculationData: calculationData)
+            totalPriceDataItems.append(data)
+        }
+        return totalPriceDataItems
+    }
+    
+    static func setupTotalPriceData(logisticsType: FLCLogisticsType, calculationData: CalculationData) async -> TotalPriceData {
+        var totalPriceData = TotalPriceData()
+        var items = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: logisticsType)
+        var russianDeliveryResult: Result<(price: String, days: String), FLCError>? = nil
+        
+        if items.contains(where: { $0.type == .russianDelivery }) {
+            russianDeliveryResult = await CalculationResultHelper.getRussianDeliveryPrice(item: items.first { $0.type == .russianDelivery }!)
+        }
+        
+        for (index, item) in items.enumerated() {
+            totalPriceData.logisticsType = logisticsType
+            
+            switch item.type {
+            case .russianDelivery:
+                if let result = russianDeliveryResult {
+                    switch result {
+                    case .success(let resultItems):
+                        totalPriceData.russianDeliveryPrice = resultItems.price
+                        totalPriceData.russianDeliveryTime = resultItems.days
+                        items[index].price = resultItems.price
+                        items[index].daysAmount = resultItems.days
+                        
+                    case .failure(_):
+                        totalPriceData.russianDeliveryPrice = "0"
+                        totalPriceData.russianDeliveryTime = "0"
+                        items[index].price = "0"
+                        items[index].daysAmount = "0"
+                    }
+                }
+            case .insurance:
+                let result = CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: logisticsType)
+                totalPriceData.insurance = result.price
+                items[index].price = result.price
+            case .deliveryFromWarehouse:
+                let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: logisticsType)
+                totalPriceData.deliveryFromWarehousePrice = result.price
+                totalPriceData.deliveryFromWarehouseTime = result.days
+                items[index].price = result.price
+                items[index].daysAmount = result.days
+            case .cargoHandling:
+                let result = CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: logisticsType)
+                totalPriceData.cargoHandling = result
+                items[index].price = result
+            case .customsClearancePrice:
+                let result = CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: logisticsType)
+                totalPriceData.customsClearance = result
+                items[index].price = result
+            case .customsWarehouseServices:
+                let result = CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item, pickedLogisticsType: logisticsType)
+                totalPriceData.customsWarehousePrice = result
+                items[index].price = result
+            case .deliveryToWarehouse:
+                let result = CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
+                totalPriceData.deliveryToWarehousePrice = result.price
+                totalPriceData.deliveryToWarehouseTime = result.days
+                items[index].price = result.price
+                items[index].daysAmount = result.days
+            case .groupageDocs:
+                let result = CalculationResultHelper.getGroupageDocs(item: item, pickedLogisticsType: logisticsType)
+                totalPriceData.groupageDocs = result
+                items[index].price = result
+            }
+        }
+        totalPriceData.totalPrice = CalculationUIHelper.calculateTotalPrice(prices: items.compactMap { $0.price })
+        totalPriceData.totalTime = CalculationUIHelper.calculateTotalDays(days: items.compactMap { $0.daysAmount })
+        return totalPriceData
+    }
 }

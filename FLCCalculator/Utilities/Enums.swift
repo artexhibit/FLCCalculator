@@ -117,6 +117,15 @@ enum FLCLogisticsType: String, CaseIterable {
         }
     }
     
+    static func logisticsTypes(for country: FLCCountryOption) -> [FLCLogisticsType] {
+        switch country {
+        case .china:
+            return [.chinaTruck, .chinaRailway, .chinaAir]
+        case .turkey:
+            return [.turkeyTruck]
+        }
+    }
+    
     init?(logisticsName: String, country: FLCCountryOption) {
         switch country {
         case .china:

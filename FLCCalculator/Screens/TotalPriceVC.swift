@@ -2,7 +2,7 @@ import UIKit
 
 protocol TotalPriceVCDelegate: AnyObject {
     func didPressConfirmButton()
-    func didPressSaveButton(data: TotalPriceData)
+    func didPressSaveButton()
 }
 
 class TotalPriceVC: UIViewController {
@@ -32,7 +32,7 @@ class TotalPriceVC: UIViewController {
     
     private var totalCells = 0
     private var totalCalculatedCells: Int = 0
-    private var calculationResults = [String: (price: String, days: String?)]()
+    private var calculationResults = [FLCCalculationResultCellType: (price: String, days: String?)]()
     private var customDetentContent = [UIView]()
     private var smallDetentContent = [FLCTextLayer]()
     private var priceAsOneCurrencyTextViewTopConstraint: NSLayoutConstraint?
@@ -272,12 +272,6 @@ class TotalPriceVC: UIViewController {
         configureSpinnerMessageLayer()
     }
     
-    private func setupTotalPriceData() -> TotalPriceData {
-        let totalPrice = totalAmountLayer.string as? String ?? ""
-        let totalPriceData = TotalPriceData(totalPrice: totalPrice)
-        return totalPriceData
-    }
-    
     private func updateCustomDetentContainerViewTopConstraint() {
         if TotalPriceVCUIHelper.textWillWrap(text: totalAmountLayer.string as! String, font: UIFont.systemFont(ofSize: 26, weight: .semibold), width: customDetentContainerView.frame.width - padding) {
             priceAsOneCurrencyTextViewTopConstraint?.constant = 33
@@ -316,12 +310,13 @@ extension TotalPriceVC: CalculationResultVCDelegate {
         self.calculationData = calculationData
     }
     
-    func didEndCalculation(price: String, days: String?, title: String) {
+    func didEndCalculation(price: String, days: String?, cellType: FLCCalculationResultCellType) {
         totalCalculatedCells += 1
-        if !calculationResults.keys.contains(title) { calculationResults[title] = (price: price, days: days) }
+        if !calculationResults.keys.contains(cellType) { calculationResults[cellType] = (price: price, days: days) }
     
         if totalCalculatedCells == totalCells {
             detailsButton.show()
+            
             let allDays = calculationResults.compactMap { $0.value.days }
             let allPrices = calculationResults.map { $0.value.price }
             
@@ -351,7 +346,7 @@ extension TotalPriceVC: CalculationResultVCDelegate {
     }
     
     func didPressRetryButton(in cell: CalculationResultCell) {
-        calculationResults.removeValue(forKey: cell.titleTextView.text ?? "")
+        calculationResults.removeValue(forKey: cell.type)
         TotalPriceVCUIHelper.turnOnLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer, button: detailsButton, customDetentContent: customDetentContent, smallDetentContent: smallDetentContent)
     }
 }
@@ -400,7 +395,7 @@ extension TotalPriceVC: FLCButtonDelegate {
             self.dismiss(animated: true)
             delegate?.didPressConfirmButton()
         case saveButton:
-            delegate?.didPressSaveButton(data: setupTotalPriceData())
+            delegate?.didPressSaveButton()
             self.dismiss(animated: true)
         case closeButton:
             break
