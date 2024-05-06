@@ -128,10 +128,10 @@ extension FLCTransportParametersView: FLCPickerDelegate {
         
         UIView.performWithoutAnimation {
             if triggerButton.showingTitle.contains(Cities.istanbul) {
-                CalculationUIHelper.setTitle(for: triggerButton, pickedItem: pickedItem, addString: ", \(Cities.istanbul)")
+                CalculationHelper.setTitle(for: triggerButton, pickedItem: pickedItem, addString: ", \(Cities.istanbul)")
                 return
             }
-            CalculationUIHelper.setTitle(for: triggerButton, pickedItem: pickedItem)
+            CalculationHelper.setTitle(for: triggerButton, pickedItem: pickedItem)
         }
         delegate?.didSelectItem(pickedItem: pickedItem, triggerButton: triggerButton)
     }

@@ -1,6 +1,6 @@
 import UIKit
 
-struct CalculationUIHelper {
+struct CalculationHelper {
     private static var storedTitlesAmount: Float = 0
     
     static func checkIfFilledAll(textFields: [FLCNumberTextField]) -> Bool {
@@ -196,5 +196,23 @@ struct CalculationUIHelper {
             }
         }
         return "от \(totalDays) дн."
+    }
+    
+    static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String) -> CalculationData {
+        let calcData = CalculationData(
+            countryFrom: transportView.countryPickerButton.showingTitle,
+            countryTo: "Россия",
+            deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
+            deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3),
+            fromLocation: transportView.departurePickerButton.showingTitle,
+            toLocation: transportView.destinationPickerButton.showingTitle,
+            toLocationCode: pickedDestinationCode,
+            goodsType: cargoView.cargoTypePickerButton.showingTitle,
+            volume: cargoView.volumeTextField.text?.createDouble() ?? 0.0,
+            weight: cargoView.weightTextField.text?.createDouble() ?? 0.0,
+            invoiceAmount: cargoView.invoiceAmountTextField.text?.createDouble() ?? 0.0,
+            invoiceCurrency: cargoView.invoiceCurrencyPickerButton.showingTitle,
+            needCustomClearance: cargoView.customsClearanceSwitch.isOn)
+        return calcData
     }
 }

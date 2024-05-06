@@ -19,16 +19,20 @@
     </entity>
     <entity name="CalculationResult" representedClassName="CalculationResult" syncable="YES" codeGenerationType="class">
         <attribute name="cargoHandling" optional="YES" attributeType="String"/>
-        <attribute name="customsClearance" attributeType="String"/>
+        <attribute name="customsClearance" optional="YES" attributeType="String"/>
         <attribute name="customsWarehousePrice" optional="YES" attributeType="String"/>
         <attribute name="deliveryFromWarehousePrice" attributeType="String"/>
-        <attribute name="deliveryFromWarehouseTime" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="deliveryToWarehousePrice" attributeType="String"/>
-        <attribute name="deliveryToWarehouseTime" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="deliveryFromWarehouseTime" attributeType="String"/>
+        <attribute name="deliveryToWarehousePrice" optional="YES" attributeType="String"/>
+        <attribute name="deliveryToWarehouseTime" optional="YES" attributeType="String"/>
         <attribute name="groupageDocs" attributeType="String"/>
         <attribute name="insurance" optional="YES" attributeType="String"/>
+        <attribute name="isFavourite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="logisticsType" attributeType="String"/>
+        <attribute name="russianDeliveryPrice" optional="YES" attributeType="String"/>
+        <attribute name="russianDeliveryTime" optional="YES" attributeType="String"/>
         <attribute name="totalPrice" attributeType="String"/>
-        <attribute name="totalTime" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalTime" attributeType="String"/>
         <relationship name="calculation" maxCount="1" deletionRule="Nullify" destinationEntity="Calculation" inverseName="result" inverseEntity="Calculation"/>
     </entity>
 </model>

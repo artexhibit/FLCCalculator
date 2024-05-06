@@ -122,7 +122,7 @@ class CalculationVC: UIViewController {
         Task {
             do {
                 let items = try await NetworkManager.shared.getPecCities()
-                CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, searchType: .onlyByTitle, in: self)
+                CalculationHelper.presentListPickerVC(from: button, listener: transportView, items: items, sort: .bySubtitle, searchType: .onlyByTitle, in: self)
                 FLCPopupView.removeFromMainThread()
             } catch  {
                 if let error = error as? URLError, error.code == .timedOut {
@@ -133,24 +133,6 @@ class CalculationVC: UIViewController {
         }
     }
     
-    private func getCalculationData() -> CalculationData {
-        let calcData = CalculationData(
-            countryFrom: transportView.countryPickerButton.showingTitle,
-            countryTo: "Россия",
-            deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
-            deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3),
-            fromLocation: transportView.departurePickerButton.showingTitle,
-            toLocation: transportView.destinationPickerButton.showingTitle,
-            toLocationCode: pickedDestinationCode,
-            goodsType: cargoView.cargoTypePickerButton.showingTitle,
-            volume: cargoView.volumeTextField.text?.createDouble() ?? 0.0,
-            weight: cargoView.weightTextField.text?.createDouble() ?? 0.0, 
-            invoiceAmount: cargoView.invoiceAmountTextField.text?.createDouble() ?? 0.0, 
-            invoiceCurrency: cargoView.invoiceCurrencyPickerButton.showingTitle,
-            needCustomClearance: cargoView.customsClearanceSwitch.isOn)
-        return calcData
-    }
-    
     @objc func closeButtonPressed() {
         if (leadingConstraint.constant == -(cargoView.frame.width)) {
             cargoView.removeFromSuperview()
@@ -159,7 +141,7 @@ class CalculationVC: UIViewController {
     }
     
     @objc private func viewTapped(_ gesture: UITapGestureRecognizer) {
-        let detected = CalculationUIHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
+        let detected = CalculationHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
         if detected { closeButtonPressed() }
         delegate?.closeButtonPressed()
     }
@@ -170,12 +152,13 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case cargoView.nextButton:
-            if CalculationUIHelper.confirmDataIsValid(in: cargoView) { moveView(direction: .forward) }
+            if CalculationHelper.confirmDataIsValid(in: cargoView) { moveView(direction: .forward) }
             
         case transportView.calculateButton:
-            if CalculationUIHelper.confirmDataIsValid(in: transportView) {
+            if CalculationHelper.confirmDataIsValid(in: transportView) {
                 let calculationResultVC = CalculationResultVC()
-                calculationResultVC.calculationData = getCalculationData()
+                let data = CalculationHelper.getCalculationData(transportView: transportView, cargoView: cargoView, pickedDestinationCode: pickedDestinationCode)
+                calculationResultVC.setCalculationData(data: data)
                 navigationController?.pushViewController(calculationResultVC, animated: true)
                 moveView(direction: .forward, times: 2, duration: 0.25)
                 navigationController?.removeVCFromStack(vc: self)
@@ -193,13 +176,13 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case cargoView.cargoTypePickerButton:
-            CalculationUIHelper.presentListPickerVC(from: button, listener: cargoView, items: CalculationInfo.categories, in: self)
+            CalculationHelper.presentListPickerVC(from: button, listener: cargoView, items: CalculationInfo.categories, in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
-            CalculationUIHelper.presentSheetPickerVC(items: CalculationInfo.currencyOptions, triggerButton: button, listener: cargoView, in: self)
+            CalculationHelper.presentSheetPickerVC(items: CalculationInfo.currencyOptions, triggerButton: button, listener: cargoView, in: self)
             
         case transportView.countryPickerButton:
-            CalculationUIHelper.presentSheetPickerVC(items: CalculationInfo.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
+            CalculationHelper.presentSheetPickerVC(items: CalculationInfo.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
             transportView.flcListPickerButtons.forEach { if !$0.titleIsEmpty { transportView.listPickerButtonsWithTitle[$0] = true } }
    
         case transportView.deliveryTypePickerButton:
@@ -207,8 +190,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
                 return
             }
-            let items = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
-            CalculationUIHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self, size: 0.45)
+            let items = CalculationHelper.getItems(basedOn: pickedCountry, for: button)
+            CalculationHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self, size: 0.45)
             
         case transportView.departurePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {
@@ -225,11 +208,11 @@ extension CalculationVC: FLCCalculationViewDelegate {
             }
             
             if transportView.departurePickerButton.showingTitle == Cities.istanbul {
-                CalculationUIHelper.showIstanbulZones(in: transportView, and: self)
+                CalculationHelper.showIstanbulZones(in: transportView, and: self)
                 return
             }
-            let items = CalculationUIHelper.getItems(basedOn: pickedCountry, for: button)
-            CalculationUIHelper.presentListPickerVC(from: button, listener: transportView, items: items, in: self)
+            let items = CalculationHelper.getItems(basedOn: pickedCountry, for: button)
+            CalculationHelper.presentListPickerVC(from: button, listener: transportView, items: items, in: self)
             
         case transportView.destinationPickerButton:
             guard !transportView.deliveryTypePickerButton.titleIsEmpty else {
@@ -252,7 +235,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case transportView.countryPickerButton:
-            CalculationUIHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
+            CalculationHelper.enableAll(buttons: transportView.flcListPickerButtons.dropLast())
             
             if transportView.deliveryTypePickerButton.titleIsEmpty {
                 transportView.departurePickerButton.resetState(isDisabled: true)
@@ -264,16 +247,16 @@ extension CalculationVC: FLCCalculationViewDelegate {
         case transportView.deliveryTypePickerButton:
             let warehouse = button.showingTitle.contains(WarehouseStrings.chinaWarehouse) ? WarehouseStrings.chinaWarehouse : WarehouseStrings.turkeyWarehouse
             
-            CalculationUIHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, warehouse)], basedOn: button)
+            CalculationHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, warehouse)], basedOn: button)
             
         case transportView.departurePickerButton:
             if transportView.departurePickerButton.showingTitle == Cities.istanbul {
-                CalculationUIHelper.showIstanbulZones(in: transportView, and: self)
+                CalculationHelper.showIstanbulZones(in: transportView, and: self)
             }
         default: break
         }
-        CalculationUIHelper.adjustProgressView(for: transportView.flcListPickerButtons, in: progressView)
-        CalculationUIHelper.configureShineEffect(for: transportView.calculateButton, basedOn: transportView.flcListPickerButtons)
+        CalculationHelper.adjustProgressView(for: transportView.flcListPickerButtons, in: progressView)
+        CalculationHelper.configureShineEffect(for: transportView.calculateButton, basedOn: transportView.flcListPickerButtons)
     }
     
     func didTapFLCTextButton(_ button: FLCTextButton) {

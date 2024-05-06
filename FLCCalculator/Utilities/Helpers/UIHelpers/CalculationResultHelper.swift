@@ -231,8 +231,8 @@ struct CalculationResultHelper {
                 items[index].price = result
             }
         }
-        totalPriceData.totalPrice = CalculationUIHelper.calculateTotalPrice(prices: items.compactMap { $0.price })
-        totalPriceData.totalTime = CalculationUIHelper.calculateTotalDays(days: items.compactMap { $0.daysAmount })
+        totalPriceData.totalPrice = CalculationHelper.calculateTotalPrice(prices: items.compactMap { $0.price })
+        totalPriceData.totalTime = CalculationHelper.calculateTotalDays(days: items.compactMap { $0.daysAmount })
         return totalPriceData
     }
 }

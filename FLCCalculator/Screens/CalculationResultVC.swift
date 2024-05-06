@@ -11,14 +11,14 @@ class CalculationResultVC: UIViewController {
     
     private let tableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
-    var calculationResultItems = [CalculationResultItem]()
+    private var calculationResultItems = [CalculationResultItem]()
     private var totalPriceVC = TotalPriceVC()
     private var allLogisticsTypes = [FLCLogisticsType]()
     private var totalPriceDataItems = [TotalPriceData]()
-    var pickedLogisticsType: FLCLogisticsType = .chinaTruck
+    private var pickedLogisticsType: FLCLogisticsType = .chinaTruck
     
     var showingPopover = FLCPopoverVC()
-    var calculationData: CalculationData! {
+    private var calculationData: CalculationData! {
         didSet {
             let country = FLCCountryOption(rawValue: calculationData.countryFrom)
             pickedLogisticsType = FLCLogisticsType.firstCase(for: country ?? .china) ?? .chinaTruck
@@ -37,7 +37,7 @@ class CalculationResultVC: UIViewController {
         performCalculations(pickedLogisticsType: pickedLogisticsType)
         
         Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: allLogisticsTypes, calculationData: calculationData) }
-        CalculationUIHelper.showTotalPrice(vc: totalPriceVC, from: self)
+        CalculationHelper.showTotalPrice(vc: totalPriceVC, from: self)
     }
     
     private func configureVC() {
@@ -196,9 +196,10 @@ class CalculationResultVC: UIViewController {
     
     @objc private func viewTapped(_ gesture: UITapGestureRecognizer) {
         if showingPopover.isShowing { showingPopover.hidePopoverFromMainThread() }
-        let detected = CalculationUIHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
+        let detected = CalculationHelper.detectCloseButtonPressed(with: gesture, in: navigationController ?? UINavigationController())
         if detected { closeButtonPressed() }
     }
+    func setCalculationData(data: CalculationData) { self.calculationData = data }
     @objc func closeButtonPressed() { navigationController?.popViewController(animated: true) }
 }
 

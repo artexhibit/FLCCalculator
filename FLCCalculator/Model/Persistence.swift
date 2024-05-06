@@ -37,10 +37,11 @@ struct Persistence {
     
     func migrateStore(for container: NSPersistentContainer) {
         let coordinator = container.persistentStoreCoordinator
+        let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
         guard let oldStore = coordinator.persistentStore(for: oldStoreURL) else { return }
         
         do {
-            try coordinator.migratePersistentStore(oldStore, to: sharedStoreURL, options: nil, withType: NSSQLiteStoreType)
+            try coordinator.migratePersistentStore(oldStore, to: sharedStoreURL, options: options, withType: NSSQLiteStoreType)
         } catch {
             print("Unable to migrate to shared store with error: \(error.localizedDescription)")
         }

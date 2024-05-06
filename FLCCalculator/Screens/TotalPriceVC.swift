@@ -321,8 +321,8 @@ extension TotalPriceVC: CalculationResultVCDelegate {
             let allPrices = calculationResults.map { $0.value.price }
             
             TotalPriceVCUIHelper.removeLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer)
-            totalDaysLayer.string = CalculationUIHelper.calculateTotalDays(days: allDays)
-            totalAmountLayer.string = CalculationUIHelper.calculateTotalPrice(prices: allPrices)
+            totalDaysLayer.string = CalculationHelper.calculateTotalDays(days: allDays)
+            totalAmountLayer.string = CalculationHelper.calculateTotalPrice(prices: allPrices)
             
             failedToFetchPrice = allPrices.contains(where: { $0.isEmpty }) ? true : false
             if allPrices.contains(where: { $0.isEmpty }) { totalCalculatedCells -= 1 }

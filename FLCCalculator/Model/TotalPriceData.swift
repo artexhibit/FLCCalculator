@@ -3,6 +3,7 @@ import Foundation
 struct TotalPriceData {
     var logisticsType: FLCLogisticsType = .chinaTruck
     var totalPrice: String? = nil
+    var totalTime: String? = nil
     var cargoHandling: String? = nil
     var customsClearance: String? = nil
     var customsWarehousePrice: String? = nil
@@ -14,6 +15,5 @@ struct TotalPriceData {
     var russianDeliveryTime: String? = nil
     var groupageDocs: String? = nil
     var insurance: String? = nil
-    var totalTime: String? = nil
     var isFavourite: Bool = false
 }

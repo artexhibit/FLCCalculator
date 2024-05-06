@@ -73,10 +73,10 @@ struct TotalPriceVCUIHelper {
     
     static func setTitleStyleBasedOnPriceFetchResult(prices: [String], layer: FLCTextLayer) {
         if prices.contains(where: { $0.isEmpty }) {
-            layer.string = CalculationUIHelper.calculateTotalPrice(prices: prices) + "*"
+            layer.string = CalculationHelper.calculateTotalPrice(prices: prices) + "*"
             layer.foregroundColor = UIColor.red.makeLighter(delta: 0.4).cgColor
         } else {
-            layer.string = CalculationUIHelper.calculateTotalPrice(prices: prices)
+            layer.string = CalculationHelper.calculateTotalPrice(prices: prices)
             layer.foregroundColor = UIColor.label.cgColor
         }
     }

@@ -32,6 +32,27 @@ struct CoreDataManager {
         calc.totalPrice = totalPriceData.first(where: { $0.isFavourite })?.totalPrice
         calc.needCustomsClearance = calculationData.needCustomClearance
         
+        for totalPriceDataItem in totalPriceData {
+            let calcResult = CalculationResult(context: context)
+            calcResult.logisticsType = totalPriceDataItem.logisticsType.rawValue
+            calcResult.totalPrice = totalPriceDataItem.totalPrice
+            calcResult.totalTime = totalPriceDataItem.totalTime
+            calcResult.cargoHandling = totalPriceDataItem.cargoHandling
+            calcResult.customsClearance = totalPriceDataItem.customsClearance
+            calcResult.customsWarehousePrice = totalPriceDataItem.customsWarehousePrice
+            calcResult.deliveryFromWarehousePrice = totalPriceDataItem.deliveryFromWarehousePrice
+            calcResult.deliveryFromWarehouseTime = totalPriceDataItem.deliveryFromWarehouseTime
+            calcResult.deliveryToWarehousePrice = totalPriceDataItem.deliveryToWarehousePrice
+            calcResult.deliveryToWarehouseTime = totalPriceDataItem.deliveryToWarehouseTime
+            calcResult.russianDeliveryPrice = totalPriceDataItem.russianDeliveryPrice
+            calcResult.russianDeliveryTime = totalPriceDataItem.russianDeliveryTime
+            calcResult.groupageDocs = totalPriceDataItem.groupageDocs
+            calcResult.insurance = totalPriceDataItem.insurance
+            calcResult.isFavourite = totalPriceDataItem.isFavourite
+            
+            calcResult.calculation = calc
+            calc.addToResult(calcResult)
+        }
         Persistence.shared.saveContext()
     }
 }
