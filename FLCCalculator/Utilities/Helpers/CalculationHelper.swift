@@ -212,7 +212,8 @@ struct CalculationHelper {
             weight: cargoView.weightTextField.text?.createDouble() ?? 0.0,
             invoiceAmount: cargoView.invoiceAmountTextField.text?.createDouble() ?? 0.0,
             invoiceCurrency: cargoView.invoiceCurrencyPickerButton.showingTitle,
-            needCustomClearance: cargoView.customsClearanceSwitch.isOn)
+            needCustomClearance: cargoView.customsClearanceSwitch.isOn, 
+            totalPrices: nil)
         return calcData
     }
 }

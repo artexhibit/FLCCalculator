@@ -99,6 +99,12 @@ extension CalculationsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         calculations.count
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let pickedCalculation = calculations[indexPath.row]
+        let results = pickedCalculation.result as? Set<CalculationResult>
+        let calculationData = CalculationsVCHelper.createStoredCalculationData(pickedCalculation: pickedCalculation, results: results)
+    }
 }
 
 extension CalculationsVC: FLCButtonDelegate {

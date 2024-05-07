@@ -29,6 +29,8 @@ struct CoreDataManager {
         calc.countryFrom = calculationData.countryFrom
         calc.weight = calculationData.weight
         calc.volume = calculationData.volume
+        calc.invoiceAmount = calculationData.invoiceAmount
+        calc.invoiceCurrency = calculationData.invoiceCurrency
         calc.totalPrice = totalPriceData.first(where: { $0.isFavourite })?.totalPrice
         calc.needCustomsClearance = calculationData.needCustomClearance
         

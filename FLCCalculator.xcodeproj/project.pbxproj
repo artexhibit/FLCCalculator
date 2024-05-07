@@ -75,6 +75,7 @@
 		0B78F3082BE69A8F00C52EC4 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB1E0632BE102BC00AB6A63 /* Date+Ext.swift */; };
 		0B78F3092BE69AAE00C52EC4 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
 		0B7EBA692BE55C41004BE990 /* NetworkAvailabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */; };
+		0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */; };
 		0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */; };
 		0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */; };
 		0B9894382BE41C2F00EB8516 /* BackgroundTasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */; };
@@ -222,6 +223,7 @@
 		0B7882882BDEB0CE00BDCA16 /* FLCRoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCRoundButton.swift; sourceTree = "<group>"; };
 		0B78F3062BE68D2000C52EC4 /* TotalPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceData.swift; sourceTree = "<group>"; };
 		0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAvailabilityManager.swift; sourceTree = "<group>"; };
+		0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsVCHelper.swift; sourceTree = "<group>"; };
 		0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerViewUIHelper.swift; sourceTree = "<group>"; };
 		0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCMailComposeVC.swift; sourceTree = "<group>"; };
 		0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTasksManager.swift; sourceTree = "<group>"; };
@@ -316,6 +318,9 @@
 			children = (
 				0B5099D32BE1245B00F0E3D0 /* UIHelpers */,
 				0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */,
+				0B9F40F42BBEF8F20072561B /* CalculationResultHelper.swift */,
+				0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */,
+				0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -394,9 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */,
-				0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */,
 				0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */,
-				0B9F40F42BBEF8F20072561B /* CalculationResultHelper.swift */,
 				0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */,
 			);
 			path = UIHelpers;
@@ -891,6 +894,7 @@
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
 				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */,
+				0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */,
 				0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */,
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,
 				0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */,

@@ -9,6 +9,8 @@
         <attribute name="fromLocation" attributeType="String"/>
         <attribute name="goodsType" attributeType="String"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="invoiceAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="invoiceCurrency" attributeType="String"/>
         <attribute name="needCustomsClearance" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="toLocation" attributeType="String"/>
         <attribute name="toLocationCode" attributeType="String"/>

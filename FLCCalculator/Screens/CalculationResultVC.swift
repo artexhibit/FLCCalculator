@@ -16,6 +16,7 @@ class CalculationResultVC: UIViewController {
     private var allLogisticsTypes = [FLCLogisticsType]()
     private var totalPriceDataItems = [TotalPriceData]()
     private var pickedLogisticsType: FLCLogisticsType = .chinaTruck
+    private var pickedTotalPriceData: TotalPriceData?
     
     var showingPopover = FLCPopoverVC()
     private var calculationData: CalculationData! {

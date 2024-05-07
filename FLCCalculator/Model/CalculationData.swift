@@ -15,4 +15,5 @@ struct CalculationData: Hashable {
     let invoiceAmount: Double
     let invoiceCurrency: String
     let needCustomClearance: Bool
+    let totalPrices: [TotalPriceData]?
 }
