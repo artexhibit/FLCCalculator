@@ -194,22 +194,24 @@ class TotalPriceVC: UIViewController {
     
     private func configureSaveButton() {
         saveButton.delegate = self
+        let multiplier: CGFloat = calculationData?.isFromCoreData ?? false ? 0.0001 : 0.49
         
         NSLayoutConstraint.activate([
             saveButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: padding / 2),
             saveButton.leadingAnchor.constraint(equalTo: confirmButton.leadingAnchor),
-            saveButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: 0.49),
+            saveButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: multiplier),
             saveButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor, multiplier: 0.9)
         ])
     }
     
     private func configureCloseButton() {
         closeButton.delegate = self
+        let multiplier: CGFloat = calculationData?.isFromCoreData ?? false ? 1 : 0.49
         
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: padding / 2),
             closeButton.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor),
-            closeButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: 0.49),
+            closeButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: multiplier),
             closeButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor, multiplier: 0.9)
         ])
     }

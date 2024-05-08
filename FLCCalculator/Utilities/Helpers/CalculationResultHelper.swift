@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 struct CalculationResultHelper {
     static func getRussianDeliveryPrice(item: CalculationResultItem) async -> Result<(price: String, days: String), FLCError> {
@@ -150,14 +150,6 @@ struct CalculationResultHelper {
         return russianDeliveryItem + filteredNewItems
     }
     
-    static func setFavouriteLogisticsType(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType) -> [TotalPriceData] {
-        return totalPriceDataItems.map { item in
-            var modifiedItem = item
-            if modifiedItem.logisticsType == pickedLogisticsType { modifiedItem.isFavourite = true }
-            return modifiedItem
-        }
-    }
-    
     static func getAllCalculationsFor(allLogisticsTypes: [FLCLogisticsType], calculationData: CalculationData) async -> [TotalPriceData] {
         var totalPriceDataItems = [TotalPriceData]()
         
@@ -166,6 +158,58 @@ struct CalculationResultHelper {
             totalPriceDataItems.append(data)
         }
         return totalPriceDataItems
+    }
+    
+    static func getPickedTotalPriceData(with calcData: CalculationData, pickedLogisticsType: FLCLogisticsType) -> TotalPriceData? {
+        if  calcData.isFromCoreData {
+            return calcData.totalPrices?.first(where: { $0.logisticsType == pickedLogisticsType })
+        }
+        return nil
+    }
+    
+    static func getResultForRussianDelivery(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, item: CalculationResultItem) async -> Result<(price: String, days: String), FLCError> {
+        if calcData.isFromCoreData && pickedTotalPriceData?.russianDeliveryPrice != "0" {
+            return .success((pickedTotalPriceData?.russianDeliveryPrice ?? "", pickedTotalPriceData?.russianDeliveryTime ?? ""))
+        } else {
+            return await getRussianDeliveryPrice(item: item)
+        }
+    }
+    
+    static func getResultForDeliveryToWarehouse(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
+        if calcData.isFromCoreData {
+            return (pickedTotalPriceData?.deliveryToWarehousePrice ?? "", pickedTotalPriceData?.deliveryToWarehouseTime ?? "", false, "")
+        } else {
+            return CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
+        }
+    }
+    
+    static func getResultForDeliveryFromWarehouse(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (price: String, days: String) {
+        if calcData.isFromCoreData {
+            return (pickedTotalPriceData?.deliveryFromWarehousePrice ?? "", pickedTotalPriceData?.deliveryFromWarehouseTime ?? "")
+        } else {
+            return getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
+        }
+    }
+    
+    static func saveRefetchedRussianDelivery(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, items: ((price: String, days: String))) {
+        if calcData.isFromCoreData && pickedTotalPriceData?.russianDeliveryPrice == "0" {
+            let calc = CoreDataManager.getCalculation(withID: calcData.id)
+            let results = calc?.result as? Set<CalculationResult>
+            results?.forEach({ result in
+                result.russianDeliveryPrice = items.price
+                result.russianDeliveryTime = items.days
+            })
+            Persistence.shared.saveContext()
+        }
+    }
+    
+    static func saveConfirmedStatusForRefetchedResult(calcData: CalculationData, pickedLogisticsType: FLCLogisticsType) {
+        let calculation = CoreDataManager.getCalculation(withID: calcData.id)
+        let results = calculation?.result as? Set<CalculationResult>
+        let confirmedResult = results?.first(where: { $0.logisticsType == pickedLogisticsType.rawValue })
+        calculation?.isConfirmed = true
+        confirmedResult?.isConfirmed = true
+        Persistence.shared.saveContext()
     }
     
     static func setupTotalPriceData(logisticsType: FLCLogisticsType, calculationData: CalculationData) async -> TotalPriceData {
@@ -234,5 +278,24 @@ struct CalculationResultHelper {
         totalPriceData.totalPrice = CalculationHelper.calculateTotalPrice(prices: items.compactMap { $0.price })
         totalPriceData.totalTime = CalculationHelper.calculateTotalDays(days: items.compactMap { $0.daysAmount })
         return totalPriceData
+    }
+    
+    static func saveCalculationInCoreData(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType, calcData: CalculationData, isConfirmed: Bool = false) {
+        let newTotalPriceDataItems = setFavouriteLogisticsType(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType)
+        CoreDataManager.createCalculationRecord(with: calcData, totalPriceData: newTotalPriceDataItems, pickedLogisticsType: pickedLogisticsType, isConfirmed: isConfirmed)
+    }
+    
+    static func createCalculationResultVC(data: CalculationData, from vc: UIViewController) {
+        let calculationResultVC = CalculationResultVC()
+        calculationResultVC.setCalculationData(data: data)
+        vc.navigationController?.pushViewController(calculationResultVC, animated: true)
+    }
+    
+    private static func setFavouriteLogisticsType(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType) -> [TotalPriceData] {
+        return totalPriceDataItems.map { item in
+            var modifiedItem = item
+            if modifiedItem.logisticsType == pickedLogisticsType { modifiedItem.isFavourite = true }
+            return modifiedItem
+        }
     }
 }

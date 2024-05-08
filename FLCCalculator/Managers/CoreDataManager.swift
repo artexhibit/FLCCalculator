@@ -15,8 +15,21 @@ struct CoreDataManager {
         }
     }
     
-    static func createCalculationRecord(with calculationData: CalculationData, totalPriceData: [TotalPriceData]) {
+    static func getCalculation(withID id: Int32) -> Calculation? {
+        let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", id)
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            print(FLCError.unableToFetchCategories)
+            return nil
+        }
+    }
+    
+    static func createCalculationRecord(with calculationData: CalculationData, totalPriceData: [TotalPriceData], pickedLogisticsType: FLCLogisticsType, isConfirmed: Bool = false) {
         let calc = Calculation(context: context)
+        
         calc.calculationDate = Date()
         calc.id = Int32(CoreDataManager.loadCalculations()?.count ?? 0)
         calc.toLocation = calculationData.toLocation
@@ -36,6 +49,7 @@ struct CoreDataManager {
         
         for totalPriceDataItem in totalPriceData {
             let calcResult = CalculationResult(context: context)
+            
             calcResult.logisticsType = totalPriceDataItem.logisticsType.rawValue
             calcResult.totalPrice = totalPriceDataItem.totalPrice
             calcResult.totalTime = totalPriceDataItem.totalTime
@@ -51,6 +65,7 @@ struct CoreDataManager {
             calcResult.groupageDocs = totalPriceDataItem.groupageDocs
             calcResult.insurance = totalPriceDataItem.insurance
             calcResult.isFavourite = totalPriceDataItem.isFavourite
+            calcResult.isConfirmed = (pickedLogisticsType == totalPriceDataItem.logisticsType) && isConfirmed ? true : false
             
             calcResult.calculation = calc
             calc.addToResult(calcResult)

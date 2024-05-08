@@ -11,6 +11,7 @@
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="invoiceAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="invoiceCurrency" attributeType="String"/>
+        <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="needCustomsClearance" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="toLocation" attributeType="String"/>
         <attribute name="toLocationCode" attributeType="String"/>
@@ -29,6 +30,7 @@
         <attribute name="deliveryToWarehouseTime" optional="YES" attributeType="String"/>
         <attribute name="groupageDocs" attributeType="String"/>
         <attribute name="insurance" optional="YES" attributeType="String"/>
+        <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isFavourite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="logisticsType" attributeType="String"/>
         <attribute name="russianDeliveryPrice" optional="YES" attributeType="String"/>

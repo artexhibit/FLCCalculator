@@ -16,4 +16,5 @@ struct TotalPriceData: Hashable {
     var groupageDocs: String? = nil
     var insurance: String? = nil
     var isFavourite: Bool = false
+    var isConfirmed: Bool = false
 }

@@ -41,8 +41,7 @@ class UsefulInfoVC: UIViewController {
     }
 }
 
-extension UsefulInfoVC: UITableViewDelegate {
-}
+extension UsefulInfoVC: UITableViewDelegate {}
 
 extension UsefulInfoVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,10 +52,8 @@ extension UsefulInfoVC: UITableViewDataSource {
         let section = sections[section]
         
         switch section {
-        case .managerContacts:
-           return 1
-        case .usefulInfo:
-           return 5
+        case .managerContacts: return 1
+        case .usefulInfo: return 5
         }
     }
     

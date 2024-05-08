@@ -26,6 +26,7 @@ struct CalculationsVCHelper {
         })
         
         let calculationData = CalculationData(
+            id: pickedCalculation.id, 
             countryFrom: pickedCalculation.countryFrom ?? "",
             countryTo: pickedCalculation.countryTo ?? "",
             deliveryType: pickedCalculation.deliveryType ?? "",
@@ -39,7 +40,9 @@ struct CalculationsVCHelper {
             invoiceAmount: pickedCalculation.invoiceAmount,
             invoiceCurrency: pickedCalculation.invoiceCurrency ?? "",
             needCustomClearance: pickedCalculation.needCustomsClearance,
-            totalPrices: totalPrices)
+            totalPrices: totalPrices,
+            isFromCoreData: true, 
+            isConfirmed: pickedCalculation.isConfirmed)
         
         return calculationData
     }

@@ -1,6 +1,7 @@
 import Foundation
 
 struct CalculationData: Hashable {
+    let id: Int32
     let calculationDate: String = Date().formatted(date: .numeric, time: .omitted)
     let countryFrom: String
     let countryTo: String
@@ -16,4 +17,6 @@ struct CalculationData: Hashable {
     let invoiceCurrency: String
     let needCustomClearance: Bool
     let totalPrices: [TotalPriceData]?
+    let isFromCoreData: Bool
+    let isConfirmed: Bool
 }

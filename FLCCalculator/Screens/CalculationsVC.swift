@@ -104,6 +104,8 @@ extension CalculationsVC: UITableViewDelegate {
         let pickedCalculation = calculations[indexPath.row]
         let results = pickedCalculation.result as? Set<CalculationResult>
         let calculationData = CalculationsVCHelper.createStoredCalculationData(pickedCalculation: pickedCalculation, results: results)
+        
+        CalculationResultHelper.createCalculationResultVC(data: calculationData, from: self)
     }
 }
 

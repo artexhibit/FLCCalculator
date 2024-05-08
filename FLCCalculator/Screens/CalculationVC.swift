@@ -156,10 +156,9 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
         case transportView.calculateButton:
             if CalculationHelper.confirmDataIsValid(in: transportView) {
-                let calculationResultVC = CalculationResultVC()
                 let data = CalculationHelper.getCalculationData(transportView: transportView, cargoView: cargoView, pickedDestinationCode: pickedDestinationCode)
-                calculationResultVC.setCalculationData(data: data)
-                navigationController?.pushViewController(calculationResultVC, animated: true)
+
+                CalculationResultHelper.createCalculationResultVC(data: data, from: self)
                 moveView(direction: .forward, times: 2, duration: 0.25)
                 navigationController?.removeVCFromStack(vc: self)
             }
