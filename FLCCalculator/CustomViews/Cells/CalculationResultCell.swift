@@ -12,10 +12,10 @@ class CalculationResultCell: UITableViewCell {
     private let gradientLayer = CAGradientLayer()
         
     let titleTextView = FLCTextViewLabel()
-    let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
-    private let daysIconView = FLCImageView(image: UIImage(systemName: "clock.badge.checkmark"), tint: .lightGray)
+    let subtitle = FLCSubtitleLabel(color: .flcCalculationResultCellSecondary, textAlignment: .left)
+    private let daysIconView = FLCImageView(image: UIImage(systemName: "clock.badge.checkmark"), tint: .flcCalculationResultCellSecondary)
     let daysTextView = FLCTextViewLabel()
-    let priceLabel = FLCTitleLabel(color: .label, textAlignment: .right, size: 23)
+    let priceLabel = FLCTitleLabel(color: .flcCalculationResultCellSecondary, textAlignment: .right, size: 23)
     let failedPriceCalcContainer = UIView()
     private let failedPriceCalcContentStackView = UIStackView()
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
@@ -73,7 +73,7 @@ class CalculationResultCell: UITableViewCell {
         containerView.layer.addSublayer(gradientLayer)
         containerView.pinToEdges(of: contentView, withPadding: padding / 2)
         
-        containerView.backgroundColor = .secondarySystemBackground
+        containerView.backgroundColor = .flcNumberTextFieldBackground
         containerView.layer.cornerRadius = 10
     }
     
@@ -179,7 +179,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func set(with item: CalculationResultItem, presentedVC: UIViewController, pickedLogisticsType: FLCLogisticsType) {
-        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .gray, size: (0, -4, 22, 21), placeIcon: .beforeText)
+        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .flcCalculationResultCellMain, size: (0, -4, 22, 21), placeIcon: .beforeText)
         
         item.isShimmering ? addShimmerAnimation() : removeShimmerAnimation()
         
@@ -207,8 +207,8 @@ class CalculationResultCell: UITableViewCell {
         case .groupageDocs:
             CalculationCellUIHelper.configureGroupageDocs(cell: self, with: item, and: attributedText)
         }
-        self.titleTextView.setStyle(color: .label, textAlignment: .left, fontWeight: .bold, fontSize: 20)
-        self.daysTextView.setStyle(color: .lightGray, textAlignment: .right, fontWeight: .bold, fontSize: 19)
+        self.titleTextView.setStyle(color: .flcCalculationResultCellMain, textAlignment: .left, fontWeight: .bold, fontSize: 20)
+        self.daysTextView.setStyle(color: .flcCalculationResultCellSecondary, textAlignment: .right, fontWeight: .bold, fontSize: 19)
     }
     
     func addShimmerAnimation() {

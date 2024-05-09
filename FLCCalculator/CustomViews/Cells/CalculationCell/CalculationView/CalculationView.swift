@@ -2,8 +2,7 @@ import SwiftUI
 
 struct CalculationView: View {
     @Environment(\.colorScheme) var colorScheme
-    
-    var calculation: Calculation
+    @ObservedObject var calculation: Calculation
     
     var body: some View {
         
@@ -30,7 +29,7 @@ struct CalculationView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 Spacer()
-                Image(FLCCountryOption(rawValue: calculation.countryFrom ?? "")?.shortCode ?? "")
+                Image(FLCCountryOption(rawValue: calculation.countryFrom ?? "")?.shortCode ?? "CNY")
                     .resizable()
                     .frame(width: 40, height: 40)
             }
@@ -48,9 +47,9 @@ struct CalculationView: View {
             
             HStack(alignment: .top) {
                 VStack(spacing: 5) {
-                    Image(systemName: "circle.circle.fill")
+                    Image(systemName: "a.circle.fill")
                         .resizable()
-                        .frame(width: 20, height: 20)
+                        .frame(width: 23, height: 23)
                         .foregroundStyle(.flcOrange)
                     
                     Path { path in
@@ -61,16 +60,16 @@ struct CalculationView: View {
                     .frame(width: 1, height: 28, alignment: .center)
                     .foregroundStyle(.flcOrange)
                     
-                    Image(systemName: "mappin.and.ellipse")
+                    Image(systemName: "b.circle.fill")
                         .resizable()
-                        .frame(width: 18, height: 23)
+                        .frame(width: 23, height: 23)
                         .foregroundStyle(.flcOrange)
                 }
                 
                 VStack(alignment: .leading, spacing: 20) {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading) {
-                            Text("Забрать из")
+                            Text("Погрузка")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                             
@@ -82,7 +81,7 @@ struct CalculationView: View {
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("Доставить в")
+                        Text("Выгрузка")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
@@ -106,13 +105,13 @@ struct CalculationView: View {
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "door.garage.closed", text: calculation.deliveryType ?? "")
+                    CalculationTagView(systemImageName: "warehouse", text: calculation.deliveryType ?? "", isSystemImage: false)
                     
                     Spacer()
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "cart.fill", imageSize: (20, 16), text: calculation.totalPrice ?? "", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
+                    CalculationTagView(systemImageName: "creditcard.fill", imageSize: (20, 15), text: calculation.totalPrice ?? "", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
                     
                     Spacer()
                 }
@@ -124,9 +123,11 @@ struct CalculationView: View {
         .padding(.horizontal, 15)
         .padding(.top, 16)
         .padding(.bottom, 8)
-        .background(Color(colorScheme == .dark ? .quaternarySystemFill  : UIColor.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(color: Color(.lightGray).opacity(0.5), radius: 8, x: 0, y: 5)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color(colorScheme == .dark ? (calculation.isConfirmed ? .flcLightOrangeBackground : .quaternarySystemFill) : (calculation.isConfirmed ? .flcLightOrangeBackground : .systemBackground)))
+                .shadow(color: Color(.lightGray).opacity(0.5), radius: 8, x: 0, y: 5)
+        )
     }
 }
 

@@ -7,21 +7,28 @@ struct CalculationTagView: View {
     var textColor: Color = .orange
     var imageColor: Color = .flcOrange
     var backgroundColor: Color = .flcOrange
+    var isSystemImage: Bool = true
     
     var body: some View {
         HStack {
             HStack(alignment: .center, spacing: 8) {
-                Image(systemName: systemImageName)
-                    .resizable()
-                    .frame(width: imageSize.width, height: imageSize.height)
-                    .foregroundStyle(imageColor)
-                
+                if isSystemImage {
+                    Image(systemName: systemImageName)
+                        .resizable()
+                        .frame(width: imageSize.width, height: imageSize.height)
+                        .foregroundStyle(imageColor)
+                } else {
+                    Image(systemImageName)
+                        .resizable()
+                        .frame(width: imageSize.width, height: imageSize.height)
+                        .foregroundStyle(imageColor)
+                }
                 Text(text)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundStyle(textColor)
                     .bold()
             }
-            .padding(.vertical, 5)
+            .padding(.vertical, 7)
             .padding(.horizontal, 8)
         }
         .background(backgroundColor.opacity(0.12))

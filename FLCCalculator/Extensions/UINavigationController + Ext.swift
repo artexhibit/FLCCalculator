@@ -8,9 +8,14 @@ extension UINavigationController {
         self.viewControllers = filteredArray
     }
     
-    func removeBottomBorder() {
+    func configNavBarAppearance(removeBottomBorder: Bool = true, setColor color: UIColor = .flcOrange) {
         let appearance = UINavigationBarAppearance()
-        appearance.shadowColor = .clear
+        if removeBottomBorder { appearance.shadowColor = .clear }
+        appearance.titleTextAttributes = [.foregroundColor: color]
+        appearance.largeTitleTextAttributes = [.foregroundColor: color]
+        
         self.navigationBar.standardAppearance = appearance
+        self.navigationBar.compactAppearance = appearance
+      
     }
 }

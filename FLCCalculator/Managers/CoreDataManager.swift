@@ -4,8 +4,10 @@ import CoreData
 struct CoreDataManager {
     private static let context = Persistence.shared.container.viewContext
     
-    static func loadCalculations() -> [Calculation]? {
+    static func loadCalculations(sortBy key: String = "id", ascending: Bool = true) -> [Calculation]? {
         let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
+        request.sortDescriptors = [sortDescriptor]
         
         do {
             return try context.fetch(request)
@@ -27,6 +29,22 @@ struct CoreDataManager {
         }
     }
     
+    static func deleteCalculation(withID id: Int32) {
+        guard let calculationToDelete = getCalculation(withID: id) else { return }
+        
+        if let calculationResults = calculationToDelete.result as? Set<CalculationResult> {
+            for calculationResult in calculationResults { context.delete(calculationResult) }
+        }
+        context.delete(calculationToDelete)
+        Persistence.shared.saveContext()
+    }
+    
+    static func reassignCalculationsId() {
+        guard let calculations = loadCalculations() else { return }
+        for (index, calc) in calculations.enumerated() { calc.id = Int32(index + 1) }
+        Persistence.shared.saveContext()
+    }
+    
     static func createCalculationRecord(with calculationData: CalculationData, totalPriceData: [TotalPriceData], pickedLogisticsType: FLCLogisticsType, isConfirmed: Bool = false) {
         let calc = Calculation(context: context)
         
@@ -45,6 +63,7 @@ struct CoreDataManager {
         calc.invoiceAmount = calculationData.invoiceAmount
         calc.invoiceCurrency = calculationData.invoiceCurrency
         calc.totalPrice = totalPriceData.first(where: { $0.isFavourite })?.totalPrice
+        calc.isConfirmed = isConfirmed
         calc.needCustomsClearance = calculationData.needCustomClearance
         
         for totalPriceDataItem in totalPriceData {

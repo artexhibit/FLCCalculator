@@ -35,7 +35,7 @@ struct CalculationCellUIHelper {
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = subtitle.makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
-        cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
+        cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
@@ -86,7 +86,7 @@ struct CalculationCellUIHelper {
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "\(item.calculationData.fromLocation) - Склад \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
-        cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .lightGray, size: (0, -4, 22, 21), placeIcon: .afterText)
+        cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()

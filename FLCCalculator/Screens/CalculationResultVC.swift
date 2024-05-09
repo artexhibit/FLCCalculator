@@ -47,7 +47,7 @@ class CalculationResultVC: UIViewController {
         self.delegate = totalPriceVC
         totalPriceVC.delegate = self
         
-        navigationController?.removeBottomBorder()
+        navigationController?.configNavBarAppearance()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
         tabBarController?.tabBar.isHidden = true

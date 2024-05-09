@@ -1,5 +1,4 @@
 import UIKit
-import CoreData
 
 class CalculationsVC: UIViewController {
     
@@ -18,16 +17,13 @@ class CalculationsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureVC()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        getCalculations()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { self.getCalculations() }
     }
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        setNavBarColor(color: UIColor.flcOrange)
         navigationItem.title = "Расчёты"
         tabBarController?.tabBar.isHidden = false
         
@@ -54,38 +50,42 @@ class CalculationsVC: UIViewController {
         })
     }
     
-    private func updateDataSource(on calculations: [Calculation]) {
+    private func updateDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<FLCSection, Calculation>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(calculations)
+        snapshot.appendItems(self.calculations)
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func showEmptyStateView(withTitle: String, andSubtitle: String) {
-        emptyStateView = FLCEmptyStateView(titleText: withTitle, subtitleText: andSubtitle)
-        emptyStateView.frame = view.bounds
-        emptyStateView.actionButton.delegate = self
-        view.addSubview(emptyStateView)
+        if !emptyStateView.isDescendant(of: view) {
+            emptyStateView = FLCEmptyStateView(titleText: withTitle, subtitleText: andSubtitle)
+            emptyStateView.frame = view.bounds
+            emptyStateView.actionButton.delegate = self
+            view.addSubview(emptyStateView)
+        }
     }
     
-    private func updateUI(with calculations: [Calculation]) {
+    private func updateUI() {
+        updateDataSource()
+        
         if calculations.isEmpty {
-            showEmptyStateView(withTitle: "Пока нет расчётов", andSubtitle: "Нажмите на + в правом верхнем углу или кнопку ниже, чтобы начать")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.showEmptyStateView(withTitle: "Пока нет расчётов", andSubtitle: "Нажмите на + в правом верхнем углу или кнопку ниже, чтобы начать")
+            }
         } else {
-            self.calculations = calculations
-            
             DispatchQueue.main.async {
                 self.emptyStateView.removeFromSuperview()
                 self.view.bringSubviewToFront(self.tableView)
             }
-            updateDataSource(on: self.calculations)
+            updateDataSource()
         }
     }
     
     private func getCalculations() {
-        calculations = CoreDataManager.loadCalculations() ?? []
-        updateUI(with: calculations)
+        self.calculations = CoreDataManager.loadCalculations() ?? []
+        updateUI()
     }
     
     private func goToCalculation() {
@@ -96,9 +96,7 @@ class CalculationsVC: UIViewController {
 }
 
 extension CalculationsVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        calculations.count
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { self.calculations.count }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let pickedCalculation = calculations[indexPath.row]
@@ -106,6 +104,22 @@ extension CalculationsVC: UITableViewDelegate {
         let calculationData = CalculationsVCHelper.createStoredCalculationData(pickedCalculation: pickedCalculation, results: results)
         
         CalculationResultHelper.createCalculationResultVC(data: calculationData, from: self)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { [weak self] (action, view, completionHandler) in
+            guard let self = self else { return }
+            
+            CoreDataManager.deleteCalculation(withID: self.calculations[indexPath.row].id)
+            CoreDataManager.reassignCalculationsId()
+            self.getCalculations()
+            completionHandler(true)
+        }
+        deleteAction.image = Icons.trashBin.withTintColor(.red, renderingMode: .alwaysOriginal)
+        deleteAction.backgroundColor = UIColor(white: 1, alpha: 0)
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
     }
 }
 

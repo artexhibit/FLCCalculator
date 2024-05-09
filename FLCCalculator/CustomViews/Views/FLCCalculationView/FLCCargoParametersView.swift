@@ -5,7 +5,7 @@ class FLCCargoParametersView: FLCCalculationView {
     private let stackView = UIStackView()
     
     let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
-    let weightTextField = FLCNumberTextField(placeholderText: "Вес груза, кг")
+    let weightTextField = FLCNumberTextField(placeholderText: "Вес брутто, кг")
     let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
     let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")

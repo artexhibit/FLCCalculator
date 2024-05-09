@@ -17,6 +17,7 @@ enum Icons {
     static let envelope = UIImage(systemName: "envelope.fill") ?? UIImage()
     static let telegram = UIImage(resource: .telegram)
     static let whatsapp = UIImage(resource: .whatsappFill)
+    static let trashBin = UIImage(systemName: "trash") ?? UIImage()
 }
 
 enum Keys {

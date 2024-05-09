@@ -18,9 +18,15 @@ extension UIViewController {
         self.view.layer.addSublayer(confetti)
         confetti.addBehaviors()
         confetti.addAnimations()
-      
+        
         HapticManager.addSuccessHaptic(delay: 1)
         HapticManager.addSuccessHaptic(delay: 1.4)
+    }
+    
+    func setNavBarColor(color: UIColor) {
+        let textChangeColor = [NSAttributedString.Key.foregroundColor: color]
+        self.navigationController?.navigationBar.titleTextAttributes = textChangeColor
+        self.navigationController?.navigationBar.largeTitleTextAttributes = textChangeColor
     }
     
     private struct Preview: UIViewControllerRepresentable {
