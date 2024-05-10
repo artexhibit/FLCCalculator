@@ -24,6 +24,10 @@ class CalculationResultVC: UIViewController {
             let country = FLCCountryOption(rawValue: calculationData.countryFrom)
             pickedLogisticsType = FLCLogisticsType.firstCase(for: country ?? .china) ?? .chinaTruck
             allLogisticsTypes = FLCLogisticsType.logisticsTypes(for: country ?? .china)
+            
+            if calculationData.isConfirmed {
+                pickedLogisticsType = CalculationResultHelper.getConfirmedLogisticsType(calcData: calculationData)
+            }
         }
     }
     
@@ -235,7 +239,7 @@ extension CalculationResultVC: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCOptionsTableViewHeader.reuseID) as! FLCOptionsTableViewHeader
         headerView.optionsCollectionView.optionsDelegate = self
         headerView.optionsCollectionView.pickedCountry = FLCCountryOption(rawValue: calculationData.countryFrom)
-        headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: calculationData))
+        headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: calculationData), pickedLogisticsType: pickedLogisticsType)
         return headerView
     }
     
@@ -265,11 +269,13 @@ extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
         
         let newItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         calculationResultItems = CalculationResultHelper.saveNetworkingData(oldItems: calculationResultItems, newItems: newItems)
-        performCalculations(pickedLogisticsType: type)
+        performCalculations(pickedLogisticsType: pickedLogisticsType)
     }
 }
 
 extension CalculationResultVC: TotalPriceVCDelegate {
+    func didPressCloseButton() { closeButtonPressed() }
+    
     func didPressSaveButton() {
         CalculationResultHelper.saveCalculationInCoreData(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType, calcData: calculationData)
         closeButtonPressed()

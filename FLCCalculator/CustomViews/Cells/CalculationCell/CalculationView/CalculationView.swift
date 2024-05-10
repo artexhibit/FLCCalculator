@@ -12,11 +12,23 @@ struct CalculationView: View {
                     Text(String(calculation.id))
                         .font(.caption.bold())
                         .foregroundStyle(.bar)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 5)
+                        .frame(minWidth: 24, minHeight: 24, alignment: .center)
                 }
                 .background(.flcOrange)
                 .clipShape(Circle())
+                
+                if calculation.isConfirmed {
+                    HStack {
+                        Image(systemName: "checkmark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(.white)
+                            .frame(width: 12, height: 12, alignment: .center)
+                            .padding(.all, 6)
+                    }
+                    .background(.flcOrange)
+                    .clipShape(Circle())
+                }
                 
                 HStack {
                     Text(calculation.calculationDate?.makeString() ?? "")
@@ -79,6 +91,7 @@ struct CalculationView: View {
                                 .lineLimit(1)
                         }
                     }
+                    .padding(.top, -5)
                     
                     VStack(alignment: .leading) {
                         Text("Выгрузка")
@@ -90,6 +103,7 @@ struct CalculationView: View {
                             .foregroundStyle(.primary)
                             .lineLimit(4)
                     }
+                    .padding(.top, 5)
                 }
                 
                 Spacer()

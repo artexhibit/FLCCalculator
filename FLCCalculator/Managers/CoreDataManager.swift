@@ -49,6 +49,7 @@ struct CoreDataManager {
         let calc = Calculation(context: context)
         
         calc.calculationDate = Date()
+        calc.calculationConfirmDate = Date()
         calc.id = Int32(CoreDataManager.loadCalculations()?.count ?? 0)
         calc.toLocation = calculationData.toLocation
         calc.toLocationCode = calculationData.toLocationCode

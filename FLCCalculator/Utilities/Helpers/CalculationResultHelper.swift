@@ -129,10 +129,10 @@ struct CalculationResultHelper {
         var options = [FLCLogisticsOption]()
         let pickedCountry = FLCCountryOption(rawValue: calculationData.countryFrom)
         
-        let truckOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто")
-        let trainOption = FLCLogisticsOption(image: Icons.train, title: "ЖД")
-        let airOption = FLCLogisticsOption(image: Icons.plane, title: "Авиа")
-        let truckPlusFerryOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром")
+        let truckOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто", type: .chinaTruck)
+        let trainOption = FLCLogisticsOption(image: Icons.train, title: "ЖД", type: .chinaRailway)
+        let airOption = FLCLogisticsOption(image: Icons.plane, title: "Авиа", type: .chinaAir)
+        let truckPlusFerryOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", type: .turkeyTruck)
         
         switch pickedCountry {
         case .china:
@@ -207,7 +207,10 @@ struct CalculationResultHelper {
         let calculation = CoreDataManager.getCalculation(withID: calcData.id)
         let results = calculation?.result as? Set<CalculationResult>
         let confirmedResult = results?.first(where: { $0.logisticsType == pickedLogisticsType.rawValue })
+        
         calculation?.isConfirmed = true
+        calculation?.totalPrice = confirmedResult?.totalPrice
+        calculation?.calculationConfirmDate = Date()
         confirmedResult?.isConfirmed = true
         Persistence.shared.saveContext()
     }
@@ -289,6 +292,13 @@ struct CalculationResultHelper {
         let calculationResultVC = CalculationResultVC()
         calculationResultVC.setCalculationData(data: data)
         vc.navigationController?.pushViewController(calculationResultVC, animated: true)
+    }
+    
+    static func getConfirmedLogisticsType(calcData: CalculationData) -> FLCLogisticsType {
+        let calculation = CoreDataManager.getCalculation(withID: calcData.id)
+        let results = calculation?.result as? Set<CalculationResult>
+        let confirmedLogisticsType = results?.first(where: { $0.isConfirmed })?.logisticsType ?? ""
+        return FLCLogisticsType(rawValue: confirmedLogisticsType) ?? .chinaTruck
     }
     
     private static func setFavouriteLogisticsType(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType) -> [TotalPriceData] {

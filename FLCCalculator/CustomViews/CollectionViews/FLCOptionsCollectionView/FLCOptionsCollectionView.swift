@@ -39,8 +39,11 @@ final class FLCOptionsCollectionView: UICollectionView {
         optionsLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
     
-    func setOptions(options: [FLCLogisticsOption]) {
+    func setOptions(options: [FLCLogisticsOption], pickedLogisticsType: FLCLogisticsType) {
         self.options = options
-        selectItem(at: [0, 0], animated: false, scrollPosition: [])
+        
+        guard let index = self.options.firstIndex(where: { $0.type == pickedLogisticsType }) else { return }
+        let indexPath = IndexPath(item: index, section: 0)
+        selectItem(at: indexPath, animated: false, scrollPosition: [])
     }
 }

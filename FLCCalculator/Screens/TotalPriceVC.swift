@@ -3,6 +3,7 @@ import UIKit
 protocol TotalPriceVCDelegate: AnyObject {
     func didPressConfirmButton()
     func didPressSaveButton()
+    func didPressCloseButton()
 }
 
 class TotalPriceVC: UIViewController {
@@ -183,12 +184,13 @@ class TotalPriceVC: UIViewController {
     private func configureConfirmButton() {
         confirmButton.delegate = self
         confirmButton.addShineEffect()
+        let heightConstant = calculationData?.isConfirmed ?? false ? 0.0001 : 50
         
         NSLayoutConstraint.activate([
             confirmButton.topAnchor.constraint(equalTo: invoiceIssueTintedView.bottomAnchor, constant: padding * 2.5),
             confirmButton.leadingAnchor.constraint(equalTo: invoiceIssueTintedView.leadingAnchor),
             confirmButton.trailingAnchor.constraint(equalTo: invoiceIssueTintedView.trailingAnchor),
-            confirmButton.heightAnchor.constraint(equalToConstant: 50)
+            confirmButton.heightAnchor.constraint(equalToConstant: heightConstant)
         ])
     }
     
@@ -200,7 +202,7 @@ class TotalPriceVC: UIViewController {
             saveButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: padding / 2),
             saveButton.leadingAnchor.constraint(equalTo: confirmButton.leadingAnchor),
             saveButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: multiplier),
-            saveButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor, multiplier: 0.9)
+            saveButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -212,7 +214,7 @@ class TotalPriceVC: UIViewController {
             closeButton.topAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: padding / 2),
             closeButton.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor),
             closeButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: multiplier),
-            closeButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor, multiplier: 0.9)
+            closeButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -400,7 +402,8 @@ extension TotalPriceVC: FLCButtonDelegate {
             delegate?.didPressSaveButton()
             self.dismiss(animated: true)
         case closeButton:
-            break
+            delegate?.didPressCloseButton()
+            self.dismiss(animated: true)
         default:
             break
         }
