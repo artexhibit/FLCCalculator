@@ -126,6 +126,16 @@ enum FLCLogisticsType: String, CaseIterable {
         }
     }
     
+    static func getReadableName(logisticsType: String) -> String {
+        switch logisticsType {
+        case "chinaTruck": return "Китай Авто"
+        case "chinaRailway": return "Китай ЖД"
+        case "chinaAir": return "Китай Авиа"
+        case "turkeyTruck": return "Турция Авто+Паром"
+        default: return ""
+        }
+    }
+        
     init?(logisticsName: String, country: FLCCountryOption) {
         switch country {
         case .china:

@@ -63,8 +63,8 @@ struct CoreDataManager {
         calc.volume = calculationData.volume
         calc.invoiceAmount = calculationData.invoiceAmount
         calc.invoiceCurrency = calculationData.invoiceCurrency
-        calc.totalPrice = totalPriceData.first(where: { $0.isFavourite })?.totalPrice
         calc.isConfirmed = isConfirmed
+        calc.totalPrice = totalPriceData.first(where: { $0.isConfirmed })?.totalPrice
         calc.needCustomsClearance = calculationData.needCustomClearance
         
         for totalPriceDataItem in totalPriceData {
@@ -84,7 +84,6 @@ struct CoreDataManager {
             calcResult.russianDeliveryTime = totalPriceDataItem.russianDeliveryTime
             calcResult.groupageDocs = totalPriceDataItem.groupageDocs
             calcResult.insurance = totalPriceDataItem.insurance
-            calcResult.isFavourite = totalPriceDataItem.isFavourite
             calcResult.isConfirmed = (pickedLogisticsType == totalPriceDataItem.logisticsType) && isConfirmed ? true : false
             
             calcResult.calculation = calc

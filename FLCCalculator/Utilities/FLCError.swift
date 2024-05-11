@@ -13,4 +13,8 @@ enum FLCError: String, Error {
     case unableToUpdateUserDefaults = "There was an error updating User Defaults"
     case unableToRetrieveFromUserDefaults = "There was an error retrieving from User Defaults"
     case unknownFirebaseStorageError = "Unknown error occurred"
+    case unableToAccessDirectory = "Unable to access the Documents directory"
+    case errorGettingData = "Unable to convert string to Data"
+    case errorWritingToFile = "Error writing to file"
+    case errorDeletingFile = "Can't delete the file"
 }

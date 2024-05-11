@@ -52,11 +52,11 @@ struct FLCPersonalManagerViewUIHelper {
         }
     }
     
-    static func sendEmail(from view: UIView, manager: FLCManager?) {
+    static func sendEmail(from view: UIView, manager: FLCManager?, confirmedCalculation: Calculation? = nil) {
         guard let parentVC = view.findParentViewController() else { return }
         let subject = "Подтверждение заявки на импортную перевозку груза"
         let message = "\(manager?.name.getDataBetweenCharacter() ?? ""), добрый день, \nГотов подтвердить заявку. \nИнформация в прикреплённом файле"
-        FLCMailComposeVC.sendEmailTo(email: manager?.email ?? "", subject: subject, message: message, from: parentVC)
+        FLCMailComposeVC.sendEmailTo(email: manager?.email ?? "", subject: subject, message: message, confirmedCalculation: confirmedCalculation, from: parentVC)
     }
     
     static func showPhoneCallUIMenu(of manager: FLCManager?) -> UIMenu {

@@ -284,7 +284,7 @@ struct CalculationResultHelper {
     }
     
     static func saveCalculationInCoreData(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType, calcData: CalculationData, isConfirmed: Bool = false) {
-        let newTotalPriceDataItems = setFavouriteLogisticsType(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType)
+        let newTotalPriceDataItems = setConfirmedLogisticsType(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType)
         CoreDataManager.createCalculationRecord(with: calcData, totalPriceData: newTotalPriceDataItems, pickedLogisticsType: pickedLogisticsType, isConfirmed: isConfirmed)
     }
     
@@ -301,10 +301,10 @@ struct CalculationResultHelper {
         return FLCLogisticsType(rawValue: confirmedLogisticsType) ?? .chinaTruck
     }
     
-    private static func setFavouriteLogisticsType(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType) -> [TotalPriceData] {
+    private static func setConfirmedLogisticsType(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType) -> [TotalPriceData] {
         return totalPriceDataItems.map { item in
             var modifiedItem = item
-            if modifiedItem.logisticsType == pickedLogisticsType { modifiedItem.isFavourite = true }
+            if modifiedItem.logisticsType == pickedLogisticsType { modifiedItem.isConfirmed = true }
             return modifiedItem
         }
     }

@@ -19,6 +19,7 @@ class ConfirmOrderVC: UIViewController {
     private let containerHeight: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 665 : 600
     private var itemsToAnimate = [(UIView, NSLayoutConstraint?)]()
     private var manager: FLCManager = CalculationInfo.defaultManager
+    private var confirmedCalculation: Calculation?
     
     private var welcomeLabelOneTopContraint: NSLayoutConstraint!
     private var welcomeLabelTwoTopContraint: NSLayoutConstraint!
@@ -157,6 +158,7 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureManagerView() {
         managerView.hide(withAnimationDuration: 0)
+        managerView.getConfirmedCalculationData(calculation: confirmedCalculation)
         
         NSLayoutConstraint.activate([
             managerView.topAnchor.constraint(equalTo: salesManagerTitle.bottomAnchor, constant: padding),
@@ -240,6 +242,7 @@ class ConfirmOrderVC: UIViewController {
     }
     
     @objc func closeViewController() { navigationController?.popViewController(animated: true) }
+    func getConfirmedCalculationData(calculation: Calculation?) { self.confirmedCalculation = calculation }
 }
 
 extension ConfirmOrderVC: FLCButtonDelegate {

@@ -17,19 +17,6 @@ struct CalculationView: View {
                 .background(.flcOrange)
                 .clipShape(Circle())
                 
-                if calculation.isConfirmed {
-                    HStack {
-                        Image(systemName: "checkmark")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundStyle(.white)
-                            .frame(width: 12, height: 12, alignment: .center)
-                            .padding(.all, 6)
-                    }
-                    .background(.flcOrange)
-                    .clipShape(Circle())
-                }
-                
                 HStack {
                     Text(calculation.calculationDate?.makeString() ?? "")
                         .font(.caption.bold())
@@ -39,6 +26,19 @@ struct CalculationView: View {
                 }
                 .background(.flcOrange)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                if calculation.isConfirmed {
+                    HStack {
+                        Image(systemName: "checkmark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(.bar)
+                            .frame(width: 12, height: 12, alignment: .center)
+                            .padding(.all, 6)
+                    }
+                    .background(.flcOrange)
+                    .clipShape(Circle())
+                }
                 
                 Spacer()
                 Image(FLCCountryOption(rawValue: calculation.countryFrom ?? "")?.shortCode ?? "CNY")

@@ -13,6 +13,7 @@ class FLCPersonalManagerView: UIView {
     private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcOrange)
     private let telegramButton = FLCRoundButton(image: Icons.telegram, tint: .systemBlue)
     private let whatsappButton = FLCRoundButton(image: Icons.whatsapp, tint: .green)
+    private var confirmedCalculation: Calculation?
     
     private var manager: FLCManager?
     private var padding: CGFloat = 10
@@ -150,12 +151,14 @@ class FLCPersonalManagerView: UIView {
     func addShimmerAnimationToAllItems() {
         FLCPersonalManagerViewUIHelper.addShimmerAnimationToItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
     }
+    
+    func getConfirmedCalculationData(calculation: Calculation?) { self.confirmedCalculation = calculation }
 }
 
 extension FLCPersonalManagerView: FLCRoundButtonDelegate {
     func didTapButton(_ button: FLCRoundButton) {
         switch button {
-        case emailButton: FLCPersonalManagerViewUIHelper.sendEmail(from: self, manager: manager)
+        case emailButton: FLCPersonalManagerViewUIHelper.sendEmail(from: self, manager: manager, confirmedCalculation: confirmedCalculation)
         case telegramButton: FLCPersonalManagerViewUIHelper.goToTelegram(of: manager)
         case whatsappButton: FLCPersonalManagerViewUIHelper.goToWhatsapp(of: manager)
         default: break

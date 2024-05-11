@@ -22,6 +22,8 @@ extension FLCMailComposeDelegate where Self: UIViewController {
 
 class FLCMailComposeVC: MFMailComposeViewController {
     
+    private var attachedFileURL: URL?
+    
     init(recipient: String, subject: String, message: String, delegate: MFMailComposeViewControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
         
@@ -35,8 +37,24 @@ class FLCMailComposeVC: MFMailComposeViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    static func sendEmailTo(email: String, subject: String, message: String, from viewController: UIViewController) {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let attachedFileURL = attachedFileURL { AttachmentManager.deleteAttachedFile(attachedFileURL: attachedFileURL) }
+    }
+    
+    private func setAttachedFileURL(fileURL: URL?) { self.attachedFileURL = fileURL }
+    
+    static func sendEmailTo(email: String, subject: String, message: String, confirmedCalculation: Calculation?, from viewController: UIViewController) {
         let mailVC = FLCMailComposeVC(recipient: email, subject: subject, message: message, delegate: viewController as? MFMailComposeViewControllerDelegate)
+        let content = AttachmentManager.getContentForAttachment(confirmedCalculation: confirmedCalculation)
+        
+        switch AttachmentManager.createTextAttachment(content: content) {
+        case .success(let fileURL):
+            guard let fileData = try? Data(contentsOf: fileURL) else { return }
+            mailVC.setAttachedFileURL(fileURL: fileURL)
+            mailVC.addAttachmentData(fileData, mimeType: "text/plain", fileName: "Заявка на перевозку")
+        case .failure(_): break
+        }
         
         if MFMailComposeViewController.canSendMail() {
             viewController.present(mailVC, animated: true, completion: nil)

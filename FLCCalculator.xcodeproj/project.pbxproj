@@ -25,6 +25,7 @@
 		0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */; };
 		0B33016F2B8D13FF00737A11 /* ListPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */; };
 		0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */; };
+		0B35D29B2BEEB18C007E9D3C /* AttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B35D29A2BEEB18C007E9D3C /* AttachmentManager.swift */; };
 		0B3849D02BD82BCF0002F233 /* TurkeyPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3849CF2BD82BCF0002F233 /* TurkeyPickup.swift */; };
 		0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
 		0B419FC82B82451600498ACE /* FLCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC72B82451600498ACE /* FLCError.swift */; };
@@ -178,6 +179,7 @@
 		0B32F16D2B9351C7004BAB46 /* FLCCalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCalculationView.swift; sourceTree = "<group>"; };
 		0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerCell.swift; sourceTree = "<group>"; };
 		0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCBodyLabel.swift; sourceTree = "<group>"; };
+		0B35D29A2BEEB18C007E9D3C /* AttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentManager.swift; sourceTree = "<group>"; };
 		0B3849CF2BD82BCF0002F233 /* TurkeyPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyPickup.swift; sourceTree = "<group>"; };
 		0B419FC42B82436000498ACE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0B419FC72B82451600498ACE /* FLCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCError.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */,
 				0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */,
 				0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */,
+				0B35D29A2BEEB18C007E9D3C /* AttachmentManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -894,6 +897,7 @@
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
 				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */,
+				0B35D29B2BEEB18C007E9D3C /* AttachmentManager.swift in Sources */,
 				0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */,
 				0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */,
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,

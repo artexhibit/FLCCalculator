@@ -32,7 +32,6 @@
         <attribute name="groupageDocs" attributeType="String"/>
         <attribute name="insurance" optional="YES" attributeType="String"/>
         <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="isFavourite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="logisticsType" attributeType="String"/>
         <attribute name="russianDeliveryPrice" optional="YES" attributeType="String"/>
         <attribute name="russianDeliveryTime" optional="YES" attributeType="String"/>

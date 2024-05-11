@@ -20,7 +20,7 @@ struct CalculationsVCHelper {
                 russianDeliveryTime: result.russianDeliveryTime ?? "",
                 groupageDocs: result.groupageDocs ?? "",
                 insurance: result.insurance ?? "",
-                isFavourite: result.isFavourite)
+                isConfirmed: result.isConfirmed)
             
             totalPrices.append(totalPrice)
         })
