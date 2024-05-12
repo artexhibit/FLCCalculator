@@ -1,8 +1,8 @@
 import UIKit
 
-final class FLCOptionsCollectionViewCell: UICollectionViewCell {
+final class OptionsCell: UICollectionViewCell {
     
-    static let reuseID = "FLCOptionsCollectionViewCell"
+    static let reuseID = "OptionsCell"
     
     private let containerView = UIView()
     private let imageView = FLCImageView(tint: .flcOrange)

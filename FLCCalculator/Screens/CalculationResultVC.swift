@@ -66,7 +66,7 @@ class CalculationResultVC: UIViewController {
         
         tableView.delegate = self
         tableView.register(CalculationResultCell.self, forCellReuseIdentifier: CalculationResultCell.reuseID)
-        tableView.register(FLCOptionsTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCOptionsTableViewHeader.reuseID)
+        tableView.register(OptionsTableViewHeader.self, forHeaderFooterViewReuseIdentifier: OptionsTableViewHeader.reuseID)
     }
     
     func performCalculations(for cell: CalculationResultCell? = nil, pickedLogisticsType: FLCLogisticsType) {
@@ -236,9 +236,9 @@ extension CalculationResultVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? { UIView() }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCOptionsTableViewHeader.reuseID) as! FLCOptionsTableViewHeader
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: OptionsTableViewHeader.reuseID) as! OptionsTableViewHeader
         headerView.optionsCollectionView.optionsDelegate = self
-        headerView.optionsCollectionView.pickedCountry = FLCCountryOption(rawValue: calculationData.countryFrom)
+        headerView.optionsCollectionView.setPickedCountry(country: FLCCountryOption(rawValue: calculationData.countryFrom))
         headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: calculationData), pickedLogisticsType: pickedLogisticsType)
         return headerView
     }
@@ -262,7 +262,7 @@ extension CalculationResultVC: CalculationResultCellDelegate {
     }
 }
 
-extension CalculationResultVC: FLCOptionsCollectionViewDelegate {
+extension CalculationResultVC: OptionsCollectionViewDelegate {
     func didChangeLogisticsType(type: FLCLogisticsType) {
         delegate?.didChangeLogisticsType()
         pickedLogisticsType = type

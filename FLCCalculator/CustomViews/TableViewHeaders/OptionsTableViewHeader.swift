@@ -1,10 +1,10 @@
 import UIKit
 
-class FLCOptionsTableViewHeader: UITableViewHeaderFooterView {
+class OptionsTableViewHeader: UITableViewHeaderFooterView {
 
     static let reuseID = "optionsTableViewHeader"
     
-    let optionsCollectionView = FLCOptionsCollectionView()
+    let optionsCollectionView = OptionsCollectionView()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)

@@ -9,10 +9,10 @@ class FLCPersonalManagerView: UIView {
     private let managerContactsLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left, textStyle: .footnote)
     private let roundButtonsStackView = UIStackView()
     private var roundButtons = [FLCRoundButton]()
-    private let phoneButton = FLCRoundButton(image: Icons.phone, tint: .flcOrange)
-    private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcOrange)
-    private let telegramButton = FLCRoundButton(image: Icons.telegram, tint: .systemBlue)
-    private let whatsappButton = FLCRoundButton(image: Icons.whatsapp, tint: .green)
+    private let phoneButton = FLCRoundButton(image: Icons.phone, tint: .flcOrange, title: "Телефон")
+    private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcGray, title: "Email")
+    private let telegramButton = FLCRoundButton(image: Icons.telegram, tint: .systemBlue, title: "Telegram")
+    private let whatsappButton = FLCRoundButton(image: Icons.whatsapp, tint: .green, title: "WhatsApp")
     private var confirmedCalculation: Calculation?
     
     private var manager: FLCManager?
@@ -112,11 +112,7 @@ class FLCPersonalManagerView: UIView {
     private func configureRoundButtons() {
         roundButtons.forEach { button in
             button.delegate = self
-            
-            NSLayoutConstraint.activate([
-                button.widthAnchor.constraint(equalToConstant: 45),
-                button.heightAnchor.constraint(equalToConstant: 45)
-            ])
+            NSLayoutConstraint.activate([ button.heightAnchor.constraint(equalToConstant: 60) ])
         }
     }
     
@@ -127,15 +123,15 @@ class FLCPersonalManagerView: UIView {
         roundButtonsStackView.addArrangedSubview(telegramButton)
         roundButtonsStackView.addArrangedSubview(whatsappButton)
         
-        roundButtonsStackView.spacing = 5
+        roundButtonsStackView.spacing = 7
         roundButtonsStackView.alignment = .center
-        roundButtonsStackView.distribution = .equalCentering
+        roundButtonsStackView.distribution = .fillEqually
         roundButtonsStackView.axis = .horizontal
         
         NSLayoutConstraint.activate([
-            roundButtonsStackView.topAnchor.constraint(equalTo: managerContactsContainerView.bottomAnchor, constant: padding * 3),
-            roundButtonsStackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: padding * 2.5),
-            roundButtonsStackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -padding * 2.5),
+            roundButtonsStackView.topAnchor.constraint(equalTo: managerContactsContainerView.bottomAnchor, constant: padding * 2),
+            roundButtonsStackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: padding * 1.5),
+            roundButtonsStackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -padding * 1.5),
             roundButtonsStackView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -padding * 1.5)
         ])
     }

@@ -13,8 +13,14 @@ enum FLCTotalType { case perKG, asOneCurrency }
 enum FLCPaddingType { case horizontal, vertical, all }
 enum FLCConfettiShape { case rectangle, circle }
 enum FLCConfettiPosition { case foreground, background }
-enum FLCUsefulInfoSections { case managerContacts, usefulInfo }
 enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresConnection, unknown }
+enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase }
+
+enum FLCUsefulInfoSections: String, CaseIterable {
+    case managerContacts = "Ваш менеджер"
+    case usefulInfo = "Наши сервисы"
+    case documents = "Документы"
+}
 
 enum FLCBackgroundFetchId: String {
     case updateCurrencyDataTaskId = "ru.igorcodes.FLCCalculator.updateCurrencyData"

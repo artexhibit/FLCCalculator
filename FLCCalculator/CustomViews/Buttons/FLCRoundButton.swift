@@ -7,6 +7,7 @@ protocol FLCRoundButtonDelegate: AnyObject {
 class FLCRoundButton: UIButton {
     
     private var shimmeringView = FLCShimmeringView()
+    private let imageSizeConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .regular, scale: .default)
     
     weak var delegate: FLCRoundButtonDelegate?
     
@@ -19,11 +20,13 @@ class FLCRoundButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(image: UIImage, tint: UIColor) {
+    convenience init(image: UIImage, tint: UIColor, cornerStyle: UIButton.Configuration.CornerStyle = .small, title: String? = nil) {
         self.init(frame: .zero)
+        configuration?.cornerStyle = cornerStyle
         configuration?.image = image
         configuration?.baseBackgroundColor = tint
         configuration?.baseForegroundColor = tint
+        if title != nil { configuration?.title = title }
     }
     
     override func layoutSubviews() {
@@ -33,8 +36,17 @@ class FLCRoundButton: UIButton {
     
     private func configure(size: Double = 0) {
         configuration = .tinted()
-        configuration?.cornerStyle = .capsule
+        configuration?.imagePlacement = .top
+        configuration?.imagePadding = 5
+        configuration?.preferredSymbolConfigurationForImage = imageSizeConfig
+        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
+        configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 10)
+            return outgoing
+        }
         
+        tintAdjustmentMode = .normal
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }

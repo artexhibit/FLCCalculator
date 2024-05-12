@@ -51,4 +51,9 @@ extension UIView {
         UIView.animate(withDuration: duration) { self.alpha = 1 }
         self.isUserInteractionEnabled = true
     }
+    
+    func makeViewCanBeTapableAnimation(whenTouchesBegan: Bool) {
+        let transform = whenTouchesBegan ? CGAffineTransform(scaleX: 0.95, y: 0.95) : CGAffineTransform.identity
+        UIView.animate(withDuration: 0.2) { self.transform = transform }
+    }
 }

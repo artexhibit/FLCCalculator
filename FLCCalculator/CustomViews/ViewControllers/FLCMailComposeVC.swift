@@ -59,7 +59,7 @@ class FLCMailComposeVC: MFMailComposeViewController {
         if MFMailComposeViewController.canSendMail() {
             viewController.present(mailVC, animated: true, completion: nil)
         } else {
-            sendThroughMailto(toEmail: email, subject: subject, message: message)
+            sendThroughMailto(toEmail: email, subject: subject, message: message + content)
         }
     }
     

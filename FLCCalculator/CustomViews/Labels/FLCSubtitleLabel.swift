@@ -27,7 +27,7 @@ class FLCSubtitleLabel: UILabel {
     }
     
     private func configure() {
-        minimumScaleFactor = 0.9
+        minimumScaleFactor = 0.6
         lineBreakMode = .byWordWrapping
         numberOfLines = 0
         translatesAutoresizingMaskIntoConstraints = false

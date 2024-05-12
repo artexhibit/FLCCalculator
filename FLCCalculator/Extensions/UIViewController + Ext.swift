@@ -1,4 +1,5 @@
 import SwiftUI
+import SafariServices
 
 extension UIViewController {
     func configureTapGesture(selector: Selector) {
@@ -27,6 +28,13 @@ extension UIViewController {
         let textChangeColor = [NSAttributedString.Key.foregroundColor: color]
         self.navigationController?.navigationBar.titleTextAttributes = textChangeColor
         self.navigationController?.navigationBar.largeTitleTextAttributes = textChangeColor
+    }
+    
+    func presentSafariVC(with urlString: String?) {
+        guard let url = URL(string: urlString ?? "") else { return }
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.preferredControlTintColor = .flcOrange
+        present(safariVC, animated: true)
     }
     
     private struct Preview: UIViewControllerRepresentable {
