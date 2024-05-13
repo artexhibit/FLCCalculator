@@ -21,7 +21,9 @@ class UsefulInfoDocumentsCell: UITableViewCell {
         contentView.backgroundColor = .clear
         selectionStyle = .none
     }
-    
     private func configureDocumentsCollectionView() { documentsCollectionView.pinToEdges(of: contentView) }
-    func setDocuments(documents: [FLCDocument]) { documentsCollectionView.setDocuments(documents: documents) }
+    
+    func setDocuments(documents: [Document], canRemoveShimmer: Bool) {
+        documentsCollectionView.setDocuments(documents: documents, canRemoveShimmer: canRemoveShimmer)
+    }
 }

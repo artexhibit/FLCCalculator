@@ -44,6 +44,7 @@ class FLCShimmeringView: UIView {
         ]
     }
     
+    func getIsShimmering() -> Bool { return self.isShimmering }
     func addShimmerAnimation() {
         configureGradient()
         

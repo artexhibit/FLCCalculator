@@ -5,23 +5,17 @@ class UsefulInfoVC: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    private var sections: [FLCUsefulInfoSections] = [.managerContacts, .usefulInfo, .documents]
-    private let usefulInfoContents: [UsefulInfoContent] = [
-        UsefulInfoContent(type: .bonusSystem, image: Icons.rubleSign, title: "Бонусный счет", urlString: nil),
-        UsefulInfoContent(type: .sanctionsCheck, image: Icons.circle, title: "Санкции", urlString: "https://cargointegrator.com"),
-        UsefulInfoContent(type: .fashionSupplierBase, image: Icons.person, title: "База поставщиков индустрии моды", urlString: "https://manufactures.free-lines.ru"),
-    ]
-    private var usefulInfoDocuments: [FLCDocument] = [
-        FLCDocument(title: "Шаблон договора", fileName: ""),
-        FLCDocument(title: "Презентация FLC", fileName: ""),
-        FLCDocument(title: "Презентация по Китаю", fileName: ""),
-    ]
+    private var sections: [FLCUsefulInfoSections] = FLCUsefulInfoSections.allCases
+    private var usefulInfoDocuments = CalculationInfo.defaultUsefulInfoDocuments
+    private let usefulInfoContents = UsefulInfoHelper.usefulInfoContents
+    private var canRemoveShimmerInDocumentsCell = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
         configureSections()
         configureTableView()
+        Task { await self.updateDocumentsSectionUI(with: UsefulInfoHelper.getUsefulInfoDocuments()) }
     }
     
     private func configureVC() {
@@ -49,6 +43,14 @@ class UsefulInfoVC: UIViewController {
         let manager: FLCManager? = PersistenceManager.retrieveItemFromUserDefaults()
         if manager == nil { sections = sections.filter({ $0 != .managerContacts }) }
     }
+    
+    private func updateDocumentsSectionUI(with docs: [Document]) {
+        DispatchQueue.main.async {
+            self.usefulInfoDocuments = docs
+            self.canRemoveShimmerInDocumentsCell = true
+            self.tableView.reloadSections([self.tableView.numberOfSections - 1], with: .none)
+        }
+    }
 }
 
 extension UsefulInfoVC: UITableViewDelegate {
@@ -73,27 +75,22 @@ extension UsefulInfoVC: UITableViewDelegate {
 
 extension UsefulInfoVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let section = sections[indexPath.section]
-        switch section {
-        case .managerContacts, .usefulInfo: return UITableView.automaticDimension
-        case .documents: return 180
+        switch sections[indexPath.section] {
+        case .managerContacts, .usefulInfo: UITableView.automaticDimension
+        case .documents: 180
         }
     }
     func numberOfSections(in tableView: UITableView) -> Int { return sections.count }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let section = sections[section]
-        
-        switch section {
-        case .managerContacts, .documents: return 1
-        case .usefulInfo: return usefulInfoContents.count
+        switch sections[section] {
+        case .managerContacts, .documents: 1
+        case .usefulInfo: usefulInfoContents.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = sections[indexPath.section]
-        
-        switch section {
+        switch sections[indexPath.section] {
         case .managerContacts:
             let cell = tableView.dequeueReusableCell(withIdentifier: UsefulInfoManagerCell.reuseID, for: indexPath) as! UsefulInfoManagerCell
             cell.set()
@@ -104,7 +101,7 @@ extension UsefulInfoVC: UITableViewDataSource {
             return cell
         case .documents:
             let cell = tableView.dequeueReusableCell(withIdentifier: UsefulInfoDocumentsCell.reuseID, for: indexPath) as! UsefulInfoDocumentsCell
-            cell.setDocuments(documents: usefulInfoDocuments)
+            cell.setDocuments(documents: usefulInfoDocuments, canRemoveShimmer: canRemoveShimmerInDocumentsCell)
             return cell
         }
     }

@@ -33,10 +33,5 @@ struct Tariffs: Codable, Hashable {
     let weight: [String: Double]
 }
 
-extension Tariff: UserDefaultsStorable {
-    static var userDefaultsKey: String { Keys.tariffs }
-}
-
-extension Tariff: FirebaseIdentifiable {
-    static var collectionNameKey: String { Keys.tariffs }
-}
+extension Tariff: UserDefaultsStorable { static var userDefaultsKey: String { Keys.tariffs } }
+extension Tariff: FirebaseIdentifiable { static var collectionNameKey: String { Keys.tariffs } }

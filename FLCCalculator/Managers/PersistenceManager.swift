@@ -32,7 +32,7 @@ struct PersistenceManager {
         }
     }
     
-    private static func saveItemsToUserDefaults<T: UserDefaultsStorable>(items: [T]) -> FLCError? {
+    static func saveItemsToUserDefaults<T: UserDefaultsStorable>(items: [T]) -> FLCError? {
         do {
             let encoder = JSONEncoder()
             let encodedItems = try encoder.encode(items)

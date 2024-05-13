@@ -22,6 +22,4 @@ struct Details: Codable, Hashable {
     }
 }
 
-extension CurrencyData: UserDefaultsStorable {
-    static var userDefaultsKey: String { Keys.currencyData }
-}
+extension CurrencyData: UserDefaultsStorable { static var userDefaultsKey: String { Keys.currencyData } }

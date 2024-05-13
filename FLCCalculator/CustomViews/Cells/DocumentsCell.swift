@@ -4,6 +4,7 @@ final class DocumentsCell: UICollectionViewCell {
     
     static let reuseID = "DocumentsCell"
     
+    private var shimmeringView = FLCShimmeringView()
     private let containerView = UIView()
     private let documentNameLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     private let iconView = FLCRoundButton(image: Icons.document, tint: .flcOrange, cornerStyle: .capsule)
@@ -35,12 +36,18 @@ final class DocumentsCell: UICollectionViewCell {
         makeViewCanBeTapableAnimation(whenTouchesBegan: false)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        shimmeringView.frame = contentView.bounds
+    }
+    
     private func configure() {
         contentView.addSubviews(containerView)
         
         configureContainerView()
         configureTitle()
         configureIconView()
+        addShimmeringView()
     }
     
     private func configureContainerView() {
@@ -75,5 +82,16 @@ final class DocumentsCell: UICollectionViewCell {
             iconView.heightAnchor.constraint(equalTo: iconView.widthAnchor)
         ])
     }
-    func set(with document: FLCDocument) { self.documentNameLabel.text = document.title }
+    func set(with document: Document, canRemoveShimmer: Bool) {
+        self.documentNameLabel.text = document.title
+        if canRemoveShimmer { self.removeShimmerAnimation() }
+    }
+    
+    private func addShimmeringView() {
+        shimmeringView = FLCShimmeringView(frame: contentView.bounds)
+        contentView.addSubview(shimmeringView)
+    }
+    
+    func addShimmerAnimation() { shimmeringView.addShimmerAnimation() }
+    func removeShimmerAnimation() { shimmeringView.removeShimmerAnimation() }
 }

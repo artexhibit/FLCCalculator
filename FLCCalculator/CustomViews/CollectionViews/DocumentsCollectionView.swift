@@ -2,7 +2,9 @@ import UIKit
 
 final class DocumentsCollectionView: FLCCollectionView {
     
-    private var documents = [FLCDocument]()
+    private var documents = [Document]()
+    private var canRemoveShimmer = false
+    private var storedDocuments: [Document]? { get { PersistenceManager.retrieveItemsFromUserDefaults() } }
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -22,7 +24,11 @@ final class DocumentsCollectionView: FLCCollectionView {
     private func registerCell() {
         register(DocumentsCell.self, forCellWithReuseIdentifier: DocumentsCell.reuseID)
     }
-    func setDocuments(documents: [FLCDocument]) { self.documents = documents }
+    
+    func setDocuments(documents: [Document], canRemoveShimmer: Bool) {
+        self.documents = documents
+        self.canRemoveShimmer = canRemoveShimmer
+    }
 }
 
 // MARK: Delegate
@@ -40,7 +46,8 @@ extension DocumentsCollectionView {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DocumentsCell.reuseID, for: indexPath) as? DocumentsCell else { return UICollectionViewCell() }
-        cell.set(with: documents[indexPath.row])
+        cell.set(with: documents[indexPath.row], canRemoveShimmer: canRemoveShimmer)
+        if storedDocuments == nil { cell.addShimmerAnimation() }
         return cell
     }
 }

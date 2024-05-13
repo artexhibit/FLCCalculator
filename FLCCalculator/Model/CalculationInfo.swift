@@ -483,4 +483,10 @@ struct CalculationInfo {
         dataDate: "01.05.2024",
         avatarData: UIImage(named: "personPlaceholder")?.pngData()
     )
+    
+    static let defaultUsefulInfoDocuments: [Document] = [
+        Document(title: "Шаблон договора", fileName: "", docDate: "", isDownloaded: false),
+        Document(title: "Презентация FLC", fileName: "", docDate: "", isDownloaded: false),
+        Document(title: "Презентация по Китаю", fileName: "", docDate: "", isDownloaded: false),
+    ]
 }
