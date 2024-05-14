@@ -73,16 +73,19 @@ extension String {
         guard components.count > 1 else { return nil }
         return components[1].trimmingCharacters(in: .whitespaces)
     }
+    
     func getDataOutsideCharacters(char: String = "()") -> String? {
         let components = self.components(separatedBy: CharacterSet(charactersIn: char))
         guard components.count > 1 else { return nil }
         return components.first?.trimmingCharacters(in: .whitespaces)
     }
+    
     func getDataBetweenCharacter(char: String = " ", returnFirstHalf: Bool = true) -> String? {
         let components = self.components(separatedBy: CharacterSet(charactersIn: char))
         guard components.count > 1 else { return nil }
         return returnFirstHalf ? components[0].trimmingCharacters(in: .whitespaces) : components[1].trimmingCharacters(in: .whitespaces)
     }
+    
     func formatAsSymbol() -> String { FLCCurrency(rawValue: self)?.symbol ?? "" }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }
     func getLastCharacters(_ amount: Int) -> String { String(self.suffix(amount)) }

@@ -1,9 +1,11 @@
 import UIKit
 import Firebase
+import FirebaseCore
 import FirebaseStorage
 
 struct FirebaseManager {
     private static let decoder = JSONDecoder()
+    private static let storageRef = Storage.storage().reference()
     
     static func configureFirebase() { FirebaseApp.configure() }
     
@@ -54,9 +56,28 @@ struct FirebaseManager {
         }
     }
     
+    static func downloadDocument(doc: Document, completion: @escaping ((progress: Int?, url: URL?)) -> Void) {
+        let docRef = storageRef.child(doc.fileName)
+        guard let fileURL = FileSystemManager.getLocalFileURL(for: doc.fileName) else { return }
+        
+        let downloadTask = docRef.write(toFile: fileURL) { url, error in
+            guard error == nil else {
+                FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error)
+                completion((nil, nil))
+                return
+            }
+            completion((nil, fileURL))
+            //print("File downloaded to: \(url?.path ?? "unknown path")")
+        }
+        
+        downloadTask.observe(.progress) { snapshot in
+            guard let progress = snapshot.progress else { return }
+            let progressPercentage = Int(progress.fractionCompleted * 100)
+            completion((progressPercentage, fileURL))
+        }
+    }
+    
     static func downloadAvatar(for manager: FLCManager) async -> UIImage? {
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
         let photoRef = storageRef.child(manager.avatarRef)
         
         do {

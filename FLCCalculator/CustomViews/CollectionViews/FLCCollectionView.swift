@@ -26,7 +26,7 @@ class FLCCollectionView: UICollectionView {
     private func setupOptionsLayout() {
         optionsLayout.minimumInteritemSpacing = 3
         optionsLayout.scrollDirection = .horizontal
-        optionsLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        //optionsLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
 }
 

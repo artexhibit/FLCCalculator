@@ -5,6 +5,8 @@ final class DocumentsCollectionView: FLCCollectionView {
     private var documents = [Document]()
     private var canRemoveShimmer = false
     private var storedDocuments: [Document]? { get { PersistenceManager.retrieveItemsFromUserDefaults() } }
+    private var documentsDownloadProgress: [IndexPath: Int] = [:]
+    private var isDownloadComplete = false
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -32,9 +34,27 @@ final class DocumentsCollectionView: FLCCollectionView {
 }
 
 // MARK: Delegate
-extension DocumentsCollectionView {
+extension DocumentsCollectionView: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        
+        FirebaseManager.downloadDocument(doc: documents[indexPath.item]) { result in
+            DispatchQueue.main.async {
+                UIView.performWithoutAnimation {
+                    self.documentsDownloadProgress[indexPath] = result.progress ?? 0
+                    self.reloadItems(at: [indexPath])
+                }
+            }
+            
+            if result.progress == 100, !self.isDownloadComplete {
+                self.isDownloadComplete = true
+                print("finish")
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: 150, height: 150)
     }
 }
 

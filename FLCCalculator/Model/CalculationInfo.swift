@@ -485,8 +485,8 @@ struct CalculationInfo {
     )
     
     static let defaultUsefulInfoDocuments: [Document] = [
-        Document(title: "Шаблон договора", fileName: "", docDate: "", isDownloaded: false),
-        Document(title: "Презентация FLC", fileName: "", docDate: "", isDownloaded: false),
-        Document(title: "Презентация по Китаю", fileName: "", docDate: "", isDownloaded: false),
+        Document(title: "Шаблон договора", fileName: "documents/logisticsAgreement.docx", docDate: "12.05.2024", isDownloaded: false),
+        Document(title: "Презентация FLC", fileName: "documents/presentationFLC.pdf", docDate: "12.05.2024", isDownloaded: false),
+        Document(title: "Презентация по Китаю", fileName: "documents/presentationChina.pdf", docDate: "12.05.2024", isDownloaded: false)
     ]
 }

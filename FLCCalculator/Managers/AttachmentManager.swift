@@ -2,10 +2,7 @@ import Foundation
 
 struct AttachmentManager {
     static func createTextAttachment(content: String, fileName: String = "Order") -> Result<URL, FLCError> {
-        guard let docDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            return .failure(.unableToAccessDirectory)
-        }
-        let fileURL = docDirectory.appendingPathComponent(fileName).appendingPathExtension("txt")
+        guard let fileURL = FileSystemManager.getLocalFileURL(for: fileName) else { return .failure(.unableToAccessDirectory) }
         guard let data = content.data(using: .utf8) else { return .failure(.errorGettingData) }
         
         do {

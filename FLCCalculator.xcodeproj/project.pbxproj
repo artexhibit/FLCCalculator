@@ -42,6 +42,7 @@
 		0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double + Ext.swift */; };
 		0B625C372BB340D400A9392A /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
 		0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */; };
+		0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */; };
 		0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54272B810BA00078C110 /* AppDelegate.swift */; };
 		0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54292B810BA00078C110 /* SceneDelegate.swift */; };
 		0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */; };
@@ -200,6 +201,7 @@
 		0B60E35C2BA70F810008000B /* Double + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + Ext.swift"; sourceTree = "<group>"; };
 		0B625C362BB340D400A9392A /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerButton.swift; sourceTree = "<group>"; };
+		0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemManager.swift; sourceTree = "<group>"; };
 		0B6E54242B810BA00078C110 /* FLCCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLCCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6E54272B810BA00078C110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B6E54292B810BA00078C110 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */,
 				0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */,
 				0B35D29A2BEEB18C007E9D3C /* AttachmentManager.swift */,
+				0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
+				0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */,
 				0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */,
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
 				0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */,

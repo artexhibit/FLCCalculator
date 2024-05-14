@@ -10,7 +10,6 @@ final class DocumentsCell: UICollectionViewCell {
     private let iconView = FLCRoundButton(image: Icons.document, tint: .flcOrange, cornerStyle: .capsule)
     
     private let padding: CGFloat = 10
-    private let containerSize: CGFloat = 150
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,7 +41,7 @@ final class DocumentsCell: UICollectionViewCell {
     }
     
     private func configure() {
-        contentView.addSubviews(containerView)
+        contentView.addSubview(containerView)
         
         configureContainerView()
         configureTitle()
@@ -53,15 +52,10 @@ final class DocumentsCell: UICollectionViewCell {
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubviews(documentNameLabel, iconView)
-        containerView.pinToEdges(of: contentView, withPadding: padding, paddingType: .vertical)
+        containerView.pinToEdges(of: contentView)
         
         containerView.layer.cornerRadius = 10
         containerView.backgroundColor = .tertiarySystemFill
-        
-        NSLayoutConstraint.activate([
-            containerView.heightAnchor.constraint(equalToConstant:  containerSize),
-            containerView.widthAnchor.constraint(equalTo: containerView.heightAnchor)
-        ])
     }
     
     private func configureTitle() {
