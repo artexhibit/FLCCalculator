@@ -14,7 +14,7 @@ class FLCTitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, textAlignment: NSTextAlignment, size: CGFloat = 24, weight: UIFont.Weight = .bold) {
+    convenience init(color: UIColor, textAlignment: NSTextAlignment = .left, size: CGFloat = 24, weight: UIFont.Weight = .bold) {
         self.init(frame: .zero)
         self.textColor = color
         self.textAlignment = textAlignment

@@ -14,6 +14,7 @@ final class OptionsCollectionView: FLCCollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         registerCell()
+        setupOptionsLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -22,6 +23,13 @@ final class OptionsCollectionView: FLCCollectionView {
     
     private func registerCell() {
         register(OptionsCell.self, forCellWithReuseIdentifier: OptionsCell.reuseID)
+    }
+    
+    override func setupOptionsLayout() {
+        super.setupOptionsLayout()
+        
+        let layout = getLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
     
     func setOptions(options: [FLCLogisticsOption], pickedLogisticsType: FLCLogisticsType) {

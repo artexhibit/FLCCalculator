@@ -14,7 +14,7 @@ class FLCCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() {
+    private func configure() {
         dataSource = self
         delegate = self
         
@@ -23,11 +23,11 @@ class FLCCollectionView: UICollectionView {
         showsHorizontalScrollIndicator = false
     }
     
-    private func setupOptionsLayout() {
+    func setupOptionsLayout() {
         optionsLayout.minimumInteritemSpacing = 3
         optionsLayout.scrollDirection = .horizontal
-        //optionsLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
+    func getLayout() -> UICollectionViewFlowLayout { self.optionsLayout }
 }
 
 extension FLCCollectionView: UICollectionViewDelegate {

@@ -72,7 +72,7 @@ struct FirebaseManager {
         
         downloadTask.observe(.progress) { snapshot in
             guard let progress = snapshot.progress else { return }
-            let progressPercentage = Int(progress.fractionCompleted * 100)
+            let progressPercentage = 100 * Int(progress.completedUnitCount) / Int(progress.totalUnitCount)
             completion((progressPercentage, fileURL))
         }
     }

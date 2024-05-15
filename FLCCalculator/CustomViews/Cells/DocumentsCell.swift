@@ -8,6 +8,7 @@ final class DocumentsCell: UICollectionViewCell {
     private let containerView = UIView()
     private let documentNameLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     private let iconView = FLCRoundButton(image: Icons.document, tint: .flcOrange, cornerStyle: .capsule)
+    private let downloadPercentageLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .right, size: 15)
     
     private let padding: CGFloat = 10
 
@@ -47,11 +48,12 @@ final class DocumentsCell: UICollectionViewCell {
         configureTitle()
         configureIconView()
         addShimmeringView()
+        configureDownloadPercentageLabel()
     }
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(documentNameLabel, iconView)
+        containerView.addSubviews(documentNameLabel, iconView, downloadPercentageLabel)
         containerView.pinToEdges(of: contentView)
         
         containerView.layer.cornerRadius = 10
@@ -76,9 +78,32 @@ final class DocumentsCell: UICollectionViewCell {
             iconView.heightAnchor.constraint(equalTo: iconView.widthAnchor)
         ])
     }
+    
+    private func configureDownloadPercentageLabel() {
+        downloadPercentageLabel.hide()
+        
+        NSLayoutConstraint.activate([
+            downloadPercentageLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: padding),
+            downloadPercentageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            downloadPercentageLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding)
+        ])
+    }
+    
     func set(with document: Document, canRemoveShimmer: Bool) {
         self.documentNameLabel.text = document.title
         if canRemoveShimmer { self.removeShimmerAnimation() }
+    }
+    
+    func setupDownloadPercentageLabel(with progress: Int?) {
+        guard let progress else { return }
+    
+        downloadPercentageLabel.show()
+        downloadPercentageLabel.text = "\(progress)%"
+        
+        if progress == 100 {
+            HapticManager.addSuccessHaptic()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { self.downloadPercentageLabel.hide()}
+        }
     }
     
     private func addShimmeringView() {

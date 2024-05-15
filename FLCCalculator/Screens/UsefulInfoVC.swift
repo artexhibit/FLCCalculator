@@ -28,6 +28,8 @@ class UsefulInfoVC: UIViewController {
     
     private func configureTableView() {
         view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.frame = view.bounds
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
         
