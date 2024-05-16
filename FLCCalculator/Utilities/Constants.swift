@@ -3,6 +3,7 @@ import UIKit
 enum Icons {
     static let questionMark = UIImage(systemName: "questionmark.circle.fill") ?? UIImage()
     static let exclamationMark = UIImage(systemName: "exclamationmark.circle.fill") ?? UIImage()
+    static let checkmarkCircle = UIImage(systemName: "checkmark.circle") ?? UIImage()
     static let infoSign = UIImage(systemName: "info.circle.fill") ?? UIImage()
     static let truck = UIImage(systemName: "truck.box") ?? UIImage()
     static let xmark = UIImage(systemName: "xmark") ?? UIImage()
@@ -34,6 +35,7 @@ enum Keys {
     static let lastCurrencyDataUpdate = "lastCurrencyDataUpdate"
     static let lastCalculationDataUpdate = "lastCalculationDataUpdate"
     static let lastManagerDataUpdate = "lastManagerDataUpdate"
+    static let lastDocumentsDataUpdate = "lastDocumentsDataUpdate"
 }
 
 enum WarehouseStrings {

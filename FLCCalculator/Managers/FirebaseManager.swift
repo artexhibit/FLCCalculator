@@ -6,6 +6,7 @@ import FirebaseStorage
 struct FirebaseManager {
     private static let decoder = JSONDecoder()
     private static let storageRef = Storage.storage().reference()
+    private static var timer: Timer?
     
     static func configureFirebase() { FirebaseApp.configure() }
     
@@ -57,10 +58,13 @@ struct FirebaseManager {
     }
     
     static func downloadDocument(doc: Document, completion: @escaping ((progress: Int?, url: URL?)) -> Void) {
+        var lastProgress: Int64 = 0
         let docRef = storageRef.child(doc.fileName)
         guard let fileURL = FileSystemManager.getLocalFileURL(for: doc.fileName) else { return }
         
         let downloadTask = docRef.write(toFile: fileURL) { url, error in
+            timer?.invalidate()
+            
             guard error == nil else {
                 FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error)
                 completion((nil, nil))
@@ -69,12 +73,28 @@ struct FirebaseManager {
             completion((nil, fileURL))
             //print("File downloaded to: \(url?.path ?? "unknown path")")
         }
+        configureTimer(with: downloadTask) { completion((nil, nil)) }
+        
         
         downloadTask.observe(.progress) { snapshot in
             guard let progress = snapshot.progress else { return }
             let progressPercentage = 100 * Int(progress.completedUnitCount) / Int(progress.totalUnitCount)
+            
+            if progress.completedUnitCount > lastProgress {
+                lastProgress = progress.completedUnitCount
+                configureTimer(with: downloadTask) { completion((nil, nil)) }
+            }
             completion((progressPercentage, fileURL))
         }
+    }
+    
+    static private func configureTimer(with downloadTask: StorageDownloadTask, completion: @escaping () -> Void) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: false, block: { _ in
+            downloadTask.cancel()
+            FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error)
+            completion()
+        })
     }
     
     static func downloadAvatar(for manager: FLCManager) async -> UIImage? {

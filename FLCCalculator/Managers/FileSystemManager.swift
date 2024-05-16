@@ -13,4 +13,19 @@ struct FileSystemManager {
         docInteractionController.delegate = view as? UIDocumentInteractionControllerDelegate
         DispatchQueue.main.async { docInteractionController.presentPreview(animated: true) }
     }
+    
+    static func isHavingDocument(with fileName: String) -> Bool {
+        guard let url = getLocalFileURL(for: fileName) else { return false }
+        return FileManager.default.fileExists(atPath: url.path)
+    }
+    
+    static func deleteDocument(with fileName: String) {
+        guard let url = getLocalFileURL(for: fileName) else { return }
+        
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            print(FLCError.errorDeletingFile)
+        }
+    }
 }

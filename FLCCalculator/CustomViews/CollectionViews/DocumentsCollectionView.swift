@@ -5,7 +5,7 @@ final class DocumentsCollectionView: FLCCollectionView {
     private var documents = [Document]()
     private var canRemoveShimmer = false
     private var storedDocuments: [Document]? { get { PersistenceManager.retrieveItemsFromUserDefaults() } }
-    private var documentsDownloadData: [IndexPath: (progress: Int, url: URL)] = [:]
+    private var documentsDownloadProgress: [IndexPath: Int] = [:]
         
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -31,17 +31,30 @@ final class DocumentsCollectionView: FLCCollectionView {
 // MARK: Delegate
 extension DocumentsCollectionView: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        FirebaseManager.downloadDocument(doc: documents[indexPath.item]) { result in
-            guard let progress = result.progress, let url = result.url else { return }
-            
-            if self.documentsDownloadData[indexPath]?.progress != 100 {
-                self.documentsDownloadData[indexPath] = (progress, url)
-                DispatchQueue.main.async { UIView.performWithoutAnimation { self.reloadItems(at: [indexPath]) } }
-                if progress == 100 { FileSystemManager.openDocument(with: url, in: self) }
+        let doc = documents[indexPath.item]
+        
+        if FileSystemManager.isHavingDocument(with: doc.fileName) {
+            guard let url = FileSystemManager.getLocalFileURL(for: doc.fileName) else { return }
+            FileSystemManager.openDocument(with: url, in: self)
+        } else {
+            FirebaseManager.downloadDocument(doc: doc) { result in
+                guard let progress = result.progress, let url = result.url else { return }
+                
+                if self.documentsDownloadProgress[indexPath] != 100 {
+                    self.documentsDownloadProgress[indexPath] = progress
+                    
+                    DispatchQueue.main.async {
+                        UIView.performWithoutAnimation { self.reloadItems(at: [indexPath]) }
+                    }
+                    if progress == 100 {
+                        HapticManager.addSuccessHaptic()
+                        FileSystemManager.openDocument(with: url, in: self)
+                    }
+                }
             }
         }
     }
-    
+        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 150, height: 150)
     }
@@ -56,7 +69,8 @@ extension DocumentsCollectionView {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DocumentsCell.reuseID, for: indexPath) as? DocumentsCell else { return UICollectionViewCell() }
         cell.set(with: documents[indexPath.row], canRemoveShimmer: canRemoveShimmer)
-        cell.setupDownloadPercentageLabel(with: documentsDownloadData[indexPath]?.progress)
+        cell.setupDownloadPercentageLabel(with: documentsDownloadProgress[indexPath])
+        cell.setupDownloadDocumentImageView(with: documents[indexPath.row], progress: documentsDownloadProgress[indexPath])
         if storedDocuments == nil { cell.addShimmerAnimation() }
         return cell
     }

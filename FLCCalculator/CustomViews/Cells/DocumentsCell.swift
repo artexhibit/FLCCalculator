@@ -9,6 +9,7 @@ final class DocumentsCell: UICollectionViewCell {
     private let documentNameLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     private let iconView = FLCRoundButton(image: Icons.document, tint: .flcOrange, cornerStyle: .capsule)
     private let downloadPercentageLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .right, size: 15)
+    private let downloadedDocumentImageView = FLCImageView(image: Icons.checkmarkCircle, tint: .flcOrange.withAlphaComponent(0.7))
     
     private let padding: CGFloat = 10
 
@@ -28,12 +29,12 @@ final class DocumentsCell: UICollectionViewCell {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        makeViewCanBeTapableAnimation(whenTouchesBegan: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { self.makeViewCanBeTapableAnimation(whenTouchesBegan: false) }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        makeViewCanBeTapableAnimation(whenTouchesBegan: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { self.makeViewCanBeTapableAnimation(whenTouchesBegan: false) }
     }
     
     override func layoutSubviews() {
@@ -49,11 +50,12 @@ final class DocumentsCell: UICollectionViewCell {
         configureIconView()
         addShimmeringView()
         configureDownloadPercentageLabel()
+        configureDownloadedDocumentImageView()
     }
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(documentNameLabel, iconView, downloadPercentageLabel)
+        containerView.addSubviews(documentNameLabel, iconView, downloadPercentageLabel, downloadedDocumentImageView)
         containerView.pinToEdges(of: contentView)
         
         containerView.layer.cornerRadius = 10
@@ -89,6 +91,17 @@ final class DocumentsCell: UICollectionViewCell {
         ])
     }
     
+    private func configureDownloadedDocumentImageView() {
+        downloadedDocumentImageView.hide()
+        
+        NSLayoutConstraint.activate([
+            downloadedDocumentImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            downloadedDocumentImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.85),
+            downloadedDocumentImageView.widthAnchor.constraint(equalToConstant: 30),
+            downloadedDocumentImageView.heightAnchor.constraint(equalTo: downloadedDocumentImageView.widthAnchor)
+        ])
+    }
+    
     func set(with document: Document, canRemoveShimmer: Bool) {
         self.documentNameLabel.text = document.title
         if canRemoveShimmer { self.removeShimmerAnimation() }
@@ -100,9 +113,16 @@ final class DocumentsCell: UICollectionViewCell {
         downloadPercentageLabel.show()
         downloadPercentageLabel.text = "\(progress)%"
         
-        if progress == 100 {
-            HapticManager.addSuccessHaptic()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { self.downloadPercentageLabel.hide()}
+        if progress == 100 { DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { self.downloadPercentageLabel.hide() } }
+    }
+    
+    func setupDownloadDocumentImageView(with document: Document, progress: Int? = 0) {
+        let delay = progress == 100 ? 0.4 : 0
+        
+        if FileSystemManager.isHavingDocument(with: document.fileName) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { self.downloadedDocumentImageView.show() }
+        } else {
+            downloadedDocumentImageView.hide()
         }
     }
     
