@@ -26,6 +26,7 @@ enum FLCBackgroundFetchId: String {
     case updateCurrencyDataTaskId = "ru.igorcodes.FLCCalculator.updateCurrencyData"
     case updateCalculationData = "ru.igorcodes.FLCCalculator.updateCalculationData"
     case updateManagerData = "ru.igorcodes.FLCCalculator.updateManagerData"
+    case updateDocumentsData = "ru.igorcodes.FLCCalculator.updateDocumentsData"
 }
 
 enum FLCCountryOption: String {

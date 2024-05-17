@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Calculation" representedClassName="Calculation" syncable="YES" codeGenerationType="class">
         <attribute name="calculationConfirmDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="calculationDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -23,6 +23,8 @@
     </entity>
     <entity name="CalculationResult" representedClassName="CalculationResult" syncable="YES" codeGenerationType="class">
         <attribute name="cargoHandling" optional="YES" attributeType="String"/>
+        <attribute name="cargoHandlingMinPrice" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="cargoHandlingPricePerKg" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="customsClearance" optional="YES" attributeType="String"/>
         <attribute name="customsWarehousePrice" optional="YES" attributeType="String"/>
         <attribute name="deliveryFromWarehousePrice" attributeType="String"/>
@@ -31,6 +33,8 @@
         <attribute name="deliveryToWarehouseTime" optional="YES" attributeType="String"/>
         <attribute name="groupageDocs" attributeType="String"/>
         <attribute name="insurance" optional="YES" attributeType="String"/>
+        <attribute name="insurancePercentage" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="insuranceRatio" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="logisticsType" attributeType="String"/>
         <attribute name="russianDeliveryPrice" optional="YES" attributeType="String"/>

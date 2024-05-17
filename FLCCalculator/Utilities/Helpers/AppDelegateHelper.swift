@@ -74,10 +74,32 @@ struct  AppDelegateHelper {
         }
     }
     
+    static func updateDocumentsData(for task: BGAppRefreshTask? = nil) {
+        Task {
+            do {
+                guard let documents: [Document] = try await FirebaseManager.getDataFromFirebase() else {
+                    task?.setTaskCompleted(success: false)
+                    return
+                }
+                
+                if let storedDocuments: [Document] = PersistenceManager.retrieveItemsFromUserDefaults() {
+                    for doc in storedDocuments {
+                        if let targetDoc = documents.first(where: { $0.fileName == doc.fileName && $0.docDate != doc.docDate }) {
+                            FileSystemManager.deleteDocument(with: targetDoc.fileName)
+                        }
+                    }
+                }
+                let _ = PersistenceManager.saveItemsToUserDefaults(items: documents)
+            }
+            task?.setTaskCompleted(success: true)
+        }
+    }
+    
     static func registerBackgroundTasks() {
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCurrencyDataTaskId, beginDateInterval: (3600 * 8))
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCalculationData, beginDateInterval: (3600 * 24))
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateManagerData, beginDateInterval: (3600 * 24 * 7))
+        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateDocumentsData, beginDateInterval: (3600 * 24 * 7))
     }
     
     static func updateDataOnAppLaunch() {
@@ -93,8 +115,13 @@ struct  AppDelegateHelper {
                 UserDefaultsManager.lastCalculationDataUpdate = Date()
             }
             
-            if shouldUpdateData(afterDays: 14, for: UserDefaultsManager.lastManagerDataUpdate) {
+            if shouldUpdateData(afterDays: 7, for: UserDefaultsManager.lastManagerDataUpdate) {
                 updateManagerData()
+                UserDefaultsManager.lastManagerDataUpdate = Date()
+            }
+            
+            if shouldUpdateData(afterDays: 0, for: UserDefaultsManager.lastDocumentsDataUpdate) {
+                updateDocumentsData()
                 UserDefaultsManager.lastManagerDataUpdate = Date()
             }
         }

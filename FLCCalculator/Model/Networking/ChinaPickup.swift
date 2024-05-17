@@ -23,7 +23,7 @@ struct ChinaWarehouse: Codable, Hashable {
 struct ChinaCity: Codable, Hashable {
     let name: String
     let province: String
-    let transitDays: Int
+    let transitDays: String
     let weight: [String: ChinaWeight]
 }
 

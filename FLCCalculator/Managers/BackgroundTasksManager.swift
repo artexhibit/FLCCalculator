@@ -33,6 +33,8 @@ struct BackgroundTasksManager {
             AppDelegateHelper.updateCalculationData(for: task, canShowPopup: false)
         case .updateManagerData:
             AppDelegateHelper.updateManagerData(for: task)
+        case .updateDocumentsData:
+            AppDelegateHelper.updateDocumentsData(for: task)
         }
     }
 }

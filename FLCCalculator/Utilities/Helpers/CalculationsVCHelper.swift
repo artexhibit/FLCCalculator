@@ -19,7 +19,11 @@ struct CalculationsVCHelper {
                 russianDeliveryPrice: result.russianDeliveryPrice ?? "",
                 russianDeliveryTime: result.russianDeliveryTime ?? "",
                 groupageDocs: result.groupageDocs ?? "",
-                insurance: result.insurance ?? "",
+                insurance: result.insurance ?? "", 
+                insurancePercentage: result.insurancePercentage,
+                insuranceRatio: result.insurancePercentage,
+                cargoHandlingPricePerKg: result.cargoHandlingPricePerKg, 
+                cargoHandlingMinPrice: result.cargoHandlingMinPrice,
                 isConfirmed: result.isConfirmed)
             
             totalPrices.append(totalPrice)

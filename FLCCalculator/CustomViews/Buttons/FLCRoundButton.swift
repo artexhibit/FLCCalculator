@@ -7,7 +7,7 @@ protocol FLCRoundButtonDelegate: AnyObject {
 class FLCRoundButton: UIButton {
     
     private var shimmeringView = FLCShimmeringView()
-    private let imageSizeConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .regular, scale: .default)
+    private var imageSizeConfig: UIImage.SymbolConfiguration?
     
     weak var delegate: FLCRoundButtonDelegate?
     
@@ -20,12 +20,15 @@ class FLCRoundButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(image: UIImage, tint: UIColor, cornerStyle: UIButton.Configuration.CornerStyle = .small, title: String? = nil) {
+    convenience init(image: UIImage, tint: UIColor, cornerStyle: UIButton.Configuration.CornerStyle = .small, title: String? = nil, imageSize: CGFloat = 23) {
         self.init(frame: .zero)
         configuration?.cornerStyle = cornerStyle
         configuration?.image = image
         configuration?.baseBackgroundColor = tint
         configuration?.baseForegroundColor = tint
+        
+        imageSizeConfig = UIImage.SymbolConfiguration(pointSize: imageSize, weight: .regular, scale: .default)
+        configuration?.preferredSymbolConfigurationForImage = imageSizeConfig
         if title != nil { configuration?.title = title }
     }
     
@@ -34,11 +37,10 @@ class FLCRoundButton: UIButton {
         shimmeringView.frame = self.bounds
     }
     
-    private func configure(size: Double = 0) {
+    private func configure() {
         configuration = .tinted()
         configuration?.imagePlacement = .top
         configuration?.imagePadding = 5
-        configuration?.preferredSymbolConfigurationForImage = imageSizeConfig
         configuration?.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
         configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming

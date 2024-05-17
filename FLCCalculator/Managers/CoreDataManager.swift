@@ -29,6 +29,11 @@ struct CoreDataManager {
         }
     }
     
+    static func  getCalculationResults(forCalculationID id: Int32) -> Set<CalculationResult>? {
+        guard let calculation = CoreDataManager.getCalculation(withID: id) else { return nil }
+        return calculation.result as? Set<CalculationResult>
+    }
+    
     static func deleteCalculation(withID id: Int32) {
         guard let calculationToDelete = getCalculation(withID: id) else { return }
         
@@ -84,6 +89,10 @@ struct CoreDataManager {
             calcResult.russianDeliveryTime = totalPriceDataItem.russianDeliveryTime
             calcResult.groupageDocs = totalPriceDataItem.groupageDocs
             calcResult.insurance = totalPriceDataItem.insurance
+            calcResult.insurancePercentage = totalPriceDataItem.insurancePercentage ?? 0
+            calcResult.insuranceRatio = totalPriceDataItem.insurancePercentage ?? 0
+            calcResult.cargoHandlingPricePerKg = totalPriceDataItem.cargoHandlingPricePerKg ?? 0
+            calcResult.cargoHandlingMinPrice = totalPriceDataItem.cargoHandlingMinPrice ?? 0
             calcResult.isConfirmed = (pickedLogisticsType == totalPriceDataItem.logisticsType) && isConfirmed ? true : false
             
             calcResult.calculation = calc

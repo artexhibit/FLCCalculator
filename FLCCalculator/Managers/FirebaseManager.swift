@@ -21,7 +21,7 @@ struct FirebaseManager {
     
     static func getDataFromFirebase<T: FirebaseIdentifiable>() async throws -> [T]? {
         let snapshot = try await Firestore.firestore().collection(T.collectionNameKey).getDocuments()
-        guard let items = snapshot.documents.first?.data().values.first else { throw FLCError.unableToGetDocuments }
+        guard let items = snapshot.documents.first?.data()[T.collectionNameKey] else { throw FLCError.unableToGetDocuments }
         guard let itemsString = items as? String else { throw FLCError.castingError }
         guard let itemsData = itemsString.data(using: .utf8) else { throw FLCError.castingError }
 
@@ -70,7 +70,6 @@ struct FirebaseManager {
                 completion((nil, nil))
                 return
             }
-            completion((nil, fileURL))
             //print("File downloaded to: \(url?.path ?? "unknown path")")
         }
         configureTimer(with: downloadTask) { completion((nil, nil)) }

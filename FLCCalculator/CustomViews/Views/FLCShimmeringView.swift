@@ -26,9 +26,25 @@ class FLCShimmeringView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            if isShimmering { configureGradientColors() }
+        }
+    }
+    
     private func configure() {
         self.layer.addSublayer(gradientLayer)
         self.isUserInteractionEnabled = true
+    }
+    
+    private func configureGradientColors() {
+        gradientLayer.colors = [
+            UIColor.flcGradientColorOne.cgColor,
+            UIColor.flcGradientColorTwo.cgColor,
+            UIColor.flcGradientColorOne.cgColor
+        ]
     }
     
     private func configureGradient() {
@@ -37,11 +53,7 @@ class FLCShimmeringView: UIView {
         gradientLayer.locations = [0.3, 0.5, 0.7]
         gradientLayer.cornerRadius = 10
         
-        gradientLayer.colors = [
-            UIColor.flcGradientColorOne.cgColor,
-            UIColor.flcGradientColorTwo.cgColor,
-            UIColor.flcGradientColorOne.cgColor
-        ]
+        configureGradientColors()
     }
     
     func getIsShimmering() -> Bool { return self.isShimmering }

@@ -4,6 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
+		<string>ru.igorcodes.FLCCalculator.updateDocumentsData</string>
 		<string>ru.igorcodes.FLCCalculator.updateManagerData</string>
 		<string>ru.igorcodes.FLCCalculator.updateCalculationData</string>
 		<string>ru.igorcodes.FLCCalculator.updateCurrencyData</string>

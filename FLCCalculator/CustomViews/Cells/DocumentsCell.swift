@@ -9,7 +9,7 @@ final class DocumentsCell: UICollectionViewCell {
     private let documentNameLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     private let iconView = FLCRoundButton(image: Icons.document, tint: .flcOrange, cornerStyle: .capsule)
     private let downloadPercentageLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .right, size: 15)
-    private let downloadedDocumentImageView = FLCImageView(image: Icons.checkmarkCircle, tint: .flcOrange.withAlphaComponent(0.7))
+    private let downloadedDocumentIcon = FLCRoundButton(image: Icons.checkmark, tint: .flcOrange, cornerStyle: .capsule, imageSize: 13)
     
     private let padding: CGFloat = 10
 
@@ -48,14 +48,14 @@ final class DocumentsCell: UICollectionViewCell {
         configureContainerView()
         configureTitle()
         configureIconView()
-        addShimmeringView()
         configureDownloadPercentageLabel()
-        configureDownloadedDocumentImageView()
+        configureDownloadedDocumentIcon()
+        addShimmeringView()
     }
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(documentNameLabel, iconView, downloadPercentageLabel, downloadedDocumentImageView)
+        containerView.addSubviews(documentNameLabel, iconView, downloadPercentageLabel, downloadedDocumentIcon)
         containerView.pinToEdges(of: contentView)
         
         containerView.layer.cornerRadius = 10
@@ -91,14 +91,15 @@ final class DocumentsCell: UICollectionViewCell {
         ])
     }
     
-    private func configureDownloadedDocumentImageView() {
-        downloadedDocumentImageView.hide()
+    private func configureDownloadedDocumentIcon() {
+        downloadedDocumentIcon.hide()
+        downloadedDocumentIcon.isUserInteractionEnabled = false
         
         NSLayoutConstraint.activate([
-            downloadedDocumentImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            downloadedDocumentImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.85),
-            downloadedDocumentImageView.widthAnchor.constraint(equalToConstant: 30),
-            downloadedDocumentImageView.heightAnchor.constraint(equalTo: downloadedDocumentImageView.widthAnchor)
+            downloadedDocumentIcon.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            downloadedDocumentIcon.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding),
+            downloadedDocumentIcon.widthAnchor.constraint(equalToConstant: 25),
+            downloadedDocumentIcon.heightAnchor.constraint(equalTo: downloadedDocumentIcon.widthAnchor)
         ])
     }
     
@@ -116,13 +117,13 @@ final class DocumentsCell: UICollectionViewCell {
         if progress == 100 { DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { self.downloadPercentageLabel.hide() } }
     }
     
-    func setupDownloadDocumentImageView(with document: Document, progress: Int? = 0) {
+    func setupDownloadedDocumentIcon(with document: Document, progress: Int? = 0) {
         let delay = progress == 100 ? 0.4 : 0
         
         if FileSystemManager.isHavingDocument(with: document.fileName) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { self.downloadedDocumentImageView.show() }
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { self.downloadedDocumentIcon.show() }
         } else {
-            downloadedDocumentImageView.hide()
+            downloadedDocumentIcon.hide()
         }
     }
     

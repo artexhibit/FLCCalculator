@@ -14,7 +14,7 @@ struct TurkeyCity: Codable, Hashable {
     let name: String
     let zones: [TurkeyCityZone]
     let zipCode: String
-    let transitDays: Int
+    let transitDays: String
     let volume: [String: TurkeyCityWeight]
 }
 

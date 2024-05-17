@@ -46,7 +46,7 @@ struct CalculationResultHelper {
         let country = FLCCountryOption(rawValue: item.calculationData.countryFrom) ?? .china
         let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
         let isGuangzhou = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou
-        let days = isGuangzhou ? "\(deliveryData.transitDays + 4) дн." : "\(deliveryData.transitDays) дн."
+        let days = isGuangzhou ? "\((Int(deliveryData.transitDays) ?? 1) + 4) дн." : "\(deliveryData.transitDays) дн."
         
         let price = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume).result.formatAsCurrency(symbol: item.currency)
         return (price, days, isGuangzhou, deliveryData.warehouseName)
@@ -193,8 +193,7 @@ struct CalculationResultHelper {
     
     static func saveRefetchedRussianDelivery(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, items: ((price: String, days: String))) {
         if calcData.isFromCoreData && pickedTotalPriceData?.russianDeliveryPrice == "0" {
-            let calc = CoreDataManager.getCalculation(withID: calcData.id)
-            let results = calc?.result as? Set<CalculationResult>
+            let results = CoreDataManager.getCalculationResults(forCalculationID: calcData.id)
             results?.forEach({ result in
                 result.russianDeliveryPrice = items.price
                 result.russianDeliveryTime = items.days
@@ -246,7 +245,11 @@ struct CalculationResultHelper {
                 }
             case .insurance:
                 let result = CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: logisticsType)
+                let currencyCode = FLCCurrency(currencyCode: item.calculationData.invoiceCurrency) ?? .USD
+                
                 totalPriceData.insurance = result.price
+                totalPriceData.insurancePercentage = PriceCalculationManager.getInsurancePercentage(for: logisticsType)
+                totalPriceData.insuranceRatio = PriceCalculationManager.getRatioBetween(item.currency, and: currencyCode)
                 items[index].price = result.price
             case .deliveryFromWarehouse:
                 let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: logisticsType)
@@ -256,7 +259,11 @@ struct CalculationResultHelper {
                 items[index].daysAmount = result.days
             case .cargoHandling:
                 let result = CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: logisticsType)
+                let cargoHandlingData = PriceCalculationManager.getCagoHandlingData(for: logisticsType)
+                
                 totalPriceData.cargoHandling = result
+                totalPriceData.cargoHandlingPricePerKg = cargoHandlingData.pricePerKg
+                totalPriceData.cargoHandlingMinPrice = cargoHandlingData.minPrice
                 items[index].price = result
             case .customsClearancePrice:
                 let result = CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: logisticsType)
@@ -295,8 +302,7 @@ struct CalculationResultHelper {
     }
     
     static func getConfirmedLogisticsType(calcData: CalculationData) -> FLCLogisticsType {
-        let calculation = CoreDataManager.getCalculation(withID: calcData.id)
-        let results = calculation?.result as? Set<CalculationResult>
+        let results = CoreDataManager.getCalculationResults(forCalculationID: calcData.id)
         let confirmedLogisticsType = results?.first(where: { $0.isConfirmed })?.logisticsType ?? ""
         return FLCLogisticsType(rawValue: confirmedLogisticsType) ?? .chinaTruck
     }

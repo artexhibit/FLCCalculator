@@ -37,6 +37,8 @@ extension DocumentsCollectionView: UICollectionViewDelegateFlowLayout {
             guard let url = FileSystemManager.getLocalFileURL(for: doc.fileName) else { return }
             FileSystemManager.openDocument(with: url, in: self)
         } else {
+            self.documentsDownloadProgress.removeValue(forKey: indexPath)
+            
             FirebaseManager.downloadDocument(doc: doc) { result in
                 guard let progress = result.progress, let url = result.url else { return }
                 
@@ -70,7 +72,7 @@ extension DocumentsCollectionView {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DocumentsCell.reuseID, for: indexPath) as? DocumentsCell else { return UICollectionViewCell() }
         cell.set(with: documents[indexPath.row], canRemoveShimmer: canRemoveShimmer)
         cell.setupDownloadPercentageLabel(with: documentsDownloadProgress[indexPath])
-        cell.setupDownloadDocumentImageView(with: documents[indexPath.row], progress: documentsDownloadProgress[indexPath])
+        cell.setupDownloadedDocumentIcon(with: documents[indexPath.row], progress: documentsDownloadProgress[indexPath])
         if storedDocuments == nil { cell.addShimmerAnimation() }
         return cell
     }

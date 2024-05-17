@@ -20,10 +20,13 @@ struct CalculationCellUIHelper {
     
     static func configureInsurance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
         let data = CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
+        let results = CoreDataManager.getCalculationResults(forCalculationID: item.calculationData.id)
+        let targetResult = results?.first(where: { $0.logisticsType == pickedLogisticsType.rawValue })
+        let ratio = item.calculationData.isFromCoreData ? targetResult?.insuranceRatio ?? 0 : data.ratio
         
         cell.titleTextView.attributedText = attributedText
         cell.priceLabel.text = item.price
-        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePersentage(for: pickedLogisticsType))% от стоимости инвойса \n\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)), 1 \(item.currency.symbol) ~ \(data.ratio) \(data.code.symbol)"
+        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePercentage(for: pickedLogisticsType, item: item))% от стоимости инвойса \n\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)), 1 \(item.currency.symbol) ~ \(ratio) \(data.code.symbol)"
 
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
@@ -43,7 +46,7 @@ struct CalculationCellUIHelper {
     }
     
     static func configureCargoHandling(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
-        let handlingData = PriceCalculationManager.getCagoHandlingData(for: pickedLogisticsType)
+        let handlingData = PriceCalculationManager.getCagoHandlingData(for: pickedLogisticsType, item: item)
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.text = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг, минимум \(handlingData.minPrice.formatAsCurrency(symbol: item.currency))"

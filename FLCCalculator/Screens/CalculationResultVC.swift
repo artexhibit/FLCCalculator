@@ -139,9 +139,10 @@ class CalculationResultVC: UIViewController {
                 case .deliveryFromWarehouse:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getResultForDeliveryFromWarehouse(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item, pickedLogisticsType: pickedLogisticsType)
+                        let daysAmount = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.deliveryFromWarehouseTime : result.days
                         
                         self.calculationResultItems[index].price = result.price
-                        self.calculationResultItems[index].daysAmount = result.days
+                        self.calculationResultItems[index].daysAmount = daysAmount
                         self.calculationResultItems[index].isShimmering = false
                         self.delegate?.didEndCalculation(price: result.price, days: result.days, cellType: item.type)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)
@@ -176,9 +177,10 @@ class CalculationResultVC: UIViewController {
                 case .deliveryToWarehouse:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let result = CalculationResultHelper.getResultForDeliveryToWarehouse(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item)
+                        let daysAmount = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.deliveryToWarehouseTime : result.days
         
                         self.calculationResultItems[index].price = result.price
-                        self.calculationResultItems[index].daysAmount = result.days
+                        self.calculationResultItems[index].daysAmount = daysAmount
                         self.calculationResultItems[index].isShimmering = false
                         self.delegate?.didEndCalculation(price: result.price, days: result.days, cellType: item.type)
                         self.updateDataSource(on: self.calculationResultItems, animateChanges: false)

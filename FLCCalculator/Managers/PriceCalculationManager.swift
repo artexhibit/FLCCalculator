@@ -7,9 +7,12 @@ class PriceCalculationManager {
     private static let turkeyPickup: [TurkeyPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
     private static let currencyData: CurrencyData? = PersistenceManager.retrieveItemFromUserDefaults()
     
-    static func getInsurancePersentage(for logisticsType: FLCLogisticsType) -> Double {
+    static func getInsurancePercentage(for logisticsType: FLCLogisticsType, item: CalculationResultItem? = nil) -> Double {
+        let results = CoreDataManager.getCalculationResults(forCalculationID: item?.calculationData.id ?? 1)
+        let targetResult = results?.first(where: { $0.logisticsType == logisticsType.rawValue })
+        
         guard let tariff = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return 0 }
-        return tariff.insurancePercentage
+        return item?.calculationData.isFromCoreData ?? false ? targetResult?.insurancePercentage ?? 0 : tariff.insurancePercentage
     }
     
     static func getRatioBetween(_ cellPriceCurrency: FLCCurrency, and invoiceCurrency: FLCCurrency) -> Double {
@@ -31,7 +34,7 @@ class PriceCalculationManager {
     
     static func calculateInsurance(for logisticsType: FLCLogisticsType, invoiceAmount: Double, cellPriceCurrency: FLCCurrency, invoiceCurrency: FLCCurrency) -> Double {
         let ratio = getRatioBetween(cellPriceCurrency, and: invoiceCurrency)
-        let insurancePercentage = getInsurancePersentage(for: logisticsType)
+        let insurancePercentage = getInsurancePercentage(for: logisticsType)
         let invoiceAmountInSellCurrency = invoiceAmount / ratio
         
         return (invoiceAmountInSellCurrency * insurancePercentage) / 100
@@ -56,9 +59,12 @@ class PriceCalculationManager {
         return String(logisticsTypeData.transitDays)
     }
     
-    static func getCagoHandlingData(for logisticsType: FLCLogisticsType) -> (pricePerKg: Double, minPrice: Double) {
+    static func getCagoHandlingData(for logisticsType: FLCLogisticsType, item: CalculationResultItem? = nil) -> (pricePerKg: Double, minPrice: Double) {
         guard let logisticsTypeData = tariffs?.first(where: { $0.name == logisticsType.rawValue }) else { return (0,0) }
-        return (logisticsTypeData.cargoHandling, logisticsTypeData.minCargoHandling)
+        let results = CoreDataManager.getCalculationResults(forCalculationID: item?.calculationData.id ?? 0)
+        let targetResult = results?.first(where: { $0.logisticsType == logisticsType.rawValue })
+        
+        return item?.calculationData.isFromCoreData ?? false ? (targetResult?.cargoHandlingPricePerKg ?? 0, targetResult?.cargoHandlingMinPrice ?? 0) : (logisticsTypeData.cargoHandling, logisticsTypeData.minCargoHandling)
     }
     
     static func calculateCargoHandling(for logisticsType: FLCLogisticsType, weight: Double) -> Double {
@@ -82,7 +88,7 @@ class PriceCalculationManager {
         return logisticsTypeData.groupageDocs
     }
     
-    static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
+    static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
         switch forCountry {
         case .china:
             return calculateChinaDeliveryToWarehouse(city: city, weight: weight, volume: volume)
@@ -118,18 +124,18 @@ class PriceCalculationManager {
         }
     }
     
-    private static func calculateTurkeyDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
-        guard let pickedCityZipCode = city.getDataInsideCharacters() else { return ("", 0, 0.0) }
+    private static func calculateTurkeyDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
+        guard let pickedCityZipCode = city.getDataInsideCharacters() else { return ("", "", 0.0) }
         
         let vat = turkeyPickup?.first?.vat ?? 1.2
         var result = 0.0
-        var transitDays = 1
+        var transitDays = "1"
         let crossRatio = getRatioBetween(.EUR, and: .USD)
         
         if city.contains(Cities.istanbul) {
             let istanbul = turkeyPickup?.first?.cities.first(where: { $0.name == Cities.istanbul })
             let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode })
-            transitDays = istanbul?.transitDays ?? 1
+            transitDays = istanbul?.transitDays ?? "1"
             
             let weightRange = targetCity?.weight.first(where: { $0.key.createRange()?.contains(weight) == true })
             let volumeRange = targetCity?.volume.first(where: { $0.key.createRange()?.contains(volume) == true })
@@ -140,7 +146,7 @@ class PriceCalculationManager {
             result = (targetPrice * vat * crossRatio).add(markup: .seventeenPercents)
         } else {
             let targetCity = turkeyPickup?.first?.cities.first(where: { $0.zipCode == pickedCityZipCode })
-            transitDays = targetCity?.transitDays ?? 1
+            transitDays = targetCity?.transitDays ?? "1"
             
             let volumeRange = targetCity?.volume.first(where: { $0.key.createRange()?.contains(volume) == true })
             let pricePerCbm = volumeRange?.value.pricePerCbmInEuro ?? 0
@@ -152,8 +158,8 @@ class PriceCalculationManager {
         return (FLCWarehouse.istanbul.rusName, transitDays, result)
     }
     
-    private static func calculateChinaDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: Int, result: Double) {
-        guard let cityName = city.getDataOutsideCharacters() else { return ("", 0, 0.0) }
+    private static func calculateChinaDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
+        guard let cityName = city.getDataOutsideCharacters() else { return ("", "", 0.0) }
         
         let yuanRate = chinaPickup?.first?.yuanRate ?? 6.9
         let density = chinaPickup?.first?.density ?? 0
@@ -161,7 +167,7 @@ class PriceCalculationManager {
         
         let warehouse = chinaPickup?.first?.warehouse.first(where: { $0.cities.contains(where: { $0.name.lowercased() == cityName.lowercased() }) })
         let warehouseName = FLCWarehouse(rawValue: warehouse?.name ?? "")
-        let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? 0
+        let transitDays = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.transitDays ?? "1"
         let weightData = warehouse?.cities.first(where: { $0.name.lowercased() == cityName.lowercased() })?.weight
         let weightRange = weightData?.first(where: { $0.key.createRange()?.contains(weight) == true })
         
