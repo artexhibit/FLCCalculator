@@ -33,7 +33,7 @@ struct ChinaAirTariffs: Codable, Hashable {
     let weight: [String: Double]
 }
 
-extension ChinaAirTariff: UserDefaultsStorable { static var userDefaultsKey: String { Keys.chinaAirTariff } }
+extension ChinaAirTariff: CoreDataStorable { static var coreDataKey: String { Keys.cdChinaAirTariff } }
 extension ChinaAirTariff: FirebaseIdentifiable {
     static var collectionNameKey: String { Keys.tariffs }
     static var fieldNameKey: String { Keys.chinaAirTariff }

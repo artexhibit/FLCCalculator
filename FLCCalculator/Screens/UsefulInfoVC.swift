@@ -42,7 +42,7 @@ class UsefulInfoVC: UIViewController {
     }
     
     private func configureSections() {
-        let manager: FLCManager? = PersistenceManager.retrieveItemFromUserDefaults()
+        let manager: FLCManager? = CoreDataManager.retrieveItemFromCoreData()
         if manager == nil { sections = sections.filter({ $0 != .managerContacts }) }
     }
     

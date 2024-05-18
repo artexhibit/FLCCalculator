@@ -6,7 +6,8 @@ struct  AppDelegateHelper {
         Task {
             do {
                 let currencyData = try await NetworkManager.shared.getCurrencyData()
-                guard let _ = PersistenceManager.updateItemInUserDefaults(item: currencyData) else {
+                
+                guard let _ = CoreDataManager.updateItemInCoreData(item: currencyData) else {
                     if canShowPopup {
                         await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
                     }
@@ -29,14 +30,14 @@ struct  AppDelegateHelper {
     static func updateManagerData(for task: BGAppRefreshTask? = nil) {
         Task {
             do {
-                if let storedManager: FLCManager = PersistenceManager.retrieveItemFromUserDefaults() {
+                if let storedManager: FLCManager = CoreDataManager.retrieveItemFromCoreData() {
                     let managers: [FLCManager] = try await FirebaseManager.getDataFromFirebase() ?? [CalculationInfo.defaultManager]
                     var manager = managers.first(where: { $0.id == storedManager.id }) ?? CalculationInfo.defaultManager
                     
                     if manager.dataDate != storedManager.dataDate {
                         let avatar = await FirebaseManager.downloadAvatar(for: manager)
                         manager.avatar = avatar ?? UIImage(resource: .personPlaceholder)
-                        let _ = PersistenceManager.updateItemInUserDefaults(item: manager)
+                        let _ = CoreDataManager.updateItemInCoreData(item: manager)
                     }
                 }
             }
@@ -82,14 +83,14 @@ struct  AppDelegateHelper {
                     return
                 }
                 
-                if let storedDocuments: [Document] = PersistenceManager.retrieveItemsFromUserDefaults() {
+                if let storedDocuments: [Document] = CoreDataManager.retrieveItemsFromCoreData() {
                     for doc in storedDocuments {
                         if let targetDoc = documents.first(where: { $0.fileName == doc.fileName && $0.docDate != doc.docDate }) {
                             FileSystemManager.deleteDocument(with: targetDoc.fileName)
                         }
                     }
                 }
-                let _ = PersistenceManager.saveItemsToUserDefaults(items: documents)
+                let _ = CoreDataManager.updateItemsInCoreData(items: documents)
             }
             task?.setTaskCompleted(success: true)
         }

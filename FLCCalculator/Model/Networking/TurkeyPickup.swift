@@ -34,7 +34,7 @@ struct TurkeyCityZoneWeight: Codable, Hashable {
     let totalPriceInEuro: Double
 }
 
-extension TurkeyPickup: UserDefaultsStorable { static var userDefaultsKey: String { Keys.turkeyPickup } }
+extension TurkeyPickup: CoreDataStorable { static var coreDataKey: String { Keys.cdTurkeyPickup } }
 extension TurkeyPickup: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.turkeyPickup }
     static var collectionNameKey: String { Keys.turkeyPickup } }

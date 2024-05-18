@@ -32,7 +32,7 @@ struct ChinaWeight: Codable, Hashable {
     let totalPart2Coefficient: Double
 }
 
-extension ChinaPickup: UserDefaultsStorable { static var userDefaultsKey: String { Keys.chinaPickup } }
+extension ChinaPickup: CoreDataStorable { static var coreDataKey: String { Keys.cdChinaPickup } }
 extension ChinaPickup: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.chinaPickup }
     static var collectionNameKey: String { Keys.chinaPickup } }

@@ -65,7 +65,7 @@ struct FLCManager: Codable, Hashable {
     }
 }
 
-extension FLCManager: UserDefaultsStorable { static var userDefaultsKey: String { Keys.managers } }
+extension FLCManager: CoreDataStorable { static var coreDataKey: String { Keys.cdManagers } }
 extension FLCManager: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.managers }
     static var collectionNameKey: String { Keys.managers } }

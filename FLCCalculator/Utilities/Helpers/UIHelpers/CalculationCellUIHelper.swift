@@ -83,8 +83,8 @@ struct CalculationCellUIHelper {
         removeDaysContent(in: cell)
     }
     
-    static func configureDeliveryToWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
-        let data = CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
+    static func configureDeliveryToWarehouse(logisticsType: FLCLogisticsType, cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+        let data = CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
         let addShaghaiWarehouse = data.isGuangzhou ? "- Склад Шанхай" : ""
         
         cell.titleTextView.attributedText = attributedText
@@ -152,8 +152,7 @@ struct CalculationCellUIHelper {
         case .deliveryToWarehouse:
             if iconType == "questionmark.circle.fill" {
                 guard let item = cell.calculationResultItem else { return "" }
-                let country = FLCCountryOption(rawValue: item.calculationData.countryFrom) ?? .china
-                let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
+                let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: pickedLogisticsType)
                 
                 if deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou {
                     return "Поставщик - Склад Гуанчжоу: \(deliveryData.transitDays) дн. \nСклад Гуанчжоу - Склад Шанхай: 4 дн."

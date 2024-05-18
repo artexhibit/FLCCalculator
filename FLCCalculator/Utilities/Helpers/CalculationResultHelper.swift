@@ -42,13 +42,12 @@ struct CalculationResultHelper {
         PriceCalculationManager.getGroupageDocs(for: pickedLogisticsType).formatAsCurrency(symbol: item.currency)
     }
     
-    static func getDeliveryToWarehousePrice(item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
-        let country = FLCCountryOption(rawValue: item.calculationData.countryFrom) ?? .china
-        let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
+    static func getDeliveryToWarehousePrice(logisticsType: FLCLogisticsType, item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
+        let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
         let isGuangzhou = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou
         let days = isGuangzhou ? "\((Int(deliveryData.transitDays) ?? 1) + 4) дн." : "\(deliveryData.transitDays) дн."
         
-        let price = PriceCalculationManager.getDeliveryToWarehouse(forCountry: country, city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume).result.formatAsCurrency(symbol: item.currency)
+        let price = PriceCalculationManager.getDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType).result.formatAsCurrency(symbol: item.currency)
         return (price, days, isGuangzhou, deliveryData.warehouseName)
     }
     
@@ -175,11 +174,11 @@ struct CalculationResultHelper {
         }
     }
     
-    static func getResultForDeliveryToWarehouse(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
+    static func getResultForDeliveryToWarehouse(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, item: CalculationResultItem, logisticsType: FLCLogisticsType) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
         if calcData.isFromCoreData {
             return (pickedTotalPriceData?.deliveryToWarehousePrice ?? "", pickedTotalPriceData?.deliveryToWarehouseTime ?? "", false, "")
         } else {
-            return CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
+            return CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
         }
     }
     
@@ -274,7 +273,7 @@ struct CalculationResultHelper {
                 totalPriceData.customsWarehousePrice = result
                 items[index].price = result
             case .deliveryToWarehouse:
-                let result = CalculationResultHelper.getDeliveryToWarehousePrice(item: item)
+                let result = CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
                 totalPriceData.deliveryToWarehousePrice = result.price
                 totalPriceData.deliveryToWarehouseTime = result.days
                 items[index].price = result.price

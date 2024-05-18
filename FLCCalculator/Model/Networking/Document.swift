@@ -18,7 +18,7 @@ struct Document: Codable, Hashable {
     }
 }
 
-extension Document: UserDefaultsStorable { static var userDefaultsKey: String { Keys.documents } }
+extension Document: CoreDataStorable { static var coreDataKey: String { Keys.cdDocuments } }
 extension Document: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.documents }
     static var collectionNameKey: String { Keys.documents } }

@@ -26,20 +26,29 @@ enum Icons {
 
 enum Keys {
     static let managers = "managers"
+    static let cdManagers = "CDManagers"
     static let tariffs = "tariffs"
     static let chinaTruckTariff = "chinaTruckTariff"
+    static let chinaPickup = "chinaPickup"
     static let chinaRailwayTariff = "chinaRailwayTariff"
     static let chinaAirTariff = "chinaAirTariff"
     static let turkeyTruckByFerryTariff = "turkeyTruckByFerryTariff"
     static let documents = "documents"
-    static let chinaPickup = "chinaPickup"
     static let turkeyPickup = "turkeyPickup"
-    static let currencyData = "currencyData"
     static let dateWhenDataWasUpdated = "dateWhenDataWasUpdated"
     static let lastCurrencyDataUpdate = "lastCurrencyDataUpdate"
     static let lastCalculationDataUpdate = "lastCalculationDataUpdate"
     static let lastManagerDataUpdate = "lastManagerDataUpdate"
     static let lastDocumentsDataUpdate = "lastDocumentsDataUpdate"
+    static let cdChinaTruckTariff = "CDChinaTruckTariff"
+    static let cdChinaRailwayTariff = "CDChinaRailwayTariff"
+    static let cdChinaAirTariff = "CDChinaAirTariff"
+    static let cdTurkeyTruckByFerryTariff = "CDTurkeyTruckByFerryTariff"
+    static let cdDocuments = "CDDocuments"
+    static let cdChinaPickup = "CDChinaPickup"
+    static let cdTurkeyPickup = "CDTurkeyPickup"
+    static let cdDataAttribute = "data"
+    static let cdCurrencyData = "CDCurrencyData"
 }
 
 enum WarehouseStrings {

@@ -43,4 +43,31 @@
         <attribute name="totalTime" attributeType="String"/>
         <relationship name="calculation" maxCount="1" deletionRule="Nullify" destinationEntity="Calculation" inverseName="result" inverseEntity="Calculation"/>
     </entity>
+    <entity name="CDChinaAirTariff" representedClassName="CDChinaAirTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaPickup" representedClassName="CDChinaPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaRailwayTariff" representedClassName="CDChinaRailwayTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaTruckTariff" representedClassName="CDChinaTruckTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDCurrencyData" representedClassName="CDCurrencyData" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDDocuments" representedClassName="CDDocuments" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDManagers" representedClassName="CDManagers" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyPickup" representedClassName="CDTurkeyPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyTruckByFerryTariff" representedClassName="CDTurkeyTruckByFerryTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
 </model>

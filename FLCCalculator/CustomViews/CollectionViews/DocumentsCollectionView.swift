@@ -4,7 +4,7 @@ final class DocumentsCollectionView: FLCCollectionView {
     
     private var documents = [Document]()
     private var canRemoveShimmer = false
-    private var storedDocuments: [Document]? { get { PersistenceManager.retrieveItemsFromUserDefaults() } }
+    private var storedDocuments: [Document]? { get { CoreDataManager.retrieveItemsFromCoreData() } }
     private var documentsDownloadProgress: [IndexPath: Int] = [:]
         
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {

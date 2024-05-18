@@ -216,14 +216,14 @@ class ConfirmOrderVC: UIViewController {
         
         Task {
             do {
-                if let storedManager: FLCManager = PersistenceManager.retrieveItemFromUserDefaults() {
+                if let storedManager: FLCManager = CoreDataManager.retrieveItemFromCoreData() {
                     let managers: [FLCManager] = try await FirebaseManager.getDataFromFirebase() ?? [CalculationInfo.defaultManager]
                     var manager = managers.first(where: { $0.id == storedManager.id }) ?? CalculationInfo.defaultManager
                     
                     if manager.dataDate != storedManager.dataDate {
                         let avatar = await FirebaseManager.downloadAvatar(for: manager)
                         manager.avatar = avatar ?? UIImage(resource: .personPlaceholder)
-                        let _ = PersistenceManager.updateItemInUserDefaults(item: manager)
+                        let _ = CoreDataManager.updateItemInCoreData(item: manager)
                         self.manager = manager
                     } else {
                         self.manager = storedManager
@@ -233,7 +233,7 @@ class ConfirmOrderVC: UIViewController {
                     var manager = managers.randomElement() ?? CalculationInfo.defaultManager
                     let avatar = await FirebaseManager.downloadAvatar(for: manager)
                     manager.avatar = avatar ?? UIImage(resource: .personPlaceholder)
-                    let _ = PersistenceManager.saveItemToUserDefaults(item: manager)
+                    let _ = CoreDataManager.updateItemInCoreData(item: manager)
                     self.manager = manager
                 }
             }

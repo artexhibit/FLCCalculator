@@ -90,7 +90,6 @@
 		0B9AB5FF2BE265EB00E926EB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
 		0B9AB6002BE265FB00E926EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B9AB6022BE2ACC200E926EB /* UsefulInfoManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AB6012BE2ACC200E926EB /* UsefulInfoManagerCell.swift */; };
-		0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
 		0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */; };
 		0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A422B94C2C30058FC95 /* HapticManager.swift */; };
 		0B9D5A6F2BB980900016A991 /* ChinaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A6E2BB980900016A991 /* ChinaPickup.swift */; };
@@ -249,7 +248,6 @@
 		0B9777102BEFDED500E56197 /* UsefulInfoTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoTableViewHeader.swift; sourceTree = "<group>"; };
 		0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTasksManager.swift; sourceTree = "<group>"; };
 		0B9AB6012BE2ACC200E926EB /* UsefulInfoManagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoManagerCell.swift; sourceTree = "<group>"; };
-		0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
 		0B9D3A422B94C2C30058FC95 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		0B9D5A6E2BB980900016A991 /* ChinaPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaPickup.swift; sourceTree = "<group>"; };
@@ -393,7 +391,6 @@
 				0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */,
 				0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */,
 				0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */,
-				0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */,
 				0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */,
 				0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */,
 				0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */,
@@ -899,7 +896,6 @@
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */,
 				0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */,
 				0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
-				0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */,
 				0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */,
 				0BB47CED2BF8CF33001ECED4 /* ChinaRailwayTariff.swift in Sources */,
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,

@@ -203,7 +203,7 @@ class CalculationResultCell: UITableViewCell {
         case .customsWarehouseServices:
             CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
         case .deliveryToWarehouse:
-            CalculationCellUIHelper.configureDeliveryToWarehouse(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureDeliveryToWarehouse(logisticsType: pickedLogisticsType, cell: self, with: item, and: attributedText)
         case .groupageDocs:
             CalculationCellUIHelper.configureGroupageDocs(cell: self, with: item, and: attributedText)
         }

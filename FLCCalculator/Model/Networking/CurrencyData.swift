@@ -21,5 +21,4 @@ struct Details: Codable, Hashable {
         hasher.combine(Nominal)
     }
 }
-
-extension CurrencyData: UserDefaultsStorable { static var userDefaultsKey: String { Keys.currencyData } }
+extension CurrencyData: CoreDataStorable { static var coreDataKey: String { Keys.cdCurrencyData } }

@@ -17,7 +17,7 @@ class UsefulInfoManagerCell: UITableViewCell {
     }
     
     func set() {
-        let manager: FLCManager = PersistenceManager.retrieveItemFromUserDefaults() ?? CalculationInfo.defaultManager
+        let manager: FLCManager = CoreDataManager.retrieveItemFromCoreData() ?? CalculationInfo.defaultManager
         managerView.setPersonalManagerInfo(manager: manager)
     }
     

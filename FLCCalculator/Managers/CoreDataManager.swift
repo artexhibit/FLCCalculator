@@ -3,6 +3,8 @@ import CoreData
 
 struct CoreDataManager {
     private static let context = Persistence.shared.container.viewContext
+    private static let decoder = JSONDecoder()
+    private static let encoder = JSONEncoder()
     
     static func loadCalculations(sortBy key: String = "id", ascending: Bool = true) -> [Calculation]? {
         let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
@@ -99,5 +101,96 @@ struct CoreDataManager {
             calc.addToResult(calcResult)
         }
         Persistence.shared.saveContext()
+    }
+    
+    static func updateItemsInCoreData<T: CoreDataStorable>(items: [T]) -> [T]? {
+        let deletionResult = deleteAllItems(ofType: T.self)
+        if deletionResult {
+            storeItemsToCoreData(items: items)
+            return retrieveItemsFromCoreData()
+        }
+        return nil
+    }
+    
+    static func updateItemInCoreData<T: CoreDataStorable>(item: T) -> T? {
+        let deletionResult = deleteAllItems(ofType: T.self)
+        
+        if deletionResult {
+            storeItemToCoreData(item: item)
+            return retrieveItemFromCoreData()
+        }
+        return nil
+    }
+    
+    static func deleteAllItems<T: CoreDataStorable>(ofType type: T.Type) -> Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: T.coreDataKey)
+        
+        do {
+            let count = try context.count(for: fetchRequest)
+            if count == 0 { return true }
+            
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            try context.execute(deleteRequest)
+            try context.save()
+            return true
+        } catch {
+            print(FLCError.unableToDeleteItemsInCoreData.rawValue)
+            return false
+        }
+    }
+    
+    static func retrieveItemsFromCoreData<T: CoreDataStorable>() -> [T]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: T.coreDataKey)
+        
+        do {
+            let results = try context.fetch(fetchRequest) as? [NSManagedObject]
+            guard let result = results?.first, let data = result.value(forKey: Keys.cdDataAttribute) as? Data else { return nil }
+            let items = try decoder.decode([T].self, from: data)
+            return items
+        } catch {
+            print(FLCError.unableToFetchOrDecodeFromCoreData.rawValue)
+            return nil
+        }
+    }
+    
+    static func retrieveItemFromCoreData<T: CoreDataStorable>() -> T? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: T.coreDataKey)
+        
+        do {
+            let results = try context.fetch(fetchRequest) as? [NSManagedObject]
+            
+            guard let result = results?.first, let data = result.value(forKey: Keys.cdDataAttribute) as? Data else { return nil }
+            let item = try decoder.decode(T.self, from: data)
+            return item
+        } catch {
+            print(FLCError.unableToFetchOrDecodeFromCoreData.rawValue)
+            return nil
+        }
+    }
+    
+    private static func storeItemsToCoreData<T: CoreDataStorable>(items: [T]) {
+        let entity = NSEntityDescription.entity(forEntityName: T.coreDataKey, in: context)!
+        let managedObject = NSManagedObject(entity: entity, insertInto: context)
+        
+        do {
+            let data = try encoder.encode(items)
+            managedObject.setValue(data, forKey: Keys.cdDataAttribute)
+            try context.save()
+        } catch {
+            print(FLCError.unableToEncodeOrSavetoCoreData.rawValue)
+        }
+    }
+    
+    private static func storeItemToCoreData<T: CoreDataStorable>(item: T) {
+        let entity = NSEntityDescription.entity(forEntityName: T.coreDataKey, in: context)!
+        let managedObject = NSManagedObject(entity: entity, insertInto: context)
+        
+        do {
+            let data = try encoder.encode(item)
+            managedObject.setValue(data, forKey: Keys.cdDataAttribute)
+            try context.save()
+        } catch {
+            print(FLCError.unableToEncodeOrSavetoCoreData.rawValue)
+        }
     }
 }

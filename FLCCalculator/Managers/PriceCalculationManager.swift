@@ -1,13 +1,13 @@
 import Foundation
 
 class PriceCalculationManager {
-    private static let chinaTruckTariff: [ChinaTruckTariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let chinaRailwayTariff: [ChinaRailwayTariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let chinaAirTariff: [ChinaAirTariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let chinaPickup: [ChinaPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let turkeyPickup: [TurkeyPickup]? = PersistenceManager.retrieveItemsFromUserDefaults()
-    private static let currencyData: CurrencyData? = PersistenceManager.retrieveItemFromUserDefaults()
+    private static let chinaTruckTariff: [ChinaTruckTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let chinaRailwayTariff: [ChinaRailwayTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let chinaAirTariff: [ChinaAirTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let chinaPickup: [ChinaPickup]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let turkeyPickup: [TurkeyPickup]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let currencyData: CurrencyData? = CoreDataManager.retrieveItemFromCoreData()
     
     static func getInsurancePercentage(for logisticsType: FLCLogisticsType, item: CalculationResultItem? = nil) -> Double {
         let results = CoreDataManager.getCalculationResults(forCalculationID: item?.calculationData.id ?? 1)
@@ -55,17 +55,17 @@ class PriceCalculationManager {
     static func getDeliveryFromWarehouse(for logisticsType: FLCLogisticsType, weight: Double, volume: Double) -> Double {
         switch logisticsType {
         case .chinaTruck:
-            return getPrice(tariff: chinaTruckTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
+            return getDeliveryFromWarehousePrice(tariff: chinaTruckTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
         case .chinaRailway:
-            return getPrice(tariff: chinaRailwayTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
+            return getDeliveryFromWarehousePrice(tariff: chinaRailwayTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
         case .chinaAir:
-            return getPrice(tariff: chinaAirTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
+            return getDeliveryFromWarehousePrice(tariff: chinaAirTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
         case .turkeyTruckByFerry:
-            return getPrice(tariff: turkeyTruckByFerryTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
+            return getDeliveryFromWarehousePrice(tariff: turkeyTruckByFerryTariff ?? [], weight: weight, volume: volume) { AnyTariffData(targetWeight: $0.targetWeight, minLogisticsPrice: $0.minLogisticsPrice, tariffs: AnyTariffs(volume: $0.tariffs.volume, weight: $0.tariffs.weight)) }
         }
     }
     
-    static func getPrice<T>(tariff: [T], weight: Double, volume: Double, extractor: (T) -> AnyTariffData) -> Double {
+    static func getDeliveryFromWarehousePrice<T>(tariff: [T], weight: Double, volume: Double, extractor: (T) -> AnyTariffData) -> Double {
         guard let logisticsTypeData = tariff.first else { return 0 }
         let densityCoefficient = weight / volume
         let extractedData = extractor(logisticsTypeData)
@@ -139,12 +139,14 @@ class PriceCalculationManager {
         }
     }
     
-    static func getDeliveryToWarehouse(forCountry: FLCCountryOption, city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
-        switch forCountry {
-        case .china:
-            return calculateChinaDeliveryToWarehouse(city: city, weight: weight, volume: volume)
-        case .turkey:
-            return calculateTurkeyDeliveryToWarehouse(city: city, weight: weight, volume: volume)
+    static func getDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
+        switch logisticsType {
+        case .chinaTruck, .chinaRailway:
+            return calculateChinaDeliveryToWarehouse(city: city, weight: weight, volume: volume, logisticsType: logisticsType)
+        case .chinaAir:
+            return calculateChinaDeliveryToWarehouse(city: city, weight: weight, volume: volume, logisticsType: logisticsType)
+        case .turkeyTruckByFerry:
+            return calculateTurkeyDeliveryToWarehouse(city: city, weight: weight, volume: volume, logisticsType: logisticsType)
         }
     }
     
@@ -175,7 +177,7 @@ class PriceCalculationManager {
         }
     }
     
-    private static func calculateTurkeyDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
+    private static func calculateTurkeyDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
         guard let pickedCityZipCode = city.getDataInsideCharacters() else { return ("", "", 0.0) }
         
         let vat = turkeyPickup?.first?.vat ?? 1.2
@@ -209,7 +211,7 @@ class PriceCalculationManager {
         return (FLCWarehouse.istanbul.rusName, transitDays, result)
     }
     
-    private static func calculateChinaDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
+    private static func calculateChinaDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
         guard let cityName = city.getDataOutsideCharacters() else { return ("", "", 0.0) }
         
         let yuanRate = chinaPickup?.first?.yuanRate ?? 6.9

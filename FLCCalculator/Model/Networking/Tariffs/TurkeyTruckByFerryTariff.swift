@@ -33,7 +33,7 @@ struct TurkeyTruckByFerryTariffs: Codable, Hashable {
     let weight: [String: Double]
 }
 
-extension TurkeyTruckByFerryTariff: UserDefaultsStorable { static var userDefaultsKey: String { Keys.turkeyTruckByFerryTariff } }
+extension TurkeyTruckByFerryTariff: CoreDataStorable { static var coreDataKey: String { Keys.cdTurkeyTruckByFerryTariff } }
 extension TurkeyTruckByFerryTariff: FirebaseIdentifiable {
     static var collectionNameKey: String { Keys.tariffs }
     static var fieldNameKey: String { Keys.turkeyTruckByFerryTariff }

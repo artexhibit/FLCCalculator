@@ -5,6 +5,6 @@ protocol FirebaseIdentifiable: Hashable, Codable {
     static var fieldNameKey: String { get }
 }
 
-protocol UserDefaultsStorable: Codable, Hashable {
-    static var userDefaultsKey: String { get }
+protocol CoreDataStorable: Codable, Hashable {
+    static var coreDataKey: String { get }
 }

@@ -9,11 +9,11 @@ struct UsefulInfoHelper {
     
     static func getUsefulInfoDocuments() async -> [Document] {
         do {
-            if let storedDocuments: [Document] = PersistenceManager.retrieveItemsFromUserDefaults() {
+            if let storedDocuments: [Document] = CoreDataManager.retrieveItemsFromCoreData() {
                 return storedDocuments
             } else {
                 let documents: [Document] = try await FirebaseManager.getDataFromFirebase() ?? CalculationInfo.defaultUsefulInfoDocuments
-                let _ = PersistenceManager.saveItemsToUserDefaults(items: documents)
+                let _ = CoreDataManager.updateItemsInCoreData(items: documents)
                 return documents
             }
         } catch {

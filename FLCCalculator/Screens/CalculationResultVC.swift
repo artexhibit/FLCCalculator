@@ -176,7 +176,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .deliveryToWarehouse:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = CalculationResultHelper.getResultForDeliveryToWarehouse(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item)
+                        let result = CalculationResultHelper.getResultForDeliveryToWarehouse(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item, logisticsType: pickedLogisticsType)
                         let daysAmount = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.deliveryToWarehouseTime : result.days
         
                         self.calculationResultItems[index].price = result.price

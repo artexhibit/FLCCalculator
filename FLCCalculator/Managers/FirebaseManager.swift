@@ -39,10 +39,10 @@ struct FirebaseManager {
             async let chinaAirTariff: [ChinaAirTariff]? = getDataFromFirebase()
             async let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = getDataFromFirebase()
             
-            let chinaTruckTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await chinaTruckTariff ?? [])
-            let chinaRailwayTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await chinaRailwayTariff ?? [])
-            let chinaAirTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await chinaAirTariff ?? [])
-            let turkeyTruckByFerryTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await turkeyTruckByFerryTariff ?? [])
+            let chinaTruckTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaTruckTariff ?? [])
+            let chinaRailwayTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaRailwayTariff ?? [])
+            let chinaAirTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaAirTariff ?? [])
+            let turkeyTruckByFerryTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyTruckByFerryTariff ?? [])
             
             return chinaTruckTariffData != nil && chinaRailwayTariffData != nil && chinaAirTariffData != nil && turkeyTruckByFerryTariffData != nil
         } catch {
@@ -53,10 +53,10 @@ struct FirebaseManager {
     static func updatePickups() async -> Bool {
         do {
             let chinaPickups: [ChinaPickup]? = try await getDataFromFirebase()
-            guard let _ = PersistenceManager.updateItemsInUserDefaults(items: chinaPickups ?? []) else { return false }
+            guard let _ = CoreDataManager.updateItemsInCoreData(items: chinaPickups ?? []) else { return false }
             
             let turkeyPickups: [TurkeyPickup]? = try await getDataFromFirebase()
-            guard let _ = PersistenceManager.updateItemsInUserDefaults(items: turkeyPickups ?? []) else { return false }
+            guard let _ = CoreDataManager.updateItemsInCoreData(items: turkeyPickups ?? []) else { return false }
             return true
         } catch {
             return false
