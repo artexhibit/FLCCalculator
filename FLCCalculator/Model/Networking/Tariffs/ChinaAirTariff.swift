@@ -1,6 +1,6 @@
 import Foundation
 
-struct Tariff: Codable, Hashable {
+struct ChinaAirTariff: Codable, Hashable {
     let name: String
     let insurancePercentage: Double
     let cargoHandling: Double
@@ -11,7 +11,7 @@ struct Tariff: Codable, Hashable {
     let customsWarehousePrice: Double
     let targetWeight: Double
     let transitDays: Int
-    let tariffs: Tariffs
+    let tariffs: ChinaAirTariffs
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
@@ -28,10 +28,13 @@ struct Tariff: Codable, Hashable {
     }
 }
 
-struct Tariffs: Codable, Hashable {
+struct ChinaAirTariffs: Codable, Hashable {
     let volume: [String: Double]
     let weight: [String: Double]
 }
 
-extension Tariff: UserDefaultsStorable { static var userDefaultsKey: String { Keys.tariffs } }
-extension Tariff: FirebaseIdentifiable { static var collectionNameKey: String { Keys.tariffs } }
+extension ChinaAirTariff: UserDefaultsStorable { static var userDefaultsKey: String { Keys.chinaAirTariff } }
+extension ChinaAirTariff: FirebaseIdentifiable {
+    static var collectionNameKey: String { Keys.tariffs }
+    static var fieldNameKey: String { Keys.chinaAirTariff }
+}

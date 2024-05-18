@@ -21,7 +21,7 @@ struct FirebaseManager {
     
     static func getDataFromFirebase<T: FirebaseIdentifiable>() async throws -> [T]? {
         let snapshot = try await Firestore.firestore().collection(T.collectionNameKey).getDocuments()
-        guard let items = snapshot.documents.first?.data()[T.collectionNameKey] else { throw FLCError.unableToGetDocuments }
+        guard let items = snapshot.documents.first?.data()[T.fieldNameKey] else { throw FLCError.unableToGetDocuments }
         guard let itemsString = items as? String else { throw FLCError.castingError }
         guard let itemsData = itemsString.data(using: .utf8) else { throw FLCError.castingError }
 
@@ -34,11 +34,17 @@ struct FirebaseManager {
     
     static func updateTariffs() async -> Bool {
         do {
-            let tariffs: [Tariff]? = try await getDataFromFirebase()
-            guard let _ = PersistenceManager.updateItemsInUserDefaults(items: tariffs ?? []) else {
-                return false
-            }
-            return true
+            async let chinaTruckTariff: [ChinaTruckTariff]? = getDataFromFirebase()
+            async let chinaRailwayTariff: [ChinaRailwayTariff]? = getDataFromFirebase()
+            async let chinaAirTariff: [ChinaAirTariff]? = getDataFromFirebase()
+            async let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = getDataFromFirebase()
+            
+            let chinaTruckTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await chinaTruckTariff ?? [])
+            let chinaRailwayTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await chinaRailwayTariff ?? [])
+            let chinaAirTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await chinaAirTariff ?? [])
+            let turkeyTruckByFerryTariffData = PersistenceManager.updateItemsInUserDefaults(items: try await turkeyTruckByFerryTariff ?? [])
+            
+            return chinaTruckTariffData != nil && chinaRailwayTariffData != nil && chinaAirTariffData != nil && turkeyTruckByFerryTariffData != nil
         } catch {
             return false
         }

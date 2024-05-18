@@ -81,7 +81,7 @@ struct CalculationResultHelper {
                 }
                 return newItem
             }
-        case .turkeyTruck:
+        case .turkeyTruckByFerry:
             baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, abroadWarehouse: WarehouseStrings.turkeyWarehouse)
         }
         return baseItems.filter { $0.canDisplay == true }
@@ -132,7 +132,7 @@ struct CalculationResultHelper {
         let truckOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто", type: .chinaTruck)
         let trainOption = FLCLogisticsOption(image: Icons.train, title: "ЖД", type: .chinaRailway)
         let airOption = FLCLogisticsOption(image: Icons.plane, title: "Авиа", type: .chinaAir)
-        let truckPlusFerryOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", type: .turkeyTruck)
+        let truckPlusFerryOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", type: .turkeyTruckByFerry)
         
         switch pickedCountry {
         case .china:

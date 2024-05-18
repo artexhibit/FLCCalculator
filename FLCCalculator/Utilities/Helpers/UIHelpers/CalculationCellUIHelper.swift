@@ -116,12 +116,9 @@ struct CalculationCellUIHelper {
     
     private static func getDeliveryFromWarehouseSubtitle(from pickedLogisticsType: FLCLogisticsType) -> String {
         switch pickedLogisticsType {
-        case .chinaTruck, .chinaRailway:
-            "Шанхай - Подольск"
-        case .chinaAir:
-            "Шанхай - Аэропорт Шереметьево"
-        case .turkeyTruck:
-            "Стамбул - Подольск"
+        case .chinaTruck, .chinaRailway: "Шанхай - Подольск"
+        case .chinaAir: "Шанхай - Аэропорт Шереметьево"
+        case .turkeyTruckByFerry: "Стамбул - Подольск"
         }
     }
     
@@ -140,7 +137,7 @@ struct CalculationCellUIHelper {
                     return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
                 case .chinaAir:
                     return "С момента вылета из аэропорта отправления и до разгрузки на нашем складе в Подольске."
-                case .turkeyTruck:
+                case .turkeyTruckByFerry:
                     return "С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске."
                 }
             } else {

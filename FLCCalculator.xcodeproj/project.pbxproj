@@ -90,7 +90,6 @@
 		0B9AB5FF2BE265EB00E926EB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
 		0B9AB6002BE265FB00E926EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B9AB6022BE2ACC200E926EB /* UsefulInfoManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AB6012BE2ACC200E926EB /* UsefulInfoManagerCell.swift */; };
-		0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC32BB0283100ED658B /* Tariff.swift */; };
 		0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */; };
 		0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */; };
 		0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D3A422B94C2C30058FC95 /* HapticManager.swift */; };
@@ -108,6 +107,10 @@
 		0BAF1DB12BF1177F00C0933B /* UsefulInfoDocumentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAF1DB02BF1177F00C0933B /* UsefulInfoDocumentsCell.swift */; };
 		0BB1E0622BE0FB4900AB6A63 /* FLCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */; };
 		0BB1E0642BE102BC00AB6A63 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB1E0632BE102BC00AB6A63 /* Date+Ext.swift */; };
+		0BB47CEB2BF8CD14001ECED4 /* ChinaTruckTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEA2BF8CD14001ECED4 /* ChinaTruckTariff.swift */; };
+		0BB47CED2BF8CF33001ECED4 /* ChinaRailwayTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEC2BF8CF33001ECED4 /* ChinaRailwayTariff.swift */; };
+		0BB47CEF2BF8D003001ECED4 /* ChinaAirTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */; };
+		0BB47CF12BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */; };
 		0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */; };
 		0BC11B182BBD8FE900B215D4 /* TotalPriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */; };
 		0BC735782BCAE00400EF8B0D /* OptionsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735772BCAE00400EF8B0D /* OptionsTableViewHeader.swift */; };
@@ -246,7 +249,6 @@
 		0B9777102BEFDED500E56197 /* UsefulInfoTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoTableViewHeader.swift; sourceTree = "<group>"; };
 		0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTasksManager.swift; sourceTree = "<group>"; };
 		0B9AB6012BE2ACC200E926EB /* UsefulInfoManagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoManagerCell.swift; sourceTree = "<group>"; };
-		0B9CABC32BB0283100ED658B /* Tariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tariff.swift; sourceTree = "<group>"; };
 		0B9CABC62BB02CCD00ED658B /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
 		0B9D3A422B94C2C30058FC95 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
@@ -264,6 +266,10 @@
 		0BAF1DB02BF1177F00C0933B /* UsefulInfoDocumentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoDocumentsCell.swift; sourceTree = "<group>"; };
 		0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCManager.swift; sourceTree = "<group>"; };
 		0BB1E0632BE102BC00AB6A63 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		0BB47CEA2BF8CD14001ECED4 /* ChinaTruckTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaTruckTariff.swift; sourceTree = "<group>"; };
+		0BB47CEC2BF8CF33001ECED4 /* ChinaRailwayTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaRailwayTariff.swift; sourceTree = "<group>"; };
+		0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaAirTariff.swift; sourceTree = "<group>"; };
+		0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyTruckByFerryTariff.swift; sourceTree = "<group>"; };
 		0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceVC.swift; sourceTree = "<group>"; };
 		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -621,13 +627,24 @@
 			isa = PBXGroup;
 			children = (
 				0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */,
-				0B9CABC32BB0283100ED658B /* Tariff.swift */,
 				0B9D5A6E2BB980900016A991 /* ChinaPickup.swift */,
 				0B3849CF2BD82BCF0002F233 /* TurkeyPickup.swift */,
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 				0BAF1DAE2BF1142800C0933B /* Document.swift */,
+				0BB47CF22BF8E978001ECED4 /* Tariffs */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		0BB47CF22BF8E978001ECED4 /* Tariffs */ = {
+			isa = PBXGroup;
+			children = (
+				0BB47CEA2BF8CD14001ECED4 /* ChinaTruckTariff.swift */,
+				0BB47CEC2BF8CF33001ECED4 /* ChinaRailwayTariff.swift */,
+				0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */,
+				0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */,
+			);
+			path = Tariffs;
 			sourceTree = "<group>";
 		};
 		0BC735792BCAE88C00EF8B0D /* TableViewHeaders */ = {
@@ -863,6 +880,7 @@
 				0B419FC82B82451600498ACE /* FLCError.swift in Sources */,
 				0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */,
 				0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */,
+				0BB47CEF2BF8D003001ECED4 /* ChinaAirTariff.swift in Sources */,
 				0BAF1DB12BF1177F00C0933B /* UsefulInfoDocumentsCell.swift in Sources */,
 				0BAF1DAB2BF10F6E00C0933B /* DocumentsCell.swift in Sources */,
 				0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */,
@@ -871,7 +889,6 @@
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
 				0B7C8E042BF2A935009322E6 /* UsefulInfoHelper.swift in Sources */,
-				0B9CABC42BB0283100ED658B /* Tariff.swift in Sources */,
 				0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */,
 				0B9D5A6F2BB980900016A991 /* ChinaPickup.swift in Sources */,
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
@@ -884,6 +901,7 @@
 				0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
 				0B9CABC72BB02CCD00ED658B /* PersistenceManager.swift in Sources */,
 				0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */,
+				0BB47CED2BF8CF33001ECED4 /* ChinaRailwayTariff.swift in Sources */,
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,
 				0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */,
 				0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */,
@@ -908,6 +926,7 @@
 				0B7882842BDE7C8100BDCA16 /* FLCShimmeringView.swift in Sources */,
 				0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */,
 				0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */,
+				0BB47CEB2BF8CD14001ECED4 /* ChinaTruckTariff.swift in Sources */,
 				0B7882892BDEB0CE00BDCA16 /* FLCRoundButton.swift in Sources */,
 				0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */,
 				0BB1E0622BE0FB4900AB6A63 /* FLCManager.swift in Sources */,
@@ -936,6 +955,7 @@
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,
 				0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */,
 				0B3849D02BD82BCF0002F233 /* TurkeyPickup.swift in Sources */,
+				0BB47CF12BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift in Sources */,
 				0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */,
 				0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */,
 				0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */,
