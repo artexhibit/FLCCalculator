@@ -73,6 +73,7 @@ struct CoreDataManager {
         calc.isConfirmed = isConfirmed
         calc.totalPrice = totalPriceData.first(where: { $0.isConfirmed })?.totalPrice
         calc.needCustomsClearance = calculationData.needCustomClearance
+        calc.exchangeRate = calculationData.exchangeRate
         
         for totalPriceDataItem in totalPriceData {
             let calcResult = CalculationResult(context: context)

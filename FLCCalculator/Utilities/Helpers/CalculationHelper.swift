@@ -200,7 +200,7 @@ struct CalculationHelper {
     
     static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String) -> CalculationData {
         let calcData = CalculationData(
-            id: Int32(CoreDataManager.loadCalculations()?.count ?? 0), 
+            id: Int32(CoreDataManager.loadCalculations()?.count ?? 0),
             countryFrom: transportView.countryPickerButton.showingTitle,
             countryTo: "Россия",
             deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
@@ -213,10 +213,11 @@ struct CalculationHelper {
             weight: cargoView.weightTextField.text?.createDouble() ?? 0.0,
             invoiceAmount: cargoView.invoiceAmountTextField.text?.createDouble() ?? 0.0,
             invoiceCurrency: cargoView.invoiceCurrencyPickerButton.showingTitle,
-            needCustomClearance: cargoView.customsClearanceSwitch.isOn, 
+            needCustomClearance: cargoView.customsClearanceSwitch.isOn,
             totalPrices: nil,
-            isFromCoreData: false, 
-            isConfirmed: false)
+            isFromCoreData: false,
+            isConfirmed: false,
+            exchangeRate: PriceCalculationManager.getCurrencyData()?.Valute[FLCCurrency.USD.rawValue]?.Value ?? 0)
         return calcData
     }
 }

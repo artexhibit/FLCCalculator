@@ -153,12 +153,13 @@ class PriceCalculationManager {
         }
     }
     
-    static func getPrice(totalPrice: String? = "0+0", weight: Double? = 1, type: FLCTotalType) -> (result: String, currency: FLCCurrency, secondCurrency: FLCCurrency, exchangeRate: Double, currencyValue: Double, rubleValue: Double) {
+    static func getPrice(totalPrice: String? = "0+0", data: CalculationData?, type: FLCTotalType) -> (result: String, currency: FLCCurrency, secondCurrency: FLCCurrency, exchangeRate: Double, currencyValue: Double, rubleValue: Double) {
+        let cdCalculation = CoreDataManager.getCalculation(withID: data?.id ?? 0)
         let totalPriceParts = totalPrice?.filter { $0 != "*" }.components(separatedBy: "+")
         let currency = totalPriceParts?.first?.extractCurrencySymbol() ?? .USD
         let secondCurrency = totalPriceParts?.last?.extractCurrencySymbol() ?? .RUB
         let currencyKey = currencyData?.Valute.keys.first(where: { $0 == currency.rawValue }) ?? ""
-        let currencyExchangeRate = currencyData?.Valute[currencyKey]?.Value ?? 0
+        let currencyExchangeRate = data?.isFromCoreData ?? false ? cdCalculation?.exchangeRate ?? 0 : currencyData?.Valute[currencyKey]?.Value ?? 0
         
         let currencyValue = totalPriceParts?.first?.createDouble(removeSymbols: true) ?? 0
         let secondValue = totalPriceParts?.last?.createDouble(removeSymbols: true) ?? 0
@@ -167,8 +168,8 @@ class PriceCalculationManager {
         
         switch type {
         case .perKG:
-            let currencyPricePerKg = (currencyTotal / (weight ?? 1)).formatDecimalsTo(amount: 2)
-            let rublePricePerKg = ((currencyTotal * currencyExchangeRate) / (weight ?? 1)).formatAsCurrency(symbol: secondCurrency)
+            let currencyPricePerKg = (currencyTotal / (data?.weight ?? 1)).formatDecimalsTo(amount: 2)
+            let rublePricePerKg = ((currencyTotal * currencyExchangeRate) / (data?.weight ?? 1)).formatAsCurrency(symbol: secondCurrency)
             
             let result = "~" + currencyPricePerKg.formatAsCurrency(symbol: currency) + " (\(rublePricePerKg))" + " за 1 кг"
             
@@ -246,4 +247,5 @@ class PriceCalculationManager {
         let result = ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .seventeenPercents)
         return (warehouseName?.rusName ?? "", transitDays, result)
     }
+    static func getCurrencyData() -> CurrencyData? { currencyData }
 }

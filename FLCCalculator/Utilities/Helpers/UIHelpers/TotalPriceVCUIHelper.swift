@@ -40,22 +40,21 @@ struct TotalPriceVCUIHelper {
     }
     
     static func setPriceForTextView(view: FLCTextViewLabel, data: CalculationData?, totalAmount: FLCTextLayer, type: FLCTotalType) {
-        var priceValue: NSMutableAttributedString?
         let totalPriceString = (totalAmount.string as? String) ?? ""
         let totalPrice = totalPriceString.contains("*") ? totalPriceString.filter { $0 != "*" } : totalPriceString
+        var targetType: FLCTotalType
         
         switch type {
-        case .perKG:
-            priceValue = PriceCalculationManager.getPrice(totalPrice: totalPrice, weight: data?.weight, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
-        case .asOneCurrency:
-            priceValue = PriceCalculationManager.getPrice(totalPrice: totalPrice, type: type).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+        case .perKG: targetType = .perKG
+        case .asOneCurrency: targetType = .asOneCurrency
         }
-        view.attributedText = priceValue
+
+        view.attributedText = PriceCalculationManager.getPrice(totalPrice: totalPrice, data: data, type: targetType).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
         view.setStyle(color: .lightGray, textAlignment: .left, fontWeight: .medium, fontSize: 17)
     }
     
     static private func getTotal(data: CalculationData?, totalAmount: FLCTextLayer, type: FLCTotalType) -> String {
-        let priceData = PriceCalculationManager.getPrice(totalPrice: totalAmount.string as? String, weight: data?.weight, type: type)
+        let priceData = PriceCalculationManager.getPrice(totalPrice: totalAmount.string as? String, data: data, type: type)
         
         let currencyTotal = priceData.currencyValue + (priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2)
         

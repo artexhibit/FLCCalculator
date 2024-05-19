@@ -45,8 +45,9 @@ struct CalculationsVCHelper {
             invoiceCurrency: pickedCalculation.invoiceCurrency ?? "",
             needCustomClearance: pickedCalculation.needCustomsClearance,
             totalPrices: totalPrices,
-            isFromCoreData: true, 
-            isConfirmed: pickedCalculation.isConfirmed)
+            isFromCoreData: true,
+            isConfirmed: pickedCalculation.isConfirmed, 
+            exchangeRate: pickedCalculation.exchangeRate)
         
         return calculationData
     }

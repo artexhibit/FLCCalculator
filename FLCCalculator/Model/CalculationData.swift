@@ -19,4 +19,5 @@ struct CalculationData: Hashable {
     let totalPrices: [TotalPriceData]?
     let isFromCoreData: Bool
     let isConfirmed: Bool
+    let exchangeRate: Double
 }
