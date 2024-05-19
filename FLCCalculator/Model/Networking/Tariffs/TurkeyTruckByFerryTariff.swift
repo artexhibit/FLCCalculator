@@ -38,3 +38,5 @@ extension TurkeyTruckByFerryTariff: FirebaseIdentifiable {
     static var collectionNameKey: String { Keys.tariffs }
     static var fieldNameKey: String { Keys.turkeyTruckByFerryTariff }
 }
+extension TurkeyTruckByFerryTariffs: AnyTariffsConvertible {}
+extension TurkeyTruckByFerryTariff: AnyTariffDataConvertible { var tariffsList: AnyTariffsConvertible { self.tariffs } }

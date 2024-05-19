@@ -52,12 +52,17 @@ struct FirebaseManager {
     
     static func updatePickups() async -> Bool {
         do {
-            let chinaPickups: [ChinaPickup]? = try await getDataFromFirebase()
-            guard let _ = CoreDataManager.updateItemsInCoreData(items: chinaPickups ?? []) else { return false }
+            async let chinaTruckPickup: [ChinaTruckPickup]? = getDataFromFirebase()
+            async let chinaRailwayPickup: [ChinaRailwayPickup]? = getDataFromFirebase()
+            async let chinaAirPickup: [ChinaAirPickup]? = getDataFromFirebase()
+            async let turkeyTruckByFerryPickup: [TurkeyTruckByFerryPickup]? = getDataFromFirebase()
             
-            let turkeyPickups: [TurkeyPickup]? = try await getDataFromFirebase()
-            guard let _ = CoreDataManager.updateItemsInCoreData(items: turkeyPickups ?? []) else { return false }
-            return true
+            let chinaTruckPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaTruckPickup ?? [])
+            let chinaRailwayPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaRailwayPickup ?? [])
+            let chinaAirPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaAirPickup ?? [])
+            let turkeyTruckByFerryPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyTruckByFerryPickup ?? [])
+            
+            return chinaTruckPickupData != nil && chinaRailwayPickupData != nil && chinaAirPickupData != nil && turkeyTruckByFerryPickupData != nil
         } catch {
             return false
         }
@@ -76,7 +81,6 @@ struct FirebaseManager {
                 completion((nil, nil))
                 return
             }
-            //print("File downloaded to: \(url?.path ?? "unknown path")")
         }
         configureTimer(with: downloadTask) { completion((nil, nil)) }
         

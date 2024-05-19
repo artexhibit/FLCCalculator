@@ -38,3 +38,5 @@ extension ChinaRailwayTariff: FirebaseIdentifiable {
     static var collectionNameKey: String { Keys.tariffs }
     static var fieldNameKey: String { Keys.chinaRailwayTariff }
 }
+extension ChinaRailwayTariffs: AnyTariffsConvertible {}
+extension ChinaRailwayTariff: AnyTariffDataConvertible { var tariffsList: AnyTariffsConvertible { self.tariffs } }
