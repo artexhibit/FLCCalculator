@@ -5,15 +5,17 @@ final class OptionsCell: UICollectionViewCell {
     static let reuseID = "OptionsCell"
     
     private let containerView = UIView()
-    private let imageView = FLCImageView(tint: .flcOrange)
-    private let optionTitle = FLCTitleLabel(color: .flcOrange, textAlignment: .center, size: 18)
+    private let imageView = FLCImageView(tint: .flcGray)
+    private let optionTitle = FLCTitleLabel(color: .flcGray, textAlignment: .center, size: 18)
     
     private let padding: CGFloat = 10
     
     override var isSelected: Bool {
         didSet {
             containerView.backgroundColor = isSelected ? .flcNumberTextFieldBackground : .clear
-            containerView.layer.borderColor = isSelected ? UIColor.flcOrange.cgColor : UIColor.flcOrange.withAlphaComponent(0.4).cgColor
+            containerView.layer.borderColor = isSelected ? UIColor.flcOrange.cgColor : UIColor.flcGray.cgColor
+            imageView.tintColor = isSelected ? .flcOrange : .flcGray
+            optionTitle.textColor = isSelected ? .flcOrange : .flcGray
         }
     }
     
@@ -45,7 +47,7 @@ final class OptionsCell: UICollectionViewCell {
         
         containerView.layer.cornerRadius = 13
         containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = UIColor.flcOrange.withAlphaComponent(0.4).cgColor
+        containerView.layer.borderColor = UIColor.flcGray.cgColor
     }
     
     private func configureImageView() {

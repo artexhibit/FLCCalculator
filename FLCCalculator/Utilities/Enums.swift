@@ -1,6 +1,7 @@
 import Foundation
 
 enum FLCPopupViewStyle { case error, normal, spinner }
+enum FLCDeliveryTypeCodes: String { case EXW, FCA, FOB }
 enum FLCPopupViewPosition { case top, bottom }
 enum FLCProgressViewOption { case increase, decrease }
 enum FLCListPickerSortType { case byTitle, bySubtitle }
@@ -74,6 +75,8 @@ enum FLCCalculationResultCellType: Int {
 
 enum FLCMarkupType: Double {
     case seventeenPercents = 1.17
+    case fourteenPercents = 1.14
+    case tenPercents = 1.10
 }
 
 enum FLCCurrency: String, CaseIterable {

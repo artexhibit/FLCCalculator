@@ -31,7 +31,7 @@ struct CoreDataManager {
         }
     }
     
-    static func  getCalculationResults(forCalculationID id: Int32) -> Set<CalculationResult>? {
+    static func getCalculationResults(forCalculationID id: Int32) -> Set<CalculationResult>? {
         guard let calculation = CoreDataManager.getCalculation(withID: id) else { return nil }
         return calculation.result as? Set<CalculationResult>
     }

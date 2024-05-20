@@ -19,8 +19,5 @@ class OptionsTableViewHeader: UITableViewHeaderFooterView {
     private func configure() {
         contentView.addSubview(optionsCollectionView)
     }
-    
-    private func configureOptionsCollectionsView() {
-        optionsCollectionView.pinToEdges(of: contentView, withPadding: 7, paddingType: .horizontal)
-    }
+    private func configureOptionsCollectionsView() { optionsCollectionView.pinToEdges(of: contentView) }
 }

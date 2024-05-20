@@ -5,32 +5,38 @@ struct ChinaAirTariff: Codable, Hashable {
     let insurancePercentage: Double
     let cargoHandling: Double
     let minCargoHandling: Double
-    let groupageDocs: Double
-    let minLogisticsPrice: Double
     let customsClearance: Double
-    let customsWarehousePrice: Double
-    let targetWeight: Double
     let transitDays: Int
-    let tariffs: ChinaAirTariffs
+    let targetWeight: Double
+    let maxLengthMeters: Double
+    let maxWidthMeters: Double
+    let maxHeightMeters: Double
+    let cities: [ChinaAirTariffCity]
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(insurancePercentage)
         hasher.combine(cargoHandling)
         hasher.combine(minCargoHandling)
-        hasher.combine(groupageDocs)
-        hasher.combine(minLogisticsPrice)
         hasher.combine(customsClearance)
-        hasher.combine(customsWarehousePrice)
-        hasher.combine(targetWeight)
         hasher.combine(transitDays)
-        hasher.combine(tariffs)
+        hasher.combine(targetWeight)
+        hasher.combine(maxLengthMeters)
+        hasher.combine(maxWidthMeters)
+        hasher.combine(maxHeightMeters)
+        hasher.combine(cities)
     }
 }
 
-struct ChinaAirTariffs: Codable, Hashable {
-    let volume: [String: Double]
-    let weight: [String: Double]
+struct ChinaAirTariffCity: Codable, Hashable {
+    let name: String
+    let targetAirport: String
+    let groupageDocs: Double
+    let prices: [String: ChinaAirTariffPrice]
+}
+
+struct ChinaAirTariffPrice: Codable, Hashable {
+    let pricePerKg: Double
 }
 
 extension ChinaAirTariff: CoreDataStorable { static var coreDataKey: String { Keys.cdChinaAirTariff } }
@@ -38,5 +44,3 @@ extension ChinaAirTariff: FirebaseIdentifiable {
     static var collectionNameKey: String { Keys.tariffs }
     static var fieldNameKey: String { Keys.chinaAirTariff }
 }
-extension ChinaAirTariffs: AnyTariffsConvertible {}
-extension ChinaAirTariff: AnyTariffDataConvertible { var tariffsList: AnyTariffsConvertible { self.tariffs } }

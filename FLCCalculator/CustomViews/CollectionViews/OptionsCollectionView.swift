@@ -15,15 +15,14 @@ final class OptionsCollectionView: FLCCollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
         registerCell()
         setupOptionsLayout()
+        setupInsets()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func registerCell() {
-        register(OptionsCell.self, forCellWithReuseIdentifier: OptionsCell.reuseID)
-    }
+    private func registerCell() { register(OptionsCell.self, forCellWithReuseIdentifier: OptionsCell.reuseID) }
     
     override func setupOptionsLayout() {
         super.setupOptionsLayout()
@@ -36,9 +35,9 @@ final class OptionsCollectionView: FLCCollectionView {
         self.options = options
         
         guard let index = self.options.firstIndex(where: { $0.type == pickedLogisticsType }) else { return }
-        let indexPath = IndexPath(item: index, section: 0)
-        selectItem(at: indexPath, animated: false, scrollPosition: [])
+        selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: [])
     }
+    private func setupInsets() { contentInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18) }
     func setPickedCountry(country: FLCCountryOption?) { self.pickedCountry = country }
 }
 

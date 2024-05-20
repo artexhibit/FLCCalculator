@@ -46,10 +46,10 @@ struct CalculationCellUIHelper {
     }
     
     static func configureCargoHandling(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
-        let handlingData = PriceCalculationManager.getCagoHandlingData(for: pickedLogisticsType, item: item)
+        let handlingData = PriceCalculationManager.getCargoHandlingData(for: pickedLogisticsType, item: item)
         
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.text = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг, минимум \(handlingData.minPrice.formatAsCurrency(symbol: item.currency))"
+        cell.subtitle.text = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг, минимум \(handlingData.minPrice?.formatAsCurrency(symbol: item.currency) ?? "")"
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()

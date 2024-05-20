@@ -71,7 +71,13 @@ class CalculationResultCell: UITableViewCell {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubviews(titleTextView, subtitle, daysIconView, daysTextView, priceLabel, failedPriceCalcContainer)
         containerView.layer.addSublayer(gradientLayer)
-        containerView.pinToEdges(of: contentView, withPadding: padding / 2)
+        
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding / 2),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding - 2),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(padding - 2)),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding / 2),
+        ])
         
         containerView.backgroundColor = .flcNumberTextFieldBackground
         containerView.layer.cornerRadius = 10

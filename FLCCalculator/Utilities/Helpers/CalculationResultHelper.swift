@@ -21,7 +21,7 @@ struct CalculationResultHelper {
     }
     
     static func getDeliveryFromWarehousePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (price: String, days: String) {
-       let price = PriceCalculationManager.getDeliveryFromWarehouse(for: pickedLogisticsType, weight: item.calculationData.weight, volume: item.calculationData.volume).formatAsCurrency(symbol: item.currency)
+        let price = PriceCalculationManager.getDeliveryFromWarehouse(for: pickedLogisticsType, weight: item.calculationData.weight, volume: item.calculationData.volume, city: item.calculationData.fromLocation.getDataOutsideCharacters()).formatAsCurrency(symbol: item.currency)
         let days = "от " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: pickedLogisticsType) + " дн."
         return (price, days)
     }
@@ -39,7 +39,7 @@ struct CalculationResultHelper {
     }
     
     static func getGroupageDocs(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
-        PriceCalculationManager.getGroupageDocs(for: pickedLogisticsType).formatAsCurrency(symbol: item.currency)
+        PriceCalculationManager.getGroupageDocs(for: pickedLogisticsType, city: item.calculationData.fromLocation.getDataOutsideCharacters()).formatAsCurrency(symbol: item.currency)
     }
     
     static func getDeliveryToWarehousePrice(logisticsType: FLCLogisticsType, item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
@@ -56,7 +56,7 @@ struct CalculationResultHelper {
         
         switch pickedLogisticsType {
         case .chinaTruck, .chinaRailway:
-            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, abroadWarehouse: WarehouseStrings.chinaWarehouse)
+            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity)
             
         case .chinaAir:
             baseItems = getLogisticsItems(with: data).map { item in
@@ -69,24 +69,27 @@ struct CalculationResultHelper {
                 case .customsClearancePrice:
                     if !data.needCustomClearance { newItem.canDisplay = false }
                     
-                case .deliveryToWarehouse, .cargoHandling, .customsWarehouseServices:
+                case .customsWarehouseServices:
                     newItem.canDisplay = false
+                    
+                case .deliveryToWarehouse:
+                    if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
                     
                 case .deliveryFromWarehouse:
                     newItem.title = "Авиаперевозка"
                     
-                case .insurance, .groupageDocs:
+                case .insurance, .groupageDocs, .cargoHandling:
                     break
                 }
                 return newItem
             }
         case .turkeyTruckByFerry:
-            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, abroadWarehouse: WarehouseStrings.turkeyWarehouse)
+            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity)
         }
         return baseItems.filter { $0.canDisplay == true }
     }
     
-    private static func getBaseItems(with data: CalculationData, rusWarehouse: String, abroadWarehouse: String) -> [CalculationResultItem] {
+    private static func getBaseItems(with data: CalculationData, rusWarehouse: String) -> [CalculationResultItem] {
         
         return getLogisticsItems(with: data).map { item in
             var newItem = item
@@ -99,7 +102,7 @@ struct CalculationResultHelper {
                 if !data.needCustomClearance { newItem.canDisplay = false }
                 
             case .deliveryToWarehouse:
-                if data.fromLocation == abroadWarehouse { newItem.canDisplay = false }
+                if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
                 
             case .deliveryFromWarehouse, .cargoHandling, .customsWarehouseServices, .insurance, .groupageDocs:
                 break
@@ -213,6 +216,7 @@ struct CalculationResultHelper {
         Persistence.shared.saveContext()
     }
     
+    @MainActor
     static func setupTotalPriceData(logisticsType: FLCLogisticsType, calculationData: CalculationData) async -> TotalPriceData {
         var totalPriceData = TotalPriceData()
         var items = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: logisticsType)
@@ -258,7 +262,7 @@ struct CalculationResultHelper {
                 items[index].daysAmount = result.days
             case .cargoHandling:
                 let result = CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: logisticsType)
-                let cargoHandlingData = PriceCalculationManager.getCagoHandlingData(for: logisticsType)
+                let cargoHandlingData = PriceCalculationManager.getCargoHandlingData(for: logisticsType)
                 
                 totalPriceData.cargoHandling = result
                 totalPriceData.cargoHandlingPricePerKg = cargoHandlingData.pricePerKg

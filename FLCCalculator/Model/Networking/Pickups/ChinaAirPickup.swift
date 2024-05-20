@@ -1,35 +1,24 @@
 import Foundation
 
 struct ChinaAirPickup: Codable, Hashable {
-    let density: Double
-    let yuanRate: Double
-    let warehouse: [ChinaAirPickupWarehouse]
+    let targetWeight: Double
+    let cities: [ChinaAirCity]
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(density)
-        hasher.combine(yuanRate)
-        hasher.combine(warehouse)
+        hasher.combine(targetWeight)
+        hasher.combine(cities)
     }
 }
 
-struct ChinaAirPickupWarehouse: Codable, Hashable {
+struct ChinaAirCity: Codable, Hashable {
     let name: String
-    let totalPart3CoefficientOne: Double
-    let totalPart3CoefficientTwo: Double
-    let totalPart3CoefficientThree: Double
-    let cities: [ChinaAirPickupCity]
-}
-
-struct ChinaAirPickupCity: Codable, Hashable {
-    let name: String
-    let province: String
+    let targetAirport: String
     let transitDays: String
-    let weight: [String: ChinaAirPickupWeight]
+    let prices: [String: ChinaAirCityPrice]
 }
 
-struct ChinaAirPickupWeight: Codable, Hashable {
-    let totalPart1Coefficient: Double
-    let totalPart2Coefficient: Double
+struct ChinaAirCityPrice: Codable, Hashable {
+    let price: Double
 }
 
 extension ChinaAirPickup: CoreDataStorable { static var coreDataKey: String { Keys.cdChinaAirPickup } }
@@ -37,16 +26,3 @@ extension ChinaAirPickup: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.chinaAirPickup }
     static var collectionNameKey: String { Keys.pickups }
 }
-
-extension ChinaAirPickup: PickupDataConvertible {
-    var warehouses: [WarehouseConvertible] { self.warehouse.map { $0 as WarehouseConvertible } }
-}
-
-extension ChinaAirPickupWarehouse: WarehouseConvertible {
-    var cityList: [CityConvertible] { return self.cities.map { $0 as CityConvertible } }
-}
-
-extension ChinaAirPickupCity: CityConvertible {
-    var weightList: [String: WeightConvertible] { self.weight.mapValues { $0 as WeightConvertible } }
-}
-extension ChinaAirPickupWeight: WeightConvertible {}
