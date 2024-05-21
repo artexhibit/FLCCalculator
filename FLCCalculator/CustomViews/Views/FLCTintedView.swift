@@ -37,8 +37,8 @@ class FLCTintedView: UIView {
         }
     }
     
-    func setTextLabel(text: NSAttributedString? = nil, textAlignment: NSTextAlignment = .left, fontWeight: UIFont.Weight = .regular, fontSize: CGFloat = 1, delegate: UIViewController) {
-        tintedViewLabel.delegate = delegate as? UITextViewDelegate
+    func setTextLabel(text: NSAttributedString? = nil, textAlignment: NSTextAlignment = .left, fontWeight: UIFont.Weight = .regular, fontSize: CGFloat = 1, delegate: UIViewController? = nil) {
+        if delegate != nil { tintedViewLabel.delegate = delegate as? UITextViewDelegate }
         tintedViewLabel.attributedText = text
         tintedViewLabel.setStyle(color: color.makeDarker(), textAlignment: textAlignment, fontWeight: fontWeight, fontSize: fontSize)
     }

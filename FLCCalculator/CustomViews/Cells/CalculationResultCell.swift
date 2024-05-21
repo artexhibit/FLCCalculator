@@ -21,6 +21,7 @@ class CalculationResultCell: UITableViewCell {
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
     let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
     let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
+    private let pickupWarningTintedView = FLCTintedView(color: .flcCalculationResultCellSecondary.makeLighter(delta: 0.5), alpha: 0.15, withText: true)
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
@@ -64,12 +65,13 @@ class CalculationResultCell: UITableViewCell {
         configureDaysIcon()
         configureDaysLabel()
         configurePriceLabel()
+        configurePickupWarningTintedView()
         configureGradient()
     }
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(titleTextView, subtitle, daysIconView, daysTextView, priceLabel, failedPriceCalcContainer)
+        containerView.addSubviews(titleTextView, subtitle, daysIconView, daysTextView, priceLabel, pickupWarningTintedView, failedPriceCalcContainer)
         containerView.layer.addSublayer(gradientLayer)
         
         NSLayoutConstraint.activate([
@@ -126,7 +128,7 @@ class CalculationResultCell: UITableViewCell {
     private func configurePriceLabel() {
         NSLayoutConstraint.activate([
             priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
-            priceLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5),
+            priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTintedView.topAnchor, constant: -padding * 0.5),
             priceLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
@@ -182,6 +184,20 @@ class CalculationResultCell: UITableViewCell {
             UIColor.flcGradientColorTwo.cgColor,
             UIColor.flcGradientColorOne.cgColor
         ]
+    }
+    
+    private func configurePickupWarningTintedView() {
+        let message = "Внимание! Пикап рассчитан из ближайшего к вашей точке крупного города. Фактическая стоимость может измениться"
+        
+        pickupWarningTintedView.setTextLabel(text: message.makeAttributed(icon: Icons.exclamationMark, tint: .flcCalculationResultCellSecondary, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15)
+        pickupWarningTintedView.hide()
+        
+        NSLayoutConstraint.activate([
+            pickupWarningTintedView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: padding / 2),
+            pickupWarningTintedView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding / 2.5),
+            pickupWarningTintedView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding / 2.5),
+            pickupWarningTintedView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5)
+        ])
     }
     
     func set(with item: CalculationResultItem, presentedVC: UIViewController, pickedLogisticsType: FLCLogisticsType) {
