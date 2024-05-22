@@ -48,12 +48,5 @@ class FLCTintedView: UIView {
         layer.borderColor = color.cgColor
     }
     
-    private func configureTintedViewLabel() {
-        NSLayoutConstraint.activate([
-            tintedViewLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            tintedViewLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            tintedViewLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            tintedViewLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
-        ])
-    }
+    private func configureTintedViewLabel() { tintedViewLabel.pinToEdges(of: self, withPadding: padding) }
 }

@@ -21,11 +21,14 @@ class CalculationResultCell: UITableViewCell {
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
     let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
     let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
-    private let pickupWarningTintedView = FLCTintedView(color: .flcCalculationResultCellSecondary.makeLighter(delta: 0.5), alpha: 0.15, withText: true)
+    private let pickupWarningTextViewLabel = FLCSubtitleLabel(color: .flcOrange.makeDarker(), textAlignment: .left, textStyle: .footnote)
+    
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
-    
+    private var pickupWarningTextViewLabelBottomConstraint: NSLayoutConstraint!
+    private var priceLabelBottomConstraint: NSLayoutConstraint!
+
     weak var delegate: CalculationResultCellDelegate?
     
     let padding: CGFloat = 20
@@ -65,13 +68,13 @@ class CalculationResultCell: UITableViewCell {
         configureDaysIcon()
         configureDaysLabel()
         configurePriceLabel()
-        configurePickupWarningTintedView()
+        configurePickupWarningTextViewLabel()
         configureGradient()
     }
     
     private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubviews(titleTextView, subtitle, daysIconView, daysTextView, priceLabel, pickupWarningTintedView, failedPriceCalcContainer)
+        containerView.addSubviews(titleTextView, subtitle, daysIconView, daysTextView, priceLabel, pickupWarningTextViewLabel, failedPriceCalcContainer)
         containerView.layer.addSublayer(gradientLayer)
         
         NSLayoutConstraint.activate([
@@ -126,10 +129,12 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configurePriceLabel() {
+        priceLabelBottomConstraint = priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTextViewLabel.topAnchor, constant: -padding * 0.5)
+        
         NSLayoutConstraint.activate([
             priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
-            priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTintedView.topAnchor, constant: -padding * 0.5),
-            priceLabel.heightAnchor.constraint(equalToConstant: 25)
+            priceLabel.heightAnchor.constraint(equalToConstant: 25),
+            priceLabelBottomConstraint
         ])
     }
     
@@ -186,18 +191,36 @@ class CalculationResultCell: UITableViewCell {
         ]
     }
     
-    private func configurePickupWarningTintedView() {
+    private func configurePickupWarningTextViewLabel() {
         let message = "Внимание! Пикап рассчитан из ближайшего к вашей точке крупного города. Фактическая стоимость может измениться"
+        pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcOrange.makeDarker(), size: (0, -2.5, 17, 16), placeIcon: .beforeText)
         
-        pickupWarningTintedView.setTextLabel(text: message.makeAttributed(icon: Icons.exclamationMark, tint: .flcCalculationResultCellSecondary, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15)
-        pickupWarningTintedView.hide()
+        pickupWarningTextViewLabelBottomConstraint = pickupWarningTextViewLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5)
         
         NSLayoutConstraint.activate([
-            pickupWarningTintedView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: padding / 2),
-            pickupWarningTintedView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding / 2.5),
-            pickupWarningTintedView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding / 2.5),
-            pickupWarningTintedView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5)
+            pickupWarningTextViewLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: padding / 2),
+            pickupWarningTextViewLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding / 1.5),
+            pickupWarningTextViewLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding / 1.5),
+            pickupWarningTextViewLabelBottomConstraint
         ])
+    }
+    
+    private func removePickupWarningMessage() {
+        pickupWarningTextViewLabelBottomConstraint.isActive = false
+        pickupWarningTextViewLabel.hide(withAnimationDuration: 0)
+        
+        priceLabelBottomConstraint.isActive = false
+        priceLabelBottomConstraint = priceLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5)
+        priceLabelBottomConstraint.isActive = true
+    }
+    
+    private func addPickupWarningMessage() {
+        priceLabelBottomConstraint.isActive = false
+        priceLabelBottomConstraint = priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTextViewLabel.topAnchor, constant: -padding * 0.5)
+        priceLabelBottomConstraint.isActive = true
+        
+        pickupWarningTextViewLabelBottomConstraint.isActive = true
+        pickupWarningTextViewLabel.show(withAnimationDuration: 0)
     }
     
     func set(with item: CalculationResultItem, presentedVC: UIViewController, pickedLogisticsType: FLCLogisticsType) {
@@ -210,6 +233,7 @@ class CalculationResultCell: UITableViewCell {
         self.presentedVC = presentedVC
         self.calculationResultItem = item
         self.pickedLogisticsType = pickedLogisticsType
+        self.removePickupWarningMessage()
         
         switch type {
         case .russianDelivery:
@@ -225,6 +249,7 @@ class CalculationResultCell: UITableViewCell {
         case .customsWarehouseServices:
             CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
         case .deliveryToWarehouse:
+            addPickupWarningMessage()
             CalculationCellUIHelper.configureDeliveryToWarehouse(logisticsType: pickedLogisticsType, cell: self, with: item, and: attributedText)
         case .groupageDocs:
             CalculationCellUIHelper.configureGroupageDocs(cell: self, with: item, and: attributedText)
