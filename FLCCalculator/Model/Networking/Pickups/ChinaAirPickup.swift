@@ -13,6 +13,7 @@ struct ChinaAirPickup: Codable, Hashable {
 struct ChinaAirCity: Codable, Hashable {
     let name: String
     let targetAirport: String
+    let targetCities: [String]
     let transitDays: String
     let prices: [String: ChinaAirCityPrice]
 }
