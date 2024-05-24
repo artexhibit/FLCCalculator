@@ -21,13 +21,13 @@ struct CalculationResultHelper {
     }
     
     static func getDeliveryFromWarehousePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (price: String, days: String) {
-        let price = PriceCalculationManager.getDeliveryFromWarehouse(for: pickedLogisticsType, weight: item.calculationData.weight, volume: item.calculationData.volume, city: item.calculationData.fromLocation.getDataOutsideCharacters()).formatAsCurrency(symbol: item.currency)
+        let price = PriceCalculationManager.getDeliveryFromWarehouse(for: pickedLogisticsType, item: item).formatAsCurrency(symbol: item.currency)
         let days = "от " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: pickedLogisticsType) + " дн."
         return (price, days)
     }
     
     static func getCargoHandlingPrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
-        PriceCalculationManager.calculateCargoHandling(for: pickedLogisticsType, weight: item.calculationData.weight).formatAsCurrency(symbol: item.currency)
+        PriceCalculationManager.calculateCargoHandling(for: pickedLogisticsType, item: item, weight: item.calculationData.weight).formatAsCurrency(symbol: item.currency)
     }
     
     static func getCustomsClearancePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
@@ -39,7 +39,7 @@ struct CalculationResultHelper {
     }
     
     static func getGroupageDocs(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> String {
-        PriceCalculationManager.getGroupageDocs(for: pickedLogisticsType, city: item.calculationData.fromLocation.getDataOutsideCharacters()).formatAsCurrency(symbol: item.currency)
+        PriceCalculationManager.getGroupageDocs(for: pickedLogisticsType, item: item).formatAsCurrency(symbol: item.currency)
     }
     
     static func getDeliveryToWarehousePrice(logisticsType: FLCLogisticsType, item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
@@ -56,10 +56,10 @@ struct CalculationResultHelper {
         
         switch pickedLogisticsType {
         case .chinaTruck, .chinaRailway:
-            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity)
+            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, pickedLogisticsType: pickedLogisticsType)
             
         case .chinaAir:
-            baseItems = getLogisticsItems(with: data).map { item in
+            baseItems = getLogisticsItems(with: data, pickedLogisticsType: pickedLogisticsType).map { item in
                 var newItem = item
                 
                 switch newItem.type {
@@ -84,14 +84,14 @@ struct CalculationResultHelper {
                 return newItem
             }
         case .turkeyTruckByFerry:
-            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity)
+            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, pickedLogisticsType: pickedLogisticsType)
         }
         return baseItems.filter { $0.canDisplay == true }
     }
     
-    private static func getBaseItems(with data: CalculationData, rusWarehouse: String) -> [CalculationResultItem] {
+    private static func getBaseItems(with data: CalculationData, rusWarehouse: String, pickedLogisticsType: FLCLogisticsType) -> [CalculationResultItem] {
         
-        return getLogisticsItems(with: data).map { item in
+        return getLogisticsItems(with: data, pickedLogisticsType: pickedLogisticsType).map { item in
             var newItem = item
             
             switch newItem.type {
@@ -111,13 +111,14 @@ struct CalculationResultHelper {
         }
     }
     
-    private static func getLogisticsItems(with data: CalculationData) -> [CalculationResultItem] {
+    private static func getLogisticsItems(with data: CalculationData, pickedLogisticsType: FLCLogisticsType) -> [CalculationResultItem] {
         var items = [CalculationResultItem]()
+        let cargoHandlingCurrency: FLCCurrency = pickedLogisticsType == .chinaAir ? .RUB : .USD
         
         let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: data, title: "Доставка по России", currency: .RUB)
         let insuranceItem = CalculationResultItem(type: .insurance, calculationData: data, title: "Страхование", currency: .USD)
         let deliveryFromWarehouseItem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: data, title: "Перевозка Сборного Груза", currency: .USD)
-        let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: data, title: "Погрузо-разгрузочные работы", currency: .USD)
+        let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: data, title: "Погрузо-разгрузочные работы", currency: cargoHandlingCurrency)
         let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: data, title: "Услуги по Таможенному Оформлению", currency: .RUB)
         let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: data, title: "Услуги СВХ", currency: .RUB)
         let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: data, title: "Доставка до Склада Консолидации", currency: .USD)
@@ -262,7 +263,7 @@ struct CalculationResultHelper {
                 items[index].daysAmount = result.days
             case .cargoHandling:
                 let result = CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: logisticsType)
-                let cargoHandlingData = PriceCalculationManager.getCargoHandlingData(for: logisticsType)
+                let cargoHandlingData = PriceCalculationManager.getCargoHandlingData(for: logisticsType, item: item)
                 
                 totalPriceData.cargoHandling = result
                 totalPriceData.cargoHandlingPricePerKg = cargoHandlingData.pricePerKg

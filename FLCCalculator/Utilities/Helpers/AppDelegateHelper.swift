@@ -111,17 +111,17 @@ struct  AppDelegateHelper {
                 updateCurrencyData(canShowPopup: false)
                 UserDefaultsManager.lastCurrencyDataUpdate = Date()
             }
-            if shouldUpdateData(afterDays: 3, for: UserDefaultsManager.lastCalculationDataUpdate) {
+            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCalculationDataUpdate) {
                 updateCalculationData(canShowPopup: false)
                 UserDefaultsManager.lastCalculationDataUpdate = Date()
             }
             
-            if shouldUpdateData(afterDays: 7, for: UserDefaultsManager.lastManagerDataUpdate) {
+            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastManagerDataUpdate) {
                 updateManagerData()
                 UserDefaultsManager.lastManagerDataUpdate = Date()
             }
             
-            if shouldUpdateData(afterDays: 0, for: UserDefaultsManager.lastDocumentsDataUpdate) {
+            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastDocumentsDataUpdate) {
                 updateDocumentsData()
                 UserDefaultsManager.lastManagerDataUpdate = Date()
             }

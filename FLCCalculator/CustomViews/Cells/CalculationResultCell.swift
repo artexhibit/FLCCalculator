@@ -133,7 +133,7 @@ class CalculationResultCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
-            priceLabel.heightAnchor.constraint(equalToConstant: 25),
+            priceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 25),
             priceLabelBottomConstraint
         ])
     }
