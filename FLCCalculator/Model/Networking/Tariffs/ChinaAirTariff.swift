@@ -3,9 +3,14 @@ import Foundation
 struct ChinaAirTariff: Codable, Hashable {
     let name: String
     let insurancePercentage: Double
+    let insuranceAgentVisit: Double
     let cargoHandling: Double
     let minCargoHandling: Double
     let customsClearance: Double
+    let formalitiesCompletion: Double
+    let cargoArrivalNotification: Double
+    let documentsCopiesMaking: Double
+    let airportWarehouseStorage: Double
     let transitDays: Int
     let targetWeight: Double
     let maxLengthMeters: Double
@@ -16,9 +21,14 @@ struct ChinaAirTariff: Codable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(insurancePercentage)
+        hasher.combine(insuranceAgentVisit)
         hasher.combine(cargoHandling)
         hasher.combine(minCargoHandling)
         hasher.combine(customsClearance)
+        hasher.combine(formalitiesCompletion)
+        hasher.combine(cargoArrivalNotification)
+        hasher.combine(documentsCopiesMaking)
+        hasher.combine(airportWarehouseStorage)
         hasher.combine(transitDays)
         hasher.combine(targetWeight)
         hasher.combine(maxLengthMeters)

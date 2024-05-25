@@ -21,13 +21,13 @@ class CalculationResultCell: UITableViewCell {
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
     let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
     let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
-    private let pickupWarningTextViewLabel = FLCSubtitleLabel(color: .flcOrange.makeDarker(), textAlignment: .left, textStyle: .footnote)
-    
+    private let pickupWarningTextViewLabel = FLCSubtitleLabel(color: .flcCalculationResultCellMain, textAlignment: .left, textStyle: .footnote)
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
     private var pickupWarningTextViewLabelBottomConstraint: NSLayoutConstraint!
     private var priceLabelBottomConstraint: NSLayoutConstraint!
+    private var priceLabelHeightConstraint: NSLayoutConstraint!
 
     weak var delegate: CalculationResultCellDelegate?
     
@@ -130,11 +130,12 @@ class CalculationResultCell: UITableViewCell {
     
     private func configurePriceLabel() {
         priceLabelBottomConstraint = priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTextViewLabel.topAnchor, constant: -padding * 0.5)
+        priceLabelHeightConstraint = priceLabel.heightAnchor.constraint(equalToConstant: 25)
         
         NSLayoutConstraint.activate([
+            priceLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
             priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
-            priceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 25),
-            priceLabelBottomConstraint
+            priceLabelHeightConstraint, priceLabelBottomConstraint
         ])
     }
     
@@ -192,9 +193,6 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configurePickupWarningTextViewLabel() {
-        let message = "Внимание! Пикап рассчитан из ближайшего к вашей точке крупного города. Фактическая стоимость может измениться"
-        pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcOrange.makeDarker(), size: (0, -2.5, 17, 16), placeIcon: .beforeText)
-        
         pickupWarningTextViewLabelBottomConstraint = pickupWarningTextViewLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding * 0.5)
         
         NSLayoutConstraint.activate([
@@ -214,11 +212,15 @@ class CalculationResultCell: UITableViewCell {
         priceLabelBottomConstraint.isActive = true
     }
     
-    private func addPickupWarningMessage() {
+    func addPickupWarningMessage(warehouseName: String) {
+        let message = "Пикап рассчитан от ближайшего крупного города \(warehouseName). Стоимость пикапа с вашего адреса может измениться."
+        pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcCalculationResultCellMain, size: (0, -3, 17, 16), placeIcon: .beforeText)
+        
         priceLabelBottomConstraint.isActive = false
         priceLabelBottomConstraint = priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTextViewLabel.topAnchor, constant: -padding * 0.5)
         priceLabelBottomConstraint.isActive = true
         
+        priceLabelHeightConstraint.isActive = false
         pickupWarningTextViewLabelBottomConstraint.isActive = true
         pickupWarningTextViewLabel.show(withAnimationDuration: 0)
     }
@@ -249,10 +251,9 @@ class CalculationResultCell: UITableViewCell {
         case .customsWarehouseServices:
             CalculationCellUIHelper.configureCustomsWarehouseServices(cell: self, with: item, and: attributedText)
         case .deliveryToWarehouse:
-            addPickupWarningMessage()
             CalculationCellUIHelper.configureDeliveryToWarehouse(logisticsType: pickedLogisticsType, cell: self, with: item, and: attributedText)
         case .groupageDocs:
-            CalculationCellUIHelper.configureGroupageDocs(cell: self, with: item, and: attributedText)
+            CalculationCellUIHelper.configureGroupageDocs(cell: self, with: item, and: attributedText, pickedLogisticsType: pickedLogisticsType)
         }
         self.titleTextView.setStyle(color: .flcCalculationResultCellMain, textAlignment: .left, fontWeight: .bold, fontSize: 20)
         self.daysTextView.setStyle(color: .flcCalculationResultCellSecondary, textAlignment: .right, fontWeight: .bold, fontSize: 19)

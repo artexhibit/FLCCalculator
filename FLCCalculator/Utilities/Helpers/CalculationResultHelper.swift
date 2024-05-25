@@ -78,7 +78,10 @@ struct CalculationResultHelper {
                 case .deliveryFromWarehouse:
                     newItem.title = "Авиаперевозка"
                     
-                case .insurance, .groupageDocs, .cargoHandling:
+                case .groupageDocs:
+                    newItem.title = "Авианакладная"
+                    
+                case .insurance, .cargoHandling:
                     break
                 }
                 return newItem

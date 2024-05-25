@@ -23,10 +23,13 @@ struct CalculationCellUIHelper {
         let results = CoreDataManager.getCalculationResults(forCalculationID: item.calculationData.id)
         let targetResult = results?.first(where: { $0.logisticsType == pickedLogisticsType.rawValue })
         let ratio = item.calculationData.isFromCoreData ? targetResult?.insuranceRatio ?? 0 : data.ratio
+        let invoiceAmountString = item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)
+        let ratioString = ", 1 \(item.currency.symbol) ~ \(ratio) \(data.code.symbol)"
+        let totalString = item.currency == data.code ? "(\(invoiceAmountString))" : "\n\(invoiceAmountString + ratioString)"
         
         cell.titleTextView.attributedText = attributedText
         cell.priceLabel.text = item.price
-        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePercentage(for: pickedLogisticsType, item: item))% от стоимости инвойса \n\(item.calculationData.invoiceAmount.formatAsCurrency(symbol: data.code)), 1 \(item.currency.symbol) ~ \(ratio) \(data.code.symbol)"
+        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePercentage(for: pickedLogisticsType, item: item))% от стоимости инвойса + выезд страхового агента \(totalString)"
 
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
@@ -34,7 +37,7 @@ struct CalculationCellUIHelper {
     
     static func configureDeliveryFromWarehouse(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
         let data = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
-        let subtitle = getDeliveryFromWarehouseSubtitle(from: pickedLogisticsType)
+        let subtitle = getDeliveryFromWarehouseSubtitle(from: pickedLogisticsType, item: item)
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = subtitle.makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
@@ -78,9 +81,11 @@ struct CalculationCellUIHelper {
         removeDaysContent(in: cell)
     }
     
-    static func configureGroupageDocs(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
+    static func configureGroupageDocs(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
+        let text = pickedLogisticsType == .chinaAir ? "Оформление AWB (Air Way Bill)" : "В составе сборного груза"
+        
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.text = "В составе сборного груза"
+        cell.subtitle.text = text
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
@@ -89,12 +94,15 @@ struct CalculationCellUIHelper {
     
     static func configureDeliveryToWarehouse(logisticsType: FLCLogisticsType, cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         let data = CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
+        let isPickedCityHasAirport = item.calculationData.fromLocation.getDataOutsideCharacters() == data.warehouseName ? true : false
         let addShaghaiWarehouse = data.isGuangzhou ? "- Склад Шанхай" : ""
+        let deliveryPlace = logisticsType == .chinaAir ? " - Аэропорт" : " - Склад"
         
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "\(item.calculationData.fromLocation) - Склад \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
+        cell.subtitle.attributedText = "\(item.calculationData.fromLocation) \(deliveryPlace) \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
+        if !isPickedCityHasAirport && logisticsType == .chinaAir { cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestBigCityForAirDelivery(to: item.calculationData.fromLocation)?.name ?? "") }
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
@@ -118,11 +126,15 @@ struct CalculationCellUIHelper {
         cell.removeShimmerAnimation()
     }
     
-    private static func getDeliveryFromWarehouseSubtitle(from pickedLogisticsType: FLCLogisticsType) -> String {
+    private static func getDeliveryFromWarehouseSubtitle(from pickedLogisticsType: FLCLogisticsType, item: CalculationResultItem) -> String {
         switch pickedLogisticsType {
-        case .chinaTruck, .chinaRailway: "Шанхай - Подольск"
-        case .chinaAir: "Шанхай - Аэропорт Шереметьево"
-        case .turkeyTruckByFerry: "Стамбул - Подольск"
+        case .chinaTruck, .chinaRailway: return "Шанхай - Подольск"
+        case .chinaAir:
+            let deliveryTypeCode = FLCDeliveryTypeCodes(rawValue: item.calculationData.deliveryTypeCode)
+            let city = deliveryTypeCode == .EXW ? item.calculationData.fromLocation : Cities.beijing
+            let departureAirport = PriceCalculationManager.getClosestBigCityForAirDelivery(to: city)?.targetAirport ?? ""
+            return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
+        case .turkeyTruckByFerry: return "Стамбул - Подольск"
         }
     }
     
@@ -134,21 +146,23 @@ struct CalculationCellUIHelper {
         case .insurance:
             return "Наш многолетний партнёр по страхованию - компания СК Пари. Страховка от полной стоимости инвойса."
         case .deliveryFromWarehouse:
-            if iconType == "questionmark.circle.fill" {
-                
-                switch pickedLogisticsType {
-                case .chinaTruck, .chinaRailway:
-                    return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
-                case .chinaAir:
-                    return "С момента вылета из аэропорта отправления и до разгрузки на нашем складе в Подольске."
-                case .turkeyTruckByFerry:
-                    return "С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске."
-                }
-            } else {
+            switch pickedLogisticsType {
+            case .chinaTruck:
                 return "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник."
+            case .chinaRailway:
+                return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
+            case .chinaAir:
+                return "С момента вылета из аэропорта отправления и до размещения на СВХ в аэропорту прибытия."
+            case .turkeyTruckByFerry:
+                return "С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске."
             }
         case .cargoHandling:
-            return "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
+            switch pickedLogisticsType {
+            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry:
+                return "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
+            case .chinaAir:
+                return "Включены погрузо-разгрузочные работы в аэропорту прибытия, извещение о прибытии груза, изготовление копий документов, выполнение требований госорганов для авиаперевозок, хранение на СВХ в аэропорту (1 день)"
+            }
         case .customsClearancePrice:
             return "В стоимость входит подача Таможенной Декларации, услуги брокера и ЭЦП брокера."
         case .customsWarehouseServices:
@@ -169,7 +183,11 @@ struct CalculationCellUIHelper {
                 return  "Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию"
             }
         case .groupageDocs:
-            return "В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!"
+            if pickedLogisticsType == .chinaAir {
+                return "AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)"
+            } else {
+                return "В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!"
+            }
         }
     }
 }
