@@ -213,7 +213,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func addPickupWarningMessage(warehouseName: String) {
-        let message = "Пикап рассчитан от ближайшего крупного города \(warehouseName). Стоимость пикапа с вашего адреса может измениться."
+        let message = "Пикап рассчитан от ближайшего крупного города \(warehouseName). Стоимость пикапа с точного адреса может измениться."
         pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcCalculationResultCellMain, size: (0, -3, 17, 16), placeIcon: .beforeText)
         
         priceLabelBottomConstraint.isActive = false

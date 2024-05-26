@@ -127,11 +127,15 @@ extension FLCTransportParametersView: FLCPickerDelegate {
         if countryPickerButton.titleIsEmpty { delegate?.didEnterRequiredInfo() }
         
         UIView.performWithoutAnimation {
-            if triggerButton.showingTitle.contains(Cities.istanbul) {
-                CalculationHelper.setTitle(for: triggerButton, pickedItem: pickedItem, addString: ", \(Cities.istanbul)")
+            if triggerButton.showingTitle.contains(FLCCities.istanbul.rawValue) {
+                CalculationHelper.setTitle(for: triggerButton, pickedItem: pickedItem, addString: ", \(FLCCities.istanbul.rawValue)")
                 return
             }
-            CalculationHelper.setTitle(for: triggerButton, pickedItem: pickedItem)
+            if pickedItem.canBeAddedAsTitle {
+                CalculationHelper.setTitle(for: triggerButton, pickedItem: pickedItem)
+            } else {
+                CalculationHelper.setTitle(for: triggerButton, pickedItem: pickedItem, title: "\(triggerButton.showingTitle) +1")
+            }
         }
         delegate?.didSelectItem(pickedItem: pickedItem, triggerButton: triggerButton)
     }

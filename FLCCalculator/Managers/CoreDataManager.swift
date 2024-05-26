@@ -63,6 +63,7 @@ struct CoreDataManager {
         calc.deliveryType = calculationData.deliveryType
         calc.goodsType = calculationData.goodsType
         calc.fromLocation = calculationData.fromLocation
+        calc.departureAirport = calculationData.departureAirport
         calc.deliveryTypeCode = calculationData.deliveryTypeCode
         calc.countryTo = calculationData.countryTo
         calc.countryFrom = calculationData.countryFrom
@@ -170,7 +171,10 @@ struct CoreDataManager {
     }
     
     private static func storeItemsToCoreData<T: CoreDataStorable>(items: [T]) {
-        let entity = NSEntityDescription.entity(forEntityName: T.coreDataKey, in: context)!
+        guard let entity = NSEntityDescription.entity(forEntityName: T.coreDataKey, in: context) else {
+            print(FLCError.entityNotFound.rawValue)
+            return
+        }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         
         do {
@@ -183,7 +187,10 @@ struct CoreDataManager {
     }
     
     private static func storeItemToCoreData<T: CoreDataStorable>(item: T) {
-        let entity = NSEntityDescription.entity(forEntityName: T.coreDataKey, in: context)!
+        guard let entity = NSEntityDescription.entity(forEntityName: T.coreDataKey, in: context) else {
+            print(FLCError.entityNotFound.rawValue)
+            return
+        }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         
         do {

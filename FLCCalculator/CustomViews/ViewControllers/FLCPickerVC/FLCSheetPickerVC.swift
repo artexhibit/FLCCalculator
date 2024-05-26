@@ -2,14 +2,18 @@ import UIKit
 
 class FLCSheetPickerVC: FLCPickerVC {
     
+    private let titleLabel = FLCSubtitleLabel(color: .label, textAlignment: .left, textStyle: .callout)
     private let tableView = UITableView()
     private var pickerItems = [FLCPickerItem]()
+    
+    private let padding: CGFloat = 20
         
-    init(items pickerItems: [FLCPickerItem], triggerButton: FLCListPickerButton) {
+    init(items pickerItems: [FLCPickerItem], triggerButton: FLCListPickerButton, title: String? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.pickerItems = pickerItems
         self.triggerButton = triggerButton
         self.title = triggerButton.smallLabelView.smallLabel.text ?? ""
+        self.titleLabel.text = title
     }
     
     required init?(coder: NSCoder) {
@@ -18,11 +22,23 @@ class FLCSheetPickerVC: FLCPickerVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTitleLabel()
         configureTableView()
+    }
+    
+    private func configureTitleLabel() {
+        view.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
+        ])
     }
     
     private func configureTableView() {
         view.addSubview(tableView)
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +46,7 @@ class FLCSheetPickerVC: FLCPickerVC {
         tableView.hideFirstSeparator()
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding / 2),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

@@ -26,9 +26,11 @@ struct CalculationHelper {
         }
     }
     
-    static func setTitle(for triggerButton: FLCListPickerButton, pickedItem: FLCPickerItem, addString: String = "") {
-        triggerButton.set(title: "\(pickedItem.title)\(addString)")
-        triggerButton.showingTitle = "\(pickedItem.title)\(addString)"
+    static func setTitle(for triggerButton: FLCListPickerButton, pickedItem: FLCPickerItem, addString: String = "", title: String? = nil) {
+        let newTitle = title == nil ? "\(pickedItem.title)\(addString)" : title ?? ""
+        
+        triggerButton.set(title: newTitle)
+        triggerButton.showingTitle = newTitle
         triggerButton.layoutIfNeeded()
     }
     
@@ -63,11 +65,12 @@ struct CalculationHelper {
         viewController.present(navController, animated: true)
     }
     
-    static func presentSheetPickerVC(items: [FLCPickerItem], triggerButton: FLCListPickerButton, listener: FLCCalculationView, in viewController: UIViewController, size: CGFloat = 0.5) {
-        let sheetPickerVC = FLCSheetPickerVC(items: items, triggerButton: triggerButton)
+    static func presentSheetPickerVC(items: [FLCPickerItem], triggerButton: FLCListPickerButton, listener: FLCCalculationView, in viewController: UIViewController, size: CGFloat = 0.5, title: String? = nil, cantCloseBySwipe: Bool = false) {
+        let sheetPickerVC = FLCSheetPickerVC(items: items, triggerButton: triggerButton, title: title)
         sheetPickerVC.delegate = listener as? FLCPickerDelegate
         let navController = UINavigationController(rootViewController: sheetPickerVC)
         navController.sheetPresentationController?.getFLCSheetPresentationController(in: viewController.view, size: size)
+        navController.isModalInPresentation = cantCloseBySwipe
         viewController.present(navController, animated: true)
     }
     
@@ -103,8 +106,12 @@ struct CalculationHelper {
             }
         }
         view.flcListPickerButtons.forEach {
-            if $0.showingTitle == Cities.istanbul {
+            if $0.showingTitle == FLCCities.istanbul.rawValue {
                 FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите область Стамбула в Пункте Отправления")
+                $0.switchToRedColors()
+                isWithZero = true
+            } else if $0.showingTitle == WarehouseStrings.chinaWarehouse {
+                FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите аэропорт отправления для расчёта авиа")
                 $0.switchToRedColors()
                 isWithZero = true
             }
@@ -198,14 +205,15 @@ struct CalculationHelper {
         return "от \(totalDays) дн."
     }
     
-    static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String) -> CalculationData {
+    static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String, departureAirport: String) -> CalculationData {
         let calcData = CalculationData(
             id: Int32(CoreDataManager.loadCalculations()?.count ?? 0),
             countryFrom: transportView.countryPickerButton.showingTitle,
             countryTo: "Россия",
             deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
-            deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3),
-            fromLocation: transportView.departurePickerButton.showingTitle,
+            deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3), 
+            departureAirport: PriceCalculationManager.getClosestBigCityForAirDelivery(to: departureAirport)?.targetAirport ?? "",
+            fromLocation: transportView.departurePickerButton.showingTitle.removeStringPart("+1"),
             toLocation: transportView.destinationPickerButton.showingTitle,
             toLocationCode: pickedDestinationCode,
             goodsType: cargoView.cargoTypePickerButton.showingTitle,

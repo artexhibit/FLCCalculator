@@ -89,12 +89,10 @@ final class PriceCalculationManager {
     }
     
     private static func getAirDeliveryFromWarehousePrice(item: CalculationResultItem) -> Double {
-        let deliveryTypeCode = FLCDeliveryTypeCodes(rawValue: item.calculationData.deliveryTypeCode)
         let targetWeight = chinaAirTariff?.first?.targetWeight ?? 0
         let chargeableWeight = max(item.calculationData.weight, targetWeight * item.calculationData.volume)
-        let city = deliveryTypeCode == .EXW ? item.calculationData.fromLocation : Cities.beijing
         
-        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(city) }) })
+        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(item.calculationData.departureAirport) }) })
         let targetTariffs = chinaAirTariff?.first?.cities.first(where: { $0.name.lowercased() == targetCity?.targetAirport.lowercased() })
         let price = targetTariffs?.prices.first(where: { $0.key.createRange()?.contains(chargeableWeight) == true })?.value.pricePerKg ?? 0
         return (price * chargeableWeight).add(markup: .fourteenPercents)
@@ -173,22 +171,20 @@ final class PriceCalculationManager {
     }
     
     private static func getAviaGroupageDocs(item: CalculationResultItem) -> Double {
-        let deliveryTypeCode = FLCDeliveryTypeCodes(rawValue: item.calculationData.deliveryTypeCode)
-        let city = deliveryTypeCode == .EXW ? item.calculationData.fromLocation : Cities.beijing
-        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(city) }) })
+        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(item.calculationData.departureAirport) }) })
         return (chinaAirTariff?.first?.cities.first(where: { $0.name.lowercased() == targetCity?.targetAirport.lowercased() })?.groupageDocs ?? 0).add(markup: .fourteenPercents)
     }
     
-    static func getDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
+    static func getDeliveryToWarehouse(item: CalculationResultItem, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
         switch logisticsType {
         case .chinaTruck:
-            return calculateChinaGroundDeliveryToWarehouse(pickup: chinaTruckPickup ?? [], city: city, weight: weight, volume: volume)
+            return calculateChinaGroundDeliveryToWarehouse(pickup: chinaTruckPickup ?? [], city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
         case .chinaRailway:
-            return calculateChinaGroundDeliveryToWarehouse(pickup: chinaRailwayPickup ?? [], city: city, weight: weight, volume: volume)
+            return calculateChinaGroundDeliveryToWarehouse(pickup: chinaRailwayPickup ?? [], city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
         case .chinaAir:
-            return calculateChinaAirDeliveryToWarehouse(city: city, weight: weight, volume: volume)
+            return calculateChinaAirDeliveryToWarehouse(city: item.calculationData.departureAirport, weight: item.calculationData.weight, volume: item.calculationData.volume)
         case .turkeyTruckByFerry:
-            return calculateTurkeyDeliveryToWarehouse(city: city, weight: weight, volume: volume, logisticsType: logisticsType)
+            return calculateTurkeyDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
         }
     }
     
@@ -228,8 +224,8 @@ final class PriceCalculationManager {
         var transitDays = "1"
         let crossRatio = getRatioBetween(.EUR, and: .USD)
         
-        if city.contains(Cities.istanbul) {
-            let istanbul = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == Cities.istanbul })
+        if city.contains(FLCCities.istanbul.rawValue) {
+            let istanbul = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == FLCCities.istanbul.rawValue })
             let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode })
             transitDays = istanbul?.transitDays ?? "1"
             

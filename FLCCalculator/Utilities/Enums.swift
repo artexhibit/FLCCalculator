@@ -165,6 +165,14 @@ enum FLCLogisticsType: String, CaseIterable {
     }
 }
 
+enum FLCCities: String, CaseIterable {
+    case istanbul = "Istanbul"
+    case shanghai = "Shanghai"
+    case beijing = "Beijing"
+    case guangzhou = "Guangzhou"
+    case shenzhen = "Shenzhen"
+}
+
 enum FLCDateFormat: String {
     case dashYMD = "yyyy-MM-dd"
     case dotDMY = "dd.MM.yyyy"

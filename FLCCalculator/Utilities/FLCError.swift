@@ -11,6 +11,7 @@ enum FLCError: String, Error {
     case castingError = "The value is not a string"
     case unableToFetchOrDecodeFromCoreData = "Failed to fetch or decode items from Core Data"
     case unableToEncodeOrSavetoCoreData = "Failed to encode or save items"
+    case entityNotFound = "Entity not found"
     case unableToDeleteItemsInCoreData = "Failed to delete"
     case unknownFirebaseStorageError = "Unknown error occurred"
     case unableToAccessDirectory = "Unable to access the Documents directory"

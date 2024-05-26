@@ -94,7 +94,8 @@ struct CalculationCellUIHelper {
     
     static func configureDeliveryToWarehouse(logisticsType: FLCLogisticsType, cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         let data = CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
-        let isPickedCityHasAirport = item.calculationData.fromLocation.getDataOutsideCharacters() == data.warehouseName ? true : false
+        let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
+        let city = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
         let addShaghaiWarehouse = data.isGuangzhou ? "- Склад Шанхай" : ""
         let deliveryPlace = logisticsType == .chinaAir ? " - Аэропорт" : " - Склад"
         
@@ -102,7 +103,8 @@ struct CalculationCellUIHelper {
         cell.subtitle.attributedText = "\(item.calculationData.fromLocation) \(deliveryPlace) \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
-        if !isPickedCityHasAirport && logisticsType == .chinaAir { cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestBigCityForAirDelivery(to: item.calculationData.fromLocation)?.name ?? "") }
+        
+        if logisticsType == .chinaAir { cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestBigCityForAirDelivery(to: city)?.name ?? "") }
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
@@ -130,8 +132,8 @@ struct CalculationCellUIHelper {
         switch pickedLogisticsType {
         case .chinaTruck, .chinaRailway: return "Шанхай - Подольск"
         case .chinaAir:
-            let deliveryTypeCode = FLCDeliveryTypeCodes(rawValue: item.calculationData.deliveryTypeCode)
-            let city = deliveryTypeCode == .EXW ? item.calculationData.fromLocation : Cities.beijing
+            let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
+            let city = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
             let departureAirport = PriceCalculationManager.getClosestBigCityForAirDelivery(to: city)?.targetAirport ?? ""
             return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
         case .turkeyTruckByFerry: return "Стамбул - Подольск"
@@ -170,7 +172,7 @@ struct CalculationCellUIHelper {
         case .deliveryToWarehouse:
             if iconType == "questionmark.circle.fill" {
                 guard let item = cell.calculationResultItem else { return "" }
-                let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: pickedLogisticsType)
+                let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(item: item, logisticsType: pickedLogisticsType)
                 
                 if deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou {
                     return "Поставщик - Склад Гуанчжоу: \(deliveryData.transitDays) дн. \nСклад Гуанчжоу - Склад Шанхай: 4 дн."

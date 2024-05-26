@@ -456,6 +456,13 @@ struct CalculationInfo {
         FLCPickerItem(title: FLCCountryOption.turkey.rawValue, subtitle: "", image: UIImage(named: "TRY"))
     ]
     
+    static let chinaAirportsOptions = [
+        FLCPickerItem(title: FLCCities.beijing.rawValue, subtitle: "Международный аэропорт Дасин (PKX)", image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCities.shanghai.rawValue, subtitle: "Международный аэропорт Пудун (PVG)", image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCities.guangzhou.rawValue, subtitle: "Международный аэропорт Байюнь (CAN)", image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCities.shenzhen.rawValue, subtitle: "Международный аэропорт Баоань (SZX)", image: Icons.plane, isOpenForAdd: false)
+    ]
+    
     static let chinaDeliveryTypes = [
         FLCPickerItem(title: "EXW, Поставщик - Клиент", subtitle: "От поставщика до склада получателя", image: nil),
         FLCPickerItem(title: "EXW, Поставщик - Склад Подольск", subtitle: "От поставщика до склада FLC", image: nil),

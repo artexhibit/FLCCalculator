@@ -5,10 +5,11 @@ class SheetPickerCell: UITableViewCell {
     static let reuseID = "SheetPickerCell"
     
     private let title = FLCBodyLabel(color: .label, textAlignment: .left)
-    private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)
+    private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left, textStyle: .caption1)
     private let iconImageView = FLCImageView()
     private let checkmarkImageView = FLCImageView()
-    private let padding: CGFloat = 12
+    
+    private let padding: CGFloat = 10
     private var iconImageViewWidthConstraint: NSLayoutConstraint!
     private var iconImageViewLeadingConstraint: NSLayoutConstraint!
     
@@ -27,7 +28,7 @@ class SheetPickerCell: UITableViewCell {
         self.iconImageView.image = pickerItem.image != nil ? pickerItem.image : nil
         self.iconImageViewWidthConstraint.constant = pickerItem.image != nil ? 30 : 0.01
         if subtitle.text == "" { self.iconImageViewWidthConstraint.constant = 25 }
-        self.iconImageViewLeadingConstraint.constant = pickerItem.image != nil ? padding * 2.5 : padding
+        self.iconImageViewLeadingConstraint.constant = pickerItem.image != nil ? padding * 2 : padding
         self.checkmarkImageView.image = title.text == buttonTitle ? UIImage(systemName: "checkmark") : nil
     }
     
@@ -53,7 +54,7 @@ class SheetPickerCell: UITableViewCell {
     
     private func configureCheckmarkImageView() {        
         NSLayoutConstraint.activate([
-            checkmarkImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 2.5),
+            checkmarkImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 1.5),
             checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             checkmarkImageView.widthAnchor.constraint(equalToConstant: 25),
             checkmarkImageView.heightAnchor.constraint(equalTo: checkmarkImageView.widthAnchor)

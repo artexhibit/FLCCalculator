@@ -7,6 +7,7 @@ struct CalculationData: Hashable {
     let countryTo: String
     let deliveryType: String
     let deliveryTypeCode: String
+    let departureAirport: String
     let fromLocation: String
     let toLocation: String
     let toLocationCode: String

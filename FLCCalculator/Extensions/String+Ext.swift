@@ -86,6 +86,7 @@ extension String {
         return returnFirstHalf ? components[0].trimmingCharacters(in: .whitespaces) : components[1].trimmingCharacters(in: .whitespaces)
     }
     
+    func removeStringPart(_ part: String) -> String { self.replacingOccurrences(of: part, with: "").trimmingCharacters(in: .whitespacesAndNewlines) }
     func formatAsSymbol() -> String { FLCCurrency(rawValue: self)?.symbol ?? "" }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }
     func getLastCharacters(_ amount: Int) -> String { String(self.suffix(amount)) }
