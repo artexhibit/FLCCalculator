@@ -297,5 +297,11 @@ final class PriceCalculationManager {
     static func getClosestBigCityForAirDelivery(to city: String) -> ChinaAirCity? {
         chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(city) }) })
     }
+    static func getMaxWeightFor(type: FLCLogisticsType) -> Double {
+        switch type {
+        case .chinaTruck, .chinaRailway, .turkeyTruckByFerry: return 20000
+        case .chinaAir: return chinaAirTariff?.first?.maxWeightKg ?? 3000
+        }
+    }
     static func getCurrencyData() -> CurrencyData? { currencyData }
 }

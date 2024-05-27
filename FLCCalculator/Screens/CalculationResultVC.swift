@@ -17,8 +17,10 @@ class CalculationResultVC: UIViewController {
     private var totalPriceDataItems = [TotalPriceData]()
     private var pickedLogisticsType: FLCLogisticsType = .chinaTruck
     private var pickedTotalPriceData: TotalPriceData?
+    private let emptyStateView = FLCEmptyStateView(withButton: false, yValue: -100)
     
     var showingPopover = FLCPopoverVC()
+    private var maxWeight: Double { PriceCalculationManager.getMaxWeightFor(type: pickedLogisticsType) }
     private var calculationData: CalculationData! {
         didSet {
             let country = FLCCountryOption(rawValue: calculationData.countryFrom)
@@ -42,7 +44,7 @@ class CalculationResultVC: UIViewController {
         performCalculations(pickedLogisticsType: pickedLogisticsType)
         
         Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: allLogisticsTypes, calculationData: calculationData) }
-        CalculationHelper.showTotalPrice(vc: totalPriceVC, from: self)
+        updateEmptyStateView(with: pickedLogisticsType)
     }
     
     private func configureVC() {
@@ -67,6 +69,37 @@ class CalculationResultVC: UIViewController {
         tableView.delegate = self
         tableView.register(CalculationResultCell.self, forCellReuseIdentifier: CalculationResultCell.reuseID)
         tableView.register(OptionsTableViewHeader.self, forHeaderFooterViewReuseIdentifier: OptionsTableViewHeader.reuseID)
+    }
+    
+    private func configureEmptyStateView() {
+        view.addSubview(emptyStateView)
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top + 85),
+            emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func updateEmptyStateView(with pickedLogisticsType: FLCLogisticsType) {
+        if calculationData.weight > maxWeight && pickedLogisticsType == .chinaAir {
+            if emptyStateView.superview == nil {
+                configureEmptyStateView()
+                
+                switch pickedLogisticsType {
+                case .chinaTruck, .chinaRailway, .turkeyTruckByFerry: break
+                case .chinaAir:
+                    emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - 3 тонны. Вес вашего груза - \(calculationData.weight) кг")
+                }
+            }
+            CalculationHelper.dismissTotalPrice(vc: totalPriceVC)
+        } else {
+            emptyStateView.removeFromSuperview()
+            
+            if totalPriceVC.presentingViewController == nil { CalculationHelper.showTotalPrice(vc: totalPriceVC, from: self) }
+        }
     }
     
     func performCalculations(for cell: CalculationResultCell? = nil, pickedLogisticsType: FLCLogisticsType) {
@@ -268,6 +301,7 @@ extension CalculationResultVC: OptionsCollectionViewDelegate {
     func didChangeLogisticsType(type: FLCLogisticsType) {
         delegate?.didChangeLogisticsType()
         pickedLogisticsType = type
+        updateEmptyStateView(with: pickedLogisticsType)
         
         let newItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         calculationResultItems = CalculationResultHelper.saveNetworkingData(oldItems: calculationResultItems, newItems: newItems)

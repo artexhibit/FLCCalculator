@@ -16,6 +16,7 @@ struct ChinaAirTariff: Codable, Hashable {
     let maxLengthMeters: Double
     let maxWidthMeters: Double
     let maxHeightMeters: Double
+    let maxWeightKg: Double
     let cities: [ChinaAirTariffCity]
     
     func hash(into hasher: inout Hasher) {
@@ -34,6 +35,7 @@ struct ChinaAirTariff: Codable, Hashable {
         hasher.combine(maxLengthMeters)
         hasher.combine(maxWidthMeters)
         hasher.combine(maxHeightMeters)
+        hasher.combine(maxWeightKg)
         hasher.combine(cities)
     }
 }

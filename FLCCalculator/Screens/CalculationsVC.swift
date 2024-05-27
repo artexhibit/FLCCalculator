@@ -3,7 +3,7 @@ import UIKit
 class CalculationsVC: UIViewController {
     
     private let tableView = UITableView()
-    private var emptyStateView = FLCEmptyStateView()
+    private let emptyStateView = FLCEmptyStateView()
     private var calculations: [Calculation] = []
     private var dataSource: UITableViewDiffableDataSource<FLCSection, Calculation>!
 
@@ -60,9 +60,9 @@ class CalculationsVC: UIViewController {
     
     private func showEmptyStateView(withTitle: String, andSubtitle: String) {
         if !emptyStateView.isDescendant(of: view) {
-            emptyStateView = FLCEmptyStateView(titleText: withTitle, subtitleText: andSubtitle)
             emptyStateView.frame = view.bounds
-            emptyStateView.actionButton.delegate = self
+            emptyStateView.setup(titleText: withTitle, subtitleText: andSubtitle)
+            emptyStateView.setDelegate(for: self)
             view.addSubview(emptyStateView)
         }
     }
@@ -127,7 +127,7 @@ extension CalculationsVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         
         switch button {
-        case emptyStateView.actionButton: goToCalculation()
+        case emptyStateView.getActionButton(): goToCalculation()
         default: break
         }
     }

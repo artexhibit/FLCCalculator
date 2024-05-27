@@ -83,6 +83,11 @@ struct CalculationHelper {
         }
     }
     
+    static func dismissTotalPrice(vc: UIViewController) {
+        guard let totalPriceVC = vc as? TotalPriceVC else { return }
+        totalPriceVC.dismiss(animated: true)
+    }
+    
     static func confirmDataIsValid(in view: FLCCalculationView) -> Bool {
         if checkIfFilledAll(textFields: view.flcTextFields) && checkIfFilledAll(buttons: view.flcListPickerButtons)  {
             return checkIfDataCompliesWithRules(in: view)

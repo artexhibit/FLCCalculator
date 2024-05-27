@@ -107,6 +107,7 @@ struct CoreDataManager {
     
     static func updateItemsInCoreData<T: CoreDataStorable>(items: [T]) -> [T]? {
         let deletionResult = deleteAllItems(ofType: T.self)
+        
         if deletionResult {
             storeItemsToCoreData(items: items)
             return retrieveItemsFromCoreData()
