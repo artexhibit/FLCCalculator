@@ -2,6 +2,7 @@ import UIKit
 
 struct CalculationHelper {
     private static var storedTitlesAmount: Float = 0
+    private static let customSizeDetentHeight: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 0.85 : 0.65
     
     static func checkIfFilledAll(textFields: [FLCNumberTextField]) -> Bool {
         textFields.allSatisfy { !($0.text?.isEmpty ?? true) }
@@ -78,14 +79,15 @@ struct CalculationHelper {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             guard let totalPriceVC = vc as? TotalPriceVC, let parentVC = parentVC as? CalculationResultVC else { return }
             totalPriceVC.isModalInPresentation = true
-            totalPriceVC.sheetPresentationController?.getFLCSheetPresentationController(in: parentVC.view, size: 0.65, dimmed: false, cornerRadius: 35, addSmallDetent: true)
+            totalPriceVC.sheetPresentationController?.getFLCSheetPresentationController(in: parentVC.view, size: customSizeDetentHeight, dimmed: false, cornerRadius: 35, addSmallDetent: true)
             parentVC.present(totalPriceVC, animated: true)
         }
     }
     
-    static func dismissTotalPrice(vc: UIViewController) {
-        guard let totalPriceVC = vc as? TotalPriceVC else { return }
-        totalPriceVC.dismiss(animated: true)
+    static func updateTotalPriceSmallDetentHeight(to size: CGFloat, in vc: UIViewController, from parentVC: UIViewController) {
+        guard let totalPriceVC = vc as? TotalPriceVC, let sheetController = totalPriceVC.sheetPresentationController, let parentVC = parentVC as? CalculationResultVC else { return }
+        
+        sheetController.updateDetentsHeight(to: (size, customSizeDetentHeight), dimmed: false, view: parentVC.view, addSmallDetent: true)
     }
     
     static func confirmDataIsValid(in view: FLCCalculationView) -> Bool {

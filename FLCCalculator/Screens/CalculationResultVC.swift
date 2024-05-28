@@ -45,6 +45,7 @@ class CalculationResultVC: UIViewController {
         
         Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: allLogisticsTypes, calculationData: calculationData) }
         updateEmptyStateView(with: pickedLogisticsType)
+        CalculationHelper.showTotalPrice(vc: totalPriceVC, from: self)
     }
     
     private func configureVC() {
@@ -72,18 +73,23 @@ class CalculationResultVC: UIViewController {
     }
     
     private func configureEmptyStateView() {
-        view.addSubview(emptyStateView)
-        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top + 85),
-            emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        UIView.performWithoutAnimation {
+            view.addSubview(emptyStateView)
+            emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                emptyStateView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top + 85),
+                emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+            view.layoutIfNeeded()
+        }
     }
     
     private func updateEmptyStateView(with pickedLogisticsType: FLCLogisticsType) {
+        let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.21 : 0.13
+        
         if calculationData.weight > maxWeight && pickedLogisticsType == .chinaAir {
             if emptyStateView.superview == nil {
                 configureEmptyStateView()
@@ -94,11 +100,10 @@ class CalculationResultVC: UIViewController {
                     emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - 3 тонны. Вес вашего груза - \(calculationData.weight) кг")
                 }
             }
-            CalculationHelper.dismissTotalPrice(vc: totalPriceVC)
+            CalculationHelper.updateTotalPriceSmallDetentHeight(to: -50, in: totalPriceVC, from: self)
         } else {
-            emptyStateView.removeFromSuperview()
-            
-            if totalPriceVC.presentingViewController == nil { CalculationHelper.showTotalPrice(vc: totalPriceVC, from: self) }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { self.emptyStateView.removeFromSuperview() }
+            CalculationHelper.updateTotalPriceSmallDetentHeight(to: smallSize, in: totalPriceVC, from: self)
         }
     }
     
@@ -301,11 +306,11 @@ extension CalculationResultVC: OptionsCollectionViewDelegate {
     func didChangeLogisticsType(type: FLCLogisticsType) {
         delegate?.didChangeLogisticsType()
         pickedLogisticsType = type
-        updateEmptyStateView(with: pickedLogisticsType)
         
         let newItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         calculationResultItems = CalculationResultHelper.saveNetworkingData(oldItems: calculationResultItems, newItems: newItems)
         performCalculations(pickedLogisticsType: pickedLogisticsType)
+        updateEmptyStateView(with: pickedLogisticsType)
     }
 }
 

@@ -89,8 +89,11 @@ class FLCEmptyStateView: UIView {
     }
     
     func setup(titleText: String, subtitleText: String) {
-        self.titleLabel.text = titleText
-        self.subtitleLabel.text = subtitleText
+        UIView.performWithoutAnimation {
+            self.titleLabel.text = titleText
+            self.subtitleLabel.text = subtitleText
+        }
+        layoutIfNeeded()
     }
     func setDelegate(for vc: UIViewController) { actionButton.delegate = vc as? FLCButtonDelegate }
     func getActionButton() -> FLCButton { actionButton }
