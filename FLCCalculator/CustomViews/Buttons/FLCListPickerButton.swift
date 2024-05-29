@@ -96,12 +96,7 @@ class FLCListPickerButton: UIButton {
     private func setButtonConfiguration() -> UIButton.Configuration {
         var config = Configuration.plain()
         config.contentInsets = insets
-        
-        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { old in
-            var new = old
-            new.font = UIFont.systemFont(ofSize: 19, weight: .bold)
-            return new
-        }
+        configuration?.setupCustomFont(ofSize: 19)
         config.titleLineBreakMode = .byTruncatingTail
         return config
     }

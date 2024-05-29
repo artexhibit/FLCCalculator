@@ -3,21 +3,25 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        let tabBarController = FLCTabBarController()
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = FLCTabBarController()
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
+        tabBarController.present(configureRegistrationVC(), animated: false)
         configureNavBar()
     }
-    
-    func configureNavBar() {
-        UINavigationBar.appearance().tintColor = UIColor(resource: .flcOrange)
+    private func configureNavBar() { UINavigationBar.appearance().tintColor = UIColor(resource: .flcOrange) }
+    private func configureRegistrationVC() -> UIViewController {
+        let registrationVC = RegistrationVC()
+        registrationVC.modalPresentationStyle = .fullScreen
+        return registrationVC
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

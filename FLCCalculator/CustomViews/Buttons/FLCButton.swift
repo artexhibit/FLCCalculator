@@ -4,7 +4,7 @@ protocol FLCButtonDelegate: AnyObject {
     func didTapButton(_ button: FLCButton)
 }
 
-class FLCButton: UIButton {
+final class FLCButton: UIButton {
     
     let gradientLayer = CAGradientLayer()
     var isShining = false
@@ -41,7 +41,7 @@ class FLCButton: UIButton {
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShineEffect))
     }
         
-    final func set(color: UIColor, title: String, subtitle: String?, systemImageName: String?) {
+    func set(color: UIColor, title: String, subtitle: String?, systemImageName: String?, titleFontSize: CGFloat = 20) {
         configuration?.baseBackgroundColor = color
         configuration?.title = title
         configuration?.titleAlignment = .center
@@ -50,6 +50,7 @@ class FLCButton: UIButton {
         if let imageName = systemImageName { configuration?.image = UIImage(systemName: imageName) }
         configuration?.imagePadding = 6
         configuration?.imagePlacement = .leading
+        configuration?.setupCustomFont(ofSize: titleFontSize)
     }
     
     @objc private func buttonTapped() {
