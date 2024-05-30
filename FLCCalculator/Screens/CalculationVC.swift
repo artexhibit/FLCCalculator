@@ -18,10 +18,14 @@ class CalculationVC: UIViewController {
     private var leadingConstraint: NSLayoutConstraint!
     
     var delegate: CalculationVCDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
+        configureScrollView()
+        configureContainerView()
+        configureCargoParametersView()
+        configureTransportParametersView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,11 +44,6 @@ class CalculationVC: UIViewController {
         
         view.addSubview(scrollView)
         view.backgroundColor = .systemBackground
-        
-        configureScrollView()
-        configureContainerView()
-        configureCargoParametersView()
-        configureTransportParametersView()
     }
     
     private func configureProgressBar() {
@@ -283,7 +282,5 @@ extension CalculationVC: UIScrollViewDelegate {
 }
 
 extension CalculationVC: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        .none
-    }
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle { .none }
 }

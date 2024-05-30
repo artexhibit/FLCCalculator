@@ -1,7 +1,9 @@
 import UIKit
 
 struct TextFieldManager {
-   static func createFormattedNumber(from string: String, using formatter: NumberFormatter) -> String {
+    static let placeholderValue = "0\(NumberFormatter().decimalSeparator ?? "")00"
+    
+    static func createFormattedNumber(from string: String, using formatter: NumberFormatter) -> String {
         var newFormatter = formatter
         
         let completeString = string.replacingOccurrences(of: newFormatter.groupingSeparator, with: "").replacingOccurrences(of: ",", with: ".")
@@ -31,11 +33,11 @@ struct TextFieldManager {
         let newValue = text.replacingCharacters(in: charBeforeSeparator, with: "")
         textField.text = createFormattedNumber(from: newValue, using: formatter)
         
-        let cursorPosition = textField.text == FLCNumberTextField.placeholderValue ? 2 : 3
+        let cursorPosition = textField.text == placeholderValue ? 2 : 3
         textField.moveCursorTo(position: textField.getCursorPosition() - cursorPosition)
         
         if textField.text?.firstIndex(of: Character(decimalSeparator)) == textField.text?.startIndex {
-            textField.text = FLCNumberTextField.placeholderValue
+            textField.text = placeholderValue
             textField.moveCursorTo(position: positon)
         }
         return false
@@ -50,5 +52,23 @@ struct TextFieldManager {
             textField.moveCursorTo(position: separatorPositon + 1)
         }
         return false
+    }
+    
+    static func formatPhoneNumber(with mask: String, phone: String) -> String {
+        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        var result = "+7 "
+        var index = numbers.startIndex
+        
+        if index < numbers.endIndex && numbers[index] == "7" { index = numbers.index(after: index) }
+        
+        for char in mask.dropFirst(3) where index < numbers.endIndex {
+            if char == "X" {
+                result.append(numbers[index])
+                index = numbers.index(after: index)
+            } else {
+                result.append(char)
+            }
+        }
+        return result
     }
 }

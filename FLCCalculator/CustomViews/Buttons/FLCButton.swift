@@ -20,9 +20,9 @@ final class FLCButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, title: String, subtitle: String? = nil, systemImageName: String? = nil) {
+    convenience init(color: UIColor, title: String, subtitle: String? = nil, systemImageName: String? = nil,  isEnabled: Bool = true) {
         self.init(frame: .zero)
-        set(color: color, title: title, subtitle: subtitle, systemImageName: systemImageName)
+        set(color: color, title: title, subtitle: subtitle, systemImageName: systemImageName, isEnabled: isEnabled)
     }
     
     override func layoutSubviews() {
@@ -41,12 +41,13 @@ final class FLCButton: UIButton {
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(restartShineEffect))
     }
         
-    func set(color: UIColor, title: String, subtitle: String?, systemImageName: String?, titleFontSize: CGFloat = 20) {
+    private func set(color: UIColor, title: String, subtitle: String?, systemImageName: String?, titleFontSize: CGFloat = 20, isEnabled: Bool) {
         configuration?.baseBackgroundColor = color
         configuration?.title = title
         configuration?.titleAlignment = .center
         configuration?.subtitle = subtitle
         
+        if !isEnabled { self.isEnabled = false }
         if let imageName = systemImageName { configuration?.image = UIImage(systemName: imageName) }
         configuration?.imagePadding = 6
         configuration?.imagePlacement = .leading
@@ -57,7 +58,6 @@ final class FLCButton: UIButton {
         HapticManager.addHaptic(style: .light)
         delegate?.didTapButton(self)
     }
-    
     @objc private func restartShineEffect() { if isShining { self.addShineEffect() } }
     
     func addShineEffect() {        
@@ -98,4 +98,6 @@ final class FLCButton: UIButton {
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
         isShining = false
     }
+    func setEnabled() { self.isEnabled = true }
+    func setDisabled() { self.isEnabled = false }
 }

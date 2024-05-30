@@ -9,7 +9,6 @@ class FLCNumberTextField: UITextField {
     
     private let smallLabelView = FLCSmallLabelView()
     private let insets = UIEdgeInsets(top: 0, left: 15, bottom: 7, right: 0)
-    static let placeholderValue = "0\(NumberFormatter().decimalSeparator ?? "")00"
     
     weak var navigationDelegate: FLCNumberTextFieldDelegate?
     
@@ -23,9 +22,12 @@ class FLCNumberTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(placeholderText: String) {
+    convenience init(smallLabelPlaceholderText: String, smallLabelFontSize: CGFloat? = nil, keyboardType: UIKeyboardType = .decimalPad, fontSize: CGFloat = 19, fontWeight: UIFont.Weight = .bold) {
         self.init(frame: .zero)
-        smallLabelView.configureSmallLabel(with: placeholderText)
+        self.keyboardType = keyboardType
+        self.font = UIFont.systemFont(ofSize: fontSize, weight: fontWeight)
+        
+        smallLabelView.configureSmallLabel(with: smallLabelPlaceholderText, fontSize: smallLabelFontSize)
         smallLabelView.constraint(in: self)
     }
     
@@ -60,13 +62,11 @@ class FLCNumberTextField: UITextField {
         layer.borderWidth = 1
         textColor = .flcOrange
         textAlignment = .left
-        font = UIFont.systemFont(ofSize: 19, weight: .bold)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 15
         contentVerticalAlignment = .bottom
         
         autocorrectionType = .no
-        keyboardType = .decimalPad
         clearButtonMode = .whileEditing
     }
     
@@ -96,7 +96,6 @@ class FLCNumberTextField: UITextField {
         tintColor = .lightGray
         layer.borderColor = UIColor.flcOrange.cgColor
     }
-    
     @objc private func doneButtonTapped() { self.resignFirstResponder() }
     @objc private func goToNextTextField() { navigationDelegate?.didRequestNextTextfield(self) }
     @objc private func goToPreviousTextField() { navigationDelegate?.didRequestPreviousTextField(self) }

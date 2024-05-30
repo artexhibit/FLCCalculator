@@ -8,9 +8,9 @@ struct FileSystemManager {
         return docDirectory.appendingPathComponent(fileName)
     }
     
-    static func openDocument(with url: URL, in view: UIView) {
+    static func openDocument(with url: URL, in vc: UIViewController) {
         let docInteractionController = UIDocumentInteractionController(url: url)
-        docInteractionController.delegate = view as? UIDocumentInteractionControllerDelegate
+        docInteractionController.delegate = vc as? UIDocumentInteractionControllerDelegate
         DispatchQueue.main.async { docInteractionController.presentPreview(animated: true) }
     }
     

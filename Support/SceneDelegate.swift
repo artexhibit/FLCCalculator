@@ -13,16 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
-        
-        tabBarController.present(configureRegistrationVC(), animated: false)
         configureNavBar()
     }
     private func configureNavBar() { UINavigationBar.appearance().tintColor = UIColor(resource: .flcOrange) }
-    private func configureRegistrationVC() -> UIViewController {
-        let registrationVC = RegistrationVC()
-        registrationVC.modalPresentationStyle = .fullScreen
-        return registrationVC
-    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

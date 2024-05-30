@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 struct CalculationsVCHelper {
     static func createStoredCalculationData(pickedCalculation: Calculation, results: Set<CalculationResult>?) -> CalculationData {
@@ -47,9 +47,17 @@ struct CalculationsVCHelper {
             needCustomClearance: pickedCalculation.needCustomsClearance,
             totalPrices: totalPrices,
             isFromCoreData: true,
-            isConfirmed: pickedCalculation.isConfirmed, 
+            isConfirmed: pickedCalculation.isConfirmed,
             exchangeRate: pickedCalculation.exchangeRate)
         
         return calculationData
+    }
+    
+    static func presentRegistrationVC(in vc: UIViewController) {
+        DispatchQueue.main.async {
+            let registrationVC = RegistrationVC()
+            registrationVC.modalPresentationStyle = .fullScreen
+            vc.navigationController?.present(registrationVC, animated: false)
+        }
     }
 }

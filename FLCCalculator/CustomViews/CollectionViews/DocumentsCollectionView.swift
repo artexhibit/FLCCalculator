@@ -32,10 +32,11 @@ final class DocumentsCollectionView: FLCCollectionView {
 extension DocumentsCollectionView: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let doc = documents[indexPath.item]
+        let parentVC = self.findParentViewController() ?? UIViewController()
         
         if FileSystemManager.isHavingDocument(with: doc.fileName) {
             guard let url = FileSystemManager.getLocalFileURL(for: doc.fileName) else { return }
-            FileSystemManager.openDocument(with: url, in: self)
+            FileSystemManager.openDocument(with: url, in: parentVC)
         } else {
             self.documentsDownloadProgress.removeValue(forKey: indexPath)
             
@@ -50,7 +51,7 @@ extension DocumentsCollectionView: UICollectionViewDelegateFlowLayout {
                     }
                     if progress == 100 {
                         HapticManager.addSuccessHaptic()
-                        FileSystemManager.openDocument(with: url, in: self)
+                        FileSystemManager.openDocument(with: url, in: parentVC)
                     }
                 }
             }
@@ -75,11 +76,5 @@ extension DocumentsCollectionView {
         cell.setupDownloadedDocumentIcon(with: documents[indexPath.row], progress: documentsDownloadProgress[indexPath])
         if storedDocuments == nil { cell.addShimmerAnimation() }
         return cell
-    }
-}
-
-extension DocumentsCollectionView: UIDocumentInteractionControllerDelegate {
-    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
-        return self.findParentViewController() ?? UIViewController()
     }
 }

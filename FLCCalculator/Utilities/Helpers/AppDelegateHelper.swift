@@ -1,7 +1,7 @@
 import UIKit
 import BackgroundTasks
 
-struct  AppDelegateHelper {
+struct AppDelegateHelper {
     static func updateCurrencyData(for task: BGAppRefreshTask? = nil, canShowPopup: Bool = true) {
         Task {
             do {
@@ -104,7 +104,7 @@ struct  AppDelegateHelper {
     }
     
     static func updateDataOnAppLaunch() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             guard NetworkAvailabilityManager.shared.currentStatus() == .connected else { return }
             
             if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCurrencyDataUpdate) {

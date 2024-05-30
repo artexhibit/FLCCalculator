@@ -114,3 +114,9 @@ extension UsefulInfoVC: FLCMailComposeDelegate, MFMailComposeViewControllerDeleg
         handleMailComposeResult(result)
     }
 }
+
+extension UsefulInfoVC: UIDocumentInteractionControllerDelegate {
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
+    }
+}

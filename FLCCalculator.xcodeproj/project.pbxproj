@@ -120,6 +120,9 @@
 		0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */; };
 		0BC735832BCAECEA00EF8B0D /* FLCLogisticsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */; };
 		0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */; };
+		0BCDC80B2C08B4E300EE9D6A /* LogicConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* LogicConfirmationView.swift */; };
+		0BCDC80D2C08B5E800EE9D6A /* AuthorizationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */; };
+		0BCDC80F2C090DB300EE9D6A /* AuthorizationVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
@@ -283,6 +286,9 @@
 		0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCollectionView.swift; sourceTree = "<group>"; };
 		0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLogisticsOption.swift; sourceTree = "<group>"; };
 		0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
+		0BCDC80A2C08B4E300EE9D6A /* LogicConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicConfirmationView.swift; sourceTree = "<group>"; };
+		0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVC.swift; sourceTree = "<group>"; };
+		0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVCHelper.swift; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
 		0BD06AFA2B8E6A1B00942651 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -356,6 +362,7 @@
 				0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */,
 				0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */,
 				0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */,
+				0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -544,6 +551,7 @@
 				0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */,
 				0B97770E2BEFB90600E56197 /* BonusSystemVC.swift */,
 				0B6774A82C0630CE0078D8C5 /* RegistrationVC.swift */,
+				0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -718,6 +726,7 @@
 			isa = PBXGroup;
 			children = (
 				0B32F16F2B9356C9004BAB46 /* FLCCalculationView */,
+				0BCDC80A2C08B4E300EE9D6A /* LogicConfirmationView.swift */,
 				0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */,
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
@@ -917,6 +926,7 @@
 				0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */,
+				0BCDC80B2C08B4E300EE9D6A /* LogicConfirmationView.swift in Sources */,
 				0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */,
 				0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
 				0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */,
@@ -940,6 +950,7 @@
 				0BFBD7452BA38B3500B485B8 /* UINavigationController + Ext.swift in Sources */,
 				0B7EBA692BE55C41004BE990 /* NetworkAvailabilityManager.swift in Sources */,
 				0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */,
+				0BCDC80F2C090DB300EE9D6A /* AuthorizationVCHelper.swift in Sources */,
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationInfo.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
@@ -988,6 +999,7 @@
 				0B78F3072BE68D2000C52EC4 /* TotalPriceData.swift in Sources */,
 				0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */,
 				0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */,
+				0BCDC80D2C08B5E800EE9D6A /* AuthorizationVC.swift in Sources */,
 				0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */,
 				0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */,
 				0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */,

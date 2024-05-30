@@ -5,9 +5,9 @@ class FLCCargoParametersView: FLCCalculationView {
     private let stackView = UIStackView()
     
     let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
-    let weightTextField = FLCNumberTextField(placeholderText: "Вес брутто, кг")
-    let volumeTextField = FLCNumberTextField(placeholderText: "Объём, м3")
-    let invoiceAmountTextField = FLCNumberTextField(placeholderText: "Сумма по инвойсу")
+    let weightTextField = FLCNumberTextField(smallLabelPlaceholderText: "Вес брутто, кг")
+    let volumeTextField = FLCNumberTextField(smallLabelPlaceholderText: "Объём, м3")
+    let invoiceAmountTextField = FLCNumberTextField(smallLabelPlaceholderText: "Сумма по инвойсу")
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
     private let tintedView = FLCTintedView(color: .flcOrange)
     private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .flcOrange, size: (0, -5, 24, 23), placeIcon: .afterText))
@@ -17,7 +17,7 @@ class FLCCargoParametersView: FLCCalculationView {
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
     var showingPopover = FLCPopoverVC()
-    var parentVC: UIViewController { get { self.findParentViewController() as! CalculationVC } }
+    var parentVC: UIViewController { get { self.findParentViewController() as? CalculationVC ?? UIViewController() } }
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -179,7 +179,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             guard let text = textField.text else { return }
             
             if text.isEmpty {
-                textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : "0"
+                textField.text = textField != self.invoiceAmountTextField ? TextFieldManager.placeholderValue : "0"
                 textField.moveCursorTo(position: 0)
             } else {
                 textField.text = text
@@ -192,7 +192,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             guard let text = textField.text else { return }
             
             if text.isEmpty {
-                textField.text = textField != self.invoiceAmountTextField ? FLCNumberTextField.placeholderValue : "0"
+                textField.text = textField != self.invoiceAmountTextField ? TextFieldManager.placeholderValue : "0"
             } else {
                 if self.filledTextFileds[textField] == false {
                     self.filledTextFileds[textField] = true
@@ -220,7 +220,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
             return TextFieldManager.removeCharacterBefore(positon: separatorPositon, and: textField, inText: text, withDecimalSeparator: decimalSeparator, using: formatter)
         }
        
-        if text == FLCNumberTextField.placeholderValue && textField.getCursorPosition() == 0 || text == "0" && !string.isEmpty {
+        if text == TextFieldManager.placeholderValue && textField.getCursorPosition() == 0 || text == "0" && !string.isEmpty {
             TextFieldManager.replaceFirstCharacter(with: string, in: textField, and: text)
             return false
         }

@@ -44,6 +44,16 @@ extension String {
         return attributedString
     }
     
+    func makeAttributed(text: String, linkValue: String) -> NSAttributedString? {
+        let attributedString = NSMutableAttributedString(string: self)
+        guard let range = self.range(of: text) else { return nil }
+        let nsRange = NSRange(range, in: self)
+        
+        attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
+        attributedString.addAttribute(.link, value: linkValue, range: nsRange)
+        return attributedString
+    }
+    
     func createRange() -> ClosedRange<Double>? {
         let components = self.split(separator: "-")
         guard components.count == 2, let lowerBound = Double(components[0]), let upperBound = Double(components[1]) else { return nil }

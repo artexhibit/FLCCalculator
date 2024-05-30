@@ -24,17 +24,19 @@ struct BackgroundTasksManager {
     }
     
     static private func handleTask(task: BGAppRefreshTask, id: FLCBackgroundFetchId) {
-        task.expirationHandler = { task.setTaskCompleted(success: false) }
-        
-        switch id {
-        case .updateCurrencyDataTaskId:
-            AppDelegateHelper.updateCurrencyData(for: task, canShowPopup: false)
-        case .updateCalculationData:
-            AppDelegateHelper.updateCalculationData(for: task, canShowPopup: false)
-        case .updateManagerData:
-            AppDelegateHelper.updateManagerData(for: task)
-        case .updateDocumentsData:
-            AppDelegateHelper.updateDocumentsData(for: task)
+        DispatchQueue.main.async {
+            task.expirationHandler = { task.setTaskCompleted(success: false) }
+            
+            switch id {
+            case .updateCurrencyDataTaskId:
+                AppDelegateHelper.updateCurrencyData(for: task, canShowPopup: false)
+            case .updateCalculationData:
+                AppDelegateHelper.updateCalculationData(for: task, canShowPopup: false)
+            case .updateManagerData:
+                AppDelegateHelper.updateManagerData(for: task)
+            case .updateDocumentsData:
+                AppDelegateHelper.updateDocumentsData(for: task)
+            }
         }
     }
 }

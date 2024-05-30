@@ -106,7 +106,7 @@ struct CalculationHelper {
         var isWithZero = false
         
         view.flcTextFields.forEach {
-            if $0.text == FLCNumberTextField.placeholderValue {
+            if $0.text == TextFieldManager.placeholderValue {
                 $0.switchToRedColors()
                 FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Значение не должно быть нулевым")
                 isWithZero = true
