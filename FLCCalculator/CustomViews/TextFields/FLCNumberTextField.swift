@@ -48,7 +48,8 @@ class FLCNumberTextField: UITextField {
             smallLabelView.moveUpSmallLabel()
             switchToOrangeColors()
         } else {
-            smallLabelView.returnSmallLabelToIdentity()
+            guard let text, let placeholder else { return false }
+            if text.isEmpty && placeholder.isEmpty { smallLabelView.returnSmallLabelToIdentity() }
         }
         return becomeFirstResponder
     }

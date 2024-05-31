@@ -130,9 +130,15 @@ extension AuthorizationVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        let cursorPosition = textField.getCursorPosition()
+        let formattedText = TextFieldManager.formatPhoneNumber(with: "+7 (XXX) XXX-XX-XX", phone: newString)
         
-        textField.text = TextFieldManager.formatPhoneNumber(with: "+7 (XXX) XXX-XX-XX", phone: newString)
-         textField.text?.extractDigits().count == 11 ? verificationCodeButton.setEnabled() : verificationCodeButton.setDisabled()
+        textField.text = formattedText
+        
+        let newCursorPosition = string.isEmpty ? max(0, cursorPosition - 1) : cursorPosition + (formattedText.count - text.count)
+        textField.moveCursorTo(position: newCursorPosition)
+        
+        TextFieldManager.isValidPhoneNumber(in: textField.text ?? "") ? verificationCodeButton.setEnabled() : verificationCodeButton.setDisabled()
         return false
     }
 }

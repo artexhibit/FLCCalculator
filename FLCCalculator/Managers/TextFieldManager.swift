@@ -71,4 +71,8 @@ struct TextFieldManager {
         }
         return result
     }
+    
+    static func isValidPhoneNumber(in text: String) -> Bool {
+        text.extractDigits().count == 11 ? true : false
+    }
 }
