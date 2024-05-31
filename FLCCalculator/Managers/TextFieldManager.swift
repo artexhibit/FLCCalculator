@@ -75,4 +75,14 @@ struct TextFieldManager {
     static func isValidPhoneNumber(in text: String) -> Bool {
         text.extractDigits().count == 11 ? true : false
     }
+    
+    static func goToNextTextField(activeTF: UITextField, allTFs: [UITextField]) {
+        guard let targetTextFieldIndex = allTFs.firstIndex(where: { $0 == activeTF }), targetTextFieldIndex < allTFs.count - 1 else { return }
+        _ = allTFs[targetTextFieldIndex + 1].becomeFirstResponder()
+    }
+    
+    static func goToPreviousTextField(activeTF: UITextField, allTFs: [UITextField]) {
+        guard let targetTextFieldIndex = allTFs.firstIndex(where: { $0 == activeTF }), targetTextFieldIndex > 0 else { return }
+        _ = allTFs[targetTextFieldIndex - 1].becomeFirstResponder()
+    }
 }

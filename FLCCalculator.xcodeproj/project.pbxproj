@@ -80,6 +80,7 @@
 		0B7C8E042BF2A935009322E6 /* UsefulInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */; };
 		0B7EBA692BE55C41004BE990 /* NetworkAvailabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */; };
 		0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */; };
+		0B94D2E42C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */; };
 		0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */; };
 		0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */; };
 		0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */; };
@@ -120,7 +121,7 @@
 		0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */; };
 		0BC735832BCAECEA00EF8B0D /* FLCLogisticsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */; };
 		0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */; };
-		0BCDC80B2C08B4E300EE9D6A /* LogicConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* LogicConfirmationView.swift */; };
+		0BCDC80B2C08B4E300EE9D6A /* LoginConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */; };
 		0BCDC80D2C08B5E800EE9D6A /* AuthorizationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */; };
 		0BCDC80F2C090DB300EE9D6A /* AuthorizationVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
@@ -248,6 +249,7 @@
 		0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoHelper.swift; sourceTree = "<group>"; };
 		0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAvailabilityManager.swift; sourceTree = "<group>"; };
 		0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsVCHelper.swift; sourceTree = "<group>"; };
+		0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Ext.swift"; sourceTree = "<group>"; };
 		0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerViewUIHelper.swift; sourceTree = "<group>"; };
 		0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCMailComposeVC.swift; sourceTree = "<group>"; };
 		0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoContentCell.swift; sourceTree = "<group>"; };
@@ -286,7 +288,7 @@
 		0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCollectionView.swift; sourceTree = "<group>"; };
 		0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLogisticsOption.swift; sourceTree = "<group>"; };
 		0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
-		0BCDC80A2C08B4E300EE9D6A /* LogicConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicConfirmationView.swift; sourceTree = "<group>"; };
+		0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmationView.swift; sourceTree = "<group>"; };
 		0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVC.swift; sourceTree = "<group>"; };
 		0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVCHelper.swift; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				0B04C0D72BC59F0F0007A316 /* UIImageView.swift */,
 				0BB1E0632BE102BC00AB6A63 /* Date+Ext.swift */,
 				0B9F80FB2C07BE53003A463D /* UIButton.Configuration+Ext.swift */,
+				0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -726,7 +729,7 @@
 			isa = PBXGroup;
 			children = (
 				0B32F16F2B9356C9004BAB46 /* FLCCalculationView */,
-				0BCDC80A2C08B4E300EE9D6A /* LogicConfirmationView.swift */,
+				0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */,
 				0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */,
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
@@ -926,7 +929,7 @@
 				0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController + Ext.swift in Sources */,
-				0BCDC80B2C08B4E300EE9D6A /* LogicConfirmationView.swift in Sources */,
+				0BCDC80B2C08B4E300EE9D6A /* LoginConfirmationView.swift in Sources */,
 				0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */,
 				0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
 				0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */,
@@ -940,6 +943,7 @@
 				0BAF1DAF2BF1142800C0933B /* Document.swift in Sources */,
 				0B9894382BE41C2F00EB8516 /* BackgroundTasksManager.swift in Sources */,
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
+				0B94D2E42C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift in Sources */,
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
 				0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */,

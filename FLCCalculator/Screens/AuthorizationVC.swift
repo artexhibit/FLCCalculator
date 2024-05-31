@@ -5,10 +5,11 @@ final class AuthorizationVC: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     private let enterPhoneView = UIView()
-    private let enterPhoneTitleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left, size: 20, weight: .medium)
+    private let enterPhoneTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 20, weight: .medium)
     private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: "Номер телефона", smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 27, fontWeight: .bold)
     private let verificationCodeButton = FLCButton(color: .flcOrange, title: "Получить код", isEnabled: false)
-    private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Нажимая на кнопку «Получить код», вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", linkValue: "privacyPolicy"))
+    private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Нажимая на кнопку «Получить код», вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
+    private let loginConfirmationView = LoginConfirmationView()
     
     private var leadingConstraint: NSLayoutConstraint!
     private let padding: CGFloat = 18
@@ -19,6 +20,7 @@ final class AuthorizationVC: UIViewController {
         configureScrollView()
         configureContainerView()
         configureEnterPhoneView()
+        configureLoginConfirmationView()
         configureEnterPhoneTitleLabel()
         configurePhoneTextField()
         configureVerificationCodeButton()
@@ -45,7 +47,7 @@ final class AuthorizationVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(enterPhoneView)
+        containerView.addSubviews(enterPhoneView, loginConfirmationView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.pinToEdges(of: scrollView)
         
@@ -66,6 +68,15 @@ final class AuthorizationVC: UIViewController {
             leadingConstraint,
             enterPhoneView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
             enterPhoneView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+    }
+    
+    private func configureLoginConfirmationView() {
+        NSLayoutConstraint.activate([
+            loginConfirmationView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            loginConfirmationView.leadingAnchor.constraint(equalTo: enterPhoneView.trailingAnchor),
+            loginConfirmationView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            loginConfirmationView.widthAnchor.constraint(equalTo: containerView.widthAnchor)
         ])
     }
     
@@ -120,6 +131,16 @@ final class AuthorizationVC: UIViewController {
             privacyPolicyAgreenmentTextViewLabel.bottomAnchor.constraint(equalTo: enterPhoneView.bottomAnchor, constant: -padding)
         ])
     }
+    
+    private func moveView(direction: FLCGoToViewDirections, times: CGFloat = 1, duration: Double = 0.3) {
+        switch direction {
+        case .forward:
+            leadingConstraint.constant = -(enterPhoneView.frame.width * times)
+        case .backward:
+            leadingConstraint.constant = 0
+        }
+        UIView.animate(withDuration: duration) { self.view.layoutIfNeeded() }
+    }
 }
 
 extension AuthorizationVC: UIScrollViewDelegate {}
@@ -146,7 +167,10 @@ extension AuthorizationVC: UITextFieldDelegate {
 extension AuthorizationVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case verificationCodeButton: break
+        case verificationCodeButton:
+            loginConfirmationView.setLoginConfirmationTitleLabel(text: phoneTextField.text ?? "")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.moveView(direction: .forward) }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.loginConfirmationView.makeFirstTextFieldActive() }
         default: break
         }
     }
@@ -170,7 +194,8 @@ extension AuthorizationVC: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "privacyPolicy" {
-            FLCPopupView.showOnMainThread(title: "Загружаю файл", style: .spinner)
+            HapticManager.addHaptic(style: .soft)
+            AuthorizationVCHelper.showPrivacyPolicy(in: self)
             return false
         }
         return true

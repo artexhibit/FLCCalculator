@@ -108,7 +108,6 @@ class CalculationVC: UIViewController {
     }
     
     private func moveView(direction: FLCGoToViewDirections, times: CGFloat = 1, duration: Double = 0.3) {
-        
         switch direction {
         case .forward:
             leadingConstraint.constant = -(cargoView.frame.width * times)

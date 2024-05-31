@@ -44,13 +44,22 @@ extension String {
         return attributedString
     }
     
-    func makeAttributed(text: String, linkValue: String) -> NSAttributedString? {
+    func makeAttributed(text: String, attributes: [NSAttributedString.Key], linkValue: String = "", font: UIFont = UIFont()) -> NSAttributedString? {
         let attributedString = NSMutableAttributedString(string: self)
         guard let range = self.range(of: text) else { return nil }
         let nsRange = NSRange(range, in: self)
         
-        attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
-        attributedString.addAttribute(.link, value: linkValue, range: nsRange)
+        for attribute in attributes {
+            switch attribute {
+            case .underlineStyle:
+                attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
+            case .link:
+                attributedString.addAttribute(.link, value: linkValue, range: nsRange)
+            case .font:
+                attributedString.addAttribute(.font, value: font, range: nsRange)
+            default: break
+            }
+        }
         return attributedString
     }
     

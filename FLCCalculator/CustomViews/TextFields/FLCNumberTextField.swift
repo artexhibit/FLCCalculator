@@ -3,6 +3,13 @@ import UIKit
 protocol FLCNumberTextFieldDelegate: AnyObject {
     func didRequestNextTextfield(_ textField: FLCNumberTextField)
     func didRequestPreviousTextField(_ textField: FLCNumberTextField)
+    func didTriggerDeleteBackward(_ textField: FLCNumberTextField)
+}
+
+extension FLCNumberTextFieldDelegate {
+    func didRequestNextTextfield(_ textField: FLCNumberTextField) {}
+    func didRequestPreviousTextField(_ textField: FLCNumberTextField) {}
+    func didTriggerDeleteBackward(_ textField: FLCNumberTextField) {}
 }
 
 class FLCNumberTextField: UITextField {
@@ -10,7 +17,10 @@ class FLCNumberTextField: UITextField {
     private let smallLabelView = FLCSmallLabelView()
     private let insets = UIEdgeInsets(top: 0, left: 15, bottom: 7, right: 0)
     
-    weak var navigationDelegate: FLCNumberTextFieldDelegate?
+    private var withSmallLabel = true
+    private var isTextCentered = false
+    
+    weak var flcNumberTextfieldDelegate: FLCNumberTextFieldDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,27 +32,40 @@ class FLCNumberTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(smallLabelPlaceholderText: String, smallLabelFontSize: CGFloat? = nil, keyboardType: UIKeyboardType = .decimalPad, fontSize: CGFloat = 19, fontWeight: UIFont.Weight = .bold) {
+    convenience init(smallLabelPlaceholderText: String = "", smallLabelFontSize: CGFloat = 0, keyboardType: UIKeyboardType = .decimalPad, textContentType: UITextContentType? = nil, fontSize: CGFloat = 19, fontWeight: UIFont.Weight = .bold, addClearButton: Bool = true, withSmallLabel: Bool = true, isTextCentered: Bool = false) {
         self.init(frame: .zero)
+        
+        self.withSmallLabel = withSmallLabel
         self.keyboardType = keyboardType
+        self.textContentType = textContentType
+        self.isTextCentered = isTextCentered
+        
+        if addClearButton { clearButtonMode = .whileEditing }
+        
+        textAlignment = isTextCentered ? .center : .left
+        contentVerticalAlignment = isTextCentered ? .center : .bottom
+        
         self.font = UIFont.systemFont(ofSize: fontSize, weight: fontWeight)
         
-        smallLabelView.configureSmallLabel(with: smallLabelPlaceholderText, fontSize: smallLabelFontSize)
-        smallLabelView.constraint(in: self)
+        if withSmallLabel {
+            smallLabelView.configureSmallLabel(with: smallLabelPlaceholderText, fontSize: smallLabelFontSize)
+            smallLabelView.constraint(in: self)
+        }
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.textRect(forBounds: bounds)
-        return rect.inset(by: insets)
+        return isTextCentered ? rect : rect.inset(by: insets)
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.editingRect(forBounds: bounds)
-        return rect.inset(by: insets)
+        return isTextCentered ? rect : rect.inset(by: insets)
     }
     
     override func becomeFirstResponder() -> Bool {
         let becomeFirstResponder = super.becomeFirstResponder()
+        guard withSmallLabel else { return false }
         
         if becomeFirstResponder {
             smallLabelView.moveUpSmallLabel()
@@ -54,6 +77,11 @@ class FLCNumberTextField: UITextField {
         return becomeFirstResponder
     }
     
+    override func deleteBackward() {
+        super.deleteBackward()
+        flcNumberTextfieldDelegate?.didTriggerDeleteBackward(self)
+    }
+    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(smallLabelView)
@@ -62,13 +90,9 @@ class FLCNumberTextField: UITextField {
         layer.cornerRadius = 14
         layer.borderWidth = 1
         textColor = .flcOrange
-        textAlignment = .left
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 15
-        contentVerticalAlignment = .bottom
-        
         autocorrectionType = .no
-        clearButtonMode = .whileEditing
     }
     
     private func configureToolBar() {
@@ -98,6 +122,6 @@ class FLCNumberTextField: UITextField {
         layer.borderColor = UIColor.flcOrange.cgColor
     }
     @objc private func doneButtonTapped() { self.resignFirstResponder() }
-    @objc private func goToNextTextField() { navigationDelegate?.didRequestNextTextfield(self) }
-    @objc private func goToPreviousTextField() { navigationDelegate?.didRequestPreviousTextField(self) }
+    @objc private func goToNextTextField() { flcNumberTextfieldDelegate?.didRequestNextTextfield(self) }
+    @objc private func goToPreviousTextField() { flcNumberTextfieldDelegate?.didRequestPreviousTextField(self) }
 }

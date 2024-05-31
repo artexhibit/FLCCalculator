@@ -14,7 +14,7 @@ class FLCSmallLabelView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(placeholderText: String, fontSize: CGFloat?) {
+    convenience init(placeholderText: String, fontSize: CGFloat = 0) {
         self.init(frame: .zero)
         configureSmallLabel(with: placeholderText, fontSize: fontSize)
     }
@@ -34,10 +34,10 @@ class FLCSmallLabelView: UIView {
         ])
     }
     
-    func configureSmallLabel(with text: String, fontSize: CGFloat? = nil) {
+    func configureSmallLabel(with text: String, fontSize: CGFloat = 0) {
         smallLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        smallLabel.font = fontSize != nil ? UIFont.systemFont(ofSize: fontSize ?? 0, weight: .regular) : UIFont.preferredFont(forTextStyle: .body)
+        smallLabel.font = fontSize != 0 ? UIFont.systemFont(ofSize: fontSize, weight: .regular) : UIFont.preferredFont(forTextStyle: .body)
         smallLabel.adjustsFontSizeToFitWidth = true
         smallLabel.minimumScaleFactor = 0.5
         smallLabel.numberOfLines = 1

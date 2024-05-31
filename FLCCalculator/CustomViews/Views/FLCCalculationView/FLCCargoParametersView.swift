@@ -49,7 +49,7 @@ class FLCCargoParametersView: FLCCalculationView {
         flcTextFields.append(contentsOf: [weightTextField, volumeTextField, invoiceAmountTextField])
         flcListPickerButtons.append(contentsOf: [cargoTypePickerButton, invoiceCurrencyPickerButton])
         
-        flcTextFields.forEach { $0.navigationDelegate = self }
+        flcTextFields.forEach { $0.flcNumberTextfieldDelegate = self }
         flcTextFields.forEach { filledTextFileds[$0] = false }
         flcListPickerButtons.forEach { filledButtons[$0] = false }
     }
@@ -249,13 +249,11 @@ extension FLCCargoParametersView: FLCPickerDelegate {
 
 extension FLCCargoParametersView: FLCNumberTextFieldDelegate {
     func didRequestNextTextfield(_ textField: FLCNumberTextField) {
-        guard let targetTextFieldIndex = flcTextFields.firstIndex(where: { $0 == textField }), targetTextFieldIndex < flcTextFields.count - 1 else { return }
-       let _ = flcTextFields[targetTextFieldIndex + 1].becomeFirstResponder()
+        TextFieldManager.goToNextTextField(activeTF: textField, allTFs: flcTextFields)
     }
     
     func didRequestPreviousTextField(_ textField: FLCNumberTextField) {
-        guard let targetTextFieldIndex = flcTextFields.firstIndex(where: { $0 == textField }), targetTextFieldIndex > 0 else { return }
-        let _ = flcTextFields[targetTextFieldIndex - 1].becomeFirstResponder()
+        TextFieldManager.goToPreviousTextField(activeTF: textField, allTFs: flcTextFields)
     }
 }
 
