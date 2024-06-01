@@ -223,6 +223,7 @@
 		0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCounter.swift; sourceTree = "<group>"; };
 		0B67DF912C0B61D5008CE099 /* SMSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSManager.swift; sourceTree = "<group>"; };
 		0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCUIHelper.swift; sourceTree = "<group>"; };
+		0B67DF952C0B83D7008CE099 /* KeysConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = KeysConfig.xcconfig; sourceTree = "<group>"; };
 		0B6E54242B810BA00078C110 /* FLCCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLCCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6E54272B810BA00078C110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B6E54292B810BA00078C110 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -578,6 +579,7 @@
 			children = (
 				0B6E54272B810BA00078C110 /* AppDelegate.swift */,
 				0B6E54292B810BA00078C110 /* SceneDelegate.swift */,
+				0B67DF952C0B83D7008CE099 /* KeysConfig.xcconfig */,
 				0B6E54332B810BA20078C110 /* Assets.xcassets */,
 				0B6E54352B810BA20078C110 /* LaunchScreen.storyboard */,
 			);
@@ -1075,6 +1077,7 @@
 /* Begin XCBuildConfiguration section */
 		0B6E54392B810BA20078C110 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B67DF952C0B83D7008CE099 /* KeysConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1139,6 +1142,7 @@
 		};
 		0B6E543A2B810BA20078C110 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B67DF952C0B83D7008CE099 /* KeysConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

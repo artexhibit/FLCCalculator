@@ -165,17 +165,8 @@ extension AuthorizationVC: UITextFieldDelegate {
 extension AuthorizationVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case verificationCodeButton:
-            if SMSManager.canSendSMS() {
-                SMSManager.increaseSMSCounter()
-                
-                let verificationCode = AuthorizationVCHelper.createVerificationCode()
-                loginConfirmationView.setLoginConfirmationView(text: phoneTextField.text ?? "", verificationCode: verificationCode)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { FLCUIHelper.move(view: self.enterPhoneView, constraint: self.leadingConstraint, vc: self, direction: .forward) }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.loginConfirmationView.makeFirstTextFieldActive() }
-            } else {
-                FLCPopupView.showOnMainThread(title: "Вы использовали все попытки. Повторить можно через \(SMSManager.timeUntilNextSMS())", style: .error)
-            }
+        case verificationCodeButton: 
+            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: self)
         default: break
         }
     }
@@ -185,12 +176,9 @@ extension AuthorizationVC: UITextViewDelegate {
     @available(iOS 17.0, *)
     func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
         switch textItem.content{
-        case .link(let url):
-            if url.absoluteString == "privacyPolicy" {
-                HapticManager.addHaptic(style: .soft)
-                AuthorizationVCHelper.showPrivacyPolicy(in: self)
-                return UIAction(title: "") { _ in }
-            }
+        case .link(let url): 
+            AuthorizationVCHelper.configureItem(with: url, in: self)
+            return UIAction(title: "") { _ in }
         case .textAttachment(_), .tag(_): break
         @unknown default: break
         }
@@ -198,12 +186,8 @@ extension AuthorizationVC: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if URL.absoluteString == "privacyPolicy" {
-            HapticManager.addHaptic(style: .soft)
-            AuthorizationVCHelper.showPrivacyPolicy(in: self)
-            return false
-        }
-        return true
+        AuthorizationVCHelper.configureItem(with: URL, in: self)
+        return false
     }
 }
 

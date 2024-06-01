@@ -5,7 +5,12 @@
 ## User settings
 xcuserdata/
 **/.DS_Store
+
+# Ignore GoogleService-Info.xcconfig
 FLCCalculator/GoogleService-Info.plist
+
+# Ignore KeysConfig.xcconfig
+KeysConfig.xcconfig
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
