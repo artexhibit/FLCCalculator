@@ -1,12 +1,19 @@
 import UIKit
 
+protocol LoginConfirmationViewDelegate: AnyObject {
+    func didSuccessWithVerificationCode()
+}
+
 final class LoginConfirmationView: UIView {
     
-    private let loginConfirmationTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 20, weight: .medium)
+    private let loginConfirmationTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
     private let verificationCodeTextFieldsStackView = UIStackView()
     private var verificationCodeTextFields = [FLCNumberTextField]()
     
     private let padding: CGFloat = 18
+    private var verificationCode = ""
+    
+    weak var delegate: LoginConfirmationViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,7 +71,9 @@ final class LoginConfirmationView: UIView {
         }
     }
     
-    func setLoginConfirmationTitleLabel(text: String) {
+    func setLoginConfirmationView(text: String, verificationCode: String) {
+        self.verificationCode = verificationCode
+        
         let labelMain = "Код подтверждения".makeAttributed(text: "Код подтверждения", attributes: [.font], font: UIFont.systemFont(ofSize: 25, weight: .bold)) ?? NSAttributedString()
         let attributedPhoneString = "\n\nНа номер \(text) был отправлен код подтверждения".makeAttributed(text: text, attributes: [.font], font: UIFont.systemFont(ofSize: 20, weight: .bold)) ?? NSAttributedString()
 
@@ -90,6 +99,10 @@ extension LoginConfirmationView: UITextFieldDelegate {
             }
         } else {
             TextFieldManager.goToPreviousTextField(activeTF: textField, allTFs: verificationCodeTextFields)
+        }
+        
+        if LoginConfirmationHelper.isTypedVerificationCodeMatch(in: verificationCodeTextFields, verificationCode: verificationCode) {
+            delegate?.didSuccessWithVerificationCode()
         }
         return false
     }

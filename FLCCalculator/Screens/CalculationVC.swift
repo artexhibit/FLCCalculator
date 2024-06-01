@@ -107,16 +107,6 @@ class CalculationVC: UIViewController {
         ])
     }
     
-    private func moveView(direction: FLCGoToViewDirections, times: CGFloat = 1, duration: Double = 0.3) {
-        switch direction {
-        case .forward:
-            leadingConstraint.constant = -(cargoView.frame.width * times)
-        case .backward:
-            leadingConstraint.constant = 0
-        }
-        UIView.animate(withDuration: duration) { self.view.layoutIfNeeded() }
-    }
-    
     private func getCities(target button: FLCListPickerButton) {
         Task {
             do {
@@ -151,14 +141,14 @@ extension CalculationVC: FLCCalculationViewDelegate {
         
         switch button {
         case cargoView.nextButton:
-            if CalculationHelper.confirmDataIsValid(in: cargoView) { moveView(direction: .forward) }
+            if CalculationHelper.confirmDataIsValid(in: cargoView) { FLCUIHelper.move(view: cargoView, constraint: leadingConstraint, vc: self, direction: .forward) }
             
         case transportView.calculateButton:
             if CalculationHelper.confirmDataIsValid(in: transportView) {
                 let data = CalculationHelper.getCalculationData(transportView: transportView, cargoView: cargoView, pickedDestinationCode: pickedDestinationCode, departureAirport: departureAirport)
 
                 CalculationResultHelper.createCalculationResultVC(data: data, from: self)
-                moveView(direction: .forward, times: 2, duration: 0.25)
+                FLCUIHelper.move(view: cargoView, constraint: leadingConstraint, vc: self, direction: .forward, times: 2, duration: 0.25)
                 navigationController?.removeVCFromStack(vc: self)
             }
             
@@ -265,7 +255,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
     
     func didTapFLCTextButton(_ button: FLCTextButton) {
         switch button {
-        case transportView.returnToPreviousViewButton: moveView(direction: .backward)
+        case transportView.returnToPreviousViewButton: FLCUIHelper.move(view: cargoView, constraint: leadingConstraint, vc: self, direction: .backward)
         default: break
         }
     }

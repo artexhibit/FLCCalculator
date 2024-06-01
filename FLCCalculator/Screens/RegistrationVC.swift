@@ -113,6 +113,7 @@ class RegistrationVC: UIViewController {
     
     func showAuthVC() {
         let authVC = AuthorizationVC()
+        authVC.delegate = self
         let navController = UINavigationController(rootViewController: authVC)
         self.present(navController, animated: true)
     }
@@ -125,5 +126,11 @@ extension RegistrationVC: FLCButtonDelegate {
         case registrationButton: break
         default: break
         }
+    }
+}
+
+extension RegistrationVC: AuthorizationVCDelegate {
+    func didSuccessWithAuthorization() {
+        self.dismiss(animated: true)
     }
 }

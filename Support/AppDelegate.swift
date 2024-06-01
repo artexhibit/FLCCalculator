@@ -8,6 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseManager.configureFirebase()
         AppDelegateHelper.registerBackgroundTasks()
         AppDelegateHelper.updateDataOnAppLaunch()
+        AppDelegateHelper.configureSMSCounter()
         return true
     }
     

@@ -42,6 +42,7 @@ enum Keys {
     static let lastCalculationDataUpdate = "lastCalculationDataUpdate"
     static let lastManagerDataUpdate = "lastManagerDataUpdate"
     static let lastDocumentsDataUpdate = "lastDocumentsDataUpdate"
+    static let smsCounter = "smsCounter"
     static let cdDataAttribute = "data"
     static let cdDocuments = "CDDocuments"
     static let cdManagers = "CDManagers"

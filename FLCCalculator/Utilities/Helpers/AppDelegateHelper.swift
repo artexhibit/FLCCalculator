@@ -128,6 +128,11 @@ struct AppDelegateHelper {
         }
     }
     
+    static func configureSMSCounter() {
+        SMSManager.checkAndResetSMSCounter()
+        SMSManager.startTimer()
+    }
+    
     private static func save(dateString: String, if isTariffsUpdated: Bool, and isPickupsUpdated: Bool, canShowPopup: Bool = true) async {
         if isTariffsUpdated && isPickupsUpdated {
             UserDefaultsManager.dateWhenDataWasUpdated = dateString

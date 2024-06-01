@@ -44,6 +44,11 @@
 		0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */; };
 		0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */; };
 		0B6774A92C0630CE0078D8C5 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6774A82C0630CE0078D8C5 /* RegistrationVC.swift */; };
+		0B67DF8C2C0B31FD008CE099 /* LoginConfirmationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */; };
+		0B67DF8E2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */; };
+		0B67DF902C0B6003008CE099 /* SMSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */; };
+		0B67DF922C0B61D5008CE099 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
+		0B67DF942C0B7BD7008CE099 /* FLCUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */; };
 		0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54272B810BA00078C110 /* AppDelegate.swift */; };
 		0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54292B810BA00078C110 /* SceneDelegate.swift */; };
 		0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */; };
@@ -213,6 +218,11 @@
 		0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerButton.swift; sourceTree = "<group>"; };
 		0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemManager.swift; sourceTree = "<group>"; };
 		0B6774A82C0630CE0078D8C5 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
+		0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmationHelper.swift; sourceTree = "<group>"; };
+		0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPercistenceManager.swift; sourceTree = "<group>"; };
+		0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCounter.swift; sourceTree = "<group>"; };
+		0B67DF912C0B61D5008CE099 /* SMSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSManager.swift; sourceTree = "<group>"; };
+		0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCUIHelper.swift; sourceTree = "<group>"; };
 		0B6E54242B810BA00078C110 /* FLCCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLCCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6E54272B810BA00078C110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B6E54292B810BA00078C110 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -365,6 +375,7 @@
 				0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */,
 				0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */,
 				0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */,
+				0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -410,10 +421,12 @@
 				0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */,
 				0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */,
 				0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */,
+				0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */,
 				0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */,
 				0B7EBA682BE55C41004BE990 /* NetworkAvailabilityManager.swift */,
 				0B35D29A2BEEB18C007E9D3C /* AttachmentManager.swift */,
 				0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */,
+				0B67DF912C0B61D5008CE099 /* SMSManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -447,6 +460,7 @@
 		0B5099D32BE1245B00F0E3D0 /* UIHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */,
 				0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */,
 				0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */,
 				0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */,
@@ -583,6 +597,7 @@
 				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
 				0B2077572BDAE1E90095460D /* FLCConfetti.swift */,
 				0B97770C2BEF92DF00E56197 /* UsefulInfoContent.swift */,
+				0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */,
 				0B9D5A742BB991AE0016A991 /* Networking */,
 			);
 			path = Model;
@@ -947,6 +962,7 @@
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
 				0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */,
+				0B67DF902C0B6003008CE099 /* SMSCounter.swift in Sources */,
 				0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */,
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
 				0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */,
@@ -961,8 +977,10 @@
 				0B7882842BDE7C8100BDCA16 /* FLCShimmeringView.swift in Sources */,
 				0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */,
 				0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */,
+				0B67DF942C0B7BD7008CE099 /* FLCUIHelper.swift in Sources */,
 				0BB47CEB2BF8CD14001ECED4 /* ChinaTruckTariff.swift in Sources */,
 				0B7882892BDEB0CE00BDCA16 /* FLCRoundButton.swift in Sources */,
+				0B67DF8E2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift in Sources */,
 				0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */,
 				0BB1E0622BE0FB4900AB6A63 /* FLCManager.swift in Sources */,
 				0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */,
@@ -971,6 +989,7 @@
 				0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */,
 				0B2077582BDAE1E90095460D /* FLCConfetti.swift in Sources */,
 				0B04C0D82BC59F0F0007A316 /* UIImageView.swift in Sources */,
+				0B67DF922C0B61D5008CE099 /* SMSManager.swift in Sources */,
 				0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */,
 				0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */,
 				0B97770F2BEFB90600E56197 /* BonusSystemVC.swift in Sources */,
@@ -985,6 +1004,7 @@
 				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */,
 				0B35D29B2BEEB18C007E9D3C /* AttachmentManager.swift in Sources */,
+				0B67DF8C2C0B31FD008CE099 /* LoginConfirmationHelper.swift in Sources */,
 				0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */,
 				0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */,
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,
