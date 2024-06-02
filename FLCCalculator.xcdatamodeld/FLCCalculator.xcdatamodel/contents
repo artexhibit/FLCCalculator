@@ -35,10 +35,12 @@
         <attribute name="deliveryToWarehouseTime" optional="YES" attributeType="String"/>
         <attribute name="groupageDocs" attributeType="String"/>
         <attribute name="insurance" optional="YES" attributeType="String"/>
+        <attribute name="insuranceAgentVisit" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="insurancePercentage" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="insuranceRatio" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="logisticsType" attributeType="String"/>
+        <attribute name="minLogisticsProfit" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="russianDeliveryPrice" optional="YES" attributeType="String"/>
         <attribute name="russianDeliveryTime" optional="YES" attributeType="String"/>
         <attribute name="totalPrice" attributeType="String"/>

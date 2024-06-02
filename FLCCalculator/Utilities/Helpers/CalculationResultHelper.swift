@@ -227,7 +227,9 @@ struct CalculationResultHelper {
         var russianDeliveryResult: Result<(price: String, days: String), FLCError>? = nil
         
         if items.contains(where: { $0.type == .russianDelivery }) {
-            russianDeliveryResult = await CalculationResultHelper.getRussianDeliveryPrice(item: items.first { $0.type == .russianDelivery }!)
+            if let russianDeliveryItem = items.first(where: { $0.type == .russianDelivery }) {
+                russianDeliveryResult = await getResultForRussianDelivery(calcData: calculationData, pickedTotalPriceData: getPickedTotalPriceData(with: calculationData, pickedLogisticsType: logisticsType), item: russianDeliveryItem)
+            }
         }
         
         for (index, item) in items.enumerated() {
@@ -262,6 +264,8 @@ struct CalculationResultHelper {
                 let result = CalculationResultHelper.getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: logisticsType)
                 totalPriceData.deliveryFromWarehousePrice = result.price
                 totalPriceData.deliveryFromWarehouseTime = result.days
+                totalPriceData.minLogisticsProfit = PriceCalculationManager.getChinaAirTariff()?.first?.minLogisticsProfit
+                
                 items[index].price = result.price
                 items[index].daysAmount = result.days
             case .cargoHandling:
@@ -271,6 +275,7 @@ struct CalculationResultHelper {
                 totalPriceData.cargoHandling = result
                 totalPriceData.cargoHandlingPricePerKg = cargoHandlingData.pricePerKg
                 totalPriceData.cargoHandlingMinPrice = cargoHandlingData.minPrice
+                totalPriceData.insuranceAgentVisit = PriceCalculationManager.getChinaAirTariff()?.first?.insuranceAgentVisit
                 items[index].price = result
             case .customsClearancePrice:
                 let result = CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: logisticsType)

@@ -29,7 +29,7 @@ struct CalculationCellUIHelper {
         
         cell.titleTextView.attributedText = attributedText
         cell.priceLabel.text = item.price
-        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePercentage(for: pickedLogisticsType, item: item))% от стоимости инвойса + выезд страхового агента \(totalString)"
+        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePercentage(for: pickedLogisticsType, item: item))% от стоимости инвойса \(totalString)"
 
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)

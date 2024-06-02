@@ -4,6 +4,7 @@ struct ChinaAirTariff: Codable, Hashable {
     let name: String
     let insurancePercentage: Double
     let insuranceAgentVisit: Double
+    let minLogisticsProfit: Double?
     let cargoHandling: Double
     let minCargoHandling: Double
     let customsClearance: Double
@@ -23,6 +24,7 @@ struct ChinaAirTariff: Codable, Hashable {
         hasher.combine(name)
         hasher.combine(insurancePercentage)
         hasher.combine(insuranceAgentVisit)
+        hasher.combine(minLogisticsProfit)
         hasher.combine(cargoHandling)
         hasher.combine(minCargoHandling)
         hasher.combine(customsClearance)

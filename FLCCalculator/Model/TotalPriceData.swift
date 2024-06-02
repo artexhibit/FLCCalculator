@@ -17,6 +17,8 @@ struct TotalPriceData: Hashable {
     var insurance: String? = nil
     var insurancePercentage: Double? = nil
     var insuranceRatio: Double? = nil
+    var insuranceAgentVisit: Double? = nil
+    var minLogisticsProfit: Double? = nil
     var cargoHandlingPricePerKg: Double? = nil
     var cargoHandlingMinPrice: Double? = nil
     var isConfirmed: Bool = false

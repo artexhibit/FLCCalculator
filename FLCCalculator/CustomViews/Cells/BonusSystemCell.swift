@@ -8,7 +8,7 @@ class BonusSystemCell: UITableViewCell {
     
     private let titleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left)
     private let mainTextLabel = FLCBodyLabel(color: .label, textAlignment: .left)
-    private let detailsButton = FLCButton(color: .flcOrange, title: "Подробнее о нашей программе лояльности")
+    private let detailsButton = FLCButton(color: .flcOrange, title: "Подробнее")
     private let markTintedView = FLCTintedView(color: .flcOrange, withText: true)
     private var parentVC: UIViewController { get { self.findParentViewController() ?? UIViewController() } }
     

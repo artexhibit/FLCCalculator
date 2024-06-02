@@ -95,6 +95,8 @@ struct CoreDataManager {
             calcResult.insurance = totalPriceDataItem.insurance
             calcResult.insurancePercentage = totalPriceDataItem.insurancePercentage ?? 0
             calcResult.insuranceRatio = totalPriceDataItem.insurancePercentage ?? 0
+            calcResult.insuranceAgentVisit = totalPriceDataItem.insuranceAgentVisit ?? 0
+            calcResult.minLogisticsProfit = totalPriceDataItem.minLogisticsProfit ?? 0
             calcResult.cargoHandlingPricePerKg = totalPriceDataItem.cargoHandlingPricePerKg ?? 0
             calcResult.cargoHandlingMinPrice = totalPriceDataItem.cargoHandlingMinPrice ?? 0
             calcResult.isConfirmed = (pickedLogisticsType == totalPriceDataItem.logisticsType) && isConfirmed ? true : false

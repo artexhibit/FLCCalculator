@@ -6,7 +6,7 @@ class FLCTransportParametersView: FLCCalculationView {
     let deliveryTypePickerButton = FLCListPickerButton(placeholderText: "Условия Поставки")
     let departurePickerButton = FLCListPickerButton(placeholderText: "Пункт отправления")
     let destinationPickerButton = FLCListPickerButton(placeholderText: "Пункт назначения")
-    let calculateButton = FLCButton(color: .flcOrange, title: "Рассчитать", systemImageName: "dollarsign.arrow.circlepath")
+    let calculateButton = FLCButton(color: .flcOrange, title: "Рассчитать")
     let returnToPreviousViewButton = FLCTextButton(title: "вернуться назад")
     
     var listPickerButtonsWithTitle = [FLCListPickerButton: Bool]()

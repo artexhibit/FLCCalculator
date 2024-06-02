@@ -16,16 +16,16 @@ class TotalPriceVC: UIViewController {
     private let spinnerMessageLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
     
     private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .heavy, color: .flcOrange, alignment: .left)
-    private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .gray, alignment: .left)
-    private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .label, alignment: .left)
+    private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .flcGray, alignment: .left)
+    private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .flcGray.makeDarker(), alignment: .left)
     private let detailsButton = FLCTintedButton(color: .flcOrange, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
     private let priceAsOneCurrencyTextView = FLCTextViewLabel()
     private let pricePerKgTextView = FLCTextViewLabel()
     private let priceWarningTintedView = FLCTintedView(color: .red.makeLighter(delta: 0.5), alpha: 0.15, withText: true)
     private let invoiceIssueTintedView = FLCTintedView(color: .flcOrange, alpha: 0.15, withText: true)
-    private let confirmButton = FLCButton(color: .flcOrange, title: "Подтвердить заявку", systemImageName: "hand.thumbsup")
-    private let saveButton = FLCButton(color: .flcOrange.makeLighter(), title: "Сохранить", systemImageName: "sdcard")
-    private let closeButton = FLCButton(color: .flcOrange.makeLighter(), title: "Закрыть", systemImageName: "xmark")
+    private let confirmButton = FLCButton(color: .flcOrange, title: "Подтвердить заявку")
+    private let saveButton = FLCButton(color: .flcGray, title: "Сохранить")
+    private let closeButton = FLCButton(color: .flcGray, title: "Закрыть")
     
     private var isCustomDetentContainerViewConfigured: Bool = false
     private var failedToFetchPrice: Bool = false
