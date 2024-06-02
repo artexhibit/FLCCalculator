@@ -9,6 +9,7 @@ final class LoginConfirmationView: UIView {
     private let loginConfirmationTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
     private let verificationCodeTextFieldsStackView = UIStackView()
     private var verificationCodeTextFields = [FLCNumberTextField]()
+    private let returnToEnterPhoneViewButton = FLCTextButton(title: "вернуться назад")
     
     private let padding: CGFloat = 18
     private var verificationCode = ""
@@ -21,6 +22,7 @@ final class LoginConfirmationView: UIView {
         configureLoginConfirmationTitleLabel()
         configureFailedPriceCalcContainerContentStackView()
         configureVerificationCodeTextFields()
+        configureReturnToEnterPhoneViewButton()
     }
     
     required init?(coder: NSCoder) {
@@ -29,7 +31,7 @@ final class LoginConfirmationView: UIView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(loginConfirmationTitleLabel, verificationCodeTextFieldsStackView)
+        addSubviews(loginConfirmationTitleLabel, verificationCodeTextFieldsStackView, returnToEnterPhoneViewButton)
     }
     
     private func configureLoginConfirmationTitleLabel() {
@@ -71,6 +73,13 @@ final class LoginConfirmationView: UIView {
         }
     }
     
+    private func configureReturnToEnterPhoneViewButton() {
+        NSLayoutConstraint.activate([
+            returnToEnterPhoneViewButton.topAnchor.constraint(equalTo: verificationCodeTextFieldsStackView.bottomAnchor, constant: padding),
+            returnToEnterPhoneViewButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+    }
+    
     func setLoginConfirmationView(text: String, verificationCode: String) {
         self.verificationCode = verificationCode
         
@@ -81,6 +90,8 @@ final class LoginConfirmationView: UIView {
     }
     
     func makeFirstTextFieldActive() { _ = verificationCodeTextFields.first?.becomeFirstResponder() }
+    func getReturnButton() -> FLCTextButton { returnToEnterPhoneViewButton }
+    func setReturnButtonDelegate(vc: UIViewController) { returnToEnterPhoneViewButton.delegate = vc as? FLCTextButtonDelegate }
 }
 
 extension LoginConfirmationView: UITextFieldDelegate {

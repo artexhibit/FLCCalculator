@@ -79,6 +79,7 @@ final class AuthorizationVC: UIViewController {
     
     private func configureLoginConfirmationView() {
         loginConfirmationView.delegate = self
+        loginConfirmationView.setReturnButtonDelegate(vc: self)
         
         NSLayoutConstraint.activate([
             loginConfirmationView.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -199,5 +200,14 @@ extension AuthorizationVC: LoginConfirmationViewDelegate {
     func didSuccessWithVerificationCode() {
         self.dismiss(animated: true)
         delegate?.didSuccessWithAuthorization()
+    }
+}
+
+extension AuthorizationVC: FLCTextButtonDelegate {
+    func didTapButton(_ button: FLCTextButton) {
+        switch button {
+        case loginConfirmationView.getReturnButton(): FLCUIHelper.move(view: loginConfirmationView, constraint: leadingConstraint, vc: self, direction: .backward)
+        default: break
+        }
     }
 }

@@ -319,8 +319,6 @@ extension TotalPriceVC: CalculationResultVCDelegate {
         if !calculationResults.keys.contains(cellType) { calculationResults[cellType] = (price: price, days: days) }
     
         if totalCalculatedCells == totalCells {
-            detailsButton.show()
-            
             let allDays = calculationResults.compactMap { $0.value.days }
             let allPrices = calculationResults.map { $0.value.price }
             
@@ -338,13 +336,15 @@ extension TotalPriceVC: CalculationResultVCDelegate {
             smallDetentContent.forEach { $0.opacity = 1 }
             
             if sheetPresentationController?.selectedDetentIdentifier == .customSizeDetent {
-                if totalCalculatedCells != totalCells - 1 {
+                if totalCalculatedCells < totalCells {
                     configureCustomDetentContainerView()
                     configurePriceWarningTintedView()
                     isCustomDetentContainerViewConfigured = true
                 }
                 updateCustomDetentContainerViewTopConstraint()
                 customDetentContent.forEach { $0.show() }
+            } else {
+                detailsButton.show()
             }
         }
     }
