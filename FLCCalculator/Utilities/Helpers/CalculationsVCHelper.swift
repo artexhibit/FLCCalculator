@@ -57,7 +57,7 @@ struct CalculationsVCHelper {
     
     static func presentRegistrationVC(in vc: UIViewController) {
         DispatchQueue.main.async {
-            let registrationVC = RegistrationVC()
+            let registrationVC = AuthorizationVC()
             registrationVC.modalPresentationStyle = .fullScreen
             vc.navigationController?.present(registrationVC, animated: false)
         }

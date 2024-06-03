@@ -2,6 +2,8 @@ import UIKit
 import BackgroundTasks
 
 struct AppDelegateHelper {
+    
+    @MainActor
     static func updateCurrencyData(for task: BGAppRefreshTask? = nil, canShowPopup: Bool = true) {
         Task {
             do {
@@ -9,17 +11,17 @@ struct AppDelegateHelper {
                 
                 guard let _ = CoreDataManager.updateItemInCoreData(item: currencyData) else {
                     if canShowPopup {
-                        await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
+                        FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
                     }
                     task?.setTaskCompleted(success: false)
                     return
                 }
                 if canShowPopup {
-                    await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Курсы валют обновлены")
+                    FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Курсы валют обновлены")
                 }
             } catch {
                 if canShowPopup {
-                    await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить курсы валют", style: .error)
+                    FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить курсы валют", style: .error)
                 }
                 task?.setTaskCompleted(success: false)
             }
@@ -27,6 +29,7 @@ struct AppDelegateHelper {
         }
     }
     
+    @MainActor
     static func updateManagerData(for task: BGAppRefreshTask? = nil) {
         Task {
             do {
@@ -45,6 +48,7 @@ struct AppDelegateHelper {
         }
     }
     
+    @MainActor
     static func updateCalculationData(for task: BGAppRefreshTask? = nil, canShowPopup: Bool = true) {
         Task {
             var success = false
@@ -75,6 +79,7 @@ struct AppDelegateHelper {
         }
     }
     
+    @MainActor
     static func updateDocumentsData(for task: BGAppRefreshTask? = nil) {
         Task {
             do {

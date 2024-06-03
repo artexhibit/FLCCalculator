@@ -1,6 +1,6 @@
 import UIKit
 
-struct AuthorizationVCHelper {
+struct LoginVCHelper {
     static func showPrivacyPolicy(in vc: UIViewController) {
         let privacyPolicyDoc = Document(title: "", fileName: "documents/personalDataProcessingRules.pdf", docDate: "")
         
@@ -28,11 +28,11 @@ struct AuthorizationVCHelper {
         return number
     }
     
-    static func handleVerificationCodeButtonTap(loginConfirmationView: LoginConfirmationView, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
+    static func handleVerificationCodeButtonTap(loginConfirmationView: LoginConfirmationView, phoneTextField: UITextField, enterUserCredentialsView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
         Task {
             do {
                 if SMSManager.canSendSMS() {
-                    try await sendVerificationCode(verificationCode: createVerificationCode(), loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: vc)
+                    try await sendVerificationCode(verificationCode: createVerificationCode(), loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
                 } else {
                     let timeUntilNextSMS = SMSManager.timeUntilNextSMS()
                     await FLCPopupView.showOnMainThread(title: "Вы использовали все попытки. Повторить можно через \(timeUntilNextSMS)", style: .error)
@@ -65,7 +65,7 @@ struct AuthorizationVCHelper {
     static func configureItem(with url: URL, in vc: UIViewController) {
         if url.absoluteString == "privacyPolicy" {
             HapticManager.addHaptic(style: .soft)
-            AuthorizationVCHelper.showPrivacyPolicy(in: vc)
+            LoginVCHelper.showPrivacyPolicy(in: vc)
         }
     }
 }

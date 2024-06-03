@@ -1,213 +1,149 @@
 import UIKit
 
-protocol AuthorizationVCDelegate: AnyObject {
-    func didSuccessWithAuthorization()
-}
-
-final class AuthorizationVC: UIViewController {
+class AuthorizationVC: UIViewController {
     
-    private let scrollView = UIScrollView()
-    private let containerView = UIView()
-    private let enterPhoneView = UIView()
-    private let enterPhoneTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
-    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: "Номер телефона", smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 27, fontWeight: .bold)
-    private let verificationCodeButton = FLCButton(color: .flcOrange, title: "Получить код", isEnabled: false)
-    private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Нажимая на кнопку «Получить код», вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
-    private let loginConfirmationView = LoginConfirmationView()
+    private let flcLogoImageView = FLCImageView()
+    private let authButtonsContainer = UIView()
+    private let signInButton = FLCButton(color: .flcOrange, title: "Войти", subtitle: "для зарегистрированных пользователей")
+    private let orButton = FLCSubtitleLabel(color: .label, textAlignment: .center, textStyle: .caption1)
+    private let registrationButton = FLCButton(color: .flcGray, title: "Зарегистрироваться", subtitle: "создать новый аккаунт")
     
-    private var leadingConstraint: NSLayoutConstraint!
-    private let padding: CGFloat = 18
-    
-    weak var delegate: AuthorizationVCDelegate?
+    private let padding: CGFloat = 10
+    private var flcLogoImageViewCenterYConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
-        configureScrollView()
-        configureContainerView()
-        configureEnterPhoneView()
-        configureLoginConfirmationView()
-        configureEnterPhoneTitleLabel()
-        configurePhoneTextField()
-        configureVerificationCodeButton()
-        configurePrivacyPolicyAgreenmentTextViewLabel()
+        configureFLCLogoImageView()
+        configureAuthButtonsContainer()
+        configureSignInButton()
+        configureOrButton()
+        configureRegistrationButton()
+        
+        moveFLCLogoImageViewUp()
     }
     
     private func configureVC() {
-        view.backgroundColor = .systemBackground
-        view.addSubview(scrollView)
-        navigationItem.title = "Войти"
-        setNavBarColor(color: UIColor.flcOrange)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
+        view.backgroundColor = .systemGray6
+        view.addSubviews(flcLogoImageView, authButtonsContainer)
     }
     
-    @objc func closeButtonPressed() { self.dismiss(animated: true) }
-    
-    private func configureScrollView() {
-        scrollView.delegate = self
+    private func configureFLCLogoImageView() {
+        flcLogoImageView.image = UIImage(resource: .fullLogo)
         
-        scrollView.addSubview(containerView)
-        scrollView.pinToEdges(of: view)
-        scrollView.showsVerticalScrollIndicator = false
-    }
-    
-    private func configureContainerView() {
-        containerView.addSubviews(enterPhoneView, loginConfirmationView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.pinToEdges(of: scrollView)
+        flcLogoImageViewCenterYConstraint = flcLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         
         NSLayoutConstraint.activate([
-            containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 500)
+            flcLogoImageViewCenterYConstraint,
+            flcLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            flcLogoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            flcLogoImageView.heightAnchor.constraint(equalTo: flcLogoImageView.widthAnchor, multiplier: 9/16)
         ])
     }
     
-    private func configureEnterPhoneView() {
-        enterPhoneView.addSubviews(enterPhoneTitleLabel, phoneTextField, verificationCodeButton, privacyPolicyAgreenmentTextViewLabel)
-        enterPhoneView.translatesAutoresizingMaskIntoConstraints = false
-        
-        leadingConstraint = enterPhoneView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
+    private func configureAuthButtonsContainer() {
+        authButtonsContainer.addSubviews(signInButton, orButton, registrationButton)
+        authButtonsContainer.translatesAutoresizingMaskIntoConstraints = false
+        authButtonsContainer.hide()
         
         NSLayoutConstraint.activate([
-            enterPhoneView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            leadingConstraint,
-            enterPhoneView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
-            enterPhoneView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            authButtonsContainer.topAnchor.constraint(equalTo: flcLogoImageView.bottomAnchor, constant: padding * 7),
+            authButtonsContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            authButtonsContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            authButtonsContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    private func configureLoginConfirmationView() {
-        loginConfirmationView.delegate = self
-        loginConfirmationView.setReturnButtonDelegate(vc: self)
+    private func configureSignInButton() {
+        signInButton.delegate = self
         
-        NSLayoutConstraint.activate([
-            loginConfirmationView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            loginConfirmationView.leadingAnchor.constraint(equalTo: enterPhoneView.trailingAnchor),
-            loginConfirmationView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            loginConfirmationView.widthAnchor.constraint(equalTo: containerView.widthAnchor)
-        ])
-    }
-    
-    private func configureEnterPhoneTitleLabel() {
-        enterPhoneTitleLabel.text = "Чтобы войти, введите ваш номер телефона, а затем четырёхзначный код из смс"
-        
-        NSLayoutConstraint.activate([
-            enterPhoneTitleLabel.topAnchor.constraint(equalTo: enterPhoneView.topAnchor, constant: padding),
-            enterPhoneTitleLabel.leadingAnchor.constraint(equalTo: enterPhoneView.leadingAnchor, constant: padding),
-            enterPhoneTitleLabel.trailingAnchor.constraint(equalTo: enterPhoneView.trailingAnchor, constant: -padding)
-        ])
-    }
-    
-    private func configurePhoneTextField()  {
-        phoneTextField.delegate = self
-        
-        NSLayoutConstraint.activate([
-            phoneTextField.topAnchor.constraint(equalTo: enterPhoneTitleLabel.bottomAnchor, constant: padding * 2),
-            phoneTextField.leadingAnchor.constraint(equalTo: enterPhoneView.leadingAnchor, constant: padding),
-            phoneTextField.trailingAnchor.constraint(equalTo: enterPhoneView.trailingAnchor, constant: -padding),
-            phoneTextField.heightAnchor.constraint(equalToConstant: 60)
-        ])
-    }
-    
-    private func configureVerificationCodeButton() {
-        verificationCodeButton.delegate = self
-        
-        let heightAnchor: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 70 : 60
-        let widthConstraint = verificationCodeButton.widthAnchor.constraint(equalTo: enterPhoneView.widthAnchor, multiplier: 0.9)
-        let heightConstraint = verificationCodeButton.heightAnchor.constraint(equalTo: verificationCodeButton.widthAnchor, multiplier: 1/2)
+        let heightAnchor: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 80 : 60
+        let widthConstraint = signInButton.widthAnchor.constraint(equalTo: authButtonsContainer.widthAnchor, multiplier: 0.85)
+        let heightConstraint = signInButton.heightAnchor.constraint(equalTo: signInButton.widthAnchor, multiplier: 1/2)
         widthConstraint.priority = UILayoutPriority(rawValue: 999)
         heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
-            verificationCodeButton.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: padding * 2.5),
-            verificationCodeButton.centerXAnchor.constraint(equalTo: enterPhoneView.centerXAnchor),
+            signInButton.topAnchor.constraint(equalTo: authButtonsContainer.topAnchor),
+            signInButton.centerXAnchor.constraint(equalTo: authButtonsContainer.centerXAnchor),
             widthConstraint, heightConstraint,
             
-            verificationCodeButton.heightAnchor.constraint(lessThanOrEqualToConstant: heightAnchor),
-            verificationCodeButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
+            signInButton.heightAnchor.constraint(lessThanOrEqualToConstant: heightAnchor),
+            signInButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
         ])
     }
     
-    private func configurePrivacyPolicyAgreenmentTextViewLabel() {
-        privacyPolicyAgreenmentTextViewLabel.delegate = self
-        privacyPolicyAgreenmentTextViewLabel.setStyle(color: .lightGray, textAlignment: .center, fontSize: 15)
-                
+    private func configureOrButton() {
+        orButton.text = "или"
+        
         NSLayoutConstraint.activate([
-            privacyPolicyAgreenmentTextViewLabel.topAnchor.constraint(equalTo: verificationCodeButton.bottomAnchor, constant: padding / 2),
-            privacyPolicyAgreenmentTextViewLabel.leadingAnchor.constraint(equalTo: enterPhoneView.leadingAnchor, constant: padding),
-            privacyPolicyAgreenmentTextViewLabel.trailingAnchor.constraint(equalTo: enterPhoneView.trailingAnchor, constant: -padding),
-            privacyPolicyAgreenmentTextViewLabel.bottomAnchor.constraint(equalTo: enterPhoneView.bottomAnchor, constant: -padding)
+            orButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: padding),
+            orButton.leadingAnchor.constraint(equalTo: authButtonsContainer.leadingAnchor, constant: padding),
+            orButton.trailingAnchor.constraint(equalTo: authButtonsContainer.trailingAnchor, constant: -padding),
         ])
     }
-}
-
-extension AuthorizationVC: UIScrollViewDelegate {}
-
-extension AuthorizationVC: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) { textField.placeholder = "+7 (XXX) XXX-XX-XX" }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return false }
-        let newString = (text as NSString).replacingCharacters(in: range, with: string)
-        let cursorPosition = textField.getCursorPosition()
-        let formattedText = TextFieldManager.formatPhoneNumber(with: "+7 (XXX) XXX-XX-XX", phone: newString)
+    private func configureRegistrationButton() {
+        registrationButton.delegate = self
         
-        textField.text = formattedText
+        let heightAnchor: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 70 : 60
+        let widthConstraint = registrationButton.widthAnchor.constraint(equalTo: authButtonsContainer.widthAnchor, multiplier: 0.85)
+        let heightConstraint = registrationButton.heightAnchor.constraint(equalTo: registrationButton.widthAnchor, multiplier: 1/2)
+        widthConstraint.priority = UILayoutPriority(rawValue: 999)
+        heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
-        let newCursorPosition = string.isEmpty ? max(2, cursorPosition - 1) : cursorPosition + (formattedText.count - text.count)
-        textField.moveCursorTo(position: newCursorPosition)
-        
-        TextFieldManager.isValidPhoneNumber(in: textField.text ?? "") ? verificationCodeButton.setEnabled() : verificationCodeButton.setDisabled()
-        return false
+        NSLayoutConstraint.activate([
+            registrationButton.topAnchor.constraint(equalTo: orButton.bottomAnchor, constant: padding),
+            registrationButton.centerXAnchor.constraint(equalTo: authButtonsContainer.centerXAnchor),
+            widthConstraint, heightConstraint,
+            
+            registrationButton.heightAnchor.constraint(lessThanOrEqualToConstant: heightAnchor),
+            registrationButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
+        ])
+    }
+    
+    func moveFLCLogoImageViewUp() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.flcLogoImageViewCenterYConstraint.constant = -150
+            UIView.animate(withDuration: 0.5, animations: { self.view.layoutIfNeeded() }) { _ in
+                self.authButtonsContainer.show(withAnimationDuration: 0.3)
+            }
+        }
+    }
+    
+    func showAuthVC() {
+        let loginVC = LoginVC()
+        loginVC.delegate = self
+        let navController = UINavigationController(rootViewController: loginVC)
+        self.present(navController, animated: true)
+    }
+    
+    func showRegistrationVC() {
+        let registrationVC = RegistrationVC()
+        registrationVC.delegate = self
+        let navController = UINavigationController(rootViewController: registrationVC)
+        self.present(navController, animated: true)
     }
 }
 
 extension AuthorizationVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case verificationCodeButton: 
-            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: self)
+        case signInButton: showAuthVC()
+        case registrationButton: showRegistrationVC()
         default: break
         }
     }
 }
 
-extension AuthorizationVC: UITextViewDelegate {
-    @available(iOS 17.0, *)
-    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
-        switch textItem.content{
-        case .link(let url): 
-            AuthorizationVCHelper.configureItem(with: url, in: self)
-            return UIAction(title: "") { _ in }
-        case .textAttachment(_), .tag(_): break
-        @unknown default: break
-        }
-        return defaultAction
-    }
-    
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        AuthorizationVCHelper.configureItem(with: URL, in: self)
-        return false
-    }
-}
-
-extension AuthorizationVC: UIDocumentInteractionControllerDelegate {
-    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController { return self }
-}
-
-extension AuthorizationVC: LoginConfirmationViewDelegate {
-    func didSuccessWithVerificationCode() {
+extension AuthorizationVC: LoginVCDelegate {
+    func didSuccessWithLogin() {
         self.dismiss(animated: true)
-        delegate?.didSuccessWithAuthorization()
     }
 }
 
-extension AuthorizationVC: FLCTextButtonDelegate {
-    func didTapButton(_ button: FLCTextButton) {
-        switch button {
-        case loginConfirmationView.getReturnButton(): FLCUIHelper.move(view: loginConfirmationView, constraint: leadingConstraint, vc: self, direction: .backward)
-        default: break
-        }
+extension AuthorizationVC: RegistrationVCDelegate {
+    func didSuccessWithRegistration() {
+        self.dismiss(animated: true)
     }
 }

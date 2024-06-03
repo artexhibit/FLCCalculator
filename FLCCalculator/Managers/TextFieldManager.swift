@@ -72,8 +72,17 @@ struct TextFieldManager {
         return result
     }
     
-    static func isValidPhoneNumber(in text: String) -> Bool {
-        text.extractDigits().count == 11 ? true : false
+    static func isValid(_ type: FLCTextFieldType, _ text: String) -> Bool {
+        var dataRegEx = ""
+        
+        switch type {
+        case .email:
+            dataRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        case .phone:
+            dataRegEx = "^(?:\\D*\\d){11}\\D*$"
+        }
+        let dataPred = NSPredicate(format: "SELF MATCHES %@", dataRegEx)
+        return dataPred.evaluate(with: text)
     }
     
     static func goToNextTextField(activeTF: UITextField, allTFs: [UITextField]) {
@@ -84,5 +93,33 @@ struct TextFieldManager {
     static func goToPreviousTextField(activeTF: UITextField, allTFs: [UITextField]) {
         guard let targetTextFieldIndex = allTFs.firstIndex(where: { $0 == activeTF }), targetTextFieldIndex > 0 else { return }
         _ = allTFs[targetTextFieldIndex - 1].becomeFirstResponder()
+    }
+    
+    static func managePhoneTextFieldInput(textField: UITextField, range: NSRange, string: String) {
+        guard let text = textField.text else { return }
+        let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        let cursorPosition = textField.getCursorPosition()
+        let formattedText = formatPhoneNumber(with: "+7 (XXX) XXX-XX-XX", phone: newString)
+        
+        textField.text = formattedText
+        
+        let newCursorPosition = string.isEmpty ? max(2, cursorPosition - 1) : cursorPosition + (formattedText.count - text.count)
+        textField.moveCursorTo(position: newCursorPosition)
+    }
+    
+    static func manageEmailTextFieldInput(textField: UITextField, range: NSRange, string: String) {
+        guard let text = textField.text else { return }
+        let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        let cursorPosition = string.isEmpty ? range.location : range.location + string.count
+        
+        textField.text = newString
+        textField.moveCursorTo(position: cursorPosition)
+    }
+    
+    static func returnTextFieldsLabelToIdentity(textField: UITextField) {
+        guard let numberTextField = textField as? FLCNumberTextField else { return }
+        guard let text = numberTextField.text else { return }
+        numberTextField.placeholder = ""
+        if text.isEmpty { numberTextField.returnToIdentity() }
     }
 }

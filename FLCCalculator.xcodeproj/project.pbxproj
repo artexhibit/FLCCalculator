@@ -18,6 +18,8 @@
 		0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */; };
 		0B25ABA02BDAD00B0031844A /* ConfirmOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */; };
 		0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */; };
+		0B2E6BC12C0CD5680004DF10 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */; };
+		0B2E6BC32C0CD61E0004DF10 /* FLCLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */; };
 		0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B32CBBF2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */; };
@@ -43,7 +45,7 @@
 		0B625C372BB340D400A9392A /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
 		0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */; };
 		0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */; };
-		0B6774A92C0630CE0078D8C5 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6774A82C0630CE0078D8C5 /* RegistrationVC.swift */; };
+		0B6774A92C0630CE0078D8C5 /* AuthorizationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6774A82C0630CE0078D8C5 /* AuthorizationVC.swift */; };
 		0B67DF8C2C0B31FD008CE099 /* LoginConfirmationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */; };
 		0B67DF8E2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */; };
 		0B67DF902C0B6003008CE099 /* SMSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */; };
@@ -127,8 +129,8 @@
 		0BC735832BCAECEA00EF8B0D /* FLCLogisticsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */; };
 		0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */; };
 		0BCDC80B2C08B4E300EE9D6A /* LoginConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */; };
-		0BCDC80D2C08B5E800EE9D6A /* AuthorizationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */; };
-		0BCDC80F2C090DB300EE9D6A /* AuthorizationVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */; };
+		0BCDC80D2C08B5E800EE9D6A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */; };
+		0BCDC80F2C090DB300EE9D6A /* LoginVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80E2C090DB300EE9D6A /* LoginVCHelper.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
@@ -198,6 +200,8 @@
 		0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCalculationManager.swift; sourceTree = "<group>"; };
 		0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderVC.swift; sourceTree = "<group>"; };
 		0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextLayer.swift; sourceTree = "<group>"; };
+		0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
+		0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLoginVC.swift; sourceTree = "<group>"; };
 		0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerItem.swift; sourceTree = "<group>"; };
@@ -217,7 +221,7 @@
 		0B625C362BB340D400A9392A /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		0B630DD62B87DBB50007636D /* FLCListPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerButton.swift; sourceTree = "<group>"; };
 		0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemManager.swift; sourceTree = "<group>"; };
-		0B6774A82C0630CE0078D8C5 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
+		0B6774A82C0630CE0078D8C5 /* AuthorizationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVC.swift; sourceTree = "<group>"; };
 		0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmationHelper.swift; sourceTree = "<group>"; };
 		0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPercistenceManager.swift; sourceTree = "<group>"; };
 		0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCounter.swift; sourceTree = "<group>"; };
@@ -300,8 +304,8 @@
 		0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLogisticsOption.swift; sourceTree = "<group>"; };
 		0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
 		0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmationView.swift; sourceTree = "<group>"; };
-		0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVC.swift; sourceTree = "<group>"; };
-		0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVCHelper.swift; sourceTree = "<group>"; };
+		0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		0BCDC80E2C090DB300EE9D6A /* LoginVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCHelper.swift; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
 		0BD06AFA2B8E6A1B00942651 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -375,7 +379,7 @@
 				0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */,
 				0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */,
 				0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */,
-				0BCDC80E2C090DB300EE9D6A /* AuthorizationVCHelper.swift */,
+				0BCDC80E2C090DB300EE9D6A /* LoginVCHelper.swift */,
 				0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */,
 			);
 			path = Helpers;
@@ -568,8 +572,9 @@
 				0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */,
 				0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */,
 				0B97770E2BEFB90600E56197 /* BonusSystemVC.swift */,
-				0B6774A82C0630CE0078D8C5 /* RegistrationVC.swift */,
-				0BCDC80C2C08B5E800EE9D6A /* AuthorizationVC.swift */,
+				0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */,
+				0B6774A82C0630CE0078D8C5 /* AuthorizationVC.swift */,
+				0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -728,6 +733,7 @@
 				0BE046732B9CA05900BA6F21 /* FLCPickerVC */,
 				0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */,
 				0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */,
+				0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -934,6 +940,7 @@
 				0BAF1DAB2BF10F6E00C0933B /* DocumentsCell.swift in Sources */,
 				0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */,
 				0B625C372BB340D400A9392A /* CurrencyData.swift in Sources */,
+				0B2E6BC32C0CD61E0004DF10 /* FLCLoginVC.swift in Sources */,
 				0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */,
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
@@ -954,7 +961,7 @@
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,
 				0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */,
 				0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */,
-				0B6774A92C0630CE0078D8C5 /* RegistrationVC.swift in Sources */,
+				0B6774A92C0630CE0078D8C5 /* AuthorizationVC.swift in Sources */,
 				0B2002B12B9DCE7B00B8DF5C /* Constants.swift in Sources */,
 				0B53286E2BC2DFCC00B02A73 /* UIColor+Ext.swift in Sources */,
 				0BAF1DAF2BF1142800C0933B /* Document.swift in Sources */,
@@ -972,7 +979,7 @@
 				0BFBD7452BA38B3500B485B8 /* UINavigationController + Ext.swift in Sources */,
 				0B7EBA692BE55C41004BE990 /* NetworkAvailabilityManager.swift in Sources */,
 				0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */,
-				0BCDC80F2C090DB300EE9D6A /* AuthorizationVCHelper.swift in Sources */,
+				0BCDC80F2C090DB300EE9D6A /* LoginVCHelper.swift in Sources */,
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationInfo.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,
@@ -986,6 +993,7 @@
 				0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */,
 				0BB1E0622BE0FB4900AB6A63 /* FLCManager.swift in Sources */,
 				0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */,
+				0B2E6BC12C0CD5680004DF10 /* RegistrationVC.swift in Sources */,
 				0BDCE6F92BA59FB30043AB64 /* UIViewController + Ext.swift in Sources */,
 				0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */,
 				0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */,
@@ -1025,7 +1033,7 @@
 				0B78F3072BE68D2000C52EC4 /* TotalPriceData.swift in Sources */,
 				0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */,
 				0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */,
-				0BCDC80D2C08B5E800EE9D6A /* AuthorizationVC.swift in Sources */,
+				0BCDC80D2C08B5E800EE9D6A /* LoginVC.swift in Sources */,
 				0BF938822B84F45100A18016 /* FLCEmptyStateView.swift in Sources */,
 				0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */,
 				0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */,

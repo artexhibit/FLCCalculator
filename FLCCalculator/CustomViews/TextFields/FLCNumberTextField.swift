@@ -115,6 +115,7 @@ class FLCNumberTextField: UITextField {
         tintColor = .red
         layer.borderColor = UIColor.red.cgColor
     }
+    func returnToIdentity() { smallLabelView.returnSmallLabelToIdentity() }
     
     private func switchToOrangeColors() {
         backgroundColor = UIColor.flcNumberTextFieldBackground
