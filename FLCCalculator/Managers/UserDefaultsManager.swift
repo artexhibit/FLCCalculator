@@ -3,6 +3,11 @@ import Foundation
 struct UserDefaultsManager {
     private static let ud = UserDefaults.sharedContainer
     
+    static var isUserLoggedIn: Bool {
+        get { ud.bool(forKey: Keys.isUserLoggedIn) }
+        set { ud.setValue(newValue, forKey: Keys.isUserLoggedIn) }
+    }
+    
     static var dateWhenDataWasUpdated: String {
         get { ud.string(forKey: Keys.dateWhenDataWasUpdated) ?? "" }
         set { ud.setValue(newValue, forKey: Keys.dateWhenDataWasUpdated) }

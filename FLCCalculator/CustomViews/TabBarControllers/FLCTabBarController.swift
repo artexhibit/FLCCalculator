@@ -5,7 +5,7 @@ class FLCTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = UIColor(resource: .flcOrange)
-        viewControllers = [createCalculationsVC(), createUsefulInfoVC()]
+        viewControllers = [createCalculationsVC(), createUsefulInfoVC(), createSettingsVC()]
     }
     
     func createCalculationsVC() -> UINavigationController {
@@ -22,5 +22,13 @@ class FLCTabBarController: UITabBarController {
         usefulInfoVC.tabBarItem = UITabBarItem(title: "Полезное", image: UIImage(systemName: "doc.text.fill"), tag: 1)
         
         return UINavigationController(rootViewController: usefulInfoVC)
+    }
+    
+    func createSettingsVC() -> UINavigationController {
+        let settingsVC = SettingsVC()
+        settingsVC.title = "Настройки"
+        settingsVC.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(systemName: "gear"), tag: 2)
+        
+        return UINavigationController(rootViewController: settingsVC)
     }
 }

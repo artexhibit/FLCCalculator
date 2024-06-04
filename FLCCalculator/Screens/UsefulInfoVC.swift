@@ -13,8 +13,8 @@ class UsefulInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
-        configureSections()
         configureTableView()
+        configureSections()
         Task { await self.updateDocumentsSectionUI(with: UsefulInfoHelper.getUsefulInfoDocuments()) }
     }
     
@@ -38,7 +38,7 @@ class UsefulInfoVC: UIViewController {
         tableView.register(UsefulInfoManagerCell.self, forCellReuseIdentifier: UsefulInfoManagerCell.reuseID)
         tableView.register(UsefulInfoContentCell.self, forCellReuseIdentifier: UsefulInfoContentCell.reuseID)
         tableView.register(UsefulInfoDocumentsCell.self, forCellReuseIdentifier: UsefulInfoDocumentsCell.reuseID)
-        tableView.register(UsefulInfoTableViewHeader.self, forHeaderFooterViewReuseIdentifier: UsefulInfoTableViewHeader.reuseID)
+        tableView.register(FLCTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCTableViewHeader.reuseID)
     }
     
     private func configureSections() {
@@ -69,8 +69,8 @@ extension UsefulInfoVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UsefulInfoTableViewHeader.reuseID) as! UsefulInfoTableViewHeader
-        headerView.set(title: sections[section].rawValue)
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCTableViewHeader.reuseID) as? FLCTableViewHeader
+        headerView?.set(title: sections[section].rawValue)
         return headerView
     }
 }

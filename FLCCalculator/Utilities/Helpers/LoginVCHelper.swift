@@ -22,7 +22,7 @@ struct LoginVCHelper {
         FLCPopupView.removeFromMainThread()
     }
     
-    private static func createVerificationCode(digits: Int = 4) -> String {
+    static func createVerificationCode(digits: Int = 4) -> String {
         var number = ""
         for _ in 1...digits { number += "\(Int.random(in: 1...9))" }
         return number

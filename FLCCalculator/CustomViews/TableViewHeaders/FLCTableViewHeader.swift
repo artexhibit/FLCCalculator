@@ -1,8 +1,8 @@
 import UIKit
 
-class UsefulInfoTableViewHeader: UITableViewHeaderFooterView {
+class FLCTableViewHeader: UITableViewHeaderFooterView {
 
-    static let reuseID = "usefulInfoTableViewHeader"
+    static let reuseID = "flcTableViewHeader"
     
     private let titleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 20)
     

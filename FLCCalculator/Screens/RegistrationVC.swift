@@ -1,7 +1,7 @@
 import UIKit
 
 protocol RegistrationVCDelegate: AnyObject {
-    func didSuccessWithRegistration()
+    func didSuccessWithRegistration(phone: String, email: String)
 }
 
 class RegistrationVC: FLCLoginVC {
@@ -128,7 +128,7 @@ extension RegistrationVC: FLCButtonDelegate {
 extension RegistrationVC: LoginConfirmationViewDelegate {
     func didSuccessWithVerificationCode() {
         self.dismiss(animated: true)
-        delegate?.didSuccessWithRegistration()
+        delegate?.didSuccessWithRegistration(phone: phoneTextField.text ?? "", email: emailTextField.text ?? "")
     }
 }
 

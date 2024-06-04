@@ -24,6 +24,11 @@ enum FLCUsefulInfoSections: String, CaseIterable {
     case documents = "Документы"
 }
 
+enum FLCSettingsSections: String, CaseIterable {
+    case profile = ""
+    case general = "Общее"
+}
+
 enum FLCBackgroundFetchId: String {
     case updateCurrencyDataTaskId = "ru.igorcodes.FLCCalculator.updateCurrencyData"
     case updateCalculationData = "ru.igorcodes.FLCCalculator.updateCalculationData"

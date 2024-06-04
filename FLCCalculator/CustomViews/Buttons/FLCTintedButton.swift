@@ -17,24 +17,24 @@ class FLCTintedButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, title: String, systemImageName: String, size: UIButton.Configuration.Size) {
+    convenience init(color: UIColor, title: String? = "", systemImageName: String, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
         self.init(frame: .zero)
-        set(color: color, title: title, systemImageName: systemImageName, size: size)
+        set(color: color, title: title, systemImageName: systemImageName, size: size, cornerStyle: cornerStyle)
     }
     
     private func configure() {
         configuration = .tinted()
-        configuration?.cornerStyle = .large
         
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
-    final func set(color: UIColor, title: String, systemImageName: String, size: UIButton.Configuration.Size) {
+    final func set(color: UIColor, title: String?, systemImageName: String, size: UIButton.Configuration.Size?, cornerStyle: UIButton.Configuration.CornerStyle) {
         configuration?.baseBackgroundColor = color
         configuration?.baseForegroundColor = color
         configuration?.title = title
-        configuration?.buttonSize = size
+        configuration?.cornerStyle = cornerStyle
+        if size != nil { configuration?.buttonSize = size ?? .small }
         
         configuration?.image = UIImage(systemName: systemImageName)
         configuration?.imagePadding = 6

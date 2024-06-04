@@ -139,11 +139,13 @@ extension AuthorizationVC: FLCButtonDelegate {
 extension AuthorizationVC: LoginVCDelegate {
     func didSuccessWithLogin() {
         self.dismiss(animated: true)
+        UserDefaultsManager.isUserLoggedIn = true
     }
 }
 
 extension AuthorizationVC: RegistrationVCDelegate {
-    func didSuccessWithRegistration() {
+    func didSuccessWithRegistration(phone: String, email: String) {
         self.dismiss(animated: true)
+        AuthorizationVCHelper.handleSuccessRegistration(with: phone, and: email)
     }
 }

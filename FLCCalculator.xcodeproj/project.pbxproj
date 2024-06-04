@@ -17,6 +17,9 @@
 		0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */; };
 		0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */; };
 		0B25ABA02BDAD00B0031844A /* ConfirmOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */; };
+		0B2A55C32C0F6F0700857C72 /* FLCContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A55C22C0F6F0700857C72 /* FLCContentCell.swift */; };
+		0B2A55C52C0F6FE500857C72 /* SettingsSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A55C42C0F6FE500857C72 /* SettingsSwitchCell.swift */; };
+		0B2A55C72C0F718800857C72 /* FLCContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A55C62C0F718800857C72 /* FLCContent.swift */; };
 		0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */; };
 		0B2E6BC12C0CD5680004DF10 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */; };
 		0B2E6BC32C0CD61E0004DF10 /* FLCLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */; };
@@ -93,7 +96,7 @@
 		0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */; };
 		0B97770D2BEF92DF00E56197 /* UsefulInfoContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B97770C2BEF92DF00E56197 /* UsefulInfoContent.swift */; };
 		0B97770F2BEFB90600E56197 /* BonusSystemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B97770E2BEFB90600E56197 /* BonusSystemVC.swift */; };
-		0B9777112BEFDED500E56197 /* UsefulInfoTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9777102BEFDED500E56197 /* UsefulInfoTableViewHeader.swift */; };
+		0B9777112BEFDED500E56197 /* FLCTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9777102BEFDED500E56197 /* FLCTableViewHeader.swift */; };
 		0B9894382BE41C2F00EB8516 /* BackgroundTasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */; };
 		0B9AB5FE2BE265E700E926EB /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
 		0B9AB5FF2BE265EB00E926EB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
@@ -123,6 +126,10 @@
 		0BB47CEF2BF8D003001ECED4 /* ChinaAirTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */; };
 		0BB47CF12BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */; };
 		0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */; };
+		0BC105F12C0E1EA100F64843 /* FLCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F02C0E1EA100F64843 /* FLCUser.swift */; };
+		0BC105F32C0E265000F64843 /* AuthorizationVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F22C0E265000F64843 /* AuthorizationVCHelper.swift */; };
+		0BC105F52C0E27A900F64843 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F42C0E27A900F64843 /* SettingsVC.swift */; };
+		0BC105F72C0E30E500F64843 /* SettingsProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F62C0E30E500F64843 /* SettingsProfileCell.swift */; };
 		0BC11B182BBD8FE900B215D4 /* TotalPriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */; };
 		0BC735782BCAE00400EF8B0D /* OptionsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735772BCAE00400EF8B0D /* OptionsTableViewHeader.swift */; };
 		0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */; };
@@ -199,6 +206,9 @@
 		0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCellUIHelper.swift; sourceTree = "<group>"; };
 		0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCalculationManager.swift; sourceTree = "<group>"; };
 		0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderVC.swift; sourceTree = "<group>"; };
+		0B2A55C22C0F6F0700857C72 /* FLCContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCContentCell.swift; sourceTree = "<group>"; };
+		0B2A55C42C0F6FE500857C72 /* SettingsSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchCell.swift; sourceTree = "<group>"; };
+		0B2A55C62C0F718800857C72 /* FLCContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCContent.swift; sourceTree = "<group>"; };
 		0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextLayer.swift; sourceTree = "<group>"; };
 		0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLoginVC.swift; sourceTree = "<group>"; };
@@ -270,7 +280,7 @@
 		0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoContentCell.swift; sourceTree = "<group>"; };
 		0B97770C2BEF92DF00E56197 /* UsefulInfoContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoContent.swift; sourceTree = "<group>"; };
 		0B97770E2BEFB90600E56197 /* BonusSystemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusSystemVC.swift; sourceTree = "<group>"; };
-		0B9777102BEFDED500E56197 /* UsefulInfoTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoTableViewHeader.swift; sourceTree = "<group>"; };
+		0B9777102BEFDED500E56197 /* FLCTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTableViewHeader.swift; sourceTree = "<group>"; };
 		0B9894372BE41C2F00EB8516 /* BackgroundTasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTasksManager.swift; sourceTree = "<group>"; };
 		0B9AB6012BE2ACC200E926EB /* UsefulInfoManagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoManagerCell.swift; sourceTree = "<group>"; };
 		0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopupView.swift; sourceTree = "<group>"; };
@@ -297,6 +307,10 @@
 		0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaAirTariff.swift; sourceTree = "<group>"; };
 		0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyTruckByFerryTariff.swift; sourceTree = "<group>"; };
 		0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
+		0BC105F02C0E1EA100F64843 /* FLCUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCUser.swift; sourceTree = "<group>"; };
+		0BC105F22C0E265000F64843 /* AuthorizationVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationVCHelper.swift; sourceTree = "<group>"; };
+		0BC105F42C0E27A900F64843 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		0BC105F62C0E30E500F64843 /* SettingsProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProfileCell.swift; sourceTree = "<group>"; };
 		0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceVC.swift; sourceTree = "<group>"; };
 		0BC2EB892B8FA3A400E52E1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0BC735772BCAE00400EF8B0D /* OptionsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTableViewHeader.swift; sourceTree = "<group>"; };
@@ -381,6 +395,7 @@
 				0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */,
 				0BCDC80E2C090DB300EE9D6A /* LoginVCHelper.swift */,
 				0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */,
+				0BC105F22C0E265000F64843 /* AuthorizationVCHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -440,6 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				0B419FD32B82544800498ACE /* CalculationCell */,
+				0B2A55C22C0F6F0700857C72 /* FLCContentCell.swift */,
 				0B33016E2B8D13FF00737A11 /* ListPickerCell.swift */,
 				0BE0466F2B9C863500BA6F21 /* SheetPickerCell.swift */,
 				0BDCE6F62BA59AB70043AB64 /* CalculationResultCell.swift */,
@@ -449,6 +465,8 @@
 				0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */,
 				0BAF1DB02BF1177F00C0933B /* UsefulInfoDocumentsCell.swift */,
 				0BAF1DA62BF0E3DC00C0933B /* BonusSystemCell.swift */,
+				0BC105F62C0E30E500F64843 /* SettingsProfileCell.swift */,
+				0B2A55C42C0F6FE500857C72 /* SettingsSwitchCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -567,6 +585,7 @@
 			children = (
 				0B6E54402B8110CB0078C110 /* CalculationsVC.swift */,
 				0B6E54422B8111C60078C110 /* UsefulInfoVC.swift */,
+				0BC105F42C0E27A900F64843 /* SettingsVC.swift */,
 				0BF938922B853A6900A18016 /* CalculationVC.swift */,
 				0BFBD7422BA37E2B00B485B8 /* CalculationResultVC.swift */,
 				0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */,
@@ -594,15 +613,17 @@
 		0B6E546E2B811C4A0078C110 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0BC105F02C0E1EA100F64843 /* FLCUser.swift */,
 				0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */,
 				0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */,
+				0B2077572BDAE1E90095460D /* FLCConfetti.swift */,
+				0B2A55C62C0F718800857C72 /* FLCContent.swift */,
 				0B6E54452B8115420078C110 /* Persistence.swift */,
 				0B6E54712B81228A0078C110 /* CalculationInfo.swift */,
 				0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */,
 				0B78F3062BE68D2000C52EC4 /* TotalPriceData.swift */,
 				0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */,
 				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
-				0B2077572BDAE1E90095460D /* FLCConfetti.swift */,
 				0B97770C2BEF92DF00E56197 /* UsefulInfoContent.swift */,
 				0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */,
 				0B9D5A742BB991AE0016A991 /* Networking */,
@@ -701,7 +722,7 @@
 			isa = PBXGroup;
 			children = (
 				0BC735772BCAE00400EF8B0D /* OptionsTableViewHeader.swift */,
-				0B9777102BEFDED500E56197 /* UsefulInfoTableViewHeader.swift */,
+				0B9777102BEFDED500E56197 /* FLCTableViewHeader.swift */,
 			);
 			path = TableViewHeaders;
 			sourceTree = "<group>";
@@ -914,6 +935,7 @@
 				0BA381E42BFA0B5500A242F2 /* ChinaRailwayPickup.swift in Sources */,
 				0B97770D2BEF92DF00E56197 /* UsefulInfoContent.swift in Sources */,
 				0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */,
+				0BC105F72C0E30E500F64843 /* SettingsProfileCell.swift in Sources */,
 				0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */,
 				0BFBD7432BA37E2B00B485B8 /* CalculationResultVC.swift in Sources */,
 				0B2130622BA4B51E00A30394 /* FLCTintedView.swift in Sources */,
@@ -969,7 +991,10 @@
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
 				0B94D2E42C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift in Sources */,
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
+				0BC105F12C0E1EA100F64843 /* FLCUser.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
+				0B2A55C72C0F718800857C72 /* FLCContent.swift in Sources */,
+				0B2A55C52C0F6FE500857C72 /* SettingsSwitchCell.swift in Sources */,
 				0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */,
 				0B67DF902C0B6003008CE099 /* SMSCounter.swift in Sources */,
 				0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */,
@@ -996,6 +1021,7 @@
 				0B2E6BC12C0CD5680004DF10 /* RegistrationVC.swift in Sources */,
 				0BDCE6F92BA59FB30043AB64 /* UIViewController + Ext.swift in Sources */,
 				0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */,
+				0BC105F52C0E27A900F64843 /* SettingsVC.swift in Sources */,
 				0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */,
 				0B2077582BDAE1E90095460D /* FLCConfetti.swift in Sources */,
 				0B04C0D82BC59F0F0007A316 /* UIImageView.swift in Sources */,
@@ -1010,7 +1036,9 @@
 				0B7882862BDEA8F500BDCA16 /* FLCImageView.swift in Sources */,
 				0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */,
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
-				0B9777112BEFDED500E56197 /* UsefulInfoTableViewHeader.swift in Sources */,
+				0B9777112BEFDED500E56197 /* FLCTableViewHeader.swift in Sources */,
+				0B2A55C32C0F6F0700857C72 /* FLCContentCell.swift in Sources */,
+				0BC105F32C0E265000F64843 /* AuthorizationVCHelper.swift in Sources */,
 				0B60E35D2BA70F810008000B /* Double + Ext.swift in Sources */,
 				0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */,
 				0B35D29B2BEEB18C007E9D3C /* AttachmentManager.swift in Sources */,

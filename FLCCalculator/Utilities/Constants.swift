@@ -25,6 +25,7 @@ enum Icons {
 }
 
 enum Keys {
+    static let isUserLoggedIn = "isUserLoggedIn"
     static let managers = "managers"
     static let tariffs = "tariffs"
     static let pickups = "pickups"
@@ -43,6 +44,7 @@ enum Keys {
     static let lastManagerDataUpdate = "lastManagerDataUpdate"
     static let lastDocumentsDataUpdate = "lastDocumentsDataUpdate"
     static let smsCounter = "smsCounter"
+    static let flcUser = "flcUser"
     static let cdDataAttribute = "data"
     static let cdDocuments = "CDDocuments"
     static let cdManagers = "CDManagers"

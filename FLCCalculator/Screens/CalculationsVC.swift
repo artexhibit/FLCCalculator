@@ -9,7 +9,7 @@ class CalculationsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        CalculationsVCHelper.presentRegistrationVC(in: self)
+        CalculationsVCHelper.presentAuthorizationVC(in: self)
 
         configureTableView()
         configureDataSource()
