@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingsProfileCell: UITableViewCell {
+final class SettingsProfileCell: UITableViewCell {
     
     static let reuseID = "SettingsProfileCell"
     private let padding: CGFloat = 14
@@ -21,11 +21,6 @@ class SettingsProfileCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func set(with user: FLCUser?) {
-        titleLabel.text = user?.name ?? ""
-        subtitleLabel.text = user?.mobilePhone ?? ""
     }
     
     private func configure() {
@@ -72,5 +67,12 @@ class SettingsProfileCell: UITableViewCell {
             subtitleLabel.trailingAnchor.constraint(equalTo: labelsContainer.trailingAnchor),
             subtitleLabel.bottomAnchor.constraint(equalTo: labelsContainer.bottomAnchor)
         ])
+    }
+}
+
+extension SettingsProfileCell: FLCConfigurableCell {
+    func configureSettingsCell(with content: SettingsCellContent) {
+        titleLabel.text = content.title
+        subtitleLabel.text = content.subtitle
     }
 }

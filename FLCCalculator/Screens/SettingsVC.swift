@@ -3,20 +3,12 @@ import UIKit
 class SettingsVC: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    
-    private var sections: [FLCSettingsSections] = FLCSettingsSections.allCases
-    private let contents = [FLCContent(image: Icons.phone, title: "Использовать виброотклик")]
-    private var user: FLCUser?
+    private let sections = SettingsVCHelper.configureDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
         configureTableView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        user = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
     }
     
     private func configureVC() {
@@ -38,6 +30,7 @@ class SettingsVC: UIViewController {
         tableView.dataSource = self
         tableView.register(SettingsProfileCell.self, forCellReuseIdentifier: SettingsProfileCell.reuseID)
         tableView.register(SettingsSwitchCell.self, forCellReuseIdentifier: SettingsSwitchCell.reuseID)
+        tableView.register(SettingsMenuCell.self, forCellReuseIdentifier: SettingsMenuCell.reuseID)
         tableView.register(FLCTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCTableViewHeader.reuseID)
     }
 }
@@ -45,34 +38,59 @@ class SettingsVC: UIViewController {
 extension SettingsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let selectedItemContentType = sections[indexPath.section].items[indexPath.row].contentType
+        
+        switch selectedItemContentType {
+        case .profile: print("1")
+        case .haptic: break
+        case .theme: break
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCTableViewHeader.reuseID) as? FLCTableViewHeader
-        headerView?.set(title: sections[section].rawValue)
+        headerView?.set(title: sections[section].title)
         return headerView
     }
 }
 
 extension SettingsVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int { return sections.count }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch sections[section] {
-        case .general, .profile: 1
-        }
-    }
+    func numberOfSections(in tableView: UITableView) -> Int { sections.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { sections[section].items.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch sections[indexPath.section] {
-        case .profile:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsProfileCell.reuseID, for: indexPath) as? SettingsProfileCell else { return UITableViewCell() }
-            cell.set(with: user)
+        let item = sections[indexPath.section].items[indexPath.row]
+        
+        switch item.cellType {
+        case .profile: 
+           return tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsProfileCell
+        case .switcher:
+            let cell = tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsSwitchCell
+            cell.delegate = self
             return cell
-        case .general:
-            let cell = tableView.dequeueReusableCell(withIdentifier: SettingsSwitchCell.reuseID, for: indexPath) as! SettingsSwitchCell
-            cell.set(with: contents[indexPath.row])
+        case .menu: 
+            let cell = tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsMenuCell
+            cell.delegate = self
             return cell
         }
+    }
+}
+
+extension SettingsVC: SettingsSwitchCellDelegate {
+    func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
+        switch contentType {
+        case .haptic: UserDefaultsManager.isHapticTurnedOn = state
+        case .profile, .theme: break
+        }
+    }
+}
+
+extension SettingsVC: SettingsMenuCellDelegate {
+    func menuButtonPressed(button: FLCButton, contentType: FLCSettingsContentType) {
+        switch contentType {
+        case .theme: button.menu = SettingsVCHelper.configureUIMenu(for: contentType)
+        case .profile, .haptic: break
+        }
+        
     }
 }

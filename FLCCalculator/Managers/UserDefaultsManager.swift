@@ -8,6 +8,16 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: Keys.isUserLoggedIn) }
     }
     
+    static var isHapticTurnedOn: Bool {
+        get { ud.object(forKey: Keys.isHapticTurnedOn) == nil ? true : ud.bool(forKey: Keys.isHapticTurnedOn) }
+        set { ud.setValue(newValue, forKey: Keys.isHapticTurnedOn) }
+    }
+    
+    static var appTheme: String {
+        get { ud.string(forKey: Keys.appTheme) ?? "Как на устройстве" }
+        set { ud.setValue(newValue, forKey: Keys.appTheme) }
+    }
+    
     static var dateWhenDataWasUpdated: String {
         get { ud.string(forKey: Keys.dateWhenDataWasUpdated) ?? "" }
         set { ud.setValue(newValue, forKey: Keys.dateWhenDataWasUpdated) }

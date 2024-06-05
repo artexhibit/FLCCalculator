@@ -22,10 +22,15 @@ enum Icons {
     static let circle = UIImage(systemName: "circle.slash") ?? UIImage()
     static let rubleSign = UIImage(systemName: "rublesign.arrow.circlepath") ?? UIImage()
     static let person = UIImage(systemName: "person") ?? UIImage()
+    static let hapticPhone = UIImage(systemName: "iphone.gen3.radiowaves.left.and.right") ?? UIImage()
+    static let chevronUpDown = UIImage(systemName: "chevron.up.chevron.down") ?? UIImage()
+    static let circleHalfRight = UIImage(systemName: "circle.righthalf.filled.inverse") ?? UIImage()
 }
 
 enum Keys {
     static let isUserLoggedIn = "isUserLoggedIn"
+    static let isHapticTurnedOn = "isHapticTurnedOn"
+    static let appTheme = "appTheme"
     static let managers = "managers"
     static let tariffs = "tariffs"
     static let pickups = "pickups"

@@ -17,6 +17,8 @@ enum FLCConfettiPosition { case foreground, background }
 enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresConnection, unknown }
 enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase }
 enum FLCTextFieldType { case email, phone }
+enum FLCSettingsCellType { case profile, switcher, menu }
+enum FLCSettingsContentType { case profile, haptic, theme }
 
 enum FLCUsefulInfoSections: String, CaseIterable {
     case managerContacts = "Ваш менеджер"
@@ -24,9 +26,10 @@ enum FLCUsefulInfoSections: String, CaseIterable {
     case documents = "Документы"
 }
 
-enum FLCSettingsSections: String, CaseIterable {
-    case profile = ""
-    case general = "Общее"
+enum FLCThemeOptions: String, CaseIterable {
+    case onDevice = "Как на устройстве"
+    case light = "Светлая"
+    case dark = "Тёмная"
 }
 
 enum FLCBackgroundFetchId: String {

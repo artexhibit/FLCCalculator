@@ -1,5 +1,9 @@
 import Foundation
 
+protocol FLCConfigurableCell {
+    func configureSettingsCell(with content: SettingsCellContent)
+}
+
 protocol FirebaseIdentifiable: Hashable, Codable {
     static var collectionNameKey: String { get }
     static var fieldNameKey: String { get }

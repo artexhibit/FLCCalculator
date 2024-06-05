@@ -9,4 +9,10 @@ extension UITableView {
         headerView.backgroundColor = .clear
         self.tableHeaderView = headerView
     }
+    
+    func dequeueConfigurableCell<T: UITableViewCell & FLCConfigurableCell>(for indexPath: IndexPath, with item: SettingsCellContent) -> T {
+        let cell = dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as! T
+        cell.configureSettingsCell(with: item)
+        return cell
+    }
 }

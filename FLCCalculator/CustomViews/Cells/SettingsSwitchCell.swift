@@ -1,10 +1,17 @@
 import UIKit
 
+protocol SettingsSwitchCellDelegate: AnyObject {
+    func switchValueChanged(contentType: FLCSettingsContentType, state: Bool)
+}
+
 final class SettingsSwitchCell: FLCContentCell {
     
     static let reuseID = "SettingsSwitchCell"
     
     private let uiSwitch = UISwitch()
+    
+    private var contentType: FLCSettingsContentType?
+    weak var delegate: SettingsSwitchCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,6 +30,7 @@ final class SettingsSwitchCell: FLCContentCell {
     
     private func configureUISwitch() {
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
+        uiSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
         
         NSLayoutConstraint.activate([
             uiSwitch.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: padding),
@@ -31,9 +39,16 @@ final class SettingsSwitchCell: FLCContentCell {
         ])
     }
     
-    func set(with content: FLCContent) {
+    @objc private func switchValueChanged(_ sender: UISwitch) {
+        delegate?.switchValueChanged(contentType: contentType ?? .haptic, state: sender.isOn)
+    }
+}
+
+extension SettingsSwitchCell: FLCConfigurableCell {
+    func configureSettingsCell(with content: SettingsCellContent) {
         iconImageView.image = content.image
-        iconBackgroundView.backgroundColor = content.color
+        iconBackgroundView.backgroundColor = content.backgroundColor
         titleLabel.text = content.title
+        contentType = content.contentType
     }
 }
