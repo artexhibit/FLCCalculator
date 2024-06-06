@@ -1,7 +1,7 @@
 import UIKit
 
 protocol SettingsMenuCellDelegate: AnyObject {
-    func menuButtonPressed(button: FLCButton, contentType: FLCSettingsContentType)
+    func menuButtonPressed(contentType: FLCSettingsContentType)
 }
 
 final class SettingsMenuCell: FLCContentCell {
@@ -10,7 +10,7 @@ final class SettingsMenuCell: FLCContentCell {
     
     private let pickedOptionLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .right, textStyle: .body)
     private let menuIconView = FLCImageView(tint: .flcGray)
-    private let showMenuButton = FLCButton(color: .clear, title: "")
+    private let showMenuButton = FLCMenuButton()
     
     private var contentType: FLCSettingsContentType?
     weak var delegate: SettingsMenuCellDelegate?
@@ -48,11 +48,14 @@ final class SettingsMenuCell: FLCContentCell {
             menuIconView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding / 2),
         ])
     }
+    private func configureShowMenuButton() { showMenuButton.pinToEdges(of: contentView) }
     
-    private func configureShowMenuButton() {
-        showMenuButton.delegate = self
-        showMenuButton.showsMenuAsPrimaryAction = true
-        showMenuButton.pinToEdges(of: contentView)
+    private func getMenu() -> UIMenu {
+        return SettingsVCHelper.configureUIMenu(for: contentType ?? .theme, updateHandler: { [weak self] in
+            guard let self else { return }
+            self.showMenuButton.configureMenu(with: getMenu())
+            delegate?.menuButtonPressed(contentType: contentType ?? .theme)
+        })
     }
 }
 
@@ -63,13 +66,7 @@ extension SettingsMenuCell: FLCConfigurableCell {
         titleLabel.text = content.title
         pickedOptionLabel.text = content.pickedOption
         contentType = content.contentType
-    }
-}
-
-extension SettingsMenuCell: FLCButtonDelegate {
-    func didTapButton(_ button: FLCButton) {
-        setSelected(true, animated: true)
-        setSelected(false, animated: true)
-        delegate?.menuButtonPressed(button: showMenuButton, contentType: contentType ?? .theme)
+        
+        showMenuButton.configureMenu(with: getMenu())
     }
 }

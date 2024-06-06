@@ -24,7 +24,18 @@ struct SettingsVCHelper {
         return user
     }
     
-    static func configureUIMenu(for contentType: FLCSettingsContentType) -> UIMenu {
+    static func getIndexPath(for contentType: FLCSettingsContentType, in sections: [SettingsSection]) -> IndexPath {
+        for (sectionIndex, section) in sections.enumerated() {
+            for (rowIndex, item) in section.items.enumerated() {
+                if item.contentType == contentType {
+                    return IndexPath(row: rowIndex, section: sectionIndex)
+                }
+            }
+        }
+        return IndexPath()
+    }
+    
+    static func configureUIMenu(for contentType: FLCSettingsContentType, updateHandler: @escaping () -> Void) -> UIMenu {
         var menuChildren = [UIMenuElement]()
         
         if contentType == .theme {
@@ -34,10 +45,20 @@ struct SettingsVCHelper {
                 let state: UIMenuElement.State = option.rawValue == UserDefaultsManager.appTheme ? .on : .off
                 let action = UIAction(title: option.rawValue, state: state) { _ in
                     UserDefaultsManager.appTheme = option.rawValue
+                    updateHandler()
                 }
                 menuChildren.append(action)
             }
         }
         return UIMenu(children: menuChildren)
+    }
+    
+    static func chengeAppTheme() {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let firstWindow = windowScene.windows.first else { return }
+        guard let appTheme = FLCThemeOptions(rawValue: UserDefaultsManager.appTheme)?.userInterfaceStyle else { return }
+        UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            firstWindow.overrideUserInterfaceStyle = appTheme
+        })
     }
 }

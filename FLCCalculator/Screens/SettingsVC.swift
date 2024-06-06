@@ -3,7 +3,7 @@ import UIKit
 class SettingsVC: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    private let sections = SettingsVCHelper.configureDataSource()
+    private var sections = SettingsVCHelper.configureDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,13 +62,13 @@ extension SettingsVC: UITableViewDataSource {
         let item = sections[indexPath.section].items[indexPath.row]
         
         switch item.cellType {
-        case .profile: 
-           return tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsProfileCell
+        case .profile:
+            return tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsProfileCell
         case .switcher:
             let cell = tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsSwitchCell
             cell.delegate = self
             return cell
-        case .menu: 
+        case .menu:
             let cell = tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsMenuCell
             cell.delegate = self
             return cell
@@ -86,11 +86,13 @@ extension SettingsVC: SettingsSwitchCellDelegate {
 }
 
 extension SettingsVC: SettingsMenuCellDelegate {
-    func menuButtonPressed(button: FLCButton, contentType: FLCSettingsContentType) {
+    func menuButtonPressed(contentType: FLCSettingsContentType) {
         switch contentType {
-        case .theme: button.menu = SettingsVCHelper.configureUIMenu(for: contentType)
+        case .theme:
+            sections = SettingsVCHelper.configureDataSource()
+            SettingsVCHelper.chengeAppTheme()
+            tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: contentType, in: sections)], with: .none)
         case .profile, .haptic: break
         }
-        
     }
 }

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 enum FLCPopupViewStyle { case error, normal, spinner }
 enum FLCDeliveryTypeCodes: String { case EXW, FCA, FOB }
@@ -30,6 +30,14 @@ enum FLCThemeOptions: String, CaseIterable {
     case onDevice = "Как на устройстве"
     case light = "Светлая"
     case dark = "Тёмная"
+    
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        switch self {
+        case .onDevice: return .unspecified
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
 }
 
 enum FLCBackgroundFetchId: String {
