@@ -8,7 +8,7 @@ final class SettingsProfileCell: UITableViewCell {
     private var personIcon = FLCTintedButton(color: .flcOrange, systemImageName: "person", cornerStyle: .capsule)
     private let labelsContainer = UIView()
     private let titleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left, size: 19, weight: .semibold)
-    private let subtitleLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .body)
+    private let subtitleLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,7 +35,7 @@ final class SettingsProfileCell: UITableViewCell {
         NSLayoutConstraint.activate([
             personIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             personIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            personIcon.widthAnchor.constraint(equalToConstant: 60),
+            personIcon.widthAnchor.constraint(equalToConstant: 55),
             personIcon.heightAnchor.constraint(greaterThanOrEqualTo: personIcon.widthAnchor),
             personIcon.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -padding)
         ])

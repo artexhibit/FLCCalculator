@@ -107,7 +107,7 @@ extension LoginVC: UITextViewDelegate {
     func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
         switch textItem.content{
         case .link(let url): 
-            LoginVCHelper.configureItem(with: url, in: self)
+            TextViewManager.configureItem(with: url, in: self)
             return UIAction(title: "") { _ in }
         case .textAttachment(_), .tag(_): break
         @unknown default: break
@@ -116,7 +116,7 @@ extension LoginVC: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        LoginVCHelper.configureItem(with: URL, in: self)
+        TextViewManager.configureItem(with: URL, in: self)
         return false
     }
 }

@@ -31,6 +31,7 @@ final class SettingsSwitchCell: FLCContentCell {
     private func configureUISwitch() {
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         uiSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+        uiSwitch.setOn(SettingsVCHelper.configureSwitchState(for: contentType ?? .haptic), animated: false)
         
         NSLayoutConstraint.activate([
             uiSwitch.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: padding),

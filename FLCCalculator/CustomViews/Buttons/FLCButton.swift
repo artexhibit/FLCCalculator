@@ -20,7 +20,7 @@ final class FLCButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, title: String, subtitle: String? = nil, systemImageName: String? = nil,  isEnabled: Bool = true) {
+    convenience init(color: UIColor, title: String, subtitle: String? = nil, systemImageName: String? = nil, isEnabled: Bool = true) {
         self.init(frame: .zero)
         set(color: color, title: title, subtitle: subtitle, systemImageName: systemImageName, isEnabled: isEnabled)
     }

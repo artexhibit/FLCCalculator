@@ -54,14 +54,4 @@ struct CalculationsVCHelper {
         
         return calculationData
     }
-    
-    static func presentAuthorizationVC(in vc: UIViewController) {
-        DispatchQueue.main.async {
-            if !UserDefaultsManager.isUserLoggedIn {
-                let authorizationVC = AuthorizationVC()
-                authorizationVC.modalPresentationStyle = .fullScreen
-                vc.navigationController?.present(authorizationVC, animated: false)
-            }
-        }
-    }
 }

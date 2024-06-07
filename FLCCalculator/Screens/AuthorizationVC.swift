@@ -110,27 +110,13 @@ class AuthorizationVC: UIViewController {
             }
         }
     }
-    
-    func showAuthVC() {
-        let loginVC = LoginVC()
-        loginVC.delegate = self
-        let navController = UINavigationController(rootViewController: loginVC)
-        self.present(navController, animated: true)
-    }
-    
-    func showRegistrationVC() {
-        let registrationVC = RegistrationVC()
-        registrationVC.delegate = self
-        let navController = UINavigationController(rootViewController: registrationVC)
-        self.present(navController, animated: true)
-    }
 }
 
 extension AuthorizationVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case signInButton: showAuthVC()
-        case registrationButton: showRegistrationVC()
+        case signInButton: AuthorizationVCHelper.showAuthVC(in: self)
+        case registrationButton: AuthorizationVCHelper.showRegistrationVC(in: self)
         default: break
         }
     }

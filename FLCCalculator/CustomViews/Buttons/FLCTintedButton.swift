@@ -17,9 +17,9 @@ class FLCTintedButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, title: String? = "", systemImageName: String, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
+    convenience init(color: UIColor, title: String? = "", titleFontSize: CGFloat = 15, systemImageName: String? = nil, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
         self.init(frame: .zero)
-        set(color: color, title: title, systemImageName: systemImageName, size: size, cornerStyle: cornerStyle)
+        set(color: color, title: title, titleFontSize: titleFontSize, systemImageName: systemImageName, size: size, cornerStyle: cornerStyle)
     }
     
     private func configure() {
@@ -29,14 +29,16 @@ class FLCTintedButton: UIButton {
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
-    final func set(color: UIColor, title: String?, systemImageName: String, size: UIButton.Configuration.Size?, cornerStyle: UIButton.Configuration.CornerStyle) {
+    final func set(color: UIColor, title: String?, titleFontSize: CGFloat, systemImageName: String? = nil, size: UIButton.Configuration.Size?, cornerStyle: UIButton.Configuration.CornerStyle) {
         configuration?.baseBackgroundColor = color
         configuration?.baseForegroundColor = color
         configuration?.title = title
         configuration?.cornerStyle = cornerStyle
-        if size != nil { configuration?.buttonSize = size ?? .small }
+        configuration?.setupCustomFont(ofSize: titleFontSize)
         
-        configuration?.image = UIImage(systemName: systemImageName)
+        if size != nil { configuration?.buttonSize = size ?? .small }
+        if systemImageName != nil { configuration?.image = UIImage(systemName: systemImageName ?? "") }
+        
         configuration?.imagePadding = 6
         configuration?.imagePlacement = .leading
     }

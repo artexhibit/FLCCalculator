@@ -9,7 +9,7 @@ struct SettingsVCHelper {
             SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.name ?? "", subtitle: user?.mobilePhone ?? "", pickedOption: nil)
         ]
         let secondSectionItems = [
-            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: "Виброотклик интерфейса", subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: "Тактильный отклик элементов интерфейса", subtitle: nil, pickedOption: nil),
             SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: "Тема", subtitle: nil, pickedOption: pickedThemeOption)
         ]
         
@@ -53,12 +53,25 @@ struct SettingsVCHelper {
         return UIMenu(children: menuChildren)
     }
     
-    static func chengeAppTheme() {
+    static func configureSwitchState(for contentType: FLCSettingsContentType) -> Bool {
+        if contentType == .haptic { return UserDefaultsManager.isHapticTurnedOn }
+        return true
+    }
+    
+    static func updateAppTheme(in tableView: UITableView, sections: [SettingsSection], with contentType: FLCSettingsContentType) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let firstWindow = windowScene.windows.first else { return }
         guard let appTheme = FLCThemeOptions(rawValue: UserDefaultsManager.appTheme)?.userInterfaceStyle else { return }
         UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {
             firstWindow.overrideUserInterfaceStyle = appTheme
         })
+        tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: contentType, in: sections)], with: .none)
+    }
+    
+    static func showProfleSettingsVC(in vc: UIViewController) {
+        let profileSettingsVC = ProfileSettingsVC()
+        //profileSettingsVC.delegate = vc as? LoginVCDelegate
+        let navController = UINavigationController(rootViewController: profileSettingsVC)
+        vc.present(navController, animated: true)
     }
 }

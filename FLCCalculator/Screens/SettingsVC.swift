@@ -7,6 +7,7 @@ class SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateDataSource()
         configureVC()
         configureTableView()
     }
@@ -33,6 +34,7 @@ class SettingsVC: UIViewController {
         tableView.register(SettingsMenuCell.self, forCellReuseIdentifier: SettingsMenuCell.reuseID)
         tableView.register(FLCTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCTableViewHeader.reuseID)
     }
+    private func updateDataSource() { sections = SettingsVCHelper.configureDataSource() }
 }
 
 extension SettingsVC: UITableViewDelegate {
@@ -41,7 +43,7 @@ extension SettingsVC: UITableViewDelegate {
         let selectedItemContentType = sections[indexPath.section].items[indexPath.row].contentType
         
         switch selectedItemContentType {
-        case .profile: print("1")
+        case .profile: SettingsVCHelper.showProfleSettingsVC(in: self)
         case .haptic: break
         case .theme: break
         }
@@ -89,9 +91,8 @@ extension SettingsVC: SettingsMenuCellDelegate {
     func menuButtonPressed(contentType: FLCSettingsContentType) {
         switch contentType {
         case .theme:
-            sections = SettingsVCHelper.configureDataSource()
-            SettingsVCHelper.chengeAppTheme()
-            tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: contentType, in: sections)], with: .none)
+            updateDataSource()
+            SettingsVCHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
         case .profile, .haptic: break
         }
     }
