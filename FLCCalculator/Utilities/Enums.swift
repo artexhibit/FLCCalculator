@@ -16,7 +16,7 @@ enum FLCConfettiShape { case rectangle, circle }
 enum FLCConfettiPosition { case foreground, background }
 enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresConnection, unknown }
 enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase }
-enum FLCTextFieldType { case email, phone }
+enum FLCTextFieldType { case email, phone, username, birthdate, companyName }
 enum FLCSettingsCellType { case profile, switcher, menu }
 enum FLCSettingsContentType { case profile, haptic, theme }
 

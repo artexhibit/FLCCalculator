@@ -6,8 +6,8 @@ struct FLCUser {
     var mobilePhone: String
     var birthDate: String?
     var companyName: String?
-    var taxPayerID: String?
-    var customsDeclarationsAmountPerYear: Int?
+    var companyTaxPayerID: String?
+    var customsDeclarationsAmountPerYear: String?
     var productRange: [String]?
 }
 

@@ -10,4 +10,5 @@ extension NumberFormatter {
         formatter.maximumFractionDigits = digits
         return formatter
     }
+    static var localeDecimalSeparator: String { Locale.current.decimalSeparator ?? "." }
 }

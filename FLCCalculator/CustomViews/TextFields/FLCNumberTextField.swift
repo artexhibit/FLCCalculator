@@ -68,11 +68,11 @@ class FLCNumberTextField: UITextField {
         guard withSmallLabel else { return false }
         
         if becomeFirstResponder {
-            smallLabelView.moveUpSmallLabel()
+            moveUpSmallLabel()
             switchToOrangeColors()
         } else {
             guard let text, let placeholder else { return false }
-            if text.isEmpty && placeholder.isEmpty { smallLabelView.returnSmallLabelToIdentity() }
+            if text.isEmpty && placeholder.isEmpty { returnToIdentity() }
         }
         return becomeFirstResponder
     }
@@ -116,6 +116,7 @@ class FLCNumberTextField: UITextField {
         layer.borderColor = UIColor.red.cgColor
     }
     func returnToIdentity() { smallLabelView.returnSmallLabelToIdentity() }
+    func moveUpSmallLabel() { smallLabelView.moveUpSmallLabel() }
     
     private func switchToOrangeColors() {
         backgroundColor = UIColor.flcNumberTextFieldBackground

@@ -96,13 +96,15 @@ extension RegistrationVC: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == phoneTextField {
+        
+        switch textField {
+        case phoneTextField: 
             TextFieldManager.managePhoneTextFieldInput(textField: textField, range: range, string: string)
             isPhoneValid = TextFieldManager.isValid(.phone, textField.text ?? "")
-        }
-        if textField == emailTextField {
+        case emailTextField:
             TextFieldManager.manageEmailTextFieldInput(textField: textField, range: range, string: string)
             isEmailValid = TextFieldManager.isValid(.email, textField.text ?? "")
+        default: break
         }
         
         isPhoneValid && isEmailValid ? proceedWithRegistrationButton.setEnabled() : proceedWithRegistrationButton.setDisabled()

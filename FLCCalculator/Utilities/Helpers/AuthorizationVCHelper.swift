@@ -4,11 +4,13 @@ struct AuthorizationVCHelper {
     static func presentAuthorizationVC(animated: Bool = false) {
         DispatchQueue.main.async {
             if !UserDefaultsManager.isUserLoggedIn {
-                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first, let rootVC = window.rootViewController else { return }
+                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first, let rootController = window.rootViewController else { return }
          
+                if let flcTabBar = rootController as? FLCTabBarController { flcTabBar.selectedIndex = 0 }
+                
                 let authorizationVC = AuthorizationVC()
                 authorizationVC.modalPresentationStyle = .fullScreen
-                rootVC.present(authorizationVC, animated: animated)
+                rootController.present(authorizationVC, animated: animated)
             }
         }
     }
