@@ -14,8 +14,12 @@ class UsefulInfoVC: UIViewController {
         super.viewDidLoad()
         configureVC()
         configureTableView()
-        configureSections()
         Task { await self.updateDocumentsSectionUI(with: UsefulInfoHelper.getUsefulInfoDocuments()) }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureSections()
     }
     
     private func configureVC() {

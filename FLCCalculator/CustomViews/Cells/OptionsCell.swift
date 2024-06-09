@@ -41,7 +41,6 @@ final class OptionsCell: UICollectionViewCell {
     }
     
     private func configureContainerView() {
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubviews(imageView, optionTitle)
         containerView.pinToEdges(of: contentView, withPadding: 4.5, paddingType: .vertical)
         

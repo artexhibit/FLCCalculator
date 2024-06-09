@@ -13,7 +13,7 @@ class CalculationResultVC: UIViewController {
     private var dataSource: UITableViewDiffableDataSource<FLCSection, CalculationResultItem>!
     private var calculationResultItems = [CalculationResultItem]()
     private var totalPriceVC = TotalPriceVC()
-    private var allLogisticsTypes = [FLCLogisticsType]()
+    private var availableLogisticsTypes = [FLCLogisticsType]()
     private var totalPriceDataItems = [TotalPriceData]()
     private var pickedLogisticsType: FLCLogisticsType = .chinaTruck
     private var pickedTotalPriceData: TotalPriceData?
@@ -25,7 +25,7 @@ class CalculationResultVC: UIViewController {
         didSet {
             let country = FLCCountryOption(rawValue: calculationData.countryFrom)
             pickedLogisticsType = FLCLogisticsType.firstCase(for: country ?? .china) ?? .chinaTruck
-            allLogisticsTypes = FLCLogisticsType.logisticsTypes(for: country ?? .china)
+            availableLogisticsTypes = FLCLogisticsType.logisticsTypes(for: country ?? .china)
             
             if calculationData.isConfirmed {
                 pickedLogisticsType = CalculationResultHelper.getConfirmedLogisticsType(calcData: calculationData)
@@ -43,7 +43,7 @@ class CalculationResultVC: UIViewController {
         calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         performCalculations(pickedLogisticsType: pickedLogisticsType)
         
-        Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: allLogisticsTypes, calculationData: calculationData) }
+        Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: availableLogisticsTypes, calculationData: calculationData) }
         updateEmptyStateView(with: pickedLogisticsType)
         CalculationHelper.showTotalPrice(vc: totalPriceVC, from: self)
     }
@@ -298,7 +298,7 @@ extension CalculationResultVC: CalculationResultCellDelegate {
     func didPressRetryButton(cell: CalculationResultCell) {
         delegate?.didPressRetryButton(in: cell)
         performCalculations(for: cell, pickedLogisticsType: pickedLogisticsType)
-        Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: allLogisticsTypes, calculationData: calculationData) }
+        Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: availableLogisticsTypes, calculationData: calculationData) }
     }
 }
 

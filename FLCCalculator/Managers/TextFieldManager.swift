@@ -105,9 +105,11 @@ struct TextFieldManager {
         switch type {
         case .email: dataRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         case .phone: dataRegEx = "^(?:\\D*\\d){11}\\D*$"
-        case .username: dataRegEx = "^[A-Za-z0-9 ]+$"
+        case .username: dataRegEx = "^[\\p{L}0-9 ]+$"
         case .birthdate: dataRegEx = "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(19[0-9]{2}|20[0-2][0-4])$"
-        case .companyName: dataRegEx = "^[A-Za-z]+$"
+        case .companyName: dataRegEx = "^[\\p{L} ]+$"
+        case .taxPayerID: dataRegEx = "^[0-9]{12}$"
+        case .customsDeclarationsAmount: dataRegEx = "^[0-9]+$"
         }
         let dataPred = NSPredicate(format: "SELF MATCHES %@", dataRegEx)
         return dataPred.evaluate(with: text)
@@ -170,10 +172,10 @@ struct TextFieldManager {
     
     static func manageBirthdayTextFieldInput(textField: UITextField, range: NSRange, string: String) {
         guard let text = textField.text else { return }
-        let allowedCharacters = CharacterSet.decimalDigits.union(CharacterSet(charactersIn: NumberFormatter.localeDecimalSeparator))
+        let allowedCharacters = CharacterSet.decimalDigits.union(CharacterSet(charactersIn: ",."))
         if string.rangeOfCharacter(from: allowedCharacters.inverted) != nil { return }
         
-        let newString = (text as NSString).replacingCharacters(in: range, with: string).replacingOccurrences(of: NumberFormatter.localeDecimalSeparator, with: ".")
+        let newString = (text as NSString).replacingCharacters(in: range, with: string).replacingOccurrences(of: ",", with: ".")
         let cursorPosition = textField.getCursorPosition()
         let formattedText = formatBirthdayDate(with: "XX.XX.XXXX", date: newString)
         
@@ -187,6 +189,18 @@ struct TextFieldManager {
         if string.rangeOfCharacter(from: allowedCharacters.inverted) != nil { return }
         
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        let cursorPosition = string.isEmpty ? range.location : range.location + string.count
+        
+        textField.text = newString
+        textField.moveCursorTo(position: cursorPosition)
+    }
+    
+    static func manageDigitsTextFieldInput(textField: UITextField, range: NSRange, string: String, maxDigits: Int) {
+        guard let text = textField.text else { return }
+        if string.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) != nil { return }
+        
+        let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        if newString.count > maxDigits { return }
         let cursorPosition = string.isEmpty ? range.location : range.location + string.count
         
         textField.text = newString

@@ -54,7 +54,6 @@ final class DocumentsCell: UICollectionViewCell {
     }
     
     private func configureContainerView() {
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubviews(documentNameLabel, iconView, downloadPercentageLabel, downloadedDocumentIcon)
         containerView.pinToEdges(of: contentView)
         

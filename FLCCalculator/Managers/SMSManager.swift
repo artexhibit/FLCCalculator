@@ -12,9 +12,7 @@ struct SMSManager {
             guard let counter: SMSCounter = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults() else { return SMSCounter() }
             return counter
         }
-        set {
-            _ = UserDefaultsPercistenceManager.updateItemInUserDefaults(item: newValue)
-        }
+        set { UserDefaultsPercistenceManager.updateItemInUserDefaults(item: newValue) }
     }
     
     static func resetSMSCounter() {

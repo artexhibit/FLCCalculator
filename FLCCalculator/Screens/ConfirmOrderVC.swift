@@ -74,7 +74,6 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureContainerView() {
         containerView.addSubviews(welcomeLabelOne, welcomeLabelTwo, companyLogoNameContainerView, salesManagerTitle, managerView, tintedMessageView, closeButton)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([

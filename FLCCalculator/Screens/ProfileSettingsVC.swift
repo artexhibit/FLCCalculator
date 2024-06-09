@@ -1,27 +1,31 @@
 import UIKit
 
+protocol ProfileSettingsVCDelegate: AnyObject {
+    func didUpdateUserInfo()
+}
+
 class ProfileSettingsVC: UIViewController {
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
     private let personalSectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
-    private let nameTextField = FLCNumberTextField(smallLabelPlaceholderText: "ФИО", smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
-    private let birthdayTextField = FLCNumberTextField(smallLabelPlaceholderText: "Дата рождения", smallLabelFontSize: 16, keyboardType: .decimalPad, fontSize: 18, fontWeight: .bold)
+    private let nameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.name, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
+    private let birthdayTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.dateOfBirth, smallLabelFontSize: 16, keyboardType: .decimalPad, fontSize: 18, fontWeight: .bold)
     private let contactsSectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
-    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: "Номер телефона", smallLabelFontSize: 16, keyboardType: .phonePad, fontSize: 18, fontWeight: .bold)
-    private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: "Email", smallLabelFontSize: 17, keyboardType: .emailAddress, fontSize: 18, fontWeight: .bold)
+    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.phoneNumber, smallLabelFontSize: 16, keyboardType: .phonePad, fontSize: 18, fontWeight: .bold)
+    private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.email, smallLabelFontSize: 17, keyboardType: .emailAddress, fontSize: 18, fontWeight: .bold)
     private let companySectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
-    private let companyNameTextField = FLCNumberTextField(smallLabelPlaceholderText: "Название юр. лица", smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
-    private let         companyTaxPayerIDTextField = FLCNumberTextField(smallLabelPlaceholderText: "ИНН", smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
-    private let customsDeclarationsAmountPerYearTextField = FLCNumberTextField(smallLabelPlaceholderText: "Количество оформленных ДТ за год", smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let companyNameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyName, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
+    private let companyTaxPayerIDTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyTaxPayerID, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let customsDeclarationsAmountPerYearTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.customsDeclarationsAmountPerYear, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
     private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Изменяя и сохраняя данные в профиле, вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
     private let saveButton = FLCButton(color: .flcOrange, title: "Сохранить изменения")
     private let exitButton = FLCTintedButton(color: .flcGray, title: "Выйти из аккаунта", titleFontSize: 20)
     private let deleteButton = FLCTintedButton(color: .systemRed, title: "Удалить аккаунт", titleFontSize: 20)
     
     private var user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
-    private let containerHeight: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 865 : 1100
+    private let containerHeight: CGFloat = 980
     private let textFieldsHeight: CGFloat = 50
     private let textFieldsSmallLabelSize: CGFloat = 17
     private let padding: CGFloat = 17
@@ -29,6 +33,8 @@ class ProfileSettingsVC: UIViewController {
     private var textFields: [UITextField] {
         [nameTextField, birthdayTextField, phoneTextField, emailTextField, companyNameTextField, companyTaxPayerIDTextField, customsDeclarationsAmountPerYearTextField]
     }
+    
+    weak var delegate: ProfileSettingsVCDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +84,7 @@ class ProfileSettingsVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(personalSectionLabel, nameTextField, birthdayTextField, contactsSectionLabel, phoneTextField, emailTextField, companySectionLabel, companyNameTextField,         companyTaxPayerIDTextField, customsDeclarationsAmountPerYearTextField, privacyPolicyAgreenmentTextViewLabel, saveButton, exitButton, deleteButton)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubviews(personalSectionLabel, nameTextField, birthdayTextField, contactsSectionLabel, phoneTextField, emailTextField, companySectionLabel, companyNameTextField, companyTaxPayerIDTextField, customsDeclarationsAmountPerYearTextField, privacyPolicyAgreenmentTextViewLabel, saveButton, exitButton, deleteButton)
         containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
@@ -213,7 +218,7 @@ class ProfileSettingsVC: UIViewController {
         heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
-            saveButton.topAnchor.constraint(equalTo: customsDeclarationsAmountPerYearTextField.bottomAnchor, constant: padding),
+            saveButton.topAnchor.constraint(equalTo: customsDeclarationsAmountPerYearTextField.bottomAnchor, constant: padding * 2),
             saveButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             widthConstraint, heightConstraint,
             
@@ -313,6 +318,12 @@ extension ProfileSettingsVC: UITextFieldDelegate {
         case companyNameTextField:
             TextFieldManager.manageCompanyNameTextFieldInput(textField: textField, range: range, string: string)
             textFieldsValidity[textField] = TextFieldManager.isValid(.companyName, textField.text ?? "")
+        case companyTaxPayerIDTextField:
+            TextFieldManager.manageDigitsTextFieldInput(textField: textField, range: range, string: string, maxDigits: 12)
+            textFieldsValidity[textField] = TextFieldManager.isValid(.taxPayerID, textField.text ?? "")
+        case customsDeclarationsAmountPerYearTextField:
+            TextFieldManager.manageDigitsTextFieldInput(textField: textField, range: range, string: string, maxDigits: 4)
+            textFieldsValidity[textField] = TextFieldManager.isValid(.customsDeclarationsAmount, textField.text ?? "")
         default: break
         }
         return false
@@ -351,7 +362,13 @@ extension ProfileSettingsVC: FLCTintedButtonDelegate {
 extension ProfileSettingsVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case saveButton: break
+        case saveButton:
+            if ProfileSettingsVCHelper.isAllDataValid(textFieldsValidity), let updatedUser = ProfileSettingsVCHelper.createNewUserData(user: user, with: textFields) {
+                UserDefaultsPercistenceManager.updateItemInUserDefaults(item: updatedUser)
+                FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Данные успешно обновлены")
+                delegate?.didUpdateUserInfo()
+                dismiss(animated: true)
+            }
         default: break
         }
     }

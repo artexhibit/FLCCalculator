@@ -33,7 +33,6 @@ class FLCPopupView: UIView {
     }
     
     private func configureBlurView() {
-        blurView.translatesAutoresizingMaskIntoConstraints = false
         blurView.pinToEdges(of: self)
         blurView.contentView.addSubviews(iconView, spinner, messageLabel)
     }

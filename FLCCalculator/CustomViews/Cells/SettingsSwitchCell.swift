@@ -30,6 +30,7 @@ final class SettingsSwitchCell: FLCContentCell {
     
     private func configureUISwitch() {
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
+        uiSwitch.onTintColor = .flcOrange
         uiSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
         uiSwitch.setOn(SettingsVCHelper.configureSwitchState(for: contentType ?? .haptic), animated: false)
         

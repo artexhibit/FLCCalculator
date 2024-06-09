@@ -74,7 +74,6 @@ class CalculationVC: UIViewController {
     
     private func configureContainerView() {
         containerView.addSubviews(cargoView, transportView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([

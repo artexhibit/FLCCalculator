@@ -43,17 +43,17 @@ struct UserDefaultsPercistenceManager {
         }
     }
     
-    static func updateItemInUserDefaults<T: UserDefaultsStorable>(item: T) -> T? {
+    static func updateItemInUserDefaults<T: UserDefaultsStorable>(item: T) {
         if let storedItem: T = retrieveItemFromUserDefaults() {
             ud.removeObject(forKey: T.userDefaultsKey)
-            guard let _ = saveItemToUserDefaults(item: item) else { return item }
-            let savingError = saveItemToUserDefaults(item: storedItem)
-            print(savingError ?? .unableToSaveToUserDefaults)
-            return nil
+            
+            if let _ = saveItemToUserDefaults(item: item) {
+                let savingError = saveItemToUserDefaults(item: storedItem)
+                print(savingError ?? .unableToSaveToUserDefaults)
+            }
         } else {
             let savingError = saveItemToUserDefaults(item: item) ?? .unableToUpdateUserDefaults
             print(savingError)
-            return item
         }
     }
     

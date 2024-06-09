@@ -141,7 +141,6 @@ class CalculationResultCell: UITableViewCell {
     
     func configureFailedPriceCalcContainer() {
         failedPriceCalcContainer.hide()
-        failedPriceCalcContainer.translatesAutoresizingMaskIntoConstraints = false
         failedPriceCalcContainer.pinToEdges(of: containerView)
         failedPriceCalcContainer.layer.cornerRadius = 10
         failedPriceCalcContainer.clipsToBounds = true

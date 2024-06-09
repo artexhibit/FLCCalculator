@@ -36,7 +36,6 @@ class FLCLoginVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubviews(enterUserCredentialsView, loginConfirmationView)
         containerView.pinToEdges(of: scrollView)
         

@@ -44,8 +44,7 @@ extension SettingsVC: UITableViewDelegate {
         
         switch selectedItemContentType {
         case .profile: SettingsVCHelper.showProfleSettingsVC(in: self)
-        case .haptic: break
-        case .theme: break
+        case .haptic, .theme: break
         }
     }
     
@@ -95,5 +94,12 @@ extension SettingsVC: SettingsMenuCellDelegate {
             SettingsVCHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
         case .profile, .haptic: break
         }
+    }
+}
+
+extension SettingsVC: ProfileSettingsVCDelegate {
+    func didUpdateUserInfo() {
+        updateDataSource()
+        tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: .profile, in: sections)], with: .none)
     }
 }

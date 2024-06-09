@@ -70,7 +70,7 @@ struct SettingsVCHelper {
     
     static func showProfleSettingsVC(in vc: UIViewController) {
         let profileSettingsVC = ProfileSettingsVC()
-        //profileSettingsVC.delegate = vc as? LoginVCDelegate
+        profileSettingsVC.delegate = vc as? ProfileSettingsVCDelegate
         let navController = UINavigationController(rootViewController: profileSettingsVC)
         vc.present(navController, animated: true)
     }

@@ -85,3 +85,13 @@ enum DeviceTypes {
     static let isiPhoneSE1stGen = idiom == .phone && ScreenSize.maxLength == 568.0
     static let isiPhoneSE3rdGen = idiom == .phone && ScreenSize.maxLength == 667.0
 }
+
+enum ProfileSettingsTextFieldsNames {
+    static let name = "ФИО"
+    static let dateOfBirth = "Дата рождения"
+    static let phoneNumber = "Номер телефона"
+    static let email = "Email"
+    static let companyName = "Название юр. лица"
+    static let companyTaxPayerID = "ИНН"
+    static let customsDeclarationsAmountPerYear = "Количество оформленных ДТ за год"
+}

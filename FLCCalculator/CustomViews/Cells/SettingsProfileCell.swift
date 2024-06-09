@@ -7,7 +7,7 @@ final class SettingsProfileCell: UITableViewCell {
     
     private var personIcon = FLCTintedButton(color: .flcOrange, systemImageName: "person", cornerStyle: .capsule)
     private let labelsContainer = UIView()
-    private let titleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left, size: 19, weight: .semibold)
+    private let titleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left, size: 17, weight: .semibold)
     private let subtitleLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -33,11 +33,11 @@ final class SettingsProfileCell: UITableViewCell {
         personIcon.isUserInteractionEnabled = false
         
         NSLayoutConstraint.activate([
-            personIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            personIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 1.1),
             personIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             personIcon.widthAnchor.constraint(equalToConstant: 55),
             personIcon.heightAnchor.constraint(greaterThanOrEqualTo: personIcon.widthAnchor),
-            personIcon.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -padding)
+            personIcon.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -padding * 1.1)
         ])
     }
     
@@ -47,8 +47,8 @@ final class SettingsProfileCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             labelsContainer.centerYAnchor.constraint(equalTo: personIcon.centerYAnchor),
-            labelsContainer.leadingAnchor.constraint(equalTo: personIcon.trailingAnchor, constant: padding),
-            labelsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: padding),
+            labelsContainer.leadingAnchor.constraint(equalTo: personIcon.trailingAnchor, constant: padding / 2),
+            labelsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding / 2),
         ])
     }
     
@@ -62,7 +62,7 @@ final class SettingsProfileCell: UITableViewCell {
     
     private func configureSubtitleLabel() {
         NSLayoutConstraint.activate([
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             subtitleLabel.leadingAnchor.constraint(equalTo: labelsContainer.leadingAnchor),
             subtitleLabel.trailingAnchor.constraint(equalTo: labelsContainer.trailingAnchor),
             subtitleLabel.bottomAnchor.constraint(equalTo: labelsContainer.bottomAnchor)
