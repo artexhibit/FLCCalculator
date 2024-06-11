@@ -212,6 +212,15 @@ struct CalculationHelper {
         return "от \(totalDays) дн."
     }
     
+    private static func createAvailableLogisticsTypes(with transportView: FLCTransportParametersView) -> [FLCLogisticsType] {
+        let country = FLCCountryOption(rawValue: transportView.countryPickerButton.showingTitle)
+        let availableLogisticsTypes: [AvailableLogisticsType]? = CoreDataManager.retrieveItemsFromCoreData()
+        
+        return availableLogisticsTypes?
+            .filter { $0.isAvailable && $0.country == country?.engName }
+            .compactMap { FLCLogisticsType(rawValue: $0.logisticsTypeName) } ?? [.chinaTruck]
+    }
+    
     static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String, departureAirport: String) -> CalculationData {
         let calcData = CalculationData(
             id: Int32(CoreDataManager.loadCalculations()?.count ?? 0),
@@ -229,7 +238,8 @@ struct CalculationHelper {
             invoiceAmount: cargoView.invoiceAmountTextField.text?.createDouble() ?? 0.0,
             invoiceCurrency: cargoView.invoiceCurrencyPickerButton.showingTitle,
             needCustomClearance: cargoView.customsClearanceSwitch.isOn,
-            totalPrices: nil,
+            totalPrices: nil, 
+            availableLogisticsTypes: createAvailableLogisticsTypes(with: transportView),
             isFromCoreData: false,
             isConfirmed: false,
             exchangeRate: PriceCalculationManager.getCurrencyData()?.Valute[FLCCurrency.USD.rawValue]?.Value ?? 0)

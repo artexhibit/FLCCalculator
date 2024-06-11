@@ -42,5 +42,10 @@ struct UserDefaultsManager {
         get { ud.object(forKey: Keys.lastDocumentsDataUpdate) as? Date }
         set { ud.setValue(newValue, forKey: Keys.lastDocumentsDataUpdate) }
     }
+    
+    static var lastAvailableLogisticsTypesDataUpdate: Date? {
+        get { ud.object(forKey: Keys.lastAvailableLogisticsTypesDataUpdate) as? Date }
+        set { ud.setValue(newValue, forKey: Keys.lastAvailableLogisticsTypesDataUpdate) }
+    }
 }
 

@@ -131,23 +131,27 @@ struct CalculationResultHelper {
         return items
     }
     
-    static func getOptions(basedOn calculationData: CalculationData) -> [FLCLogisticsOption] {
-        var options = [FLCLogisticsOption]()
-        let pickedCountry = FLCCountryOption(rawValue: calculationData.countryFrom)
-        
-        let truckOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто", type: .chinaTruck)
-        let trainOption = FLCLogisticsOption(image: Icons.train, title: "ЖД", type: .chinaRailway)
-        let airOption = FLCLogisticsOption(image: Icons.plane, title: "Авиа", type: .chinaAir)
-        let truckPlusFerryOption = FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", type: .turkeyTruckByFerry)
-        
-        switch pickedCountry {
-        case .china:
-            options.append(contentsOf: [truckOption, trainOption, airOption])
-        case .turkey:
-            options.append(contentsOf: [truckPlusFerryOption])
-        case nil: break
+    static func getOptions(basedOn availableLogisticsTypes: [FLCLogisticsType]) -> [FLCLogisticsOption] {
+        let predefinedOptions: [FLCLogisticsType: FLCLogisticsOption] = [
+            .chinaTruck: FLCLogisticsOption(image: Icons.truckFill, title: "Авто", type: .chinaTruck),
+            .chinaRailway: FLCLogisticsOption(image: Icons.train, title: "ЖД", type: .chinaRailway),
+            .chinaAir: FLCLogisticsOption(image: Icons.plane, title: "Авиа", type: .chinaAir),
+            .turkeyTruckByFerry: FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", type: .turkeyTruckByFerry)
+        ]
+        return availableLogisticsTypes.compactMap { predefinedOptions[$0] }
+    }
+    
+    static func getAvailableLogisticsTypes(for country: FLCCountryOption, and calcData: CalculationData) -> [FLCLogisticsType] {
+        if calcData.isFromCoreData {
+            guard let calculation = CoreDataManager.getCalculation(withID: calcData.id) else { return [.chinaTruck] }
+            let items: [FLCLogisticsType] = CoreDataManager.decodeDataToItems(data: calculation.logisticsTypes ?? Data()) ?? [.chinaTruck]
+          return items
+        } else {
+            let availableLogisticsTypes: [AvailableLogisticsType]? = CoreDataManager.retrieveItemsFromCoreData()
+            return availableLogisticsTypes?
+                .filter { $0.isAvailable && $0.country == country.engName }
+                .compactMap { FLCLogisticsType(rawValue: $0.logisticsTypeName) } ?? [.chinaTruck]
         }
-        return options
     }
     
     static func saveNetworkingData(oldItems: [CalculationResultItem], newItems: [CalculationResultItem]) -> [CalculationResultItem] {

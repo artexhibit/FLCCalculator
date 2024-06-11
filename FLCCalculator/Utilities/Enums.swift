@@ -45,6 +45,7 @@ enum FLCBackgroundFetchId: String {
     case updateCalculationData = "ru.igorcodes.FLCCalculator.updateCalculationData"
     case updateManagerData = "ru.igorcodes.FLCCalculator.updateManagerData"
     case updateDocumentsData = "ru.igorcodes.FLCCalculator.updateDocumentsData"
+    case updateAvailableLogisticsTypesData = "ru.igorcodes.FLCCalculator.updateAvailableLogisticsTypesData"
 }
 
 enum FLCCountryOption: String {
@@ -130,6 +131,21 @@ enum FLCSalesManager: String, CaseIterable {
     case igorVolkov = "Игорь Волков"
 }
 
+enum FLCCities: String, CaseIterable {
+    case istanbul = "Istanbul"
+    case shanghai = "Shanghai"
+    case beijing = "Beijing"
+    case guangzhou = "Guangzhou"
+    case shenzhen = "Shenzhen"
+}
+
+enum FLCDateFormat: String {
+    case dashYMD = "yyyy-MM-dd"
+    case dotDMY = "dd.MM.yyyy"
+    case slashYMD = "yyyy/MM/dd"
+    case slashDMY = "dd/MM/yyyy"
+}
+
 enum FLCLogisticsType: String, CaseIterable {
     case chinaTruck = "chinaTruck"
     case chinaRailway = "chinaRailway"
@@ -181,18 +197,4 @@ enum FLCLogisticsType: String, CaseIterable {
         }
     }
 }
-
-enum FLCCities: String, CaseIterable {
-    case istanbul = "Istanbul"
-    case shanghai = "Shanghai"
-    case beijing = "Beijing"
-    case guangzhou = "Guangzhou"
-    case shenzhen = "Shenzhen"
-}
-
-enum FLCDateFormat: String {
-    case dashYMD = "yyyy-MM-dd"
-    case dotDMY = "dd.MM.yyyy"
-    case slashYMD = "yyyy/MM/dd"
-    case slashDMY = "dd/MM/yyyy"
-}
+extension FLCLogisticsType: CoreDataStorable { static var coreDataKey: String { Keys.logisticsTypes } }

@@ -36,6 +36,8 @@ struct BackgroundTasksManager {
                 AppDelegateHelper.updateManagerData(for: task)
             case .updateDocumentsData:
                 AppDelegateHelper.updateDocumentsData(for: task)
+            case .updateAvailableLogisticsTypesData:
+                AppDelegateHelper.updateAvailableLogisticsTypesData(for: task)
             }
         }
     }

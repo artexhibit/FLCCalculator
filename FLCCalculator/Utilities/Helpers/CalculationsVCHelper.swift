@@ -48,10 +48,16 @@ struct CalculationsVCHelper {
             invoiceCurrency: pickedCalculation.invoiceCurrency ?? "",
             needCustomClearance: pickedCalculation.needCustomsClearance,
             totalPrices: totalPrices,
+            availableLogisticsTypes: getAvailableLogisticsTypes(for: pickedCalculation),
             isFromCoreData: true,
             isConfirmed: pickedCalculation.isConfirmed,
             exchangeRate: pickedCalculation.exchangeRate)
         
         return calculationData
+    }
+    
+    private static func getAvailableLogisticsTypes(for pickedCalculation: Calculation) -> [FLCLogisticsType] {
+        guard let types: [FLCLogisticsType] = CoreDataManager.retrieveItemsFromCoreData(entityName: String(describing: type(of: pickedCalculation)), key: FLCLogisticsType.coreDataKey) else { return [FLCLogisticsType.chinaTruck] }
+        return types
     }
 }

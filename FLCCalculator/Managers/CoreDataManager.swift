@@ -75,6 +75,7 @@ struct CoreDataManager {
         calc.totalPrice = totalPriceData.first(where: { $0.isConfirmed })?.totalPrice
         calc.needCustomsClearance = calculationData.needCustomClearance
         calc.exchangeRate = calculationData.exchangeRate
+        calc.logisticsTypes = encodeItemsToData(items: calculationData.availableLogisticsTypes)
         
         for totalPriceDataItem in totalPriceData {
             let calcResult = CalculationResult(context: context)
@@ -144,12 +145,12 @@ struct CoreDataManager {
         }
     }
     
-    static func retrieveItemsFromCoreData<T: CoreDataStorable>() -> [T]? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: T.coreDataKey)
+    static func retrieveItemsFromCoreData<T: CoreDataStorable>(entityName: String = T.coreDataKey, key: String = Keys.cdDataAttribute) -> [T]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         
         do {
             let results = try context.fetch(fetchRequest) as? [NSManagedObject]
-            guard let result = results?.first, let data = result.value(forKey: Keys.cdDataAttribute) as? Data else { return nil }
+            guard let result = results?.first, let data = result.value(forKey: key) as? Data else { return nil }
             let items = try decoder.decode([T].self, from: data)
             return items
         } catch {
@@ -173,8 +174,8 @@ struct CoreDataManager {
         }
     }
     
-    private static func storeItemsToCoreData<T: CoreDataStorable>(items: [T]) {
-        guard let entity = NSEntityDescription.entity(forEntityName: T.coreDataKey, in: context) else {
+    private static func storeItemsToCoreData<T: CoreDataStorable>(items: [T], entityName: String = T.coreDataKey) {
+        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context) else {
             print(FLCError.entityNotFound.rawValue)
             return
         }
@@ -202,6 +203,25 @@ struct CoreDataManager {
             try context.save()
         } catch {
             print(FLCError.unableToEncodeOrSavetoCoreData.rawValue)
+        }
+    }
+    
+    private static func encodeItemsToData<T: Codable>(items: [T]) -> Data? {
+        do {
+            return try JSONEncoder().encode(items)
+        } catch {
+            print(FLCError.unableToEncodeOrSavetoCoreData.rawValue)
+            return nil
+        }
+    }
+    
+    static func decodeDataToItems<T: Codable>(data: Data) -> [T]? {
+        do {
+            let items = try JSONDecoder().decode([T].self, from: data)
+            return items
+        } catch {
+            print(FLCError.unableToEncodeOrSavetoCoreData.rawValue)
+            return nil
         }
     }
 }

@@ -101,11 +101,26 @@ struct AppDelegateHelper {
         }
     }
     
+    @MainActor
+    static func updateAvailableLogisticsTypesData(for task: BGAppRefreshTask? = nil) {
+        Task {
+            do {
+                guard let availableLogisticsTypes: [AvailableLogisticsType] = try await FirebaseManager.getDataFromFirebase() else {
+                    task?.setTaskCompleted(success: false)
+                    return
+                }
+                let _ = CoreDataManager.updateItemsInCoreData(items: availableLogisticsTypes)
+            }
+            task?.setTaskCompleted(success: true)
+        }
+    }
+    
     static func registerBackgroundTasks() {
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCurrencyDataTaskId, beginDateInterval: (3600 * 8))
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCalculationData, beginDateInterval: (3600 * 24))
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateManagerData, beginDateInterval: (3600 * 24 * 7))
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateDocumentsData, beginDateInterval: (3600 * 24 * 7))
+        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateAvailableLogisticsTypesData, beginDateInterval: (3600 * 24 * 7))
     }
     
     static func updateDataOnAppLaunch() {
@@ -128,7 +143,12 @@ struct AppDelegateHelper {
             
             if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastDocumentsDataUpdate) {
                 updateDocumentsData()
-                UserDefaultsManager.lastManagerDataUpdate = Date()
+                UserDefaultsManager.lastDocumentsDataUpdate = Date()
+            }
+            
+            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastAvailableLogisticsTypesDataUpdate) {
+                updateAvailableLogisticsTypesData()
+                UserDefaultsManager.lastAvailableLogisticsTypesDataUpdate = Date()
             }
         }
     }

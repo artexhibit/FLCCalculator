@@ -18,6 +18,7 @@ struct CalculationData: Hashable {
     let invoiceCurrency: String
     let needCustomClearance: Bool
     let totalPrices: [TotalPriceData]?
+    let availableLogisticsTypes: [FLCLogisticsType]
     let isFromCoreData: Bool
     let isConfirmed: Bool
     let exchangeRate: Double

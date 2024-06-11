@@ -152,6 +152,7 @@
 		0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */; };
 		0BDCE6F72BA59AB70043AB64 /* CalculationResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F62BA59AB70043AB64 /* CalculationResultCell.swift */; };
 		0BDCE6F92BA59FB30043AB64 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F82BA59FB30043AB64 /* UIViewController+Ext.swift */; };
+		0BDEC62B2C160B4600DFABAF /* AvailableLogisticsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */; };
 		0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0466D2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift */; };
 		0BE046702B9C863500BA6F21 /* SheetPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0466F2B9C863500BA6F21 /* SheetPickerCell.swift */; };
 		0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE046712B9C9F8800BA6F21 /* FLCPickerVC.swift */; };
@@ -341,6 +342,7 @@
 		0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultItem.swift; sourceTree = "<group>"; };
 		0BDCE6F62BA59AB70043AB64 /* CalculationResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultCell.swift; sourceTree = "<group>"; };
 		0BDCE6F82BA59FB30043AB64 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableLogisticsType.swift; sourceTree = "<group>"; };
 		0BE0466D2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCSheetPickerVC.swift; sourceTree = "<group>"; };
 		0BE0466F2B9C863500BA6F21 /* SheetPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetPickerCell.swift; sourceTree = "<group>"; };
 		0BE046712B9C9F8800BA6F21 /* FLCPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerVC.swift; sourceTree = "<group>"; };
@@ -711,6 +713,7 @@
 				0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */,
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 				0BAF1DAE2BF1142800C0933B /* Document.swift */,
+				0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */,
 				0BA381E72BFA3CB300A242F2 /* Pickups */,
 				0BB47CF22BF8E978001ECED4 /* Tariffs */,
 			);
@@ -1069,6 +1072,7 @@
 				0BC105F32C0E265000F64843 /* AuthorizationVCHelper.swift in Sources */,
 				0B60E35D2BA70F810008000B /* Double+Ext.swift in Sources */,
 				0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */,
+				0BDEC62B2C160B4600DFABAF /* AvailableLogisticsType.swift in Sources */,
 				0B35D29B2BEEB18C007E9D3C /* AttachmentManager.swift in Sources */,
 				0B67DF8C2C0B31FD008CE099 /* LoginConfirmationHelper.swift in Sources */,
 				0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */,

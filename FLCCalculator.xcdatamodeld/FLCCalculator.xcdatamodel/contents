@@ -15,6 +15,7 @@
         <attribute name="invoiceAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="invoiceCurrency" attributeType="String"/>
         <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="logisticsTypes" optional="YES" attributeType="Binary"/>
         <attribute name="needCustomsClearance" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="toLocation" attributeType="String"/>
         <attribute name="toLocationCode" attributeType="String"/>
@@ -46,6 +47,9 @@
         <attribute name="totalPrice" attributeType="String"/>
         <attribute name="totalTime" attributeType="String"/>
         <relationship name="calculation" maxCount="1" deletionRule="Nullify" destinationEntity="Calculation" inverseName="result" inverseEntity="Calculation"/>
+    </entity>
+    <entity name="CDAvailableLogisticsTypes" representedClassName="CDAvailableLogisticsTypes" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
     </entity>
     <entity name="CDChinaAirPickup" representedClassName="CDChinaAirPickup" syncable="YES" codeGenerationType="class">
         <attribute name="data" attributeType="Binary"/>

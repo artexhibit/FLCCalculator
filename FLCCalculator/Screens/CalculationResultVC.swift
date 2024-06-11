@@ -23,10 +23,10 @@ class CalculationResultVC: UIViewController {
     private var maxWeight: Double { PriceCalculationManager.getMaxWeightFor(type: pickedLogisticsType) }
     private var calculationData: CalculationData! {
         didSet {
-            let country = FLCCountryOption(rawValue: calculationData.countryFrom)
-            pickedLogisticsType = FLCLogisticsType.firstCase(for: country ?? .china) ?? .chinaTruck
-            availableLogisticsTypes = FLCLogisticsType.logisticsTypes(for: country ?? .china)
-            
+            guard let country = FLCCountryOption(rawValue: calculationData.countryFrom) else { return }
+            pickedLogisticsType = FLCLogisticsType.firstCase(for: country) ?? .chinaTruck
+            availableLogisticsTypes = CalculationResultHelper.getAvailableLogisticsTypes(for: country, and: calculationData)
+
             if calculationData.isConfirmed {
                 pickedLogisticsType = CalculationResultHelper.getConfirmedLogisticsType(calcData: calculationData)
             }
@@ -279,7 +279,7 @@ extension CalculationResultVC: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: OptionsTableViewHeader.reuseID) as! OptionsTableViewHeader
         headerView.optionsCollectionView.optionsDelegate = self
         headerView.optionsCollectionView.setPickedCountry(country: FLCCountryOption(rawValue: calculationData.countryFrom))
-        headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: calculationData), pickedLogisticsType: pickedLogisticsType)
+        headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: availableLogisticsTypes), pickedLogisticsType: pickedLogisticsType)
         return headerView
     }
     
