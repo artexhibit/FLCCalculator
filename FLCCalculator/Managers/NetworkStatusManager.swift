@@ -1,14 +1,20 @@
 import Foundation
 import Network
 
-struct NetworkAvailabilityManager {
-    static let shared = NetworkAvailabilityManager()
+struct NetworkStatusManager {
+    static let shared = NetworkStatusManager()
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
-    
+    var isOnline: Bool {
+        switch currentStatus() {
+        case .connected: return true
+        case .noConnection, .requiresConnection, .unknown: return false
+        }
+    }
+        
     init() { monitor = NWPathMonitor() }
     
-    func currentStatus() -> FLCNetworkingAvailabilityStatus {
+    private func currentStatus() -> FLCNetworkingAvailabilityStatus {
         var status: FLCNetworkingAvailabilityStatus
         
         switch monitor.currentPath.status {

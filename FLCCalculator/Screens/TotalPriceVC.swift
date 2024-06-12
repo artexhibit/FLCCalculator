@@ -308,7 +308,7 @@ extension TotalPriceVC: CalculationResultVCDelegate {
         TotalPriceVCUIHelper.turnOnLoading(spinner: spinner, spinnerMessage: spinnerMessageLayer, button: detailsButton, customDetentContent: customDetentContent, smallDetentContent: smallDetentContent)
     }
     
-    func didReceiveCellsAmount(amount: Int, calculationData: CalculationData) {
+    func didReceiveCellsAmount(amount: Int, calculationData: CalculationData?) {
         if totalCells == 0 { spinner.startAnimating() }
         totalCells = amount
         self.calculationData = calculationData

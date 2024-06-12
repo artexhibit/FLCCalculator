@@ -23,3 +23,31 @@ struct TotalPriceData: Hashable {
     var cargoHandlingMinPrice: Double? = nil
     var isConfirmed: Bool = false
 }
+
+extension TotalPriceData {
+    func toDictionary() -> [String: Any] {
+        return [
+            "logisticsType": logisticsType.rawValue,
+            "totalPrice": totalPrice ?? "",
+            "totalTime": totalTime ?? "",
+            "cargoHandling": cargoHandling ?? "",
+            "customsClearance": customsClearance ?? "",
+            "customsWarehousePrice": customsWarehousePrice ?? "",
+            "deliveryFromWarehousePrice": deliveryFromWarehousePrice ?? "",
+            "deliveryFromWarehouseTime": deliveryFromWarehouseTime ?? "",
+            "deliveryToWarehousePrice": deliveryToWarehousePrice ?? "",
+            "deliveryToWarehouseTime": deliveryToWarehouseTime ?? "",
+            "russianDeliveryPrice": russianDeliveryPrice ?? "",
+            "russianDeliveryTime": russianDeliveryTime ?? "",
+            "groupageDocs": groupageDocs ?? "",
+            "insurance": insurance ?? "",
+            "insurancePercentage": insurancePercentage ?? 0,
+            "insuranceRatio": insuranceRatio ?? 0,
+            "insuranceAgentVisit": insuranceAgentVisit ?? 0,
+            "minLogisticsProfit": minLogisticsProfit ?? 0,
+            "cargoHandlingPricePerKg": cargoHandlingPricePerKg ?? 0,
+            "cargoHandlingMinPrice": cargoHandlingMinPrice ?? 0,
+            "isConfirmed": isConfirmed
+        ]
+    }
+}

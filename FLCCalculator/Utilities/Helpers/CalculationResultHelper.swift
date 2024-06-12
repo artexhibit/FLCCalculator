@@ -170,7 +170,8 @@ struct CalculationResultHelper {
         return totalPriceDataItems
     }
     
-    static func getPickedTotalPriceData(with calcData: CalculationData, pickedLogisticsType: FLCLogisticsType) -> TotalPriceData? {
+    static func getPickedTotalPriceData(with calcData: CalculationData?, pickedLogisticsType: FLCLogisticsType) -> TotalPriceData? {
+        guard let calcData = calcData else { return nil }
         if  calcData.isFromCoreData {
             return calcData.totalPrices?.first(where: { $0.logisticsType == pickedLogisticsType })
         }
@@ -306,7 +307,8 @@ struct CalculationResultHelper {
         return totalPriceData
     }
     
-    static func saveCalculationInCoreData(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType, calcData: CalculationData, isConfirmed: Bool = false) {
+    static func saveCalculationInCoreData(totalPriceDataItems: [TotalPriceData], pickedLogisticsType: FLCLogisticsType, calcData: CalculationData?, isConfirmed: Bool = false) {
+        guard let calcData = calcData else { return }
         let newTotalPriceDataItems = setConfirmedLogisticsType(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType)
         CoreDataManager.createCalculationRecord(with: calcData, totalPriceData: newTotalPriceDataItems, pickedLogisticsType: pickedLogisticsType, isConfirmed: isConfirmed)
     }
@@ -315,6 +317,13 @@ struct CalculationResultHelper {
         let calculationResultVC = CalculationResultVC()
         calculationResultVC.setCalculationData(data: data)
         vc.navigationController?.pushViewController(calculationResultVC, animated: true)
+    }
+    
+    static func createConfirmOrderVC(data: CalculationData, in vc: UIViewController) {
+        let confirmOrderVC = ConfirmOrderVC()
+        let calculation = CoreDataManager.getCalculation(withID: data.id + 1)
+        confirmOrderVC.getConfirmedCalculationData(calculation: calculation)
+        vc.navigationController?.pushViewController(confirmOrderVC, animated: true)
     }
     
     static func getConfirmedLogisticsType(calcData: CalculationData) -> FLCLogisticsType {
@@ -329,5 +338,34 @@ struct CalculationResultHelper {
             if modifiedItem.logisticsType == pickedLogisticsType { modifiedItem.isConfirmed = true }
             return modifiedItem
         }
+    }
+    
+    static func createCalculationData(with data: CalculationData, and totalPriceData: [TotalPriceData]) -> [String: Any] {
+        let user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
+        let totalPriceDataDicts = totalPriceData.map { $0.toDictionary() }
+        
+        return [
+            "name": user?.name ?? "",
+            "email": user?.email ?? "",
+            "mobilePhone": user?.mobilePhone ?? "",
+            "userCalculationID": data.id,
+            "countryFrom": data.countryFrom,
+            "countryTo": data.countryTo,
+            "deliveryType": data.deliveryType,
+            "deliveryTypeCode": data.deliveryTypeCode,
+            "departureAirport": data.departureAirport,
+            "fromLocation": data.fromLocation,
+            "toLocation": data.toLocation,
+            "toLocationCode": data.toLocationCode,
+            "goodsType": data.goodsType,
+            "volume": data.volume,
+            "weight": data.weight,
+            "invoiceAmount": data.invoiceAmount,
+            "invoiceCurrency": data.invoiceCurrency,
+            "needCustomClearance": data.needCustomClearance,
+            "isConfirmed": false,
+            "exchangeRate": data.exchangeRate,
+            "totalPriceData": totalPriceDataDicts
+        ]
     }
 }

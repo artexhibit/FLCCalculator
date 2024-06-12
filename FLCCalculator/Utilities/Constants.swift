@@ -46,6 +46,7 @@ enum Keys {
     static let chinaAirTariff = "chinaAirTariff"
     static let turkeyTruckByFerryTariff = "turkeyTruckByFerryTariff"
     static let dateWhenDataWasUpdated = "dateWhenDataWasUpdated"
+    static let calculations = "calculations"
     static let lastCurrencyDataUpdate = "lastCurrencyDataUpdate"
     static let lastCalculationDataUpdate = "lastCalculationDataUpdate"
     static let lastManagerDataUpdate = "lastManagerDataUpdate"

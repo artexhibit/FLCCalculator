@@ -2,7 +2,7 @@ import Foundation
 
 struct CalculationData: Hashable {
     let id: Int32
-    let calculationDate: String = Date().formatted(date: .numeric, time: .omitted)
+    let calculationDate: String = Date().formatted(date: .numeric, time: .standard)
     let countryFrom: String
     let countryTo: String
     let deliveryType: String

@@ -131,4 +131,32 @@ struct FirebaseManager {
             }
         }
     }
+    
+    static func createCalculationDocument(with data: CalculationData, calcEntryData: [String: Any]) async {
+        do {
+            let documentName = "\(data.calculationDate) \(data.id) \(data.countryFrom)"
+            let newCalcEntry = Firestore.firestore().collection(Keys.calculations).document(documentName)
+            
+            try await newCalcEntry.setData(calcEntryData)
+        } catch {
+            print(error)
+        }
+    }
+    
+    static func changeCalculationToConfirmed(with data: CalculationData, and totalPriceData: [TotalPriceData]) async {
+        let documentName = "\(data.calculationDate) \(data.id) \(data.countryFrom)"
+        let documentNameRef = Firestore.firestore().collection(Keys.calculations).document(documentName)
+        do {
+            let document = try await documentNameRef.getDocument()
+            
+            if document.exists {
+                try await documentNameRef.updateData(["isConfirmed": true])
+            } else {
+                let calcEntryData = CalculationResultHelper.createCalculationData(with: data, and: totalPriceData)
+                await createCalculationDocument(with: data, calcEntryData: calcEntryData)
+            }
+        } catch {
+            print(error)
+        }
+    }
 }

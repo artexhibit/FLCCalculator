@@ -125,7 +125,7 @@ struct AppDelegateHelper {
     
     static func updateDataOnAppLaunch() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            guard NetworkAvailabilityManager.shared.currentStatus() == .connected else { return }
+            guard NetworkStatusManager.shared.isOnline else { return }
             
             if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCurrencyDataUpdate) {
                 updateCurrencyData(canShowPopup: false)

@@ -2,7 +2,7 @@ import UIKit
 
 protocol CalculationResultVCDelegate: AnyObject {
     func didEndCalculation(price: String, days: String?, cellType: FLCCalculationResultCellType)
-    func didReceiveCellsAmount(amount: Int, calculationData: CalculationData)
+    func didReceiveCellsAmount(amount: Int, calculationData: CalculationData?)
     func didPressRetryButton(in cell: CalculationResultCell)
     func didChangeLogisticsType()
 }
@@ -21,12 +21,19 @@ class CalculationResultVC: UIViewController {
     
     var showingPopover = FLCPopoverVC()
     private var maxWeight: Double { PriceCalculationManager.getMaxWeightFor(type: pickedLogisticsType) }
-    private var calculationData: CalculationData! {
+    private var calculationData: CalculationData? {
         didSet {
+            guard let calculationData = calculationData else { return }
             guard let country = FLCCountryOption(rawValue: calculationData.countryFrom) else { return }
             pickedLogisticsType = FLCLogisticsType.firstCase(for: country) ?? .chinaTruck
             availableLogisticsTypes = CalculationResultHelper.getAvailableLogisticsTypes(for: country, and: calculationData)
-
+            calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
+     
+            Task {
+                totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: availableLogisticsTypes, calculationData: calculationData)
+                let calcEntryData = CalculationResultHelper.createCalculationData(with: calculationData, and: totalPriceDataItems)
+                await FirebaseManager.createCalculationDocument(with: calculationData, calcEntryData: calcEntryData)
+            }
             if calculationData.isConfirmed {
                 pickedLogisticsType = CalculationResultHelper.getConfirmedLogisticsType(calcData: calculationData)
             }
@@ -40,10 +47,7 @@ class CalculationResultVC: UIViewController {
         configureVC()
         configureTableView()
         configureDataSource()
-        calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         performCalculations(pickedLogisticsType: pickedLogisticsType)
-        
-        Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: availableLogisticsTypes, calculationData: calculationData) }
         updateEmptyStateView(with: pickedLogisticsType)
         CalculationHelper.showTotalPrice(vc: totalPriceVC, from: self)
     }
@@ -51,14 +55,14 @@ class CalculationResultVC: UIViewController {
     private func configureVC() {
         view.backgroundColor = .systemBackground
         configureTapGesture(selector: #selector(viewTapped))
-        self.delegate = totalPriceVC
+        delegate = totalPriceVC
         totalPriceVC.delegate = self
         
         navigationController?.configNavBarAppearance()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
         tabBarController?.tabBar.isHidden = true
-        navigationItem.title = "\(calculationData.goodsType)"
+        navigationItem.title = "\(calculationData?.goodsType ?? "")"
         navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
     }
     
@@ -90,14 +94,14 @@ class CalculationResultVC: UIViewController {
     private func updateEmptyStateView(with pickedLogisticsType: FLCLogisticsType) {
         let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.21 : 0.13
         
-        if calculationData.weight > maxWeight && pickedLogisticsType == .chinaAir {
+        if calculationData?.weight ?? 0 > maxWeight && pickedLogisticsType == .chinaAir {
             if emptyStateView.superview == nil {
                 configureEmptyStateView()
                 
                 switch pickedLogisticsType {
                 case .chinaTruck, .chinaRailway, .turkeyTruckByFerry: break
                 case .chinaAir:
-                    emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - 3 тонны. Вес вашего груза - \(calculationData.weight) кг")
+                    emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - 3 тонны. Вес вашего груза - \(calculationData?.weight ?? 0) кг")
                 }
             }
             CalculationHelper.updateTotalPriceSmallDetentHeight(to: -50, in: totalPriceVC, from: self)
@@ -108,6 +112,7 @@ class CalculationResultVC: UIViewController {
     }
     
     func performCalculations(for cell: CalculationResultCell? = nil, pickedLogisticsType: FLCLogisticsType) {
+        guard let calculationData = calculationData else { return }
         delegate?.didReceiveCellsAmount(amount: calculationResultItems.count, calculationData: calculationData)
         
         self.pickedTotalPriceData = CalculationResultHelper.getPickedTotalPriceData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
@@ -135,12 +140,12 @@ class CalculationResultVC: UIViewController {
                         continue
                     }
                     Task {
-                        let result = await CalculationResultHelper.getResultForRussianDelivery(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item)
+                        let result = await CalculationResultHelper.getResultForRussianDelivery(calcData: calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item)
                         
                         switch result {
                         case .success(let items):
-                            let delay = self.calculationData.isFromCoreData ? 0.5 : 0.0
-                            let canAnimateChanges = self.calculationData.isFromCoreData ? false : true
+                            let delay = calculationData.isFromCoreData ? 0.5 : 0.0
+                            let canAnimateChanges = calculationData.isFromCoreData ? false : true
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                                 self.calculationResultItems[index].price = items.price
@@ -153,7 +158,7 @@ class CalculationResultVC: UIViewController {
                                 self.delegate?.didEndCalculation(price: items.price, days: items.days, cellType: item.type)
                                 cell?.failedPriceCalcContainer.hide()
                                 
-                                CalculationResultHelper.saveRefetchedRussianDelivery(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, items: items)
+                                CalculationResultHelper.saveRefetchedRussianDelivery(calcData: calculationData, pickedTotalPriceData: self.pickedTotalPriceData, items: items)
                             }
                         case .failure(_):
                             self.calculationResultItems[index].hasError = true
@@ -167,7 +172,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .insurance:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.insurance ?? "" : CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType).price
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.insurance ?? "" : CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType).price
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -176,8 +181,8 @@ class CalculationResultVC: UIViewController {
                     }
                 case .deliveryFromWarehouse:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = CalculationResultHelper.getResultForDeliveryFromWarehouse(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item, pickedLogisticsType: pickedLogisticsType)
-                        let daysAmount = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.deliveryFromWarehouseTime : result.days
+                        let result = CalculationResultHelper.getResultForDeliveryFromWarehouse(calcData: calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item, pickedLogisticsType: pickedLogisticsType)
+                        let daysAmount = calculationData.isFromCoreData ? self.pickedTotalPriceData?.deliveryFromWarehouseTime : result.days
                         
                         self.calculationResultItems[index].price = result.price
                         self.calculationResultItems[index].daysAmount = daysAmount
@@ -187,7 +192,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .cargoHandling:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.cargoHandling ?? "" : CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.cargoHandling ?? "" : CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -196,7 +201,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .customsClearancePrice:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsClearance ?? "" : CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsClearance ?? "" : CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -205,7 +210,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .customsWarehouseServices:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsWarehousePrice ?? "" : CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsWarehousePrice ?? "" : CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -214,8 +219,8 @@ class CalculationResultVC: UIViewController {
                     }
                 case .deliveryToWarehouse:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = CalculationResultHelper.getResultForDeliveryToWarehouse(calcData: self.calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item, logisticsType: pickedLogisticsType)
-                        let daysAmount = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.deliveryToWarehouseTime : result.days
+                        let result = CalculationResultHelper.getResultForDeliveryToWarehouse(calcData: calculationData, pickedTotalPriceData: self.pickedTotalPriceData, item: item, logisticsType: pickedLogisticsType)
+                        let daysAmount = calculationData.isFromCoreData ? self.pickedTotalPriceData?.deliveryToWarehouseTime : result.days
         
                         self.calculationResultItems[index].price = result.price
                         self.calculationResultItems[index].daysAmount = daysAmount
@@ -225,7 +230,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .groupageDocs:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = self.calculationData.isFromCoreData ? self.pickedTotalPriceData?.groupageDocs ?? "" : CalculationResultHelper.getGroupageDocs(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.groupageDocs ?? "" : CalculationResultHelper.getGroupageDocs(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -278,7 +283,7 @@ extension CalculationResultVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: OptionsTableViewHeader.reuseID) as! OptionsTableViewHeader
         headerView.optionsCollectionView.optionsDelegate = self
-        headerView.optionsCollectionView.setPickedCountry(country: FLCCountryOption(rawValue: calculationData.countryFrom))
+        headerView.optionsCollectionView.setPickedCountry(country: FLCCountryOption(rawValue: calculationData?.countryFrom ?? ""))
         headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: availableLogisticsTypes), pickedLogisticsType: pickedLogisticsType)
         return headerView
     }
@@ -298,6 +303,8 @@ extension CalculationResultVC: CalculationResultCellDelegate {
     func didPressRetryButton(cell: CalculationResultCell) {
         delegate?.didPressRetryButton(in: cell)
         performCalculations(for: cell, pickedLogisticsType: pickedLogisticsType)
+        
+        guard let calculationData = calculationData else { return }
         Task { totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: availableLogisticsTypes, calculationData: calculationData) }
     }
 }
@@ -307,6 +314,7 @@ extension CalculationResultVC: OptionsCollectionViewDelegate {
         delegate?.didChangeLogisticsType()
         pickedLogisticsType = type
         
+        guard let calculationData = calculationData else { return }
         let newItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
         calculationResultItems = CalculationResultHelper.saveNetworkingData(oldItems: calculationResultItems, newItems: newItems)
         performCalculations(pickedLogisticsType: pickedLogisticsType)
@@ -323,19 +331,15 @@ extension CalculationResultVC: TotalPriceVCDelegate {
     }
     
     func didPressConfirmButton() {
+        guard let calculationData = calculationData else { return }
+        
         if calculationData.isFromCoreData {
             CalculationResultHelper.saveConfirmedStatusForRefetchedResult(calcData: calculationData, pickedLogisticsType: pickedLogisticsType)
         } else {
             CalculationResultHelper.saveCalculationInCoreData(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType, calcData: calculationData, isConfirmed: true)
         }
-        
-        let confirmOrderVC = ConfirmOrderVC()
-        let calculation = CoreDataManager.getCalculation(withID: calculationData.id + 1)
-        confirmOrderVC.getConfirmedCalculationData(calculation: calculation)
-        navigationController?.pushViewController(confirmOrderVC, animated: true)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            self.navigationController?.removeVCFromStack(vc: self)
-        }
+        CalculationResultHelper.createConfirmOrderVC(data: calculationData, in: self)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { self.navigationController?.removeVCFromStack(vc: self) }
+        Task { await FirebaseManager.changeCalculationToConfirmed(with: calculationData, and: totalPriceDataItems) }
     }
 }
