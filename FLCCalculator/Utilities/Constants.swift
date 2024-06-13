@@ -54,6 +54,7 @@ enum Keys {
     static let lastAvailableLogisticsTypesDataUpdate = "lastAvailableLogisticsTypesDataUpdate"
     static let smsCounter = "smsCounter"
     static let flcUser = "flcUser"
+    static let calculationDataFirebaseRecord = "calculationDataFirebaseRecord"
     static let cdDataAttribute = "data"
     static let cdDocuments = "CDDocuments"
     static let cdAvailableLogisticsTypes = "CDAvailableLogisticsTypes"

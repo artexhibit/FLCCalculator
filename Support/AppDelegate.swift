@@ -9,6 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegateHelper.registerBackgroundTasks()
         AppDelegateHelper.updateDataOnAppLaunch()
         AppDelegateHelper.configureSMSCounter()
+        AppDelegateHelper.manageStoredCalculationRecords()
         AuthorizationVCHelper.presentAuthorizationVC()
         return true
     }

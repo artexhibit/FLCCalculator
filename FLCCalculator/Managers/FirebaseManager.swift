@@ -132,18 +132,20 @@ struct FirebaseManager {
         }
     }
     
-    static func createCalculationDocument(with data: CalculationData, calcEntryData: [String: Any]) async {
+    static func createCalculationDocument(with calcData: CalculationDataFirebaseRecord) async {
+        let calcDataDict = calcData.toDictionary()
+        
         do {
-            let documentName = "\(data.calculationDate) \(data.id) \(data.countryFrom)"
+            let documentName = "\(calcData.calculationDate) \(calcData.userCalculationID) \(calcData.countryFrom)"
             let newCalcEntry = Firestore.firestore().collection(Keys.calculations).document(documentName)
             
-            try await newCalcEntry.setData(calcEntryData)
+            try await newCalcEntry.setData(calcDataDict)
         } catch {
             print(error)
         }
     }
     
-    static func changeCalculationToConfirmed(with data: CalculationData, and totalPriceData: [TotalPriceData]) async {
+    static func updateCalculationRecordInFirebase(with data: CalculationData, and totalPriceData: [TotalPriceData]) async {
         let documentName = "\(data.calculationDate) \(data.id) \(data.countryFrom)"
         let documentNameRef = Firestore.firestore().collection(Keys.calculations).document(documentName)
         do {
@@ -152,8 +154,8 @@ struct FirebaseManager {
             if document.exists {
                 try await documentNameRef.updateData(["isConfirmed": true])
             } else {
-                let calcEntryData = CalculationResultHelper.createCalculationData(with: data, and: totalPriceData)
-                await createCalculationDocument(with: data, calcEntryData: calcEntryData)
+                let calcEntryData = CalculationResultHelper.createCalculationDataFirebaseRecord(with: data, and: totalPriceData)
+                await createCalculationDocument(with: calcEntryData)
             }
         } catch {
             print(error)

@@ -27,6 +27,7 @@
 		0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */; };
 		0B2E6BC12C0CD5680004DF10 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */; };
 		0B2E6BC32C0CD61E0004DF10 /* FLCLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */; };
+		0B2FF62B2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2FF62A2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift */; };
 		0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B32CBBF2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */; };
@@ -223,6 +224,7 @@
 		0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextLayer.swift; sourceTree = "<group>"; };
 		0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLoginVC.swift; sourceTree = "<group>"; };
+		0B2FF62A2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationDataFirebaseRecord.swift; sourceTree = "<group>"; };
 		0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPickerItem.swift; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 				0B6E54452B8115420078C110 /* Persistence.swift */,
 				0B6E54712B81228A0078C110 /* CalculationInfo.swift */,
 				0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */,
+				0B2FF62A2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift */,
 				0B78F3062BE68D2000C52EC4 /* TotalPriceData.swift */,
 				0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */,
 				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
@@ -993,6 +996,7 @@
 				0B2E6BC32C0CD61E0004DF10 /* FLCLoginVC.swift in Sources */,
 				0BF938852B84F61700A18016 /* FLCTitleLabel.swift in Sources */,
 				0BE351752C1234B20041F317 /* SceneDelegateHelper.swift in Sources */,
+				0B2FF62B2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift in Sources */,
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
 				0B7C8E042BF2A935009322E6 /* UsefulInfoHelper.swift in Sources */,

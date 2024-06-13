@@ -123,9 +123,19 @@ struct AppDelegateHelper {
         BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateAvailableLogisticsTypesData, beginDateInterval: (3600 * 24 * 7))
     }
     
+    static func manageStoredCalculationRecords() {
+        let storedRecords: [CalculationDataFirebaseRecord] = UserDefaultsPercistenceManager.retrieveItemsFromUserDefaults() ?? [CalculationDataFirebaseRecord]()
+        guard !storedRecords.isEmpty, NetworkStatusManager.shared.isDeviceOnline else { return }
+        
+        Task {
+            for storedRecord in storedRecords { await FirebaseManager.createCalculationDocument(with: storedRecord) }
+            _ = UserDefaultsPercistenceManager.saveItemsToUserDefaults(items: [CalculationDataFirebaseRecord]())
+        }
+    }
+    
     static func updateDataOnAppLaunch() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            guard NetworkStatusManager.shared.isOnline else { return }
+            guard NetworkStatusManager.shared.isDeviceOnline else { return }
             
             if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCurrencyDataUpdate) {
                 updateCurrencyData(canShowPopup: false)

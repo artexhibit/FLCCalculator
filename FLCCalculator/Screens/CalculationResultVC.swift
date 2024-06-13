@@ -31,8 +31,7 @@ class CalculationResultVC: UIViewController {
      
             Task {
                 totalPriceDataItems = await CalculationResultHelper.getAllCalculationsFor(allLogisticsTypes: availableLogisticsTypes, calculationData: calculationData)
-                let calcEntryData = CalculationResultHelper.createCalculationData(with: calculationData, and: totalPriceDataItems)
-                await FirebaseManager.createCalculationDocument(with: calculationData, calcEntryData: calcEntryData)
+                await CalculationResultHelper.manageCalculationDocument(with: calculationData, and: totalPriceDataItems)
             }
             if calculationData.isConfirmed {
                 pickedLogisticsType = CalculationResultHelper.getConfirmedLogisticsType(calcData: calculationData)
@@ -332,6 +331,10 @@ extension CalculationResultVC: TotalPriceVCDelegate {
     
     func didPressConfirmButton() {
         guard let calculationData = calculationData else { return }
+        guard NetworkStatusManager.shared.isDeviceOnline else {
+            FLCPopupView.showOnMainThread(title: "Для подтверждения необходимо подключение к интернету. Пожалуйста, проверьте своё", style: .error)
+            return
+        }
         
         if calculationData.isFromCoreData {
             CalculationResultHelper.saveConfirmedStatusForRefetchedResult(calcData: calculationData, pickedLogisticsType: pickedLogisticsType)
@@ -340,6 +343,6 @@ extension CalculationResultVC: TotalPriceVCDelegate {
         }
         CalculationResultHelper.createConfirmOrderVC(data: calculationData, in: self)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { self.navigationController?.removeVCFromStack(vc: self) }
-        Task { await FirebaseManager.changeCalculationToConfirmed(with: calculationData, and: totalPriceDataItems) }
+        Task { await FirebaseManager.updateCalculationRecordInFirebase(with: calculationData, and: totalPriceDataItems) }
     }
 }

@@ -5,7 +5,7 @@ struct NetworkStatusManager {
     static let shared = NetworkStatusManager()
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
-    var isOnline: Bool {
+    var isDeviceOnline: Bool {
         switch currentStatus() {
         case .connected: return true
         case .noConnection, .requiresConnection, .unknown: return false

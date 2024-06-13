@@ -1,6 +1,6 @@
 import Foundation
 
-struct TotalPriceData: Hashable {
+struct TotalPriceData: Codable, Hashable {
     var logisticsType: FLCLogisticsType = .chinaTruck
     var totalPrice: String? = nil
     var totalTime: String? = nil
