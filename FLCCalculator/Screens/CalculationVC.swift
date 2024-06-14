@@ -239,8 +239,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
             transportView.calculateButton.removeShineEffect()
             
         case transportView.deliveryTypePickerButton:
-            CalculationHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, "")], basedOn: button)
-            
+            CalculationHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, WarehouseStrings.turkeyWarehouse)], basedOn: button)
+        
         case transportView.departurePickerButton:
             if transportView.departurePickerButton.showingTitle == FLCCities.istanbul.rawValue {
                 CalculationHelper.showIstanbulZones(in: transportView, and: self)

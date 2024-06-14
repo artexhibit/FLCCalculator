@@ -1,29 +1,39 @@
 import Foundation
 import Network
 
-struct NetworkStatusManager {
+class NetworkStatusManager {
     static let shared = NetworkStatusManager()
+    
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
+    private var currentNetworkStatus: FLCNetworkingAvailabilityStatus = .unknown
+    
     var isDeviceOnline: Bool {
-        switch currentStatus() {
+        switch currentNetworkStatus {
         case .connected: return true
         case .noConnection, .requiresConnection, .unknown: return false
         }
     }
-        
-    init() { monitor = NWPathMonitor() }
     
-    private func currentStatus() -> FLCNetworkingAvailabilityStatus {
-        var status: FLCNetworkingAvailabilityStatus
-        
-        switch monitor.currentPath.status {
-        case .satisfied: status = .connected
-        case .unsatisfied: status = .noConnection
-        case .requiresConnection: status = .requiresConnection
-        @unknown default: status = .unknown
+    private init() {
+        monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { [weak self] path in
+            guard let self = self else { return }
+            self.updateNetworkStatus(path: path)
         }
-        return status
+    }
+    
+    private func updateNetworkStatus(path: NWPath) {
+        switch path.status {
+        case .satisfied:
+            currentNetworkStatus = .connected
+        case .unsatisfied:
+            currentNetworkStatus = .noConnection
+        case .requiresConnection:
+            currentNetworkStatus = .requiresConnection
+        @unknown default:
+            currentNetworkStatus = .unknown
+        }
     }
     func startMonitoring() { monitor.start(queue: queue) }
     func stopMonitoring() { monitor.cancel() }
