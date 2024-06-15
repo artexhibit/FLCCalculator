@@ -26,8 +26,7 @@ final class UsefulInfoContentCell: FLCContentCell {
     }
     
     func set(with content: UsefulInfoContent) {
-        iconImageView.image = content.image
-        iconBackgroundView.backgroundColor = content.color
+        iconView.set(image: content.image, backgroundColor: content.color)
         titleLabel.text = content.title
     }
 }

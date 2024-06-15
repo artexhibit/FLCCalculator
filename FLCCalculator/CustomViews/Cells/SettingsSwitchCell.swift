@@ -48,8 +48,7 @@ final class SettingsSwitchCell: FLCContentCell {
 
 extension SettingsSwitchCell: FLCConfigurableCell {
     func configureSettingsCell(with content: SettingsCellContent) {
-        iconImageView.image = content.image
-        iconBackgroundView.backgroundColor = content.backgroundColor
+        iconView.set(image: content.image, backgroundColor: content.backgroundColor)
         titleLabel.text = content.title
         contentType = content.contentType
     }

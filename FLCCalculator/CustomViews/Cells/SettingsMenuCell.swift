@@ -61,8 +61,7 @@ final class SettingsMenuCell: FLCContentCell {
 
 extension SettingsMenuCell: FLCConfigurableCell {
     func configureSettingsCell(with content: SettingsCellContent) {
-        iconImageView.image = content.image
-        iconBackgroundView.backgroundColor = content.backgroundColor
+        iconView.set(image: content.image, backgroundColor: content.backgroundColor)
         titleLabel.text = content.title
         pickedOptionLabel.text = content.pickedOption
         contentType = content.contentType

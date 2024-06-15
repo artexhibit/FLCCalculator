@@ -1,9 +1,9 @@
 import UIKit
 
-class BonusSystemVC: UIViewController {
+class PermissionsVC: UIViewController {
     
     private let tableView = UITableView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
@@ -14,26 +14,30 @@ class BonusSystemVC: UIViewController {
         view.addSubview(tableView)
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Бонусный счёт"
+        navigationItem.title = "Разрешения"
         setNavBarColor(color: UIColor.flcOrange)
         navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
     }
     
     private func configureTableView() {
-        tableView.pinToSafeArea(of: view)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
         tableView.separatorStyle = .none
-        tableView.register(BonusSystemCell.self, forCellReuseIdentifier: BonusSystemCell.reuseID)
+        tableView.register(PermissionsCell.self, forCellReuseIdentifier: PermissionsCell.reuseID)
+        tableView.pinToSafeArea(of: view)
     }
     @objc func closeButtonPressed() { dismiss(animated: true) }
 }
 
-extension BonusSystemVC: UITableViewDelegate {}
-extension BonusSystemVC: UITableViewDataSource {
+extension PermissionsVC: UITableViewDelegate {}
+extension PermissionsVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: BonusSystemCell.reuseID, for: indexPath) as! BonusSystemCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PermissionsCell.reuseID, for: indexPath) as? PermissionsCell else { return UITableViewCell() }
+        return cell
     }
 }

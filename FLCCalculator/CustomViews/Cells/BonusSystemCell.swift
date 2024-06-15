@@ -3,8 +3,9 @@ import UIKit
 class BonusSystemCell: UITableViewCell {
     
     static let reuseID = "BonusSystemCell"
+    
     private let padding: CGFloat = 18
-    private let textButtonURLString = "https://free-lines.ru/about/loyaltyProgram"
+    private let textButtonURLString = "http://free-lines.ru/information/specialoffers/loyaltyProgram/"
     
     private let titleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left)
     private let mainTextLabel = FLCBodyLabel(color: .label, textAlignment: .left)
@@ -15,6 +16,11 @@ class BonusSystemCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        
+        configureTitleLabel()
+        configureMainTextLabel()
+        configureMarkTintedView()
+        configureDetailsButton()
     }
     
     required init?(coder: NSCoder) {
@@ -24,10 +30,6 @@ class BonusSystemCell: UITableViewCell {
     private func configure() {
         contentView.addSubviews(titleLabel, mainTextLabel, markTintedView, detailsButton)
         selectionStyle = .none
-        configureTitleLabel()
-        configureMainTextLabel()
-        configureMarkTintedView()
-        configureDetailsButton()
     }
     
     private func configureTitleLabel() {
@@ -83,8 +85,7 @@ class BonusSystemCell: UITableViewCell {
 extension BonusSystemCell: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case detailsButton: 
-            parentVC.presentSafariVC(with: textButtonURLString)
+        case detailsButton: parentVC.presentSafariVC(with: textButtonURLString)
         default: break
         }
     }

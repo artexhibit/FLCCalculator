@@ -25,6 +25,7 @@ enum Icons {
     static let hapticPhone = UIImage(systemName: "iphone.gen3.radiowaves.left.and.right") ?? UIImage()
     static let chevronUpDown = UIImage(systemName: "chevron.up.chevron.down") ?? UIImage()
     static let circleHalfRight = UIImage(systemName: "circle.righthalf.filled.inverse") ?? UIImage()
+    static let bellBadge = UIImage(systemName: "bell.badge.fill") ?? UIImage()
 }
 
 enum Keys {

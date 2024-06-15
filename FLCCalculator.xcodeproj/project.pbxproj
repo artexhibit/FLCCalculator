@@ -95,6 +95,10 @@
 		0B7C8E042BF2A935009322E6 /* UsefulInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */; };
 		0B7EBA692BE55C41004BE990 /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkStatusManager.swift */; };
 		0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */; };
+		0B916BA32C1CBF6E0037D44D /* FLCIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA22C1CBF6E0037D44D /* FLCIconView.swift */; };
+		0B916BA52C1CC5410037D44D /* PermissionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA42C1CC5410037D44D /* PermissionsVC.swift */; };
+		0B916BA72C1CC81F0037D44D /* PermissionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */; };
+		0B916BA92C1CCC290037D44D /* PermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA82C1CCC290037D44D /* PermissionView.swift */; };
 		0B94D2E42C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */; };
 		0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */; };
 		0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */; };
@@ -150,6 +154,7 @@
 		0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */; };
 		0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */; };
 		0BD5E61F2B9A1C4D00240844 /* CalculationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */; };
+		0BD919522C1DE048002C0C94 /* PermissionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD919512C1DE048002C0C94 /* PermissionItem.swift */; };
 		0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */; };
 		0BDCE6F72BA59AB70043AB64 /* CalculationResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F62BA59AB70043AB64 /* CalculationResultCell.swift */; };
 		0BDCE6F92BA59FB30043AB64 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F82BA59FB30043AB64 /* UIViewController+Ext.swift */; };
@@ -287,6 +292,10 @@
 		0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoHelper.swift; sourceTree = "<group>"; };
 		0B7EBA682BE55C41004BE990 /* NetworkStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusManager.swift; sourceTree = "<group>"; };
 		0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsVCHelper.swift; sourceTree = "<group>"; };
+		0B916BA22C1CBF6E0037D44D /* FLCIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCIconView.swift; sourceTree = "<group>"; };
+		0B916BA42C1CC5410037D44D /* PermissionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsVC.swift; sourceTree = "<group>"; };
+		0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsCell.swift; sourceTree = "<group>"; };
+		0B916BA82C1CCC290037D44D /* PermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionView.swift; sourceTree = "<group>"; };
 		0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Ext.swift"; sourceTree = "<group>"; };
 		0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerViewUIHelper.swift; sourceTree = "<group>"; };
 		0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCMailComposeVC.swift; sourceTree = "<group>"; };
@@ -341,6 +350,7 @@
 		0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
 		0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Ext.swift"; sourceTree = "<group>"; };
 		0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationHelper.swift; sourceTree = "<group>"; };
+		0BD919512C1DE048002C0C94 /* PermissionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionItem.swift; sourceTree = "<group>"; };
 		0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultItem.swift; sourceTree = "<group>"; };
 		0BDCE6F62BA59AB70043AB64 /* CalculationResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultCell.swift; sourceTree = "<group>"; };
 		0BDCE6F82BA59FB30043AB64 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
@@ -491,6 +501,7 @@
 				0BC105F62C0E30E500F64843 /* SettingsProfileCell.swift */,
 				0B2A55C42C0F6FE500857C72 /* SettingsSwitchCell.swift */,
 				0B1E31432C10C18100291D0E /* SettingsMenuCell.swift */,
+				0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -619,6 +630,7 @@
 				0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */,
 				0B6774A82C0630CE0078D8C5 /* AuthorizationVC.swift */,
 				0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */,
+				0B916BA42C1CC5410037D44D /* PermissionsVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -653,6 +665,7 @@
 				0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */,
 				0B1E313F2C10A3F500291D0E /* SettingsCellContent.swift */,
 				0B9D5A742BB991AE0016A991 /* Networking */,
+				0BD919512C1DE048002C0C94 /* PermissionItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -805,8 +818,10 @@
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
 				0B2130612BA4B51E00A30394 /* FLCTintedView.swift */,
+				0B916BA22C1CBF6E0037D44D /* FLCIconView.swift */,
 				0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */,
 				0B7882812BDD79E900BDCA16 /* FLCPersonalManagerView.swift */,
+				0B916BA82C1CCC290037D44D /* PermissionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -989,6 +1004,7 @@
 				0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */,
 				0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */,
 				0BB47CEF2BF8D003001ECED4 /* ChinaAirTariff.swift in Sources */,
+				0B916BA92C1CCC290037D44D /* PermissionView.swift in Sources */,
 				0BAF1DB12BF1177F00C0933B /* UsefulInfoDocumentsCell.swift in Sources */,
 				0BAF1DAB2BF10F6E00C0933B /* DocumentsCell.swift in Sources */,
 				0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */,
@@ -1035,6 +1051,7 @@
 				0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */,
 				0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */,
 				0BFBD7452BA38B3500B485B8 /* UINavigationController+Ext.swift in Sources */,
+				0BD919522C1DE048002C0C94 /* PermissionItem.swift in Sources */,
 				0B7EBA692BE55C41004BE990 /* NetworkStatusManager.swift in Sources */,
 				0BE9DA882C132B10007D86D0 /* ProfileSettingsVC.swift in Sources */,
 				0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */,
@@ -1058,6 +1075,7 @@
 				0B1E31402C10A3F500291D0E /* SettingsCellContent.swift in Sources */,
 				0BC105F52C0E27A900F64843 /* SettingsVC.swift in Sources */,
 				0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */,
+				0B916BA52C1CC5410037D44D /* PermissionsVC.swift in Sources */,
 				0B2077582BDAE1E90095460D /* FLCConfetti.swift in Sources */,
 				0B04C0D82BC59F0F0007A316 /* UIImageView+Ext.swift in Sources */,
 				0B67DF922C0B61D5008CE099 /* SMSManager.swift in Sources */,
@@ -1094,8 +1112,10 @@
 				0B9F40F52BBEF8F20072561B /* CalculationResultHelper.swift in Sources */,
 				0BF860FD2BC05BA20065359C /* FLCTintedButton.swift in Sources */,
 				0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */,
+				0B916BA72C1CC81F0037D44D /* PermissionsCell.swift in Sources */,
 				0BE046702B9C863500BA6F21 /* SheetPickerCell.swift in Sources */,
 				0B78F3072BE68D2000C52EC4 /* TotalPriceData.swift in Sources */,
+				0B916BA32C1CBF6E0037D44D /* FLCIconView.swift in Sources */,
 				0B32F16E2B9351C7004BAB46 /* FLCCalculationView.swift in Sources */,
 				0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */,
 				0BCDC80D2C08B5E800EE9D6A /* LoginVC.swift in Sources */,
