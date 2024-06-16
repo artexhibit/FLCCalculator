@@ -26,10 +26,12 @@ enum Icons {
     static let chevronUpDown = UIImage(systemName: "chevron.up.chevron.down") ?? UIImage()
     static let circleHalfRight = UIImage(systemName: "circle.righthalf.filled.inverse") ?? UIImage()
     static let bellBadge = UIImage(systemName: "bell.badge.fill") ?? UIImage()
+    static let key = UIImage(systemName: "key.horizontal") ?? UIImage()
 }
 
 enum Keys {
     static let isUserLoggedIn = "isUserLoggedIn"
+    static let permissionsScreenWasShown = "permissionsScreenWasShown"
     static let isHapticTurnedOn = "isHapticTurnedOn"
     static let appTheme = "appTheme"
     static let managers = "managers"

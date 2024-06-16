@@ -10,7 +10,8 @@ struct SettingsVCHelper {
         ]
         let secondSectionItems = [
             SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: "Тактильный отклик элементов интерфейса", subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: "Тема", subtitle: nil, pickedOption: pickedThemeOption)
+            SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: "Тема", subtitle: nil, pickedOption: pickedThemeOption),
+            SettingsCellContent(cellType: .label, contentType: .permissions, image: Icons.key, title: "Разрешения", subtitle: nil, pickedOption: nil)
         ]
         
         return [
@@ -66,12 +67,5 @@ struct SettingsVCHelper {
             firstWindow.overrideUserInterfaceStyle = appTheme
         })
         tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: contentType, in: sections)], with: .none)
-    }
-    
-    static func showProfleSettingsVC(in vc: UIViewController) {
-        let profileSettingsVC = ProfileSettingsVC()
-        profileSettingsVC.delegate = vc as? ProfileSettingsVCDelegate
-        let navController = UINavigationController(rootViewController: profileSettingsVC)
-        vc.present(navController, animated: true)
     }
 }

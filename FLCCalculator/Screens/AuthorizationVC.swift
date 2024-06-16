@@ -115,8 +115,8 @@ class AuthorizationVC: UIViewController {
 extension AuthorizationVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case signInButton: AuthorizationVCHelper.showAuthVC(in: self)
-        case registrationButton: AuthorizationVCHelper.showRegistrationVC(in: self)
+        case signInButton: self.presentNewVC(ofType: LoginVC.self)
+        case registrationButton: self.presentNewVC(ofType: RegistrationVC.self)
         default: break
         }
     }
@@ -126,6 +126,7 @@ extension AuthorizationVC: LoginVCDelegate {
     func didSuccessWithLogin() {
         self.dismiss(animated: true)
         UserDefaultsManager.isUserLoggedIn = true
+        if !UserDefaultsManager.permissionsScreenWasShown { self.presentNewVC(ofType: PermissionsVC.self) }
     }
 }
 
@@ -133,5 +134,6 @@ extension AuthorizationVC: RegistrationVCDelegate {
     func didSuccessWithRegistration(phone: String, email: String) {
         self.dismiss(animated: true)
         AuthorizationVCHelper.handleSuccessRegistration(with: phone, and: email)
+        if !UserDefaultsManager.permissionsScreenWasShown { self.presentNewVC(ofType: PermissionsVC.self) }
     }
 }

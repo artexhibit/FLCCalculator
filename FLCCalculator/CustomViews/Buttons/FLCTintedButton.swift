@@ -29,7 +29,7 @@ class FLCTintedButton: UIButton {
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
-    final func set(color: UIColor, title: String?, titleFontSize: CGFloat, systemImageName: String? = nil, size: UIButton.Configuration.Size?, cornerStyle: UIButton.Configuration.CornerStyle) {
+    final func set(color: UIColor, title: String? = "", titleFontSize: CGFloat = 15, systemImageName: String? = nil, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
         configuration?.baseBackgroundColor = color
         configuration?.baseForegroundColor = color
         configuration?.title = title

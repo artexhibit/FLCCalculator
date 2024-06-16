@@ -186,4 +186,5 @@ struct AppDelegateHelper {
         guard let daysAgo = Calendar.current.date(byAdding: .day, value: -days, to: Date()) else { return true }
         return lastDataUpdateDate < daysAgo
     }
+    static func registerForRemoteNotifications(with app: UIApplication) { app.registerForRemoteNotifications() }
 }

@@ -17,8 +17,9 @@ enum FLCConfettiPosition { case foreground, background }
 enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresConnection, unknown }
 enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase }
 enum FLCTextFieldType { case email, phone, username, birthdate, companyName, taxPayerID, customsDeclarationsAmount }
-enum FLCSettingsCellType { case profile, switcher, menu }
-enum FLCSettingsContentType { case profile, haptic, theme }
+enum FLCSettingsCellType { case profile, switcher, menu, label }
+enum FLCSettingsContentType { case profile, haptic, theme, permissions }
+enum FLCPermissionType { case notifications }
 
 enum FLCUsefulInfoSections: String, CaseIterable {
     case managerContacts = "Ваш менеджер"

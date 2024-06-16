@@ -152,3 +152,7 @@ extension RegistrationVC: FLCNumberTextFieldDelegate {
         TextFieldManager.goToPreviousTextField(activeTF: textField, allTFs: [phoneTextField, emailTextField])
     }
 }
+
+extension RegistrationVC: DelegateConfigurable {
+    func setDelegate(with vc: UIViewController) { self.delegate = vc as? RegistrationVCDelegate }
+}

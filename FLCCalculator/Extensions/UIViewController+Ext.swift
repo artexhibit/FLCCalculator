@@ -37,6 +37,14 @@ extension UIViewController {
         present(safariVC, animated: true)
     }
     
+    func presentNewVC<T: UIViewController>(ofType type: T.Type) {
+        let viewController = T()
+        
+        if let configurableVC = viewController as? DelegateConfigurable { configurableVC.setDelegate(with: self) }
+        let navController = UINavigationController(rootViewController: viewController)
+        self.present(navController, animated: true)
+    }
+    
     private struct Preview: UIViewControllerRepresentable {
         
         let viewController: UIViewController

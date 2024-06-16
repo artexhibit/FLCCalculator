@@ -20,18 +20,4 @@ struct AuthorizationVCHelper {
         let newUser = FLCUser(name: "Гость\(LoginVCHelper.createVerificationCode(digits: 5))", email: email, mobilePhone: phone)
         UserDefaultsPercistenceManager.updateItemInUserDefaults(item: newUser)
     }
-    
-    static func showAuthVC(in vc: UIViewController) {
-        let loginVC = LoginVC()
-        loginVC.delegate = vc as? LoginVCDelegate
-        let navController = UINavigationController(rootViewController: loginVC)
-        vc.present(navController, animated: true)
-    }
-    
-    static func showRegistrationVC(in vc: UIViewController) {
-        let registrationVC = RegistrationVC()
-        registrationVC.delegate = vc as? RegistrationVCDelegate
-        let navController = UINavigationController(rootViewController: registrationVC)
-        vc.present(navController, animated: true)
-    }
 }

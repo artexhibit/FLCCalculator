@@ -2,13 +2,17 @@ import UIKit
 import Firebase
 import FirebaseCore
 import FirebaseStorage
+import FirebaseMessaging
 
-struct FirebaseManager {
+class FirebaseManager: NSObject {
+    private static let shared = FirebaseManager()
+    
     private static let decoder = JSONDecoder()
     private static let storageRef = Storage.storage().reference()
     private static var timer: Timer?
     
     static func configureFirebase() { FirebaseApp.configure() }
+    static func configureMessagingDelegate() { Messaging.messaging().delegate = shared }
     
     static func getDateOfLastDataUpdate() async throws -> String {
         let snapshot = try await Firestore.firestore().collection(Keys.dateWhenDataWasUpdated).getDocuments()
@@ -159,6 +163,19 @@ struct FirebaseManager {
             }
         } catch {
             print(error)
+        }
+    }
+}
+
+extension FirebaseManager: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        Task {
+            do {
+                try await messaging.token()
+                try await Messaging.messaging().subscribe(toTopic: "flcCalculator")
+            } catch {
+                print(error)
+            }
         }
     }
 }

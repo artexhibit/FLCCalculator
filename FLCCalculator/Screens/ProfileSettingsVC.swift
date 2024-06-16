@@ -378,4 +378,7 @@ extension ProfileSettingsVC: UIDocumentInteractionControllerDelegate {
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController { return self }
 }
 
+extension ProfileSettingsVC: DelegateConfigurable {
+    func setDelegate(with vc: UIViewController) { self.delegate = vc as? ProfileSettingsVCDelegate }
+}
 extension ProfileSettingsVC: UIScrollViewDelegate {}

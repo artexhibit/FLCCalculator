@@ -1,7 +1,11 @@
-import Foundation
+import UIKit
 
 protocol FLCConfigurableCell {
     func configureSettingsCell(with content: SettingsCellContent)
+}
+
+protocol DelegateConfigurable {
+    func setDelegate(with vc: UIViewController)
 }
 
 protocol FirebaseIdentifiable: Hashable, Codable {

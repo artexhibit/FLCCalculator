@@ -32,6 +32,7 @@ class SettingsVC: UIViewController {
         tableView.register(SettingsProfileCell.self, forCellReuseIdentifier: SettingsProfileCell.reuseID)
         tableView.register(SettingsSwitchCell.self, forCellReuseIdentifier: SettingsSwitchCell.reuseID)
         tableView.register(SettingsMenuCell.self, forCellReuseIdentifier: SettingsMenuCell.reuseID)
+        tableView.register(SettingsLabelCell.self, forCellReuseIdentifier: SettingsLabelCell.reuseID)
         tableView.register(FLCTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCTableViewHeader.reuseID)
     }
     private func updateDataSource() { sections = SettingsVCHelper.configureDataSource() }
@@ -43,8 +44,9 @@ extension SettingsVC: UITableViewDelegate {
         let selectedItemContentType = sections[indexPath.section].items[indexPath.row].contentType
         
         switch selectedItemContentType {
-        case .profile: SettingsVCHelper.showProfleSettingsVC(in: self)
+        case .profile: self.presentNewVC(ofType: ProfileSettingsVC.self)
         case .haptic, .theme: break
+        case .permissions: self.presentNewVC(ofType: PermissionsVC.self)
         }
     }
     
@@ -73,6 +75,8 @@ extension SettingsVC: UITableViewDataSource {
             let cell = tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsMenuCell
             cell.delegate = self
             return cell
+        case .label:
+            return tableView.dequeueConfigurableCell(for: indexPath, with: item) as SettingsLabelCell
         }
     }
 }
@@ -81,7 +85,7 @@ extension SettingsVC: SettingsSwitchCellDelegate {
     func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
         switch contentType {
         case .haptic: UserDefaultsManager.isHapticTurnedOn = state
-        case .profile, .theme: break
+        case .profile, .theme, .permissions: break
         }
     }
 }
@@ -92,7 +96,7 @@ extension SettingsVC: SettingsMenuCellDelegate {
         case .theme:
             updateDataSource()
             SettingsVCHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
-        case .profile, .haptic: break
+        case .profile, .haptic, .permissions: break
         }
     }
 }

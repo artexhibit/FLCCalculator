@@ -8,6 +8,11 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: Keys.isUserLoggedIn) }
     }
     
+    static var permissionsScreenWasShown: Bool {
+        get { ud.object(forKey: Keys.permissionsScreenWasShown) == nil ? false : ud.bool(forKey: Keys.permissionsScreenWasShown) }
+        set { ud.setValue(newValue, forKey: Keys.permissionsScreenWasShown) }
+    }
+    
     static var isHapticTurnedOn: Bool {
         get { ud.object(forKey: Keys.isHapticTurnedOn) == nil ? true : ud.bool(forKey: Keys.isHapticTurnedOn) }
         set { ud.setValue(newValue, forKey: Keys.isHapticTurnedOn) }

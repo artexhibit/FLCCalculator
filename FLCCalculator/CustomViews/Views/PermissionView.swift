@@ -1,5 +1,9 @@
 import UIKit
 
+protocol PermissionViewDelegate: AnyObject {
+    func didTapPermissionButton(_ type: FLCPermissionType)
+}
+
 class PermissionView: UIView {
     
     private let padding: CGFloat = 10
@@ -7,8 +11,11 @@ class PermissionView: UIView {
     private let iconView = FLCIconView()
     private let textContentView = UIView()
     private let titleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 20, weight: .bold)
-    private let subtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left, textStyle: .callout)
+    private let subtitleLabel = FLCSubtitleLabel(color: .gray, textAlignment: .left, textStyle: .caption1)
     private let permissionButton = FLCTintedButton(color: .flcOrange, title: "Разрешить", cornerStyle: .capsule)
+    private var type: FLCPermissionType = .notifications
+    
+    weak var delegate: PermissionViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,6 +36,7 @@ class PermissionView: UIView {
         iconView.set(image: item.icon, backgroundColor: item.iconBackgroundColor)
         titleLabel.text = item.title
         subtitleLabel.text = item.subtitle
+        type = item.type
     }
     
     private func configure() {
@@ -67,7 +75,7 @@ class PermissionView: UIView {
     
     private func configureSubtitleLabel() {
         NSLayoutConstraint.activate([
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding / 3),
             subtitleLabel.leadingAnchor.constraint(equalTo: textContentView.leadingAnchor),
             subtitleLabel.trailingAnchor.constraint(equalTo: textContentView.trailingAnchor),
             subtitleLabel.bottomAnchor.constraint(equalTo: textContentView.bottomAnchor)
@@ -79,13 +87,18 @@ class PermissionView: UIView {
         
         NSLayoutConstraint.activate([
             permissionButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            permissionButton.centerYAnchor.constraint(equalTo: textContentView.centerYAnchor, constant: -padding)
+            permissionButton.centerYAnchor.constraint(equalTo: textContentView.centerYAnchor)
         ])
     }
+    
+    func updatePermissionButtonUI(with isAccessGranted: Bool) {
+        Task {
+            isAccessGranted ? permissionButton.set(color: .flcGray, title: "Разрешено", cornerStyle: .capsule) : permissionButton.set(color: .flcOrange, title: "Разрешить", cornerStyle: .capsule)
+        }
+    }
+    func getType() -> FLCPermissionType { type }
 }
 
 extension PermissionView: FLCTintedButtonDelegate {
-    func didTapButton(_ button: FLCTintedButton) {
-        print("hello")
-    }
+    func didTapButton(_ button: FLCTintedButton) { delegate?.didTapPermissionButton(type) }
 }

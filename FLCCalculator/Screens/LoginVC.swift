@@ -140,3 +140,7 @@ extension LoginVC: FLCTextButtonDelegate {
         }
     }
 }
+
+extension LoginVC: DelegateConfigurable {
+    func setDelegate(with vc: UIViewController) { self.delegate = vc as? LoginVCDelegate }
+}

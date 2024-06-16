@@ -10,6 +10,8 @@
 		<string>ru.igorcodes.FLCCalculator.updateCalculationData</string>
 		<string>ru.igorcodes.FLCCalculator.updateCurrencyData</string>
 	</array>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Оповещения об изменении тарифов и акциях</string>
 	<key>SMS API Key</key>
 	<string>$(SMS_API_KEY)</string>
 	<key>UIApplicationSceneManifest</key>
@@ -32,6 +34,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
 </dict>
 </plist>

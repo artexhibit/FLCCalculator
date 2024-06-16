@@ -1,17 +1,23 @@
 import UIKit
 
+protocol PermissionsCellDelegate: AnyObject {
+    func didTapPermissionButton(_ type: FLCPermissionType)
+}
+
 class PermissionsCell: UITableViewCell {
     
     static let reuseID = "PermissionsCell"
     
     private let padding: CGFloat = 18
     
-    private let headlineLabel = FLCBodyLabel(color: .flcGray, textAlignment: .left)
+    private let headlineLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 18, weight: .medium)
     private let permissionsStackView = UIStackView()
     private let footerLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     
+    weak var delegate: PermissionsCellDelegate?
+    
     private let permissions: [PermissionItem] = [
-        PermissionItem(icon: Icons.bellBadge, iconBackgroundColor: .systemRed, title: "Уведомления", subtitle: "Сможем оповещать об изменениях в тарифах и акциях")
+        PermissionItem(type: .notifications, icon: Icons.bellBadge, iconBackgroundColor: .systemRed, title: "Уведомления", subtitle: "Сможем оповещать об изменениях в тарифах и акциях")
     ]
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,7 +38,7 @@ class PermissionsCell: UITableViewCell {
     }
     
     private func configureHeadlineLabel() {
-        headlineLabel.text = "Данные разрешения необходимы для оптимальной работы приложения. Ознакомьтесь с их описанием"
+        headlineLabel.text = "Разрешения необходимы для оптимальной работы приложения. Ознакомьтесь с их описанием"
         
         NSLayoutConstraint.activate([
             headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
@@ -52,24 +58,40 @@ class PermissionsCell: UITableViewCell {
         
         permissions.forEach { permissionItem in
             let permissionView = PermissionView(item: permissionItem)
+            permissionView.delegate = self
             permissionsStackView.addArrangedSubview(permissionView)
         }
         
         NSLayoutConstraint.activate([
             permissionsStackView.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: padding),
             permissionsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            permissionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            permissionsStackView.bottomAnchor.constraint(equalTo: footerLabel.topAnchor, constant: -padding / 2)
+            permissionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
         ])
     }
     
     private func configureFooterLabel() {
-        footerLabel.text = "Без этого приложение может работать нестабильно. Вы всегда можете изменить решение в настройках"
+        footerLabel.text = "Без этого приложение может работать нестабильно. Вы всегда сможете изменить решение в настройках"
         
         NSLayoutConstraint.activate([
+            footerLabel.topAnchor.constraint(equalTo: permissionsStackView.bottomAnchor, constant: padding / 2),
             footerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 1.5),
             footerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 1.5),
             footerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+}
+
+extension PermissionsCell: PermissionViewDelegate {
+    func didTapPermissionButton(_ type: FLCPermissionType) { delegate?.didTapPermissionButton(type) }
+}
+
+extension PermissionsCell: PermissionsVCDelegate {
+    func shouldUpdatePermissionButtonWithStatus(status: Bool, type: FLCPermissionType) {
+        DispatchQueue.main.async {
+            self.permissionsStackView.arrangedSubviews
+                .compactMap({ $0 as? PermissionView })
+                .filter({ $0.getType() == type })
+                .forEach({ $0.updatePermissionButtonUI(with: status) })
+        }
     }
 }
