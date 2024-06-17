@@ -33,7 +33,7 @@ class PermissionsCell: UITableViewCell {
     }
     
     private func configure() {
-        contentView.addSubviews(headlineLabel, permissionsStackView, footerLabel)
+        contentView.addSubviews(headlineLabel, permissionsStackView)
         selectionStyle = .none
     }
     
@@ -53,31 +53,24 @@ class PermissionsCell: UITableViewCell {
         permissionsStackView.distribution = .fillEqually
         permissionsStackView.spacing = 0
         permissionsStackView.alignment = .center
-        permissionsStackView.layer.cornerRadius = 15
-        permissionsStackView.clipsToBounds = true
         
         permissions.forEach { permissionItem in
             let permissionView = PermissionView(item: permissionItem)
             permissionView.delegate = self
             permissionsStackView.addArrangedSubview(permissionView)
         }
+        permissionsStackView.addArrangedSubview(footerLabel)
         
         NSLayoutConstraint.activate([
             permissionsStackView.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: padding),
             permissionsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            permissionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
+            permissionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            permissionsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
     private func configureFooterLabel() {
         footerLabel.text = "Без этого приложение может работать нестабильно. Вы всегда сможете изменить решение в настройках"
-        
-        NSLayoutConstraint.activate([
-            footerLabel.topAnchor.constraint(equalTo: permissionsStackView.bottomAnchor, constant: padding / 2),
-            footerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 1.5),
-            footerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 1.5),
-            footerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
     }
 }
 

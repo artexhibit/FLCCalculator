@@ -2,18 +2,19 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         NetworkStatusManager.shared.startMonitoring()
         FirebaseManager.configureFirebase()
         FirebaseManager.configureMessagingDelegate()
-        PermissionsManager.configureUNUserNotificationCenterDelegate()
+        PermissionsManager.configureUNUserNotificationCenter(delegate: self)
         
         AppDelegateHelper.registerForRemoteNotifications(with: application)
         AppDelegateHelper.registerBackgroundTasks()
         AppDelegateHelper.updateDataOnAppLaunch()
         AppDelegateHelper.configureSMSCounter()
         AppDelegateHelper.manageStoredCalculationRecords()
+        
         AuthorizationVCHelper.presentAuthorizationVC()
         return true
     }
@@ -33,5 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult { .newData }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions { [.banner, .sound] }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+    }
 }
 

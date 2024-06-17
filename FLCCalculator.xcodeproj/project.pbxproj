@@ -64,6 +64,8 @@
 		0B67DF902C0B6003008CE099 /* SMSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */; };
 		0B67DF922C0B61D5008CE099 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
 		0B67DF942C0B7BD7008CE099 /* FLCUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */; };
+		0B6931042C20C6640032A179 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6931032C20C6640032A179 /* NotificationService.swift */; };
+		0B6931082C20C6640032A179 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0B6931012C20C6640032A179 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54272B810BA00078C110 /* AppDelegate.swift */; };
 		0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54292B810BA00078C110 /* SceneDelegate.swift */; };
 		0B6E54322B810BA00078C110 /* FLCCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */; };
@@ -192,6 +194,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0B6931062C20C6640032A179 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B6E541C2B810BA00078C110 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B6931002C20C6640032A179;
+			remoteInfo = NotificationService;
+		};
 		0B6E545B2B811B550078C110 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0B6E541C2B810BA00078C110 /* Project object */;
@@ -209,6 +218,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				0B6E545D2B811B550078C110 /* WidgetsExtension.appex in Embed Foundation Extensions */,
+				0B6931082C20C6640032A179 /* NotificationService.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +274,9 @@
 		0B67DF912C0B61D5008CE099 /* SMSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSManager.swift; sourceTree = "<group>"; };
 		0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCUIHelper.swift; sourceTree = "<group>"; };
 		0B67DF952C0B83D7008CE099 /* KeysConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = KeysConfig.xcconfig; sourceTree = "<group>"; };
+		0B6931012C20C6640032A179 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B6931032C20C6640032A179 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		0B6931052C20C6640032A179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B6E54242B810BA00078C110 /* FLCCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLCCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6E54272B810BA00078C110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B6E54292B810BA00078C110 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -390,6 +403,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0B6930FE2C20C6640032A179 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0B6E54212B810BA00078C110 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -547,6 +567,15 @@
 			path = TextViews;
 			sourceTree = "<group>";
 		};
+		0B6931022C20C6640032A179 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				0B6931032C20C6640032A179 /* NotificationService.swift */,
+				0B6931052C20C6640032A179 /* Info.plist */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 		0B6E541B2B810BA00078C110 = {
 			isa = PBXGroup;
 			children = (
@@ -554,6 +583,7 @@
 				0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */,
 				0B6E546D2B811C2E0078C110 /* Support */,
 				0B6E54532B811B540078C110 /* Widgets */,
+				0B6931022C20C6640032A179 /* NotificationService */,
 				0B6E544E2B811B540078C110 /* Frameworks */,
 				0B6E54252B810BA00078C110 /* Products */,
 			);
@@ -564,6 +594,7 @@
 			children = (
 				0B6E54242B810BA00078C110 /* FLCCalculator.app */,
 				0B6E544D2B811B540078C110 /* WidgetsExtension.appex */,
+				0B6931012C20C6640032A179 /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -874,6 +905,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0B6931002C20C6640032A179 /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B69310B2C20C6640032A179 /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				0B6930FD2C20C6640032A179 /* Sources */,
+				0B6930FE2C20C6640032A179 /* Frameworks */,
+				0B6930FF2C20C6640032A179 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = 0B6931012C20C6640032A179 /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		0B6E54232B810BA00078C110 /* FLCCalculator */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0B6E543B2B810BA20078C110 /* Build configuration list for PBXNativeTarget "FLCCalculator" */;
@@ -887,6 +935,7 @@
 			);
 			dependencies = (
 				0B6E545C2B811B550078C110 /* PBXTargetDependency */,
+				0B6931072C20C6640032A179 /* PBXTargetDependency */,
 			);
 			name = FLCCalculator;
 			packageProductDependencies = (
@@ -925,9 +974,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					0B6931002C20C6640032A179 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					0B6E54232B810BA00078C110 = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -955,11 +1007,19 @@
 			targets = (
 				0B6E54232B810BA00078C110 /* FLCCalculator */,
 				0B6E544C2B811B540078C110 /* WidgetsExtension */,
+				0B6931002C20C6640032A179 /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0B6930FF2C20C6640032A179 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0B6E54222B810BA00078C110 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -983,6 +1043,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0B6930FD2C20C6640032A179 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B6931042C20C6640032A179 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0B6E54202B810BA00078C110 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1167,6 +1235,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0B6931072C20C6640032A179 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0B6931002C20C6640032A179 /* NotificationService */;
+			targetProxy = 0B6931062C20C6640032A179 /* PBXContainerItemProxy */;
+		};
 		0B6E545C2B811B550078C110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0B6E544C2B811B540078C110 /* WidgetsExtension */;
@@ -1187,6 +1260,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0B6931092C20C6640032A179 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y43668Q2S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0B69310A2C20C6640032A179 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y43668Q2S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		0B6E54392B810BA20078C110 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0B67DF952C0B83D7008CE099 /* KeysConfig.xcconfig */;
@@ -1441,6 +1566,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0B69310B2C20C6640032A179 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B6931092C20C6640032A179 /* Debug */,
+				0B69310A2C20C6640032A179 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0B6E541F2B810BA00078C110 /* Build configuration list for PBXProject "FLCCalculator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

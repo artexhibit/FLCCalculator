@@ -41,7 +41,8 @@ class PermissionView: UIView {
     
     private func configure() {
         addSubviews(iconView, textContentView, permissionButton)
-        backgroundColor = .systemGray6.withAlphaComponent(0.5)
+        backgroundColor = .flcBackground
+        layer.cornerRadius = 15
     }
     
     private func configureIconView() {

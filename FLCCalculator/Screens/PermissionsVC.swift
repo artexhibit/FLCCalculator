@@ -14,7 +14,6 @@ class PermissionsVC: UIViewController {
         super.viewDidLoad()
         configureVC()
         configureTableView()
-        PermissionsVCHelper.updateUIWithNotificationsAuthorizationStatus(delegate: delegate)
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(appWillEnterForeground))
     }
     
@@ -50,6 +49,7 @@ extension PermissionsVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PermissionsCell.reuseID, for: indexPath) as? PermissionsCell else { return UITableViewCell() }
         cell.delegate = self
         delegate = cell as PermissionsVCDelegate
+        PermissionsVCHelper.updateUIWithNotificationsAuthorizationStatus(delegate: delegate)
         return cell
     }
 }

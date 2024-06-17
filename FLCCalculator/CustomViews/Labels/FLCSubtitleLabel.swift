@@ -27,10 +27,10 @@ class FLCSubtitleLabel: UILabel {
     }
     
     private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
         minimumScaleFactor = 0.6
         lineBreakMode = .byWordWrapping
         numberOfLines = 0
-        translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func addShimmeringView() {
