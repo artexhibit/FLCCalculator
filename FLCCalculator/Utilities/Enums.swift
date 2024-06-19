@@ -21,6 +21,10 @@ enum FLCSettingsCellType { case profile, switcher, menu, label }
 enum FLCSettingsContentType { case profile, haptic, theme, permissions }
 enum FLCPermissionType { case notifications }
 
+enum FLCNotificationServiceDataKey: String, Codable {
+    case isCalculationDataAvailable, isDocumentsDataAvailable, isManagerDataAvailable, isNewLogisticsTypesDataAvailable
+}
+
 enum FLCUsefulInfoSections: String, CaseIterable {
     case managerContacts = "Ваш менеджер"
     case usefulInfo = "Наши сервисы"

@@ -72,7 +72,7 @@ class FirebaseManager: NSObject {
         }
     }
     
-    static func downloadDocument(doc: Document, completion: @escaping ((progress: Int?, url: URL?)) -> Void) {
+    static func downloadDocument(doc: Document, completion: @escaping ((progress: Int?, url: URL?, isWithError: Bool)) -> Void) {
         var lastProgress: Int64 = 0
         let docRef = storageRef.child(doc.fileName)
         guard let fileURL = FileSystemManager.getLocalFileURL(for: doc.fileName) else { return }
@@ -81,12 +81,11 @@ class FirebaseManager: NSObject {
             timer?.invalidate()
             
             guard error == nil else {
-                FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error)
-                completion((nil, nil))
+                completion((nil, nil, true))
                 return
             }
         }
-        configureTimer(with: downloadTask) { completion((nil, nil)) }
+        configureTimer(with: downloadTask) { completion((nil, nil, true)) }
         
         
         downloadTask.observe(.progress) { snapshot in
@@ -95,9 +94,9 @@ class FirebaseManager: NSObject {
             
             if progress.completedUnitCount > lastProgress {
                 lastProgress = progress.completedUnitCount
-                configureTimer(with: downloadTask) { completion((nil, nil)) }
+                configureTimer(with: downloadTask) { completion((nil, nil, true)) }
             }
-            completion((progressPercentage, fileURL))
+            completion((progressPercentage, fileURL, false))
         }
     }
     
@@ -105,7 +104,6 @@ class FirebaseManager: NSObject {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: false, block: { _ in
             downloadTask.cancel()
-            FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error)
             completion()
         })
     }
@@ -158,12 +156,41 @@ class FirebaseManager: NSObject {
             if document.exists {
                 try await documentNameRef.updateData(["isConfirmed": true])
             } else {
-                let calcEntryData = CalculationResultHelper.createCalculationDataFirebaseRecord(with: data, and: totalPriceData)
+                let calcEntryData = createCalculationDataFirebaseRecord(with: data, and: totalPriceData)
                 await createCalculationDocument(with: calcEntryData)
             }
         } catch {
             print(error)
         }
+    }
+    
+    static func createCalculationDataFirebaseRecord(with data: CalculationData, and totalPriceData: [TotalPriceData]) -> CalculationDataFirebaseRecord {
+        let user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
+        
+        return CalculationDataFirebaseRecord(
+            calculationDate: data.calculationDate,
+            name: user?.name ?? "",
+            email: user?.email ?? "",
+            mobilePhone: user?.mobilePhone ?? "",
+            userCalculationID: data.id,
+            countryFrom: data.countryFrom,
+            countryTo: data.countryTo,
+            deliveryType: data.deliveryType,
+            deliveryTypeCode: data.deliveryTypeCode,
+            departureAirport: data.departureAirport,
+            fromLocation: data.fromLocation,
+            toLocation: data.toLocation,
+            toLocationCode: data.toLocationCode,
+            goodsType: data.goodsType,
+            volume: data.volume,
+            weight: data.weight,
+            invoiceAmount: data.invoiceAmount,
+            invoiceCurrency: data.invoiceCurrency,
+            needCustomClearance: data.needCustomClearance,
+            isConfirmed: false,
+            exchangeRate: data.exchangeRate,
+            totalPriceData: totalPriceData
+        )
     }
 }
 

@@ -21,4 +21,6 @@ enum FLCError: String, Error {
     case errorGettingData = "Unable to convert string to Data"
     case errorWritingToFile = "Error writing to file"
     case errorDeletingFile = "Can't delete the file"
+    case unableToFindContainerURL = "Could not find container URL for app group"
+    case unableToFindAppDirectory = "Could not find application support directory"
 }

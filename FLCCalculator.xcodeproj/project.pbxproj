@@ -56,6 +56,13 @@
 		0B5F769D2C220DA6005B391C /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0B6931012C20C6640032A179 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0B5F76AF2C2215B3005B391C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B32CBBD2BAF39CE00E756A5 /* GoogleService-Info.plist */; };
 		0B5F773A2C22240C005B391C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B6E54332B810BA20078C110 /* Assets.xcassets */; };
+		0B5F773B2C222766005B391C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
+		0B5F773C2C2227F7005B391C /* UserDefaultsPercistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */; };
+		0B5F773D2C222817005B391C /* FLCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC72B82451600498ACE /* FLCError.swift */; };
+		0B5F773E2C222824005B391C /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */; };
+		0B5F773F2C22282A005B391C /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
+		0B5F77402C222855005B391C /* SettingsCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1E313F2C10A3F500291D0E /* SettingsCellContent.swift */; };
+		0B5F77412C222892005B391C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B02B9DCE7B00B8DF5C /* Constants.swift */; };
 		0B60E35A2BA6ED720008000B /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
 		0B60E35D2BA70F810008000B /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double+Ext.swift */; };
 		0B625C372BB340D400A9392A /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
@@ -189,6 +196,87 @@
 		0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938922B853A6900A18016 /* CalculationVC.swift */; };
 		0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */; };
+		0BFA898A2C22B7A40023D949 /* FLCCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */; };
+		0BFA898B2C22B7BC0023D949 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54452B8115420078C110 /* Persistence.swift */; };
+		0BFA898C2C22B7BD0023D949 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54452B8115420078C110 /* Persistence.swift */; };
+		0BFA898D2C22B7DD0023D949 /* FLCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC72B82451600498ACE /* FLCError.swift */; };
+		0BFA898E2C22B8100023D949 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
+		0BFA898F2C22B8330023D949 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
+		0BFA89902C22B8610023D949 /* TotalPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78F3062BE68D2000C52EC4 /* TotalPriceData.swift */; };
+		0BFA89912C22B8610023D949 /* TotalPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78F3062BE68D2000C52EC4 /* TotalPriceData.swift */; };
+		0BFA89922C22B87D0023D949 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */; };
+		0BFA89932C22B87E0023D949 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */; };
+		0BFA89942C22B95D0023D949 /* ChinaTruckPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A6E2BB980900016A991 /* ChinaTruckPickup.swift */; };
+		0BFA89952C22B95E0023D949 /* ChinaTruckPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A6E2BB980900016A991 /* ChinaTruckPickup.swift */; };
+		0BFA89962C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3849CF2BD82BCF0002F233 /* TurkeyTruckByFerryPickup.swift */; };
+		0BFA89972C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3849CF2BD82BCF0002F233 /* TurkeyTruckByFerryPickup.swift */; };
+		0BFA89982C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA381E32BFA0B5500A242F2 /* ChinaRailwayPickup.swift */; };
+		0BFA89992C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA381E32BFA0B5500A242F2 /* ChinaRailwayPickup.swift */; };
+		0BFA899A2C22B9950023D949 /* ChinaAirPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA381E52BFA0BD800A242F2 /* ChinaAirPickup.swift */; };
+		0BFA899B2C22B9960023D949 /* ChinaAirPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA381E52BFA0BD800A242F2 /* ChinaAirPickup.swift */; };
+		0BFA899C2C22B9BA0023D949 /* ChinaTruckTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEA2BF8CD14001ECED4 /* ChinaTruckTariff.swift */; };
+		0BFA899D2C22B9BB0023D949 /* ChinaTruckTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEA2BF8CD14001ECED4 /* ChinaTruckTariff.swift */; };
+		0BFA899E2C22B9CE0023D949 /* ChinaRailwayTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEC2BF8CF33001ECED4 /* ChinaRailwayTariff.swift */; };
+		0BFA899F2C22B9CF0023D949 /* ChinaRailwayTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEC2BF8CF33001ECED4 /* ChinaRailwayTariff.swift */; };
+		0BFA89A02C22B9DE0023D949 /* ChinaAirTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */; };
+		0BFA89A12C22B9DF0023D949 /* ChinaAirTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */; };
+		0BFA89A22C22B9EB0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */; };
+		0BFA89A32C22B9EC0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */; };
+		0BFA89A42C22B9F80023D949 /* AvailableLogisticsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */; };
+		0BFA89A52C22B9F90023D949 /* AvailableLogisticsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */; };
+		0BFA89A62C22BA060023D949 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAF1DAE2BF1142800C0933B /* Document.swift */; };
+		0BFA89A72C22BA070023D949 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAF1DAE2BF1142800C0933B /* Document.swift */; };
+		0BFA89A82C22BA190023D949 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B625C362BB340D400A9392A /* CurrencyData.swift */; };
+		0BFA89A92C22BA300023D949 /* FLCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */; };
+		0BFA89AA2C22BA310023D949 /* FLCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */; };
+		0BFA89AB2C22BA4A0023D949 /* FLCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F02C0E1EA100F64843 /* FLCUser.swift */; };
+		0BFA89AC2C22BA4A0023D949 /* FLCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F02C0E1EA100F64843 /* FLCUser.swift */; };
+		0BFA89AD2C22BA510023D949 /* FLCPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */; };
+		0BFA89AE2C22BA510023D949 /* FLCPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */; };
+		0BFA89AF2C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */; };
+		0BFA89B02C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */; };
+		0BFA89B12C22BA7B0023D949 /* CalculationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54712B81228A0078C110 /* CalculationInfo.swift */; };
+		0BFA89B22C22BA7D0023D949 /* CalculationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54712B81228A0078C110 /* CalculationInfo.swift */; };
+		0BFA89B32C22BA9A0023D949 /* CalculationDataFirebaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2FF62A2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift */; };
+		0BFA89B42C22BA9B0023D949 /* CalculationDataFirebaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2FF62A2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift */; };
+		0BFA89B52C22BAB80023D949 /* CalculationResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */; };
+		0BFA89B62C22BAB80023D949 /* CalculationResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */; };
+		0BFA89B72C22BAD50023D949 /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
+		0BFA89B82C22BAD50023D949 /* RussianDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E3592BA6ED720008000B /* RussianDelivery.swift */; };
+		0BFA89B92C22BAF80023D949 /* PermissionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD919512C1DE048002C0C94 /* PermissionItem.swift */; };
+		0BFA89BA2C22BAF90023D949 /* PermissionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD919512C1DE048002C0C94 /* PermissionItem.swift */; };
+		0BFA89BB2C22BC010023D949 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */; };
+		0BFA89BC2C22BC020023D949 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */; };
+		0BFA89BE2C22BC190023D949 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89BD2C22BC190023D949 /* FirebaseAnalytics */; };
+		0BFA89C02C22BC220023D949 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89BF2C22BC220023D949 /* FirebaseCrashlytics */; };
+		0BFA89C22C22BC250023D949 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89C12C22BC250023D949 /* FirebaseDatabase */; };
+		0BFA89C42C22BC2F0023D949 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89C32C22BC2F0023D949 /* FirebaseFirestore */; };
+		0BFA89C62C22BC330023D949 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89C52C22BC330023D949 /* FirebaseMessaging */; };
+		0BFA89C82C22BC380023D949 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89C72C22BC380023D949 /* FirebaseStorage */; };
+		0BFA89CA2C22BC3F0023D949 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89C92C22BC3F0023D949 /* FirebaseAnalytics */; };
+		0BFA89CC2C22BC470023D949 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89CB2C22BC470023D949 /* FirebaseCrashlytics */; };
+		0BFA89CE2C22BC4B0023D949 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89CD2C22BC4B0023D949 /* FirebaseDatabase */; };
+		0BFA89D02C22BC500023D949 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89CF2C22BC500023D949 /* FirebaseFirestore */; };
+		0BFA89D22C22BC570023D949 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89D12C22BC570023D949 /* FirebaseMessaging */; };
+		0BFA89D42C22BC5C0023D949 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0BFA89D32C22BC5C0023D949 /* FirebaseStorage */; };
+		0BFA89D52C22BC880023D949 /* FileSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */; };
+		0BFA89D62C22BC890023D949 /* FileSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */; };
+		0BFA89D72C22BCA40023D949 /* UserDefaultsPercistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */; };
+		0BFA89D82C22BCCA0023D949 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */; };
+		0BFA89D92C22C4690023D949 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
+		0BFA89DA2C22C46A0023D949 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
+		0BFA89DB2C22C4900023D949 /* SMSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */; };
+		0BFA89DC2C22C4900023D949 /* SMSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */; };
+		0BFA89DD2C22CA240023D949 /* AppDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */; };
+		0BFA89DE2C22CA510023D949 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
+		0BFA89DF2C22CA510023D949 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */; };
+		0BFA89E02C22CA5D0023D949 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */; };
+		0BFA89E12C22CA5D0023D949 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */; };
+		0BFA89E22C22CA780023D949 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD7462BA38FEC00B485B8 /* String+Ext.swift */; };
+		0BFA89E32C22CA780023D949 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD7462BA38FEC00B485B8 /* String+Ext.swift */; };
+		0BFA89E42C22CA950023D949 /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkStatusManager.swift */; };
+		0BFA89E52C22CA960023D949 /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkStatusManager.swift */; };
+		0BFA89E62C22CAAF0023D949 /* AppDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */; };
 		0BFBD7402BA37B9F00B485B8 /* CalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */; };
 		0BFBD7432BA37E2B00B485B8 /* CalculationResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD7422BA37E2B00B485B8 /* CalculationResultVC.swift */; };
 		0BFBD7452BA38B3500B485B8 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBD7442BA38B3400B485B8 /* UINavigationController+Ext.swift */; };
@@ -339,6 +427,8 @@
 		0BA381E32BFA0B5500A242F2 /* ChinaRailwayPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaRailwayPickup.swift; sourceTree = "<group>"; };
 		0BA381E52BFA0BD800A242F2 /* ChinaAirPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaAirPickup.swift; sourceTree = "<group>"; };
 		0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
+		0BABA4BA2C22F973000991E9 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
+		0BABA4BB2C22F987000991E9 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
 		0BAF1DA62BF0E3DC00C0933B /* BonusSystemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusSystemCell.swift; sourceTree = "<group>"; };
 		0BAF1DA82BF101C700C0933B /* FLCCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCollectionView.swift; sourceTree = "<group>"; };
 		0BAF1DAA2BF10F6E00C0933B /* DocumentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsCell.swift; sourceTree = "<group>"; };
@@ -409,6 +499,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFA89C22C22BC250023D949 /* FirebaseDatabase in Frameworks */,
+				0BFA89C42C22BC2F0023D949 /* FirebaseFirestore in Frameworks */,
+				0BFA89C62C22BC330023D949 /* FirebaseMessaging in Frameworks */,
+				0BFA89BE2C22BC190023D949 /* FirebaseAnalytics in Frameworks */,
+				0BFA89C02C22BC220023D949 /* FirebaseCrashlytics in Frameworks */,
+				0BFA89C82C22BC380023D949 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,8 +525,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFA89CE2C22BC4B0023D949 /* FirebaseDatabase in Frameworks */,
 				0B6E54522B811B540078C110 /* SwiftUI.framework in Frameworks */,
+				0BFA89D22C22BC570023D949 /* FirebaseMessaging in Frameworks */,
+				0BFA89CC2C22BC470023D949 /* FirebaseCrashlytics in Frameworks */,
 				0B6E54502B811B540078C110 /* WidgetKit.framework in Frameworks */,
+				0BFA89D42C22BC5C0023D949 /* FirebaseStorage in Frameworks */,
+				0BFA89CA2C22BC3F0023D949 /* FirebaseAnalytics in Frameworks */,
+				0BFA89D02C22BC500023D949 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +674,7 @@
 		0B6931022C20C6640032A179 /* NotificationService */ = {
 			isa = PBXGroup;
 			children = (
+				0BABA4BA2C22F973000991E9 /* NotificationService.entitlements */,
 				0B6931032C20C6640032A179 /* NotificationService.swift */,
 				0B6931052C20C6640032A179 /* Info.plist */,
 			);
@@ -581,6 +684,7 @@
 		0B6E541B2B810BA00078C110 = {
 			isa = PBXGroup;
 			children = (
+				0BABA4BB2C22F987000991E9 /* WidgetsExtension.entitlements */,
 				0B6E54262B810BA00078C110 /* FLCCalculator */,
 				0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */,
 				0B6E546D2B811C2E0078C110 /* Support */,
@@ -710,8 +814,8 @@
 				0B97770C2BEF92DF00E56197 /* UsefulInfoContent.swift */,
 				0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */,
 				0B1E313F2C10A3F500291D0E /* SettingsCellContent.swift */,
-				0B9D5A742BB991AE0016A991 /* Networking */,
 				0BD919512C1DE048002C0C94 /* PermissionItem.swift */,
+				0B9D5A742BB991AE0016A991 /* Networking */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -921,6 +1025,12 @@
 			);
 			name = NotificationService;
 			packageProductDependencies = (
+				0BFA89BD2C22BC190023D949 /* FirebaseAnalytics */,
+				0BFA89BF2C22BC220023D949 /* FirebaseCrashlytics */,
+				0BFA89C12C22BC250023D949 /* FirebaseDatabase */,
+				0BFA89C32C22BC2F0023D949 /* FirebaseFirestore */,
+				0BFA89C52C22BC330023D949 /* FirebaseMessaging */,
+				0BFA89C72C22BC380023D949 /* FirebaseStorage */,
 			);
 			productName = NotificationService;
 			productReference = 0B6931012C20C6640032A179 /* NotificationService.appex */;
@@ -967,6 +1077,14 @@
 			dependencies = (
 			);
 			name = WidgetsExtension;
+			packageProductDependencies = (
+				0BFA89C92C22BC3F0023D949 /* FirebaseAnalytics */,
+				0BFA89CB2C22BC470023D949 /* FirebaseCrashlytics */,
+				0BFA89CD2C22BC4B0023D949 /* FirebaseDatabase */,
+				0BFA89CF2C22BC500023D949 /* FirebaseFirestore */,
+				0BFA89D12C22BC570023D949 /* FirebaseMessaging */,
+				0BFA89D32C22BC5C0023D949 /* FirebaseStorage */,
+			);
 			productName = WidgetsExtension;
 			productReference = 0B6E544D2B811B540078C110 /* WidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1053,7 +1171,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFA89A12C22B9DF0023D949 /* ChinaAirTariff.swift in Sources */,
+				0BFA898C2C22B7BD0023D949 /* Persistence.swift in Sources */,
+				0BFA89D52C22BC880023D949 /* FileSystemManager.swift in Sources */,
+				0BFA89BC2C22BC020023D949 /* FirebaseManager.swift in Sources */,
+				0BFA89DC2C22C4900023D949 /* SMSCounter.swift in Sources */,
+				0B5F773D2C222817005B391C /* FLCError.swift in Sources */,
+				0B5F77402C222855005B391C /* SettingsCellContent.swift in Sources */,
+				0BFA89AE2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
+				0BFA89952C22B95E0023D949 /* ChinaTruckPickup.swift in Sources */,
+				0BFA89A22C22B9EB0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */,
+				0B5F773B2C222766005B391C /* Enums.swift in Sources */,
+				0BFA899D2C22B9BB0023D949 /* ChinaTruckTariff.swift in Sources */,
+				0BFA89E52C22CA960023D949 /* NetworkStatusManager.swift in Sources */,
+				0BFA89DE2C22CA510023D949 /* NetworkManager.swift in Sources */,
+				0BFA89A82C22BA190023D949 /* CurrencyData.swift in Sources */,
+				0BFA89A72C22BA070023D949 /* Document.swift in Sources */,
+				0BFA89E02C22CA5D0023D949 /* UserDefaultsManager.swift in Sources */,
+				0BFA89BA2C22BAF90023D949 /* PermissionItem.swift in Sources */,
+				0BFA89972C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */,
+				0BFA899F2C22B9CF0023D949 /* ChinaRailwayTariff.swift in Sources */,
+				0BFA899B2C22B9960023D949 /* ChinaAirPickup.swift in Sources */,
+				0BFA89912C22B8610023D949 /* TotalPriceData.swift in Sources */,
 				0B6931042C20C6640032A179 /* NotificationService.swift in Sources */,
+				0B5F773F2C22282A005B391C /* Protocols.swift in Sources */,
+				0BFA89992C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */,
+				0BFA898E2C22B8100023D949 /* CoreDataManager.swift in Sources */,
+				0BFA89B62C22BAB80023D949 /* CalculationResultItem.swift in Sources */,
+				0BFA89DD2C22CA240023D949 /* AppDelegateHelper.swift in Sources */,
+				0BFA89B42C22BA9B0023D949 /* CalculationDataFirebaseRecord.swift in Sources */,
+				0BFA89B22C22BA7D0023D949 /* CalculationInfo.swift in Sources */,
+				0B5F773E2C222824005B391C /* UserDefaults+Ext.swift in Sources */,
+				0BFA89932C22B87E0023D949 /* CalculationData.swift in Sources */,
+				0BFA89B02C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */,
+				0BFA89D92C22C4690023D949 /* SMSManager.swift in Sources */,
+				0B5F773C2C2227F7005B391C /* UserDefaultsPercistenceManager.swift in Sources */,
+				0BFA898A2C22B7A40023D949 /* FLCCalculator.xcdatamodeld in Sources */,
+				0BFA89E32C22CA780023D949 /* String+Ext.swift in Sources */,
+				0BFA89AA2C22BA310023D949 /* FLCManager.swift in Sources */,
+				0BFA89A52C22B9F90023D949 /* AvailableLogisticsType.swift in Sources */,
+				0BFA89B82C22BAD50023D949 /* RussianDelivery.swift in Sources */,
+				0B5F77412C222892005B391C /* Constants.swift in Sources */,
+				0BFA89AC2C22BA4A0023D949 /* FLCUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1224,17 +1383,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFA89982C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */,
+				0BFA89A02C22B9DE0023D949 /* ChinaAirTariff.swift in Sources */,
+				0BFA89D72C22BCA40023D949 /* UserDefaultsPercistenceManager.swift in Sources */,
 				0B78F3082BE69A8F00C52EC4 /* Date+Ext.swift in Sources */,
 				0B9AB5FE2BE265E700E926EB /* CurrencyData.swift in Sources */,
 				0B78F3092BE69AAE00C52EC4 /* Enums.swift in Sources */,
+				0BFA89A42C22B9F80023D949 /* AvailableLogisticsType.swift in Sources */,
+				0BFA89A32C22B9EC0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */,
 				0B1E31422C10A47F00291D0E /* SettingsCellContent.swift in Sources */,
+				0BFA89DA2C22C46A0023D949 /* SMSManager.swift in Sources */,
+				0BFA89E22C22CA780023D949 /* String+Ext.swift in Sources */,
+				0BFA89B92C22BAF80023D949 /* PermissionItem.swift in Sources */,
+				0BFA89AD2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
+				0BFA898D2C22B7DD0023D949 /* FLCError.swift in Sources */,
 				0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */,
+				0BFA89BB2C22BC010023D949 /* FirebaseManager.swift in Sources */,
+				0BFA89942C22B95D0023D949 /* ChinaTruckPickup.swift in Sources */,
+				0BFA89AF2C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */,
 				0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */,
+				0BFA89AB2C22BA4A0023D949 /* FLCUser.swift in Sources */,
+				0BFA89B12C22BA7B0023D949 /* CalculationInfo.swift in Sources */,
 				0B1E31412C10A47900291D0E /* Protocols.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
+				0BFA89E42C22CA950023D949 /* NetworkStatusManager.swift in Sources */,
+				0BFA89E62C22CAAF0023D949 /* AppDelegateHelper.swift in Sources */,
+				0BFA89922C22B87D0023D949 /* CalculationData.swift in Sources */,
+				0BFA89962C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */,
+				0BFA89DF2C22CA510023D949 /* NetworkManager.swift in Sources */,
+				0BFA89E12C22CA5D0023D949 /* UserDefaultsManager.swift in Sources */,
 				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
+				0BFA89B72C22BAD50023D949 /* RussianDelivery.swift in Sources */,
+				0BFA899A2C22B9950023D949 /* ChinaAirPickup.swift in Sources */,
+				0BFA89D62C22BC890023D949 /* FileSystemManager.swift in Sources */,
+				0BFA89902C22B8610023D949 /* TotalPriceData.swift in Sources */,
+				0BFA898B2C22B7BC0023D949 /* Persistence.swift in Sources */,
+				0BFA89D82C22BCCA0023D949 /* UserDefaults+Ext.swift in Sources */,
 				0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */,
+				0BFA898F2C22B8330023D949 /* CoreDataManager.swift in Sources */,
+				0BFA89A62C22BA060023D949 /* Document.swift in Sources */,
+				0BFA89B52C22BAB80023D949 /* CalculationResultItem.swift in Sources */,
+				0BFA899C2C22B9BA0023D949 /* ChinaTruckTariff.swift in Sources */,
+				0BFA89DB2C22C4900023D949 /* SMSCounter.swift in Sources */,
 				0B9AB6002BE265FB00E926EB /* Constants.swift in Sources */,
+				0BFA899E2C22B9CE0023D949 /* ChinaRailwayTariff.swift in Sources */,
+				0BFA89A92C22BA300023D949 /* FLCManager.swift in Sources */,
+				0BFA89B32C22BA9A0023D949 /* CalculationDataFirebaseRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1270,6 +1464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
@@ -1297,6 +1492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
@@ -1520,6 +1716,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
@@ -1548,6 +1745,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
@@ -1650,6 +1848,66 @@
 			productName = FirebaseMessaging;
 		};
 		0B5D1BCF2C1F45BE00F9ECB3 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		0BFA89BD2C22BC190023D949 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0BFA89BF2C22BC220023D949 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		0BFA89C12C22BC250023D949 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		0BFA89C32C22BC2F0023D949 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		0BFA89C52C22BC330023D949 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		0BFA89C72C22BC380023D949 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		0BFA89C92C22BC3F0023D949 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0BFA89CB2C22BC470023D949 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		0BFA89CD2C22BC4B0023D949 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		0BFA89CF2C22BC500023D949 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		0BFA89D12C22BC570023D949 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		0BFA89D32C22BC5C0023D949 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0B5D1BC42C1F45BE00F9ECB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;

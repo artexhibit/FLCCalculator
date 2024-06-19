@@ -20,6 +20,8 @@ struct TextViewManager {
             FirebaseManager.downloadDocument(doc: privacyPolicyDoc) { result in
                 guard let progress = result.progress, let url = result.url else { return }
                 
+                if result.isWithError { FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error) }
+                
                 if progress == 100 {
                     HapticManager.addSuccessHaptic()
                     FileSystemManager.openDocument(with: url, in: vc)

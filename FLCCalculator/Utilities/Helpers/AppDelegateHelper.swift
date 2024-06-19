@@ -4,25 +4,16 @@ import BackgroundTasks
 struct AppDelegateHelper {
     
     @MainActor
-    static func updateCurrencyData(for task: BGAppRefreshTask? = nil, canShowPopup: Bool = true) {
+    static func updateCurrencyData(for task: BGAppRefreshTask? = nil) {
         Task {
             do {
                 let currencyData = try await NetworkManager.shared.getCurrencyData()
                 
                 guard let _ = CoreDataManager.updateItemInCoreData(item: currencyData) else {
-                    if canShowPopup {
-                        FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось обновить курсы валют", style: .error)
-                    }
                     task?.setTaskCompleted(success: false)
                     return
                 }
-                if canShowPopup {
-                    FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Курсы валют обновлены")
-                }
             } catch {
-                if canShowPopup {
-                    FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось получить курсы валют", style: .error)
-                }
                 task?.setTaskCompleted(success: false)
             }
             task?.setTaskCompleted(success: true)
@@ -49,7 +40,7 @@ struct AppDelegateHelper {
     }
     
     @MainActor
-    static func updateCalculationData(for task: BGAppRefreshTask? = nil, canShowPopup: Bool = true) {
+    static func updateCalculationData(for task: BGAppRefreshTask? = nil) {
         Task {
             var success = false
             
@@ -59,7 +50,7 @@ struct AppDelegateHelper {
                     let isTariffsUpdated = await FirebaseManager.updateTariffs()
                     let isPickupsUpdated = await FirebaseManager.updatePickups()
                     success = isTariffsUpdated && isPickupsUpdated
-                    await save(dateString: dateString, if: isTariffsUpdated, and: isPickupsUpdated, canShowPopup: canShowPopup)
+                    await save(dateString: dateString, if: isTariffsUpdated, and: isPickupsUpdated)
                 } else {
                     guard let storedDate = UserDefaultsManager.dateWhenDataWasUpdated.createDate() else { return }
                     guard let receivedDate = dateString.createDate() else { return }
@@ -68,7 +59,7 @@ struct AppDelegateHelper {
                         let isTariffsUpdated = await FirebaseManager.updateTariffs()
                         let isPickupsUpdated = await FirebaseManager.updatePickups()
                         success = isTariffsUpdated && isPickupsUpdated
-                        await save(dateString: dateString, if: isTariffsUpdated, and: isPickupsUpdated, canShowPopup: canShowPopup)
+                        await save(dateString: dateString, if: isTariffsUpdated, and: isPickupsUpdated)
                     }
                 }
             } catch {
@@ -115,14 +106,6 @@ struct AppDelegateHelper {
         }
     }
     
-    static func registerBackgroundTasks() {
-        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCurrencyDataTaskId, beginDateInterval: (3600 * 8))
-        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCalculationData, beginDateInterval: (3600 * 24))
-        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateManagerData, beginDateInterval: (3600 * 24 * 7))
-        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateDocumentsData, beginDateInterval: (3600 * 24 * 7))
-        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateAvailableLogisticsTypesData, beginDateInterval: (3600 * 24 * 7))
-    }
-    
     static func manageStoredCalculationRecords() {
         let storedRecords: [CalculationDataFirebaseRecord] = UserDefaultsPercistenceManager.retrieveItemsFromUserDefaults() ?? [CalculationDataFirebaseRecord]()
         guard !storedRecords.isEmpty, NetworkStatusManager.shared.isDeviceOnline else { return }
@@ -138,11 +121,11 @@ struct AppDelegateHelper {
             guard NetworkStatusManager.shared.isDeviceOnline else { return }
             
             if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCurrencyDataUpdate) {
-                updateCurrencyData(canShowPopup: false)
+                updateCurrencyData()
                 UserDefaultsManager.lastCurrencyDataUpdate = Date()
             }
             if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCalculationDataUpdate) {
-                updateCalculationData(canShowPopup: false)
+                updateCalculationData()
                 UserDefaultsManager.lastCalculationDataUpdate = Date()
             }
             
@@ -168,16 +151,9 @@ struct AppDelegateHelper {
         SMSManager.startTimer()
     }
     
-    private static func save(dateString: String, if isTariffsUpdated: Bool, and isPickupsUpdated: Bool, canShowPopup: Bool = true) async {
+    private static func save(dateString: String, if isTariffsUpdated: Bool, and isPickupsUpdated: Bool) async {
         if isTariffsUpdated && isPickupsUpdated {
             UserDefaultsManager.dateWhenDataWasUpdated = dateString
-            if canShowPopup {
-                await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Данные для расчёта загружены")
-            }
-        } else {
-            if canShowPopup {
-                await FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось загрузить данные. Попробуйте обновить Тарифы и Пикапы в разделе Настройки", style: .error)
-            }
         }
     }
     

@@ -3,17 +3,16 @@ import Foundation
 struct UserDefaultsPercistenceManager {
     private static let ud = UserDefaults.sharedContainer
     
-    static func updateItemsInUserDefaults<T: UserDefaultsStorable>(items: [T]) -> [T]? {
+    static func updateItemsInUserDefaults<T: UserDefaultsStorable>(items: [T]) {
         if let storedItems: [T] = retrieveItemsFromUserDefaults() {
             ud.removeObject(forKey: T.userDefaultsKey)
-            guard let _ = saveItemsToUserDefaults(items: items) else { return items }
+            _ = saveItemsToUserDefaults(items: items)
+            
             let savingError = saveItemsToUserDefaults(items: storedItems)
             print(savingError ?? .unableToSaveToUserDefaults)
-            return nil
         } else {
             let savingError = saveItemsToUserDefaults(items: items) ?? .unableToUpdateUserDefaults
             print(savingError)
-            return items
         }
     }
     

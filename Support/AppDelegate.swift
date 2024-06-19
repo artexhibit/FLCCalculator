@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PermissionsManager.configureUNUserNotificationCenter(delegate: self)
         
         AppDelegateHelper.registerForRemoteNotifications(with: application)
-        AppDelegateHelper.registerBackgroundTasks()
+        BackgroundTasksManager.registerBackgroundTasks()
         AppDelegateHelper.updateDataOnAppLaunch()
         AppDelegateHelper.configureSMSCounter()
         AppDelegateHelper.manageStoredCalculationRecords()

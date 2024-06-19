@@ -341,7 +341,7 @@ struct CalculationResultHelper {
     }
     
     static func manageCalculationDocument(with data: CalculationData, and totalPriceData: [TotalPriceData]) async {
-        let calcEntryData = createCalculationDataFirebaseRecord(with: data, and: totalPriceData)
+        let calcEntryData = FirebaseManager.createCalculationDataFirebaseRecord(with: data, and: totalPriceData)
         
         if NetworkStatusManager.shared.isDeviceOnline {
             await FirebaseManager.createCalculationDocument(with: calcEntryData)
@@ -351,34 +351,5 @@ struct CalculationResultHelper {
             storedRecords.append(calcEntryData)
             _ = UserDefaultsPercistenceManager.saveItemsToUserDefaults(items: storedRecords)
         }
-    }
-    
-    static func createCalculationDataFirebaseRecord(with data: CalculationData, and totalPriceData: [TotalPriceData]) -> CalculationDataFirebaseRecord {
-        let user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
-        
-        return CalculationDataFirebaseRecord(
-            calculationDate: data.calculationDate,
-            name: user?.name ?? "",
-            email: user?.email ?? "",
-            mobilePhone: user?.mobilePhone ?? "",
-            userCalculationID: data.id,
-            countryFrom: data.countryFrom,
-            countryTo: data.countryTo,
-            deliveryType: data.deliveryType,
-            deliveryTypeCode: data.deliveryTypeCode,
-            departureAirport: data.departureAirport,
-            fromLocation: data.fromLocation,
-            toLocation: data.toLocation,
-            toLocationCode: data.toLocationCode,
-            goodsType: data.goodsType,
-            volume: data.volume,
-            weight: data.weight,
-            invoiceAmount: data.invoiceAmount,
-            invoiceCurrency: data.invoiceCurrency,
-            needCustomClearance: data.needCustomClearance,
-            isConfirmed: false,
-            exchangeRate: data.exchangeRate,
-            totalPriceData: totalPriceData
-        )
     }
 }

@@ -6,12 +6,14 @@ struct Persistence {
     
     var oldStoreURL: URL {
         let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
-        return directory?.appendingPathComponent(databaseName) ?? URL(string: "")!
+        guard let directory = directory else { fatalError(FLCError.unableToFindAppDirectory.rawValue) }
+        return directory.appendingPathComponent(databaseName)
     }
     
     var sharedStoreURL: URL {
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ru.igorcodes.FLCCalculator")
-        return container?.appendingPathComponent(databaseName) ?? URL(string: "")!
+        guard let container = container else { fatalError(FLCError.unableToFindContainerURL.rawValue) }
+        return container.appendingPathComponent(databaseName)
     }
     
     let container: NSPersistentContainer

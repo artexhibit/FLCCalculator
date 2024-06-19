@@ -29,9 +29,9 @@ struct BackgroundTasksManager {
             
             switch id {
             case .updateCurrencyDataTaskId:
-                AppDelegateHelper.updateCurrencyData(for: task, canShowPopup: false)
+                AppDelegateHelper.updateCurrencyData(for: task)
             case .updateCalculationData:
-                AppDelegateHelper.updateCalculationData(for: task, canShowPopup: false)
+                AppDelegateHelper.updateCalculationData(for: task)
             case .updateManagerData:
                 AppDelegateHelper.updateManagerData(for: task)
             case .updateDocumentsData:
@@ -40,5 +40,13 @@ struct BackgroundTasksManager {
                 AppDelegateHelper.updateAvailableLogisticsTypesData(for: task)
             }
         }
+    }
+    
+    static func registerBackgroundTasks() {
+        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCurrencyDataTaskId, beginDateInterval: (3600 * 8))
+        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateCalculationData, beginDateInterval: (3600 * 24))
+        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateManagerData, beginDateInterval: (3600 * 24 * 7))
+        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateDocumentsData, beginDateInterval: (3600 * 24 * 7))
+        BackgroundTasksManager.registerTask(id: FLCBackgroundFetchId.updateAvailableLogisticsTypesData, beginDateInterval: (3600 * 24 * 7))
     }
 }
