@@ -83,7 +83,7 @@ class NetworkManager {
         let (data, responce) = try await URLSession.shared.data(for: request)
         
         guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
-        guard let responseString = String(data: data, encoding: .utf8) else { return false }
+        guard let responseString = String(data: data, encoding: .utf8) else { throw FLCError.invalidResponceString }
         return responseString.getFirstCharacters(3) == "100" ? true : false
     }
 }

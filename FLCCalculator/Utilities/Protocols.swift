@@ -13,6 +13,11 @@ protocol FirebaseIdentifiable: Hashable, Codable {
     static var fieldNameKey: String { get }
 }
 
+protocol KeychainStorable: Codable {
+    static var serviceKey: String { get }
+    static var accountKey: String { get }
+}
+
 protocol UserDefaultsStorable: Codable, Hashable {
     static var userDefaultsKey: String { get }
 }

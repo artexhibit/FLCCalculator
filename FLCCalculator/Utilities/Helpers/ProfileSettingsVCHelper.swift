@@ -49,8 +49,8 @@ struct ProfileSettingsVCHelper {
             case ProfileSettingsTextFieldsNames.phoneNumber: updatedUser.mobilePhone = textField.text ?? ""
             case ProfileSettingsTextFieldsNames.email: updatedUser.email = textField.text ?? ""
             case ProfileSettingsTextFieldsNames.companyName: updatedUser.companyName = textField.text
-            case ProfileSettingsTextFieldsNames.companyTaxPayerID: updatedUser.companyTaxPayerID = textField.text
-            case ProfileSettingsTextFieldsNames.customsDeclarationsAmountPerYear: updatedUser.customsDeclarationsAmountPerYear = textField.text
+            case ProfileSettingsTextFieldsNames.companyTaxPayerID: updatedUser.companyTaxPayerID = Int(textField.text ?? "0")
+            case ProfileSettingsTextFieldsNames.customsDeclarationsAmountPerYear: updatedUser.customsDeclarationsAmountPerYear = Int(textField.text ?? "0")
             default: break
             }
         }

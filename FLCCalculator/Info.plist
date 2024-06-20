@@ -10,6 +10,8 @@
 		<string>ru.igorcodes.FLCCalculator.updateCalculationData</string>
 		<string>ru.igorcodes.FLCCalculator.updateCurrencyData</string>
 	</array>
+	<key>Bubble Token</key>
+	<string>$(BUBBLE_TOKEN)</string>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>Оповещения об изменении тарифов и акциях</string>
 	<key>SMS API Key</key>

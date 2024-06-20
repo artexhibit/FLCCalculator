@@ -6,9 +6,7 @@ extension Date {
         formatter.dateFormat = format.rawValue
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         
-        if let dateStyle = dateStyle {
-            formatter.dateStyle = dateStyle
-        }
+        if let dateStyle = dateStyle { formatter.dateStyle = dateStyle }
         return formatter.string(from: self)
     }
 }

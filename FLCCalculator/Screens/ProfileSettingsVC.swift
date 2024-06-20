@@ -187,7 +187,7 @@ class ProfileSettingsVC: UIViewController {
     
     private func configureCompanyTaxPayerIDTextField()  {
         companyTaxPayerIDTextField.delegate = self
-        companyTaxPayerIDTextField.text = user?.companyTaxPayerID ?? ""
+        companyTaxPayerIDTextField.text = String(user?.companyTaxPayerID ?? 0)
         
         NSLayoutConstraint.activate([
             companyTaxPayerIDTextField.topAnchor.constraint(equalTo: companyNameTextField.bottomAnchor, constant: padding / 2),
@@ -199,7 +199,7 @@ class ProfileSettingsVC: UIViewController {
     
     private func configureCustomsDeclarationsAmountPerYearTextField()  {
         customsDeclarationsAmountPerYearTextField.delegate = self
-        customsDeclarationsAmountPerYearTextField.text = user?.customsDeclarationsAmountPerYear ?? ""
+        customsDeclarationsAmountPerYearTextField.text = String(user?.customsDeclarationsAmountPerYear ?? 0)
         
         NSLayoutConstraint.activate([
             customsDeclarationsAmountPerYearTextField.topAnchor.constraint(equalTo:         companyTaxPayerIDTextField.bottomAnchor, constant: padding / 2),

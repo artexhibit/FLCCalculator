@@ -109,6 +109,7 @@
 		0B78F3082BE69A8F00C52EC4 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB1E0632BE102BC00AB6A63 /* Date+Ext.swift */; };
 		0B78F3092BE69AAE00C52EC4 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
 		0B7C8E042BF2A935009322E6 /* UsefulInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */; };
+		0B7DF1C22C24BD110057EF30 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB1E0632BE102BC00AB6A63 /* Date+Ext.swift */; };
 		0B7EBA692BE55C41004BE990 /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkStatusManager.swift */; };
 		0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */; };
 		0B916BA32C1CBF6E0037D44D /* FLCIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA22C1CBF6E0037D44D /* FLCIconView.swift */; };
@@ -137,6 +138,14 @@
 		0BA381E42BFA0B5500A242F2 /* ChinaRailwayPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA381E32BFA0B5500A242F2 /* ChinaRailwayPickup.swift */; };
 		0BA381E62BFA0BD800A242F2 /* ChinaAirPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA381E52BFA0BD800A242F2 /* ChinaAirPickup.swift */; };
 		0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
+		0BABA4BD2C23552B000991E9 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4BC2C23552B000991E9 /* AuthorizationManager.swift */; };
+		0BABA4BF2C236245000991E9 /* PhoneNumberExistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4BE2C236245000991E9 /* PhoneNumberExistResponse.swift */; };
+		0BABA4C12C2362E2000991E9 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4C02C2362E2000991E9 /* KeychainManager.swift */; };
+		0BABA4C22C2362E2000991E9 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4C02C2362E2000991E9 /* KeychainManager.swift */; };
+		0BABA4C32C2362E2000991E9 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4C02C2362E2000991E9 /* KeychainManager.swift */; };
+		0BABA4C52C23677C000991E9 /* FLCUserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */; };
+		0BABA4C62C23677C000991E9 /* FLCUserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */; };
+		0BABA4C72C23677C000991E9 /* FLCUserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */; };
 		0BAF1DA72BF0E3DC00C0933B /* BonusSystemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAF1DA62BF0E3DC00C0933B /* BonusSystemCell.swift */; };
 		0BAF1DA92BF101C700C0933B /* FLCCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAF1DA82BF101C700C0933B /* FLCCollectionView.swift */; };
 		0BAF1DAB2BF10F6E00C0933B /* DocumentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAF1DAA2BF10F6E00C0933B /* DocumentsCell.swift */; };
@@ -429,6 +438,10 @@
 		0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		0BABA4BA2C22F973000991E9 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		0BABA4BB2C22F987000991E9 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		0BABA4BC2C23552B000991E9 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		0BABA4BE2C236245000991E9 /* PhoneNumberExistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberExistResponse.swift; sourceTree = "<group>"; };
+		0BABA4C02C2362E2000991E9 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCUserCredentials.swift; sourceTree = "<group>"; };
 		0BAF1DA62BF0E3DC00C0933B /* BonusSystemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusSystemCell.swift; sourceTree = "<group>"; };
 		0BAF1DA82BF101C700C0933B /* FLCCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCollectionView.swift; sourceTree = "<group>"; };
 		0BAF1DAA2BF10F6E00C0933B /* DocumentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsCell.swift; sourceTree = "<group>"; };
@@ -605,6 +618,7 @@
 				0B9D3A422B94C2C30058FC95 /* HapticManager.swift */,
 				0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */,
 				0B2002B22B9E0B3500B8DF5C /* NetworkManager.swift */,
+				0BABA4BC2C23552B000991E9 /* AuthorizationManager.swift */,
 				0B32CBD22BAF499900E756A5 /* FirebaseManager.swift */,
 				0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */,
 				0B9D5A752BB9AB230016A991 /* UserDefaultsManager.swift */,
@@ -616,6 +630,7 @@
 				0B67DF912C0B61D5008CE099 /* SMSManager.swift */,
 				0BE9DA892C1359A6007D86D0 /* TextViewManager.swift */,
 				0B5D1BC02C1F10EF00F9ECB3 /* PermissionsManager.swift */,
+				0BABA4C02C2362E2000991E9 /* KeychainManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -880,8 +895,10 @@
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 				0BAF1DAE2BF1142800C0933B /* Document.swift */,
 				0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */,
+				0BABA4BE2C236245000991E9 /* PhoneNumberExistResponse.swift */,
 				0BA381E72BFA3CB300A242F2 /* Pickups */,
 				0BB47CF22BF8E978001ECED4 /* Tariffs */,
+				0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1180,6 +1197,7 @@
 				0B5F77402C222855005B391C /* SettingsCellContent.swift in Sources */,
 				0BFA89AE2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
 				0BFA89952C22B95E0023D949 /* ChinaTruckPickup.swift in Sources */,
+				0B7DF1C22C24BD110057EF30 /* Date+Ext.swift in Sources */,
 				0BFA89A22C22B9EB0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */,
 				0B5F773B2C222766005B391C /* Enums.swift in Sources */,
 				0BFA899D2C22B9BB0023D949 /* ChinaTruckTariff.swift in Sources */,
@@ -1196,10 +1214,12 @@
 				0B6931042C20C6640032A179 /* NotificationService.swift in Sources */,
 				0B5F773F2C22282A005B391C /* Protocols.swift in Sources */,
 				0BFA89992C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */,
+				0BABA4C72C23677C000991E9 /* FLCUserCredentials.swift in Sources */,
 				0BFA898E2C22B8100023D949 /* CoreDataManager.swift in Sources */,
 				0BFA89B62C22BAB80023D949 /* CalculationResultItem.swift in Sources */,
 				0BFA89DD2C22CA240023D949 /* AppDelegateHelper.swift in Sources */,
 				0BFA89B42C22BA9B0023D949 /* CalculationDataFirebaseRecord.swift in Sources */,
+				0BABA4C32C2362E2000991E9 /* KeychainManager.swift in Sources */,
 				0BFA89B22C22BA7D0023D949 /* CalculationInfo.swift in Sources */,
 				0B5F773E2C222824005B391C /* UserDefaults+Ext.swift in Sources */,
 				0BFA89932C22B87E0023D949 /* CalculationData.swift in Sources */,
@@ -1292,6 +1312,7 @@
 				0B6E54482B811B0B0078C110 /* UserDefaults+Ext.swift in Sources */,
 				0BC105F12C0E1EA100F64843 /* FLCUser.swift in Sources */,
 				0B6E54282B810BA00078C110 /* AppDelegate.swift in Sources */,
+				0BABA4BF2C236245000991E9 /* PhoneNumberExistResponse.swift in Sources */,
 				0B2A55C52C0F6FE500857C72 /* SettingsSwitchCell.swift in Sources */,
 				0B66ABF22BF3F2B9006EF36B /* FileSystemManager.swift in Sources */,
 				0BE9DA8A2C1359A6007D86D0 /* TextViewManager.swift in Sources */,
@@ -1332,9 +1353,11 @@
 				0B67DF922C0B61D5008CE099 /* SMSManager.swift in Sources */,
 				0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */,
 				0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */,
+				0BABA4BD2C23552B000991E9 /* AuthorizationManager.swift in Sources */,
 				0B97770F2BEFB90600E56197 /* BonusSystemVC.swift in Sources */,
 				0BAF1DA92BF101C700C0933B /* FLCCollectionView.swift in Sources */,
 				0BAF1DAD2BF112FE00C0933B /* DocumentsCollectionView.swift in Sources */,
+				0BABA4C52C23677C000991E9 /* FLCUserCredentials.swift in Sources */,
 				0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */,
 				0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */,
 				0B7882862BDEA8F500BDCA16 /* FLCImageView.swift in Sources */,
@@ -1360,6 +1383,7 @@
 				0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */,
 				0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */,
 				0B6E54432B8111C60078C110 /* UsefulInfoVC.swift in Sources */,
+				0BABA4C12C2362E2000991E9 /* KeychainManager.swift in Sources */,
 				0B9F40F52BBEF8F20072561B /* CalculationResultHelper.swift in Sources */,
 				0BF860FD2BC05BA20065359C /* FLCTintedButton.swift in Sources */,
 				0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */,
@@ -1397,12 +1421,14 @@
 				0BFA89B92C22BAF80023D949 /* PermissionItem.swift in Sources */,
 				0BFA89AD2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
 				0BFA898D2C22B7DD0023D949 /* FLCError.swift in Sources */,
+				0BABA4C22C2362E2000991E9 /* KeychainManager.swift in Sources */,
 				0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */,
 				0BFA89BB2C22BC010023D949 /* FirebaseManager.swift in Sources */,
 				0BFA89942C22B95D0023D949 /* ChinaTruckPickup.swift in Sources */,
 				0BFA89AF2C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */,
 				0B6E54552B811B540078C110 /* WidgetsBundle.swift in Sources */,
 				0BFA89AB2C22BA4A0023D949 /* FLCUser.swift in Sources */,
+				0BABA4C62C23677C000991E9 /* FLCUserCredentials.swift in Sources */,
 				0BFA89B12C22BA7B0023D949 /* CalculationInfo.swift in Sources */,
 				0B1E31412C10A47900291D0E /* Protocols.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,

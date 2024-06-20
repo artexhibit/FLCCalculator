@@ -20,6 +20,12 @@ enum FLCTextFieldType { case email, phone, username, birthdate, companyName, tax
 enum FLCSettingsCellType { case profile, switcher, menu, label }
 enum FLCSettingsContentType { case profile, haptic, theme, permissions }
 enum FLCPermissionType { case notifications }
+enum FLCHTTPMethod: String { case POST, GET, PATCH }
+
+enum FLCHTTPHeaderField: String {
+    case phone = "phone"
+    case authorization = "Authorization"
+}
 
 enum FLCNotificationServiceDataKey: String, Codable {
     case isCalculationDataAvailable, isDocumentsDataAvailable, isManagerDataAvailable, isNewLogisticsTypesDataAvailable
