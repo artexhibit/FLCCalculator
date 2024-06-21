@@ -17,7 +17,7 @@ struct AuthorizationVCHelper {
     
     static func handleSuccessRegistration(with phone: String, and email: String) {
         UserDefaultsManager.isUserLoggedIn = true
-        let newUser = FLCUser(name: "Гость\(LoginVCHelper.createVerificationCode(digits: 5))", email: email, mobilePhone: phone)
+        let newUser = FLCUser(fio: "Гость\(LoginVCHelper.createVerificationCode(digits: 5))", email: email, mobilePhone: phone)
         UserDefaultsPercistenceManager.updateItemInUserDefaults(item: newUser)
     }
 }

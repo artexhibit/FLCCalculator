@@ -816,6 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				0BC105F02C0E1EA100F64843 /* FLCUser.swift */,
+				0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */,
 				0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */,
 				0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */,
 				0B2077572BDAE1E90095460D /* FLCConfetti.swift */,
@@ -898,7 +899,6 @@
 				0BABA4BE2C236245000991E9 /* PhoneNumberExistResponse.swift */,
 				0BA381E72BFA3CB300A242F2 /* Pickups */,
 				0BB47CF22BF8E978001ECED4 /* Tariffs */,
-				0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";

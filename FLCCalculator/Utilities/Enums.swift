@@ -24,7 +24,9 @@ enum FLCHTTPMethod: String { case POST, GET, PATCH }
 
 enum FLCHTTPHeaderField: String {
     case phone = "phone"
+    case email = "email_user"
     case authorization = "Authorization"
+    case contentType = "Content-Type"
 }
 
 enum FLCNotificationServiceDataKey: String, Codable {

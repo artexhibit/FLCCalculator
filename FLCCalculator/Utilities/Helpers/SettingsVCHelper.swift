@@ -6,7 +6,7 @@ struct SettingsVCHelper {
         let pickedThemeOption = UserDefaultsManager.appTheme
         
         let firstSectionItems = [
-            SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.name ?? "", subtitle: user?.mobilePhone ?? "", pickedOption: nil)
+            SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: user?.mobilePhone ?? "", pickedOption: nil)
         ]
         let secondSectionItems = [
             SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: "Тактильный отклик элементов интерфейса", subtitle: nil, pickedOption: nil),

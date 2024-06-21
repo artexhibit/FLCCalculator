@@ -7,8 +7,8 @@ struct FLCUserCredentials {
     var isTokenValid: Bool {
         let currentTime = Date().timeIntervalSince1970
         let expirationTime = credentials.response.expires
-        let oneDayInSeconds: TimeInterval = 86400
-        return currentTime < (tokenIssuedTime + TimeInterval(expirationTime) - oneDayInSeconds)
+        let fiveHoursInSeconds: TimeInterval = 18000
+        return currentTime < (tokenIssuedTime + TimeInterval(expirationTime) - fiveHoursInSeconds)
     }
 }
 

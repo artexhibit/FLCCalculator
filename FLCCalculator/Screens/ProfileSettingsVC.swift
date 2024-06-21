@@ -79,7 +79,7 @@ class ProfileSettingsVC: UIViewController {
         scrollView.delegate = self
         
         scrollView.addSubview(containerView)
-        scrollView.pinToEdges(of: view)
+        scrollView.pinToSafeArea(of: view)
         scrollView.showsVerticalScrollIndicator = false
     }
     
@@ -105,7 +105,7 @@ class ProfileSettingsVC: UIViewController {
     
     private func configureNameTextField()  {
         nameTextField.delegate = self
-        nameTextField.text = user?.name ?? ""
+        nameTextField.text = user?.fio ?? ""
         
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: personalSectionLabel.bottomAnchor, constant: padding / 1.5),
@@ -187,7 +187,7 @@ class ProfileSettingsVC: UIViewController {
     
     private func configureCompanyTaxPayerIDTextField()  {
         companyTaxPayerIDTextField.delegate = self
-        companyTaxPayerIDTextField.text = String(user?.companyTaxPayerID ?? 0)
+        companyTaxPayerIDTextField.text = String(user?.inn ?? 0)
         
         NSLayoutConstraint.activate([
             companyTaxPayerIDTextField.topAnchor.constraint(equalTo: companyNameTextField.bottomAnchor, constant: padding / 2),
@@ -199,7 +199,7 @@ class ProfileSettingsVC: UIViewController {
     
     private func configureCustomsDeclarationsAmountPerYearTextField()  {
         customsDeclarationsAmountPerYearTextField.delegate = self
-        customsDeclarationsAmountPerYearTextField.text = String(user?.customsDeclarationsAmountPerYear ?? 0)
+        customsDeclarationsAmountPerYearTextField.text = String(user?.dtCount ?? 0)
         
         NSLayoutConstraint.activate([
             customsDeclarationsAmountPerYearTextField.topAnchor.constraint(equalTo:         companyTaxPayerIDTextField.bottomAnchor, constant: padding / 2),

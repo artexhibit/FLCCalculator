@@ -104,3 +104,13 @@ enum ProfileSettingsTextFieldsNames {
     static let companyTaxPayerID = "ИНН"
     static let customsDeclarationsAmountPerYear = "Количество оформленных ДТ за год"
 }
+
+enum FLCBubbleUserDataKeys {
+    static let bday = "bday"
+    static let company = "company"
+    static let dtCount = "dt_count"
+    static let fio = "fio"
+    static let inn = "inn"
+    static let phone =  "phone"
+    static let email =  "email_user"
+}

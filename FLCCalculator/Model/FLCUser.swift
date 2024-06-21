@@ -1,13 +1,13 @@
 import Foundation
 
 struct FLCUser {
-    var name: String?
+    var fio: String?
     var email: String
     var mobilePhone: String
     var birthDate: String?
     var companyName: String?
-    var companyTaxPayerID: Int?
-    var customsDeclarationsAmountPerYear: Int?
+    var inn: Int?
+    var dtCount: Int?
     var productRange: [String]?
     
     mutating func setBirthDate(from stringDate: String) {

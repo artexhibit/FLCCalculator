@@ -25,6 +25,7 @@ struct LoginVCHelper {
     static func sendVerificationCode(verificationCode: String, loginConfirmationView: LoginConfirmationView, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) async throws {
         if try await NetworkManager.shared.sendSMS(code: verificationCode, phoneNumber: phoneTextField.text?.extractDigits() ?? "") {
             SMSManager.increaseSMSCounter()
+            
             DispatchQueue.main.async {
                 updateUIAfterSuccessfulSMS(verificationCode: verificationCode, loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: vc)
             }
@@ -35,6 +36,7 @@ struct LoginVCHelper {
     
     static func updateUIAfterSuccessfulSMS(verificationCode: String, loginConfirmationView: LoginConfirmationView, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
         loginConfirmationView.setLoginConfirmationView(text: phoneTextField.text ?? "", verificationCode: verificationCode)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             FLCUIHelper.move(view: enterPhoneView, constraint: leadingConstraint, vc: vc, direction: .forward)
         }

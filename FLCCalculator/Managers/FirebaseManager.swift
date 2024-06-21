@@ -169,7 +169,7 @@ class FirebaseManager: NSObject {
         
         return CalculationDataFirebaseRecord(
             calculationDate: data.calculationDate,
-            name: user?.name ?? "",
+            name: user?.fio ?? "",
             email: user?.email ?? "",
             mobilePhone: user?.mobilePhone ?? "",
             userCalculationID: data.id,
