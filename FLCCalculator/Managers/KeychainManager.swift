@@ -61,10 +61,10 @@ class KeychainManager {
         return (result as? Data)
     }
     
-    func delete(service: String, account: String) {
+    func delete<T: KeychainStorable>(type: T.Type) {
         let query = [
-            kSecAttrService: service,
-            kSecAttrAccount: account,
+            kSecAttrService: T.serviceKey,
+            kSecAttrAccount: T.accountKey,
             kSecClass: kSecClassGenericPassword,
         ] as CFDictionary
         

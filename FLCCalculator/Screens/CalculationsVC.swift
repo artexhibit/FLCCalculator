@@ -12,6 +12,7 @@ class CalculationsVC: UIViewController {
         configureTableView()
         configureDataSource()
         getCalculations()
+        CalculationsVCHelper.showPermissionsVC(in: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {

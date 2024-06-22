@@ -17,6 +17,11 @@ class PermissionsVC: UIViewController {
         NotificationsManager.notifyWhenInForeground(self, selector: #selector(appWillEnterForeground))
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UserDefaultsManager.permissionsScreenWasShown = true
+    }
+    
     private func configureVC() {
         view.addSubview(tableView)
         view.backgroundColor = .systemBackground
@@ -36,7 +41,10 @@ class PermissionsVC: UIViewController {
         tableView.register(PermissionsCell.self, forCellReuseIdentifier: PermissionsCell.reuseID)
         tableView.pinToSafeArea(of: view)
     }
-    @objc func closeButtonPressed() { dismiss(animated: true) }
+    @objc func closeButtonPressed() {
+        UserDefaultsManager.permissionsScreenWasShown = true
+        dismiss(animated: true)
+    }
     @objc private func appWillEnterForeground() { PermissionsVCHelper.updateUIWithNotificationsAuthorizationStatus(delegate: delegate) }
 }
 

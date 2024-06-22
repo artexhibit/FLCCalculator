@@ -17,8 +17,8 @@ class ProfileSettingsVC: UIViewController {
     private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.email, smallLabelFontSize: 17, keyboardType: .emailAddress, fontSize: 18, fontWeight: .bold)
     private let companySectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
     private let companyNameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyName, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
-    private let companyTaxPayerIDTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyTaxPayerID, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
-    private let customsDeclarationsAmountPerYearTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.customsDeclarationsAmountPerYear, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let companyInnTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyTaxPayerID, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let customsDtCountTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.customsDeclarationsAmountPerYear, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
     private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Изменяя и сохраняя данные в профиле, вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
     private let saveButton = FLCButton(color: .flcOrange, title: "Сохранить изменения")
     private let exitButton = FLCTintedButton(color: .flcGray, title: "Выйти из аккаунта", titleFontSize: 20)
@@ -31,7 +31,7 @@ class ProfileSettingsVC: UIViewController {
     private let padding: CGFloat = 17
     private var textFieldsValidity = [UITextField: Bool]()
     private var textFields: [UITextField] {
-        [nameTextField, birthdayTextField, phoneTextField, emailTextField, companyNameTextField, companyTaxPayerIDTextField, customsDeclarationsAmountPerYearTextField]
+        [nameTextField, birthdayTextField, phoneTextField, emailTextField, companyNameTextField, companyInnTextField, customsDtCountTextField]
     }
     
     weak var delegate: ProfileSettingsVCDelegate?
@@ -49,8 +49,8 @@ class ProfileSettingsVC: UIViewController {
         configureEmailTextField()
         configureCompanySectionLabel()
         configureCompanyNameTextField()
-        configureCompanyTaxPayerIDTextField()
-        configureCustomsDeclarationsAmountPerYearTextField()
+        configureInnTextField()
+        configureDtCountTextField()
         configurePrivacyPolicyAgreenmentTextViewLabel()
         configureSaveButton()
         configureExitButton()
@@ -79,12 +79,12 @@ class ProfileSettingsVC: UIViewController {
         scrollView.delegate = self
         
         scrollView.addSubview(containerView)
-        scrollView.pinToSafeArea(of: view)
+        scrollView.pinToEdges(of: view)
         scrollView.showsVerticalScrollIndicator = false
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(personalSectionLabel, nameTextField, birthdayTextField, contactsSectionLabel, phoneTextField, emailTextField, companySectionLabel, companyNameTextField, companyTaxPayerIDTextField, customsDeclarationsAmountPerYearTextField, privacyPolicyAgreenmentTextViewLabel, saveButton, exitButton, deleteButton)
+        containerView.addSubviews(personalSectionLabel, nameTextField, birthdayTextField, contactsSectionLabel, phoneTextField, emailTextField, companySectionLabel, companyNameTextField, companyInnTextField, customsDtCountTextField, privacyPolicyAgreenmentTextViewLabel, saveButton, exitButton, deleteButton)
         containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
@@ -140,7 +140,7 @@ class ProfileSettingsVC: UIViewController {
     
     private func configurePhoneTextField()  {
         phoneTextField.delegate = self
-        phoneTextField.text = user?.mobilePhone ?? ""
+        phoneTextField.text = TextFieldManager.formatPhoneNumber(phone: user?.mobilePhone ?? "")
         
         NSLayoutConstraint.activate([
             phoneTextField.topAnchor.constraint(equalTo: contactsSectionLabel.bottomAnchor, constant: padding / 1.5),
@@ -185,27 +185,27 @@ class ProfileSettingsVC: UIViewController {
         ])
     }
     
-    private func configureCompanyTaxPayerIDTextField()  {
-        companyTaxPayerIDTextField.delegate = self
-        companyTaxPayerIDTextField.text = String(user?.inn ?? 0)
+    private func configureInnTextField()  {
+        companyInnTextField.delegate = self
+        companyInnTextField.text = user?.inn != nil ? String(user!.inn ?? 0) : ""
         
         NSLayoutConstraint.activate([
-            companyTaxPayerIDTextField.topAnchor.constraint(equalTo: companyNameTextField.bottomAnchor, constant: padding / 2),
-            companyTaxPayerIDTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            companyTaxPayerIDTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            companyTaxPayerIDTextField.heightAnchor.constraint(equalToConstant: textFieldsHeight)
+            companyInnTextField.topAnchor.constraint(equalTo: companyNameTextField.bottomAnchor, constant: padding / 2),
+            companyInnTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            companyInnTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            companyInnTextField.heightAnchor.constraint(equalToConstant: textFieldsHeight)
         ])
     }
     
-    private func configureCustomsDeclarationsAmountPerYearTextField()  {
-        customsDeclarationsAmountPerYearTextField.delegate = self
-        customsDeclarationsAmountPerYearTextField.text = String(user?.dtCount ?? 0)
+    private func configureDtCountTextField()  {
+        customsDtCountTextField.delegate = self
+        customsDtCountTextField.text = user?.dtCount != nil ? String(user!.dtCount ?? 0) : ""
         
         NSLayoutConstraint.activate([
-            customsDeclarationsAmountPerYearTextField.topAnchor.constraint(equalTo:         companyTaxPayerIDTextField.bottomAnchor, constant: padding / 2),
-            customsDeclarationsAmountPerYearTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            customsDeclarationsAmountPerYearTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            customsDeclarationsAmountPerYearTextField.heightAnchor.constraint(equalToConstant: textFieldsHeight)
+            customsDtCountTextField.topAnchor.constraint(equalTo: companyInnTextField.bottomAnchor, constant: padding / 2),
+            customsDtCountTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            customsDtCountTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            customsDtCountTextField.heightAnchor.constraint(equalToConstant: textFieldsHeight)
         ])
     }
     
@@ -218,7 +218,7 @@ class ProfileSettingsVC: UIViewController {
         heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
-            saveButton.topAnchor.constraint(equalTo: customsDeclarationsAmountPerYearTextField.bottomAnchor, constant: padding * 2),
+            saveButton.topAnchor.constraint(equalTo: customsDtCountTextField.bottomAnchor, constant: padding * 2),
             saveButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             widthConstraint, heightConstraint,
             
@@ -300,6 +300,13 @@ extension ProfileSettingsVC: UITextFieldDelegate {
         TextFieldManager.returnTextFieldsLabelToIdentity(textField: textField)
     }
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == phoneTextField {
+            guard let endPosition = textField.text?.count else { return }
+            textField.moveCursorTo(position: endPosition)
+        }
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         switch textField {
@@ -318,10 +325,10 @@ extension ProfileSettingsVC: UITextFieldDelegate {
         case companyNameTextField:
             TextFieldManager.manageCompanyNameTextFieldInput(textField: textField, range: range, string: string)
             textFieldsValidity[textField] = TextFieldManager.isValid(.companyName, textField.text ?? "")
-        case companyTaxPayerIDTextField:
+        case companyInnTextField:
             TextFieldManager.manageDigitsTextFieldInput(textField: textField, range: range, string: string, maxDigits: 12)
             textFieldsValidity[textField] = TextFieldManager.isValid(.taxPayerID, textField.text ?? "")
-        case customsDeclarationsAmountPerYearTextField:
+        case customsDtCountTextField:
             TextFieldManager.manageDigitsTextFieldInput(textField: textField, range: range, string: string, maxDigits: 4)
             textFieldsValidity[textField] = TextFieldManager.isValid(.customsDeclarationsAmount, textField.text ?? "")
         default: break

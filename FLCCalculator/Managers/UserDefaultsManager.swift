@@ -3,11 +3,6 @@ import Foundation
 struct UserDefaultsManager {
     private static let ud = UserDefaults.sharedContainer
     
-    static var isUserLoggedIn: Bool {
-        get { ud.bool(forKey: Keys.isUserLoggedIn) }
-        set { ud.setValue(newValue, forKey: Keys.isUserLoggedIn) }
-    }
-    
     static var permissionsScreenWasShown: Bool {
         get { ud.object(forKey: Keys.permissionsScreenWasShown) == nil ? false : ud.bool(forKey: Keys.permissionsScreenWasShown) }
         set { ud.setValue(newValue, forKey: Keys.permissionsScreenWasShown) }

@@ -1,7 +1,8 @@
 import UIKit
 
 protocol LoginVCDelegate: AnyObject {
-    func didSuccessWithLogin()
+    func didSuccessWithLogin(for number: String)
+    func didFoundPhoneNumberDoesntExists(number: String)
 }
 
 final class LoginVC: FLCLoginVC {
@@ -85,6 +86,11 @@ final class LoginVC: FLCLoginVC {
 extension LoginVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) { textField.placeholder = "+7 (XXX) XXX-XX-XX" }
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let endPosition = textField.text?.count else { return }
+        textField.moveCursorTo(position: endPosition)
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         TextFieldManager.managePhoneTextFieldInput(textField: textField, range: range, string: string)
         TextFieldManager.isValid(.phone, textField.text ?? "") ? verificationCodeButton.setEnabled() : verificationCodeButton.setDisabled()
@@ -96,7 +102,7 @@ extension LoginVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
         case verificationCodeButton: 
-            LoginVCHelper.handleVerificationCodeButtonTap(loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterUserCredentialsView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: self)
+            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterUserCredentialsView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: self)
         default: break
         }
     }
@@ -128,7 +134,7 @@ extension LoginVC: UIDocumentInteractionControllerDelegate {
 extension LoginVC: LoginConfirmationViewDelegate {
     func didSuccessWithVerificationCode() {
         self.dismiss(animated: true)
-        delegate?.didSuccessWithLogin()
+        delegate?.didSuccessWithLogin(for: phoneTextField.text?.extractDigits() ?? "")
     }
 }
 

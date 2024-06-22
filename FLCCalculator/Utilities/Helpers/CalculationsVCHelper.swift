@@ -60,4 +60,8 @@ struct CalculationsVCHelper {
         guard let types: [FLCLogisticsType] = CoreDataManager.retrieveItemsFromCoreData(entityName: String(describing: type(of: pickedCalculation)), key: FLCLogisticsType.coreDataKey) else { return [FLCLogisticsType.chinaTruck] }
         return types
     }
+    
+    static func showPermissionsVC(in vc: UIViewController) {
+        if !UserDefaultsManager.permissionsScreenWasShown { vc.presentNewVC(ofType: PermissionsVC.self) }
+    }
 }

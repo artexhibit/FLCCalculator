@@ -2,7 +2,7 @@ import UIKit
 
 struct ProfileSettingsVCHelper {
     static func performExitFromAccount(in vc: UIViewController) {
-        UserDefaultsManager.isUserLoggedIn = false
+        KeychainManager.shared.delete(type: FLCUserCredentials.self)
         vc.dismiss(animated: true) { AuthorizationVCHelper.presentAuthorizationVC(animated: true) }
     }
     

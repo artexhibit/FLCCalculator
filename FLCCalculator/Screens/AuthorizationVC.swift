@@ -9,7 +9,7 @@ class AuthorizationVC: UIViewController {
     private let registrationButton = FLCButton(color: .flcGray, title: "Зарегистрироваться", subtitle: "создать новый аккаунт")
     
     private let padding: CGFloat = 10
-    private var flcLogoImageViewCenterYConstraint: NSLayoutConstraint!
+    private var flcLogoYConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class AuthorizationVC: UIViewController {
         configureOrButton()
         configureRegistrationButton()
         
-        moveFLCLogoImageViewUp()
+        AuthorizationVCHelper.moveFLCLogoImageViewUp(yContraint: flcLogoYConstraint, vc: self, container: authButtonsContainer)
     }
     
     private func configureVC() {
@@ -31,10 +31,10 @@ class AuthorizationVC: UIViewController {
     private func configureFLCLogoImageView() {
         flcLogoImageView.image = UIImage(resource: .fullLogo)
         
-        flcLogoImageViewCenterYConstraint = flcLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        flcLogoYConstraint = flcLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         
         NSLayoutConstraint.activate([
-            flcLogoImageViewCenterYConstraint,
+            flcLogoYConstraint,
             flcLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             flcLogoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
             flcLogoImageView.heightAnchor.constraint(equalTo: flcLogoImageView.widthAnchor, multiplier: 9/16)
@@ -101,15 +101,6 @@ class AuthorizationVC: UIViewController {
             registrationButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
         ])
     }
-    
-    func moveFLCLogoImageViewUp() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.flcLogoImageViewCenterYConstraint.constant = -150
-            UIView.animate(withDuration: 0.5, animations: { self.view.layoutIfNeeded() }) { _ in
-                self.authButtonsContainer.show(withAnimationDuration: 0.3)
-            }
-        }
-    }
 }
 
 extension AuthorizationVC: FLCButtonDelegate {
@@ -123,17 +114,11 @@ extension AuthorizationVC: FLCButtonDelegate {
 }
 
 extension AuthorizationVC: LoginVCDelegate {
-    func didSuccessWithLogin() {
-        self.dismiss(animated: true)
-        UserDefaultsManager.isUserLoggedIn = true
-        if !UserDefaultsManager.permissionsScreenWasShown { self.presentNewVC(ofType: PermissionsVC.self) }
-    }
+    func didFoundPhoneNumberDoesntExists(number: String) { AuthorizationVCHelper.handleNumberNotExist(in: self) }
+    func didSuccessWithLogin(for number: String) { AuthorizationVCHelper.handleSuccessLogin(with: number, in: self) }
 }
 
 extension AuthorizationVC: RegistrationVCDelegate {
-    func didSuccessWithRegistration(phone: String, email: String) {
-        self.dismiss(animated: true)
-        AuthorizationVCHelper.handleSuccessRegistration(with: phone, and: email)
-        if !UserDefaultsManager.permissionsScreenWasShown { self.presentNewVC(ofType: PermissionsVC.self) }
-    }
+    func didFoundPhoneNumberExists(number: String) { AuthorizationVCHelper.handleNumberAlreadyExist(in: self) }
+    func didSuccessWithRegistration(phoneNumber: String, email: String) { AuthorizationVCHelper.handleSuccessRegistration(with: phoneNumber, email: email, in: self) }
 }

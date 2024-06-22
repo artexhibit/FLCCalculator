@@ -4,9 +4,10 @@ struct SettingsVCHelper {
     static func configureDataSource() -> [SettingsSection] {
         let user = getUserData()
         let pickedThemeOption = UserDefaultsManager.appTheme
+        let userMobilePhone = TextFieldManager.formatPhoneNumber(phone: user?.mobilePhone ?? "")
         
         let firstSectionItems = [
-            SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: user?.mobilePhone ?? "", pickedOption: nil)
+            SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: userMobilePhone, pickedOption: nil)
         ]
         let secondSectionItems = [
             SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: "Тактильный отклик элементов интерфейса", subtitle: nil, pickedOption: nil),

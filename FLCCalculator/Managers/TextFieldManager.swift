@@ -54,7 +54,7 @@ struct TextFieldManager {
         return false
     }
     
-    static func formatPhoneNumber(with mask: String, phone: String) -> String {
+    static func formatPhoneNumber(with mask: String = "+7 (XXX) XXX-XX-XX", phone: String, isDeletionActive: Bool = false) -> String {
         let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
         var result = "+7 "
         var index = numbers.startIndex
@@ -68,6 +68,9 @@ struct TextFieldManager {
             } else {
                 result.append(char)
             }
+        }
+        if !isDeletionActive && !result.contains(")") && result.count == 7 {
+            result.insert(")", at: result.index(result.startIndex, offsetBy: 7))
         }
         return result
     }
@@ -128,12 +131,13 @@ struct TextFieldManager {
     static func managePhoneTextFieldInput(textField: UITextField, range: NSRange, string: String) {
         guard let text = textField.text else { return }
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        let isDeletionActive = string == "" ? true : false
         let cursorPosition = textField.getCursorPosition()
-        let formattedText = formatPhoneNumber(with: "+7 (XXX) XXX-XX-XX", phone: newString)
+        let formattedText = formatPhoneNumber(with: "+7 (XXX) XXX-XX-XX", phone: newString, isDeletionActive: isDeletionActive)
         
         textField.text = formattedText
         
-        let newCursorPosition = string.isEmpty ? max(2, cursorPosition - 1) : cursorPosition + (formattedText.count - text.count)
+        let newCursorPosition = string.isEmpty ? max(2, cursorPosition) : cursorPosition + (formattedText.count - text.count)
         textField.moveCursorTo(position: newCursorPosition)
     }
     

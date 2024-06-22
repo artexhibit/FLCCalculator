@@ -170,7 +170,6 @@
 		0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */; };
 		0BCDC80B2C08B4E300EE9D6A /* LoginConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */; };
 		0BCDC80D2C08B5E800EE9D6A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */; };
-		0BCDC80F2C090DB300EE9D6A /* LoginVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80E2C090DB300EE9D6A /* LoginVCHelper.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
@@ -467,7 +466,6 @@
 		0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
 		0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmationView.swift; sourceTree = "<group>"; };
 		0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		0BCDC80E2C090DB300EE9D6A /* LoginVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCHelper.swift; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
 		0BD06AFA2B8E6A1B00942651 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -570,7 +568,6 @@
 				0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */,
 				0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */,
 				0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */,
-				0BCDC80E2C090DB300EE9D6A /* LoginVCHelper.swift */,
 				0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */,
 				0BC105F22C0E265000F64843 /* AuthorizationVCHelper.swift */,
 				0B1E313D2C10956F00291D0E /* SettingsVCHelper.swift */,
@@ -792,8 +789,8 @@
 				0BC11B172BBD8FE900B215D4 /* TotalPriceVC.swift */,
 				0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */,
 				0B97770E2BEFB90600E56197 /* BonusSystemVC.swift */,
-				0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */,
 				0B6774A82C0630CE0078D8C5 /* AuthorizationVC.swift */,
+				0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */,
 				0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */,
 				0B916BA42C1CC5410037D44D /* PermissionsVC.swift */,
 			);
@@ -1327,7 +1324,6 @@
 				0B7EBA692BE55C41004BE990 /* NetworkStatusManager.swift in Sources */,
 				0BE9DA882C132B10007D86D0 /* ProfileSettingsVC.swift in Sources */,
 				0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */,
-				0BCDC80F2C090DB300EE9D6A /* LoginVCHelper.swift in Sources */,
 				0BF9388A2B85014700A18016 /* FLCSubtitleLabel.swift in Sources */,
 				0B6E54722B81228A0078C110 /* CalculationInfo.swift in Sources */,
 				0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */,

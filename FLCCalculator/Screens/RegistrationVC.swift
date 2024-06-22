@@ -1,7 +1,8 @@
 import UIKit
 
 protocol RegistrationVCDelegate: AnyObject {
-    func didSuccessWithRegistration(phone: String, email: String)
+    func didSuccessWithRegistration(phoneNumber: String, email: String)
+    func didFoundPhoneNumberExists(number: String)
 }
 
 class RegistrationVC: FLCLoginVC {
@@ -116,12 +117,7 @@ extension RegistrationVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
         case proceedWithRegistrationButton:
-            loginConfirmationView.setLoginConfirmationView(text: phoneTextField.text ?? "", verificationCode: "0000")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-
-                FLCUIHelper.move(view: self.enterUserCredentialsView, constraint: self.leadingConstraint, vc: self, direction: .forward)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.loginConfirmationView.makeFirstTextFieldActive() }
+            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterUserCredentialsView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: self)
         default: break
         }
     }
@@ -130,7 +126,7 @@ extension RegistrationVC: FLCButtonDelegate {
 extension RegistrationVC: LoginConfirmationViewDelegate {
     func didSuccessWithVerificationCode() {
         self.dismiss(animated: true)
-        delegate?.didSuccessWithRegistration(phone: phoneTextField.text ?? "", email: emailTextField.text ?? "")
+        delegate?.didSuccessWithRegistration(phoneNumber: phoneTextField.text?.extractDigits() ?? "", email: emailTextField.text ?? "")
     }
 }
 
