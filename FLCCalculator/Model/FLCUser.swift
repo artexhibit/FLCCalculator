@@ -10,9 +10,14 @@ struct FLCUser {
     var dtCount: Int?
     var productRange: [String]?
     
-    mutating func setBirthDate(from stringDate: String) {
+    mutating func setBirthDateFromISO8601(from stringDate: String) {
         guard let date = ISO8601DateFormatter().date(from: stringDate) else { return }
         birthDate = date.makeString(format: .dotDMY)
+    }
+    
+    mutating func setBirthDateToISO8601(from stringDate: String) {
+        guard let date = stringDate.createDate(format: .dotDMY) else { return }
+        birthDate = ISO8601DateFormatter().string(from: date)
     }
 }
 

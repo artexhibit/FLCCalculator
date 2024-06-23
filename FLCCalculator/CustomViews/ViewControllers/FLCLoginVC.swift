@@ -5,7 +5,8 @@ class FLCLoginVC: UIViewController {
     private let scrollView = UIScrollView()
     let containerView = UIView()
     let enterUserCredentialsView = UIView()
-    let loginConfirmationView = LoginConfirmationView()
+    let loginConfirmationVCContainer = UIView()
+    let loginConfirmationVC = FLCLoginConfirmationVC()
     
     var leadingConstraint: NSLayoutConstraint!
     let padding: CGFloat = 18
@@ -16,7 +17,8 @@ class FLCLoginVC: UIViewController {
         configureScrollView()
         configureContainerView()
         configureEnterUserCredentialsView()
-        configureLoginConfirmationView()
+        configureLoginConfirmationViewContainer()
+        configureLoginConfirmationVC()
     }
     
     private func configureVC() {
@@ -36,7 +38,8 @@ class FLCLoginVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(enterUserCredentialsView, loginConfirmationView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubviews(enterUserCredentialsView, loginConfirmationVCContainer)
         containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
@@ -57,15 +60,18 @@ class FLCLoginVC: UIViewController {
         ])
     }
     
-    private func configureLoginConfirmationView() {
+    private func configureLoginConfirmationViewContainer() {
+        loginConfirmationVCContainer.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            loginConfirmationView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            loginConfirmationView.leadingAnchor.constraint(equalTo: enterUserCredentialsView.trailingAnchor),
-            loginConfirmationView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            loginConfirmationView.widthAnchor.constraint(equalTo: containerView.widthAnchor)
+            loginConfirmationVCContainer.topAnchor.constraint(equalTo: containerView.topAnchor),
+            loginConfirmationVCContainer.leadingAnchor.constraint(equalTo: enterUserCredentialsView.trailingAnchor),
+            loginConfirmationVCContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            loginConfirmationVCContainer.widthAnchor.constraint(equalTo: containerView.widthAnchor)
         ])
     }
     
+    private func configureLoginConfirmationVC() { add(childVC: loginConfirmationVC, to: loginConfirmationVCContainer) }
     @objc func closeButtonPressed() { self.dismiss(animated: true) }
 }
 

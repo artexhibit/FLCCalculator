@@ -100,6 +100,8 @@
 		0B7548FE2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7548FD2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift */; };
 		0B7549002BA1C9870029807B /* FLCListPickerVC + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */; };
 		0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7549012BA2322B0029807B /* FLCTextButton.swift */; };
+		0B754E722C288F6B0082D8A8 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
+		0B754E732C288F6F0082D8A8 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
 		0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */; };
 		0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882812BDD79E900BDCA16 /* FLCPersonalManagerView.swift */; };
 		0B7882842BDE7C8100BDCA16 /* FLCShimmeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */; };
@@ -168,7 +170,7 @@
 		0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */; };
 		0BC735832BCAECEA00EF8B0D /* FLCLogisticsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */; };
 		0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */; };
-		0BCDC80B2C08B4E300EE9D6A /* LoginConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */; };
+		0BCDC80B2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift */; };
 		0BCDC80D2C08B5E800EE9D6A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
@@ -271,8 +273,6 @@
 		0BFA89D62C22BC890023D949 /* FileSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B66ABF12BF3F2B9006EF36B /* FileSystemManager.swift */; };
 		0BFA89D72C22BCA40023D949 /* UserDefaultsPercistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8D2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift */; };
 		0BFA89D82C22BCCA0023D949 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54472B811B0B0078C110 /* UserDefaults+Ext.swift */; };
-		0BFA89D92C22C4690023D949 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
-		0BFA89DA2C22C46A0023D949 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
 		0BFA89DB2C22C4900023D949 /* SMSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */; };
 		0BFA89DC2C22C4900023D949 /* SMSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF8F2C0B6003008CE099 /* SMSCounter.swift */; };
 		0BFA89DD2C22CA240023D949 /* AppDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A782BB9B3150016A991 /* AppDelegateHelper.swift */; };
@@ -464,7 +464,7 @@
 		0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCollectionView.swift; sourceTree = "<group>"; };
 		0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLogisticsOption.swift; sourceTree = "<group>"; };
 		0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
-		0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmationView.swift; sourceTree = "<group>"; };
+		0BCDC80A2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLoginConfirmationVC.swift; sourceTree = "<group>"; };
 		0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
@@ -959,6 +959,7 @@
 				0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */,
 				0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */,
 				0B2E6BC22C0CD61E0004DF10 /* FLCLoginVC.swift */,
+				0BCDC80A2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -977,7 +978,6 @@
 			isa = PBXGroup;
 			children = (
 				0B32F16F2B9356C9004BAB46 /* FLCCalculationView */,
-				0BCDC80A2C08B4E300EE9D6A /* LoginConfirmationView.swift */,
 				0BF938812B84F45100A18016 /* FLCEmptyStateView.swift */,
 				0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */,
 				0B9D3A402B9492F20058FC95 /* FLCPopupView.swift */,
@@ -1219,9 +1219,9 @@
 				0BABA4C32C2362E2000991E9 /* KeychainManager.swift in Sources */,
 				0BFA89B22C22BA7D0023D949 /* CalculationInfo.swift in Sources */,
 				0B5F773E2C222824005B391C /* UserDefaults+Ext.swift in Sources */,
+				0B754E722C288F6B0082D8A8 /* SMSManager.swift in Sources */,
 				0BFA89932C22B87E0023D949 /* CalculationData.swift in Sources */,
 				0BFA89B02C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */,
-				0BFA89D92C22C4690023D949 /* SMSManager.swift in Sources */,
 				0B5F773C2C2227F7005B391C /* UserDefaultsPercistenceManager.swift in Sources */,
 				0BFA898A2C22B7A40023D949 /* FLCCalculator.xcdatamodeld in Sources */,
 				0BFA89E32C22CA780023D949 /* String+Ext.swift in Sources */,
@@ -1291,7 +1291,7 @@
 				0BE046722B9C9F8800BA6F21 /* FLCPickerVC.swift in Sources */,
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController+Ext.swift in Sources */,
-				0BCDC80B2C08B4E300EE9D6A /* LoginConfirmationView.swift in Sources */,
+				0BCDC80B2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift in Sources */,
 				0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */,
 				0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
 				0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */,
@@ -1412,7 +1412,6 @@
 				0BFA89A42C22B9F80023D949 /* AvailableLogisticsType.swift in Sources */,
 				0BFA89A32C22B9EC0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */,
 				0B1E31422C10A47F00291D0E /* SettingsCellContent.swift in Sources */,
-				0BFA89DA2C22C46A0023D949 /* SMSManager.swift in Sources */,
 				0BFA89E22C22CA780023D949 /* String+Ext.swift in Sources */,
 				0BFA89B92C22BAF80023D949 /* PermissionItem.swift in Sources */,
 				0BFA89AD2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
@@ -1429,6 +1428,7 @@
 				0B1E31412C10A47900291D0E /* Protocols.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
 				0BFA89E42C22CA950023D949 /* NetworkStatusManager.swift in Sources */,
+				0B754E732C288F6F0082D8A8 /* SMSManager.swift in Sources */,
 				0BFA89E62C22CAAF0023D949 /* AppDelegateHelper.swift in Sources */,
 				0BFA89922C22B87D0023D949 /* CalculationData.swift in Sources */,
 				0BFA89962C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */,

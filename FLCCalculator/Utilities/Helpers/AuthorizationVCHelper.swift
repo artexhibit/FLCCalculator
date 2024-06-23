@@ -17,7 +17,7 @@ struct AuthorizationVCHelper {
         }
     }
     
-    static func handleVerificationCodeButtonTap(loginConfirmationView: LoginConfirmationView, phoneTextField: UITextField, enterUserCredentialsView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
+    static func handleVerificationCodeButtonTap(loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterUserCredentialsView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
         let phoneNumber = phoneTextField.text?.extractDigits() ?? ""
         
         Task {
@@ -29,7 +29,7 @@ struct AuthorizationVCHelper {
                 try await checkPhoneNumberExistense(phoneNumber: phoneNumber, vc: vc)
                 
                 if SMSManager.canSendSMS() {
-                    try await sendVerificationCode(verificationCode: createVerificationCode(), loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
+                    try await sendVerificationCode(verificationCode: AuthorizationManager.shared.createVerificationCode(), loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
                 } else {
                     let timeUntilCanSendSMS = SMSManager.timeUntilNextSMS()
                     await FLCPopupView.showOnMainThread(title: "Вы использовали все попытки. Повторить можно через \(timeUntilCanSendSMS)", style: .error)
@@ -40,26 +40,27 @@ struct AuthorizationVCHelper {
         }
     }
     
-    static func sendVerificationCode(verificationCode: String, loginConfirmationView: LoginConfirmationView, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) async throws {
-    
-        if try await NetworkManager.shared.sendSMS(code: verificationCode, phoneNumber: phoneTextField.text?.extractDigits() ?? "") {
+    static func sendVerificationCode(verificationCode: String, loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) async throws {
+        print(verificationCode)
+        do {
+            try await NetworkManager.shared.sendSMS(code: verificationCode, phoneNumber: phoneTextField.text?.extractDigits() ?? "")
             SMSManager.increaseSMSCounter()
             
-            DispatchQueue.main.async {
-                updateUIAfterSuccessfulSMS(verificationCode: verificationCode, loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: vc)
-            }
-        } else {
+            updateUIAfterSuccessfulSMS(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: vc)
+        } catch {
             await FLCPopupView.showOnMainThread(title: "Не удалось отправить СМС", style: .error)
         }
     }
     
-    static func updateUIAfterSuccessfulSMS(verificationCode: String, loginConfirmationView: LoginConfirmationView, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
-        loginConfirmationView.setLoginConfirmationView(text: phoneTextField.text ?? "", verificationCode: verificationCode)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            FLCUIHelper.move(view: enterPhoneView, constraint: leadingConstraint, vc: vc, direction: .forward)
+    static func updateUIAfterSuccessfulSMS(verificationCode: String, loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
+        DispatchQueue.main.async {
+            loginConfirmationVC.setLoginConfirmationView(phoneNumber: phoneTextField.text ?? "", verificationCode: verificationCode)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                FLCUIHelper.move(view: enterPhoneView, constraint: leadingConstraint, vc: vc, direction: .forward)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { loginConfirmationVC.makeFirstTextFieldActive() }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { loginConfirmationView.makeFirstTextFieldActive() }
     }
     
     private static func checkPhoneNumberExistense(phoneNumber: String, vc: UIViewController) async throws {
@@ -113,7 +114,7 @@ struct AuthorizationVCHelper {
             do {
                 let registrationCredentials = try await AuthorizationManager.shared.registerUserWith(number: number, email: email)
                 KeychainManager.shared.save(registrationCredentials)
-                let newUser = FLCUser(fio: "Гость\(createVerificationCode(digits: 5))", email: email, mobilePhone: number)
+                let newUser = FLCUser(fio: "Гость\(AuthorizationManager.shared.createVerificationCode(digits: 5))", email: email, mobilePhone: number)
                 UserDefaultsPercistenceManager.updateItemInUserDefaults(item: newUser)
                 try await AuthorizationManager.shared.saveAccountDataToBubbleDatabase(for: newUser, token: registrationCredentials.credentials.response.token, userId: registrationCredentials.credentials.response.userId)
                 await FLCPopupView.removeFromMainThread()
@@ -146,11 +147,5 @@ struct AuthorizationVCHelper {
                 container.show(withAnimationDuration: 0.3)
             }
         }
-    }
-    
-    private static func createVerificationCode(digits: Int = 4) -> String {
-        var number = ""
-        for _ in 1...digits { number += "\(Int.random(in: 1...9))" }
-        return number
     }
 }

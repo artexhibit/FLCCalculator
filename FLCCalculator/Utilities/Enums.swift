@@ -157,6 +157,7 @@ enum FLCDateFormat: String {
     case dotDMY = "dd.MM.yyyy"
     case slashYMD = "yyyy/MM/dd"
     case slashDMY = "dd/MM/yyyy"
+    case dotDMYHMS = "dd.MM.yyyy, HH:mm:ss"
 }
 
 enum FLCLogisticsType: String, CaseIterable {

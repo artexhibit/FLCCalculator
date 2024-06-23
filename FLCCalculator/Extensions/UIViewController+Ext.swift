@@ -37,6 +37,14 @@ extension UIViewController {
         present(safariVC, animated: true)
     }
     
+    func add(childVC: UIViewController, to containerView: UIView) {
+        addChild(childVC)
+        containerView.addSubview(childVC.view)
+        childVC.view.translatesAutoresizingMaskIntoConstraints = false
+        childVC.view.pinToEdges(of: containerView)
+        childVC.didMove(toParent: self)
+    }
+    
     func presentNewVC<T: UIViewController>(ofType type: T.Type) {
         let viewController = T()
         

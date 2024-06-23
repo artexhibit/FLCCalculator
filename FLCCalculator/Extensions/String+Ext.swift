@@ -69,9 +69,9 @@ extension String {
         return lowerBound...upperBound
     }
     
-    func createDate() -> Date? {
+    func createDate(format: FLCDateFormat) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy, HH:mm:ss"
+        dateFormatter.dateFormat = format.rawValue
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         if let date = dateFormatter.date(from: self) { return date }

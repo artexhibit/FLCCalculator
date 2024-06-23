@@ -52,8 +52,8 @@ struct AppDelegateHelper {
                     success = isTariffsUpdated && isPickupsUpdated
                     await save(dateString: dateString, if: isTariffsUpdated, and: isPickupsUpdated)
                 } else {
-                    guard let storedDate = UserDefaultsManager.dateWhenDataWasUpdated.createDate() else { return }
-                    guard let receivedDate = dateString.createDate() else { return }
+                    guard let storedDate = UserDefaultsManager.dateWhenDataWasUpdated.createDate(format: .dotDMYHMS) else { return }
+                    guard let receivedDate = dateString.createDate(format: .dotDMYHMS) else { return }
                     
                     if storedDate != receivedDate {
                         let isTariffsUpdated = await FirebaseManager.updateTariffs()
@@ -149,6 +149,13 @@ struct AppDelegateHelper {
     static func configureSMSCounter() {
         SMSManager.checkAndResetSMSCounter()
         SMSManager.startTimer()
+    }
+    
+    static func resetFLCUserCredentialsOnFirstLaunch() {
+        if UserDefaultsManager.isFirstLaunch {
+            KeychainManager.shared.delete(type: FLCUserCredentials.self)
+            UserDefaultsManager.isFirstLaunch = false
+        }
     }
     
     private static func save(dateString: String, if isTariffsUpdated: Bool, and isPickupsUpdated: Bool) async {

@@ -20,7 +20,7 @@ class BonusSystemVC: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.pinToSafeArea(of: view)
+        tableView.pinToEdges(of: view)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none

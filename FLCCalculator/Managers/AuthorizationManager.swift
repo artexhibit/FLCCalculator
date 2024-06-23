@@ -85,6 +85,7 @@ class AuthorizationManager {
         request.httpBody = jsonData
         
         let (_, responce) = try await URLSession.shared.data(for: request)
+        
         guard let responce = responce as? HTTPURLResponse, responce.statusCode == 204 else { throw FLCError.invalidResponce }
     }
     
@@ -107,29 +108,36 @@ class AuthorizationManager {
     }
     
     private func getUser(data: FLCUserResponse) -> FLCUser {
-        var user = FLCUser(fio: data.response.fio,
-                           email: data.response.emailUser,
-                           mobilePhone: data.response.phone,
-                           companyName: data.response.company,
-                           inn: data.response.inn,
-                           dtCount: data.response.dtCount,
-                           productRange: nil)
-        user.setBirthDate(from: data.response.bday ?? "")
+        var user = FLCUser(
+            fio: data.response.fio,
+            email: data.response.emailUser,
+            mobilePhone: data.response.phone,
+            companyName: data.response.company,
+            inn: data.response.inn,
+            dtCount: data.response.dtCount,
+            productRange: nil
+        )
+        user.setBirthDateFromISO8601(from: data.response.bday ?? "")
         return user
     }
     
     private func getBubbleDictionary(for user: FLCUser) -> [String: Any] {
         var dictionary: [String: Any] = [:]
 
-        if let birthDate = user.birthDate { dictionary[FLCBubbleUserDataKeys.bday] = birthDate }
-        if let companyName = user.companyName { dictionary[FLCBubbleUserDataKeys.company] = companyName }
-        if let dtCount = user.inn { dictionary[FLCBubbleUserDataKeys.dtCount] = dtCount }
-        if let fio = user.fio { dictionary[FLCBubbleUserDataKeys.fio] = fio }
+        if let birthDate = user.birthDate, !birthDate.isEmpty { dictionary[FLCBubbleUserDataKeys.bday] = birthDate }
+        if let companyName = user.companyName, !companyName.isEmpty { dictionary[FLCBubbleUserDataKeys.company] = companyName }
+        if let dtCount = user.dtCount { dictionary[FLCBubbleUserDataKeys.dtCount] = dtCount }
+        if let fio = user.fio, !fio.isEmpty { dictionary[FLCBubbleUserDataKeys.fio] = fio }
         if let inn = user.inn { dictionary[FLCBubbleUserDataKeys.inn] = inn }
         
         dictionary[FLCBubbleUserDataKeys.phone] = user.mobilePhone
         dictionary[FLCBubbleUserDataKeys.email] = user.email
-    
         return dictionary
+    }
+    
+    func createVerificationCode(digits: Int = 4) -> String {
+        var number = ""
+        for _ in 1...digits { number += "\(Int.random(in: 1...9))" }
+        return number
     }
 }

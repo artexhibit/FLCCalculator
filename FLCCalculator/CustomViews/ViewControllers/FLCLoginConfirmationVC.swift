@@ -1,10 +1,10 @@
 import UIKit
 
-protocol LoginConfirmationViewDelegate: AnyObject {
-    func didSuccessWithVerificationCode()
+protocol FLCLoginConfirmationVCDelegate: AnyObject {
+    func didSuccessWithVerificationCode(sender: UIViewController)
 }
 
-final class LoginConfirmationView: UIView {
+final class FLCLoginConfirmationVC: UIViewController {
     
     private let loginConfirmationTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
     private let verificationCodeTextFieldsStackView = UIStackView()
@@ -12,12 +12,22 @@ final class LoginConfirmationView: UIView {
     private let returnToEnterPhoneViewButton = FLCTextButton(title: "вернуться назад")
     
     private let padding: CGFloat = 18
+    private var myltiplyTopPaddingBy: CGFloat = 1
     private var verificationCode = ""
     
-    weak var delegate: LoginConfirmationViewDelegate?
+    weak var delegate: FLCLoginConfirmationVCDelegate?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(myltiplyTopPaddingBy: CGFloat = 1) {
+        super.init(nibName: nil, bundle: nil)
+        self.myltiplyTopPaddingBy = myltiplyTopPaddingBy
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         configure()
         configureLoginConfirmationTitleLabel()
         configureFailedPriceCalcContainerContentStackView()
@@ -25,20 +35,16 @@ final class LoginConfirmationView: UIView {
         configureReturnToEnterPhoneViewButton()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(loginConfirmationTitleLabel, verificationCodeTextFieldsStackView, returnToEnterPhoneViewButton)
+        view.backgroundColor = .systemBackground
+        view.addSubviews(loginConfirmationTitleLabel, verificationCodeTextFieldsStackView, returnToEnterPhoneViewButton)
     }
     
     private func configureLoginConfirmationTitleLabel() {
         NSLayoutConstraint.activate([
-            loginConfirmationTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding),
-            loginConfirmationTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            loginConfirmationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding)
+            loginConfirmationTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: padding * myltiplyTopPaddingBy),
+            loginConfirmationTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            loginConfirmationTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
         ])
     }
     
@@ -51,8 +57,8 @@ final class LoginConfirmationView: UIView {
         
         NSLayoutConstraint.activate([
             verificationCodeTextFieldsStackView.topAnchor.constraint(equalTo: loginConfirmationTitleLabel.bottomAnchor, constant: padding * 2),
-            verificationCodeTextFieldsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            verificationCodeTextFieldsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding)
+            verificationCodeTextFieldsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            verificationCodeTextFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
         ])
     }
     
@@ -76,17 +82,22 @@ final class LoginConfirmationView: UIView {
     private func configureReturnToEnterPhoneViewButton() {
         NSLayoutConstraint.activate([
             returnToEnterPhoneViewButton.topAnchor.constraint(equalTo: verificationCodeTextFieldsStackView.bottomAnchor, constant: padding),
-            returnToEnterPhoneViewButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            returnToEnterPhoneViewButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
-    func setLoginConfirmationView(text: String, verificationCode: String) {
+    func setLoginConfirmationView(phoneNumber: String, verificationCode: String, isReturnButtonOn: Bool = true) {
         self.verificationCode = verificationCode
         
         let labelMain = "Код подтверждения".makeAttributed(text: "Код подтверждения", attributes: [.font], font: UIFont.systemFont(ofSize: 25, weight: .bold)) ?? NSAttributedString()
-        let attributedPhoneString = "\n\nНа номер \(text) был отправлен код подтверждения".makeAttributed(text: text, attributes: [.font], font: UIFont.systemFont(ofSize: 20, weight: .bold)) ?? NSAttributedString()
+        let attributedPhoneString = "\n\nНа номер \(phoneNumber) был отправлен код подтверждения".makeAttributed(text: phoneNumber, attributes: [.font], font: UIFont.systemFont(ofSize: 20, weight: .bold)) ?? NSAttributedString()
 
         loginConfirmationTitleLabel.attributedText = NSMutableAttributedString().combine(strings: labelMain, attributedPhoneString)
+        
+        if !isReturnButtonOn {
+            returnToEnterPhoneViewButton.isUserInteractionEnabled = false
+            returnToEnterPhoneViewButton.layer.opacity = 0
+        }
     }
     
     func makeFirstTextFieldActive() { _ = verificationCodeTextFields.first?.becomeFirstResponder() }
@@ -94,7 +105,7 @@ final class LoginConfirmationView: UIView {
     func setReturnButtonDelegate(vc: UIViewController) { returnToEnterPhoneViewButton.delegate = vc as? FLCTextButtonDelegate }
 }
 
-extension LoginConfirmationView: UITextFieldDelegate {
+extension FLCLoginConfirmationVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         textField.text = ""
         
@@ -113,13 +124,13 @@ extension LoginConfirmationView: UITextFieldDelegate {
         }
         
         if LoginConfirmationHelper.isTypedVerificationCodeMatch(in: verificationCodeTextFields, verificationCode: verificationCode) {
-            delegate?.didSuccessWithVerificationCode()
+            delegate?.didSuccessWithVerificationCode(sender: self)
         }
         return false
     }
 }
 
-extension LoginConfirmationView: FLCNumberTextFieldDelegate {
+extension FLCLoginConfirmationVC: FLCNumberTextFieldDelegate {
     func didTriggerDeleteBackward(_ textField: FLCNumberTextField) {
         TextFieldManager.goToPreviousTextField(activeTF: textField, allTFs: verificationCodeTextFields)
     }

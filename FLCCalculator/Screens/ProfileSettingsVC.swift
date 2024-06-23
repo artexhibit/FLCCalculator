@@ -10,21 +10,22 @@ class ProfileSettingsVC: UIViewController {
     private let containerView = UIView()
     
     private let personalSectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
-    private let nameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.name, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
+    private let nameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.fio, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
     private let birthdayTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.dateOfBirth, smallLabelFontSize: 16, keyboardType: .decimalPad, fontSize: 18, fontWeight: .bold)
     private let contactsSectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
     private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.phoneNumber, smallLabelFontSize: 16, keyboardType: .phonePad, fontSize: 18, fontWeight: .bold)
     private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.email, smallLabelFontSize: 17, keyboardType: .emailAddress, fontSize: 18, fontWeight: .bold)
     private let companySectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
     private let companyNameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyName, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
-    private let companyInnTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyTaxPayerID, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
-    private let customsDtCountTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.customsDeclarationsAmountPerYear, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let companyInnTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.inn, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let customsDtCountTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.dtCount, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
     private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Изменяя и сохраняя данные в профиле, вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
     private let saveButton = FLCButton(color: .flcOrange, title: "Сохранить изменения")
     private let exitButton = FLCTintedButton(color: .flcGray, title: "Выйти из аккаунта", titleFontSize: 20)
     private let deleteButton = FLCTintedButton(color: .systemRed, title: "Удалить аккаунт", titleFontSize: 20)
     
     private var user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
+    private var oldPhoneNumber = ""
     private let containerHeight: CGFloat = 980
     private let textFieldsHeight: CGFloat = 50
     private let textFieldsSmallLabelSize: CGFloat = 17
@@ -56,6 +57,7 @@ class ProfileSettingsVC: UIViewController {
         configureExitButton()
         configureDeleteButton()
         
+        getInitialPhoneNumber()
         ProfileSettingsVCHelper.handleKeyboard(in: self)
     }
     
@@ -273,6 +275,7 @@ class ProfileSettingsVC: UIViewController {
             deleteButton.widthAnchor.constraint(lessThanOrEqualToConstant: 450)
         ])
     }
+    private func getInitialPhoneNumber() { oldPhoneNumber = phoneTextField.text?.extractDigits() ?? "" }
     
     @objc func keyboardWillShow(notification: Notification) {
         ProfileSettingsVCHelper.keyboardWillShow(notification: notification, scrollView: scrollView)
@@ -340,7 +343,7 @@ extension ProfileSettingsVC: UITextFieldDelegate {
 extension ProfileSettingsVC: UITextViewDelegate {
     @available(iOS 17.0, *)
     func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
-        switch textItem.content{
+        switch textItem.content {
         case .link(let url):
             TextViewManager.configureItem(with: url, in: self)
             return UIAction(title: "") { _ in }
@@ -360,7 +363,7 @@ extension ProfileSettingsVC: FLCTintedButtonDelegate {
     func didTapButton(_ button: FLCTintedButton) {
         switch button {
         case exitButton: ProfileSettingsVCHelper.performExitFromAccount(in: self)
-        case deleteButton: break
+        case deleteButton: ProfileSettingsVCHelper.performAccountDeletion(in: self)
         default: break
         }
     }
@@ -369,13 +372,7 @@ extension ProfileSettingsVC: FLCTintedButtonDelegate {
 extension ProfileSettingsVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case saveButton:
-            if ProfileSettingsVCHelper.isAllDataValid(textFieldsValidity), let updatedUser = ProfileSettingsVCHelper.createNewUserData(user: user, with: textFields) {
-                UserDefaultsPercistenceManager.updateItemInUserDefaults(item: updatedUser)
-                FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Данные успешно обновлены")
-                delegate?.didUpdateUserInfo()
-                dismiss(animated: true)
-            }
+        case saveButton: ProfileSettingsVCHelper.validateAndSaveUserData(textFieldsValidity: textFieldsValidity, textFields: textFields, phoneTextField: phoneTextField, oldPhoneNumber: oldPhoneNumber, vc: self, user: user)
         default: break
         }
     }
@@ -387,5 +384,12 @@ extension ProfileSettingsVC: UIDocumentInteractionControllerDelegate {
 
 extension ProfileSettingsVC: DelegateConfigurable {
     func setDelegate(with vc: UIViewController) { self.delegate = vc as? ProfileSettingsVCDelegate }
+}
+
+extension ProfileSettingsVC: FLCLoginConfirmationVCDelegate {
+    func didSuccessWithVerificationCode(sender: UIViewController) {
+        sender.dismiss(animated: true)
+        Task { await ProfileSettingsVCHelper.saveNewUserData(user: user, textFields: textFields, vc: self) }
+    }
 }
 extension ProfileSettingsVC: UIScrollViewDelegate {}

@@ -70,8 +70,8 @@ class NetworkManager {
         return cities
     }
     
-    func sendSMS(code: String, phoneNumber: String) async throws -> Bool {
-        guard let apiKey = Bundle.main.infoDictionary?["SMS API Key"] as? String else { return false }
+    func sendSMS(code: String, phoneNumber: String) async throws {
+        guard let apiKey = Bundle.main.infoDictionary?["SMS API Key"] as? String else { throw FLCError.invalidData }
         let message = "Ваш код для авторизации в приложении FLC: "
         let smsEndpoint = "https://sms.ru/sms/send?api_id=\(apiKey)&to=\(phoneNumber)&msg=\(message)\(code)"
         
@@ -84,6 +84,7 @@ class NetworkManager {
         
         guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
         guard let responseString = String(data: data, encoding: .utf8) else { throw FLCError.invalidResponceString }
-        return responseString.getFirstCharacters(3) == "100" ? true : false
+        
+        if responseString.getFirstCharacters(3) != "100" { throw FLCError.invalidResponce }
     }
 }

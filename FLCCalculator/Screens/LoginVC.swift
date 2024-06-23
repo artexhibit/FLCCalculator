@@ -25,8 +25,8 @@ final class LoginVC: FLCLoginVC {
     
     private func configureVC() {
         navigationItem.title = "Войти"
-        loginConfirmationView.delegate = self
-        loginConfirmationView.setReturnButtonDelegate(vc: self)
+        loginConfirmationVC.delegate = self
+        loginConfirmationVC.setReturnButtonDelegate(vc: self)
         enterUserCredentialsView.addSubviews(enterPhoneTitleLabel, phoneTextField, verificationCodeButton, privacyPolicyAgreenmentTextViewLabel)
     }
     
@@ -102,7 +102,7 @@ extension LoginVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
         case verificationCodeButton: 
-            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationView: loginConfirmationView, phoneTextField: phoneTextField, enterUserCredentialsView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: self)
+            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterUserCredentialsView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: self)
         default: break
         }
     }
@@ -131,8 +131,8 @@ extension LoginVC: UIDocumentInteractionControllerDelegate {
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController { return self }
 }
 
-extension LoginVC: LoginConfirmationViewDelegate {
-    func didSuccessWithVerificationCode() {
+extension LoginVC: FLCLoginConfirmationVCDelegate {
+    func didSuccessWithVerificationCode(sender: UIViewController) {
         self.dismiss(animated: true)
         delegate?.didSuccessWithLogin(for: phoneTextField.text?.extractDigits() ?? "")
     }
@@ -141,7 +141,7 @@ extension LoginVC: LoginConfirmationViewDelegate {
 extension LoginVC: FLCTextButtonDelegate {
     func didTapButton(_ button: FLCTextButton) {
         switch button {
-        case loginConfirmationView.getReturnButton(): FLCUIHelper.move(view: loginConfirmationView, constraint: leadingConstraint, vc: self, direction: .backward)
+        case loginConfirmationVC.getReturnButton(): FLCUIHelper.move(view: loginConfirmationVCContainer, constraint: leadingConstraint, vc: self, direction: .backward)
         default: break
         }
     }

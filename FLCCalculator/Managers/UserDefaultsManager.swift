@@ -13,6 +13,11 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: Keys.isHapticTurnedOn) }
     }
     
+    static var isFirstLaunch: Bool {
+        get { ud.object(forKey: Keys.isFirstLaunch) == nil ? true : ud.bool(forKey: Keys.isFirstLaunch) }
+        set { ud.setValue(newValue, forKey: Keys.isFirstLaunch) }
+    }
+    
     static var appTheme: String {
         get { ud.string(forKey: Keys.appTheme) ?? "Как на устройстве" }
         set { ud.setValue(newValue, forKey: Keys.appTheme) }

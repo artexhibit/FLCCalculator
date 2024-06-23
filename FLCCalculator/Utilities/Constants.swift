@@ -33,6 +33,7 @@ enum Keys {
     static let isUserLoggedIn = "isUserLoggedIn"
     static let permissionsScreenWasShown = "permissionsScreenWasShown"
     static let isHapticTurnedOn = "isHapticTurnedOn"
+    static let isFirstLaunch = "isFirstLaunch"
     static let appTheme = "appTheme"
     static let managers = "managers"
     static let tariffs = "tariffs"
@@ -96,13 +97,13 @@ enum DeviceTypes {
 }
 
 enum ProfileSettingsTextFieldsNames {
-    static let name = "ФИО"
+    static let fio = "ФИО"
     static let dateOfBirth = "Дата рождения"
     static let phoneNumber = "Номер телефона"
     static let email = "Email"
     static let companyName = "Название юр. лица"
-    static let companyTaxPayerID = "ИНН"
-    static let customsDeclarationsAmountPerYear = "Количество оформленных ДТ за год"
+    static let inn = "ИНН"
+    static let dtCount = "Количество оформленных ДТ за год"
 }
 
 enum FLCBubbleUserDataKeys {

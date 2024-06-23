@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegateHelper.updateDataOnAppLaunch()
         AppDelegateHelper.configureSMSCounter()
         AppDelegateHelper.manageStoredCalculationRecords()
+        AppDelegateHelper.resetFLCUserCredentialsOnFirstLaunch()
         
         AuthorizationVCHelper.presentAuthorizationVC()
         return true
