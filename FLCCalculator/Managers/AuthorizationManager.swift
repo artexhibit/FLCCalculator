@@ -117,7 +117,7 @@ class AuthorizationManager {
             dtCount: data.response.dtCount,
             productRange: nil
         )
-        user.setBirthDateFromISO8601(from: data.response.bday ?? "")
+        if let bday = data.response.bday { user.setBirthDateFromISO8601(from: bday) }
         return user
     }
     

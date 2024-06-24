@@ -11,7 +11,10 @@ struct FLCUser {
     var productRange: [String]?
     
     mutating func setBirthDateFromISO8601(from stringDate: String) {
-        guard let date = ISO8601DateFormatter().date(from: stringDate) else { return }
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
+        guard let date = formatter.date(from: stringDate) else { return }
         birthDate = date.makeString(format: .dotDMY)
     }
     

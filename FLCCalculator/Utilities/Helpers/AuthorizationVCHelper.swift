@@ -41,7 +41,7 @@ struct AuthorizationVCHelper {
     }
     
     static func sendVerificationCode(verificationCode: String, loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) async throws {
-        print(verificationCode)
+  
         do {
             try await NetworkManager.shared.sendSMS(code: verificationCode, phoneNumber: phoneTextField.text?.extractDigits() ?? "")
             SMSManager.increaseSMSCounter()

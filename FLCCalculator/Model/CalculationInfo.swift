@@ -196,6 +196,9 @@ struct CalculationInfo {
         FLCPickerItem(title: "Aydin (09000)", subtitle: "", image: nil),
         FLCPickerItem(title: "Malatya (44900)", subtitle: "", image: nil),
         FLCPickerItem(title: "Tekirdag (59000)", subtitle: "", image: nil),
+        FLCPickerItem(title: "Duzce (81100)", subtitle: "", image: nil),
+        FLCPickerItem(title: "Yalova (77200)", subtitle: "", image: nil),
+        FLCPickerItem(title: "Corlu (59850)", subtitle: "", image: nil),
         FLCPickerItem(title: "Istanbul", subtitle: "", image: nil)
     ]
     

@@ -13,6 +13,7 @@ struct TurkeyTruckByFerryPickup: Codable, Hashable {
 struct TurkeyTruckByFerryCity: Codable, Hashable {
     let name: String
     let zones: [TurkeyTruckByFerryCityZone]
+    let targetCities: [String]
     let zipCode: String
     let transitDays: String
     let volume: [String: TurkeyTruckByFerryCityWeight]
