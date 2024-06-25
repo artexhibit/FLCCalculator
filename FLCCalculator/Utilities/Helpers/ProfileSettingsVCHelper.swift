@@ -3,11 +3,13 @@ import UIKit
 struct ProfileSettingsVCHelper {
     static func performExitFromAccount(in vc: UIViewController) {
         KeychainManager.shared.delete(type: FLCUserCredentials.self)
+        UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
         vc.dismiss(animated: true) { AuthorizationVCHelper.presentAuthorizationVC(animated: true) }
     }
     
     static func performAccountDeletion(in vc: UIViewController) {
         KeychainManager.shared.delete(type: FLCUserCredentials.self)
+        UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
         vc.dismiss(animated: true) { AuthorizationVCHelper.presentAuthorizationVC(animated: true) }
     }
     

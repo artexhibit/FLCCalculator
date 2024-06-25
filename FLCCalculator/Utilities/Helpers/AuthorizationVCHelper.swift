@@ -29,7 +29,12 @@ struct AuthorizationVCHelper {
                 try await checkPhoneNumberExistense(phoneNumber: phoneNumber, vc: vc)
                 
                 if SMSManager.canSendSMS() {
+                    await FLCPopupView.showOnMainThread(title: "Отправляем СМС", style: .spinner)
+                    
                     try await sendVerificationCode(verificationCode: AuthorizationManager.shared.createVerificationCode(), loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
+                    
+                    await FLCPopupView.removeFromMainThread()
+                    await FLCPopupView.showOnMainThread(title: "СМС отправлено")
                 } else {
                     let timeUntilCanSendSMS = SMSManager.timeUntilNextSMS()
                     await FLCPopupView.showOnMainThread(title: "Вы использовали все попытки. Повторить можно через \(timeUntilCanSendSMS)", style: .error)

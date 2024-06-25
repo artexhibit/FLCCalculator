@@ -228,7 +228,7 @@ struct CalculationHelper {
             countryTo: "Россия",
             deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
             deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3), 
-            departureAirport: PriceCalculationManager.getClosestBigCityForAirDelivery(to: departureAirport)?.targetAirport ?? "",
+            departureAirport: PriceCalculationManager.getClosestAirportForAirDelivery(to: departureAirport)?.targetAirport ?? "",
             fromLocation: transportView.departurePickerButton.showingTitle.removeStringPart("+1"),
             toLocation: transportView.destinationPickerButton.showingTitle,
             toLocationCode: pickedDestinationCode,

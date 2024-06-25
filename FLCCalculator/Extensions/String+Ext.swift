@@ -70,11 +70,9 @@ extension String {
     }
     
     func createDate(format: FLCDateFormat) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format.rawValue
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        DateFormatterManager.shared.dateFormatter.dateFormat = format.rawValue
         
-        if let date = dateFormatter.date(from: self) { return date }
+        if let date = DateFormatterManager.shared.dateFormatter.date(from: self) { return date }
         return nil
     }
     

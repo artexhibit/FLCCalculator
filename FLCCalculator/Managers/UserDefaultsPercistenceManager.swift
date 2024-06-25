@@ -81,4 +81,8 @@ struct UserDefaultsPercistenceManager {
             return .unableToSaveToUserDefaults
         }
     }
+    
+    static func deleteItemFromUserDefaults<T: UserDefaultsStorable>(itemType: T.Type) {
+        ud.removeObject(forKey: T.userDefaultsKey)
+    }
 }

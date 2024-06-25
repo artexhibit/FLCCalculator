@@ -95,17 +95,26 @@ struct CalculationCellUIHelper {
     static func configureDeliveryToWarehouse(logisticsType: FLCLogisticsType, cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         let data = CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
         let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
-        let city = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
         let addShaghaiWarehouse = data.isGuangzhou ? "- Склад Шанхай" : ""
         let deliveryPlace = logisticsType == .chinaAir ? " - Аэропорт" : " - Склад"
-        
+                
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "\(item.calculationData.fromLocation) \(deliveryPlace) \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
         cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
-        if logisticsType == .chinaAir { cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestBigCityForAirDelivery(to: city)?.name ?? "") }
-        
+        switch logisticsType {
+        case .chinaTruck, .chinaRailway: break
+        case .chinaAir:
+            let closestAirport = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
+            
+            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirportForAirDelivery(to: closestAirport)?.name ?? "")
+        case .turkeyTruckByFerry:
+            let city = item.calculationData.isFromCoreData ? calculation?.fromLocation?.getDataOutsideCharacters() ?? "" : item.calculationData.fromLocation.getDataOutsideCharacters() ?? ""
+            let closestCity = PriceCalculationManager.getClosestPickupCityForTurkeyTruckByFerry(to: city)?.name ?? ""
+            
+            if !closestCity.isEmpty { cell.addPickupWarningMessage(warehouseName: closestCity) }
+        }
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
     }
@@ -134,7 +143,7 @@ struct CalculationCellUIHelper {
         case .chinaAir:
             let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
             let city = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
-            let departureAirport = PriceCalculationManager.getClosestBigCityForAirDelivery(to: city)?.targetAirport ?? ""
+            let departureAirport = PriceCalculationManager.getClosestAirportForAirDelivery(to: city)?.targetAirport ?? ""
             return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
         case .turkeyTruckByFerry: return "Стамбул - Подольск"
         }

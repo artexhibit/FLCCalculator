@@ -151,9 +151,10 @@ struct AppDelegateHelper {
         SMSManager.startTimer()
     }
     
-    static func resetFLCUserCredentialsOnFirstLaunch() {
+    static func resetFLCUserDataOnAppInitialLaunch() {
         if UserDefaultsManager.isFirstLaunch {
             KeychainManager.shared.delete(type: FLCUserCredentials.self)
+            UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
             UserDefaultsManager.isFirstLaunch = false
         }
     }

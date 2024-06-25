@@ -2,11 +2,9 @@ import Foundation
 
 extension Date {
     func makeString(dateStyle: DateFormatter.Style? = nil, format: FLCDateFormat = .dotDMY) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format.rawValue
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        DateFormatterManager.shared.dateFormatter.dateFormat = format.rawValue
         
-        if let dateStyle = dateStyle { formatter.dateStyle = dateStyle }
-        return formatter.string(from: self)
+        if let dateStyle = dateStyle { DateFormatterManager.shared.dateFormatter.dateStyle = dateStyle }
+        return DateFormatterManager.shared.dateFormatter.string(from: self)
     }
 }

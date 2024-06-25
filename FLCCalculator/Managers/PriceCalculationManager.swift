@@ -250,10 +250,18 @@ final class PriceCalculationManager {
             let targetPrice = weightPrice > volumePrice ? weightPrice : volumePrice
             result = (targetPrice * vat * crossRatio).add(markup: .seventeenPercents)
         } else {
-            let targetCity = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.zipCode == pickedCityZipCode })
-            transitDays = targetCity?.transitDays ?? "1"
+            guard var targetCity = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.zipCode == pickedCityZipCode }) else { return ("", "", 0) }
             
-            let volumeRange = targetCity?.volume.first(where: { $0.key.createRange()?.contains(volume) == true })
+            if !targetCity.targetCities.isEmpty {
+                if let cityName = targetCity.targetCities.first, let newTargetCity = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == cityName }) {
+                    targetCity = newTargetCity
+                } else {
+                    return ("", "", 0)
+                }
+            }
+            transitDays = targetCity.transitDays
+            
+            let volumeRange = targetCity.volume.first(where: { $0.key.createRange()?.contains(volume) == true })
             let pricePerCbm = volumeRange?.value.pricePerCbmInEuro ?? 0
             let minimumPrice = (((volumeRange?.value.minTotalPriceInEuro ?? 0) * vat) * crossRatio).add(markup: .seventeenPercents)
             
@@ -299,7 +307,7 @@ final class PriceCalculationManager {
     private static func calculateChinaAirDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
         let targetWeight = chinaAirPickup?.first?.targetWeight ?? 0
         let chargeableWeight = max(weight, targetWeight * volume)
-        let targetCity = getClosestBigCityForAirDelivery(to: city)
+        let targetCity = getClosestAirportForAirDelivery(to: city)
         
         let warehouse = targetCity?.targetAirport ?? ""
         let transitDays = targetCity?.transitDays ?? ""
@@ -307,8 +315,13 @@ final class PriceCalculationManager {
         return (warehouse, transitDays, price)
     }
     
-    static func getClosestBigCityForAirDelivery(to city: String) -> ChinaAirCity? {
+    static func getClosestAirportForAirDelivery(to city: String) -> ChinaAirCity? {
         chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(city) }) })
+    }
+    static func getClosestPickupCityForTurkeyTruckByFerry(to city: String) -> TurkeyTruckByFerryCity? {
+        let pickedCity = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == city })
+        let targetCityName = pickedCity?.targetCities.first ?? ""
+        return turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == targetCityName })
     }
     static func getMaxWeightFor(type: FLCLogisticsType) -> Double {
         switch type {
