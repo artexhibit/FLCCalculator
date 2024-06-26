@@ -6,6 +6,7 @@ enum Icons {
     static let checkmark = UIImage(systemName: "checkmark") ?? UIImage()
     static let infoSign = UIImage(systemName: "info.circle.fill") ?? UIImage()
     static let truck = UIImage(systemName: "truck.box") ?? UIImage()
+    static let ship = UIImage(systemName: "ferry.fill") ?? UIImage()
     static let xmark = UIImage(systemName: "xmark") ?? UIImage()
     static let map = UIImage(systemName: "map") ?? UIImage()
     static let document = UIImage(systemName: "doc.plaintext") ?? UIImage()
@@ -46,6 +47,8 @@ enum Keys {
     static let chinaRailwayPickup = "chinaRailwayPickup"
     static let chinaAirPickup = "chinaAirPickup"
     static let turkeyTruckByFerryPickup = "turkeyTruckByFerryPickup"
+    static let turkeyNovorossiyskBySeaTariff = "turkeyNovorossiyskBySeaTariff"
+    static let turkeyNovorossiyskBySeaPickup = "turkeyNovorossiyskBySeaPickup"
     static let chinaRailwayTariff = "chinaRailwayTariff"
     static let chinaAirTariff = "chinaAirTariff"
     static let turkeyTruckByFerryTariff = "turkeyTruckByFerryTariff"
@@ -67,10 +70,12 @@ enum Keys {
     static let cdChinaRailwayTariff = "CDChinaRailwayTariff"
     static let cdChinaAirTariff = "CDChinaAirTariff"
     static let cdTurkeyTruckByFerryTariff = "CDTurkeyTruckByFerryTariff"
+    static let cdTurkeyNovorossiyskBySeaTariff = "CDTurkeyNovorossiyskBySeaTariff"
     static let cdChinaTruckPickup = "CDChinaTruckPickup"
     static let cdChinaRailwayPickup = "CDChinaRailwayPickup"
     static let cdChinaAirPickup = "CDChinaAirPickup"
     static let cdTurkeyTruckByFerryPickup = "CDTurkeyTruckByFerryPickup"
+    static let cdTurkeyNovorossiyskBySeaPickup = "CDTurkeyNovorossiyskBySeaPickup"
     static let cdCurrencyData = "CDCurrencyData"
 }
 

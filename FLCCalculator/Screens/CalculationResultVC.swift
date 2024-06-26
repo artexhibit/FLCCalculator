@@ -98,7 +98,7 @@ class CalculationResultVC: UIViewController {
                 configureEmptyStateView()
                 
                 switch pickedLogisticsType {
-                case .chinaTruck, .chinaRailway, .turkeyTruckByFerry: break
+                case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: break
                 case .chinaAir:
                     emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - 3 тонны. Вес вашего груза - \(calculationData?.weight ?? 0) кг")
                 }

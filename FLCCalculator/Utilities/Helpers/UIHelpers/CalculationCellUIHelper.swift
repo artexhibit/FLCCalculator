@@ -104,7 +104,7 @@ struct CalculationCellUIHelper {
         cell.priceLabel.text = item.price
         
         switch logisticsType {
-        case .chinaTruck, .chinaRailway: break
+        case .chinaTruck, .chinaRailway, .turkeyNovorossiyskBySea: break
         case .chinaAir:
             let closestAirport = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
             
@@ -145,7 +145,7 @@ struct CalculationCellUIHelper {
             let city = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
             let departureAirport = PriceCalculationManager.getClosestAirportForAirDelivery(to: city)?.targetAirport ?? ""
             return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
-        case .turkeyTruckByFerry: return "Стамбул - Подольск"
+        case .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return "Стамбул - Подольск"
         }
     }
     
@@ -164,12 +164,12 @@ struct CalculationCellUIHelper {
                 return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
             case .chinaAir:
                 return "С момента вылета из аэропорта отправления и до размещения на СВХ в аэропорту прибытия."
-            case .turkeyTruckByFerry:
+            case .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
                 return "С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске."
             }
         case .cargoHandling:
             switch pickedLogisticsType {
-            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry:
+            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
                 return "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
             case .chinaAir:
                 return "Включены погрузо-разгрузочные работы в аэропорту прибытия, извещение о прибытии груза, изготовление копий документов, выполнение требований госорганов для авиаперевозок, хранение на СВХ в аэропорту (1 день)"

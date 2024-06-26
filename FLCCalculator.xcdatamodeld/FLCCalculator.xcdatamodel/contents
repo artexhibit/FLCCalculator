@@ -81,6 +81,12 @@
     <entity name="CDManagers" representedClassName="CDManagers" syncable="YES" codeGenerationType="class">
         <attribute name="data" attributeType="Binary"/>
     </entity>
+    <entity name="CDTurkeyNovorossiyskBySeaPickup" representedClassName="CDTurkeyNovorossiyskBySeaPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyNovorossiyskBySeaTariff" representedClassName="CDTurkeyNovorossiyskBySeaTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
     <entity name="CDTurkeyPickup" representedClassName="CDTurkeyPickup" syncable="YES" codeGenerationType="class">
         <attribute name="data" attributeType="Binary"/>
     </entity>

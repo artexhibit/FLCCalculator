@@ -2,10 +2,12 @@ import Foundation
 
 struct TurkeyTruckByFerryPickup: Codable, Hashable {
     let vat: Double
+    let maxWeightInKg: Int
     let cities: [TurkeyTruckByFerryCity]
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(vat)
+        hasher.combine(maxWeightInKg)
         hasher.combine(cities)
     }
 }

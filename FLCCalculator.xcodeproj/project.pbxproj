@@ -122,6 +122,12 @@
 		0B916BA72C1CC81F0037D44D /* PermissionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */; };
 		0B916BA92C1CCC290037D44D /* PermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA82C1CCC290037D44D /* PermissionView.swift */; };
 		0B94D2E42C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */; };
+		0B9515962C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515952C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift */; };
+		0B9515972C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515952C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift */; };
+		0B9515982C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515952C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift */; };
+		0B95159A2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */; };
+		0B95159B2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */; };
+		0B95159C2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */; };
 		0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */; };
 		0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */; };
 		0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */; };
@@ -420,6 +426,8 @@
 		0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsCell.swift; sourceTree = "<group>"; };
 		0B916BA82C1CCC290037D44D /* PermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionView.swift; sourceTree = "<group>"; };
 		0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Ext.swift"; sourceTree = "<group>"; };
+		0B9515952C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyNovorossiyskBySeaTariff.swift; sourceTree = "<group>"; };
+		0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyNovorossiyskBySeaPickup.swift; sourceTree = "<group>"; };
 		0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerViewUIHelper.swift; sourceTree = "<group>"; };
 		0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCMailComposeVC.swift; sourceTree = "<group>"; };
 		0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoContentCell.swift; sourceTree = "<group>"; };
@@ -912,6 +920,7 @@
 				0B3849CF2BD82BCF0002F233 /* TurkeyTruckByFerryPickup.swift */,
 				0BA381E32BFA0B5500A242F2 /* ChinaRailwayPickup.swift */,
 				0BA381E52BFA0BD800A242F2 /* ChinaAirPickup.swift */,
+				0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */,
 			);
 			path = Pickups;
 			sourceTree = "<group>";
@@ -923,6 +932,7 @@
 				0BB47CEC2BF8CF33001ECED4 /* ChinaRailwayTariff.swift */,
 				0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */,
 				0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */,
+				0B9515952C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift */,
 			);
 			path = Tariffs;
 			sourceTree = "<group>";
@@ -1209,6 +1219,7 @@
 				0BFA89A82C22BA190023D949 /* CurrencyData.swift in Sources */,
 				0BFA89A72C22BA070023D949 /* Document.swift in Sources */,
 				0BFA89E02C22CA5D0023D949 /* UserDefaultsManager.swift in Sources */,
+				0B95159C2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */,
 				0BFA89BA2C22BAF90023D949 /* PermissionItem.swift in Sources */,
 				0BFA89972C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */,
 				0BFA899F2C22B9CF0023D949 /* ChinaRailwayTariff.swift in Sources */,
@@ -1219,6 +1230,7 @@
 				0BFA89992C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */,
 				0BABA4C72C23677C000991E9 /* FLCUserCredentials.swift in Sources */,
 				0BFA898E2C22B8100023D949 /* CoreDataManager.swift in Sources */,
+				0B9515982C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */,
 				0BFA89B62C22BAB80023D949 /* CalculationResultItem.swift in Sources */,
 				0BFA89DD2C22CA240023D949 /* AppDelegateHelper.swift in Sources */,
 				0BFA89B42C22BA9B0023D949 /* CalculationDataFirebaseRecord.swift in Sources */,
@@ -1298,6 +1310,7 @@
 				0BD4DE2C2B89EC4C00B834DD /* NumberFormatter+Ext.swift in Sources */,
 				0BE046752B9CF31F00BA6F21 /* UISheetPresentationController+Ext.swift in Sources */,
 				0BCDC80B2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift in Sources */,
+				0B95159A2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */,
 				0B9D5A792BB9B3150016A991 /* AppDelegateHelper.swift in Sources */,
 				0B9D5A762BB9AB230016A991 /* UserDefaultsManager.swift in Sources */,
 				0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */,
@@ -1326,6 +1339,7 @@
 				0B6E542A2B810BA00078C110 /* SceneDelegate.swift in Sources */,
 				0B9D5A732BB9914D0016A991 /* Protocols.swift in Sources */,
 				0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */,
+				0B9515962C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */,
 				0BFBD7452BA38B3500B485B8 /* UINavigationController+Ext.swift in Sources */,
 				0BD919522C1DE048002C0C94 /* PermissionItem.swift in Sources */,
 				0B7EBA692BE55C41004BE990 /* NetworkStatusManager.swift in Sources */,
@@ -1419,12 +1433,14 @@
 				0BFA89A42C22B9F80023D949 /* AvailableLogisticsType.swift in Sources */,
 				0BFA89A32C22B9EC0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */,
 				0B1E31422C10A47F00291D0E /* SettingsCellContent.swift in Sources */,
+				0B9515972C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */,
 				0BFA89E22C22CA780023D949 /* String+Ext.swift in Sources */,
 				0BFA89B92C22BAF80023D949 /* PermissionItem.swift in Sources */,
 				0BFA89AD2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
 				0BFA898D2C22B7DD0023D949 /* FLCError.swift in Sources */,
 				0BABA4C22C2362E2000991E9 /* KeychainManager.swift in Sources */,
 				0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */,
+				0B95159B2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */,
 				0BFA89BB2C22BC010023D949 /* FirebaseManager.swift in Sources */,
 				0BFA89942C22B95D0023D949 /* ChinaTruckPickup.swift in Sources */,
 				0BFA89AF2C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */,

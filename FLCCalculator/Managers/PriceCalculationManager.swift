@@ -5,10 +5,12 @@ final class PriceCalculationManager {
     private static let chinaRailwayTariff: [ChinaRailwayTariff]? = CoreDataManager.retrieveItemsFromCoreData()
     private static let chinaAirTariff: [ChinaAirTariff]? = CoreDataManager.retrieveItemsFromCoreData()
     private static let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let turkeyNovorossiyskBySeaTariff: [TurkeyNovorossiyskBySeaTariff]? = CoreDataManager.retrieveItemsFromCoreData()
     private static let chinaTruckPickup: [ChinaTruckPickup]? = CoreDataManager.retrieveItemsFromCoreData()
     private static let chinaRailwayPickup: [ChinaRailwayPickup]? = CoreDataManager.retrieveItemsFromCoreData()
     private static let chinaAirPickup: [ChinaAirPickup]? = CoreDataManager.retrieveItemsFromCoreData()
     private static let turkeyTruckByFerryPickup: [TurkeyTruckByFerryPickup]? = CoreDataManager.retrieveItemsFromCoreData()
+    private static let turkeyNovorossiyskBySeaPickup: [TurkeyNovorossiyskBySeaPickup]? = CoreDataManager.retrieveItemsFromCoreData()
     private static let currencyData: CurrencyData? = CoreDataManager.retrieveItemFromCoreData()
     
     static func getInsurancePercentage(for logisticsType: FLCLogisticsType, item: CalculationResultItem? = nil) -> Double {
@@ -25,6 +27,8 @@ final class PriceCalculationManager {
             insurancePercentage = chinaAirTariff?.first?.insurancePercentage ?? 0
         case .turkeyTruckByFerry:
             insurancePercentage = turkeyTruckByFerryTariff?.first?.insurancePercentage ?? 0
+        case .turkeyNovorossiyskBySea:
+            insurancePercentage = turkeyNovorossiyskBySeaTariff?.first?.insurancePercentage ?? 0
         }
         return item?.calculationData.isFromCoreData ?? false ? targetResult?.insurancePercentage ?? 0 : insurancePercentage
     }
@@ -65,6 +69,8 @@ final class PriceCalculationManager {
             return getAirDeliveryFromWarehousePrice(item: item)
         case .turkeyTruckByFerry:
             return getGroundDeliveryFromWarehousePrice(tariff: turkeyTruckByFerryTariff ?? [], weight: item.calculationData.weight, volume: item.calculationData.volume)
+        case .turkeyNovorossiyskBySea:
+            return getGroundDeliveryFromWarehousePrice(tariff: turkeyNovorossiyskBySeaTariff ?? [], weight: item.calculationData.weight, volume: item.calculationData.volume)
         }
     }
     
@@ -111,6 +117,7 @@ final class PriceCalculationManager {
         case .chinaRailway: return String(chinaRailwayTariff?.first?.transitDays ?? 0)
         case .chinaAir: return String(chinaAirTariff?.first?.transitDays ?? 0)
         case .turkeyTruckByFerry: return String(turkeyTruckByFerryTariff?.first?.transitDays ?? 0)
+        case .turkeyNovorossiyskBySea: return String(turkeyNovorossiyskBySeaTariff?.first?.transitDays ?? 0)
         }
     }
     
@@ -128,6 +135,8 @@ final class PriceCalculationManager {
             result = (getAirCargoHandlingData(logisticsType: logisticsType, item: item), nil)
         case .turkeyTruckByFerry:
             result = (turkeyTruckByFerryTariff?.first?.cargoHandling ?? 0, turkeyTruckByFerryTariff?.first?.minCargoHandling ?? 0)
+        case .turkeyNovorossiyskBySea:
+            result = (turkeyNovorossiyskBySeaTariff?.first?.cargoHandling ?? 0, turkeyNovorossiyskBySeaTariff?.first?.minCargoHandling ?? 0)
         }
         return item?.calculationData.isFromCoreData ?? false ? (targetResult?.cargoHandlingPricePerKg ?? 0, targetResult?.cargoHandlingMinPrice ?? 0) : result
     }
@@ -160,6 +169,7 @@ final class PriceCalculationManager {
         case .chinaRailway: return chinaRailwayTariff?.first?.customsClearance ?? 0
         case .chinaAir: return chinaAirTariff?.first?.customsClearance ?? 0
         case .turkeyTruckByFerry: return turkeyTruckByFerryTariff?.first?.customsClearance ?? 0
+        case .turkeyNovorossiyskBySea: return turkeyNovorossiyskBySeaTariff?.first?.customsClearance ?? 0
         }
     }
     
@@ -169,6 +179,7 @@ final class PriceCalculationManager {
         case .chinaRailway: return chinaRailwayTariff?.first?.customsWarehousePrice ?? 0
         case .chinaAir: return 0
         case .turkeyTruckByFerry: return turkeyTruckByFerryTariff?.first?.customsWarehousePrice ?? 0
+        case .turkeyNovorossiyskBySea: return turkeyNovorossiyskBySeaTariff?.first?.customsWarehousePrice ?? 0
         }
     }
     
@@ -178,6 +189,7 @@ final class PriceCalculationManager {
         case .chinaRailway: chinaRailwayTariff?.first?.groupageDocs ?? 0
         case .chinaAir: getAviaGroupageDocs(item: item).brutto
         case .turkeyTruckByFerry: turkeyTruckByFerryTariff?.first?.groupageDocs ?? 0
+        case .turkeyNovorossiyskBySea: turkeyNovorossiyskBySeaTariff?.first?.groupageDocs ?? 0
         }
     }
     
@@ -198,6 +210,7 @@ final class PriceCalculationManager {
             return calculateChinaAirDeliveryToWarehouse(city: item.calculationData.departureAirport, weight: item.calculationData.weight, volume: item.calculationData.volume)
         case .turkeyTruckByFerry:
             return calculateTurkeyDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
+        case .turkeyNovorossiyskBySea: return ("", "", 0)
         }
     }
     
@@ -325,7 +338,7 @@ final class PriceCalculationManager {
     }
     static func getMaxWeightFor(type: FLCLogisticsType) -> Double {
         switch type {
-        case .chinaTruck, .chinaRailway, .turkeyTruckByFerry: return 20000
+        case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return 20000
         case .chinaAir: return chinaAirTariff?.first?.maxWeightKg ?? 3000
         }
     }
