@@ -185,15 +185,16 @@ struct CalculationHelper {
     static func calculateTotalPrice(prices: [String]) -> String {
         var rubleTotal = 0.0
         var currencyTotal = 0.0
+        let currencySymbol = prices.first(where: { $0.extractCurrencySymbol() == .USD || $0.extractCurrencySymbol() == .EUR })?.extractCurrencySymbol() ?? .USD
         
         prices.forEach {
-            if $0.contains(FLCCurrency.RUB.symbol) {
+            if $0.extractCurrencySymbol() == .RUB {
                 rubleTotal += $0.createDouble(removeSymbols: true)
             } else {
                 currencyTotal += $0.createDouble(removeSymbols: true)
             }
         }
-        return "\(currencyTotal.formatAsCurrency(symbol: .USD)) + \(rubleTotal.formatAsCurrency(symbol: .RUB))"
+        return "\(currencyTotal.formatAsCurrency(symbol: currencySymbol)) + \(rubleTotal.formatAsCurrency(symbol: .RUB))"
     }
     
     static func calculateTotalDays(days: [String]) -> String {

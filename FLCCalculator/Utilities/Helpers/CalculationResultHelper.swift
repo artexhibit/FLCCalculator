@@ -114,20 +114,43 @@ struct CalculationResultHelper {
         }
     }
     
+    private static func getCurrency(for pickedLogisticsType: FLCLogisticsType) -> [FLCCalculationResultCellType: FLCCurrency] {
+        var itemCurrency: [FLCCalculationResultCellType: FLCCurrency] = [
+            .russianDelivery: .RUB,
+            .insurance: .USD,
+            .deliveryFromWarehouse: .USD,
+            .cargoHandling: .USD,
+            .customsClearancePrice: .RUB,
+            .customsWarehouseServices: .RUB,
+            .deliveryToWarehouse: .USD,
+            .groupageDocs: .USD
+        ]
+        
+        switch pickedLogisticsType {
+        case .chinaAir:
+            itemCurrency[.cargoHandling] = .RUB
+        case .turkeyNovorossiyskBySea:
+            let euroItems: [FLCCalculationResultCellType] = [.cargoHandling, .insurance, .deliveryFromWarehouse, .deliveryToWarehouse, .groupageDocs]
+            for item in euroItems { itemCurrency[item] = .EUR }
+        case .chinaTruck, .chinaRailway, .turkeyTruckByFerry: break
+        }
+        return itemCurrency
+    }
+    
     private static func getLogisticsItems(with data: CalculationData, pickedLogisticsType: FLCLogisticsType) -> [CalculationResultItem] {
         var items = [CalculationResultItem]()
-        let cargoHandlingCurrency: FLCCurrency = pickedLogisticsType == .chinaAir ? .RUB : .USD
+        let itemCurrencyType = getCurrency(for: pickedLogisticsType)
         
-        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: data, title: "Доставка по России", currency: .RUB)
-        let insuranceItem = CalculationResultItem(type: .insurance, calculationData: data, title: "Страхование", currency: .USD)
-        let deliveryFromWarehouseItem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: data, title: "Перевозка Сборного Груза", currency: .USD)
-        let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: data, title: "Погрузо-разгрузочные работы", currency: cargoHandlingCurrency)
-        let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: data, title: "Услуги по Таможенному Оформлению", currency: .RUB)
-        let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: data, title: "Услуги СВХ", currency: .RUB)
-        let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: data, title: "Доставка до Склада Консолидации", currency: .USD)
-        let groupageDocs = CalculationResultItem(type: .groupageDocs, calculationData: data, title: "Оформление пакета документов", currency: .USD)
+        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: data, title: "Доставка по России", currency: itemCurrencyType[.russianDelivery] ?? .RUB)
+        let insuranceItem = CalculationResultItem(type: .insurance, calculationData: data, title: "Страхование", currency: itemCurrencyType[.insurance] ?? .USD)
+        let deliveryFromWarehouseItem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: data, title: "Перевозка Сборного Груза", currency: itemCurrencyType[.deliveryFromWarehouse] ?? .USD)
+        let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: data, title: "Погрузо-разгрузочные работы", currency: itemCurrencyType[.cargoHandling] ?? .USD)
+        let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: data, title: "Услуги по Таможенному Оформлению", currency: itemCurrencyType[.customsClearancePrice] ?? .USD)
+        let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: data, title: "Услуги СВХ", currency: itemCurrencyType[.customsWarehouseServices] ?? .RUB)
+        let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: data, title: "Доставка до Склада Консолидации", currency: itemCurrencyType[.deliveryToWarehouse] ?? .USD)
+        let groupageDocsItem = CalculationResultItem(type: .groupageDocs, calculationData: data, title: "Оформление пакета документов", currency: itemCurrencyType[.groupageDocs] ?? .USD)
         
-        items.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem, groupageDocs])
+        items.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem, groupageDocsItem])
         return items
     }
     
