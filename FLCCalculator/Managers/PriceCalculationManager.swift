@@ -209,8 +209,9 @@ final class PriceCalculationManager {
         case .chinaAir:
             return calculateChinaAirDeliveryToWarehouse(city: item.calculationData.departureAirport, weight: item.calculationData.weight, volume: item.calculationData.volume)
         case .turkeyTruckByFerry:
-            return calculateTurkeyDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
-        case .turkeyNovorossiyskBySea: return ("", "", 0)
+            return calculateTurkeyTruckByFerryDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
+        case .turkeyNovorossiyskBySea:
+            return calculateTurkeyNovorossiyskBySeaDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
         }
     }
     
@@ -242,7 +243,7 @@ final class PriceCalculationManager {
         }
     }
     
-    private static func calculateTurkeyDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
+    private static func calculateTurkeyTruckByFerryDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
         guard let pickedCityZipCode = city.getDataInsideCharacters() else { return ("", "", 0.0) }
         
         let vat = turkeyTruckByFerryPickup?.first?.vat ?? 1.2
@@ -279,6 +280,35 @@ final class PriceCalculationManager {
             let minimumPrice = (((volumeRange?.value.minTotalPriceInEuro ?? 0) * vat) * crossRatio).add(markup: .seventeenPercents)
             
             let price = ((pricePerCbm * volume) * vat * crossRatio).add(markup: .seventeenPercents)
+            result = price < minimumPrice ? minimumPrice : price
+        }
+        return (FLCWarehouse.istanbul.rusName, transitDays, result)
+    }
+    
+    private static func calculateTurkeyNovorossiyskBySeaDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
+        guard let pickedCityZipCode = city.getDataInsideCharacters() else { return ("", "", 0.0) }
+        
+        var result = 0.0
+        var transitDays = "1"
+
+        if city.contains(FLCCities.istanbul.rawValue) {
+            let istanbul = turkeyNovorossiyskBySeaPickup?.first?.cities.first(where: { $0.name == FLCCities.istanbul.rawValue })
+            let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode })
+            transitDays = istanbul?.transitDays ?? "1"
+            
+            let weightRange = targetCity?.weight.first(where: { $0.key.createRange()?.contains(weight) == true })
+            let weightPrice = weightRange?.value.totalPriceInEuro ?? 0
+            
+            result = weightPrice.add(markup: .seventeenPercents)
+        } else {
+            guard let targetCity = turkeyNovorossiyskBySeaPickup?.first?.cities.first(where: { $0.zipCode == pickedCityZipCode }) else { return ("", "", 0) }
+            transitDays = targetCity.transitDays
+            
+            let volumeRange = targetCity.volume.first(where: { $0.key.createRange()?.contains(volume) == true })
+            let pricePerCbm = volumeRange?.value.pricePerCbmInEuro ?? 0
+            let minimumPrice = (volumeRange?.value.minTotalPriceInEuro ?? 0).add(markup: .seventeenPercents)
+            
+            let price = (pricePerCbm * volume).add(markup: .seventeenPercents)
             result = price < minimumPrice ? minimumPrice : price
         }
         return (FLCWarehouse.istanbul.rusName, transitDays, result)

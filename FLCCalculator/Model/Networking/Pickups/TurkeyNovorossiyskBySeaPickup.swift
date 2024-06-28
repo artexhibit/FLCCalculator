@@ -24,6 +24,7 @@ struct TurkeyNovorossiyskBySeaCity: Codable, Hashable {
 struct TurkeyNovorossiyskBySeaCityZone: Codable, Hashable {
     let name: String
     let zipCode: String
+    let targetRegions: [String]
     let weight: [String: TurkeyNovorossiyskBySeaCityZoneWeight]
 }
 
