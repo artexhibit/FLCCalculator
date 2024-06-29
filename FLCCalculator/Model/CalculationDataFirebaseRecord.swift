@@ -11,6 +11,7 @@ struct CalculationDataFirebaseRecord: Codable {
     var deliveryType: String
     var deliveryTypeCode: String
     var departureAirport: String
+    var fromLocationCode: String
     var fromLocation: String
     var toLocation: String
     var toLocationCode: String
@@ -38,6 +39,7 @@ extension CalculationDataFirebaseRecord {
             "deliveryType": deliveryType,
             "deliveryTypeCode": deliveryTypeCode,
             "departureAirport": departureAirport,
+            "fromLocationCode": fromLocationCode,
             "fromLocation": fromLocation,
             "toLocation": toLocation,
             "toLocationCode": toLocationCode,

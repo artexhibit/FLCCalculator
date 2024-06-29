@@ -10,6 +10,7 @@
         <attribute name="departureAirport" optional="YES" attributeType="String"/>
         <attribute name="exchangeRate" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fromLocation" attributeType="String"/>
+        <attribute name="fromLocationCode" optional="YES" attributeType="String"/>
         <attribute name="goodsType" attributeType="String"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="invoiceAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

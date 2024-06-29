@@ -293,7 +293,8 @@ final class PriceCalculationManager {
 
         if city.contains(FLCCities.istanbul.rawValue) {
             let istanbul = turkeyNovorossiyskBySeaPickup?.first?.cities.first(where: { $0.name == FLCCities.istanbul.rawValue })
-            let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode })
+            let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode || $0.targetRegions.contains(where: { $0.contains(pickedCityZipCode) }) })
+            
             transitDays = istanbul?.transitDays ?? "1"
             
             let weightRange = targetCity?.weight.first(where: { $0.key.createRange()?.contains(weight) == true })
@@ -361,11 +362,25 @@ final class PriceCalculationManager {
     static func getClosestAirportForAirDelivery(to city: String) -> ChinaAirCity? {
         chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(city) }) })
     }
+    
     static func getClosestPickupCityForTurkeyTruckByFerry(to city: String) -> TurkeyTruckByFerryCity? {
         let pickedCity = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == city })
         let targetCityName = pickedCity?.targetCities.first ?? ""
         return turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == targetCityName })
     }
+    
+    static func getClosestPickupCityZipCodeForTurkeyNovorossiyskBySea(to city: String) -> String {
+        guard let pickedCityZipCode = city.getDataInsideCharacters() else { return "" }
+        
+        let pickedCity = turkeyNovorossiyskBySeaPickup?.first?.cities.first(where: { city.contains($0.name)})
+        let targetCity = pickedCity?.zones.first(where: { $0.zipCode == pickedCityZipCode || $0.targetRegions.contains(where: { $0.contains(pickedCityZipCode) }) })
+        return targetCity?.zipCode ?? ""
+    }
+    
+    static func getClosestPickupCityForTurkeyNovorossiyskBySea(by zipCode: String) -> String {
+        return turkeyNovorossiyskBySeaPickup?.flatMap { $0.cities }.flatMap { $0.zones }.first(where: { $0.zipCode == zipCode })?.name ?? ""
+    }
+    
     static func getMaxWeightFor(type: FLCLogisticsType) -> Double {
         switch type {
         case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return 20000

@@ -182,6 +182,7 @@ class FirebaseManager: NSObject {
             deliveryType: data.deliveryType,
             deliveryTypeCode: data.deliveryTypeCode,
             departureAirport: data.departureAirport,
+            fromLocationCode: data.fromLocationCode,
             fromLocation: data.fromLocation,
             toLocation: data.toLocation,
             toLocationCode: data.toLocationCode,

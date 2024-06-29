@@ -104,19 +104,30 @@ struct CalculationCellUIHelper {
         cell.priceLabel.text = item.price
         
         switch logisticsType {
-        case .chinaTruck, .chinaRailway, .turkeyNovorossiyskBySea: break
-        case .chinaAir:
-            let closestAirport = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
-            
-            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirportForAirDelivery(to: closestAirport)?.name ?? "")
-        case .turkeyTruckByFerry:
-            let city = item.calculationData.isFromCoreData ? calculation?.fromLocation?.getDataOutsideCharacters() ?? "" : item.calculationData.fromLocation.getDataOutsideCharacters() ?? ""
-            let closestCity = PriceCalculationManager.getClosestPickupCityForTurkeyTruckByFerry(to: city)?.name ?? ""
-            
-            if !closestCity.isEmpty { cell.addPickupWarningMessage(warehouseName: closestCity) }
+        case .chinaTruck, .chinaRailway: break
+        case .chinaAir: configurePickupWarningMessageForChinaAir(item: item, calculation: calculation, cell: cell)
+        case .turkeyTruckByFerry: configurePickupWarningMessageForTurkeyTruckByFerry(item: item, calculation: calculation, cell: cell)
+        case .turkeyNovorossiyskBySea: configurePickupWarningMessageForTurkeyNovorossiyskBySea(item: item, calculation: calculation, cell: cell)
         }
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         resetDaysContent(in: cell)
+    }
+    
+    private static func configurePickupWarningMessageForTurkeyNovorossiyskBySea(item: CalculationResultItem, calculation: Calculation?, cell: CalculationResultCell) {
+        let cityZipCode = (item.calculationData.isFromCoreData ? calculation?.fromLocationCode : item.calculationData.fromLocationCode) ?? ""
+        let closestCity = PriceCalculationManager.getClosestPickupCityForTurkeyNovorossiyskBySea(by: cityZipCode)
+        if !closestCity.isEmpty { cell.addPickupWarningMessage(warehouseName: closestCity) }
+    }
+    
+    private static func configurePickupWarningMessageForTurkeyTruckByFerry(item: CalculationResultItem, calculation: Calculation?, cell: CalculationResultCell) {
+        let city = item.calculationData.isFromCoreData ? calculation?.fromLocation?.getDataOutsideCharacters() ?? "" : item.calculationData.fromLocation.getDataOutsideCharacters() ?? ""
+        let closestCity = PriceCalculationManager.getClosestPickupCityForTurkeyTruckByFerry(to: city)?.name ?? ""
+        if !closestCity.isEmpty { cell.addPickupWarningMessage(warehouseName: closestCity) }
+    }
+    
+    private static func configurePickupWarningMessageForChinaAir(item: CalculationResultItem, calculation: Calculation?, cell: CalculationResultCell) {
+        let closestAirport = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
+        cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirportForAirDelivery(to: closestAirport)?.name ?? "")
     }
     
     private static func removeDaysContent(in cell: CalculationResultCell) {

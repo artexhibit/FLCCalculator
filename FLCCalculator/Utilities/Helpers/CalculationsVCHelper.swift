@@ -38,6 +38,7 @@ struct CalculationsVCHelper {
             deliveryType: pickedCalculation.deliveryType ?? "",
             deliveryTypeCode: pickedCalculation.deliveryTypeCode ?? "", 
             departureAirport: pickedCalculation.departureAirport ?? "",
+            fromLocationCode: pickedCalculation.fromLocationCode ?? "",
             fromLocation: pickedCalculation.fromLocation ?? "",
             toLocation: pickedCalculation.toLocation ?? "",
             toLocationCode: pickedCalculation.toLocationCode ?? "",

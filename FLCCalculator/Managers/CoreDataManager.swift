@@ -64,6 +64,7 @@ struct CoreDataManager {
         calc.goodsType = calculationData.goodsType
         calc.fromLocation = calculationData.fromLocation
         calc.departureAirport = calculationData.departureAirport
+        calc.fromLocationCode = calculationData.fromLocationCode
         calc.deliveryTypeCode = calculationData.deliveryTypeCode
         calc.countryTo = calculationData.countryTo
         calc.countryFrom = calculationData.countryFrom
