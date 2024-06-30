@@ -156,11 +156,11 @@ struct CalculationResultHelper {
     
     static func getOptions(basedOn availableLogisticsTypes: [FLCLogisticsType]) -> [FLCLogisticsOption] {
         let predefinedOptions: [FLCLogisticsType: FLCLogisticsOption] = [
-            .chinaTruck: FLCLogisticsOption(image: Icons.truckFill, title: "Авто", type: .chinaTruck, orderID: 1),
-            .chinaRailway: FLCLogisticsOption(image: Icons.train, title: "ЖД", type: .chinaRailway, orderID: 2),
-            .chinaAir: FLCLogisticsOption(image: Icons.plane, title: "Авиа", type: .chinaAir, orderID: 3),
-            .turkeyNovorossiyskBySea: FLCLogisticsOption(image: Icons.ship, title: "Море+Авто", type: .turkeyNovorossiyskBySea, orderID: 1),
-            .turkeyTruckByFerry: FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", type: .turkeyTruckByFerry, orderID: 2)
+            .chinaTruck: FLCLogisticsOption(image: Icons.truckFill, title: "Авто", subtitle: "Манчжурия", type: .chinaTruck, orderID: 1),
+            .chinaRailway: FLCLogisticsOption(image: Icons.train, title: "ЖД", subtitle: "Шанхай", type: .chinaRailway, orderID: 2),
+            .chinaAir: FLCLogisticsOption(image: Icons.plane, title: "Авиа", subtitle: "Шереметьево", type: .chinaAir, orderID: 3),
+            .turkeyNovorossiyskBySea: FLCLogisticsOption(image: Icons.ship, title: "Море+Авто", subtitle: "Новороссийск", type: .turkeyNovorossiyskBySea, orderID: 1),
+            .turkeyTruckByFerry: FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", subtitle: "Туапсе", type: .turkeyTruckByFerry, orderID: 2)
         ]
         return availableLogisticsTypes.compactMap { predefinedOptions[$0] }.sorted(by: { $0.orderID < $1.orderID })
     }

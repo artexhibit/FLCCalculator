@@ -5,8 +5,11 @@ final class OptionsCell: UICollectionViewCell {
     static let reuseID = "OptionsCell"
     
     private let containerView = UIView()
+    private let labelsContainerView = UIView()
+    
     private let imageView = FLCImageView(tint: .flcGray)
-    private let optionTitle = FLCTitleLabel(color: .flcGray, textAlignment: .center, size: 18)
+    private let optionTitle = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 18)
+    private let optionSubtitle = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .caption1)
     
     private let padding: CGFloat = 10
     
@@ -16,6 +19,7 @@ final class OptionsCell: UICollectionViewCell {
             containerView.layer.borderColor = isSelected ? UIColor.flcOrange.cgColor : UIColor.flcGray.cgColor
             imageView.tintColor = isSelected ? .flcOrange : .flcGray
             optionTitle.textColor = isSelected ? .flcOrange : .flcGray
+            optionSubtitle.textColor = isSelected ? .flcOrange : .flcGray
         }
     }
     
@@ -29,19 +33,22 @@ final class OptionsCell: UICollectionViewCell {
     }
     
     func set(with option: FLCLogisticsOption) {
-        self.imageView.image = option.image
-        self.optionTitle.text = option.title
+        imageView.image = option.image
+        optionTitle.text = option.title
+        optionSubtitle.text = option.subtitle
     }
     
     private func configure() {
         contentView.addSubviews(containerView)
         configureContainerView()
         configureImageView()
+        configureLabelsContainerView()
         configureTitle()
+        configureSubtitle()
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(imageView, optionTitle)
+        containerView.addSubviews(imageView, labelsContainerView)
         containerView.pinToEdges(of: contentView, withPadding: 4.5, paddingType: .vertical)
         
         containerView.layer.cornerRadius = 13
@@ -53,16 +60,37 @@ final class OptionsCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding / 1.1),
             imageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 29),
-            imageView.heightAnchor.constraint(equalToConstant: 31)
+            imageView.widthAnchor.constraint(equalToConstant: 35),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+        ])
+    }
+    
+    private func configureLabelsContainerView() {
+        labelsContainerView.addSubviews(optionTitle, optionSubtitle)
+        labelsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            labelsContainerView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding / 2),
+            labelsContainerView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            labelsContainerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            labelsContainerView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding / 1.8)
         ])
     }
     
     private func configureTitle() {
-        NSLayoutConstraint.activate([
-            optionTitle.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: padding / 1.5),
-            optionTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding / 1.1),
-            optionTitle.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
-        ])
-    }
+            NSLayoutConstraint.activate([
+                optionTitle.topAnchor.constraint(equalTo: labelsContainerView.topAnchor),
+                optionTitle.leadingAnchor.constraint(equalTo: labelsContainerView.leadingAnchor, constant: padding),
+                optionTitle.trailingAnchor.constraint(equalTo: labelsContainerView.trailingAnchor),
+            ])
+        }
+        
+        private func configureSubtitle() {
+            NSLayoutConstraint.activate([
+                optionSubtitle.topAnchor.constraint(equalTo: optionTitle.bottomAnchor, constant: -padding / 4),
+                optionSubtitle.leadingAnchor.constraint(equalTo: labelsContainerView.leadingAnchor, constant: padding),
+                optionSubtitle.trailingAnchor.constraint(equalTo: labelsContainerView.trailingAnchor, constant: -padding / 1.1),
+                optionSubtitle.bottomAnchor.constraint(equalTo: labelsContainerView.bottomAnchor)
+            ])
+        }
 }
