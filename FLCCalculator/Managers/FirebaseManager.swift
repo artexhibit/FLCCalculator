@@ -43,14 +43,18 @@ class FirebaseManager: NSObject {
             async let chinaAirTariff: [ChinaAirTariff]? = getDataFromFirebase()
             async let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = getDataFromFirebase()
             async let turkeyNovorossiyskBySeaTariff: [TurkeyNovorossiyskBySeaTariff]? = getDataFromFirebase()
+            async let turkeyAirVKOTariff: [TurkeyAirVKOTariff]? = getDataFromFirebase()
+            async let turkeyAirSVOTariff: [TurkeyAirSVOTariff]? = getDataFromFirebase()
             
             let chinaTruckTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaTruckTariff ?? [])
             let chinaRailwayTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaRailwayTariff ?? [])
             let chinaAirTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaAirTariff ?? [])
             let turkeyTruckByFerryTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyTruckByFerryTariff ?? [])
             let turkeyNovorossiyskBySeaTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyNovorossiyskBySeaTariff ?? [])
+            let turkeyAirVKOTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirVKOTariff ?? [])
+            let turkeyAirSVOTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirSVOTariff ?? [])
             
-            return chinaTruckTariffData != nil && chinaRailwayTariffData != nil && chinaAirTariffData != nil && turkeyTruckByFerryTariffData != nil && turkeyNovorossiyskBySeaTariffData != nil
+            return chinaTruckTariffData != nil && chinaRailwayTariffData != nil && chinaAirTariffData != nil && turkeyTruckByFerryTariffData != nil && turkeyNovorossiyskBySeaTariffData != nil && turkeyAirVKOTariffData != nil && turkeyAirSVOTariffData != nil
         } catch {
             return false
         }
@@ -63,14 +67,18 @@ class FirebaseManager: NSObject {
             async let chinaAirPickup: [ChinaAirPickup]? = getDataFromFirebase()
             async let turkeyTruckByFerryPickup: [TurkeyTruckByFerryPickup]? = getDataFromFirebase()
             async let turkeyNovorossiyskBySeaPickup: [TurkeyNovorossiyskBySeaPickup]? = getDataFromFirebase()
+            async let turkeyAirVKOPickup: [TurkeyAirVKOPickup]? = getDataFromFirebase()
+            async let turkeyAirSVOPickup: [TurkeyAirSVOPickup]? = getDataFromFirebase()
             
             let chinaTruckPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaTruckPickup ?? [])
             let chinaRailwayPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaRailwayPickup ?? [])
             let chinaAirPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaAirPickup ?? [])
             let turkeyTruckByFerryPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyTruckByFerryPickup ?? [])
             let turkeyNovorossiyskBySeaPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyNovorossiyskBySeaPickup ?? [])
+            let turkeyAirVKOPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirVKOPickup ?? [])
+            let turkeyAirSVOPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirSVOPickup ?? [])
             
-            return chinaTruckPickupData != nil && chinaRailwayPickupData != nil && chinaAirPickupData != nil && turkeyTruckByFerryPickupData != nil && turkeyNovorossiyskBySeaPickupData != nil
+            return chinaTruckPickupData != nil && chinaRailwayPickupData != nil && chinaAirPickupData != nil && turkeyTruckByFerryPickupData != nil && turkeyNovorossiyskBySeaPickupData != nil && turkeyAirVKOPickupData != nil && turkeyAirSVOPickupData != nil
         } catch {
             return false
         }
