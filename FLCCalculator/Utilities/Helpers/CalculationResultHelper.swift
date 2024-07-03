@@ -58,31 +58,18 @@ struct CalculationResultHelper {
         case .chinaTruck, .chinaRailway:
             baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, pickedLogisticsType: pickedLogisticsType)
             
-        case .chinaAir:
+        case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
             baseItems = getLogisticsItems(with: data, pickedLogisticsType: pickedLogisticsType).map { item in
                 var newItem = item
                 
                 switch newItem.type {
-                case .russianDelivery:
-                    if data.toLocation == WarehouseStrings.russianWarehouseCity { newItem.canDisplay = false }
-                    
-                case .customsClearancePrice:
-                    if !data.needCustomClearance { newItem.canDisplay = false }
-                    
-                case .customsWarehouseServices:
-                    newItem.canDisplay = false
-                    
-                case .deliveryToWarehouse:
-                    if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
-                    
-                case .deliveryFromWarehouse:
-                    newItem.title = "Авиаперевозка"
-                    
-                case .groupageDocs:
-                    newItem.title = "Авианакладная"
-                    
-                case .insurance, .cargoHandling:
-                    break
+                case .russianDelivery: if data.toLocation == WarehouseStrings.russianWarehouseCity { newItem.canDisplay = false }
+                case .customsClearancePrice: if !data.needCustomClearance { newItem.canDisplay = false }
+                case .customsWarehouseServices: newItem.canDisplay = false
+                case .deliveryToWarehouse: if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
+                case .deliveryFromWarehouse: newItem.title = "Авиаперевозка"
+                case .groupageDocs: newItem.title = "Авианакладная"
+                case .insurance, .cargoHandling: break
                 }
                 return newItem
             }
@@ -127,8 +114,7 @@ struct CalculationResultHelper {
         ]
         
         switch pickedLogisticsType {
-        case .chinaAir:
-            itemCurrency[.cargoHandling] = .RUB
+        case .chinaAir, .turkeyAirSVO, .turkeyAirVKO: itemCurrency[.cargoHandling] = .RUB
         case .turkeyNovorossiyskBySea:
             let euroItems: [FLCCalculationResultCellType] = [.cargoHandling, .insurance, .deliveryFromWarehouse, .deliveryToWarehouse, .groupageDocs]
             for item in euroItems { itemCurrency[item] = .EUR }
@@ -160,7 +146,9 @@ struct CalculationResultHelper {
             .chinaRailway: FLCLogisticsOption(image: Icons.train, title: "ЖД", subtitle: "Шанхай", type: .chinaRailway, orderID: 2),
             .chinaAir: FLCLogisticsOption(image: Icons.plane, title: "Авиа", subtitle: "Шереметьево", type: .chinaAir, orderID: 3),
             .turkeyNovorossiyskBySea: FLCLogisticsOption(image: Icons.ship, title: "Море+Авто", subtitle: "Новороссийск", type: .turkeyNovorossiyskBySea, orderID: 1),
-            .turkeyTruckByFerry: FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", subtitle: "Туапсе", type: .turkeyTruckByFerry, orderID: 2)
+            .turkeyTruckByFerry: FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", subtitle: "Туапсе", type: .turkeyTruckByFerry, orderID: 2),
+            .turkeyAirSVO: FLCLogisticsOption(image: Icons.plane, title: "Авиа", subtitle: "Шереметьево", type: .turkeyAirSVO, orderID: 3),
+            .turkeyAirVKO: FLCLogisticsOption(image: Icons.plane, title: "Авиа", subtitle: "Внуково", type: .turkeyAirVKO, orderID: 4)
         ]
         return availableLogisticsTypes.compactMap { predefinedOptions[$0] }.sorted(by: { $0.orderID < $1.orderID })
     }
@@ -375,5 +363,21 @@ struct CalculationResultHelper {
             storedRecords.append(calcEntryData)
             _ = UserDefaultsPercistenceManager.saveItemsToUserDefaults(items: storedRecords)
         }
+    }
+    
+    static func getMaxWeight(for pickedLogisticsType: FLCLogisticsType) -> Double {
+        switch pickedLogisticsType {
+        case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return 0
+        case .chinaAir:
+            let chinaAirTariff: [ChinaAirTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+            return chinaAirTariff?.first?.maxWeightKg ?? 0
+        case .turkeyAirVKO:
+            let turkeyAirVKOTariff: [TurkeyAirVKOTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+            return turkeyAirVKOTariff?.first?.maxWeightKg ?? 0
+        case .turkeyAirSVO:
+            let turkeyAirSVOTariff: [TurkeyAirSVOTariff]? = CoreDataManager.retrieveItemsFromCoreData()
+            return turkeyAirSVOTariff?.first?.maxWeightKg ?? 0
+        }
+        
     }
 }

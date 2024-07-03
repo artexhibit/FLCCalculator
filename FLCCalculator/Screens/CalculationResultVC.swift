@@ -20,7 +20,7 @@ class CalculationResultVC: UIViewController {
     private let emptyStateView = FLCEmptyStateView(withButton: false, yValue: -100)
     
     var showingPopover = FLCPopoverVC()
-    private var maxWeight: Double { PriceCalculationManager.getMaxWeightFor(type: pickedLogisticsType) }
+    private var maxWeight: Double { CalculationResultHelper.getMaxWeight(for: pickedLogisticsType) }
     private var calculationData: CalculationData? {
         didSet {
             guard let calculationData = calculationData else { return }
@@ -99,8 +99,8 @@ class CalculationResultVC: UIViewController {
                 
                 switch pickedLogisticsType {
                 case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: break
-                case .chinaAir:
-                    emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - 3 тонны. Вес вашего груза - \(calculationData?.weight ?? 0) кг")
+                case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
+                    emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - \(maxWeight) кг. Вес вашего груза - \(calculationData?.weight ?? 0) кг")
                 }
             }
             CalculationHelper.updateTotalPriceSmallDetentHeight(to: -50, in: totalPriceVC, from: self)

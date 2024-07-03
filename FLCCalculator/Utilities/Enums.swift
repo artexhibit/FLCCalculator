@@ -166,6 +166,8 @@ enum FLCLogisticsType: String, CaseIterable {
     case chinaAir = "chinaAir"
     case turkeyTruckByFerry = "turkeyTruckByFerry"
     case turkeyNovorossiyskBySea = "turkeyNovorossiyskBySea"
+    case turkeyAirVKO = "turkeyAirVKO"
+    case turkeyAirSVO = "turkeyAirSVO"
     
     static func firstCase(for country: FLCCountryOption) -> FLCLogisticsType? {
         switch country {
@@ -181,34 +183,42 @@ enum FLCLogisticsType: String, CaseIterable {
         case .china:
             return [.chinaTruck, .chinaRailway, .chinaAir]
         case .turkey:
-            return [.turkeyNovorossiyskBySea, .turkeyTruckByFerry]
+            return [.turkeyNovorossiyskBySea, .turkeyTruckByFerry, .turkeyAirSVO, .turkeyAirVKO]
         }
     }
     
     static func getReadableName(logisticsType: String) -> String {
         switch logisticsType {
-        case "chinaTruck": return "Китай Авто"
-        case "chinaRailway": return "Китай ЖД"
-        case "chinaAir": return "Китай Авиа"
-        case "turkeyTruckByFerry": return "Турция Авто+Паром"
-        case "turkeyNovorossiyskBySea": return "Турция Море+Авто"
+        case FLCLogisticsType.chinaTruck.rawValue: return "Китай Авто"
+        case FLCLogisticsType.chinaRailway.rawValue: return "Китай ЖД"
+        case FLCLogisticsType.chinaAir.rawValue: return "Китай Авиа"
+        case FLCLogisticsType.turkeyTruckByFerry.rawValue: return "Турция Авто+Паром"
+        case FLCLogisticsType.turkeyNovorossiyskBySea.rawValue: return "Турция Море+Авто"
+        case FLCLogisticsType.turkeyAirSVO.rawValue: return "Турция Авиа Шереметьево"
+        case FLCLogisticsType.turkeyAirVKO.rawValue: return "Турция Авиа Внуково"
         default: return ""
         }
     }
         
-    init?(logisticsName: String, country: FLCCountryOption) {
+    init?(name: String, subtitle: String, country: FLCCountryOption) {
         switch country {
         case .china:
-            switch logisticsName {
+            switch name {
             case "Авто": self = .chinaTruck
             case "ЖД": self = .chinaRailway
             case "Авиа": self = .chinaAir
             default: return nil
             }
         case .turkey:
-            switch logisticsName {
+            switch name {
             case "Авто+Паром": self = .turkeyTruckByFerry
             case "Море+Авто": self = .turkeyNovorossiyskBySea
+            case "Авиа":
+                switch subtitle {
+                case "Внуково": self = .turkeyAirVKO
+                case "Шереметьево": self = .turkeyAirSVO
+                default: return nil
+                }
             default: return nil
             }
         }

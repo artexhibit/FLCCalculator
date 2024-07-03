@@ -104,7 +104,7 @@ struct CalculationCellUIHelper {
         cell.priceLabel.text = item.price
         
         switch logisticsType {
-        case .chinaTruck, .chinaRailway: break
+        case .chinaTruck, .chinaRailway, .turkeyAirVKO, .turkeyAirSVO: break
         case .chinaAir: configurePickupWarningMessageForChinaAir(item: item, calculation: calculation, cell: cell)
         case .turkeyTruckByFerry: configurePickupWarningMessageForTurkeyTruckByFerry(item: item, calculation: calculation, cell: cell)
         case .turkeyNovorossiyskBySea: configurePickupWarningMessageForTurkeyNovorossiyskBySea(item: item, calculation: calculation, cell: cell)
@@ -157,6 +157,7 @@ struct CalculationCellUIHelper {
             let departureAirport = PriceCalculationManager.getClosestAirportForAirDelivery(to: city)?.targetAirport ?? ""
             return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
         case .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return "Стамбул - Подольск"
+        case .turkeyAirVKO, .turkeyAirSVO: return ""
         }
     }
     
@@ -173,7 +174,7 @@ struct CalculationCellUIHelper {
                 return "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник."
             case .chinaRailway:
                 return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
-            case .chinaAir:
+            case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
                 return "С момента вылета из аэропорта отправления и до размещения на СВХ в аэропорту прибытия."
             case .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
                 return "С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске."
@@ -182,7 +183,7 @@ struct CalculationCellUIHelper {
             switch pickedLogisticsType {
             case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
                 return "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
-            case .chinaAir:
+            case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
                 return "Включены погрузо-разгрузочные работы в аэропорту прибытия, извещение о прибытии груза, изготовление копий документов, выполнение требований госорганов для авиаперевозок, хранение на СВХ в аэропорту (1 день)"
             }
         case .customsClearancePrice:
