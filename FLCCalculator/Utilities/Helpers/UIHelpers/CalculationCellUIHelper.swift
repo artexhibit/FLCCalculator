@@ -157,7 +157,8 @@ struct CalculationCellUIHelper {
             let departureAirport = PriceCalculationManager.getClosestAirportForAirDelivery(to: city)?.targetAirport ?? ""
             return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
         case .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return "Стамбул - Подольск"
-        case .turkeyAirVKO, .turkeyAirSVO: return ""
+        case .turkeyAirVKO: return "Аэропорт Стамбул - Аэропорт Внуково"
+        case .turkeyAirSVO: return "Аэропорт Стамбул - Аэропорт Шереметьево"
         }
     }
     
