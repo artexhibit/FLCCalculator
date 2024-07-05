@@ -14,7 +14,7 @@ class CalculationVC: UIViewController {
     let transportView = FLCTransportParametersView()
     
     private var pickedDestinationCode: String = ""
-    private var departureAirport: String = ""
+    private var departureCity: String = ""
     private var leadingConstraint: NSLayoutConstraint!
     
     var delegate: CalculationVCDelegate?
@@ -144,7 +144,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
         case transportView.calculateButton:
             if CalculationHelper.confirmDataIsValid(in: transportView) {
-                let data = CalculationHelper.getCalculationData(transportView: transportView, cargoView: cargoView, pickedDestinationCode: pickedDestinationCode, departureAirport: departureAirport)
+                let data = CalculationHelper.getCalculationData(transportView: transportView, cargoView: cargoView, pickedDestinationCode: pickedDestinationCode, departureCity: departureCity)
 
                 CalculationResultHelper.createCalculationResultVC(data: data, from: self)
                 FLCUIHelper.move(view: cargoView, constraint: leadingConstraint, vc: self, direction: .forward, times: 2, duration: 0.25)
@@ -245,7 +245,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             if transportView.departurePickerButton.showingTitle == FLCCities.istanbul.rawValue {
                 CalculationHelper.showIstanbulZones(in: transportView, and: self)
             }
-            departureAirport = pickedItem.title
+            departureCity = pickedItem.title
         default: break
         }
         CalculationHelper.adjustProgressView(for: transportView.flcListPickerButtons, in: progressView)

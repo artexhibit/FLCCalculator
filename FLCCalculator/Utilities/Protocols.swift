@@ -62,3 +62,27 @@ protocol AnyTariffDataConvertible {
     var minLogisticsPrice: Double { get }
     var tariffsList: AnyTariffsConvertible { get }
 }
+
+protocol TurkeyAirPickupIdentifiable {
+    var turkeyAirCities: [TurkeyAirPickupCity] { get }
+}
+
+protocol TurkeyAirPickupCity {
+    var turkeyAirTargetCities: [String] { get }
+    var turkeyTargetAirport: String { get }
+}
+
+protocol TurkeyAirTariffIdentifiable {
+    var turkeyTariffCities: [TurkeyAirTariffCity] { get }
+}
+
+protocol TurkeyAirTariffCity {
+    var turkeyTariffName: String { get }
+    var turkeyTariffTargetAirport: String { get }
+    var turkeyTariffPrices: [String: TurkeyAirTariffPrice] { get }
+}
+
+protocol TurkeyAirTariffPrice {
+    var turkeyTariffPricePerKg: Double { get }
+    var turkeyTariffGroupageDocs: Double { get }
+}

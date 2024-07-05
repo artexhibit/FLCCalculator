@@ -27,3 +27,8 @@ extension TurkeyAirVKOPickup: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.turkeyAirVKOPickup }
     static var collectionNameKey: String { Keys.pickups }
 }
+extension TurkeyAirVKOCity: TurkeyAirPickupCity {
+    var turkeyAirTargetCities: [String] { targetCities }
+    var turkeyTargetAirport: String { targetAirport }
+}
+extension TurkeyAirVKOPickup: TurkeyAirPickupIdentifiable { var turkeyAirCities: [TurkeyAirPickupCity] { cities } }

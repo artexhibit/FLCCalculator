@@ -60,3 +60,18 @@ extension TurkeyAirVKOTariff: FirebaseIdentifiable {
     static var collectionNameKey: String { Keys.tariffs }
     static var fieldNameKey: String { Keys.turkeyAirVKOTariff }
 }
+
+extension TurkeyAirVKOTariff: TurkeyAirTariffIdentifiable {
+    var turkeyTariffCities: [TurkeyAirTariffCity] { cities }
+}
+
+extension TurkeyAirVKOTariffCity: TurkeyAirTariffCity {
+    var turkeyTariffName: String { name }
+    var turkeyTariffTargetAirport: String { targetAirport }
+    var turkeyTariffPrices: [String : any TurkeyAirTariffPrice] { prices }
+}
+
+extension TurkeyAirVKOTariffPrice: TurkeyAirTariffPrice {
+    var turkeyTariffPricePerKg: Double { pricePerKg }
+    var turkeyTariffGroupageDocs: Double { groupageDocs }
+}

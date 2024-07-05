@@ -222,14 +222,14 @@ struct CalculationHelper {
             .compactMap { FLCLogisticsType(rawValue: $0.logisticsTypeName) } ?? [.chinaTruck]
     }
     
-    static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String, departureAirport: String) -> CalculationData {
+    static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String, departureCity: String) -> CalculationData {
         let calcData = CalculationData(
             id: Int32(CoreDataManager.loadCalculations()?.count ?? 0),
             countryFrom: transportView.countryPickerButton.showingTitle,
             countryTo: "Россия",
             deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
             deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3), 
-            departureAirport: PriceCalculationManager.getClosestAirportForAirDelivery(to: departureAirport)?.targetAirport ?? "",
+            departureAirport: PriceCalculationManager.getClosestAirportForAirDelivery(to: departureCity)?.targetAirport ?? "",
             fromLocationCode: PriceCalculationManager.getClosestPickupCityZipCodeForTurkeyNovorossiyskBySea(to: transportView.departurePickerButton.showingTitle),
             fromLocation: transportView.departurePickerButton.showingTitle.removeStringPart("+1"),
             toLocation: transportView.destinationPickerButton.showingTitle,
