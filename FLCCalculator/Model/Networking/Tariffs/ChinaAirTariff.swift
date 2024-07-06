@@ -58,3 +58,24 @@ extension ChinaAirTariff: FirebaseIdentifiable {
     static var collectionNameKey: String { Keys.tariffs }
     static var fieldNameKey: String { Keys.chinaAirTariff }
 }
+extension ChinaAirTariff: AirTariffIdentifiable {
+    var airTargetWeight: Double { targetWeight }
+    var airFormalitiesCompletion: Double { formalitiesCompletion }
+    var airCargoArrivalNotification: Double { cargoArrivalNotification }
+    var airDocumentsCopiesMaking: Double { documentsCopiesMaking }
+    var airAirportWarehouseStorage: Double { airportWarehouseStorage }
+    var airInsuranceAgentVisit: Double { insuranceAgentVisit }
+    var airCargoHandling: Double { cargoHandling }
+    var airCities: [AirTariffCity] { cities }
+}
+
+extension ChinaAirTariffCity: AirTariffCity {
+    var airName: String { name }
+    var airTargetAirport: String { targetAirport }
+    var airPrices: [String : AirTariffPrice] { prices }
+}
+
+extension ChinaAirTariffPrice: AirTariffPrice {
+    var airPricePerKg: Double { pricePerKg }
+    var airGroupageDocs: Double { 0 }
+}

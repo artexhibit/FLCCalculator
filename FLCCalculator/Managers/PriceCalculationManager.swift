@@ -144,32 +144,34 @@ final class PriceCalculationManager {
         case .chinaRailway:
             result = (chinaRailwayTariff?.first?.cargoHandling ?? 0, chinaRailwayTariff?.first?.minCargoHandling ?? 0)
         case .chinaAir:
-            result = (getAirCargoHandlingData(logisticsType: logisticsType, item: item), nil)
+            result = (getAirCargoHandlingData(logisticsType: logisticsType, item: item, tariff: chinaAirTariff), nil)
         case .turkeyTruckByFerry:
             result = (turkeyTruckByFerryTariff?.first?.cargoHandling ?? 0, turkeyTruckByFerryTariff?.first?.minCargoHandling ?? 0)
         case .turkeyNovorossiyskBySea:
             result = (turkeyNovorossiyskBySeaTariff?.first?.cargoHandling ?? 0, turkeyNovorossiyskBySeaTariff?.first?.minCargoHandling ?? 0)
-        case .turkeyAirVKO: result = (0, 0)
-        case .turkeyAirSVO: result = (0, 0)
+        case .turkeyAirVKO:
+            result = (getAirCargoHandlingData(logisticsType: logisticsType, item: item, tariff: turkeyAirVKOTariff), nil)
+        case .turkeyAirSVO:
+            result = (getAirCargoHandlingData(logisticsType: logisticsType, item: item, tariff: turkeyAirSVOTariff), nil)
         }
         return item?.calculationData.isFromCoreData ?? false ? (targetResult?.cargoHandlingPricePerKg ?? 0, targetResult?.cargoHandlingMinPrice ?? 0) : result
     }
     
-    private static func getAirCargoHandlingData(logisticsType: FLCLogisticsType, item: CalculationResultItem?) -> Double {
+    private static func getAirCargoHandlingData<T: AirTariffIdentifiable>(logisticsType: FLCLogisticsType, item: CalculationResultItem?, tariff: [T]?) -> Double {
         let results = CoreDataManager.getCalculationResults(forCalculationID: item?.calculationData.id ?? 1)
         let targetResult = results?.first(where: { $0.logisticsType == logisticsType.rawValue })
         
         let volume = item?.calculationData.volume ?? 0
         let weight = item?.calculationData.weight ?? 0
-        let targetWeight = chinaAirTariff?.first?.targetWeight ?? 0
+        let targetWeight = tariff?.first?.airTargetWeight ?? 0
         let chargeableWeight = max(weight, targetWeight * volume)
-        let formalitiesCompletionPrice = chinaAirTariff?.first?.formalitiesCompletion ?? 0
-        let cargoArrivalNotificationPrice = (chinaAirTariff?.first?.cargoArrivalNotification ?? 0).add(markup: .tenPercents)
-        let documentsCopiesMakingPrice = (chinaAirTariff?.first?.documentsCopiesMaking ?? 0).add(markup: .tenPercents)
-        let airportWarehouseStoragePrice = (chargeableWeight * (chinaAirTariff?.first?.airportWarehouseStorage ?? 0)).add(markup: .twentyPercents)
-        let insuranceAgentVisitPrice = item?.calculationData.isFromCoreData ?? false ? targetResult?.insuranceAgentVisit ?? 0 : chinaAirTariff?.first?.insuranceAgentVisit ?? 0
+        let formalitiesCompletionPrice = tariff?.first?.airFormalitiesCompletion ?? 0
+        let cargoArrivalNotificationPrice = (tariff?.first?.airCargoArrivalNotification ?? 0).add(markup: .tenPercents)
+        let documentsCopiesMakingPrice = (tariff?.first?.airDocumentsCopiesMaking ?? 0).add(markup: .tenPercents)
+        let airportWarehouseStoragePrice = (chargeableWeight * (tariff?.first?.airAirportWarehouseStorage ?? 0)).add(markup: .twentyPercents)
+        let insuranceAgentVisitPrice = item?.calculationData.isFromCoreData ?? false ? targetResult?.insuranceAgentVisit ?? 0 : tariff?.first?.airInsuranceAgentVisit ?? 0
         
-        return ((chargeableWeight * (chinaAirTariff?.first?.cargoHandling ?? 0).add(markup: .tenPercents)) + formalitiesCompletionPrice + cargoArrivalNotificationPrice + documentsCopiesMakingPrice + airportWarehouseStoragePrice + insuranceAgentVisitPrice) / weight
+        return ((chargeableWeight * (tariff?.first?.airCargoHandling ?? 0).add(markup: .tenPercents)) + formalitiesCompletionPrice + cargoArrivalNotificationPrice + documentsCopiesMakingPrice + airportWarehouseStoragePrice + insuranceAgentVisitPrice) / weight
     }
     
     static func calculateCargoHandling(for logisticsType: FLCLogisticsType, item: CalculationResultItem, weight: Double) -> Double {
@@ -218,16 +220,16 @@ final class PriceCalculationManager {
         return (netto, brutto)
     }
     
-    private static func getTurkeyAirGroupageDocs<T: TurkeyAirPickupIdentifiable, U: TurkeyAirTariffIdentifiable>(item: CalculationResultItem, pickups: [T]?, tariffs: [U]?) -> (netto: Double, brutto: Double) {
-        let targetCity = pickups?.first?.turkeyAirCities.first(where: { $0.turkeyAirTargetCities.contains(where: { $0.contains(item.calculationData.fromLocation.extractDigits()) }) })
+    private static func getTurkeyAirGroupageDocs<T: AirPickupIdentifiable, U: AirTariffIdentifiable>(item: CalculationResultItem, pickups: [T]?, tariffs: [U]?) -> (netto: Double, brutto: Double) {
+        let targetCity = pickups?.first?.airCities.first(where: { $0.airTargetCities.contains(where: { $0.contains(item.calculationData.departureAirport) }) })
         
-        let netto = tariffs?.first?.turkeyTariffCities.first(where: { city in
-            guard let targetAirport = targetCity?.turkeyTargetAirport.lowercased() else { return false }
-            return city.turkeyTariffName.lowercased() == targetAirport
-        })?.turkeyTariffPrices.first(where: { price in
+        let netto = tariffs?.first?.airCities.first(where: { city in
+            guard let targetAirport = targetCity?.airTargetAirport.lowercased() else { return false }
+            return city.airName.lowercased() == targetAirport
+        })?.airPrices.first(where: { price in
             guard let range = price.key.createRange() else { return false }
             return range.contains(item.calculationData.weight)
-        })?.value.turkeyTariffGroupageDocs ?? 0
+        })?.value.airGroupageDocs ?? 0
         
         let brutto = netto.add(markup: .fourteenPercents)
         return (netto, brutto)
@@ -240,13 +242,15 @@ final class PriceCalculationManager {
         case .chinaRailway:
             return calculateChinaGroundDeliveryToWarehouse(pickup: chinaRailwayPickup ?? [], city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume)
         case .chinaAir:
-            return calculateChinaAirDeliveryToWarehouse(city: item.calculationData.departureAirport, weight: item.calculationData.weight, volume: item.calculationData.volume)
+            return calculateAirDeliveryToWarehouse(city: item.calculationData.departureAirport, weight: item.calculationData.weight, volume: item.calculationData.volume, pickups: chinaAirPickup)
         case .turkeyTruckByFerry:
             return calculateTurkeyTruckByFerryDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
         case .turkeyNovorossiyskBySea:
             return calculateTurkeyNovorossiyskBySeaDeliveryToWarehouse(city: item.calculationData.fromLocation, weight: item.calculationData.weight, volume: item.calculationData.volume, logisticsType: logisticsType)
-        case .turkeyAirVKO: return ("", "", 0)
-        case .turkeyAirSVO: return ("", "", 0)
+        case .turkeyAirVKO: 
+            return calculateAirDeliveryToWarehouse(city: item.calculationData.departureAirport, weight: item.calculationData.weight, volume: item.calculationData.volume, pickups: turkeyAirVKOPickup)
+        case .turkeyAirSVO: 
+            return calculateAirDeliveryToWarehouse(city: item.calculationData.departureAirport, weight: item.calculationData.weight, volume: item.calculationData.volume, pickups: turkeyAirSVOPickup)
         }
     }
     
@@ -383,19 +387,19 @@ final class PriceCalculationManager {
         return (warehouseName?.rusName ?? "", transitDays, result)
     }
     
-    private static func calculateChinaAirDeliveryToWarehouse(city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
-        let targetWeight = chinaAirPickup?.first?.targetWeight ?? 0
+    private static func calculateAirDeliveryToWarehouse<T: AirPickupIdentifiable>(city: String, weight: Double, volume: Double, pickups: [T]?) -> (warehouseName: String, transitDays: String, result: Double) {
+        let targetWeight = pickups?.first?.airTargetWeight ?? 0
         let chargeableWeight = max(weight, targetWeight * volume)
-        let targetCity = getClosestAirportForAirDelivery(to: city)
+        let targetCity = getClosestAirport(to: city, with: pickups)
         
-        let warehouse = targetCity?.targetAirport ?? ""
-        let transitDays = targetCity?.transitDays ?? ""
-        let price = targetCity?.prices.first(where: { $0.key.createRange()?.contains(chargeableWeight) == true })?.value.price.add(markup: .tenPercents) ?? 0
+        let warehouse = targetCity?.airTargetAirport ?? ""
+        let transitDays = targetCity?.airTransitDays ?? ""
+        let price = targetCity?.airPrices.first(where: { $0.key.createRange()?.contains(chargeableWeight) == true })?.value.airPrice.add(markup: .tenPercents) ?? 0
         return (warehouse, transitDays, price)
     }
     
-    static func getClosestAirportForAirDelivery(to city: String) -> ChinaAirCity? {
-        chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(city) }) })
+    static func getClosestAirport<T: AirPickupIdentifiable>(to city: String, with pickups: [T]?) -> AirPickupCity? {
+        pickups?.first?.airCities.first(where: { $0.airTargetCities.contains(where: { $0.contains(city.extractCharacters()) }) })
     }
     
     static func getClosestPickupCityForTurkeyTruckByFerry(to city: String) -> TurkeyTruckByFerryCity? {
@@ -417,4 +421,6 @@ final class PriceCalculationManager {
     }
     static func getCurrencyData() -> CurrencyData? { currencyData }
     static func getChinaAirTariff() -> [ChinaAirTariff]? { chinaAirTariff }
+    static func getChinaAirPickup() -> [ChinaAirPickup]? { chinaAirPickup }
+    static func getTurkeyAirSVOPickup() -> [TurkeyAirSVOPickup]? { turkeyAirSVOPickup }
 }

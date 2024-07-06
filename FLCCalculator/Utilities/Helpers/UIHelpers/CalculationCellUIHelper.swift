@@ -127,7 +127,7 @@ struct CalculationCellUIHelper {
     
     private static func configurePickupWarningMessageForChinaAir(item: CalculationResultItem, calculation: Calculation?, cell: CalculationResultCell) {
         let closestAirport = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
-        cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirportForAirDelivery(to: closestAirport)?.name ?? "")
+        cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getChinaAirPickup())?.airName ?? "")
     }
     
     private static func removeDaysContent(in cell: CalculationResultCell) {
@@ -154,7 +154,7 @@ struct CalculationCellUIHelper {
         case .chinaAir:
             let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
             let city = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
-            let departureAirport = PriceCalculationManager.getClosestAirportForAirDelivery(to: city)?.targetAirport ?? ""
+            let departureAirport = PriceCalculationManager.getClosestAirport(to: city, with: PriceCalculationManager.getChinaAirPickup())?.airTargetAirport ?? ""
             return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
         case .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return "Стамбул - Подольск"
         case .turkeyAirVKO: return "Аэропорт Стамбул - Аэропорт Внуково"

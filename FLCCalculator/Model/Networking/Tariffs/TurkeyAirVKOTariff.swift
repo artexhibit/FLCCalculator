@@ -61,17 +61,24 @@ extension TurkeyAirVKOTariff: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.turkeyAirVKOTariff }
 }
 
-extension TurkeyAirVKOTariff: TurkeyAirTariffIdentifiable {
-    var turkeyTariffCities: [TurkeyAirTariffCity] { cities }
+extension TurkeyAirVKOTariff: AirTariffIdentifiable {
+    var airTargetWeight: Double { targetWeight }
+    var airFormalitiesCompletion: Double { formalitiesCompletion }
+    var airCargoArrivalNotification: Double { cargoArrivalNotification }
+    var airDocumentsCopiesMaking: Double { documentsCopiesMaking }
+    var airAirportWarehouseStorage: Double { airportWarehouseStorage }
+    var airInsuranceAgentVisit: Double { insuranceAgentVisit }
+    var airCargoHandling: Double { cargoHandling }
+    var airCities: [AirTariffCity] { cities }
 }
 
-extension TurkeyAirVKOTariffCity: TurkeyAirTariffCity {
-    var turkeyTariffName: String { name }
-    var turkeyTariffTargetAirport: String { targetAirport }
-    var turkeyTariffPrices: [String : any TurkeyAirTariffPrice] { prices }
+extension TurkeyAirVKOTariffCity: AirTariffCity {
+    var airName: String { name }
+    var airTargetAirport: String { targetAirport }
+    var airPrices: [String : any AirTariffPrice] { prices }
 }
 
-extension TurkeyAirVKOTariffPrice: TurkeyAirTariffPrice {
-    var turkeyTariffPricePerKg: Double { pricePerKg }
-    var turkeyTariffGroupageDocs: Double { groupageDocs }
+extension TurkeyAirVKOTariffPrice: AirTariffPrice {
+    var airPricePerKg: Double { pricePerKg }
+    var airGroupageDocs: Double { groupageDocs }
 }

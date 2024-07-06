@@ -63,26 +63,41 @@ protocol AnyTariffDataConvertible {
     var tariffsList: AnyTariffsConvertible { get }
 }
 
-protocol TurkeyAirPickupIdentifiable {
-    var turkeyAirCities: [TurkeyAirPickupCity] { get }
+protocol AirPickupIdentifiable {
+    var airTargetWeight: Double { get }
+    var airCities: [AirPickupCity] { get }
 }
 
-protocol TurkeyAirPickupCity {
-    var turkeyAirTargetCities: [String] { get }
-    var turkeyTargetAirport: String { get }
+protocol AirPickupCity {
+    var airName: String { get }
+    var airTargetAirport: String { get }
+    var airTargetCities: [String] { get }
+    var airTransitDays: String { get }
+    var airPrices: [String: AirPickupCityPrice] { get }
 }
 
-protocol TurkeyAirTariffIdentifiable {
-    var turkeyTariffCities: [TurkeyAirTariffCity] { get }
+protocol AirPickupCityPrice {
+    var airPrice: Double { get }
 }
 
-protocol TurkeyAirTariffCity {
-    var turkeyTariffName: String { get }
-    var turkeyTariffTargetAirport: String { get }
-    var turkeyTariffPrices: [String: TurkeyAirTariffPrice] { get }
+protocol AirTariffIdentifiable {
+    var airTargetWeight: Double { get }
+    var airFormalitiesCompletion: Double { get }
+    var airCargoArrivalNotification: Double { get }
+    var airDocumentsCopiesMaking: Double { get }
+    var airAirportWarehouseStorage: Double { get }
+    var airInsuranceAgentVisit: Double { get }
+    var airCargoHandling: Double { get }
+    var airCities: [AirTariffCity] { get }
 }
 
-protocol TurkeyAirTariffPrice {
-    var turkeyTariffPricePerKg: Double { get }
-    var turkeyTariffGroupageDocs: Double { get }
+protocol AirTariffCity {
+    var airName: String { get }
+    var airTargetAirport: String { get }
+    var airPrices: [String: AirTariffPrice] { get }
+}
+
+protocol AirTariffPrice {
+    var airPricePerKg: Double { get }
+    var airGroupageDocs: Double { get }
 }

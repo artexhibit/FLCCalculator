@@ -229,7 +229,7 @@ struct CalculationHelper {
             countryTo: "Россия",
             deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
             deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3), 
-            departureAirport: PriceCalculationManager.getClosestAirportForAirDelivery(to: departureCity)?.targetAirport ?? "",
+            departureAirport: getDepartureAirport(for: departureCity, country: transportView.countryPickerButton.showingTitle),
             fromLocationCode: PriceCalculationManager.getClosestPickupCityZipCodeForTurkeyNovorossiyskBySea(to: transportView.departurePickerButton.showingTitle),
             fromLocation: transportView.departurePickerButton.showingTitle.removeStringPart("+1"),
             toLocation: transportView.destinationPickerButton.showingTitle,
@@ -246,5 +246,16 @@ struct CalculationHelper {
             isConfirmed: false,
             exchangeRate: PriceCalculationManager.getCurrencyData()?.Valute[FLCCurrency.USD.rawValue]?.Value ?? 0)
         return calcData
+    }
+    
+    private static func getDepartureAirport(for departureCity: String, country: String) -> String {
+        let pickedCountry = FLCCountryOption(rawValue: country) ?? .china
+        
+        switch pickedCountry {
+        case .china:
+            return PriceCalculationManager.getClosestAirport(to: departureCity, with: PriceCalculationManager.getChinaAirPickup())?.airTargetAirport ?? ""
+        case .turkey:
+            return PriceCalculationManager.getClosestAirport(to: departureCity, with: PriceCalculationManager.getTurkeyAirSVOPickup())?.airTargetAirport ?? ""
+        }
     }
 }

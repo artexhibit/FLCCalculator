@@ -240,12 +240,17 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
         case transportView.deliveryTypePickerButton:
             CalculationHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, WarehouseStrings.turkeyWarehouse)], basedOn: button)
+            
+            if transportView.departurePickerButton.showingTitle == WarehouseStrings.turkeyWarehouse {
+                departureCity = FLCWarehouse.istanbul.rawValue
+            }
         
         case transportView.departurePickerButton:
             if transportView.departurePickerButton.showingTitle == FLCCities.istanbul.rawValue {
                 CalculationHelper.showIstanbulZones(in: transportView, and: self)
             }
             departureCity = pickedItem.title
+            
         default: break
         }
         CalculationHelper.adjustProgressView(for: transportView.flcListPickerButtons, in: progressView)

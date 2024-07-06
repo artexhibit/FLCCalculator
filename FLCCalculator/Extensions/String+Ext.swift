@@ -110,4 +110,5 @@ extension String {
     func removeFirstCharacters(_ amount: Int) -> String { String(self.dropFirst(amount)) }
     func removeLastCharacters(_ amount: Int) -> String { String(self.dropLast(amount)) }
     func extractDigits() -> String { self.filter { $0.isNumber } }
+    func extractCharacters() -> String { self.filter { $0.isLetter } }
 }
