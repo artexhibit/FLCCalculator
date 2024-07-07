@@ -255,7 +255,7 @@ struct CalculationHelper {
         case .china:
             return PriceCalculationManager.getClosestAirport(to: departureCity, with: PriceCalculationManager.getChinaAirPickup())?.airTargetAirport ?? ""
         case .turkey:
-            return PriceCalculationManager.getClosestAirport(to: departureCity, with: PriceCalculationManager.getTurkeyAirSVOPickup())?.airTargetAirport ?? ""
+            return FLCWarehouse.istanbul.rawValue
         }
     }
 }

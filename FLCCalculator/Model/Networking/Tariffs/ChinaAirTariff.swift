@@ -59,6 +59,8 @@ extension ChinaAirTariff: FirebaseIdentifiable {
     static var fieldNameKey: String { Keys.chinaAirTariff }
 }
 extension ChinaAirTariff: AirTariffIdentifiable {
+    var airMinLogisticsProfit: Double { minLogisticsProfit ?? 0 }
+    var airMinLogisticsPrice: Double { 0 }
     var airTargetWeight: Double { targetWeight }
     var airFormalitiesCompletion: Double { formalitiesCompletion }
     var airCargoArrivalNotification: Double { cargoArrivalNotification }

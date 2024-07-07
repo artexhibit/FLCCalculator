@@ -88,6 +88,8 @@ protocol AirTariffIdentifiable {
     var airAirportWarehouseStorage: Double { get }
     var airInsuranceAgentVisit: Double { get }
     var airCargoHandling: Double { get }
+    var airMinLogisticsProfit: Double { get }
+    var airMinLogisticsPrice: Double { get }
     var airCities: [AirTariffCity] { get }
 }
 

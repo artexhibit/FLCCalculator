@@ -62,6 +62,8 @@ extension TurkeyAirSVOTariff: FirebaseIdentifiable {
 }
 
 extension TurkeyAirSVOTariff: AirTariffIdentifiable {
+    var airMinLogisticsProfit: Double { minLogisticsProfit ?? 0 }
+    var airMinLogisticsPrice: Double { minLogisticsPrice }
     var airTargetWeight: Double { targetWeight }
     var airFormalitiesCompletion: Double { formalitiesCompletion }
     var airCargoArrivalNotification: Double { cargoArrivalNotification }

@@ -104,8 +104,8 @@ struct CalculationCellUIHelper {
         cell.priceLabel.text = item.price
         
         switch logisticsType {
-        case .chinaTruck, .chinaRailway, .turkeyAirVKO, .turkeyAirSVO: break
-        case .chinaAir: configurePickupWarningMessageForChinaAir(item: item, calculation: calculation, cell: cell)
+        case .chinaTruck, .chinaRailway: break
+        case .chinaAir, .turkeyAirVKO, .turkeyAirSVO: configurePickupWarningMessageForAir(item: item, calculation: calculation, cell: cell, logisticsType: logisticsType)
         case .turkeyTruckByFerry: configurePickupWarningMessageForTurkeyTruckByFerry(item: item, calculation: calculation, cell: cell)
         case .turkeyNovorossiyskBySea: configurePickupWarningMessageForTurkeyNovorossiyskBySea(item: item, calculation: calculation, cell: cell)
         }
@@ -125,9 +125,26 @@ struct CalculationCellUIHelper {
         if !closestCity.isEmpty { cell.addPickupWarningMessage(warehouseName: closestCity) }
     }
     
-    private static func configurePickupWarningMessageForChinaAir(item: CalculationResultItem, calculation: Calculation?, cell: CalculationResultCell) {
-        let closestAirport = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
-        cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getChinaAirPickup())?.airName ?? "")
+    private static func configurePickupWarningMessageForAir(item: CalculationResultItem, calculation: Calculation?, cell: CalculationResultCell, logisticsType: FLCLogisticsType) {
+        var closestAirport: String {
+            if logisticsType == .chinaAir {
+               return item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
+            } else {
+                let storedFromLocation = calculation?.fromLocation?.isContains(FLCWarehouse.istanbul.rawValue) ?? false ? FLCWarehouse.istanbul.rawValue : calculation?.fromLocation?.extractCharacters()
+                let calculationFromLocation = item.calculationData.fromLocation.isContains(FLCWarehouse.istanbul.rawValue) ? FLCWarehouse.istanbul.rawValue : item.calculationData.fromLocation.extractCharacters()
+                return item.calculationData.isFromCoreData ? storedFromLocation ?? "" : calculationFromLocation
+            }
+        }
+       
+        switch logisticsType {
+        case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: break
+        case .chinaAir:
+            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getChinaAirPickup())?.airName ?? "")
+        case .turkeyAirVKO:
+            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirVKOPickup())?.airName ?? "")
+        case .turkeyAirSVO:
+            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirSVOPickup())?.airName ?? "")
+        }
     }
     
     private static func removeDaysContent(in cell: CalculationResultCell) {
