@@ -21,7 +21,7 @@ class CalculationResultCell: UITableViewCell {
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
     let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
     let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
-    private let pickupWarningTextViewLabel = FLCSubtitleLabel(color: .flcCalculationResultCellMain, textAlignment: .left, textStyle: .footnote)
+    private let pickupWarningTextViewLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .footnote)
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
     var subtitleBottomConstraint: NSLayoutConstraint!
@@ -213,7 +213,7 @@ class CalculationResultCell: UITableViewCell {
     
     func addPickupWarningMessage(warehouseName: String) {
         let message = "Пикап рассчитан от ближайшего крупного города \(warehouseName). Стоимость пикапа с точного адреса может измениться."
-        pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcCalculationResultCellMain, size: (0, -3, 17, 16), placeIcon: .beforeText)
+        pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcGray, size: (0, -3, 17, 16), placeIcon: .beforeText)
         
         priceLabelBottomConstraint.isActive = false
         priceLabelBottomConstraint = priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTextViewLabel.topAnchor, constant: -padding * 0.5)

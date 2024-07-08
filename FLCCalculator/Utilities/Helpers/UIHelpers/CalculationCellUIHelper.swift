@@ -141,9 +141,11 @@ struct CalculationCellUIHelper {
         case .chinaAir:
             cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getChinaAirPickup())?.airName ?? "")
         case .turkeyAirVKO:
-            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirVKOPickup())?.airName ?? "")
+            let airportName = PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirVKOPickup())?.airName ?? ""
+            if !airportName.isContains(closestAirport) { cell.addPickupWarningMessage(warehouseName: airportName) }
         case .turkeyAirSVO:
-            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirSVOPickup())?.airName ?? "")
+            let airportName = PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirSVOPickup())?.airName ?? ""
+            if !airportName.isContains(closestAirport) { cell.addPickupWarningMessage(warehouseName: airportName) }
         }
     }
     
@@ -224,10 +226,11 @@ struct CalculationCellUIHelper {
                 return  "Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию"
             }
         case .groupageDocs:
-            if pickedLogisticsType == .chinaAir {
-                return "AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)"
-            } else {
+            switch pickedLogisticsType {
+            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
                 return "В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!"
+            case .chinaAir, .turkeyAirVKO, .turkeyAirSVO:
+                return "AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)"
             }
         }
     }
