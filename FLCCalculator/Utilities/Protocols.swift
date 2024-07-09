@@ -81,6 +81,7 @@ protocol AirPickupCityPrice {
 }
 
 protocol AirTariffIdentifiable {
+    var airLogisticsType: FLCLogisticsType { get }
     var airTargetWeight: Double { get }
     var airFormalitiesCompletion: Double { get }
     var airCargoArrivalNotification: Double { get }

@@ -169,6 +169,8 @@ enum FLCLogisticsType: String, CaseIterable {
     case turkeyAirVKO = "turkeyAirVKO"
     case turkeyAirSVO = "turkeyAirSVO"
     
+    static var airLogisticsTypes: [FLCLogisticsType] { [.chinaAir, .turkeyAirSVO, .turkeyAirVKO] }
+    
     static func firstCase(for country: FLCCountryOption) -> FLCLogisticsType? {
         switch country {
         case .china:

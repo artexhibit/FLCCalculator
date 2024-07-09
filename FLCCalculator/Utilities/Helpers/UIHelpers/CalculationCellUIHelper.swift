@@ -52,11 +52,11 @@ struct CalculationCellUIHelper {
         let results = CoreDataManager.getCalculationResults(forCalculationID: item.calculationData.id)
         let targetResult = results?.first(where: { $0.logisticsType == pickedLogisticsType.rawValue })
         let handlingData = item.calculationData.isFromCoreData ? (pricePerKg: targetResult?.cargoHandlingPricePerKg ?? 0, minPrice: targetResult?.cargoHandlingMinPrice) : PriceCalculationManager.getCargoHandlingData(for: pickedLogisticsType, item: item)
-        let perKgString = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг "
+        let perKgString = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг"
         let minPriceString = ", минимум \(handlingData.minPrice?.formatAsCurrency(symbol: item.currency) ?? "")"
         
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.text = pickedLogisticsType == .chinaAir ? perKgString : perKgString + minPriceString
+        cell.subtitle.text = FLCLogisticsType.airLogisticsTypes.contains(pickedLogisticsType) ? perKgString : perKgString + minPriceString
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
@@ -82,7 +82,7 @@ struct CalculationCellUIHelper {
     }
     
     static func configureGroupageDocs(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
-        let text = pickedLogisticsType == .chinaAir ? "Оформление AWB (Air Way Bill)" : "В составе сборного груза"
+        let text = FLCLogisticsType.airLogisticsTypes.contains(pickedLogisticsType) ? "Оформление AWB (Air Way Bill)" : "В составе сборного груза"
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.text = text

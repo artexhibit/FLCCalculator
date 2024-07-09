@@ -55,6 +55,7 @@ final class PriceCalculationManager {
         let invoiceAbsoluteCurrencyValue = invoiceCurrencyValue / Double(invoiceCurrencyNominal)
         
         if invoiceCurrency == .RUB { return sellAbsoluteCurrencyValue }
+        if sellCurrencyKey.isEmpty { return invoiceAbsoluteCurrencyValue }
         
         return (sellAbsoluteCurrencyValue / invoiceAbsoluteCurrencyValue).formatDecimalsTo(amount: 2)
     }
@@ -65,6 +66,12 @@ final class PriceCalculationManager {
         let invoiceAmountInSellCurrency = invoiceAmount / ratio
         
         return (invoiceAmountInSellCurrency * insurancePercentage) / 100
+    }
+    
+    static func calculateRussianDeliveryInsurance(item: CalculationResultItem) -> Double {
+        let currencyCode = FLCCurrency(currencyCode: item.calculationData.invoiceCurrency) ?? .USD
+        let ratio = PriceCalculationManager.getRatioBetween(item.currency, and: currencyCode)        
+        return (item.calculationData.invoiceAmount * ratio) * (0.08 / 100)
     }
     
     static func getDeliveryFromWarehouse(for logisticsType: FLCLogisticsType, item: CalculationResultItem) -> Double {
@@ -125,7 +132,7 @@ final class PriceCalculationManager {
     
     private static func getTurkeyAirDeliveryFromWarehousePrice<T: AirTariffIdentifiable, P: AirPickupIdentifiable>(item: CalculationResultItem, tariff: [T]?, pickup: [P]?) -> Double {
         let results = CoreDataManager.getCalculationResults(forCalculationID: item.calculationData.id)
-        let targetResult = results?.first(where: { $0.logisticsType == FLCLogisticsType.chinaAir.rawValue })
+        let targetResult = results?.first(where: { $0.logisticsType == tariff?.first?.airLogisticsType.rawValue })
         
         let targetWeight = tariff?.first?.airTargetWeight ?? 0
         let minLogisticsProfit = item.calculationData.isFromCoreData ? targetResult?.minLogisticsProfit ?? 0 : tariff?.first?.airMinLogisticsProfit ?? 0

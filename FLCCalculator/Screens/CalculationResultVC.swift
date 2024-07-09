@@ -67,6 +67,7 @@ class CalculationResultVC: UIViewController {
     
     private func configureTableView() {
         view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.frame = view.bounds
         tableView.separatorStyle = .none
         
@@ -86,14 +87,14 @@ class CalculationResultVC: UIViewController {
                 emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
-            view.layoutIfNeeded()
         }
+        view.layoutIfNeeded()
     }
     
     private func updateEmptyStateView(with pickedLogisticsType: FLCLogisticsType) {
         let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.21 : 0.13
         
-        if calculationData?.weight ?? 0 > maxWeight && pickedLogisticsType == .chinaAir {
+        if calculationData?.weight ?? 0 > maxWeight && FLCLogisticsType.airLogisticsTypes.contains(pickedLogisticsType) {
             if emptyStateView.superview == nil {
                 configureEmptyStateView()
                 

@@ -4,9 +4,11 @@ struct CalculationResultHelper {
     static func getRussianDeliveryPrice(item: CalculationResultItem) async -> Result<(price: String, days: String), FLCError> {
         do {
             let data = try await NetworkManager.shared.getRussianDelivery(for: item)
-            let price = data.getPrice().add(markup: .seventeenPercents).formatAsCurrency(symbol: item.currency)
+            let insurancePrice = PriceCalculationManager.calculateRussianDeliveryInsurance(item: item)
+            let deliveryPrice = data.getPrice().add(markup: .seventeenPercents)
+            let totalPrice = (insurancePrice + deliveryPrice).formatAsCurrency(symbol: item.currency)
             let days = data.getDays() ?? ""
-            return .success((price, days))
+            return .success((totalPrice, days))
         } catch {
             return .failure(.invalidResponce)
         }
@@ -66,7 +68,9 @@ struct CalculationResultHelper {
                 case .russianDelivery: if data.toLocation == WarehouseStrings.russianWarehouseCity { newItem.canDisplay = false }
                 case .customsClearancePrice: if !data.needCustomClearance { newItem.canDisplay = false }
                 case .customsWarehouseServices: newItem.canDisplay = false
-                case .deliveryToWarehouse: if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
+                case .deliveryToWarehouse: 
+                    newItem.title = "Доставка до аэропорта отправления"
+                    if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
                 case .deliveryFromWarehouse: newItem.title = "Авиаперевозка"
                 case .groupageDocs: newItem.title = "Авианакладная"
                 case .insurance, .cargoHandling: break

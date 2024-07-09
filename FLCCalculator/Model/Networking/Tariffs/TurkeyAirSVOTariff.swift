@@ -62,6 +62,7 @@ extension TurkeyAirSVOTariff: FirebaseIdentifiable {
 }
 
 extension TurkeyAirSVOTariff: AirTariffIdentifiable {
+    var airLogisticsType: FLCLogisticsType { .turkeyAirSVO }
     var airMinLogisticsProfit: Double { minLogisticsProfit ?? 0 }
     var airMinLogisticsPrice: Double { minLogisticsPrice }
     var airTargetWeight: Double { targetWeight }

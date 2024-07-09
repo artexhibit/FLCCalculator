@@ -135,7 +135,7 @@ class CalculationResultCell: UITableViewCell {
         NSLayoutConstraint.activate([
             priceLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding * 0.5),
             priceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),
-            priceLabelHeightConstraint, priceLabelBottomConstraint
+            priceLabelHeightConstraint
         ])
     }
     
@@ -197,8 +197,7 @@ class CalculationResultCell: UITableViewCell {
         NSLayoutConstraint.activate([
             pickupWarningTextViewLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: padding / 2),
             pickupWarningTextViewLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding / 1.5),
-            pickupWarningTextViewLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding / 1.5),
-            pickupWarningTextViewLabelBottomConstraint
+            pickupWarningTextViewLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding / 1.5)
         ])
     }
     
@@ -212,7 +211,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func addPickupWarningMessage(warehouseName: String) {
-        let message = "Пикап рассчитан от ближайшего крупного города \(warehouseName). Стоимость пикапа с точного адреса может измениться."
+        let message = "Пикап рассчитан от ближайшего крупного города \(warehouseName). Стоимость пикапа с точного адреса может измениться"
         pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcGray, size: (0, -3, 17, 16), placeIcon: .beforeText)
         
         priceLabelBottomConstraint.isActive = false
