@@ -19,6 +19,8 @@ struct AuthorizationVCHelper {
     
     static func handleVerificationCodeButtonTap(loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterUserCredentialsView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
         let phoneNumber = phoneTextField.text?.extractDigits() ?? ""
+        let reviewPhoneNumber = Bundle.main.infoDictionary?["App Store Review Phone"] as? String ?? ""
+        let verificationCode = phoneNumber == reviewPhoneNumber ? Bundle.main.infoDictionary?["App Store Review Code"] as? String ?? "" : AuthorizationManager.shared.createVerificationCode()
         
         Task {
             do {
@@ -31,10 +33,10 @@ struct AuthorizationVCHelper {
                 if SMSManager.canSendSMS() {
                     await FLCPopupView.showOnMainThread(title: "Отправляем СМС", style: .spinner)
                     
-                    try await sendVerificationCode(verificationCode: AuthorizationManager.shared.createVerificationCode(), loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
+                    try await sendVerificationCode(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
                     
                     await FLCPopupView.removeFromMainThread()
-                    await FLCPopupView.showOnMainThread(title: "СМС отправлено")
+                    await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "СМС отправлено")
                 } else {
                     let timeUntilCanSendSMS = SMSManager.timeUntilNextSMS()
                     await FLCPopupView.showOnMainThread(title: "Вы использовали все попытки. Повторить можно через \(timeUntilCanSendSMS)", style: .error)

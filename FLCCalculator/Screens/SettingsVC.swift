@@ -10,10 +10,11 @@ class SettingsVC: UIViewController {
         updateDataSource()
         configureVC()
         configureTableView()
+        updateDataSource()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         updateDataSource()
     }
     
@@ -40,7 +41,10 @@ class SettingsVC: UIViewController {
         tableView.register(SettingsLabelCell.self, forCellReuseIdentifier: SettingsLabelCell.reuseID)
         tableView.register(FLCTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCTableViewHeader.reuseID)
     }
-    private func updateDataSource() { sections = SettingsVCHelper.configureDataSource() }
+    private func updateDataSource() {
+        sections = SettingsVCHelper.configureDataSource()
+        tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: .profile, in: sections)], with: .none)
+    }
 }
 
 extension SettingsVC: UITableViewDelegate {
@@ -107,8 +111,5 @@ extension SettingsVC: SettingsMenuCellDelegate {
 }
 
 extension SettingsVC: ProfileSettingsVCDelegate {
-    func didUpdateUserInfo() {
-        updateDataSource()
-        tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: .profile, in: sections)], with: .none)
-    }
+    func didUpdateUserInfo() { updateDataSource() }
 }

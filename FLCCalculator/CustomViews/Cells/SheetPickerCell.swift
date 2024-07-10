@@ -4,8 +4,8 @@ class SheetPickerCell: UITableViewCell {
     
     static let reuseID = "SheetPickerCell"
     
-    private let title = FLCBodyLabel(color: .label, textAlignment: .left)
-    private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left, textStyle: .caption1)
+    private let title = FLCTitleLabel(color: .label, textAlignment: .left, size: 18, weight: .medium)
+    private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left, textStyle: .callout)
     private let iconImageView = FLCImageView()
     private let checkmarkImageView = FLCImageView()
     
