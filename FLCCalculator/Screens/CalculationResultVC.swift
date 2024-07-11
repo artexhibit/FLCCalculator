@@ -144,18 +144,19 @@ class CalculationResultVC: UIViewController {
                         
                         switch result {
                         case .success(let items):
+                            let price = items.price.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency)
                             let delay = calculationData.isFromCoreData ? 0.5 : 0.0
                             let canAnimateChanges = calculationData.isFromCoreData ? false : true
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                                self.calculationResultItems[index].price = items.price
+                                self.calculationResultItems[index].price = price
                                 self.calculationResultItems[index].daysAmount = items.days
                                 self.calculationResultItems[index].hasError = false
                                 self.calculationResultItems[index].hasPrice = true
                                 self.calculationResultItems[index].isShimmering = false
                                 
                                 self.updateDataSource(on: self.calculationResultItems, animateChanges: canAnimateChanges)
-                                self.delegate?.didEndCalculation(price: items.price, days: items.days, cellType: item.type)
+                                self.delegate?.didEndCalculation(price: price, days: items.days, cellType: item.type)
                                 cell?.failedPriceCalcContainer.hide()
                                 
                                 CalculationResultHelper.saveRefetchedRussianDelivery(calcData: calculationData, pickedTotalPriceData: self.pickedTotalPriceData, items: items)
@@ -172,7 +173,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .insurance:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.insurance ?? "" : CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType).price
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.insurance?.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency) ?? "" : CalculationResultHelper.getInsurancePrice(item: item, pickedLogisticsType: pickedLogisticsType).price
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -192,7 +193,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .cargoHandling:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.cargoHandling ?? "" : CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.cargoHandling?.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency) ?? "" : CalculationResultHelper.getCargoHandlingPrice(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -201,7 +202,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .customsClearancePrice:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsClearance ?? "" : CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsClearance?.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency) ?? "" : CalculationResultHelper.getCustomsClearancePrice(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -210,7 +211,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .customsWarehouseServices:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsWarehousePrice ?? "" : CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.customsWarehousePrice?.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency) ?? "" : CalculationResultHelper.getCustomsWarehouseServicesPrice(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false
@@ -230,7 +231,7 @@ class CalculationResultVC: UIViewController {
                     }
                 case .groupageDocs:
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.groupageDocs ?? "" : CalculationResultHelper.getGroupageDocs(item: item, pickedLogisticsType: pickedLogisticsType)
+                        let result = calculationData.isFromCoreData ? self.pickedTotalPriceData?.groupageDocs?.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency) ?? "" : CalculationResultHelper.getGroupageDocs(item: item, pickedLogisticsType: pickedLogisticsType)
                         
                         self.calculationResultItems[index].price = result
                         self.calculationResultItems[index].isShimmering = false

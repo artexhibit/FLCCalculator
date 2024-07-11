@@ -9,7 +9,7 @@ extension String {
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.decimalSeparator = ","
+        
         return formatter.number(from: string)?.doubleValue ?? 0.0
     }
     

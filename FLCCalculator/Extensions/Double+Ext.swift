@@ -6,7 +6,9 @@ extension Double {
     
     func formatAsCurrency(symbol: FLCCurrency) -> String {
         let formatter = NumberFormatter()
+        
         formatter.numberStyle = .decimal
+        formatter.locale = Locale.current
         formatter.minimumFractionDigits = 2
         formatter.maximumFractionDigits = 2
         formatter.usesGroupingSeparator = true

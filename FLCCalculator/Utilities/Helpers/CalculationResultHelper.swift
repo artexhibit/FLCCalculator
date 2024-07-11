@@ -204,7 +204,7 @@ struct CalculationResultHelper {
     
     static func getResultForDeliveryToWarehouse(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, item: CalculationResultItem, logisticsType: FLCLogisticsType) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
         if calcData.isFromCoreData {
-            return (pickedTotalPriceData?.deliveryToWarehousePrice ?? "", pickedTotalPriceData?.deliveryToWarehouseTime ?? "", false, "")
+            return (pickedTotalPriceData?.deliveryToWarehousePrice?.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency) ?? "", pickedTotalPriceData?.deliveryToWarehouseTime ?? "", false, "")
         } else {
             return CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
         }
@@ -212,7 +212,7 @@ struct CalculationResultHelper {
     
     static func getResultForDeliveryFromWarehouse(calcData: CalculationData, pickedTotalPriceData: TotalPriceData?, item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (price: String, days: String) {
         if calcData.isFromCoreData {
-            return (pickedTotalPriceData?.deliveryFromWarehousePrice ?? "", pickedTotalPriceData?.deliveryFromWarehouseTime ?? "")
+            return (pickedTotalPriceData?.deliveryFromWarehousePrice?.createDouble(removeSymbols: true).formatAsCurrency(symbol: item.currency) ?? "", pickedTotalPriceData?.deliveryFromWarehouseTime ?? "")
         } else {
             return getDeliveryFromWarehousePrice(item: item, pickedLogisticsType: pickedLogisticsType)
         }
