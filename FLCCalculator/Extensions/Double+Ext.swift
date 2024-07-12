@@ -5,16 +5,14 @@ extension Double {
     func add(markup: FLCMarkupType) -> Double { return (self * markup.rawValue).formatDecimalsTo(amount: 2) }
     
     func formatAsCurrency(symbol: FLCCurrency) -> String {
-        let formatter = NumberFormatter()
-        
-        formatter.numberStyle = .decimal
-        formatter.locale = Locale.current
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 2
-        formatter.usesGroupingSeparator = true
-        
+        let formatter = NumberFormatter.getFLCNumberFormatter(withDecimals: 2)
         let result = formatter.string(from: NSNumber(value: self)) ?? ""
         return "\(result) \(symbol.symbol)"
+    }
+    
+    func formatAsNumber() -> String {
+        let formatter = NumberFormatter.getFLCNumberFormatter(withDecimals: 2)
+        return formatter.string(from: NSNumber(value: self)) ?? ""
     }
     
     func formatDecimalsTo(amount: Int) -> Double {

@@ -112,8 +112,8 @@ struct CalculationView: View {
             VStack {
                 HStack {
                     CalculationTagView(systemImageName: "shippingbox.and.arrow.backward.fill", imageSize: (20, 15), text: calculation.deliveryTypeCode ?? "")
-                    CalculationTagView(systemImageName: "scalemass.fill", text: "\(String(calculation.weight)) кг")
-                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(String(calculation.volume)) м3")
+                    CalculationTagView(systemImageName: "scalemass.fill", text: "\(calculation.weight.formatAsNumber()) кг")
+                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(calculation.volume.formatAsNumber()) м3")
                     
                     Spacer()
                 }
@@ -125,7 +125,7 @@ struct CalculationView: View {
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "creditcard.fill", imageSize: (20, 15), text: calculation.totalPrice ?? "", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
+                    CalculationTagView(systemImageName: "creditcard.fill", imageSize: (20, 15), text: calculation.totalPrice?.formatNumbers(separator: "+") ?? "", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
                     
                     Spacer()
                 }

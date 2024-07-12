@@ -68,12 +68,6 @@ final class PriceCalculationManager {
         return (invoiceAmountInSellCurrency * insurancePercentage) / 100
     }
     
-    static func calculateRussianDeliveryInsurance(item: CalculationResultItem) -> Double {
-        let currencyCode = FLCCurrency(currencyCode: item.calculationData.invoiceCurrency) ?? .USD
-        let ratio = PriceCalculationManager.getRatioBetween(item.currency, and: currencyCode)        
-        return (item.calculationData.invoiceAmount * ratio) * (0.08 / 100)
-    }
-    
     static func getDeliveryFromWarehouse(for logisticsType: FLCLogisticsType, item: CalculationResultItem) -> Double {
         switch logisticsType {
         case .chinaTruck:

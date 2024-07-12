@@ -206,12 +206,15 @@ extension FLCCargoParametersView: UITextFieldDelegate {
         let formatter = textField != self.invoiceAmountTextField ? NumberFormatter.getFLCNumberFormatter() : NumberFormatter.getFLCNumberFormatter(withDecimals: 0)
 
         let decimalSeparator = formatter.decimalSeparator ?? ""
+        let allowedCharacters = CharacterSet(charactersIn: "0123456789" + decimalSeparator)
+        
+        if string.rangeOfCharacter(from: allowedCharacters.inverted) != nil { return false }
         guard let text = textField.text else { return false }
         let separatorIndex = text.firstIndex(of: Character(formatter.decimalSeparator ?? "")) ?? text.endIndex
         let separatorPositon = text.distance(from: text.startIndex, to: separatorIndex)
- 
+        
         if textField.getCursorPosition() == text.count && text.contains(decimalSeparator) && !string.isEmpty { return false }
-  
+        
         if string == decimalSeparator {
             return TextFieldManager.moveCursorToDecimals(in: textField, withText: text, decimalSeparator: decimalSeparator, separatorPositon: separatorPositon)
         }

@@ -4,11 +4,9 @@ struct CalculationResultHelper {
     static func getRussianDeliveryPrice(item: CalculationResultItem) async -> Result<(price: String, days: String), FLCError> {
         do {
             let data = try await NetworkManager.shared.getRussianDelivery(for: item)
-            let insurancePrice = PriceCalculationManager.calculateRussianDeliveryInsurance(item: item)
-            let deliveryPrice = data.getPrice().add(markup: .seventeenPercents)
-            let totalPrice = (insurancePrice + deliveryPrice).formatAsCurrency(symbol: item.currency)
+            let deliveryPrice = data.getPrice().add(markup: .seventeenPercents).formatAsCurrency(symbol: item.currency)
             let days = data.getDays() ?? ""
-            return .success((totalPrice, days))
+            return .success((deliveryPrice, days))
         } catch {
             return .failure(.invalidResponce)
         }

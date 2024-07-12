@@ -62,6 +62,7 @@ struct Widgets: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .supportedFamilies([])
     }
 }
 

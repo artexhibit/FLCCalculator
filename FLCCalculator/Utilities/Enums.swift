@@ -127,6 +127,7 @@ enum FLCCurrency: String, CaseIterable {
         case .CNY: return "¥"
         }
     }
+    static let symbols: Set<String> = ["₽", "$", "€", "₺", "¥"] 
     
     init?(currencyCode: String) {
         switch currencyCode {

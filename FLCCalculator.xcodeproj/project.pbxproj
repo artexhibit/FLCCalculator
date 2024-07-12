@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0B04C0D82BC59F0F0007A316 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04C0D72BC59F0F0007A316 /* UIImageView+Ext.swift */; };
+		0B05A4072C4169AE000F4ABF /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double+Ext.swift */; };
+		0B05A4082C4169B0000F4ABF /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B60E35C2BA70F810008000B /* Double+Ext.swift */; };
+		0B05A4092C4169B3000F4ABF /* NumberFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */; };
+		0B05A40A2C4169B4000F4ABF /* NumberFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */; };
 		0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */; };
 		0B1E313E2C10956F00291D0E /* SettingsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1E313D2C10956F00291D0E /* SettingsVCHelper.swift */; };
 		0B1E31402C10A3F500291D0E /* SettingsCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1E313F2C10A3F500291D0E /* SettingsCellContent.swift */; };
@@ -1236,6 +1240,7 @@
 				0B5F773B2C222766005B391C /* Enums.swift in Sources */,
 				0BFA899D2C22B9BB0023D949 /* ChinaTruckTariff.swift in Sources */,
 				0BFA89E52C22CA960023D949 /* NetworkStatusManager.swift in Sources */,
+				0B05A4082C4169B0000F4ABF /* Double+Ext.swift in Sources */,
 				0BFA89DE2C22CA510023D949 /* NetworkManager.swift in Sources */,
 				0BFA89A82C22BA190023D949 /* CurrencyData.swift in Sources */,
 				0BFA89A72C22BA070023D949 /* Document.swift in Sources */,
@@ -1250,6 +1255,7 @@
 				0B6931042C20C6640032A179 /* NotificationService.swift in Sources */,
 				0B5F773F2C22282A005B391C /* Protocols.swift in Sources */,
 				0BFA89992C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */,
+				0B05A40A2C4169B4000F4ABF /* NumberFormatter+Ext.swift in Sources */,
 				0BABA4C72C23677C000991E9 /* FLCUserCredentials.swift in Sources */,
 				0BFA898E2C22B8100023D949 /* CoreDataManager.swift in Sources */,
 				0B9515982C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */,
@@ -1468,8 +1474,10 @@
 				0B20D4D12C334354003DB36E /* TurkeyAirSVOPickup.swift in Sources */,
 				0BFA89AD2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
 				0BFA898D2C22B7DD0023D949 /* FLCError.swift in Sources */,
+				0B05A4092C4169B3000F4ABF /* NumberFormatter+Ext.swift in Sources */,
 				0BABA4C22C2362E2000991E9 /* KeychainManager.swift in Sources */,
 				0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */,
+				0B05A4072C4169AE000F4ABF /* Double+Ext.swift in Sources */,
 				0B95159B2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */,
 				0BFA89BB2C22BC010023D949 /* FirebaseManager.swift in Sources */,
 				0BFA89942C22B95D0023D949 /* ChinaTruckPickup.swift in Sources */,

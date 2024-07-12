@@ -8,6 +8,7 @@ extension NumberFormatter {
         formatter.locale = .current
         formatter.minimumFractionDigits = digits
         formatter.maximumFractionDigits = digits
+        formatter.usesGroupingSeparator = true
         return formatter
     }
     static var localeDecimalSeparator: String { Locale.current.decimalSeparator ?? "." }

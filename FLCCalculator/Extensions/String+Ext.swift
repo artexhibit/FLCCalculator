@@ -4,11 +4,28 @@ extension String {
     var flcWarehouseFromRusName: FLCWarehouse? { return FLCWarehouse.allCases.first(where: { $0.rusName == self }) }
     
     func createDouble(removeSymbols: Bool = false) -> Double {
-        var string = self.replacingOccurrences(of: " ", with: "")
+        var decimalSeparatorFound = false
+        var string = self.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\u{00A0}", with: "").replacingOccurrences(of: ",", with: ".")
         if removeSymbols { string = string.removeCurrencySymbols() }
+        
+        let stringWithoutGroupingSeparators = string.reversed().reduce("") { result, char -> String in
+            if char == "." {
+                if decimalSeparatorFound {
+                    return result
+                } else {
+                    decimalSeparatorFound = true
+                    return result + String(char)
+                }
+            } else {
+                return result + String(char)
+            }
+        }
+        string = String(stringWithoutGroupingSeparators.reversed())
+        string = string.replacingOccurrences(of: ".", with: Locale.current.decimalSeparator ?? ".")
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
+        formatter.locale = .current
         
         return formatter.number(from: string)?.doubleValue ?? 0.0
     }
@@ -97,6 +114,16 @@ extension String {
         return components.first?.trimmingCharacters(in: .whitespaces)
     }
     
+    func formatNumbers(separator: String) -> String {
+        let components = self.components(separatedBy: CharacterSet(charactersIn: separator))
+        
+        return components.map { component -> String in
+            let currencySymbol = component.extractCurrencySymbol() ?? ""
+            let modifiedComponent = component.createDouble(removeSymbols: true).formatAsNumber()
+            return "\(modifiedComponent) \(currencySymbol)"
+        }.joined(separator: " \(separator) ")
+    }
+    
     func getDataBetweenCharacter(char: String = " ", returnFirstHalf: Bool = true) -> String? {
         let components = self.components(separatedBy: CharacterSet(charactersIn: char))
         guard components.count > 1 else { return nil }
@@ -105,6 +132,7 @@ extension String {
     
     func removeStringPart(_ part: String) -> String { self.replacingOccurrences(of: part, with: "").trimmingCharacters(in: .whitespacesAndNewlines) }
     func formatAsSymbol() -> String { FLCCurrency(rawValue: self)?.symbol ?? "" }
+    func extractCurrencySymbol() -> String? { self.first { FLCCurrency.symbols.contains(String($0)) }.map { String($0) } }
     func getFirstCharacters(_ amount: Int) -> String { String(self.prefix(amount)) }
     func getLastCharacters(_ amount: Int) -> String { String(self.suffix(amount)) }
     func removeFirstCharacters(_ amount: Int) -> String { String(self.dropFirst(amount)) }
