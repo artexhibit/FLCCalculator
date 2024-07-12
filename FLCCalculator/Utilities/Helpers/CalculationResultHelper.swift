@@ -380,6 +380,28 @@ struct CalculationResultHelper {
             let turkeyAirSVOTariff: [TurkeyAirSVOTariff]? = CoreDataManager.retrieveItemsFromCoreData()
             return turkeyAirSVOTariff?.first?.maxWeightKg ?? 0
         }
-        
+    }
+    
+    static func configurePopoverAppearance(textAttachment: NSTextAttachment, presentedVC: UIViewController?, cell: CalculationResultCell, pickedLogisticsType: FLCLogisticsType, range: NSRange, textView: UITextView) {
+        if let imageName = textAttachment.image {
+            HapticManager.addHaptic(style: .light)
+            
+            guard let totalPriceVC = presentedVC as? TotalPriceVC else { return }
+            TotalPriceVCUIHelper.showDetent(in: totalPriceVC, type: .smallDetent) { totalPriceVC.setupUIForSmallDetent() }
+            
+            guard let parentVC = cell.findParentViewController() as? CalculationResultVC else { return }
+            let popover = FLCPopoverVC()
+            var iconType = ""
+            
+            if parentVC.showingPopover.isShowing { parentVC.showingPopover.hidePopoverFromMainThread() }
+            parentVC.showingPopover = popover
+            
+            if imageName.description.contains("info.circle") {
+                iconType = "info.circle"
+            } else if imageName.description.contains("questionmark.circle.fill") {
+                iconType = "questionmark.circle.fill"
+            }
+            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configurePopoverMessage(in: cell, iconType: iconType, pickedLogisticsType: pickedLogisticsType), in: parentVC, target: textView, characterRange: range, presentedVC: presentedVC)
+        }
     }
 }

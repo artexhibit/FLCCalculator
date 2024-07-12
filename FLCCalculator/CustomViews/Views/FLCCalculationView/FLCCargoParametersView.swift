@@ -261,7 +261,24 @@ extension FLCCargoParametersView: FLCNumberTextFieldDelegate {
 }
 
 extension FLCCargoParametersView: UITextViewDelegate {
+    @available(iOS 17.0, *)
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        switch textItem.content {
+        case .textAttachment(let textAttachment):
+            configurePopoverAppearance(textAttachment: textAttachment, range: textItem.range, textView: textView)
+            return UIAction(title: "") { _ in }
+        case .link(_), .tag(_): break
+        @unknown default: break
+        }
+        return defaultAction
+    }
+    
     func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        configurePopoverAppearance(textAttachment: textAttachment, range: characterRange, textView: textView)
+        return false
+    }
+    
+    private func configurePopoverAppearance(textAttachment: NSTextAttachment, range: NSRange, textView: UITextView) {
         if let imageName = textAttachment.image, imageName.description.contains("info.circle") {
             HapticManager.addHaptic(style: .light)
             
@@ -269,12 +286,10 @@ extension FLCCargoParametersView: UITextViewDelegate {
             if showingPopover.isShowing != popover.isShowing { showingPopover.hidePopoverFromMainThread() }
             showingPopover = popover
             
-            guard !popover.isShowing else { return false }
-            guard let vc = self.findParentViewController() as? CalculationVC else { return false }
+            guard !popover.isShowing else { return }
+            guard let vc = self.findParentViewController() as? CalculationVC else { return }
             
-            popover.showPopoverOnMainThread(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: vc, target: textView, characterRange: characterRange)
-            return false
+            popover.showPopoverOnMainThread(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: vc, target: textView, characterRange: range)
         }
-        return true
     }
 }

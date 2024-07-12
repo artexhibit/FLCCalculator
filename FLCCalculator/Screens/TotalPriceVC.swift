@@ -39,7 +39,7 @@ class TotalPriceVC: UIViewController {
     private var priceAsOneCurrencyTextViewTopConstraint: NSLayoutConstraint?
     
     private var calculationData: CalculationData?
-    private var showingPopover = FLCPopoverVC()
+    var showingPopover = FLCPopoverVC()
     
     weak var delegate: TotalPriceVCDelegate?
         
@@ -366,21 +366,21 @@ extension TotalPriceVC: FLCTintedButtonDelegate {
 }
 
 extension TotalPriceVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if let imageName = textAttachment.image, imageName.description.contains("ellipsis.circle.fill") || imageName.description.contains("questionmark.circle.fill") {
-            HapticManager.addHaptic(style: .light)
-
-            let popover = FLCPopoverVC()
-            if showingPopover.isShowing != popover.isShowing { showingPopover.hidePopoverFromMainThread() }
-            showingPopover = popover
-            
-            guard !popover.isShowing else { return false }
-            
-            let message = TotalPriceVCUIHelper.setPopoverMessage(in: textView, priceAsOneCurrency: priceAsOneCurrencyTextView, pricePerKg: pricePerKgTextView, invoiceIssue: invoiceIssueTintedView.tintedViewLabel, with: calculationData, and: totalAmountLayer)
-            popover.showPopoverOnMainThread(withText: message, in: self, target: textView, characterRange: characterRange)
-            return false
+    @available(iOS 17.0, *)
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        switch textItem.content {
+        case .textAttachment(let textAttachment):
+            TotalPriceVCUIHelper.configurePopoverAppearance(textAttachment: textAttachment, range: textItem.range, textView: textView, vc: self, priceAsOneCurrency: priceAsOneCurrencyTextView, pricePerKg: pricePerKgTextView, invoiceIssue: invoiceIssueTintedView.tintedViewLabel, with: calculationData, and: totalAmountLayer)
+            return UIAction(title: "") { _ in }
+        case .link(_), .tag(_): break
+        @unknown default: break
         }
-        return true
+        return defaultAction
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        TotalPriceVCUIHelper.configurePopoverAppearance(textAttachment: textAttachment, range: characterRange, textView: textView, vc: self, priceAsOneCurrency: priceAsOneCurrencyTextView, pricePerKg: pricePerKgTextView, invoiceIssue: invoiceIssueTintedView.tintedViewLabel, with: calculationData, and: totalAmountLayer)
+        return false
     }
 }
 

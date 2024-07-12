@@ -305,29 +305,21 @@ class CalculationResultCell: UITableViewCell {
 }
 
 extension CalculationResultCell: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        if let imageName = textAttachment.image {
-            HapticManager.addHaptic(style: .light)
-            
-            guard let totalPriceVC = presentedVC as? TotalPriceVC else { return false }
-            TotalPriceVCUIHelper.showDetent(in: totalPriceVC, type: .smallDetent) { totalPriceVC.setupUIForSmallDetent() }
-            
-            guard let parentVC = self.findParentViewController() as? CalculationResultVC else { return false }
-            let popover = FLCPopoverVC()
-            var iconType = ""
-            
-            if parentVC.showingPopover.isShowing { parentVC.showingPopover.hidePopoverFromMainThread() }
-            parentVC.showingPopover = popover
-            
-            if imageName.description.contains("info.circle") {
-                iconType = "info.circle"
-            } else if imageName.description.contains("questionmark.circle.fill") {
-                iconType = "questionmark.circle.fill"
-            }
-            popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configurePopoverMessage(in: self, iconType: iconType, pickedLogisticsType: pickedLogisticsType), in: parentVC, target: textView, characterRange: characterRange, presentedVC: presentedVC)
-            return false
+    @available(iOS 17.0, *)
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        switch textItem.content {
+        case .textAttachment(let textAttachment):
+            CalculationResultHelper.configurePopoverAppearance(textAttachment: textAttachment, presentedVC: presentedVC, cell: self, pickedLogisticsType: pickedLogisticsType, range: textItem.range, textView: textView)
+            return UIAction(title: "") { _ in }
+        case .link(_), .tag(_): break
+        @unknown default: break
         }
-        return true
+        return defaultAction
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        CalculationResultHelper.configurePopoverAppearance(textAttachment: textAttachment, presentedVC: presentedVC, cell: self, pickedLogisticsType: pickedLogisticsType, range: characterRange, textView: textView)
+        return false
     }
 }
 

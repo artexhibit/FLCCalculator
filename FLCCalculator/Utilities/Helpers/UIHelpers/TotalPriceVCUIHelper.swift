@@ -48,7 +48,7 @@ struct TotalPriceVCUIHelper {
         case .perKG: targetType = .perKG
         case .asOneCurrency: targetType = .asOneCurrency
         }
-
+        
         view.attributedText = PriceCalculationManager.getPrice(totalPrice: totalPrice, data: data, type: targetType).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
         view.setStyle(color: .lightGray, textAlignment: .left, fontWeight: .medium, fontSize: 17)
     }
@@ -100,6 +100,23 @@ struct TotalPriceVCUIHelper {
             return "3% только к валютной части из-за колебаний курса, поскольку расчёты с контрагентами у нас в валюте."
         case .none, .some(_):
             return ""
+        }
+    }
+    
+    static func configurePopoverAppearance(textAttachment: NSTextAttachment, range: NSRange, textView: UITextView, vc: UIViewController, priceAsOneCurrency: UITextView, pricePerKg: UITextView, invoiceIssue: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) {
+        if let imageName = textAttachment.image, imageName.description.contains("ellipsis.circle.fill") || imageName.description.contains("questionmark.circle.fill") {
+            HapticManager.addHaptic(style: .light)
+            
+            guard let totalPriceVC = vc as? TotalPriceVC else { return }
+            
+            let popover = FLCPopoverVC()
+            if totalPriceVC.showingPopover.isShowing != popover.isShowing { totalPriceVC.showingPopover.hidePopoverFromMainThread() }
+            totalPriceVC.showingPopover = popover
+            
+            guard !popover.isShowing else { return }
+            
+            let message = setPopoverMessage(in: textView, priceAsOneCurrency: priceAsOneCurrency, pricePerKg: pricePerKg, invoiceIssue: invoiceIssue, with: data, and: totalAmount)
+            popover.showPopoverOnMainThread(withText: message, in: vc, target: textView, characterRange: range)
         }
     }
 }
