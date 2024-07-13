@@ -1,6 +1,6 @@
 import Foundation
 
-struct PhoneNumberExistResponse: Codable {
+struct PhoneNumberResponse: Codable {
     let status: String
     let response: ResponseData
 }

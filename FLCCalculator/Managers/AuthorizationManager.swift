@@ -2,9 +2,10 @@ import Foundation
 
 class AuthorizationManager {
     static let shared = AuthorizationManager()
+
     private let decoder = JSONDecoder()
-    private let lkBaseEndpoint = "https://lk-flc.bubbleapps.io/version-test/api/1.1/"
-    private let calcBaseEndpoint = "https://calc.free-lines.ru/version-test/api/1.1/obj/user/"
+    private let lkBaseEndpoint = "https://lk-flc.bubbleapps.io/version-live/api/1.1/"
+    private let calcBaseEndpoint = "https://calc.free-lines.ru/version-live/api/1.1/obj/user/"
     private let apiKey = Bundle.main.infoDictionary?["Bubble Token"] as? String
     
     private init() { decoder.keyDecodingStrategy = .convertFromSnakeCase }
@@ -19,7 +20,24 @@ class AuthorizationManager {
         guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
         
         do {
-            let decodedData = try decoder.decode(PhoneNumberExistResponse.self, from: data)
+            let decodedData = try decoder.decode(PhoneNumberResponse.self, from: data)
+            return decodedData.response.result
+        } catch {
+            throw FLCError.invalidData
+        }
+    }
+    
+    func accountDeletionRequest(_ number: String) async throws -> Bool {
+        guard let apiKey = apiKey else { throw FLCError.invalidBubbleToken }
+        let finalEndpoint = lkBaseEndpoint + "wf/delete_account"
+        guard let url = URL(string: finalEndpoint) else { throw FLCError.invalidEndpoint }
+        let request = createAccountURLRequest(url: url, number: number, apikey: apiKey)
+        
+        let (data, responce) = try await URLSession.shared.data(for: request)
+        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
+        
+        do {
+            let decodedData = try decoder.decode(PhoneNumberResponse.self, from: data)
             return decodedData.response.result
         } catch {
             throw FLCError.invalidData

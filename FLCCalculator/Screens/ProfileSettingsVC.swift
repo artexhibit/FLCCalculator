@@ -363,7 +363,7 @@ extension ProfileSettingsVC: FLCTintedButtonDelegate {
     func didTapButton(_ button: FLCTintedButton) {
         switch button {
         case exitButton: ProfileSettingsVCHelper.performExitFromAccount(in: self)
-        case deleteButton: ProfileSettingsVCHelper.performAccountDeletion(in: self)
+        case deleteButton: ProfileSettingsVCHelper.performAccountDeletion(ofUser: user, in: self)
         default: break
         }
     }

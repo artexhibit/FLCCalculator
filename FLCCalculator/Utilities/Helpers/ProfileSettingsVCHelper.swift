@@ -7,10 +7,27 @@ struct ProfileSettingsVCHelper {
         vc.dismiss(animated: true) { AuthorizationVCHelper.presentAuthorizationVC(animated: true) }
     }
     
-    static func performAccountDeletion(in vc: UIViewController) {
-        KeychainManager.shared.delete(type: FLCUserCredentials.self)
-        UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
-        vc.dismiss(animated: true) { AuthorizationVCHelper.presentAuthorizationVC(animated: true) }
+    static func performAccountDeletion(ofUser user: FLCUser?, in vc: UIViewController) {
+        guard NetworkStatusManager.shared.isDeviceOnline else {
+            FLCPopupView.showOnMainThread(title: "Необходимо активное подключение к интернету", style: .error)
+            return
+        }
+        
+        FLCPopupView.showOnMainThread(title: "Одну минуту", style: .spinner)
+        
+        Task {
+            do {
+                let _ = try await AuthorizationManager.shared.accountDeletionRequest(user?.mobilePhone ?? "")
+                KeychainManager.shared.delete(type: FLCUserCredentials.self)
+                UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
+                await vc.dismiss(animated: true) { AuthorizationVCHelper.presentAuthorizationVC(animated: true) }
+                await FLCPopupView.removeFromMainThread()
+                await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Запрос принят. Ваш аккаунт будет удален в течение 14 дней")
+            } catch {
+                await FLCPopupView.removeFromMainThread()
+                await FLCPopupView.showOnMainThread(title: "Не удалось удалить аккаунт", style: .error)
+            }
+        }
     }
     
     static func configureTextIn(_ textFields: [UITextField]) {
