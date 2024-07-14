@@ -161,6 +161,48 @@ enum FLCDateFormat: String {
     case dotDMYHMS = "dd.MM.yyyy, HH:mm:ss"
 }
 
+enum FLCFirebaseDataUpdateItem: String, Codable {
+    case availableLogisticsTypes = "availableLogisticsTypes"
+    case chinaAirPickup = "chinaAirPickup"
+    case chinaAirTariff = "chinaAirTariff"
+    case chinaRailwayPickup = "chinaRailwayPickup"
+    case chinaRailwayTariff = "chinaRailwayTariff"
+    case chinaTruckPickup = "chinaTruckPickup"
+    case chinaTruckTariff = "chinaTruckTariff"
+    case documents = "documents"
+    case managers = "managers"
+    case turkeyAirSVOPickup = "turkeyAirSVOPickup"
+    case turkeyAirSVOTariff = "turkeyAirSVOTariff"
+    case turkeyAirVKOPickup = "turkeyAirVKOPickup"
+    case turkeyAirVKOTariff = "turkeyAirVKOTariff"
+    case turkeyNovorossiyskBySeaPickup = "turkeyNovorossiyskBySeaPickup"
+    case turkeyNovorossiyskBySeaTariff = "turkeyNovorossiyskBySeaTariff"
+    case turkeyTruckByFerryPickup = "turkeyTruckByFerryPickup"
+    case turkeyTruckByFerryTariff = "turkeyTruckByFerryTariff"
+    
+    func getUpdateItemType() -> any (FirebaseIdentifiable & CoreDataStorable).Type {
+        switch self {
+        case .availableLogisticsTypes: return AvailableLogisticsType.self
+        case .chinaAirPickup: return ChinaAirTariff.self
+        case .chinaAirTariff: return ChinaAirTariff.self
+        case .chinaRailwayPickup: return ChinaRailwayPickup.self
+        case .chinaRailwayTariff: return ChinaRailwayTariff.self
+        case .chinaTruckPickup: return ChinaTruckPickup.self
+        case .chinaTruckTariff: return ChinaTruckTariff.self
+        case .documents: return Document.self
+        case .managers: return FLCManager.self
+        case .turkeyAirSVOPickup: return TurkeyAirSVOPickup.self
+        case .turkeyAirSVOTariff: return TurkeyAirSVOTariff.self
+        case .turkeyAirVKOPickup: return TurkeyAirVKOPickup.self
+        case .turkeyAirVKOTariff: return TurkeyAirVKOTariff.self
+        case .turkeyNovorossiyskBySeaPickup: return TurkeyNovorossiyskBySeaPickup.self
+        case .turkeyNovorossiyskBySeaTariff: return TurkeyNovorossiyskBySeaTariff.self
+        case .turkeyTruckByFerryPickup: return TurkeyTruckByFerryPickup.self
+        case .turkeyTruckByFerryTariff: return TurkeyTruckByFerryTariff.self
+        }
+    }
+}
+
 enum FLCLogisticsType: String, CaseIterable {
     case chinaTruck = "chinaTruck"
     case chinaRailway = "chinaRailway"
@@ -174,19 +216,15 @@ enum FLCLogisticsType: String, CaseIterable {
     
     static func firstCase(for country: FLCCountryOption) -> FLCLogisticsType? {
         switch country {
-        case .china:
-            return .chinaTruck
-        case .turkey:
-            return .turkeyNovorossiyskBySea
+        case .china: return .chinaTruck
+        case .turkey: return .turkeyNovorossiyskBySea
         }
     }
     
     static func logisticsTypes(for country: FLCCountryOption) -> [FLCLogisticsType] {
         switch country {
-        case .china:
-            return [.chinaTruck, .chinaRailway, .chinaAir]
-        case .turkey:
-            return [.turkeyNovorossiyskBySea, .turkeyTruckByFerry, .turkeyAirSVO, .turkeyAirVKO]
+        case .china: return [.chinaTruck, .chinaRailway, .chinaAir]
+        case .turkey: return [.turkeyNovorossiyskBySea, .turkeyTruckByFerry, .turkeyAirSVO, .turkeyAirVKO]
         }
     }
     

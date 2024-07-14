@@ -6,10 +6,12 @@ struct UserDefaultsPercistenceManager {
     static func updateItemsInUserDefaults<T: UserDefaultsStorable>(items: [T]) {
         if let storedItems: [T] = retrieveItemsFromUserDefaults() {
             ud.removeObject(forKey: T.userDefaultsKey)
-            _ = saveItemsToUserDefaults(items: items)
+            let newItemsSavingError = saveItemsToUserDefaults(items: items)
             
-            let savingError = saveItemsToUserDefaults(items: storedItems)
-            print(savingError ?? .unableToSaveToUserDefaults)
+            if newItemsSavingError != nil {
+                let oldItemsSavingError = saveItemsToUserDefaults(items: storedItems)
+                print(oldItemsSavingError ?? .unableToSaveToUserDefaults)
+            }
         } else {
             let savingError = saveItemsToUserDefaults(items: items) ?? .unableToUpdateUserDefaults
             print(savingError)

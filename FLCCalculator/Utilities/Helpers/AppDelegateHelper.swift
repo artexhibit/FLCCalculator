@@ -45,23 +45,38 @@ struct AppDelegateHelper {
             var success = false
             
             do {
-                let dateString = try await FirebaseManager.getDateOfLastDataUpdate()
-                if UserDefaults.sharedContainer.object(forKey: Keys.dateWhenDataWasUpdated) == nil {
-                    let isTariffsUpdated = await FirebaseManager.updateTariffs()
-                    let isPickupsUpdated = await FirebaseManager.updatePickups()
-                    success = isTariffsUpdated && isPickupsUpdated
-                    await save(dateString: dateString, if: isTariffsUpdated, and: isPickupsUpdated)
-                } else {
-                    guard let storedDate = UserDefaultsManager.dateWhenDataWasUpdated.createDate(format: .dotDMYHMS) else { return }
-                    guard let receivedDate = dateString.createDate(format: .dotDMYHMS) else { return }
-                    
-                    if storedDate != receivedDate {
-                        let isTariffsUpdated = await FirebaseManager.updateTariffs()
-                        let isPickupsUpdated = await FirebaseManager.updatePickups()
-                        success = isTariffsUpdated && isPickupsUpdated
-                        await save(dateString: dateString, if: isTariffsUpdated, and: isPickupsUpdated)
+                let updateData = try await FirebaseManager.getFirebaseDataUpdateDates().filter { entry in
+                    FLCLogisticsType.allCases.contains { entry.item.rawValue.isContains($0.rawValue) }
+                }
+                var storedUpdateData: [FirebaseDataUpdateItem] = UserDefaultsPercistenceManager.retrieveItemsFromUserDefaults() ?? []
+        
+                for updateEntry in updateData {
+                    if let storedEntryIndex = storedUpdateData.firstIndex(where: { $0.item == updateEntry.item }) {
+                        var storedEntry = storedUpdateData[storedEntryIndex]
+                        guard let storedDate = storedEntry.updateDate.createDate(format: .dotDMYHMS) else { continue }
+                        guard let receivedDate = updateEntry.updateDate.createDate(format: .dotDMYHMS) else { continue }
+            
+                        if storedDate != receivedDate {
+                            let item = storedEntry.item.getUpdateItemType()
+                            let isUpdateSuccessful = await FirebaseManager.performUpdateForItem(item: item)
+                            
+                            if isUpdateSuccessful {
+                                storedEntry.updateDate = updateEntry.updateDate
+                                storedUpdateData[storedEntryIndex] = storedEntry
+                                success = isUpdateSuccessful
+                            }
+                        } else { continue }
+                    } else {
+                        let item = updateEntry.item.getUpdateItemType()
+                        let isUpdateSuccessful = await FirebaseManager.performUpdateForItem(item: item)
+                        
+                        if isUpdateSuccessful {
+                            storedUpdateData.append(updateEntry)
+                            success = isUpdateSuccessful
+                        }
                     }
                 }
+                UserDefaultsPercistenceManager.updateItemsInUserDefaults(items: storedUpdateData)
             } catch {
                 success = false
                 print(error)
@@ -124,7 +139,7 @@ struct AppDelegateHelper {
                 updateCurrencyData()
                 UserDefaultsManager.lastCurrencyDataUpdate = Date()
             }
-            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCalculationDataUpdate) {
+            if shouldUpdateData(afterDays: 0, for: UserDefaultsManager.lastCalculationDataUpdate) {
                 updateCalculationData()
                 UserDefaultsManager.lastCalculationDataUpdate = Date()
             }
@@ -156,12 +171,6 @@ struct AppDelegateHelper {
             KeychainManager.shared.delete(type: FLCUserCredentials.self)
             UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
             UserDefaultsManager.isFirstLaunch = false
-        }
-    }
-    
-    private static func save(dateString: String, if isTariffsUpdated: Bool, and isPickupsUpdated: Bool) async {
-        if isTariffsUpdated && isPickupsUpdated {
-            UserDefaultsManager.dateWhenDataWasUpdated = dateString
         }
     }
     

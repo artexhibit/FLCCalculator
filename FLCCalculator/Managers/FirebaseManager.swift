@@ -13,14 +13,16 @@ class FirebaseManager: NSObject {
     
     static func configureFirebase() { FirebaseApp.configure() }
     static func configureMessagingDelegate() { Messaging.messaging().delegate = shared }
-    
-    static func getDateOfLastDataUpdate() async throws -> String {
-        let snapshot = try await Firestore.firestore().collection(Keys.dateWhenDataWasUpdated).getDocuments()
-        guard let timestamp = snapshot.documents.first?.data().values.first as? Timestamp else {
-            throw FLCError.unableToGetDocuments
+
+    static func getFirebaseDataUpdateDates() async throws -> [FirebaseDataUpdateItem] {
+        let snapshot = try await Firestore.firestore().collection(Keys.dateDataWasUpdated).getDocuments()
+        guard let dataDict = snapshot.documents.first?.data() else { throw FLCError.unableToGetDocuments }
+        
+        let result: [FirebaseDataUpdateItem] = dataDict.compactMap { dataEntry in
+            let updateDate = (dataEntry.value as? Timestamp)?.dateValue().makeString(format: .dotDMYHMS) ?? ""
+            return FirebaseDataUpdateItem(item: FLCFirebaseDataUpdateItem(rawValue: dataEntry.key) ?? .managers, updateDate: updateDate)
         }
-        let date = timestamp.dateValue().formatted(date: .numeric, time: .standard)
-        return date
+        return result
     }
     
     static func getDataFromFirebase<T: FirebaseIdentifiable>() async throws -> [T]? {
@@ -28,7 +30,7 @@ class FirebaseManager: NSObject {
         guard let items = snapshot.documents.first?.data()[T.fieldNameKey] else { throw FLCError.unableToGetDocuments }
         guard let itemsString = items as? String else { throw FLCError.castingError }
         guard let itemsData = itemsString.data(using: .utf8) else { throw FLCError.castingError }
-
+        
         do {
             return try decoder.decode([T].self, from: itemsData)
         } catch {
@@ -36,49 +38,11 @@ class FirebaseManager: NSObject {
         }
     }
     
-    static func updateTariffs() async -> Bool {
+    static func performUpdateForItem<T: FirebaseIdentifiable & CoreDataStorable>(item: T.Type) async -> Bool {
         do {
-            async let chinaTruckTariff: [ChinaTruckTariff]? = getDataFromFirebase()
-            async let chinaRailwayTariff: [ChinaRailwayTariff]? = getDataFromFirebase()
-            async let chinaAirTariff: [ChinaAirTariff]? = getDataFromFirebase()
-            async let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = getDataFromFirebase()
-            async let turkeyNovorossiyskBySeaTariff: [TurkeyNovorossiyskBySeaTariff]? = getDataFromFirebase()
-            async let turkeyAirVKOTariff: [TurkeyAirVKOTariff]? = getDataFromFirebase()
-            async let turkeyAirSVOTariff: [TurkeyAirSVOTariff]? = getDataFromFirebase()
-            
-            let chinaTruckTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaTruckTariff ?? [])
-            let chinaRailwayTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaRailwayTariff ?? [])
-            let chinaAirTariffData = CoreDataManager.updateItemsInCoreData(items: try await chinaAirTariff ?? [])
-            let turkeyTruckByFerryTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyTruckByFerryTariff ?? [])
-            let turkeyNovorossiyskBySeaTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyNovorossiyskBySeaTariff ?? [])
-            let turkeyAirVKOTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirVKOTariff ?? [])
-            let turkeyAirSVOTariffData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirSVOTariff ?? [])
-            
-            return chinaTruckTariffData != nil && chinaRailwayTariffData != nil && chinaAirTariffData != nil && turkeyTruckByFerryTariffData != nil && turkeyNovorossiyskBySeaTariffData != nil && turkeyAirVKOTariffData != nil && turkeyAirSVOTariffData != nil
-        } catch {
-            return false
-        }
-    }
-    
-    static func updatePickups() async -> Bool {
-        do {
-            async let chinaTruckPickup: [ChinaTruckPickup]? = getDataFromFirebase()
-            async let chinaRailwayPickup: [ChinaRailwayPickup]? = getDataFromFirebase()
-            async let chinaAirPickup: [ChinaAirPickup]? = getDataFromFirebase()
-            async let turkeyTruckByFerryPickup: [TurkeyTruckByFerryPickup]? = getDataFromFirebase()
-            async let turkeyNovorossiyskBySeaPickup: [TurkeyNovorossiyskBySeaPickup]? = getDataFromFirebase()
-            async let turkeyAirVKOPickup: [TurkeyAirVKOPickup]? = getDataFromFirebase()
-            async let turkeyAirSVOPickup: [TurkeyAirSVOPickup]? = getDataFromFirebase()
-            
-            let chinaTruckPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaTruckPickup ?? [])
-            let chinaRailwayPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaRailwayPickup ?? [])
-            let chinaAirPickupData = CoreDataManager.updateItemsInCoreData(items: try await chinaAirPickup ?? [])
-            let turkeyTruckByFerryPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyTruckByFerryPickup ?? [])
-            let turkeyNovorossiyskBySeaPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyNovorossiyskBySeaPickup ?? [])
-            let turkeyAirVKOPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirVKOPickup ?? [])
-            let turkeyAirSVOPickupData = CoreDataManager.updateItemsInCoreData(items: try await turkeyAirSVOPickup ?? [])
-            
-            return chinaTruckPickupData != nil && chinaRailwayPickupData != nil && chinaAirPickupData != nil && turkeyTruckByFerryPickupData != nil && turkeyNovorossiyskBySeaPickupData != nil && turkeyAirVKOPickupData != nil && turkeyAirSVOPickupData != nil
+            async let itemToUpdate: [T]? = getDataFromFirebase()
+            let data = CoreDataManager.updateItemsInCoreData(items: try await itemToUpdate ?? [])
+            return data != nil
         } catch {
             return false
         }
@@ -212,7 +176,7 @@ extension FirebaseManager: MessagingDelegate {
         Task {
             do {
                 try await messaging.token()
-                try await Messaging.messaging().subscribe(toTopic: "flcCalculator")
+                try await Messaging.messaging().subscribe(toTopic: "flcCalculatorLive")
             } catch {
                 print(error)
             }

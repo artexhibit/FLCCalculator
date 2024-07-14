@@ -88,7 +88,6 @@ extension String {
     
     func createDate(format: FLCDateFormat) -> Date? {
         DateFormatterManager.shared.dateFormatter.dateFormat = format.rawValue
-        
         if let date = DateFormatterManager.shared.dateFormatter.date(from: self) { return date }
         return nil
     }

@@ -133,6 +133,9 @@
 		0B7E5CC32C2B49F500F142A1 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7E5CC02C2B49F500F142A1 /* DateFormatterManager.swift */; };
 		0B7EBA692BE55C41004BE990 /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7EBA682BE55C41004BE990 /* NetworkStatusManager.swift */; };
 		0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */; };
+		0B8B7F552C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */; };
+		0B8B7F562C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */; };
+		0B8B7F572C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */; };
 		0B916BA32C1CBF6E0037D44D /* FLCIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA22C1CBF6E0037D44D /* FLCIconView.swift */; };
 		0B916BA52C1CC5410037D44D /* PermissionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA42C1CC5410037D44D /* PermissionsVC.swift */; };
 		0B916BA72C1CC81F0037D44D /* PermissionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */; };
@@ -441,6 +444,7 @@
 		0B7E5CC02C2B49F500F142A1 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		0B7EBA682BE55C41004BE990 /* NetworkStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusManager.swift; sourceTree = "<group>"; };
 		0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsVCHelper.swift; sourceTree = "<group>"; };
+		0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataUpdateItem.swift; sourceTree = "<group>"; };
 		0B916BA22C1CBF6E0037D44D /* FLCIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCIconView.swift; sourceTree = "<group>"; };
 		0B916BA42C1CC5410037D44D /* PermissionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsVC.swift; sourceTree = "<group>"; };
 		0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsCell.swift; sourceTree = "<group>"; };
@@ -925,6 +929,7 @@
 				0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */,
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 				0BAF1DAE2BF1142800C0933B /* Document.swift */,
+				0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */,
 				0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */,
 				0BABA4BE2C236245000991E9 /* PhoneNumberResponse.swift */,
 				0BA381E72BFA3CB300A242F2 /* Pickups */,
@@ -1237,6 +1242,7 @@
 				0BFA89952C22B95E0023D949 /* ChinaTruckPickup.swift in Sources */,
 				0B7DF1C22C24BD110057EF30 /* Date+Ext.swift in Sources */,
 				0BFA89A22C22B9EB0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */,
+				0B8B7F572C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */,
 				0B5F773B2C222766005B391C /* Enums.swift in Sources */,
 				0BFA899D2C22B9BB0023D949 /* ChinaTruckTariff.swift in Sources */,
 				0BFA89E52C22CA960023D949 /* NetworkStatusManager.swift in Sources */,
@@ -1318,6 +1324,7 @@
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,
 				0B419FC82B82451600498ACE /* FLCError.swift in Sources */,
 				0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */,
+				0B8B7F552C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */,
 				0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */,
 				0BB47CEF2BF8D003001ECED4 /* ChinaAirTariff.swift in Sources */,
 				0B916BA92C1CCC290037D44D /* PermissionView.swift in Sources */,
@@ -1515,6 +1522,7 @@
 				0BFA899E2C22B9CE0023D949 /* ChinaRailwayTariff.swift in Sources */,
 				0BFA89A92C22BA300023D949 /* FLCManager.swift in Sources */,
 				0BFA89B32C22BA9A0023D949 /* CalculationDataFirebaseRecord.swift in Sources */,
+				0B8B7F562C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,7 +31,6 @@ enum Icons {
 }
 
 enum Keys {
-    static let isUserLoggedIn = "isUserLoggedIn"
     static let permissionsScreenWasShown = "permissionsScreenWasShown"
     static let isHapticTurnedOn = "isHapticTurnedOn"
     static let isFirstLaunch = "isFirstLaunch"
@@ -56,7 +55,7 @@ enum Keys {
     static let turkeyAirVKOTariff = "turkeyAirVKOTariff"
     static let turkeyAirSVOTariff = "turkeyAirSVOTariff"
     static let turkeyTruckByFerryTariff = "turkeyTruckByFerryTariff"
-    static let dateWhenDataWasUpdated = "dateWhenDataWasUpdated"
+    static let dateDataWasUpdated = "dateDataWasUpdated"
     static let calculations = "calculations"
     static let lastCurrencyDataUpdate = "lastCurrencyDataUpdate"
     static let lastCalculationDataUpdate = "lastCalculationDataUpdate"
@@ -65,6 +64,7 @@ enum Keys {
     static let lastAvailableLogisticsTypesDataUpdate = "lastAvailableLogisticsTypesDataUpdate"
     static let smsCounter = "smsCounter"
     static let flcUser = "flcUser"
+    static let firebaseDataUpdateItem = "firebaseDataUpdateItem"
     static let calculationDataFirebaseRecord = "calculationDataFirebaseRecord"
     static let cdDataAttribute = "data"
     static let cdDocuments = "CDDocuments"
@@ -114,7 +114,7 @@ enum ProfileSettingsTextFieldsNames {
     static let dateOfBirth = "Дата рождения"
     static let phoneNumber = "Номер телефона"
     static let email = "Email"
-    static let companyName = "Название юр. лица"
+    static let companyName = "Название юр.лица"
     static let inn = "ИНН"
     static let dtCount = "Количество оформленных ДТ за год"
 }

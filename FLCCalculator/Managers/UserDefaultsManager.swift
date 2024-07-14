@@ -23,11 +23,6 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: Keys.appTheme) }
     }
     
-    static var dateWhenDataWasUpdated: String {
-        get { ud.string(forKey: Keys.dateWhenDataWasUpdated) ?? "" }
-        set { ud.setValue(newValue, forKey: Keys.dateWhenDataWasUpdated) }
-    }
-    
     static var lastCurrencyDataUpdate: Date? {
         get { ud.object(forKey: Keys.lastCurrencyDataUpdate) as? Date }
         set { ud.setValue(newValue, forKey: Keys.lastCurrencyDataUpdate) }
