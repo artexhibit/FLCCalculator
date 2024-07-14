@@ -452,4 +452,8 @@ final class PriceCalculationManager {
     static func getChinaAirPickup() -> [ChinaAirPickup]? { chinaAirPickup }
     static func getTurkeyAirSVOPickup() -> [TurkeyAirSVOPickup]? { turkeyAirSVOPickup }
     static func getTurkeyAirVKOPickup() -> [TurkeyAirVKOPickup]? { turkeyAirVKOPickup }
+    
+    static func isCalculationDataAvailable() -> Bool {
+        return chinaTruckTariff != nil && chinaRailwayTariff != nil && chinaAirTariff != nil && turkeyTruckByFerryTariff != nil && turkeyNovorossiyskBySeaTariff != nil && chinaTruckPickup != nil && chinaRailwayPickup != nil && chinaAirPickup != nil && turkeyTruckByFerryPickup != nil && turkeyNovorossiyskBySeaPickup != nil && turkeyAirVKOTariff != nil && turkeyAirSVOTariff != nil && turkeyAirVKOPickup != nil && turkeyAirSVOPickup != nil && currencyData != nil
+    }
 }

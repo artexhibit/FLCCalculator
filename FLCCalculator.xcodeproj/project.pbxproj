@@ -38,6 +38,7 @@
 		0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */; };
 		0B246B522BB1FCDB006E90A8 /* PriceCalculationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */; };
 		0B25ABA02BDAD00B0031844A /* ConfirmOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */; };
+		0B267C482C442D26003697AE /* CalculationVCUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B267C472C442D26003697AE /* CalculationVCUIHelper.swift */; };
 		0B2A55C32C0F6F0700857C72 /* FLCContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A55C22C0F6F0700857C72 /* FLCContentCell.swift */; };
 		0B2A55C52C0F6FE500857C72 /* SettingsSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A55C42C0F6FE500857C72 /* SettingsSwitchCell.swift */; };
 		0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */; };
@@ -369,6 +370,7 @@
 		0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCellUIHelper.swift; sourceTree = "<group>"; };
 		0B246B512BB1FCDB006E90A8 /* PriceCalculationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCalculationManager.swift; sourceTree = "<group>"; };
 		0B25AB9F2BDAD00B0031844A /* ConfirmOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderVC.swift; sourceTree = "<group>"; };
+		0B267C472C442D26003697AE /* CalculationVCUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationVCUIHelper.swift; sourceTree = "<group>"; };
 		0B2A55C22C0F6F0700857C72 /* FLCContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCContentCell.swift; sourceTree = "<group>"; };
 		0B2A55C42C0F6FE500857C72 /* SettingsSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchCell.swift; sourceTree = "<group>"; };
 		0B2DD2252BBDCE09006F1CA7 /* FLCTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextLayer.swift; sourceTree = "<group>"; };
@@ -708,6 +710,7 @@
 				0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */,
 				0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */,
 				0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */,
+				0B267C472C442D26003697AE /* CalculationVCUIHelper.swift */,
 			);
 			path = UIHelpers;
 			sourceTree = "<group>";
@@ -1391,6 +1394,7 @@
 				0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */,
 				0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */,
 				0B67DF942C0B7BD7008CE099 /* FLCUIHelper.swift in Sources */,
+				0B267C482C442D26003697AE /* CalculationVCUIHelper.swift in Sources */,
 				0BB47CEB2BF8CD14001ECED4 /* ChinaTruckTariff.swift in Sources */,
 				0B7882892BDEB0CE00BDCA16 /* FLCRoundButton.swift in Sources */,
 				0B67DF8E2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift in Sources */,

@@ -1,11 +1,12 @@
-import Foundation
+import UIKit
 
 struct PermissionsVCHelper {
     
-    static func requestFirstNotificationsAlert(delegate: PermissionsVCDelegate?) {
+    static func requestFirstNotificationsAlert(delegate: PermissionsVCDelegate?, in vc: UIViewController) {
         Task {
             let status = await PermissionsManager.requestNotificationsAuthorizationStatus()
             delegate?.shouldUpdatePermissionButtonWithStatus(status: status, type: .notifications)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { if status { vc.dismiss(animated: true) } }
         }
     }
     

@@ -70,7 +70,7 @@ extension PermissionsVC: PermissionsCellDelegate {
                 let settings = await PermissionsManager.getNotificationSettings()
                 
                 switch settings {
-                case .notDetermined: PermissionsVCHelper.requestFirstNotificationsAlert(delegate: delegate)
+                case .notDetermined: PermissionsVCHelper.requestFirstNotificationsAlert(delegate: delegate, in: self)
                 case .denied, .authorized, .provisional, .ephemeral: PermissionsManager.openAppPermissionsSettings()
                 @unknown default: break
                 }

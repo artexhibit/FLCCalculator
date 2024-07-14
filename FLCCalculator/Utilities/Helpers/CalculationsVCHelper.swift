@@ -63,6 +63,8 @@ struct CalculationsVCHelper {
     }
     
     static func showPermissionsVC(in vc: UIViewController) {
-        if !UserDefaultsManager.permissionsScreenWasShown { vc.presentNewVC(ofType: PermissionsVC.self) }
+        let userCredentials = KeychainManager.shared.read(type: FLCUserCredentials.self)
+        guard let isHaveValidToken = userCredentials?.isTokenValid else { return }
+        if !UserDefaultsManager.permissionsScreenWasShown && isHaveValidToken { vc.presentNewVC(ofType: PermissionsVC.self) }
     }
 }
