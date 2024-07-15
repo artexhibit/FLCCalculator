@@ -183,7 +183,7 @@ enum FLCFirebaseDataUpdateItem: String, Codable {
     func getUpdateItemType() -> any (FirebaseIdentifiable & CoreDataStorable).Type {
         switch self {
         case .availableLogisticsTypes: return AvailableLogisticsType.self
-        case .chinaAirPickup: return ChinaAirTariff.self
+        case .chinaAirPickup: return ChinaAirPickup.self
         case .chinaAirTariff: return ChinaAirTariff.self
         case .chinaRailwayPickup: return ChinaRailwayPickup.self
         case .chinaRailwayTariff: return ChinaRailwayTariff.self

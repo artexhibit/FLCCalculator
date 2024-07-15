@@ -139,7 +139,7 @@ struct AppDelegateHelper {
                 updateCurrencyData()
                 UserDefaultsManager.lastCurrencyDataUpdate = Date()
             }
-            if shouldUpdateData(afterDays: 0, for: UserDefaultsManager.lastCalculationDataUpdate) {
+            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastCalculationDataUpdate) {
                 updateCalculationData()
                 UserDefaultsManager.lastCalculationDataUpdate = Date()
             }

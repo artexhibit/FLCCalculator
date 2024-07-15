@@ -61,6 +61,7 @@
 		0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FD42B82546D00498ACE /* CalculationCell.swift */; };
 		0B53286E2BC2DFCC00B02A73 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53286D2BC2DFCC00B02A73 /* UIColor+Ext.swift */; };
+		0B58D7A72C45ABB300C7EC80 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */; };
 		0B5D1BBF2C1F087F00F9ECB3 /* SettingsLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D1BBE2C1F087F00F9ECB3 /* SettingsLabelCell.swift */; };
 		0B5D1BC12C1F10EF00F9ECB3 /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D1BC02C1F10EF00F9ECB3 /* PermissionsManager.swift */; };
 		0B5D1BC32C1F38B700F9ECB3 /* PermissionsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D1BC22C1F38B700F9ECB3 /* PermissionsVCHelper.swift */; };
@@ -391,6 +392,7 @@
 		0B419FCF2B824BED00498ACE /* CalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationView.swift; sourceTree = "<group>"; };
 		0B419FD42B82546D00498ACE /* CalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
 		0B53286D2BC2DFCC00B02A73 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0B5D1BBE2C1F087F00F9ECB3 /* SettingsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelCell.swift; sourceTree = "<group>"; };
 		0B5D1BC02C1F10EF00F9ECB3 /* PermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
 		0B5D1BC22C1F38B700F9ECB3 /* PermissionsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsVCHelper.swift; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 		0B6E541B2B810BA00078C110 = {
 			isa = PBXGroup;
 			children = (
+				0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */,
 				0BABA4BB2C22F987000991E9 /* WidgetsExtension.entitlements */,
 				0B6E54262B810BA00078C110 /* FLCCalculator */,
 				0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */,
@@ -1105,6 +1108,7 @@
 				0B6E54212B810BA00078C110 /* Frameworks */,
 				0B6E54222B810BA00078C110 /* Resources */,
 				0B6E54612B811B550078C110 /* Embed Foundation Extensions */,
+				0B58D7A12C459E6C00C7EC80 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1211,6 +1215,7 @@
 			files = (
 				0B6E54372B810BA20078C110 /* LaunchScreen.storyboard in Resources */,
 				0B6E54342B810BA20078C110 /* Assets.xcassets in Resources */,
+				0B58D7A72C45ABB300C7EC80 /* PrivacyInfo.xcprivacy in Resources */,
 				0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1226,6 +1231,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B58D7A12C459E6C00C7EC80 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0B6930FD2C20C6640032A179 /* Sources */ = {
@@ -1746,6 +1777,7 @@
 				CODE_SIGN_ENTITLEMENTS = FLCCalculator/FLCCalculator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLCCalculator/Info.plist;
