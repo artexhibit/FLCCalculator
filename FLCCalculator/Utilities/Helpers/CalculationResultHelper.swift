@@ -358,7 +358,7 @@ struct CalculationResultHelper {
         let calcEntryData = FirebaseManager.createCalculationDataFirebaseRecord(with: data, and: totalPriceData)
         
         if NetworkStatusManager.shared.isDeviceOnline {
-            await FirebaseManager.createCalculationDocument(with: calcEntryData)
+            if !data.isFromCoreData { await FirebaseManager.createCalculationDocument(with: calcEntryData) }
         } else {
             var storedRecords: [CalculationDataFirebaseRecord] = UserDefaultsPercistenceManager.retrieveItemsFromUserDefaults() ?? [CalculationDataFirebaseRecord]()
             

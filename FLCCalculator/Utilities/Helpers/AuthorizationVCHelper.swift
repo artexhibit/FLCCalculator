@@ -28,7 +28,7 @@ struct AuthorizationVCHelper {
                     await FLCPopupView.showOnMainThread(title: "Необходимо активное подключение к интернету", style: .error)
                     return
                 }
-                try await checkPhoneNumberExistense(phoneNumber: phoneNumber, vc: vc)
+                guard try await checkPhoneNumberExistense(phoneNumber: phoneNumber, vc: vc) else { return }
                 
                 if SMSManager.canSendSMS() {
                     await FLCPopupView.showOnMainThread(title: "Отправляем СМС", style: .spinner)
@@ -70,22 +70,23 @@ struct AuthorizationVCHelper {
         }
     }
     
-    private static func checkPhoneNumberExistense(phoneNumber: String, vc: UIViewController) async throws {
+    private static func checkPhoneNumberExistense(phoneNumber: String, vc: UIViewController) async throws -> Bool {
         let isPhoneNumberExists = try await AuthorizationManager.shared.isPhoneNumberExist(phoneNumber)
         
         if let loginVC = vc as? LoginVC {
             guard isPhoneNumberExists else {
                 await loginVC.delegate?.didFoundPhoneNumberDoesntExists(number: phoneNumber)
                 await loginVC.dismiss(animated: true)
-                return
+                return false
             }
         } else if let registrationVC = vc as? RegistrationVC {
             guard !isPhoneNumberExists else {
                 await registrationVC.delegate?.didFoundPhoneNumberExists(number: phoneNumber)
                 await registrationVC.dismiss(animated: true)
-                return
+                return false
             }
         }
+        return true
     }
     
     static func handleSuccessLogin(with number: String, in vc: UIViewController) {
