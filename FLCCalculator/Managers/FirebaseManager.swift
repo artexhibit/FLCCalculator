@@ -112,11 +112,12 @@ class FirebaseManager: NSObject {
     
     static func createCalculationDocument(with calcData: CalculationDataFirebaseRecord) async {
         let calcDataDict = calcData.toDictionary()
-        
+        let calculationDate = calcData.calculationDate.getDataBetweenCharacter(char: ",", returnFirstHalf: true)?.replacingOccurrences(of: "/", with: ".") ?? ""
+
         do {
-            let documentName = "\(calcData.calculationDate) \(calcData.userCalculationID) \(calcData.countryFrom)"
-            let newCalcEntry = Firestore.firestore().collection(Keys.calculations).document(documentName)
+            let documentName = "\(calculationDate) \(calcData.countryFrom) \(calcData.goodsType) \(calcData.invoiceAmount) \(calcData.invoiceCurrency) \(calcData.volume) \(calcData.weight)"
             
+            let newCalcEntry = Firestore.firestore().collection(Keys.calculations).document(documentName)
             try await newCalcEntry.setData(calcDataDict)
         } catch {
             print(error)
@@ -124,8 +125,10 @@ class FirebaseManager: NSObject {
     }
     
     static func updateCalculationRecordInFirebase(with data: CalculationData, and totalPriceData: [TotalPriceData]) async {
-        let documentName = "\(data.calculationDate) \(data.id) \(data.countryFrom)"
+        let calculationDate = data.calculationDate.getDataBetweenCharacter(char: ",", returnFirstHalf: true)?.replacingOccurrences(of: "/", with: ".") ?? ""
+        let documentName = "\(calculationDate) \(data.countryFrom) \(data.goodsType) \(data.invoiceAmount) \(data.invoiceCurrency) \(data.volume) \(data.weight)"
         let documentNameRef = Firestore.firestore().collection(Keys.calculations).document(documentName)
+        
         do {
             let document = try await documentNameRef.getDocument()
             

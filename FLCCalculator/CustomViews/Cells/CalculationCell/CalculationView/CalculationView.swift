@@ -112,6 +112,11 @@ struct CalculationView: View {
             VStack {
                 HStack {
                     CalculationTagView(systemImageName: "shippingbox.and.arrow.backward.fill", imageSize: (20, 15), text: calculation.deliveryTypeCode ?? "")
+                    
+                    Spacer()
+                }
+                
+                HStack {
                     CalculationTagView(systemImageName: "scalemass.fill", text: "\(calculation.weight.formatAsNumber()) кг")
                     CalculationTagView(systemImageName: "shippingbox.fill", text: "\(calculation.volume.formatAsNumber()) м3")
                     
