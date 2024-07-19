@@ -72,8 +72,11 @@ class NetworkManager {
     
     func sendSMS(code: String, phoneNumber: String) async throws {
         guard let apiKey = Bundle.main.infoDictionary?["SMS API Key"] as? String else { throw FLCError.invalidData }
-        let message = "Ваш код для авторизации в приложении FLC: "
-        let smsEndpoint = "https://sms.ru/sms/send?api_id=\(apiKey)&to=\(phoneNumber)&msg=\(message)\(code)"
+        let message = "Ваш код для авторизации в приложении FLC: \(code)"
+        guard let encodedMessage = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            throw FLCError.invalidData
+        }
+        let smsEndpoint = "https://sms.ru/sms/send?api_id=\(apiKey)&to=\(phoneNumber)&msg=\(encodedMessage)"
         
         guard let url = URL(string: smsEndpoint) else { throw FLCError.invalidEndpoint }
         

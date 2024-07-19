@@ -5,7 +5,10 @@ struct LoginConfirmationHelper {
         let typedCode = textFields.compactMap({ $0.text }).joined()
         
         if typedCode == verificationCode { return true }
-        if typedCode.count == 4  { FLCPopupView.showOnMainThread(title: "Вы ввели неправильный код", style: .error) }
+        
+        if typedCode.count == 4  {
+            FLCPopupView.showOnMainThread(title: "Вы ввели неправильный код", style: .error, position: .top)
+        }
         return false
     }
 }

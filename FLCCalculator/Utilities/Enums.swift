@@ -94,14 +94,14 @@ enum FLCWarehouse: String, CaseIterable {
 }
 
 enum FLCCalculationResultCellType: Int {
-    case russianDelivery = 1
-    case insurance = 2
+    case russianDelivery = 6
+    case insurance = 1
     case deliveryFromWarehouse = 3
-    case cargoHandling = 4
-    case customsClearancePrice = 5
-    case customsWarehouseServices = 6
-    case deliveryToWarehouse = 7
-    case groupageDocs = 8
+    case cargoHandling = 5
+    case customsClearancePrice = 8
+    case customsWarehouseServices = 7
+    case deliveryToWarehouse = 2
+    case groupageDocs = 4
 }
 
 enum FLCMarkupType: Double {

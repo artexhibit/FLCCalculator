@@ -109,6 +109,7 @@ class AuthorizationManager {
     
     private func createAccountURLRequest(url: URL, number: String, email: String? = nil, apikey: String) -> URLRequest {
         var request = URLRequest(url: url)
+        request.timeoutInterval = 25
         request.httpMethod = FLCHTTPMethod.POST.rawValue
         
         if let email { request.setValue(email, forHTTPHeaderField: FLCHTTPHeaderField.email.rawValue)  }
@@ -120,6 +121,7 @@ class AuthorizationManager {
     
     private func createAuthorizationURLRequest(url: URL, token: String, httpMethod: FLCHTTPMethod) -> URLRequest {
         var request = URLRequest(url: url)
+        request.timeoutInterval = 25
         request.httpMethod = httpMethod.rawValue
         request.setValue("Bearer " + token, forHTTPHeaderField: FLCHTTPHeaderField.authorization.rawValue)
         return request

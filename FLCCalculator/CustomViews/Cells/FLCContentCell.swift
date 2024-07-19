@@ -33,6 +33,8 @@ class FLCContentCell: UITableViewCell {
     }
     
     private func configureTitleLabel() {
+        titleLabel.setContentCompressionResistancePriority(UILayoutPriority(749), for: .horizontal)
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: padding),

@@ -78,7 +78,7 @@ struct CalculationResultHelper {
         case .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
             baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, pickedLogisticsType: pickedLogisticsType)
         }
-        return baseItems.filter { $0.canDisplay == true }
+        return baseItems.filter { $0.canDisplay == true }.sorted(by: { $0.type.rawValue < $1.type.rawValue })
     }
     
     private static func getBaseItems(with data: CalculationData, rusWarehouse: String, pickedLogisticsType: FLCLogisticsType) -> [CalculationResultItem] {

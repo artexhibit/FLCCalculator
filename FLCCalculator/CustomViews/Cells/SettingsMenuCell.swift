@@ -43,9 +43,10 @@ final class SettingsMenuCell: FLCContentCell {
         menuIconView.image = Icons.chevronUpDown
         
         NSLayoutConstraint.activate([
-            menuIconView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding / 2),
-            menuIconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            menuIconView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding / 2),
+            menuIconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding / 1.5),
+            menuIconView.widthAnchor.constraint(equalToConstant: 23),
+            menuIconView.heightAnchor.constraint(equalTo: menuIconView.widthAnchor),
+            menuIconView.centerYAnchor.constraint(equalTo: pickedOptionLabel.centerYAnchor)
         ])
     }
     private func configureShowMenuButton() { showMenuButton.pinToEdges(of: contentView) }

@@ -28,11 +28,13 @@ struct AuthorizationVCHelper {
                     await FLCPopupView.showOnMainThread(title: "Необходимо активное подключение к интернету", style: .error)
                     return
                 }
-                guard try await checkPhoneNumberExistense(phoneNumber: phoneNumber, vc: vc) else { return }
+                await FLCPopupView.showOnMainThread(title: "Отправляем СМС", style: .spinner)
                 
+                guard try await checkPhoneNumberExistense(phoneNumber: phoneNumber, vc: vc) else {
+                    await FLCPopupView.removeFromMainThread()
+                    return
+                }
                 if SMSManager.canSendSMS() {
-                    await FLCPopupView.showOnMainThread(title: "Отправляем СМС", style: .spinner)
-                    
                     try await sendVerificationCode(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
                     
                     await FLCPopupView.removeFromMainThread()
@@ -42,6 +44,7 @@ struct AuthorizationVCHelper {
                     await FLCPopupView.showOnMainThread(title: "Вы использовали все попытки. Повторить можно через \(timeUntilCanSendSMS)", style: .error)
                 }
             } catch {
+                await FLCPopupView.removeFromMainThread()
                 await FLCPopupView.showOnMainThread(title: "Не удалось отправить СМС", style: .error)
             }
         }

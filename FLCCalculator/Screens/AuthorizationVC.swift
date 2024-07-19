@@ -57,7 +57,6 @@ class AuthorizationVC: UIViewController {
     private func configureSignInButton() {
         signInButton.delegate = self
         
-        let heightAnchor: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 80 : 60
         let widthConstraint = signInButton.widthAnchor.constraint(equalTo: authButtonsContainer.widthAnchor, multiplier: 0.85)
         let heightConstraint = signInButton.heightAnchor.constraint(equalTo: signInButton.widthAnchor, multiplier: 1/2)
         widthConstraint.priority = UILayoutPriority(rawValue: 999)
@@ -68,7 +67,7 @@ class AuthorizationVC: UIViewController {
             signInButton.centerXAnchor.constraint(equalTo: authButtonsContainer.centerXAnchor),
             widthConstraint, heightConstraint,
             
-            signInButton.heightAnchor.constraint(lessThanOrEqualToConstant: heightAnchor),
+            signInButton.heightAnchor.constraint(lessThanOrEqualToConstant: 80),
             signInButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
         ])
     }
