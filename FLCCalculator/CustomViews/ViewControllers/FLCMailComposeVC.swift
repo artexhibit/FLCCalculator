@@ -71,4 +71,12 @@ class FLCMailComposeVC: MFMailComposeViewController {
             UIApplication.shared.open(emailURL, options: [:], completionHandler: nil)
         }
     }
+    
+    static func sendEmail(from view: UIView, manager: FLCManager?, confirmedCalculation: Calculation? = nil) {
+        guard let parentVC = view.findParentViewController() else { return }
+        let subject = confirmedCalculation == nil ? "" : "Подтверждение заявки на импортную перевозку груза"
+        let messageAddition = confirmedCalculation == nil ? "" : "\nХочу подтвердить заявку. \nИнформация по расчету в письме\n\n"
+        let message = "\(manager?.name.getDataBetweenCharacter() ?? ""), добрый день," + messageAddition
+        sendEmailTo(email: manager?.email ?? "", subject: subject, message: message, confirmedCalculation: confirmedCalculation, from: parentVC)
+    }
 }

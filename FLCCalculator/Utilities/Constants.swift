@@ -28,6 +28,10 @@ enum Icons {
     static let circleHalfRight = UIImage(systemName: "circle.righthalf.filled.inverse") ?? UIImage()
     static let bellBadge = UIImage(systemName: "bell.badge.fill") ?? UIImage()
     static let key = UIImage(systemName: "key.horizontal") ?? UIImage()
+    static let message = UIImage(systemName: "checkmark.message") ?? UIImage()
+    static let star = UIImage(systemName: "star.fill") ?? UIImage()
+    static let shareIcon = UIImage(systemName: "square.and.arrow.up") ?? UIImage()
+    static let phoneBubble = UIImage(systemName: "phone.bubble.fill") ?? UIImage()
 }
 
 enum Keys {

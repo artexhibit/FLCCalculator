@@ -14,10 +14,19 @@ struct SettingsVCHelper {
             SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: "Тема", subtitle: nil, pickedOption: pickedThemeOption),
             SettingsCellContent(cellType: .label, contentType: .permissions, image: Icons.key, title: "Разрешения", subtitle: nil, pickedOption: nil)
         ]
+        let thirdSectionItems = [
+            SettingsCellContent(cellType: .label, contentType: .shareApp, image: Icons.shareIcon, title: "Поделиться приложением", subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .label, contentType: .rateApp, image: Icons.star, title: "Оценить приложение в AppStore", subtitle: nil, pickedOption: nil)
+        ]
+        let fourthSectionItems = [
+            SettingsCellContent(cellType: .label, contentType: .support, image: Icons.message, title: "Обратная связь", subtitle: nil, pickedOption: nil)
+        ]
         
         return [
-            SettingsSection(title: "", items: firstSectionItems),
-            SettingsSection(title: "Общее", items: secondSectionItems)
+            SettingsSection(title: "", sectionFooter: "", items: firstSectionItems),
+            SettingsSection(title: "Общее", sectionFooter: "", items: secondSectionItems),
+            SettingsSection(title: "О приложении", sectionFooter: "", items: thirdSectionItems),
+            SettingsSection(title: "", sectionFooter: "Нашли баг, ошибку, опечатку? Напишите, и мы сразу же исправим!", items: fourthSectionItems)
         ]
     }
     
@@ -68,5 +77,25 @@ struct SettingsVCHelper {
             firstWindow.overrideUserInterfaceStyle = appTheme
         })
         tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: contentType, in: sections)], with: .none)
+    }
+    
+    static func presentShareAppSheet(in vc: UIViewController, sourceView: UITableView, at indexPath: IndexPath) {
+        guard let appStoreAppPageURL = URL(string: "https://apps.apple.com/app/flc-calculator-%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B2-%D1%80%D1%84/id6547868937") else { return }
+        
+        let shareSheetVC = UIActivityViewController(activityItems: [appStoreAppPageURL], applicationActivities: nil)
+        shareSheetVC.popoverPresentationController?.sourceView = sourceView
+        shareSheetVC.popoverPresentationController?.sourceRect = sourceView.rectForRow(at: indexPath)
+        
+        vc.present(shareSheetVC, animated: true)
+    }
+    
+    static func goToAppStoreReviewPage() {
+        guard let appStoreReviewURL = URL(string: "https://apps.apple.com/app/id6547868937?action=write-review") else { return }
+        
+        if UIApplication.shared.canOpenURL(appStoreReviewURL) {
+            UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)
+        } else {
+            FLCPopupView.showOnMainThread(title: "Не получается открыть App Store", style: .error)
+        }
     }
 }

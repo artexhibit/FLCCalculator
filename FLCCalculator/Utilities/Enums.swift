@@ -15,10 +15,10 @@ enum FLCPaddingType { case horizontal, vertical, all }
 enum FLCConfettiShape { case rectangle, circle }
 enum FLCConfettiPosition { case foreground, background }
 enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresConnection, unknown }
-enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase }
+enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase, contacts }
 enum FLCTextFieldType { case email, phone, username, birthdate, companyName, taxPayerID, customsDeclarationsAmount }
 enum FLCSettingsCellType { case profile, switcher, menu, label }
-enum FLCSettingsContentType { case profile, haptic, theme, permissions }
+enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp }
 enum FLCPermissionType { case notifications }
 enum FLCHTTPMethod: String { case POST, GET, PATCH }
 
@@ -37,6 +37,7 @@ enum FLCUsefulInfoSections: String, CaseIterable {
     case managerContacts = "Ваш менеджер"
     case usefulInfo = "Наши сервисы"
     case documents = "Документы"
+    case aboutCompany = "О компании"
 }
 
 enum FLCThemeOptions: String, CaseIterable {

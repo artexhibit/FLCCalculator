@@ -4,10 +4,12 @@ extension String {
     var flcWarehouseFromRusName: FLCWarehouse? { return FLCWarehouse.allCases.first(where: { $0.rusName == self }) }
     
     func createDouble(removeSymbols: Bool = false) -> Double {
-        var decimalSeparatorFound = false
+        let decimalSeparator = Locale.current.decimalSeparator ?? "."
         var string = self.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\u{00A0}", with: "").replacingOccurrences(of: ",", with: ".")
-        if removeSymbols { string = string.removeCurrencySymbols() }
+        var decimalSeparatorFound = false
         
+        if removeSymbols { string = string.removeCurrencySymbols() }
+
         let stringWithoutGroupingSeparators = string.reversed().reduce("") { result, char -> String in
             if char == "." {
                 if decimalSeparatorFound {
@@ -20,9 +22,21 @@ extension String {
                 return result + String(char)
             }
         }
+
         string = String(stringWithoutGroupingSeparators.reversed())
-        string = string.replacingOccurrences(of: ".", with: Locale.current.decimalSeparator ?? ".")
-        
+        string = string.replacingOccurrences(of: ".", with: decimalSeparator)
+
+        if let decimalIndex = string.firstIndex(of: Character(decimalSeparator)) {
+            let integerPart = String(string[..<decimalIndex])
+            let fractionalPart = String(string[string.index(after: decimalIndex)...])
+            
+            if fractionalPart.count == 2 {
+                string = integerPart + decimalSeparator + fractionalPart
+            } else if fractionalPart.count == 3 {
+                string = integerPart + fractionalPart + decimalSeparator + "00"
+            }
+        }
+
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.locale = .current

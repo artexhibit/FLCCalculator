@@ -482,7 +482,7 @@ struct CalculationInfo {
     
     static let defaultManager = FLCManager(
         id: 1,
-        name: "Igor Volkov",
+        name: "Игорь Волков",
         position: "Менеджер по привлечению клиентов",
         mobilePhone: "8 (980) 800-21-24",
         landlinePhone: "8 (495) 640-63-55 доб. 609",

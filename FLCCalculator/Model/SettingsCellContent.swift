@@ -2,6 +2,7 @@ import UIKit
 
 struct SettingsSection {
     let title: String
+    let sectionFooter: String
     let items: [SettingsCellContent]
 }
 

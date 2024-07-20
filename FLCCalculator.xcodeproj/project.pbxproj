@@ -120,6 +120,7 @@
 		0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7549012BA2322B0029807B /* FLCTextButton.swift */; };
 		0B754E722C288F6B0082D8A8 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
 		0B754E732C288F6F0082D8A8 /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B67DF912C0B61D5008CE099 /* SMSManager.swift */; };
+		0B760ECE2C4C16B500DE703A /* ContactsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B760ECD2C4C16B500DE703A /* ContactsVC.swift */; };
 		0B77F8DE2B921788005AB5FD /* FLCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */; };
 		0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882812BDD79E900BDCA16 /* FLCPersonalManagerView.swift */; };
 		0B7882842BDE7C8100BDCA16 /* FLCShimmeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */; };
@@ -438,6 +439,7 @@
 		0B7548FD2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + SearchController.swift"; sourceTree = "<group>"; };
 		0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + Delegate.swift"; sourceTree = "<group>"; };
 		0B7549012BA2322B0029807B /* FLCTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextButton.swift; sourceTree = "<group>"; };
+		0B760ECD2C4C16B500DE703A /* ContactsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsVC.swift; sourceTree = "<group>"; };
 		0B77F8DD2B921788005AB5FD /* FLCProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCProgressView.swift; sourceTree = "<group>"; };
 		0B7882812BDD79E900BDCA16 /* FLCPersonalManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerView.swift; sourceTree = "<group>"; };
 		0B7882832BDE7C8100BDCA16 /* FLCShimmeringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCShimmeringView.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */,
 				0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */,
 				0B916BA42C1CC5410037D44D /* PermissionsVC.swift */,
+				0B760ECD2C4C16B500DE703A /* ContactsVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1331,6 +1334,7 @@
 				0BA381E42BFA0B5500A242F2 /* ChinaRailwayPickup.swift in Sources */,
 				0B97770D2BEF92DF00E56197 /* UsefulInfoContent.swift in Sources */,
 				0B630DD72B87DBB50007636D /* FLCListPickerButton.swift in Sources */,
+				0B760ECE2C4C16B500DE703A /* ContactsVC.swift in Sources */,
 				0B1E31442C10C18100291D0E /* SettingsMenuCell.swift in Sources */,
 				0BC105F72C0E30E500F64843 /* SettingsProfileCell.swift in Sources */,
 				0BE351732C1189650041F317 /* FLCMenuButton.swift in Sources */,

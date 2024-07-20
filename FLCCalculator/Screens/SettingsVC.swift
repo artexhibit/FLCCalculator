@@ -1,4 +1,5 @@
 import UIKit
+import MessageUI
 
 class SettingsVC: UIViewController {
     
@@ -56,6 +57,9 @@ extension SettingsVC: UITableViewDelegate {
         case .profile: self.presentNewVC(ofType: ProfileSettingsVC.self)
         case .haptic, .theme: break
         case .permissions: self.presentNewVC(ofType: PermissionsVC.self)
+        case .shareApp: SettingsVCHelper.presentShareAppSheet(in: self, sourceView: tableView, at: indexPath)
+        case .rateApp: SettingsVCHelper.goToAppStoreReviewPage()
+        case .support: FLCMailComposeVC.sendEmail(from: self.view, manager: CalculationInfo.defaultManager)
         }
     }
     
@@ -63,6 +67,10 @@ extension SettingsVC: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCTableViewHeader.reuseID) as? FLCTableViewHeader
         headerView?.set(title: sections[section].title)
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        sections[section].sectionFooter
     }
 }
 
@@ -94,7 +102,7 @@ extension SettingsVC: SettingsSwitchCellDelegate {
     func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
         switch contentType {
         case .haptic: UserDefaultsManager.isHapticTurnedOn = state
-        case .profile, .theme, .permissions: break
+        case .profile, .theme, .permissions,.support, .shareApp, .rateApp: break
         }
     }
 }
@@ -105,11 +113,17 @@ extension SettingsVC: SettingsMenuCellDelegate {
         case .theme:
             updateDataSource()
             SettingsVCHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
-        case .profile, .haptic, .permissions: break
+        case .profile, .haptic, .permissions, .support, .shareApp, .rateApp: break
         }
     }
 }
 
 extension SettingsVC: ProfileSettingsVCDelegate {
     func didUpdateUserInfo() { updateDataSource() }
+}
+
+extension SettingsVC: FLCMailComposeDelegate, MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        handleMailComposeResult(result)
+    }
 }

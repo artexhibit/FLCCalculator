@@ -1,10 +1,14 @@
 import Foundation
 
 struct UsefulInfoHelper {
-    static let usefulInfoContents: [UsefulInfoContent] = [
+    static let usefulInfoServices: [UsefulInfoContent] = [
         UsefulInfoContent(type: .bonusSystem, image: Icons.rubleSign, title: "Бонусный счет", urlString: nil),
         UsefulInfoContent(type: .sanctionsCheck, image: Icons.circle, title: "Проверка возможности импорта товара", urlString: "https://cargointegrator.com"),
-        UsefulInfoContent(type: .fashionSupplierBase, image: Icons.person, title: "База поставщиков индустрии моды", urlString: "https://manufactures.free-lines.ru"),
+        UsefulInfoContent(type: .fashionSupplierBase, image: Icons.person, title: "База поставщиков индустрии моды", urlString: "https://manufactures.free-lines.ru")
+    ]
+    
+    static let usefulInfoAboutCompany: [UsefulInfoContent] = [
+        UsefulInfoContent(type: .contacts, image: Icons.phoneBubble, title: "Контакты", urlString: nil)
     ]
     
     static func getUsefulInfoDocuments() async -> [Document] {

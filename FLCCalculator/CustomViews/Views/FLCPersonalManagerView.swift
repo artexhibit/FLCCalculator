@@ -154,7 +154,7 @@ class FLCPersonalManagerView: UIView {
 extension FLCPersonalManagerView: FLCRoundButtonDelegate {
     func didTapButton(_ button: FLCRoundButton) {
         switch button {
-        case emailButton: FLCPersonalManagerViewUIHelper.sendEmail(from: self, manager: manager, confirmedCalculation: confirmedCalculation)
+        case emailButton: FLCMailComposeVC.sendEmail(from: self, manager: manager, confirmedCalculation: confirmedCalculation)
         case telegramButton: FLCPersonalManagerViewUIHelper.goToTelegram(of: manager)
         case whatsappButton: FLCPersonalManagerViewUIHelper.goToWhatsapp(of: manager)
         default: break
