@@ -7,9 +7,9 @@ final class DocumentsCell: UICollectionViewCell {
     private var shimmeringView = FLCShimmeringView()
     private let containerView = UIView()
     private let documentNameLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
-    private let iconView = FLCRoundButton(image: Icons.document, tint: .flcOrange, cornerStyle: .capsule)
+    private let iconView = FLCRoundButton(image: Icons.document, tint: .flcOrange, cornerStyle: .capsule, type: .standard)
     private let downloadPercentageLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .right, size: 15)
-    private let downloadedDocumentIcon = FLCRoundButton(image: Icons.checkmark, tint: .flcOrange, cornerStyle: .capsule, imageSize: 13)
+    private let downloadedDocumentIcon = FLCRoundButton(image: Icons.checkmark, tint: .flcOrange, cornerStyle: .capsule, imageSize: 13, type: .standard)
     
     private let padding: CGFloat = 10
 

@@ -9,10 +9,10 @@ class FLCPersonalManagerView: UIView {
     private let managerContactsLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left, textStyle: .footnote)
     private let roundButtonsStackView = UIStackView()
     private var roundButtons = [FLCRoundButton]()
-    private let phoneButton = FLCRoundButton(image: Icons.phone, tint: .flcOrange, title: "Телефон")
-    private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcGray, title: "Email")
-    private let telegramButton = FLCRoundButton(image: Icons.telegram, tint: .systemBlue, title: "Telegram")
-    private let whatsappButton = FLCRoundButton(image: Icons.whatsapp, tint: .green, title: "WhatsApp")
+    private let phoneButton = FLCRoundButton(image: Icons.phone, tint: .flcOrange, title: "Телефон", type: .phone)
+    private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcGray, title: "Email", type: .email)
+    private let telegramButton = FLCRoundButton(image: Icons.telegram, tint: .systemBlue, title: "Telegram", type: .telegram)
+    private let whatsappButton = FLCRoundButton(image: Icons.whatsapp, tint: .green, title: "WhatsApp", type: .whatsapp)
     private var confirmedCalculation: Calculation?
     
     private var manager: FLCManager?
@@ -139,13 +139,13 @@ class FLCPersonalManagerView: UIView {
     func setPersonalManagerInfo(manager: FLCManager) {
         self.manager = manager
         
-        FLCPersonalManagerViewUIHelper.configurePhoneButtonMenu(phoneButton: phoneButton, of: manager)
-        FLCPersonalManagerViewUIHelper.configureItemsContent(manager: manager, avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel)
-        FLCPersonalManagerViewUIHelper.removeShimmerAnimationFromItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
+        FLCPersonalManagerViewHelper.configurePhoneButtonMenu(phoneButton: phoneButton, of: manager)
+        FLCPersonalManagerViewHelper.configureItemsContent(manager: manager, avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel)
+        FLCPersonalManagerViewHelper.removeShimmerAnimationFromItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
     }
     
     func addShimmerAnimationToAllItems() {
-        FLCPersonalManagerViewUIHelper.addShimmerAnimationToItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
+        FLCPersonalManagerViewHelper.addShimmerAnimationToItems(avatarView: managerAvatarView, nameLabel: managerNameLabel, contactsLabel: managerContactsLabel, roundButtons: roundButtons)
     }
     
     func getConfirmedCalculationData(calculation: Calculation?) { self.confirmedCalculation = calculation }
@@ -155,8 +155,8 @@ extension FLCPersonalManagerView: FLCRoundButtonDelegate {
     func didTapButton(_ button: FLCRoundButton) {
         switch button {
         case emailButton: FLCMailComposeVC.sendEmail(from: self, manager: manager, confirmedCalculation: confirmedCalculation)
-        case telegramButton: FLCPersonalManagerViewUIHelper.goToTelegram(of: manager)
-        case whatsappButton: FLCPersonalManagerViewUIHelper.goToWhatsapp(of: manager)
+        case telegramButton: FLCPersonalManagerViewHelper.goToTelegram(of: manager)
+        case whatsappButton: FLCPersonalManagerViewHelper.goToWhatsapp(of: manager)
         default: break
         }
     }

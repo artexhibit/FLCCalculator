@@ -44,7 +44,7 @@ class FLCMailComposeVC: MFMailComposeViewController {
     
     private func setAttachedFileURL(fileURL: URL?) { self.attachedFileURL = fileURL }
     
-    static func sendEmailTo(email: String, subject: String, message: String, confirmedCalculation: Calculation?, from viewController: UIViewController) {
+    static func sendEmailTo(email: String, subject: String = "", message: String = "", confirmedCalculation: Calculation? = nil, from viewController: UIViewController) {
         let mailVC = FLCMailComposeVC(recipient: email, subject: subject, message: message, delegate: viewController as? MFMailComposeViewControllerDelegate)
         let content = AttachmentManager.getContentForAttachment(confirmedCalculation: confirmedCalculation)
         

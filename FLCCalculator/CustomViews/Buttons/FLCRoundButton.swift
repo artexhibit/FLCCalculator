@@ -8,6 +8,7 @@ class FLCRoundButton: UIButton {
     
     private var shimmeringView = FLCShimmeringView()
     private var imageSizeConfig: UIImage.SymbolConfiguration?
+    private var type: FLCRoundButtonType = .phone
     
     weak var delegate: FLCRoundButtonDelegate?
     
@@ -20,8 +21,10 @@ class FLCRoundButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(image: UIImage, tint: UIColor, cornerStyle: UIButton.Configuration.CornerStyle = .small, title: String? = nil, imageSize: CGFloat = 23) {
+    convenience init(image: UIImage, tint: UIColor, cornerStyle: UIButton.Configuration.CornerStyle = .small, title: String? = nil, imageSize: CGFloat = 23, type: FLCRoundButtonType) {
         self.init(frame: .zero)
+        self.type = type
+        
         configuration?.cornerStyle = cornerStyle
         configuration?.image = image
         configuration?.baseBackgroundColor = tint
@@ -58,6 +61,8 @@ class FLCRoundButton: UIButton {
         addSubview(shimmeringView)
         bringSubviewToFront(shimmeringView)
     }
+    
+    func getType() -> FLCRoundButtonType { self.type }
     
     func addShimmerAnimation() {
         addShimmeringView()

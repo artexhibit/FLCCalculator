@@ -32,6 +32,8 @@ enum Icons {
     static let star = UIImage(systemName: "star.fill") ?? UIImage()
     static let shareIcon = UIImage(systemName: "square.and.arrow.up") ?? UIImage()
     static let phoneBubble = UIImage(systemName: "phone.bubble.fill") ?? UIImage()
+    static let walkingPerson = UIImage(systemName: "figure.walk") ?? UIImage()
+    static let copyIcon = UIImage(systemName: "square.on.square") ?? UIImage()
 }
 
 enum Keys {

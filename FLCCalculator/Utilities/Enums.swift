@@ -21,6 +21,7 @@ enum FLCSettingsCellType { case profile, switcher, menu, label }
 enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp }
 enum FLCPermissionType { case notifications }
 enum FLCHTTPMethod: String { case POST, GET, PATCH }
+enum FLCRoundButtonType { case phone, email, route, details, telegram, whatsapp, standard }
 
 enum FLCHTTPHeaderField: String {
     case phone = "phone"
@@ -36,8 +37,8 @@ enum FLCNotificationServiceDataKey: String, Codable {
 enum FLCUsefulInfoSections: String, CaseIterable {
     case managerContacts = "Ваш менеджер"
     case usefulInfo = "Наши сервисы"
-    case documents = "Документы"
     case aboutCompany = "О компании"
+    case documents = "Документы"
 }
 
 enum FLCThemeOptions: String, CaseIterable {

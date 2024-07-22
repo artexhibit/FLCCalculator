@@ -53,6 +53,11 @@ extension UIViewController {
         self.present(navController, animated: true)
     }
     
+    func presentConfigurableVC(vc: UIViewController) {
+        let navController = UINavigationController(rootViewController: vc)
+        self.present(navController, animated: true)
+    }
+    
     private struct Preview: UIViewControllerRepresentable {
         
         let viewController: UIViewController

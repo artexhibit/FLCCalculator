@@ -70,10 +70,7 @@ extension UsefulInfoVC: UITableViewDelegate {
             let pickedContent = usefulInfoServices[indexPath.row]
             
             switch pickedContent.type {
-            case .bonusSystem:
-                let bonusSystemVC = BonusSystemVC()
-                let navController = UINavigationController(rootViewController: bonusSystemVC)
-                navigationController?.present(navController, animated: true)
+            case .bonusSystem: self.presentNewVC(ofType: BonusSystemVC.self)
             case .sanctionsCheck, .fashionSupplierBase: presentSafariVC(with: pickedContent.urlString)
             case .contacts: break
             }

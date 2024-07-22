@@ -499,4 +499,10 @@ struct CalculationInfo {
         Document(title: "Презентация FLC", fileName: "documents/presentationFLC.pdf", docDate: "12.05.2024"),
         Document(title: "Презентация по Китаю", fileName: "documents/presentationChina.pdf", docDate: "12.05.2024")
     ]
+    
+    static let defaultFacilities: [FLCFacility] = [
+        FLCFacility(latitude: 55.712170, longitude: 37.657890, name: "Центральный офис", address: "г. Москва, ул. Ленинская Слобода, 26с2 (м. Автозаводская)", workingHours: "пн-пт, с 9:30 до 18:30", phoneNumber: "+7 (495) 640-63-55", email: "mail@free-lines.com"),
+        FLCFacility(latitude: 56.823040, longitude: 60.619106, name: "Екатеринбург", address: "г. Екатеринбург, ул. Белинского, д.83, кабинет № 717", workingHours: "пн-пт, с 9:30 до 18:30", phoneNumber: "+7 (343) 310-11-49", email: "send@free-lines.com"),
+        FLCFacility(latitude: 55.400000, longitude: 37.538718, name: "Распределительный центр", address: "МО, г. Подольск, дер. Северово, ул. Кутузовская д.13", workingHours: "пн-пт, с 9:30 до 18:30", phoneNumber: "+7 (964) 565-64-46", email: nil)
+    ]
 }

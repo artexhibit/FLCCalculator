@@ -150,7 +150,7 @@
 		0B95159A2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */; };
 		0B95159B2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */; };
 		0B95159C2C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */; };
-		0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */; };
+		0B96294E2BE1281600A55347 /* FLCPersonalManagerViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294D2BE1281600A55347 /* FLCPersonalManagerViewHelper.swift */; };
 		0B9629502BE1393200A55347 /* FLCMailComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */; };
 		0B97770B2BEF906300E56197 /* UsefulInfoContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */; };
 		0B97770D2BEF92DF00E56197 /* UsefulInfoContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B97770C2BEF92DF00E56197 /* UsefulInfoContent.swift */; };
@@ -201,6 +201,12 @@
 		0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */; };
 		0BC735832BCAECEA00EF8B0D /* FLCLogisticsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */; };
 		0BC735852BCBEDD700EF8B0D /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */; };
+		0BCAF7142C4D3AE800ECAD15 /* FacilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7132C4D3AE800ECAD15 /* FacilityCell.swift */; };
+		0BCAF7162C4D3BB500ECAD15 /* FLCFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */; };
+		0BCAF7172C4D3BB500ECAD15 /* FLCFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */; };
+		0BCAF7182C4D3BB500ECAD15 /* FLCFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */; };
+		0BCAF71A2C4D4B2400ECAD15 /* FacilitiesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7192C4D4B2400ECAD15 /* FacilitiesCollectionView.swift */; };
+		0BCAF71C2C4D924800ECAD15 /* AppleMapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF71B2C4D924800ECAD15 /* AppleMapsManager.swift */; };
 		0BCDC80B2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift */; };
 		0BCDC80D2C08B5E800EE9D6A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
@@ -225,6 +231,8 @@
 		0BE9DA882C132B10007D86D0 /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9DA872C132B10007D86D0 /* ProfileSettingsVC.swift */; };
 		0BE9DA8A2C1359A6007D86D0 /* TextViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9DA892C1359A6007D86D0 /* TextViewManager.swift */; };
 		0BE9DA8C2C13675E007D86D0 /* ProfileSettingsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9DA8B2C13675E007D86D0 /* ProfileSettingsVCHelper.swift */; };
+		0BF851742C4ED7B30006E8D3 /* CalculatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF851732C4ED7B30006E8D3 /* CalculatorManager.swift */; };
+		0BF851762C4EE1040006E8D3 /* FacilityDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF851752C4EE1040006E8D3 /* FacilityDetailsVC.swift */; };
 		0BF860FB2BC0544D0065359C /* TotalPriceVCUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */; };
 		0BF860FD2BC05BA20065359C /* FLCTintedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF860FC2BC05BA20065359C /* FLCTintedButton.swift */; };
 		0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */; };
@@ -458,7 +466,7 @@
 		0B94D2E32C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Ext.swift"; sourceTree = "<group>"; };
 		0B9515952C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyNovorossiyskBySeaTariff.swift; sourceTree = "<group>"; };
 		0B9515992C2C97FF00823A04 /* TurkeyNovorossiyskBySeaPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyNovorossiyskBySeaPickup.swift; sourceTree = "<group>"; };
-		0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerViewUIHelper.swift; sourceTree = "<group>"; };
+		0B96294D2BE1281600A55347 /* FLCPersonalManagerViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPersonalManagerViewHelper.swift; sourceTree = "<group>"; };
 		0B96294F2BE1393200A55347 /* FLCMailComposeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCMailComposeVC.swift; sourceTree = "<group>"; };
 		0B97770A2BEF906300E56197 /* UsefulInfoContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoContentCell.swift; sourceTree = "<group>"; };
 		0B97770C2BEF92DF00E56197 /* UsefulInfoContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoContent.swift; sourceTree = "<group>"; };
@@ -506,6 +514,10 @@
 		0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCollectionView.swift; sourceTree = "<group>"; };
 		0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLogisticsOption.swift; sourceTree = "<group>"; };
 		0BC735842BCBEDD700EF8B0D /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
+		0BCAF7132C4D3AE800ECAD15 /* FacilityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityCell.swift; sourceTree = "<group>"; };
+		0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCFacility.swift; sourceTree = "<group>"; };
+		0BCAF7192C4D4B2400ECAD15 /* FacilitiesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesCollectionView.swift; sourceTree = "<group>"; };
+		0BCAF71B2C4D924800ECAD15 /* AppleMapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsManager.swift; sourceTree = "<group>"; };
 		0BCDC80A2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLoginConfirmationVC.swift; sourceTree = "<group>"; };
 		0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
@@ -530,6 +542,8 @@
 		0BE9DA872C132B10007D86D0 /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
 		0BE9DA892C1359A6007D86D0 /* TextViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewManager.swift; sourceTree = "<group>"; };
 		0BE9DA8B2C13675E007D86D0 /* ProfileSettingsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVCHelper.swift; sourceTree = "<group>"; };
+		0BF851732C4ED7B30006E8D3 /* CalculatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorManager.swift; sourceTree = "<group>"; };
+		0BF851752C4EE1040006E8D3 /* FacilityDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityDetailsVC.swift; sourceTree = "<group>"; };
 		0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceVCUIHelper.swift; sourceTree = "<group>"; };
 		0BF860FC2BC05BA20065359C /* FLCTintedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTintedButton.swift; sourceTree = "<group>"; };
 		0BF8611E2B8B698900D2EF4D /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
@@ -609,6 +623,7 @@
 				0B9F40F42BBEF8F20072561B /* CalculationResultHelper.swift */,
 				0BD5E61E2B9A1C4D00240844 /* CalculationHelper.swift */,
 				0B8761072BEAAC9900596725 /* CalculationsVCHelper.swift */,
+				0B96294D2BE1281600A55347 /* FLCPersonalManagerViewHelper.swift */,
 				0B7C8E032BF2A935009322E6 /* UsefulInfoHelper.swift */,
 				0B67DF8B2C0B31FD008CE099 /* LoginConfirmationHelper.swift */,
 				0BC105F22C0E265000F64843 /* AuthorizationVCHelper.swift */,
@@ -671,6 +686,8 @@
 				0B5D1BC02C1F10EF00F9ECB3 /* PermissionsManager.swift */,
 				0BABA4C02C2362E2000991E9 /* KeychainManager.swift */,
 				0B7E5CC02C2B49F500F142A1 /* DateFormatterManager.swift */,
+				0BCAF71B2C4D924800ECAD15 /* AppleMapsManager.swift */,
+				0BF851732C4ED7B30006E8D3 /* CalculatorManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -694,6 +711,7 @@
 				0B5D1BBE2C1F087F00F9ECB3 /* SettingsLabelCell.swift */,
 				0B1E31432C10C18100291D0E /* SettingsMenuCell.swift */,
 				0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */,
+				0BCAF7132C4D3AE800ECAD15 /* FacilityCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -711,7 +729,6 @@
 			isa = PBXGroup;
 			children = (
 				0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */,
-				0B96294D2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift */,
 				0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */,
 				0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */,
 				0B267C472C442D26003697AE /* CalculationVCUIHelper.swift */,
@@ -839,6 +856,7 @@
 				0B2E6BC02C0CD5680004DF10 /* RegistrationVC.swift */,
 				0B916BA42C1CC5410037D44D /* PermissionsVC.swift */,
 				0B760ECD2C4C16B500DE703A /* ContactsVC.swift */,
+				0BF851752C4EE1040006E8D3 /* FacilityDetailsVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -936,6 +954,7 @@
 			isa = PBXGroup;
 			children = (
 				0BB1E0612BE0FB4900AB6A63 /* FLCManager.swift */,
+				0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */,
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 				0BAF1DAE2BF1142800C0933B /* Document.swift */,
 				0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */,
@@ -990,6 +1009,7 @@
 				0BAF1DA82BF101C700C0933B /* FLCCollectionView.swift */,
 				0BC7357A2BCAE8B500EF8B0D /* OptionsCollectionView.swift */,
 				0BAF1DAC2BF112FE00C0933B /* DocumentsCollectionView.swift */,
+				0BCAF7192C4D4B2400ECAD15 /* FacilitiesCollectionView.swift */,
 			);
 			path = CollectionViews;
 			sourceTree = "<group>";
@@ -1312,6 +1332,7 @@
 				0B5F773E2C222824005B391C /* UserDefaults+Ext.swift in Sources */,
 				0B754E722C288F6B0082D8A8 /* SMSManager.swift in Sources */,
 				0BFA89932C22B87E0023D949 /* CalculationData.swift in Sources */,
+				0BCAF7182C4D3BB500ECAD15 /* FLCFacility.swift in Sources */,
 				0BFA89B02C22BA5E0023D949 /* FLCLogisticsOption.swift in Sources */,
 				0B5F773C2C2227F7005B391C /* UserDefaultsPercistenceManager.swift in Sources */,
 				0BFA898A2C22B7A40023D949 /* FLCCalculator.xcdatamodeld in Sources */,
@@ -1362,8 +1383,10 @@
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,
 				0B419FC82B82451600498ACE /* FLCError.swift in Sources */,
 				0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */,
+				0BCAF71C2C4D924800ECAD15 /* AppleMapsManager.swift in Sources */,
 				0B8B7F552C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */,
 				0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */,
+				0BF851742C4ED7B30006E8D3 /* CalculatorManager.swift in Sources */,
 				0BB47CEF2BF8D003001ECED4 /* ChinaAirTariff.swift in Sources */,
 				0B916BA92C1CCC290037D44D /* PermissionView.swift in Sources */,
 				0BAF1DB12BF1177F00C0933B /* UsefulInfoDocumentsCell.swift in Sources */,
@@ -1394,12 +1417,14 @@
 				0BB47CED2BF8CF33001ECED4 /* ChinaRailwayTariff.swift in Sources */,
 				0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */,
 				0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */,
-				0B96294E2BE1281600A55347 /* FLCPersonalManagerViewUIHelper.swift in Sources */,
+				0B96294E2BE1281600A55347 /* FLCPersonalManagerViewHelper.swift in Sources */,
 				0B6774A92C0630CE0078D8C5 /* AuthorizationVC.swift in Sources */,
 				0B2002B12B9DCE7B00B8DF5C /* Constants.swift in Sources */,
 				0B53286E2BC2DFCC00B02A73 /* UIColor+Ext.swift in Sources */,
 				0BAF1DAF2BF1142800C0933B /* Document.swift in Sources */,
+				0BF851762C4EE1040006E8D3 /* FacilityDetailsVC.swift in Sources */,
 				0B7E5CC12C2B49F500F142A1 /* DateFormatterManager.swift in Sources */,
+				0BCAF7142C4D3AE800ECAD15 /* FacilityCell.swift in Sources */,
 				0B9894382BE41C2F00EB8516 /* BackgroundTasksManager.swift in Sources */,
 				0B6E54462B8115420078C110 /* Persistence.swift in Sources */,
 				0B94D2E42C0A1F93008FE260 /* NSMutableAttributedString+Ext.swift in Sources */,
@@ -1448,6 +1473,7 @@
 				0B67DF922C0B61D5008CE099 /* SMSManager.swift in Sources */,
 				0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */,
 				0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */,
+				0BCAF71A2C4D4B2400ECAD15 /* FacilitiesCollectionView.swift in Sources */,
 				0BABA4BD2C23552B000991E9 /* AuthorizationManager.swift in Sources */,
 				0B97770F2BEFB90600E56197 /* BonusSystemVC.swift in Sources */,
 				0BAF1DA92BF101C700C0933B /* FLCCollectionView.swift in Sources */,
@@ -1474,6 +1500,7 @@
 				0B3849D02BD82BCF0002F233 /* TurkeyTruckByFerryPickup.swift in Sources */,
 				0BB47CF12BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift in Sources */,
 				0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */,
+				0BCAF7162C4D3BB500ECAD15 /* FLCFacility.swift in Sources */,
 				0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */,
 				0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */,
 				0B9D3A412B9492F20058FC95 /* FLCPopupView.swift in Sources */,
@@ -1539,6 +1566,7 @@
 				0BFA89E62C22CAAF0023D949 /* AppDelegateHelper.swift in Sources */,
 				0BFA89922C22B87D0023D949 /* CalculationData.swift in Sources */,
 				0BFA89962C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */,
+				0BCAF7172C4D3BB500ECAD15 /* FLCFacility.swift in Sources */,
 				0BFA89DF2C22CA510023D949 /* NetworkManager.swift in Sources */,
 				0BFA89E12C22CA5D0023D949 /* UserDefaultsManager.swift in Sources */,
 				0B20D4D92C3345E8003DB36E /* TurkeyAirSVOTariff.swift in Sources */,

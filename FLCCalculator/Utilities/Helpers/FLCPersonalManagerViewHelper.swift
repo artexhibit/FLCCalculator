@@ -1,23 +1,6 @@
 import UIKit
 
-struct FLCPersonalManagerViewUIHelper {
-    static func createPhoneCall(with number: String) {
-        var finalNumber = "tel://\(number)"
-        
-        if number.contains("доб") {
-            let extNumber = number.getLastCharacters(3)
-            let pauseCharacter = ","
-            finalNumber = finalNumber.removeLastCharacters(3)
-            finalNumber += pauseCharacter + extNumber
-        }
-        
-        if let url = URL(string: finalNumber) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось совершить звонок")
-        }
-    }
-    
+struct FLCPersonalManagerViewHelper {
     static func goToTelegram(of manager: FLCManager?) {
         guard let appURL = URL(string: "tg://resolve?domain=\(manager?.telegram ?? "")") else {
             FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось найти никнейм в Telegram", style: .error)
@@ -54,10 +37,10 @@ struct FLCPersonalManagerViewUIHelper {
     
     static func showPhoneCallUIMenu(of manager: FLCManager?) -> UIMenu {
         let mobileNumberItem = UIAction(title: manager?.mobilePhone ?? "", subtitle: "Мобильный", image: Icons.phone) { (_) in
-            createPhoneCall(with: manager?.mobilePhone ?? "")
+            CalculatorManager.createPhoneCall(with: manager?.mobilePhone ?? "")
         }
         let landlineNumberItem = UIAction(title: manager?.landlinePhone ?? "", subtitle: "Стационарный", image: Icons.phone) { (_) in
-            createPhoneCall(with: manager?.landlinePhone ?? "")
+            CalculatorManager.createPhoneCall(with: manager?.landlinePhone ?? "")
         }
         return UIMenu(title: "Контактные номера телефонов", children: [mobileNumberItem, landlineNumberItem])
     }
