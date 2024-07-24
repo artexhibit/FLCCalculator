@@ -33,6 +33,7 @@ final class FLCButton: UIButton {
     private func configure() {
         configuration = .filled()
         configuration?.cornerStyle = .medium
+        configuration?.addInsets((10, 5, 10, 5))
         
         translatesAutoresizingMaskIntoConstraints = false
         layer.addSublayer(gradientLayer)

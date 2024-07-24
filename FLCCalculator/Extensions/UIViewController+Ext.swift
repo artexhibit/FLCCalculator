@@ -58,6 +58,20 @@ extension UIViewController {
         self.present(navController, animated: true)
     }
     
+    func findViewController<T: UIViewController>(ofType type: T.Type) -> T? {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first, let rootController = window.rootViewController else { return nil }
+        
+        var stack: [UIViewController] = [rootController]
+        
+        while !stack.isEmpty {
+            let viewController = stack.removeFirst()
+            if let vc = viewController as? T { return vc }
+            stack.append(contentsOf: viewController.children)
+            if let presentedVC = viewController.presentedViewController { stack.append(presentedVC) }
+        }
+        return nil
+    }
+    
     private struct Preview: UIViewControllerRepresentable {
         
         let viewController: UIViewController

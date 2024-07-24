@@ -34,6 +34,7 @@ enum Icons {
     static let phoneBubble = UIImage(systemName: "phone.bubble.fill") ?? UIImage()
     static let walkingPerson = UIImage(systemName: "figure.walk") ?? UIImage()
     static let copyIcon = UIImage(systemName: "square.on.square") ?? UIImage()
+    static let location = UIImage(systemName: "location.fill") ?? UIImage()
 }
 
 enum Keys {
@@ -41,7 +42,10 @@ enum Keys {
     static let isHapticTurnedOn = "isHapticTurnedOn"
     static let isFirstLaunch = "isFirstLaunch"
     static let appTheme = "appTheme"
+    static let onboardingPopoversDict = "onboardingPopoversDict"
     static let managers = "managers"
+    static let facilities = "facilities"
+    static let offices = "offices"
     static let tariffs = "tariffs"
     static let pickups = "pickups"
     static let documents = "documents"
@@ -76,6 +80,7 @@ enum Keys {
     static let cdDocuments = "CDDocuments"
     static let cdAvailableLogisticsTypes = "CDAvailableLogisticsTypes"
     static let cdManagers = "CDManagers"
+    static let cdFacilities = "CDFacilities"
     static let cdChinaTruckTariff = "CDChinaTruckTariff"
     static let cdChinaRailwayTariff = "CDChinaRailwayTariff"
     static let cdChinaAirTariff = "CDChinaAirTariff"
@@ -133,4 +138,8 @@ enum FLCBubbleUserDataKeys {
     static let inn = "inn"
     static let phone =  "phone"
     static let email =  "email_user"
+}
+
+enum OnboardingDictKeys {
+    static let contactsVCPopoverWasShown = "contactsVCPopoverWasShown"
 }

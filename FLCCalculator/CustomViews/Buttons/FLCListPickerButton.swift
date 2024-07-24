@@ -8,7 +8,6 @@ class FLCListPickerButton: UIButton {
 
     let smallLabelView = FLCSmallLabelView()
     private var selectedUIMenuItem = ""
-    private let insets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 8, trailing: 10)
     var inDisabledState: Bool = false
     var titleIsEmpty: Bool { titleLabel?.text == nil ? true : false }
     var showingTitle: String {
@@ -95,7 +94,7 @@ class FLCListPickerButton: UIButton {
     
     private func setButtonConfiguration() -> UIButton.Configuration {
         var config = Configuration.plain()
-        config.contentInsets = insets
+        config.addInsets((0, 15, 8, 10))
         config.setupCustomFont(ofSize: 19)
         config.titleLineBreakMode = .byTruncatingTail
         return config

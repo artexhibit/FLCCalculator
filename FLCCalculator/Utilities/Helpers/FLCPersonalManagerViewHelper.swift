@@ -11,11 +11,8 @@ struct FLCPersonalManagerViewHelper {
             return
         }
         
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
-        }
+        let url = UIApplication.shared.canOpenURL(appURL) ? appURL : webURL
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     static func goToWhatsapp(of manager: FLCManager?) {
@@ -28,11 +25,8 @@ struct FLCPersonalManagerViewHelper {
             return
         }
         
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
-        }
+        let url = UIApplication.shared.canOpenURL(appURL) ? appURL : webURL
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     static func showPhoneCallUIMenu(of manager: FLCManager?) -> UIMenu {

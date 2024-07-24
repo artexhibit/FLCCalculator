@@ -23,6 +23,11 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: Keys.appTheme) }
     }
     
+    static var onboardingPopovers: [String: Bool] {
+        get { ud.dictionary(forKey: Keys.onboardingPopoversDict) as? [String: Bool] ?? [:] }
+        set { ud.setValue(newValue, forKey: Keys.onboardingPopoversDict) }
+    }
+    
     static var lastCurrencyDataUpdate: Date? {
         get { ud.object(forKey: Keys.lastCurrencyDataUpdate) as? Date }
         set { ud.setValue(newValue, forKey: Keys.lastCurrencyDataUpdate) }

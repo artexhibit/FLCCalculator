@@ -1,6 +1,6 @@
 import Foundation
 
-struct FLCFacility {
+struct FLCFacility: Codable, Hashable {
     let latitude: Double
     let longitude: Double
     let name: String
@@ -8,4 +8,25 @@ struct FLCFacility {
     let workingHours: String
     let phoneNumber: String
     let email: String?
+    let avatarRef: [String]
+    let routes: [String: String]
+    
+    init(latitude: Double, longitude: Double, name: String, address: String, workingHours: String, phoneNumber: String, email: String? = nil, avatarRef: [String] = [], routes: [String: String] = [:]) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.name = name
+        self.address = address
+        self.workingHours = workingHours
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.avatarRef = avatarRef
+        self.routes = routes
+    }
+}
+
+extension FLCFacility: CoreDataStorable { static var coreDataKey: String { Keys.cdFacilities } }
+
+extension FLCFacility: FirebaseIdentifiable {
+    static var fieldNameKey: String { Keys.offices }
+    static var collectionNameKey: String { Keys.facilities }
 }

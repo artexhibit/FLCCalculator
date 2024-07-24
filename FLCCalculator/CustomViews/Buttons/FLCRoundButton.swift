@@ -44,7 +44,7 @@ class FLCRoundButton: UIButton {
         configuration = .tinted()
         configuration?.imagePlacement = .top
         configuration?.imagePadding = 5
-        configuration?.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
+        configuration?.addInsets((5, 0, 5, 0))
         configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
             outgoing.font = UIFont.systemFont(ofSize: 10)

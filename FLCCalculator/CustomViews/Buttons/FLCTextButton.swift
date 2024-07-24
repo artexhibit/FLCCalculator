@@ -28,7 +28,7 @@ class FLCTextButton: UIButton {
         }
         if titleAlignment == .leading {
             contentHorizontalAlignment = .leading
-            configuration?.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            configuration?.addInsets((0, 0, 0, 0))
         }
     }
     

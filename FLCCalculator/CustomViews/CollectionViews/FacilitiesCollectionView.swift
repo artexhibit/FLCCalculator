@@ -3,6 +3,7 @@ import UIKit
 protocol FacilitiesCollectionViewDelegate: AnyObject {
     func didSwipeToFacility(facility: FLCFacility)
     func didTapActionButton(ofType: FLCRoundButtonType, facility: FLCFacility)
+    func didStartSwipingCards()
 }
 
 final class FacilitiesCollectionView: FLCCollectionView {
@@ -52,6 +53,10 @@ extension FacilitiesCollectionView: UICollectionViewDelegateFlowLayout {
         UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             self.createActionMenu(with: indexPaths)
         }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        facilitiesDelegate?.didStartSwipingCards()
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

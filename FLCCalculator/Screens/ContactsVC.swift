@@ -6,7 +6,6 @@ class ContactsVC: UIViewController {
     
     private let mapView = MKMapView()
     private let facilitiesCollectionView = FacilitiesCollectionView()
-    private var facilities = CalculationInfo.defaultFacilities
     
     private let padding: CGFloat = 10
     
@@ -15,9 +14,13 @@ class ContactsVC: UIViewController {
         configure()
         configureMapView()
         configureFacilitiesCollectionView()
-        configureFacilitiesCollectionViewItems(items: facilities)
-        
-        AppleMapsManager.createPinOnTheMap(map: mapView, facility: CalculationInfo.defaultFacilities.first!)
+        ContactsVCHelper.updateFacilitiesUI(in: facilitiesCollectionView, map: mapView)
+        ContactsVCHelper.setupOnboardingPopover(in: self, target: facilitiesCollectionView)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        ContactsVCHelper.setupOnboardingPopover(in: self, target: facilitiesCollectionView)
     }
     
     private func configure() {
@@ -43,28 +46,27 @@ class ContactsVC: UIViewController {
             facilitiesCollectionView.heightAnchor.constraint(equalToConstant: height)
         ])
     }
-    
-    private func configureFacilitiesCollectionViewItems(items: [FLCFacility]) {
-        facilitiesCollectionView.setFacilities(facilities: items)
-    }
     @objc func closeButtonPressed() { navigationController?.popViewController(animated: true) }
 }
 
 extension ContactsVC: FacilitiesCollectionViewDelegate {
+    func didStartSwipingCards() {
+        ContactsVCHelper.setupOnboardingPopover(in: self, target: facilitiesCollectionView)
+    }
+    
     func didTapActionButton(ofType: FLCRoundButtonType, facility: FLCFacility) {
         switch ofType {
         case .phone: CalculatorManager.createPhoneCall(with: facility.phoneNumber)
         case .email: FLCMailComposeVC.sendEmailTo(email: facility.email ?? "", from: self)
-        case .route: AppleMapsManager.openInAppleMaps(latitude: facility.latitude, longitude: facility.longitude, destinationName: facility.name)
         case .details:
             let facilityDetailsVC = FacilityDetailsVC(facility: facility)
             self.presentConfigurableVC(vc: facilityDetailsVC)
-        case .telegram, .whatsapp, .standard: break
+        case .telegram, .whatsapp, .standard, .route: break
         }
     }
     
     func didSwipeToFacility(facility: FLCFacility) {
-        AppleMapsManager.createPinOnTheMap(map: mapView, facility: facility, animated: true)
+        MapsManager.createPinOnTheMap(map: mapView, facility: facility, animated: true)
     }
 }
 
@@ -74,4 +76,8 @@ extension ContactsVC: FLCMailComposeDelegate, MFMailComposeViewControllerDelegat
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         handleMailComposeResult(result)
     }
+}
+
+extension ContactsVC: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle { .none }
 }

@@ -58,17 +58,13 @@ class AuthorizationVC: UIViewController {
         signInButton.delegate = self
         
         let widthConstraint = signInButton.widthAnchor.constraint(equalTo: authButtonsContainer.widthAnchor, multiplier: 0.85)
-        let heightConstraint = signInButton.heightAnchor.constraint(equalTo: signInButton.widthAnchor, multiplier: 1/2)
         widthConstraint.priority = UILayoutPriority(rawValue: 999)
-        heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
             signInButton.topAnchor.constraint(equalTo: authButtonsContainer.topAnchor),
             signInButton.centerXAnchor.constraint(equalTo: authButtonsContainer.centerXAnchor),
-            widthConstraint, heightConstraint,
-            
-            signInButton.heightAnchor.constraint(lessThanOrEqualToConstant: 80),
-            signInButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
+            signInButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
+            widthConstraint
         ])
     }
     
@@ -85,19 +81,14 @@ class AuthorizationVC: UIViewController {
     private func configureRegistrationButton() {
         registrationButton.delegate = self
         
-        let heightAnchor: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 70 : 60
         let widthConstraint = registrationButton.widthAnchor.constraint(equalTo: authButtonsContainer.widthAnchor, multiplier: 0.85)
-        let heightConstraint = registrationButton.heightAnchor.constraint(equalTo: registrationButton.widthAnchor, multiplier: 1/2)
         widthConstraint.priority = UILayoutPriority(rawValue: 999)
-        heightConstraint.priority = UILayoutPriority(rawValue: 999)
         
         NSLayoutConstraint.activate([
             registrationButton.topAnchor.constraint(equalTo: orButton.bottomAnchor, constant: padding),
             registrationButton.centerXAnchor.constraint(equalTo: authButtonsContainer.centerXAnchor),
-            widthConstraint, heightConstraint,
-            
-            registrationButton.heightAnchor.constraint(lessThanOrEqualToConstant: heightAnchor),
-            registrationButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
+            registrationButton.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
+            widthConstraint
         ])
     }
 }

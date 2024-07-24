@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Calculation" representedClassName="Calculation" syncable="YES" codeGenerationType="class">
+        <attribute name="calculationConfirmDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="calculationDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="countryFrom" attributeType="String"/>
+        <attribute name="countryTo" attributeType="String"/>
+        <attribute name="deliveryType" attributeType="String"/>
+        <attribute name="deliveryTypeCode" attributeType="String"/>
+        <attribute name="departureAirport" optional="YES" attributeType="String"/>
+        <attribute name="exchangeRate" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fromLocation" attributeType="String"/>
+        <attribute name="fromLocationCode" optional="YES" attributeType="String"/>
+        <attribute name="goodsType" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="invoiceAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="invoiceCurrency" attributeType="String"/>
+        <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="logisticsTypes" optional="YES" attributeType="Binary"/>
+        <attribute name="needCustomsClearance" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="toLocation" attributeType="String"/>
+        <attribute name="toLocationCode" attributeType="String"/>
+        <attribute name="totalPrice" attributeType="String"/>
+        <attribute name="volume" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="result" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CalculationResult" inverseName="calculation" inverseEntity="CalculationResult"/>
+    </entity>
+    <entity name="CalculationResult" representedClassName="CalculationResult" syncable="YES" codeGenerationType="class">
+        <attribute name="cargoHandling" optional="YES" attributeType="String"/>
+        <attribute name="cargoHandlingMinPrice" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="cargoHandlingPricePerKg" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="customsClearance" optional="YES" attributeType="String"/>
+        <attribute name="customsWarehousePrice" optional="YES" attributeType="String"/>
+        <attribute name="deliveryFromWarehousePrice" attributeType="String"/>
+        <attribute name="deliveryFromWarehouseTime" attributeType="String"/>
+        <attribute name="deliveryToWarehousePrice" optional="YES" attributeType="String"/>
+        <attribute name="deliveryToWarehouseTime" optional="YES" attributeType="String"/>
+        <attribute name="groupageDocs" attributeType="String"/>
+        <attribute name="insurance" optional="YES" attributeType="String"/>
+        <attribute name="insuranceAgentVisit" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="insurancePercentage" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="insuranceRatio" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="isConfirmed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="logisticsType" attributeType="String"/>
+        <attribute name="minLogisticsProfit" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="russianDeliveryPrice" optional="YES" attributeType="String"/>
+        <attribute name="russianDeliveryTime" optional="YES" attributeType="String"/>
+        <attribute name="totalPrice" attributeType="String"/>
+        <attribute name="totalTime" attributeType="String"/>
+        <relationship name="calculation" maxCount="1" deletionRule="Nullify" destinationEntity="Calculation" inverseName="result" inverseEntity="Calculation"/>
+    </entity>
+    <entity name="CDAvailableLogisticsTypes" representedClassName="CDAvailableLogisticsTypes" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaAirPickup" representedClassName="CDChinaAirPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaAirTariff" representedClassName="CDChinaAirTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaPickup" representedClassName="CDChinaPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaRailwayPickup" representedClassName="CDChinaRailwayPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaRailwayTariff" representedClassName="CDChinaRailwayTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaTruckPickup" representedClassName="CDChinaTruckPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDChinaTruckTariff" representedClassName="CDChinaTruckTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDCurrencyData" representedClassName="CDCurrencyData" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDDocuments" representedClassName="CDDocuments" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDFacilities" representedClassName="CDFacilities" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDManagers" representedClassName="CDManagers" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyAirSVOPickup" representedClassName="CDTurkeyAirSVOPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyAirSVOTariff" representedClassName="CDTurkeyAirSVOTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyAirVKOPickup" representedClassName="CDTurkeyAirVKOPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyAirVKOTariff" representedClassName="CDTurkeyAirVKOTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyNovorossiyskBySeaPickup" representedClassName="CDTurkeyNovorossiyskBySeaPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyNovorossiyskBySeaTariff" representedClassName="CDTurkeyNovorossiyskBySeaTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyPickup" representedClassName="CDTurkeyPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyTruckByFerryPickup" representedClassName="CDTurkeyTruckByFerryPickup" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+    <entity name="CDTurkeyTruckByFerryTariff" representedClassName="CDTurkeyTruckByFerryTariff" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary"/>
+    </entity>
+</model>

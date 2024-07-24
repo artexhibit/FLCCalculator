@@ -1,7 +1,7 @@
 import Foundation
 import MapKit
 
-struct AppleMapsManager {
+struct MapsManager {
     static func createPinOnTheMap(map: MKMapView, facility: FLCFacility, animated: Bool = false) {
         let eurasiaRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50.0, longitude: 60.0), latitudinalMeters: 15000000, longitudinalMeters: 15000000)
         
@@ -37,5 +37,33 @@ struct AppleMapsManager {
         
         mapItem.name = destinationName
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+
+    static func openInYandexMaps(latitude: Double, longitude: Double) {
+        guard let appURL = URL(string: "yandexmaps://maps.yandex.ru/?rtext=~\(latitude),\(longitude)&rtt=auto") else {
+            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось открыть карты", style: .error)
+            return
+        }
+        guard let webURL = URL(string: "https://maps.yandex.ru/?rtext=~\(latitude),\(longitude)&rtt=auto") else {
+            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось открыть карты", style: .error)
+            return
+        }
+        
+        let url = UIApplication.shared.canOpenURL(appURL) ? appURL : webURL
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    static func openInGoogleMaps(latitude: Double, longitude: Double) {
+        guard let appURL = URL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving") else {
+            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось открыть карты", style: .error)
+            return
+        }
+        guard let webURL = URL(string: "https://www.google.com/maps/dir/?api=1&destination=\(latitude),\(longitude)&travelmode=driving") else {
+            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось открыть карты", style: .error)
+            return
+        }
+        
+        let url = UIApplication.shared.canOpenURL(appURL) ? appURL : webURL
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

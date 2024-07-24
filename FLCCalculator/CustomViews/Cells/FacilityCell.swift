@@ -20,7 +20,7 @@ final class FacilityCell: UICollectionViewCell {
     private let detailsButton = FLCRoundButton(image: Icons.dots, tint: .flcOrange, title: "Подробнее", type: .details)
     
     private let padding: CGFloat = 15
-    private var facility: FLCFacility?
+    private var facility: FLCFacility = CalculationInfo.defaultFacility
     weak var delegate: FacilityCellDelegate?
     
     override init(frame: CGRect) {
@@ -106,6 +106,9 @@ final class FacilityCell: UICollectionViewCell {
         emailButton.delegate = self
         routeButton.delegate = self
         detailsButton.delegate = self
+        
+        routeButton.menu = ContactsVCHelper.showRoutesOptions(for: facility)
+        routeButton.showsMenuAsPrimaryAction = true
     }
     
     private func configureEmailButton(with facility: FLCFacility) {
@@ -121,7 +124,6 @@ final class FacilityCell: UICollectionViewCell {
 
 extension FacilityCell: FLCRoundButtonDelegate {
     func didTapButton(_ button: FLCRoundButton) {
-        guard let facility = self.facility else { return }
         delegate?.didTapActionButton(ofType: button.getType(), facility: facility)
     }
 }

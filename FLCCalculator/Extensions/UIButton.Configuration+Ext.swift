@@ -8,4 +8,8 @@ extension UIButton.Configuration {
             return new
         }
     }
+    
+    mutating func addInsets(_ insets: (top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat)) {
+        self.contentInsets = NSDirectionalEdgeInsets(top: insets.top, leading: insets.leading, bottom: insets.bottom, trailing: insets.trailing)
+    }
 }

@@ -206,12 +206,13 @@
 		0BCAF7172C4D3BB500ECAD15 /* FLCFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */; };
 		0BCAF7182C4D3BB500ECAD15 /* FLCFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */; };
 		0BCAF71A2C4D4B2400ECAD15 /* FacilitiesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF7192C4D4B2400ECAD15 /* FacilitiesCollectionView.swift */; };
-		0BCAF71C2C4D924800ECAD15 /* AppleMapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF71B2C4D924800ECAD15 /* AppleMapsManager.swift */; };
+		0BCAF71C2C4D924800ECAD15 /* MapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF71B2C4D924800ECAD15 /* MapsManager.swift */; };
 		0BCDC80B2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80A2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift */; };
 		0BCDC80D2C08B5E800EE9D6A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */; };
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
+		0BD1E0802C50333C007F3631 /* ContactsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD1E07F2C50333C007F3631 /* ContactsVCHelper.swift */; };
 		0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */; };
 		0BD4DE252B88D5ED00B834DD /* FLCListPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */; };
 		0BD4DE2A2B890C4300B834DD /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */; };
@@ -517,12 +518,14 @@
 		0BCAF7132C4D3AE800ECAD15 /* FacilityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityCell.swift; sourceTree = "<group>"; };
 		0BCAF7152C4D3BB500ECAD15 /* FLCFacility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCFacility.swift; sourceTree = "<group>"; };
 		0BCAF7192C4D4B2400ECAD15 /* FacilitiesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesCollectionView.swift; sourceTree = "<group>"; };
-		0BCAF71B2C4D924800ECAD15 /* AppleMapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsManager.swift; sourceTree = "<group>"; };
+		0BCAF71B2C4D924800ECAD15 /* MapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsManager.swift; sourceTree = "<group>"; };
 		0BCDC80A2C08B4E300EE9D6A /* FLCLoginConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCLoginConfirmationVC.swift; sourceTree = "<group>"; };
 		0BCDC80C2C08B5E800EE9D6A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
 		0BD06AFA2B8E6A1B00942651 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		0BD1E07E2C502871007F3631 /* FLCCalculator_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FLCCalculator_v2.xcdatamodel; sourceTree = "<group>"; };
+		0BD1E07F2C50333C007F3631 /* ContactsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsVCHelper.swift; sourceTree = "<group>"; };
 		0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCSmallLabelView.swift; sourceTree = "<group>"; };
 		0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCListPickerVC.swift; sourceTree = "<group>"; };
 		0BD4DE292B890C4300B834DD /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
@@ -630,6 +633,7 @@
 				0B1E313D2C10956F00291D0E /* SettingsVCHelper.swift */,
 				0BE9DA8B2C13675E007D86D0 /* ProfileSettingsVCHelper.swift */,
 				0B5D1BC22C1F38B700F9ECB3 /* PermissionsVCHelper.swift */,
+				0BD1E07F2C50333C007F3631 /* ContactsVCHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -686,7 +690,7 @@
 				0B5D1BC02C1F10EF00F9ECB3 /* PermissionsManager.swift */,
 				0BABA4C02C2362E2000991E9 /* KeychainManager.swift */,
 				0B7E5CC02C2B49F500F142A1 /* DateFormatterManager.swift */,
-				0BCAF71B2C4D924800ECAD15 /* AppleMapsManager.swift */,
+				0BCAF71B2C4D924800ECAD15 /* MapsManager.swift */,
 				0BF851732C4ED7B30006E8D3 /* CalculatorManager.swift */,
 			);
 			path = Managers;
@@ -1383,7 +1387,7 @@
 				0B6E54412B8110CB0078C110 /* CalculationsVC.swift in Sources */,
 				0B419FC82B82451600498ACE /* FLCError.swift in Sources */,
 				0BAABC1D2B978E56001A4AA1 /* NotificationsManager.swift in Sources */,
-				0BCAF71C2C4D924800ECAD15 /* AppleMapsManager.swift in Sources */,
+				0BCAF71C2C4D924800ECAD15 /* MapsManager.swift in Sources */,
 				0B8B7F552C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */,
 				0BF9388C2B850EC600A18016 /* FLCButton.swift in Sources */,
 				0BF851742C4ED7B30006E8D3 /* CalculatorManager.swift in Sources */,
@@ -1454,6 +1458,7 @@
 				0B7882822BDD79E900BDCA16 /* FLCPersonalManagerView.swift in Sources */,
 				0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */,
 				0B67DF942C0B7BD7008CE099 /* FLCUIHelper.swift in Sources */,
+				0BD1E0802C50333C007F3631 /* ContactsVCHelper.swift in Sources */,
 				0B267C482C442D26003697AE /* CalculationVCUIHelper.swift in Sources */,
 				0BB47CEB2BF8CD14001ECED4 /* ChinaTruckTariff.swift in Sources */,
 				0B7882892BDEB0CE00BDCA16 /* FLCRoundButton.swift in Sources */,
@@ -1639,7 +1644,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1667,7 +1672,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1824,7 +1829,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1860,7 +1865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1892,7 +1897,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1921,7 +1926,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2080,9 +2085,10 @@
 		0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0BD1E07E2C502871007F3631 /* FLCCalculator_v2.xcdatamodel */,
 				0B6E54312B810BA00078C110 /* FLCCalculator.xcdatamodel */,
 			);
-			currentVersion = 0B6E54312B810BA00078C110 /* FLCCalculator.xcdatamodel */;
+			currentVersion = 0BD1E07E2C502871007F3631 /* FLCCalculator_v2.xcdatamodel */;
 			path = FLCCalculator.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
