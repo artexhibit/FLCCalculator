@@ -59,9 +59,11 @@ struct CalculationHelper {
         }
     }
     
-    static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView, items: [FLCPickerItem], sort: FLCListPickerSortType = .byTitle, searchType: FLCListPickerSearchType = .both, in viewController: UIViewController) {
+    static func presentListPickerVC(from button: FLCListPickerButton, listener: FLCCalculationView? = nil, items: [FLCPickerItem], sort: FLCListPickerSortType = .byTitle, searchType: FLCListPickerSearchType = .both, in viewController: UIViewController) {
         let listPickerVC = FLCListPickerVC(from: button, items: items, sort: sort, searchType: searchType)
-        listPickerVC.delegate = listener as? any FLCPickerDelegate
+      
+        listPickerVC.delegate = listener != nil ? listener as? any FLCPickerDelegate : viewController as? any FLCPickerDelegate
+        
         let navController = UINavigationController(rootViewController: listPickerVC)
         viewController.present(navController, animated: true)
     }

@@ -13,6 +13,7 @@ class ProfileSettingsVC: UIViewController {
     private let nameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.fio, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
     private let birthdayTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.dateOfBirth, smallLabelFontSize: 16, keyboardType: .decimalPad, fontSize: 18, fontWeight: .bold)
     private let contactsSectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
+    private let countryCodePickerButton = FLCListPickerButton(placeholderText: "Код страны", smallLabelFontSize: 16, mainLabelFontSize: 18)
     private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.phoneNumber, smallLabelFontSize: 16, keyboardType: .phonePad, fontSize: 18, fontWeight: .bold)
     private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.email, smallLabelFontSize: 17, keyboardType: .emailAddress, fontSize: 18, fontWeight: .bold)
     private let companySectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
@@ -25,6 +26,7 @@ class ProfileSettingsVC: UIViewController {
     private let deleteButton = FLCTintedButton(color: .systemRed, title: "Удалить аккаунт", titleFontSize: 20)
     
     private var user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
+    private var countryData: FLCCountryPhonesData?
     private var oldPhoneNumber = ""
     private let containerHeight: CGFloat = 980
     private let textFieldsHeight: CGFloat = 50
@@ -46,6 +48,7 @@ class ProfileSettingsVC: UIViewController {
         configureNameTextField()
         configureBirthdayTextField()
         configureContactsSectionLabel()
+        configureCountryCodePickerButton()
         configurePhoneTextField()
         configureEmailTextField()
         configureCompanySectionLabel()
@@ -86,7 +89,7 @@ class ProfileSettingsVC: UIViewController {
     }
     
     private func configureContainerView() {
-        containerView.addSubviews(personalSectionLabel, nameTextField, birthdayTextField, contactsSectionLabel, phoneTextField, emailTextField, companySectionLabel, companyNameTextField, companyInnTextField, customsDtCountTextField, privacyPolicyAgreenmentTextViewLabel, saveButton, exitButton, deleteButton)
+        containerView.addSubviews(personalSectionLabel, nameTextField, birthdayTextField, contactsSectionLabel, countryCodePickerButton, phoneTextField, emailTextField, companySectionLabel, companyNameTextField, companyInnTextField, customsDtCountTextField, privacyPolicyAgreenmentTextViewLabel, saveButton, exitButton, deleteButton)
         containerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
@@ -140,13 +143,31 @@ class ProfileSettingsVC: UIViewController {
         ])
     }
     
+    private func configureCountryCodePickerButton() {
+        countryCodePickerButton.delegate = self
+        
+        let countryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
+        countryCodePickerButton.showingTitle = countryData?.phoneCode ?? ""
+        countryCodePickerButton.smallLabelView.moveUpSmallLabel()
+        
+        NSLayoutConstraint.activate([
+            countryCodePickerButton.topAnchor.constraint(equalTo: contactsSectionLabel.bottomAnchor, constant: padding / 1.5),
+            countryCodePickerButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            countryCodePickerButton.heightAnchor.constraint(equalToConstant: textFieldsHeight),
+            countryCodePickerButton.widthAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
     private func configurePhoneTextField()  {
         phoneTextField.delegate = self
-        phoneTextField.text = TextFieldManager.formatPhoneNumber(phone: user?.mobilePhone ?? "")
+        
+        let countryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
+        let phoneNumber = user?.mobilePhone.removeStringPart(countryData?.phoneCode.removeFirstCharacters(1) ?? "") ?? ""
+        phoneTextField.text = TextFieldManager.formatPhoneNumber(with: countryData?.phoneMask ?? "", phone: phoneNumber)
         
         NSLayoutConstraint.activate([
             phoneTextField.topAnchor.constraint(equalTo: contactsSectionLabel.bottomAnchor, constant: padding / 1.5),
-            phoneTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            phoneTextField.leadingAnchor.constraint(equalTo: countryCodePickerButton.trailingAnchor, constant: padding / 2),
             phoneTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
             phoneTextField.heightAnchor.constraint(equalToConstant: textFieldsHeight)
         ])
@@ -275,7 +296,7 @@ class ProfileSettingsVC: UIViewController {
             deleteButton.widthAnchor.constraint(lessThanOrEqualToConstant: 450)
         ])
     }
-    private func getInitialPhoneNumber() { oldPhoneNumber = phoneTextField.text?.extractDigits() ?? "" }
+    private func getInitialPhoneNumber() { oldPhoneNumber = (countryCodePickerButton.showingTitle.dropFirst() + (phoneTextField.text ?? "").extractDigits()) }
     
     @objc func keyboardWillShow(notification: Notification) {
         ProfileSettingsVCHelper.keyboardWillShow(notification: notification, scrollView: scrollView)
@@ -290,8 +311,10 @@ class ProfileSettingsVC: UIViewController {
 
 extension ProfileSettingsVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        let savedCountryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
+        
         switch textField {
-        case phoneTextField: textField.placeholder = "+7 (XXX) XXX-XX-XX"
+        case phoneTextField: textField.placeholder = countryData != nil ? countryData?.phoneMask ?? "" : savedCountryData?.phoneMask ?? ""
         case birthdayTextField: textField.placeholder = "ДД.MM.ГГГГ"
         case nameTextField: textField.placeholder = "Иванов Иван Иванович"
         case companyNameTextField: textField.placeholder = "ООО/ИП Название юр. лица"
@@ -314,8 +337,8 @@ extension ProfileSettingsVC: UITextFieldDelegate {
         
         switch textField {
         case phoneTextField:
-            TextFieldManager.managePhoneTextFieldInput(textField: textField, range: range, string: string)
-            textFieldsValidity[textField] = TextFieldManager.isValid(.phone, textField.text ?? "")
+            TextFieldManager.managePhoneTextFieldInput(textField: textField, range: range, string: string, mask: countryData?.phoneMask ?? "")
+            textFieldsValidity[textField] = TextFieldManager.isValid(.phone(mask: countryData?.phoneMask ?? ""), textField.text ?? "")
         case emailTextField:
             TextFieldManager.manageEmailTextFieldInput(textField: textField, range: range, string: string)
             textFieldsValidity[textField] = TextFieldManager.isValid(.email, textField.text ?? "")
@@ -372,10 +395,29 @@ extension ProfileSettingsVC: FLCTintedButtonDelegate {
 extension ProfileSettingsVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
-        case saveButton: ProfileSettingsVCHelper.validateAndSaveUserData(textFieldsValidity: textFieldsValidity, textFields: textFields, phoneTextField: phoneTextField, oldPhoneNumber: oldPhoneNumber, vc: self, user: user)
+        case saveButton: ProfileSettingsVCHelper.validateAndSaveUserData(textFieldsValidity: textFieldsValidity, textFields: textFields, countryCodePickerButton: countryCodePickerButton, phoneTextField: phoneTextField, oldPhoneNumber: oldPhoneNumber, vc: self, user: user)
         default: break
         }
     }
+}
+
+extension ProfileSettingsVC: FLCListPickerButtonDelegate {
+    func didTapButton(_ button: FLCListPickerButton) {
+        guard button == countryCodePickerButton else { return }
+        CalculationHelper.presentListPickerVC(from: button, items: CalculationInfo.countryPhonesData.map { $0.convertToPickerItem() }, in: self)
+    }
+}
+
+extension ProfileSettingsVC: FLCPickerDelegate {
+    func didSelectItem(pickedItem: FLCPickerItem, triggerButton: FLCListPickerButton) {
+        triggerButton.set(title: pickedItem.subtitle)
+        countryData = CalculationInfo.countryPhonesData.first(where: { $0.countryName == pickedItem.title })
+      
+        phoneTextField.makeEmpty()
+        phoneTextField.returnToIdentity()
+        textFieldsValidity[phoneTextField] = false
+    }
+    func didClosePickerView(parentButton: FLCListPickerButton) {}
 }
 
 extension ProfileSettingsVC: UIDocumentInteractionControllerDelegate {
@@ -389,7 +431,7 @@ extension ProfileSettingsVC: DelegateConfigurable {
 extension ProfileSettingsVC: FLCLoginConfirmationVCDelegate {
     func didSuccessWithVerificationCode(sender: UIViewController) {
         sender.dismiss(animated: true)
-        Task { await ProfileSettingsVCHelper.saveNewUserData(user: user, textFields: textFields, vc: self) }
+        Task { await ProfileSettingsVCHelper.saveNewUserData(user: user, textFields: textFields, countryCodePickerButton: countryCodePickerButton, vc: self) }
     }
 }
 extension ProfileSettingsVC: UIScrollViewDelegate {}

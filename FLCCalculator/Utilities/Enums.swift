@@ -16,12 +16,14 @@ enum FLCConfettiShape { case rectangle, circle }
 enum FLCConfettiPosition { case foreground, background }
 enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresConnection, unknown }
 enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase, contacts }
-enum FLCTextFieldType { case email, phone, username, birthdate, companyName, taxPayerID, customsDeclarationsAmount }
+enum FLCTextFieldType { case email, phone(mask: String), username, birthdate, companyName, taxPayerID, customsDeclarationsAmount }
 enum FLCSettingsCellType { case profile, switcher, menu, label }
 enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp }
 enum FLCPermissionType { case notifications }
 enum FLCHTTPMethod: String { case POST, GET, PATCH }
 enum FLCRoundButtonType { case phone, email, route, details, telegram, whatsapp, standard }
+enum FLCUserCountry: Codable { case russia, kazakhstan, afghanistan, albania, algeria, angola, anguilla, antiguaAndBarbuda, argentina, armenia, australia, austria, azerbaijan, bahamas, bahrain, barbados, belarus, belgium, belize, benin, bermuda, bhutan, bolivia, bosniaAndHerzegovina, botswana, brazil, britishVirginIslands, brunei, bulgaria, burkinaFaso, cambodia, cameroon, canada, capeVerde, caymanIslands, chad, chile, china, colombia, democraticRepublicOfCongo, republicOfCongo, costaRica, coteDIvoire, croatia, cyprus, czechRepublic, denmark, dominica, dominicanRepublic, ecuador, egypt, elSalvador, estonia, eswatini, fiji, finland, france, gabon, gambia, georgia, germany, ghana, greece, grenada, guatemala, guineaBissau, guyana, honduras, hongKong, hungary, iceland, india, indonesia, iraq, ireland, israel, italy, jamaica, japan, jordan, kenya, republicOfKorea, kosovo, kuwait, kyrgyzstan, laos, latvia, lebanon, liberia, libya, lithuania, luxembourg, macao, madagascar, malawi, malaysia, maldives, mali, malta, mauritania, mauritius, mexico, micronesia, moldova, mongolia, montenegro, montserrat, morocco, mozambique, myanmar, namibia, nauru, nepal, netherlands, newZealand, nicaragua, niger, nigeria, northMacedonia, norway, oman, pakistan, palau, panama, papuaNewGuinea, paraguay, peru, philippines, poland, portugal, qatar, romania, rwanda, saoTomeAndPrincipe, saudiArabia, senegal, serbia, seychelles, sierraLeone, singapore, slovakia, slovenia, solomonIslands, southAfrica, spain, sriLanka, saintKittsAndNevis, saintLucia, saintVincentAndTheGrenadines, suriname, sweden, switzerland, taiwan, tajikistan, tanzania, thailand, tonga, trinidadAndTobago, tunisia, turkey, turkmenistan, turksAndCaicos, uganda, ukraine, unitedArabEmirates, unitedKingdom, unitedStates, uruguay, uzbekistan, vanuatu, venezuela, vietnam, yemen, zambia, zimbabwe
+}
 
 enum FLCHTTPHeaderField: String {
     case phone = "phone"

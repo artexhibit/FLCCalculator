@@ -78,7 +78,7 @@ class AuthorizationManager {
         }
     }
     
-    func getUserInfo(token: String, userId: String) async throws -> FLCUser {
+    func getUserInfo(token: String, userId: String, country: FLCUserCountry) async throws -> FLCUser {
         let finalEndpoint = calcBaseEndpoint + userId
         guard let url = URL(string: finalEndpoint) else { throw FLCError.invalidEndpoint }
         let request = createAuthorizationURLRequest(url: url, token: token, httpMethod: .GET)
@@ -88,7 +88,7 @@ class AuthorizationManager {
         
         do {
             let userData = try decoder.decode(FLCUserResponse.self, from: data)
-            return getUser(data: userData)
+            return getUser(data: userData, country: country)
         } catch {
             throw FLCError.invalidData
         }
@@ -127,7 +127,7 @@ class AuthorizationManager {
         return request
     }
     
-    private func getUser(data: FLCUserResponse) -> FLCUser {
+    private func getUser(data: FLCUserResponse, country: FLCUserCountry) -> FLCUser {
         var user = FLCUser(
             fio: data.response.fio,
             email: data.response.emailUser,
@@ -135,7 +135,8 @@ class AuthorizationManager {
             companyName: data.response.company,
             inn: data.response.inn,
             dtCount: data.response.dtCount,
-            productRange: nil
+            productRange: nil, 
+            userCountry: country
         )
         if let bday = data.response.bday { user.setBirthDateFromISO8601(from: bday) }
         return user

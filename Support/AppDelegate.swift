@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegateHelper.configureSMSCounter()
         AppDelegateHelper.manageStoredCalculationRecords()
         AppDelegateHelper.resetFLCUserDataOnAppInitialLaunch()
+        AppDelegateHelper.assignUserCountryIfNil()
         
         AuthorizationVCHelper.presentAuthorizationVC()
         return true

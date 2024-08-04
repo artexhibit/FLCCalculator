@@ -17,8 +17,8 @@ struct AuthorizationVCHelper {
         }
     }
     
-    static func handleVerificationCodeButtonTap(loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterUserCredentialsView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
-        let phoneNumber = phoneTextField.text?.extractDigits() ?? ""
+    static func handleVerificationCodeButtonTap(loginConfirmationVC: FLCLoginConfirmationVC, pickedCountry: FLCCountryPhonesData?, phoneTextField: UITextField, enterUserCredentialsView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
+        let phoneNumber = ((pickedCountry?.phoneCode ?? "") + (phoneTextField.text ?? "")).extractDigits()
         let reviewPhoneNumber = Bundle.main.infoDictionary?["App Store Review Phone"] as? String ?? ""
         let verificationCode = phoneNumber == reviewPhoneNumber ? Bundle.main.infoDictionary?["App Store Review Code"] as? String ?? "" : AuthorizationManager.shared.createVerificationCode()
         
@@ -35,7 +35,7 @@ struct AuthorizationVCHelper {
                     return
                 }
                 if SMSManager.canSendSMS() {
-                    try await sendVerificationCode(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
+                    try await sendVerificationCode(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, pickedCountry: pickedCountry, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
                     
                     await FLCPopupView.removeFromMainThread()
                     await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "СМС отправлено")
@@ -50,21 +50,22 @@ struct AuthorizationVCHelper {
         }
     }
     
-    static func sendVerificationCode(verificationCode: String, loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) async throws {
+    static func sendVerificationCode(verificationCode: String, loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, pickedCountry: FLCCountryPhonesData?, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) async throws {
   
         do {
             try await NetworkManager.shared.sendSMS(code: verificationCode, phoneNumber: phoneTextField.text?.extractDigits() ?? "")
             SMSManager.increaseSMSCounter()
             
-            updateUIAfterSuccessfulSMS(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: vc)
+            updateUIAfterSuccessfulSMS(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, pickedCountry: pickedCountry, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: vc)
         } catch {
             await FLCPopupView.showOnMainThread(title: "Не удалось отправить СМС", style: .error)
         }
     }
     
-    static func updateUIAfterSuccessfulSMS(verificationCode: String, loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
+    static func updateUIAfterSuccessfulSMS(verificationCode: String, loginConfirmationVC: FLCLoginConfirmationVC, phoneTextField: UITextField, pickedCountry: FLCCountryPhonesData?, enterPhoneView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
         DispatchQueue.main.async {
-            loginConfirmationVC.setLoginConfirmationView(phoneNumber: phoneTextField.text ?? "", verificationCode: verificationCode)
+            let displayingPhoneNumber = ((pickedCountry?.phoneCode ?? "") + " " + TextFieldManager.formatPhoneNumber(with: pickedCountry?.phoneMask ?? "", phone: (phoneTextField.text?.extractDigits() ?? "")))
+            loginConfirmationVC.setLoginConfirmationView(phoneNumber: displayingPhoneNumber, verificationCode: verificationCode)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 FLCUIHelper.move(view: enterPhoneView, constraint: leadingConstraint, vc: vc, direction: .forward)
@@ -92,7 +93,7 @@ struct AuthorizationVCHelper {
         return true
     }
     
-    static func handleSuccessLogin(with number: String, in vc: UIViewController) {
+    static func handleSuccessLogin(with number: String, in vc: UIViewController, country: FLCUserCountry) {
         guard NetworkStatusManager.shared.isDeviceOnline else {
             FLCPopupView.showOnMainThread(title: "Не удалось завершить вход, отсутствует подключение к интернету", style: .error)
             return
@@ -103,7 +104,7 @@ struct AuthorizationVCHelper {
             do {
                 let loginCredentials = try await AuthorizationManager.shared.loginWithPhoneNumber(number)
                 KeychainManager.shared.save(loginCredentials)
-                let userInfo = try await AuthorizationManager.shared.getUserInfo(token: loginCredentials.credentials.response.token, userId: loginCredentials.credentials.response.userId)
+                let userInfo = try await AuthorizationManager.shared.getUserInfo(token: loginCredentials.credentials.response.token, userId: loginCredentials.credentials.response.userId, country: country)
                 UserDefaultsPercistenceManager.updateItemInUserDefaults(item: userInfo)
                 await FLCPopupView.removeFromMainThread()
                 await vc.dismiss(animated: true)
@@ -114,7 +115,7 @@ struct AuthorizationVCHelper {
         }
     }
     
-    static func handleSuccessRegistration(with number: String, email: String, in vc: UIViewController) {
+    static func handleSuccessRegistration(with number: String, email: String, country: FLCUserCountry, in vc: UIViewController) {
         guard NetworkStatusManager.shared.isDeviceOnline else {
             FLCPopupView.showOnMainThread(title: "Не удалось завершить регистрацию, отсутствует подключение к интернету", style: .error)
             return
@@ -125,7 +126,7 @@ struct AuthorizationVCHelper {
             do {
                 let registrationCredentials = try await AuthorizationManager.shared.registerUserWith(number: number, email: email)
                 KeychainManager.shared.save(registrationCredentials)
-                let newUser = FLCUser(fio: "Гость\(AuthorizationManager.shared.createVerificationCode(digits: 5))", email: email, mobilePhone: number)
+                let newUser = FLCUser(fio: "Гость\(AuthorizationManager.shared.createVerificationCode(digits: 5))", email: email, mobilePhone: number, userCountry: country)
                 UserDefaultsPercistenceManager.updateItemInUserDefaults(item: newUser)
                 try await AuthorizationManager.shared.saveAccountDataToBubbleDatabase(for: newUser, token: registrationCredentials.credentials.response.token, userId: registrationCredentials.credentials.response.userId)
                 await FLCPopupView.removeFromMainThread()

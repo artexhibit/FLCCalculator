@@ -54,14 +54,12 @@ struct TextFieldManager {
         return false
     }
     
-    static func formatPhoneNumber(with mask: String = "+7 (XXX) XXX-XX-XX", phone: String, isDeletionActive: Bool = false) -> String {
+    static func formatPhoneNumber(with mask: String = "(XXX) XXX-XX-XX", phone: String, isDeletionActive: Bool = false) -> String {
         let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        var result = "+7 "
+        var result = ""
         var index = numbers.startIndex
         
-        if index < numbers.endIndex && numbers[index] == "7" { index = numbers.index(after: index) }
-        
-        for char in mask.dropFirst(3) where index < numbers.endIndex {
+        for char in mask where index < numbers.endIndex {
             if char == "X" {
                 result.append(numbers[index])
                 index = numbers.index(after: index)
@@ -69,8 +67,13 @@ struct TextFieldManager {
                 result.append(char)
             }
         }
-        if !isDeletionActive && !result.contains(")") && result.count == 7 {
-            result.insert(")", at: result.index(result.startIndex, offsetBy: 7))
+      
+        if !isDeletionActive && result.contains("(") && !result.contains(")") {
+            let openParenIndex = result.firstIndex(of: "(")!
+            let offset = result.distance(from: result.startIndex, to: openParenIndex)
+            if result.count == offset + 4 {
+                result.insert(")", at: result.index(result.startIndex, offsetBy: offset + 4))
+            }
         }
         return result
     }
@@ -107,12 +110,16 @@ struct TextFieldManager {
         
         switch type {
         case .email: dataRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        case .phone: dataRegEx = "^(?:\\D*\\d){11}\\D*$"
         case .username: dataRegEx = "^[\\p{L}0-9 ]+$"
         case .birthdate: dataRegEx = "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(19[0-9]{2}|20[0-2][0-4])$"
         case .companyName: dataRegEx = "^[\\p{L} ]+$"
         case .taxPayerID: dataRegEx = "^[0-9]{12}$"
         case .customsDeclarationsAmount: dataRegEx = "^[0-9]+$"
+        case .phone(let mask): dataRegEx = mask.replacingOccurrences(of: "X", with: "\\d")
+                                                .replacingOccurrences(of: "(", with: "\\(")
+                                                .replacingOccurrences(of: ")", with: "\\)")
+                                                .replacingOccurrences(of: "-", with: "\\-")
+                                                .replacingOccurrences(of: " ", with: "\\s")
         }
         let dataPred = NSPredicate(format: "SELF MATCHES %@", dataRegEx)
         return dataPred.evaluate(with: text)
@@ -128,16 +135,16 @@ struct TextFieldManager {
         _ = allTFs[targetTextFieldIndex - 1].becomeFirstResponder()
     }
     
-    static func managePhoneTextFieldInput(textField: UITextField, range: NSRange, string: String) {
+    static func managePhoneTextFieldInput(textField: UITextField, range: NSRange, string: String, mask: String = "(XXX) XXX-XX-XX") {
         guard let text = textField.text else { return }
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
         let isDeletionActive = string == "" ? true : false
         let cursorPosition = textField.getCursorPosition()
-        let formattedText = formatPhoneNumber(with: "+7 (XXX) XXX-XX-XX", phone: newString, isDeletionActive: isDeletionActive)
-        
+        let formattedText = formatPhoneNumber(with: mask, phone: newString, isDeletionActive: isDeletionActive)
+    
         textField.text = formattedText
         
-        let newCursorPosition = string.isEmpty ? max(2, cursorPosition) : cursorPosition + (formattedText.count - text.count)
+        let newCursorPosition = cursorPosition + (formattedText.count - text.count)
         textField.moveCursorTo(position: newCursorPosition)
     }
     

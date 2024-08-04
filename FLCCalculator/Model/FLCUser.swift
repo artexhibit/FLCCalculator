@@ -9,6 +9,7 @@ struct FLCUser {
     var inn: Int?
     var dtCount: Int?
     var productRange: [String]?
+    var userCountry: FLCUserCountry?
     
     mutating func setBirthDateFromISO8601(from stringDate: String) {
         guard let date = DateFormatterManager.shared.iso8601Formatter.date(from: stringDate) else { return }

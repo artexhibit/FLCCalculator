@@ -118,6 +118,13 @@ class FLCNumberTextField: UITextField {
     func returnToIdentity() { smallLabelView.returnSmallLabelToIdentity() }
     func moveUpSmallLabel() { smallLabelView.moveUpSmallLabel() }
     func getSmallLabel() -> UILabel { smallLabelView.smallLabel }
+    func makeEmpty() {
+        DispatchQueue.main.async {
+            self.resignFirstResponder()
+            self.text = ""
+            self.placeholder = ""
+        }
+    }
     
     func switchToOrangeColors() {
         backgroundColor = UIColor.flcNumberTextFieldBackground

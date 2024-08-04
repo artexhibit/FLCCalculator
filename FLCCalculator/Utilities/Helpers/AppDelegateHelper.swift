@@ -108,6 +108,20 @@ struct AppDelegateHelper {
     }
     
     @MainActor
+    static func updateFacilitiesData(for task: BGAppRefreshTask? = nil) {
+        Task {
+            do {
+                guard let facilities: [FLCFacility] = try await FirebaseManager.getDataFromFirebase() else {
+                    task?.setTaskCompleted(success: false)
+                    return
+                }
+                let _ = CoreDataManager.updateItemsInCoreData(items: facilities)
+            }
+            task?.setTaskCompleted(success: true)
+        }
+    }
+    
+    @MainActor
     static func updateAvailableLogisticsTypesData(for task: BGAppRefreshTask? = nil) {
         Task {
             do {
@@ -154,6 +168,11 @@ struct AppDelegateHelper {
                 UserDefaultsManager.lastDocumentsDataUpdate = Date()
             }
             
+            if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastFacilitiesDataUpdate) {
+                updateFacilitiesData()
+                UserDefaultsManager.lastFacilitiesDataUpdate = Date()
+            }
+            
             if shouldUpdateData(afterDays: 1, for: UserDefaultsManager.lastAvailableLogisticsTypesDataUpdate) {
                 updateAvailableLogisticsTypesData()
                 UserDefaultsManager.lastAvailableLogisticsTypesDataUpdate = Date()
@@ -178,6 +197,12 @@ struct AppDelegateHelper {
         guard let lastDataUpdateDate else { return true }
         guard let daysAgo = Calendar.current.date(byAdding: .day, value: -days, to: Date()) else { return true }
         return lastDataUpdateDate < daysAgo
+    }
+    static func assignUserCountryIfNil() {
+        if var user: FLCUser = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults() {
+            if user.userCountry == nil { user.userCountry = .russia }
+            let _ = UserDefaultsPercistenceManager.saveItemToUserDefaults(item: user)
+        }
     }
     static func registerForRemoteNotifications(with app: UIApplication) { app.registerForRemoteNotifications() }
 }

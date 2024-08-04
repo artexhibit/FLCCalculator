@@ -3,8 +3,11 @@ import UIKit
 struct SettingsVCHelper {
     static func configureDataSource() -> [SettingsSection] {
         let user = getUserData()
+        let countryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
+        let phoneCode = countryData?.phoneCode ?? ""
+        let phoneNumber = user?.mobilePhone.removeStringPart(phoneCode.removeFirstCharacters(1)) ?? ""
         let pickedThemeOption = UserDefaultsManager.appTheme
-        let userMobilePhone = TextFieldManager.formatPhoneNumber(phone: user?.mobilePhone ?? "")
+        let userMobilePhone = phoneCode + " " + TextFieldManager.formatPhoneNumber(with: countryData?.phoneMask ?? "", phone: phoneNumber)
         
         let firstSectionItems = [
             SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: userMobilePhone, pickedOption: nil)

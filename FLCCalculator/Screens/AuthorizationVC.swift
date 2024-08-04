@@ -105,10 +105,10 @@ extension AuthorizationVC: FLCButtonDelegate {
 
 extension AuthorizationVC: LoginVCDelegate {
     func didFoundPhoneNumberDoesntExists(number: String) { AuthorizationVCHelper.handleNumberNotExist(in: self) }
-    func didSuccessWithLogin(for number: String) { AuthorizationVCHelper.handleSuccessLogin(with: number, in: self) }
+    func didSuccessWithLogin(for number: String, country: FLCUserCountry) { AuthorizationVCHelper.handleSuccessLogin(with: number, in: self, country: country) }
 }
 
 extension AuthorizationVC: RegistrationVCDelegate {
     func didFoundPhoneNumberExists(number: String) { AuthorizationVCHelper.handleNumberAlreadyExist(in: self) }
-    func didSuccessWithRegistration(phoneNumber: String, email: String) { AuthorizationVCHelper.handleSuccessRegistration(with: phoneNumber, email: email, in: self) }
+    func didSuccessWithRegistration(phoneNumber: String, email: String, country: FLCUserCountry) { AuthorizationVCHelper.handleSuccessRegistration(with: phoneNumber, email: email, country: country, in: self) }
 }

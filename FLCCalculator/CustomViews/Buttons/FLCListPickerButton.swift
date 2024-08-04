@@ -12,7 +12,7 @@ class FLCListPickerButton: UIButton {
     var titleIsEmpty: Bool { titleLabel?.text == nil ? true : false }
     var showingTitle: String {
         get { titleLabel?.text ?? "" }
-        set { titleLabel?.text = newValue }
+        set { setTitle(newValue, for: .normal) }
     }
     
     weak var delegate: FLCListPickerButtonDelegate?
@@ -26,10 +26,11 @@ class FLCListPickerButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(placeholderText: String) {
+    convenience init(placeholderText: String, smallLabelFontSize: CGFloat = 0, mainLabelFontSize: CGFloat = 19) {
         self.init(frame: .zero)
-        smallLabelView.configureSmallLabel(with: placeholderText)
+        smallLabelView.configureSmallLabel(with: placeholderText, fontSize: smallLabelFontSize)
         smallLabelView.constraint(in: self)
+        configuration = setButtonConfiguration(fontSize: mainLabelFontSize)
     }
     
     private func configure() {
@@ -41,8 +42,6 @@ class FLCListPickerButton: UIButton {
         
         layer.cornerRadius = 14
         layer.borderWidth = 1
-        
-        configuration = setButtonConfiguration()
         
         titleLabel?.adjustsFontSizeToFitWidth = true
         titleLabel?.numberOfLines = 1
@@ -92,10 +91,10 @@ class FLCListPickerButton: UIButton {
         if isDisabled { setDisabled() }
     }
     
-    private func setButtonConfiguration() -> UIButton.Configuration {
+    private func setButtonConfiguration(fontSize: CGFloat = 19) -> UIButton.Configuration {
         var config = Configuration.plain()
         config.addInsets((0, 15, 8, 10))
-        config.setupCustomFont(ofSize: 19)
+        config.setupCustomFont(ofSize: fontSize)
         config.titleLineBreakMode = .byTruncatingTail
         return config
     }

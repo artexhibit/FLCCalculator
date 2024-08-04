@@ -54,6 +54,7 @@
 		0B3301712B8D14D500737A11 /* FLCBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */; };
 		0B35D29B2BEEB18C007E9D3C /* AttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B35D29A2BEEB18C007E9D3C /* AttachmentManager.swift */; };
 		0B3849D02BD82BCF0002F233 /* TurkeyTruckByFerryPickup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3849CF2BD82BCF0002F233 /* TurkeyTruckByFerryPickup.swift */; };
+		0B3E8DD52C5D75A500447CCA /* FLCCountryPhonesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3E8DD42C5D75A500447CCA /* FLCCountryPhonesData.swift */; };
 		0B419FC52B82436000498ACE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC42B82436000498ACE /* CoreDataManager.swift */; };
 		0B419FC82B82451600498ACE /* FLCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FC72B82451600498ACE /* FLCError.swift */; };
 		0B419FCC2B82464000498ACE /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCB2B82464000498ACE /* UITableView+Ext.swift */; };
@@ -191,6 +192,8 @@
 		0BB47CED2BF8CF33001ECED4 /* ChinaRailwayTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEC2BF8CF33001ECED4 /* ChinaRailwayTariff.swift */; };
 		0BB47CEF2BF8D003001ECED4 /* ChinaAirTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CEE2BF8D003001ECED4 /* ChinaAirTariff.swift */; };
 		0BB47CF12BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB47CF02BF8D14A001ECED4 /* TurkeyTruckByFerryTariff.swift */; };
+		0BB92DEC2C5E2ABF003C4F5D /* FLCCountryPhonesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3E8DD42C5D75A500447CCA /* FLCCountryPhonesData.swift */; };
+		0BB92DED2C5E2AC0003C4F5D /* FLCCountryPhonesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3E8DD42C5D75A500447CCA /* FLCCountryPhonesData.swift */; };
 		0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB3A902BADE53400DFD54C /* UITextView+Ext.swift */; };
 		0BC105F12C0E1EA100F64843 /* FLCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F02C0E1EA100F64843 /* FLCUser.swift */; };
 		0BC105F32C0E265000F64843 /* AuthorizationVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC105F22C0E265000F64843 /* AuthorizationVCHelper.swift */; };
@@ -396,6 +399,7 @@
 		0B3301702B8D14D500737A11 /* FLCBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCBodyLabel.swift; sourceTree = "<group>"; };
 		0B35D29A2BEEB18C007E9D3C /* AttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentManager.swift; sourceTree = "<group>"; };
 		0B3849CF2BD82BCF0002F233 /* TurkeyTruckByFerryPickup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeyTruckByFerryPickup.swift; sourceTree = "<group>"; };
+		0B3E8DD42C5D75A500447CCA /* FLCCountryPhonesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCountryPhonesData.swift; sourceTree = "<group>"; };
 		0B419FC42B82436000498ACE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0B419FC72B82451600498ACE /* FLCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCError.swift; sourceTree = "<group>"; };
 		0B419FCB2B82464000498ACE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
@@ -881,6 +885,7 @@
 			isa = PBXGroup;
 			children = (
 				0BC105F02C0E1EA100F64843 /* FLCUser.swift */,
+				0B3E8DD42C5D75A500447CCA /* FLCCountryPhonesData.swift */,
 				0BABA4C42C23677C000991E9 /* FLCUserCredentials.swift */,
 				0B32F16A2B93465D004BAB46 /* FLCPickerItem.swift */,
 				0BC735822BCAECEA00EF8B0D /* FLCLogisticsOption.swift */,
@@ -1307,6 +1312,7 @@
 				0B5F773B2C222766005B391C /* Enums.swift in Sources */,
 				0BFA899D2C22B9BB0023D949 /* ChinaTruckTariff.swift in Sources */,
 				0BFA89E52C22CA960023D949 /* NetworkStatusManager.swift in Sources */,
+				0BB92DED2C5E2AC0003C4F5D /* FLCCountryPhonesData.swift in Sources */,
 				0B05A4082C4169B0000F4ABF /* Double+Ext.swift in Sources */,
 				0BFA89DE2C22CA510023D949 /* NetworkManager.swift in Sources */,
 				0BFA89A82C22BA190023D949 /* CurrencyData.swift in Sources */,
@@ -1478,6 +1484,7 @@
 				0B67DF922C0B61D5008CE099 /* SMSManager.swift in Sources */,
 				0B9D3A432B94C2C30058FC95 /* HapticManager.swift in Sources */,
 				0BC7357B2BCAE8B500EF8B0D /* OptionsCollectionView.swift in Sources */,
+				0B3E8DD52C5D75A500447CCA /* FLCCountryPhonesData.swift in Sources */,
 				0BCAF71A2C4D4B2400ECAD15 /* FacilitiesCollectionView.swift in Sources */,
 				0BABA4BD2C23552B000991E9 /* AuthorizationManager.swift in Sources */,
 				0B97770F2BEFB90600E56197 /* BonusSystemVC.swift in Sources */,
@@ -1577,6 +1584,7 @@
 				0B20D4D92C3345E8003DB36E /* TurkeyAirSVOTariff.swift in Sources */,
 				0B6E54692B811B8F0078C110 /* FLCCalculator.xcdatamodeld in Sources */,
 				0BFA89B72C22BAD50023D949 /* RussianDelivery.swift in Sources */,
+				0BB92DEC2C5E2ABF003C4F5D /* FLCCountryPhonesData.swift in Sources */,
 				0BFA899A2C22B9950023D949 /* ChinaAirPickup.swift in Sources */,
 				0BFA89D62C22BC890023D949 /* FileSystemManager.swift in Sources */,
 				0B20D4D52C3344E0003DB36E /* TurkeyAirVKOTariff.swift in Sources */,
@@ -1644,7 +1652,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1672,7 +1680,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1829,7 +1837,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1865,7 +1873,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1897,7 +1905,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1926,7 +1934,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

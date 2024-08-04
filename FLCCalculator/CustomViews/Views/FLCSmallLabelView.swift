@@ -48,10 +48,9 @@ class FLCSmallLabelView: UIView {
         smallLabelTopConstraint = smallLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         
         NSLayoutConstraint.activate([
+            smallLabelTopConstraint,
             smallLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            smallLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            smallLabel.heightAnchor.constraint(equalToConstant: 25),
-            smallLabelTopConstraint
+            smallLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
     

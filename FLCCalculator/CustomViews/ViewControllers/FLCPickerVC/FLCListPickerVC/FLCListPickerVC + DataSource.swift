@@ -28,6 +28,7 @@ extension FLCListPickerVC {
         case .bySubtitle:
             sections = Array(Set(items.map { $0.subtitle.first?.description ?? "" })).sorted()
         }
+        if items.contains(where: { $0.shouldDisplayOnTop }) { sections.insert("#", at: 0) }
     }
     
     func configureDataSource() {
@@ -44,14 +45,17 @@ extension FLCListPickerVC {
         var items = [FLCPickerItem]()
         
         for section in sections {
-            
-            switch sortType {
-            case .byTitle:
-                items = itemsToShow.filter { $0.title.first?.description == section }
-            case .bySubtitle:
-                items = itemsToShow
-                    .filter { $0.subtitle.first?.description == section }
-                    .sorted { $0.subtitle < $1.subtitle }
+            if section == "#" {
+                items = itemsToShow.filter { $0.shouldDisplayOnTop }
+            } else {
+                switch sortType {
+                case .byTitle:
+                    items = itemsToShow.filter { $0.title.first?.description == section && !$0.shouldDisplayOnTop }
+                case .bySubtitle:
+                    items = itemsToShow
+                        .filter { $0.subtitle.first?.description == section && !$0.shouldDisplayOnTop }
+                        .sorted { $0.subtitle < $1.subtitle }
+                }
             }
             snapshot.appendItems(items, toSection: section)
         }

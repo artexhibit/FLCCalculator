@@ -1,26 +1,29 @@
 import UIKit
 
 protocol RegistrationVCDelegate: AnyObject {
-    func didSuccessWithRegistration(phoneNumber: String, email: String)
+    func didSuccessWithRegistration(phoneNumber: String, email: String, country: FLCUserCountry)
     func didFoundPhoneNumberExists(number: String)
 }
 
 class RegistrationVC: FLCLoginVC {
     
     private let enterPhoneAndEmailTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
-    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: "Номер телефона", smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 27, fontWeight: .bold)
+    private let countryCodePickerButton = FLCListPickerButton(placeholderText: "Страна", smallLabelFontSize: 25, mainLabelFontSize: 20)
+    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: "Номер телефона", smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 20, fontWeight: .bold)
     private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: "Email", smallLabelFontSize: 20, keyboardType: .emailAddress, fontSize: 23, fontWeight: .bold)
     private let proceedWithRegistrationButton = FLCButton(color: .flcOrange, title: "Зарегистрироваться", isEnabled: false)
     
     private var isPhoneValid = false
     private var isEmailValid = false
     
+    private var pickedCountryItem: FLCCountryPhonesData?
     weak var delegate: RegistrationVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
         configureEnterPhoneTitleLabel()
+        configureCountryCodePickerButton()
         configurePhoneTextField()
         configureEmailTextField()
         configureProceedWithRegistrationButton()
@@ -30,16 +33,27 @@ class RegistrationVC: FLCLoginVC {
         navigationItem.title = "Регистрация"
         loginConfirmationVC.delegate = self
         loginConfirmationVC.setReturnButtonDelegate(vc: self)
-        enterUserCredentialsView.addSubviews(enterPhoneAndEmailTitleLabel, phoneTextField, emailTextField, proceedWithRegistrationButton)
+        enterUserCredentialsView.addSubviews(enterPhoneAndEmailTitleLabel, countryCodePickerButton, phoneTextField, emailTextField, proceedWithRegistrationButton)
     }
     
     private func configureEnterPhoneTitleLabel() {
-        enterPhoneAndEmailTitleLabel.text = "Чтобы зарегистрироваться, введите ваш номер телефона и email, а затем четырёхзначный код из смс"
+        enterPhoneAndEmailTitleLabel.text = "Чтобы зарегистрироваться, выберите страну, введите номер телефона и email, а затем четырёхзначный код из смс"
         
         NSLayoutConstraint.activate([
             enterPhoneAndEmailTitleLabel.topAnchor.constraint(equalTo: enterUserCredentialsView.topAnchor, constant: padding),
             enterPhoneAndEmailTitleLabel.leadingAnchor.constraint(equalTo: enterUserCredentialsView.leadingAnchor, constant: padding),
             enterPhoneAndEmailTitleLabel.trailingAnchor.constraint(equalTo: enterUserCredentialsView.trailingAnchor, constant: -padding)
+        ])
+    }
+    
+    private func configureCountryCodePickerButton() {
+        countryCodePickerButton.delegate = self
+        
+        NSLayoutConstraint.activate([
+            countryCodePickerButton.topAnchor.constraint(equalTo: enterPhoneAndEmailTitleLabel.bottomAnchor, constant: padding * 2),
+            countryCodePickerButton.leadingAnchor.constraint(equalTo: enterUserCredentialsView.leadingAnchor, constant: padding),
+            countryCodePickerButton.heightAnchor.constraint(equalToConstant: 55),
+            countryCodePickerButton.widthAnchor.constraint(equalToConstant: 100)
         ])
     }
     
@@ -49,9 +63,9 @@ class RegistrationVC: FLCLoginVC {
         
         NSLayoutConstraint.activate([
             phoneTextField.topAnchor.constraint(equalTo: enterPhoneAndEmailTitleLabel.bottomAnchor, constant: padding * 2),
-            phoneTextField.leadingAnchor.constraint(equalTo: enterUserCredentialsView.leadingAnchor, constant: padding),
+            phoneTextField.leadingAnchor.constraint(equalTo: countryCodePickerButton.trailingAnchor, constant: padding / 2),
             phoneTextField.trailingAnchor.constraint(equalTo: enterUserCredentialsView.trailingAnchor, constant: -padding),
-            phoneTextField.heightAnchor.constraint(equalToConstant: 60)
+            phoneTextField.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
@@ -63,7 +77,7 @@ class RegistrationVC: FLCLoginVC {
             emailTextField.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: padding),
             emailTextField.leadingAnchor.constraint(equalTo: enterUserCredentialsView.leadingAnchor, constant: padding),
             emailTextField.trailingAnchor.constraint(equalTo: enterUserCredentialsView.trailingAnchor, constant: -padding),
-            emailTextField.heightAnchor.constraint(equalToConstant: 60)
+            emailTextField.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
@@ -88,8 +102,15 @@ class RegistrationVC: FLCLoginVC {
 }
 
 extension RegistrationVC: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == phoneTextField { textField.placeholder = "+7 (XXX) XXX-XX-XX" }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == phoneTextField {
+            guard !countryCodePickerButton.titleIsEmpty else {
+                FLCPopupView.showOnMainThread(title: "Сначала выберите страну", position: .top)
+                return false
+            }
+            textField.placeholder = pickedCountryItem?.phoneMask ?? ""
+        }
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -99,9 +120,9 @@ extension RegistrationVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         switch textField {
-        case phoneTextField: 
-            TextFieldManager.managePhoneTextFieldInput(textField: textField, range: range, string: string)
-            isPhoneValid = TextFieldManager.isValid(.phone, textField.text ?? "")
+        case phoneTextField:
+            TextFieldManager.managePhoneTextFieldInput(textField: textField, range: range, string: string, mask: pickedCountryItem?.phoneMask ?? "")
+            isPhoneValid = TextFieldManager.isValid(.phone(mask: pickedCountryItem?.phoneMask ?? ""), textField.text ?? "")
         case emailTextField:
             TextFieldManager.manageEmailTextFieldInput(textField: textField, range: range, string: string)
             isEmailValid = TextFieldManager.isValid(.email, textField.text ?? "")
@@ -117,7 +138,7 @@ extension RegistrationVC: FLCButtonDelegate {
     func didTapButton(_ button: FLCButton) {
         switch button {
         case proceedWithRegistrationButton:
-            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, enterUserCredentialsView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: self)
+            AuthorizationVCHelper.handleVerificationCodeButtonTap(loginConfirmationVC: loginConfirmationVC, pickedCountry: pickedCountryItem, phoneTextField: phoneTextField, enterUserCredentialsView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: self)
         default: break
         }
     }
@@ -126,7 +147,8 @@ extension RegistrationVC: FLCButtonDelegate {
 extension RegistrationVC: FLCLoginConfirmationVCDelegate {
     func didSuccessWithVerificationCode(sender: UIViewController) {
         self.dismiss(animated: true)
-        delegate?.didSuccessWithRegistration(phoneNumber: phoneTextField.text?.extractDigits() ?? "", email: emailTextField.text ?? "")
+        let phoneNumber = ((pickedCountryItem?.phoneCode ?? "") + (phoneTextField.text ?? "")).extractDigits()
+        delegate?.didSuccessWithRegistration(phoneNumber: phoneNumber, email: emailTextField.text ?? "", country: pickedCountryItem?.country ?? .russia)
     }
 }
 
@@ -151,4 +173,22 @@ extension RegistrationVC: FLCNumberTextFieldDelegate {
 
 extension RegistrationVC: DelegateConfigurable {
     func setDelegate(with vc: UIViewController) { self.delegate = vc as? RegistrationVCDelegate }
+}
+
+extension RegistrationVC: FLCListPickerButtonDelegate {
+    func didTapButton(_ button: FLCListPickerButton) {
+        guard button == countryCodePickerButton else { return }
+        CalculationHelper.presentListPickerVC(from: button, items: CalculationInfo.countryPhonesData.map { $0.convertToPickerItem() }, in: self)
+    }
+}
+
+extension RegistrationVC: FLCPickerDelegate {
+    func didSelectItem(pickedItem: FLCPickerItem, triggerButton: FLCListPickerButton) {
+        triggerButton.set(title: pickedItem.subtitle)
+        pickedCountryItem = CalculationInfo.countryPhonesData.first(where: { $0.countryName == pickedItem.title })
+        
+        phoneTextField.makeEmpty()
+        phoneTextField.returnToIdentity()
+    }
+    func didClosePickerView(parentButton: FLCListPickerButton) {}
 }

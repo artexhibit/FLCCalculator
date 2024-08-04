@@ -61,8 +61,8 @@ struct ProfileSettingsVCHelper {
         return true
     }
     
-    static func createNewUserData(user: FLCUser?, with textFields: [UITextField]) -> FLCUser {
-       guard var updatedUser = user else { return FLCUser(email: user?.email ?? "", mobilePhone: user?.mobilePhone ?? "") }
+    static func createNewUserData(user: FLCUser?, with textFields: [UITextField], countryCodePickerButton: FLCListPickerButton) -> FLCUser {
+        guard var updatedUser = user else { return FLCUser(email: user?.email ?? "", mobilePhone: user?.mobilePhone ?? "", userCountry: user?.userCountry ?? .russia) }
         
         textFields.forEach { textField in
             guard let textFieldName = (textField as? FLCNumberTextField)?.getSmallLabel().text else { return }
@@ -70,7 +70,7 @@ struct ProfileSettingsVCHelper {
             switch textFieldName {
             case ProfileSettingsTextFieldsNames.fio: updatedUser.fio = textField.text
             case ProfileSettingsTextFieldsNames.dateOfBirth: updatedUser.birthDate = textField.text
-            case ProfileSettingsTextFieldsNames.phoneNumber: updatedUser.mobilePhone = textField.text?.extractDigits() ?? ""
+            case ProfileSettingsTextFieldsNames.phoneNumber: updatedUser.mobilePhone = (countryCodePickerButton.showingTitle + (textField.text ?? "")).extractDigits()
             case ProfileSettingsTextFieldsNames.email: updatedUser.email = textField.text ?? ""
             case ProfileSettingsTextFieldsNames.companyName: updatedUser.companyName = textField.text
             case ProfileSettingsTextFieldsNames.inn: updatedUser.inn = Int(textField.text ?? "")
@@ -82,11 +82,11 @@ struct ProfileSettingsVCHelper {
     }
 
     @MainActor
-    static func saveNewUserData(user: FLCUser?, textFields: [UITextField], vc: ProfileSettingsVC) async {
+    static func saveNewUserData(user: FLCUser?, textFields: [UITextField], countryCodePickerButton: FLCListPickerButton, vc: ProfileSettingsVC) async {
         FLCPopupView.showOnMainThread(title: "Сохраняем", style: .spinner)
         
         do {
-            var updatedUser = createNewUserData(user: user, with: textFields)
+            var updatedUser = createNewUserData(user: user, with: textFields, countryCodePickerButton: countryCodePickerButton)
             guard let userCredentials = KeychainManager.shared.read(type: FLCUserCredentials.self) else { throw FLCError.invalidData }
             updatedUser.setBirthDateToISO8601(from: updatedUser.birthDate ?? "")
             
@@ -126,20 +126,22 @@ struct ProfileSettingsVCHelper {
         await vc.present(navController, animated: true)
     }
     
-    static func validateAndSaveUserData(textFieldsValidity: [UITextField: Bool], textFields: [UITextField], phoneTextField: UITextField, oldPhoneNumber: String, vc: ProfileSettingsVC, user: FLCUser?) {
+    static func validateAndSaveUserData(textFieldsValidity: [UITextField: Bool], textFields: [UITextField], countryCodePickerButton: FLCListPickerButton, phoneTextField: UITextField, oldPhoneNumber: String, vc: ProfileSettingsVC, user: FLCUser?) {
         if isAllDataValid(textFieldsValidity) {
             DispatchQueue.main.async {
                 guard NetworkStatusManager.shared.isDeviceOnline else {
                     FLCPopupView.showOnMainThread(title: "Необходимо активное подключение к интернету", style: .error)
                     return
                 }
-                let newPhoneNumber = phoneTextField.text?.extractDigits() ?? ""
-                
+                let countryData = CalculationInfo.countryPhonesData.first(where: { $0.phoneCode == countryCodePickerButton.showingTitle })
+                let newPhoneNumber = ((countryCodePickerButton.showingTitle) + (phoneTextField.text ?? "")).extractDigits()
+                let displayingPhoneNumber = ((countryCodePickerButton.showingTitle) + " " + TextFieldManager.formatPhoneNumber(with: countryData?.phoneMask ?? "", phone: (phoneTextField.text?.extractDigits() ?? "")))
+        
                 guard oldPhoneNumber == newPhoneNumber else {
-                    Task { await handlePhoneNumberChange(phoneNumber: newPhoneNumber, vc: vc) }
+                    Task { await handlePhoneNumberChange(phoneNumber: displayingPhoneNumber, vc: vc) }
                     return
                 }
-                Task { await saveNewUserData(user: user, textFields: textFields, vc: vc) }
+                Task { await saveNewUserData(user: user, textFields: textFields, countryCodePickerButton: countryCodePickerButton, vc: vc) }
             }
         }
     }
