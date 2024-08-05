@@ -116,6 +116,9 @@
 		0B6F61152B866DAF00929613 /* FLCCargoParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */; };
 		0B6F61172B866DDF00929613 /* FLCTransportParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */; };
 		0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F61182B86750000929613 /* FLCNumberTextField.swift */; };
+		0B7188E32C5FE462009D8D32 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0B7188E22C5FE462009D8D32 /* Localizable.xcstrings */; };
+		0B7188E42C5FE925009D8D32 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0B7188E22C5FE462009D8D32 /* Localizable.xcstrings */; };
+		0B7188E52C5FE925009D8D32 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0B7188E22C5FE462009D8D32 /* Localizable.xcstrings */; };
 		0B7548FE2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7548FD2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift */; };
 		0B7549002BA1C9870029807B /* FLCListPickerVC + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */; };
 		0B7549022BA2322B0029807B /* FLCTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7549012BA2322B0029807B /* FLCTextButton.swift */; };
@@ -449,6 +452,7 @@
 		0B6F61142B866DAF00929613 /* FLCCargoParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCCargoParametersView.swift; sourceTree = "<group>"; };
 		0B6F61162B866DDF00929613 /* FLCTransportParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTransportParametersView.swift; sourceTree = "<group>"; };
 		0B6F61182B86750000929613 /* FLCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCNumberTextField.swift; sourceTree = "<group>"; };
+		0B7188E22C5FE462009D8D32 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		0B7548FD2BA1C7F00029807B /* FLCListPickerVC + SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + SearchController.swift"; sourceTree = "<group>"; };
 		0B7548FF2BA1C9870029807B /* FLCListPickerVC + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + Delegate.swift"; sourceTree = "<group>"; };
 		0B7549012BA2322B0029807B /* FLCTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextButton.swift; sourceTree = "<group>"; };
@@ -765,6 +769,7 @@
 		0B6E541B2B810BA00078C110 = {
 			isa = PBXGroup;
 			children = (
+				0B7188E22C5FE462009D8D32 /* Localizable.xcstrings */,
 				0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */,
 				0BABA4BB2C22F987000991E9 /* WidgetsExtension.entitlements */,
 				0B6E54262B810BA00078C110 /* FLCCalculator */,
@@ -1238,6 +1243,7 @@
 			files = (
 				0B5F773A2C22240C005B391C /* Assets.xcassets in Resources */,
 				0B5F76AF2C2215B3005B391C /* GoogleService-Info.plist in Resources */,
+				0B7188E52C5FE925009D8D32 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1246,6 +1252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B6E54372B810BA20078C110 /* LaunchScreen.storyboard in Resources */,
+				0B7188E32C5FE462009D8D32 /* Localizable.xcstrings in Resources */,
 				0B6E54342B810BA20078C110 /* Assets.xcassets in Resources */,
 				0B58D7A72C45ABB300C7EC80 /* PrivacyInfo.xcprivacy in Resources */,
 				0B32CBBE2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */,
@@ -1258,6 +1265,7 @@
 			files = (
 				0B6E546A2B811BA40078C110 /* Assets.xcassets in Resources */,
 				0B6E54592B811B550078C110 /* Assets.xcassets in Resources */,
+				0B7188E42C5FE925009D8D32 /* Localizable.xcstrings in Resources */,
 				0B32CBBF2BAF39CE00E756A5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,7 +26,7 @@ class PermissionsVC: UIViewController {
         view.addSubview(tableView)
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Разрешения"
+        navigationItem.title = PermissionsStrings.permissions
         setNavBarColor(color: UIColor.flcOrange)
         navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
     }

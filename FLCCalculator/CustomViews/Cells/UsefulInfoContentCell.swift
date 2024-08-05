@@ -2,7 +2,7 @@ import UIKit
 
 final class UsefulInfoContentCell: FLCContentCell {
     
-    static let reuseID = "UsefulInfoContentCell"
+    static let reuseID = String(describing: UsefulInfoContentCell.self)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

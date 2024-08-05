@@ -2,7 +2,7 @@ import UIKit
 
 class UsefulInfoManagerCell: UITableViewCell {
     
-    static let reuseID = "UsefulInfoManagerCell"
+    static let reuseID = String(describing: UsefulInfoManagerCell.self)
     
     private let managerView = FLCPersonalManagerView(backgroundColor: .flcManagerViewBackground)
     

@@ -6,30 +6,30 @@ struct SettingsVCHelper {
         let countryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
         let phoneCode = countryData?.phoneCode ?? ""
         let phoneNumber = user?.mobilePhone.removeStringPart(phoneCode.removeFirstCharacters(1)) ?? ""
-        let pickedThemeOption = UserDefaultsManager.appTheme
+        let pickedThemeOption = FLCThemeOptions(rawValue: UserDefaultsManager.appTheme)?.localizedDescription
         let userMobilePhone = phoneCode + " " + TextFieldManager.formatPhoneNumber(with: countryData?.phoneMask ?? "", phone: phoneNumber)
         
         let firstSectionItems = [
             SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: userMobilePhone, pickedOption: nil)
         ]
         let secondSectionItems = [
-            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: "Тактильный отклик элементов интерфейса", subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: "Тема", subtitle: nil, pickedOption: pickedThemeOption),
-            SettingsCellContent(cellType: .label, contentType: .permissions, image: Icons.key, title: "Разрешения", subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: SettingsStrings.haptic, subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: SettingsStrings.theme, subtitle: nil, pickedOption: pickedThemeOption),
+            SettingsCellContent(cellType: .label, contentType: .permissions, image: Icons.key, title: SettingsStrings.permissions, subtitle: nil, pickedOption: nil)
         ]
         let thirdSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .shareApp, image: Icons.shareIcon, title: "Поделиться приложением", subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .label, contentType: .rateApp, image: Icons.star, title: "Оценить приложение в AppStore", subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .shareApp, image: Icons.shareIcon, title: SettingsStrings.shareApp, subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .label, contentType: .rateApp, image: Icons.star, title: SettingsStrings.rateApp, subtitle: nil, pickedOption: nil)
         ]
         let fourthSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .support, image: Icons.message, title: "Обратная связь", subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .support, image: Icons.message, title: SettingsStrings.support, subtitle: nil, pickedOption: nil)
         ]
         
         return [
             SettingsSection(title: "", sectionFooter: "", items: firstSectionItems),
-            SettingsSection(title: "Общее", sectionFooter: "", items: secondSectionItems),
-            SettingsSection(title: "О приложении", sectionFooter: "", items: thirdSectionItems),
-            SettingsSection(title: "", sectionFooter: "Нашли баг, ошибку, опечатку? Напишите, и мы сразу же исправим!", items: fourthSectionItems)
+            SettingsSection(title: SettingsStrings.commonSection, sectionFooter: "", items: secondSectionItems),
+            SettingsSection(title: SettingsStrings.aboutAppSection, sectionFooter: "", items: thirdSectionItems),
+            SettingsSection(title: "", sectionFooter: SettingsStrings.findErrorFooter, items: fourthSectionItems)
         ]
     }
     
@@ -57,7 +57,7 @@ struct SettingsVCHelper {
             
             themeOptions.forEach { option in
                 let state: UIMenuElement.State = option.rawValue == UserDefaultsManager.appTheme ? .on : .off
-                let action = UIAction(title: option.rawValue, state: state) { _ in
+                let action = UIAction(title: option.localizedDescription, state: state) { _ in
                     UserDefaultsManager.appTheme = option.rawValue
                     updateHandler()
                 }
@@ -98,7 +98,7 @@ struct SettingsVCHelper {
         if UIApplication.shared.canOpenURL(appStoreReviewURL) {
             UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)
         } else {
-            FLCPopupView.showOnMainThread(title: "Не получается открыть App Store", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantOpenAppStore, style: .error)
         }
     }
 }

@@ -10,20 +10,20 @@ class ProfileSettingsVC: UIViewController {
     private let containerView = UIView()
     
     private let personalSectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
-    private let nameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.fio, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
-    private let birthdayTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.dateOfBirth, smallLabelFontSize: 16, keyboardType: .decimalPad, fontSize: 18, fontWeight: .bold)
+    private let nameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsStrings.fio, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
+    private let birthdayTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsStrings.dateOfBirth, smallLabelFontSize: 16, keyboardType: .decimalPad, fontSize: 18, fontWeight: .bold)
     private let contactsSectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
-    private let countryCodePickerButton = FLCListPickerButton(placeholderText: "Код страны", smallLabelFontSize: 16, mainLabelFontSize: 18)
-    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.phoneNumber, smallLabelFontSize: 16, keyboardType: .phonePad, fontSize: 18, fontWeight: .bold)
-    private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.email, smallLabelFontSize: 17, keyboardType: .emailAddress, fontSize: 18, fontWeight: .bold)
+    private let countryCodePickerButton = FLCListPickerButton(placeholderText: ProfileSettingsStrings.countryCode, smallLabelFontSize: 16, mainLabelFontSize: 18)
+    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsStrings.phoneNumber, smallLabelFontSize: 16, keyboardType: .phonePad, fontSize: 18, fontWeight: .bold)
+    private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsStrings.email, smallLabelFontSize: 17, keyboardType: .emailAddress, fontSize: 18, fontWeight: .bold)
     private let companySectionLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 23, weight: .bold)
-    private let companyNameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.companyName, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
-    private let companyInnTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.inn, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
-    private let customsDtCountTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsTextFieldsNames.dtCount, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
-    private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Изменяя и сохраняя данные в профиле, вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
-    private let saveButton = FLCButton(color: .flcOrange, title: "Сохранить изменения")
-    private let exitButton = FLCTintedButton(color: .flcGray, title: "Выйти из аккаунта", titleFontSize: 20)
-    private let deleteButton = FLCTintedButton(color: .systemRed, title: "Удалить аккаунт", titleFontSize: 20)
+    private let companyNameTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsStrings.companyName, smallLabelFontSize: 16, keyboardType: .default, fontSize: 18, fontWeight: .bold)
+    private let companyInnTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsStrings.inn, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let customsDtCountTextField = FLCNumberTextField(smallLabelPlaceholderText: ProfileSettingsStrings.dtCount, smallLabelFontSize: 16, keyboardType: .numberPad, fontSize: 18, fontWeight: .bold)
+    private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: ProfileSettingsStrings.privacyPolicyFull.makeAttributed(text: ProfileSettingsStrings.privacyPolicyTargetLink, attributes: [.underlineStyle, .link], linkValue: TextViewActionStrings.privacyPolicy))
+    private let saveButton = FLCButton(color: .flcOrange, title: ProfileSettingsStrings.saveButton)
+    private let exitButton = FLCTintedButton(color: .flcGray, title: ProfileSettingsStrings.exitButton, titleFontSize: 20)
+    private let deleteButton = FLCTintedButton(color: .systemRed, title: ProfileSettingsStrings.deleteButton, titleFontSize: 20)
     
     private var user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
     private var countryData: FLCCountryPhonesData?
@@ -75,7 +75,7 @@ class ProfileSettingsVC: UIViewController {
         
         navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Мой профиль"
+        navigationItem.title = ProfileSettingsStrings.myProfile
         view.backgroundColor = .systemBackground
         setNavBarColor(color: UIColor.flcOrange)
     }
@@ -98,7 +98,7 @@ class ProfileSettingsVC: UIViewController {
         ])
     }
     private func configurePersonalSectionLabel() {
-        personalSectionLabel.text = "Персональная информация"
+        personalSectionLabel.text = ProfileSettingsStrings.personalInfoLabel
         
         NSLayoutConstraint.activate([
             personalSectionLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding / 2),
@@ -133,7 +133,7 @@ class ProfileSettingsVC: UIViewController {
     }
     
     private func configureContactsSectionLabel() {
-        contactsSectionLabel.text = "Контакты"
+        contactsSectionLabel.text = ProfileSettingsStrings.contactsLabel
         
         NSLayoutConstraint.activate([
             contactsSectionLabel.topAnchor.constraint(equalTo: birthdayTextField.bottomAnchor, constant: padding),
@@ -186,7 +186,7 @@ class ProfileSettingsVC: UIViewController {
     }
     
     private func configureCompanySectionLabel() {
-        companySectionLabel.text = "О компании"
+        companySectionLabel.text = ProfileSettingsStrings.aboutCompanySection
         
         NSLayoutConstraint.activate([
             companySectionLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: padding),
@@ -315,9 +315,9 @@ extension ProfileSettingsVC: UITextFieldDelegate {
         
         switch textField {
         case phoneTextField: textField.placeholder = countryData != nil ? countryData?.phoneMask ?? "" : savedCountryData?.phoneMask ?? ""
-        case birthdayTextField: textField.placeholder = "ДД.MM.ГГГГ"
-        case nameTextField: textField.placeholder = "Иванов Иван Иванович"
-        case companyNameTextField: textField.placeholder = "ООО/ИП Название юр. лица"
+        case birthdayTextField: textField.placeholder = ProfileSettingsStrings.birthdayTFPlaceholder
+        case nameTextField: textField.placeholder = ProfileSettingsStrings.nameTFPlaceholder
+        case companyNameTextField: textField.placeholder = ProfileSettingsStrings.companyNameTFPlaceholder
         default: break
         }
     }

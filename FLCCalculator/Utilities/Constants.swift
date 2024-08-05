@@ -101,9 +101,9 @@ enum Keys {
 }
 
 enum WarehouseStrings {
-    static let russianWarehouseCity = "Склад Подольск"
-    static let chinaWarehouse = "Склад Китай"
-    static let turkeyWarehouse = "Склад Стамбул"
+    static let russianWarehouseCity = NSLocalizedString("Склад Подольск", comment: "")
+    static let chinaWarehouse = NSLocalizedString("Склад Китай", comment: "")
+    static let turkeyWarehouse = NSLocalizedString("Склад Стамбул", comment: "")
 }
 
 enum ScreenSize {
@@ -122,16 +122,6 @@ enum DeviceTypes {
     static let isiPhoneSE3rdGen = idiom == .phone && ScreenSize.maxLength == 667.0
 }
 
-enum ProfileSettingsTextFieldsNames {
-    static let fio = "ФИО"
-    static let dateOfBirth = "Дата рождения"
-    static let phoneNumber = "Номер телефона"
-    static let email = "Email"
-    static let companyName = "Название юр.лица"
-    static let inn = "ИНН"
-    static let dtCount = "Количество оформленных ДТ за год"
-}
-
 enum FLCBubbleUserDataKeys {
     static let bday = "bday"
     static let company = "company"
@@ -144,4 +134,88 @@ enum FLCBubbleUserDataKeys {
 
 enum OnboardingDictKeys {
     static let contactsVCPopoverWasShown = "contactsVCPopoverWasShown"
+}
+
+enum FLCThemeOptionsStrings {
+    static let onDevice = NSLocalizedString("Как на устройстве", comment: "")
+    static let light = NSLocalizedString("Светлая", comment: "")
+    static let dark = NSLocalizedString("Тёмная", comment: "")
+}
+
+enum SettingsStrings {
+    static let settings = NSLocalizedString("Настройки", comment: "")
+    static let theme = NSLocalizedString("Тема", comment: "")
+    static let haptic = NSLocalizedString("Тактильный отклик элементов интерфейса", comment: "")
+    static let permissions = NSLocalizedString("Разрешения", comment: "")
+    static let shareApp = NSLocalizedString("Поделиться приложением", comment: "")
+    static let rateApp = NSLocalizedString("Оценить приложение в AppStore", comment: "")
+    static let support = NSLocalizedString("Обратная связь", comment: "")
+    static let commonSection = NSLocalizedString("Общее", comment: "")
+    static let aboutAppSection = NSLocalizedString("О приложении", comment: "")
+    static let findErrorFooter = NSLocalizedString("Нашли баг, ошибку, опечатку? Напишите, и мы сразу же исправим!", comment: "")
+}
+
+enum FLCPersonalManagerViewStrings {
+    static let phoneButton = NSLocalizedString("Телефон", comment: "")
+    static let mobilePhone = NSLocalizedString("Мобильный", comment: "")
+    static let landlinePhone = NSLocalizedString("Стационарный", comment: "")
+    static let phoneCallUIMenuTitle = NSLocalizedString("Контактные номера телефонов", comment: "")
+    static let emailButton = "Email"
+    static let telegramButton = "Telegram"
+    static let whatsappButton = "WhatsApp"
+}
+
+enum UsefulInfoStrings {
+    static let useful = NSLocalizedString("Полезное", comment: "")
+    static let managerContacts = NSLocalizedString("Ваш менеджер", comment: "")
+    static let usefulInfo = NSLocalizedString("Наши сервисы", comment: "")
+    static let aboutCompany = NSLocalizedString("О компании", comment: "")
+    static let documents = NSLocalizedString("Документы", comment: "")
+    static let bonusSystem = NSLocalizedString("Бонусный счет", comment: "")
+    static let sanctionsCheck = NSLocalizedString("Проверка возможности импорта товара", comment: "")
+    static let fashionSupplierBase = NSLocalizedString("База поставщиков индустрии моды", comment: "")
+    static let contacts = NSLocalizedString("Контакты", comment: "")
+    static let sanctionsCheckLink = "https://cargointegrator.com"
+    static let fashionSupplierBaseLink = "https://manufactures.free-lines.ru"
+}
+
+enum PermissionsStrings {
+    static let permissions = NSLocalizedString("Разрешения", comment: "")
+    static let configureHeadlineLabel = NSLocalizedString("Разрешения необходимы для оптимальной работы приложения. Ознакомьтесь с их описанием", comment: "")
+    static let notifications = NSLocalizedString("Уведомления", comment: "")
+    static let notificationsSubtitle = NSLocalizedString("Сможем оповещать об изменениях в тарифах и акциях", comment: "")
+    static let footerLabel = NSLocalizedString("Без этого приложение может работать нестабильно. Вы всегда сможете изменить решение в настройках", comment: "")
+    static let permissionButtonAllow = NSLocalizedString("Разрешить", comment: "")
+    static let permissionButtonAllowed = NSLocalizedString("Разрешено", comment: "")
+}
+
+enum ProfileSettingsStrings {
+    static let myProfile = NSLocalizedString("Мой профиль", comment: "")
+    static let countryCode = NSLocalizedString("Код страны", comment: "")
+    static let privacyPolicyFull = NSLocalizedString("Изменяя и сохраняя данные в профиле, вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»", comment: "")
+    static let privacyPolicyTargetLink = NSLocalizedString("Правилами обработки персональных данных", comment: "")
+    static let saveButton = NSLocalizedString("Сохранить изменения", comment: "")
+    static let exitButton = NSLocalizedString("Выйти из аккаунта", comment: "")
+    static let deleteButton = NSLocalizedString("Удалить аккаунт", comment: "")
+    static let personalInfoLabel = NSLocalizedString("Персональная информация", comment: "")
+    static let contactsLabel = NSLocalizedString("Контакты", comment: "")
+    static let aboutCompanySection = NSLocalizedString("О компании", comment: "")
+    static let birthdayTFPlaceholder = NSLocalizedString("ДД.MM.ГГГГ", comment: "")
+    static let nameTFPlaceholder = NSLocalizedString("Иванов Иван Иванович", comment: "")
+    static let companyNameTFPlaceholder = NSLocalizedString("ООО/ИП Название юр. лица", comment: "")
+    static let fio = NSLocalizedString("ФИО", comment: "")
+    static let dateOfBirth = NSLocalizedString("Дата рождения", comment: "")
+    static let phoneNumber = NSLocalizedString("Номер телефона", comment: "")
+    static let email = NSLocalizedString("Электронная почта", comment: "")
+    static let companyName = NSLocalizedString("Название юр.лица", comment: "")
+    static let inn = NSLocalizedString("ИНН", comment: "")
+    static let dtCount = NSLocalizedString("Количество оформленных ДТ за год", comment: "")
+}
+
+enum TextViewActionStrings {
+    static let privacyPolicy = "privacyPolicy"
+}
+
+enum FLCPopupMessages {
+    static let cantOpenAppStore = NSLocalizedString("Не получается открыть App Store", comment: "")
 }

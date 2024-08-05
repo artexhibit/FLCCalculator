@@ -41,6 +41,15 @@ enum FLCUsefulInfoSections: String, CaseIterable {
     case usefulInfo = "Наши сервисы"
     case aboutCompany = "О компании"
     case documents = "Документы"
+    
+    var localizedDescription: String {
+        switch self {
+        case .managerContacts: UsefulInfoStrings.managerContacts
+        case .usefulInfo: UsefulInfoStrings.usefulInfo
+        case .aboutCompany: UsefulInfoStrings.aboutCompany
+        case .documents: UsefulInfoStrings.documents
+        }
+    }
 }
 
 enum FLCThemeOptions: String, CaseIterable {
@@ -53,6 +62,14 @@ enum FLCThemeOptions: String, CaseIterable {
         case .onDevice: return .unspecified
         case .light: return .light
         case .dark: return .dark
+        }
+    }
+    
+    var localizedDescription: String {
+        switch self {
+        case .onDevice: FLCThemeOptionsStrings.onDevice
+        case .light: FLCThemeOptionsStrings.light
+        case .dark: FLCThemeOptionsStrings.dark
         }
     }
 }

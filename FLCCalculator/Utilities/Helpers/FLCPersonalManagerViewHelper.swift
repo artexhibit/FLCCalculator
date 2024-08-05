@@ -30,13 +30,13 @@ struct FLCPersonalManagerViewHelper {
     }
     
     static func showPhoneCallUIMenu(of manager: FLCManager?) -> UIMenu {
-        let mobileNumberItem = UIAction(title: manager?.mobilePhone ?? "", subtitle: "Мобильный", image: Icons.phone) { (_) in
+        let mobileNumberItem = UIAction(title: manager?.mobilePhone ?? "", subtitle: FLCPersonalManagerViewStrings.mobilePhone, image: Icons.phone) { (_) in
             CalculatorManager.createPhoneCall(with: manager?.mobilePhone ?? "")
         }
-        let landlineNumberItem = UIAction(title: manager?.landlinePhone ?? "", subtitle: "Стационарный", image: Icons.phone) { (_) in
+        let landlineNumberItem = UIAction(title: manager?.landlinePhone ?? "", subtitle: FLCPersonalManagerViewStrings.landlinePhone, image: Icons.phone) { (_) in
             CalculatorManager.createPhoneCall(with: manager?.landlinePhone ?? "")
         }
-        return UIMenu(title: "Контактные номера телефонов", children: [mobileNumberItem, landlineNumberItem])
+        return UIMenu(title: FLCPersonalManagerViewStrings.phoneCallUIMenuTitle, children: [mobileNumberItem, landlineNumberItem])
     }
     
     static func configurePhoneButtonMenu(phoneButton: FLCRoundButton, of manager: FLCManager) {

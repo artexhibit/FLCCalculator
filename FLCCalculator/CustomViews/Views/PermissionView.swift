@@ -11,8 +11,8 @@ class PermissionView: UIView {
     private let iconView = FLCIconView()
     private let textContentView = UIView()
     private let titleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 20, weight: .bold)
-    private let subtitleLabel = FLCSubtitleLabel(color: .gray, textAlignment: .left, textStyle: .caption1)
-    private let permissionButton = FLCTintedButton(color: .flcOrange, title: "Разрешить", cornerStyle: .capsule)
+    private let subtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left, textStyle: .caption1)
+    private let permissionButton = FLCTintedButton(color: .flcOrange, title: PermissionsStrings.permissionButtonAllow, cornerStyle: .capsule)
     private var type: FLCPermissionType = .notifications
     
     weak var delegate: PermissionViewDelegate?
@@ -41,7 +41,7 @@ class PermissionView: UIView {
     
     private func configure() {
         addSubviews(iconView, textContentView, permissionButton)
-        backgroundColor = .flcBackground
+        backgroundColor = .flcLightOrangeBackground
         layer.cornerRadius = 15
     }
     
@@ -88,13 +88,14 @@ class PermissionView: UIView {
         
         NSLayoutConstraint.activate([
             permissionButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            permissionButton.centerYAnchor.constraint(equalTo: textContentView.centerYAnchor)
+            permissionButton.centerYAnchor.constraint(equalTo: textContentView.centerYAnchor),
+            permissionButton.widthAnchor.constraint(lessThanOrEqualToConstant: 150)
         ])
     }
     
     func updatePermissionButtonUI(with isAccessGranted: Bool) {
         Task {
-            isAccessGranted ? permissionButton.set(color: .flcGray, title: "Разрешено", cornerStyle: .capsule) : permissionButton.set(color: .flcOrange, title: "Разрешить", cornerStyle: .capsule)
+            isAccessGranted ? permissionButton.set(color: .flcGray, title: PermissionsStrings.permissionButtonAllowed, cornerStyle: .capsule) : permissionButton.set(color: .flcOrange, title: PermissionsStrings.permissionButtonAllow, cornerStyle: .capsule)
         }
     }
     func getType() -> FLCPermissionType { type }

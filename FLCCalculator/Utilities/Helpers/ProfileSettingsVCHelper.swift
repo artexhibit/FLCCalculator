@@ -68,13 +68,13 @@ struct ProfileSettingsVCHelper {
             guard let textFieldName = (textField as? FLCNumberTextField)?.getSmallLabel().text else { return }
             
             switch textFieldName {
-            case ProfileSettingsTextFieldsNames.fio: updatedUser.fio = textField.text
-            case ProfileSettingsTextFieldsNames.dateOfBirth: updatedUser.birthDate = textField.text
-            case ProfileSettingsTextFieldsNames.phoneNumber: updatedUser.mobilePhone = (countryCodePickerButton.showingTitle + (textField.text ?? "")).extractDigits()
-            case ProfileSettingsTextFieldsNames.email: updatedUser.email = textField.text ?? ""
-            case ProfileSettingsTextFieldsNames.companyName: updatedUser.companyName = textField.text
-            case ProfileSettingsTextFieldsNames.inn: updatedUser.inn = Int(textField.text ?? "")
-            case ProfileSettingsTextFieldsNames.dtCount: updatedUser.dtCount = Int(textField.text ?? "")
+            case ProfileSettingsStrings.fio: updatedUser.fio = textField.text
+            case ProfileSettingsStrings.dateOfBirth: updatedUser.birthDate = textField.text
+            case ProfileSettingsStrings.phoneNumber: updatedUser.mobilePhone = (countryCodePickerButton.showingTitle + (textField.text ?? "")).extractDigits()
+            case ProfileSettingsStrings.email: updatedUser.email = textField.text ?? ""
+            case ProfileSettingsStrings.companyName: updatedUser.companyName = textField.text
+            case ProfileSettingsStrings.inn: updatedUser.inn = Int(textField.text ?? "")
+            case ProfileSettingsStrings.dtCount: updatedUser.dtCount = Int(textField.text ?? "")
             default: break
             }
         }

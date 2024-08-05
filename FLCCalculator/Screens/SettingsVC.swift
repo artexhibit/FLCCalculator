@@ -22,7 +22,7 @@ class SettingsVC: UIViewController {
     private func configureVC() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Настройки"
+        navigationItem.title = SettingsStrings.settings
         setNavBarColor(color: UIColor.flcOrange)
         tabBarController?.tabBar.isHidden = false
     }

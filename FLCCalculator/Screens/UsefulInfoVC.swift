@@ -27,7 +27,7 @@ class UsefulInfoVC: UIViewController {
     private func configureVC() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Полезное"
+        navigationItem.title = UsefulInfoStrings.useful
         setNavBarColor(color: UIColor.flcOrange)
     }
     
@@ -85,7 +85,7 @@ extension UsefulInfoVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FLCTableViewHeader.reuseID) as? FLCTableViewHeader
-        headerView?.set(title: sections[section].rawValue)
+        headerView?.set(title: sections[section].localizedDescription)
         return headerView
     }
 }

@@ -6,7 +6,7 @@ protocol PermissionsCellDelegate: AnyObject {
 
 class PermissionsCell: UITableViewCell {
     
-    static let reuseID = "PermissionsCell"
+    static let reuseID = String(describing: PermissionsCell.self)
     
     private let padding: CGFloat = 18
     
@@ -17,7 +17,7 @@ class PermissionsCell: UITableViewCell {
     weak var delegate: PermissionsCellDelegate?
     
     private let permissions: [PermissionItem] = [
-        PermissionItem(type: .notifications, icon: Icons.bellBadge, iconBackgroundColor: .systemRed, title: "Уведомления", subtitle: "Сможем оповещать об изменениях в тарифах и акциях")
+        PermissionItem(type: .notifications, icon: Icons.bellBadge, iconBackgroundColor: .systemRed, title: PermissionsStrings.notifications, subtitle: PermissionsStrings.notificationsSubtitle)
     ]
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,7 +38,7 @@ class PermissionsCell: UITableViewCell {
     }
     
     private func configureHeadlineLabel() {
-        headlineLabel.text = "Разрешения необходимы для оптимальной работы приложения. Ознакомьтесь с их описанием"
+        headlineLabel.text = PermissionsStrings.configureHeadlineLabel
         
         NSLayoutConstraint.activate([
             headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
@@ -58,6 +58,10 @@ class PermissionsCell: UITableViewCell {
             let permissionView = PermissionView(item: permissionItem)
             permissionView.delegate = self
             permissionsStackView.addArrangedSubview(permissionView)
+            
+            NSLayoutConstraint.activate([
+                permissionView.widthAnchor.constraint(equalTo: permissionsStackView.widthAnchor)
+            ])
         }
         permissionsStackView.addArrangedSubview(footerLabel)
         
@@ -70,7 +74,7 @@ class PermissionsCell: UITableViewCell {
     }
     
     private func configureFooterLabel() {
-        footerLabel.text = "Без этого приложение может работать нестабильно. Вы всегда сможете изменить решение в настройках"
+        footerLabel.text = PermissionsStrings.footerLabel
     }
 }
 
