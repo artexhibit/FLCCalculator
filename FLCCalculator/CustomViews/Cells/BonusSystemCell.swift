@@ -2,14 +2,14 @@ import UIKit
 
 class BonusSystemCell: UITableViewCell {
     
-    static let reuseID = "BonusSystemCell"
+    static let reuseID = String(describing: BonusSystemCell.self)
     
     private let padding: CGFloat = 18
-    private let textButtonURLString = "http://free-lines.ru/information/specialoffers/loyaltyProgram/"
+    private let textButtonURLString = BonusSystemVCStrings.textButtonURLLink
     
     private let titleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left)
     private let mainTextLabel = FLCBodyLabel(color: .label, textAlignment: .left)
-    private let detailsButton = FLCButton(color: .flcOrange, title: "Подробнее")
+    private let detailsButton = FLCButton(color: .flcOrange, title: BonusSystemVCStrings.detailsButton)
     private let markTintedView = FLCTintedView(color: .flcOrange, withText: true)
     private var parentVC: UIViewController { get { self.findParentViewController() ?? UIViewController() } }
     
@@ -33,7 +33,7 @@ class BonusSystemCell: UITableViewCell {
     }
     
     private func configureTitleLabel() {
-        titleLabel.text = "Бонусная программа CASH BACK для клиентов FLC"
+        titleLabel.text = BonusSystemVCStrings.titleLabel
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
@@ -43,13 +43,7 @@ class BonusSystemCell: UITableViewCell {
     }
     
     private func configureMainTextLabel() {
-        mainTextLabel.text = """
-            Закажите доставку сборного груза и получите скидку 10% на первую перевозку с FLC!
-            
-            Выбирая постоянное сотрудничество с FLC вы получаете не только качественные услуги по организации доставки и таможенного оформления ваших грузов, но и выгоду в удобном для вас формате.
-            
-            FLCoins можно списать в счет оплаты будущих перевозок или обменять на сертификат партнера (OZON, Lamoda, Л'Этуаль, Спортмастер).
-            """
+        mainTextLabel.text = BonusSystemVCStrings.mainTextLabel
         
         NSLayoutConstraint.activate([
             mainTextLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
@@ -59,7 +53,7 @@ class BonusSystemCell: UITableViewCell {
     }
     
     private func configureMarkTintedView() {
-        let message = "Бонусы начисляются на услуги по перевозке сборных грузов и авиаперевозке"
+        let message = BonusSystemVCStrings.markTintedMessage
         markTintedView.setTextLabel(text: message.makeAttributed(icon: Icons.exclamationMark, tint: .flcOrange, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate:  parentVC)
         
         NSLayoutConstraint.activate([

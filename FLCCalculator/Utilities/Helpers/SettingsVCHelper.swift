@@ -6,7 +6,7 @@ struct SettingsVCHelper {
         let countryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
         let phoneCode = countryData?.phoneCode ?? ""
         let phoneNumber = user?.mobilePhone.removeStringPart(phoneCode.removeFirstCharacters(1)) ?? ""
-        let pickedThemeOption = FLCThemeOptions(rawValue: UserDefaultsManager.appTheme)?.localizedDescription
+        let pickedThemeOption = FLCAppTheme(rawValue: UserDefaultsManager.appTheme)?.localizedDescription
         let userMobilePhone = phoneCode + " " + TextFieldManager.formatPhoneNumber(with: countryData?.phoneMask ?? "", phone: phoneNumber)
         
         let firstSectionItems = [
@@ -53,7 +53,7 @@ struct SettingsVCHelper {
         var menuChildren = [UIMenuElement]()
         
         if contentType == .theme {
-            let themeOptions = FLCThemeOptions.allCases
+            let themeOptions = FLCAppTheme.allCases
             
             themeOptions.forEach { option in
                 let state: UIMenuElement.State = option.rawValue == UserDefaultsManager.appTheme ? .on : .off
@@ -75,7 +75,7 @@ struct SettingsVCHelper {
     static func updateAppTheme(in tableView: UITableView, sections: [SettingsSection], with contentType: FLCSettingsContentType) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let firstWindow = windowScene.windows.first else { return }
-        guard let appTheme = FLCThemeOptions(rawValue: UserDefaultsManager.appTheme)?.userInterfaceStyle else { return }
+        guard let appTheme = FLCAppTheme(rawValue: UserDefaultsManager.appTheme)?.userInterfaceStyle else { return }
         UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {
             firstWindow.overrideUserInterfaceStyle = appTheme
         })

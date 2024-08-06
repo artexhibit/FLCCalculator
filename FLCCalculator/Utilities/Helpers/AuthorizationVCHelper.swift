@@ -3,9 +3,7 @@ import UIKit
 struct AuthorizationVCHelper {
     static func presentAuthorizationVC(animated: Bool = false) {
         DispatchQueue.main.async {
-            let userCredentials = KeychainManager.shared.read(type: FLCUserCredentials.self)
-            
-            if !(userCredentials?.isTokenValid ?? false) {
+            guard let userCredentials = KeychainManager.shared.read(type: FLCUserCredentials.self), userCredentials.isTokenValid else {
                 guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first, let rootController = window.rootViewController else { return }
                 
                 if let flcTabBar = rootController as? FLCTabBarController { flcTabBar.selectedIndex = 0 }
@@ -13,6 +11,7 @@ struct AuthorizationVCHelper {
                 let authorizationVC = AuthorizationVC()
                 authorizationVC.modalPresentationStyle = .fullScreen
                 rootController.present(authorizationVC, animated: animated)
+                return
             }
         }
     }

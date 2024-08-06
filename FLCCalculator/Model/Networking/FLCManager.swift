@@ -11,6 +11,7 @@ struct FLCManager: Codable, Hashable {
     let email: String
     let avatarRef: String
     let dataDate: String
+    let localisationData: [String: ManagerLanguageData]?
     private var avatarData: Data?
     
     var avatar: UIImage? {
@@ -34,6 +35,7 @@ struct FLCManager: Codable, Hashable {
         self.email = email
         self.avatarRef = avatarRef
         self.dataDate = dataDate
+        self.localisationData = nil
         self.avatarData = avatar?.pngData()
     }
     
@@ -48,6 +50,7 @@ struct FLCManager: Codable, Hashable {
         case email
         case avatarRef
         case dataDate
+        case localisationData
         case avatarData
     }
     
@@ -62,6 +65,13 @@ struct FLCManager: Codable, Hashable {
         hasher.combine(email)
         hasher.combine(avatarRef)
         hasher.combine(dataDate)
+        hasher.combine(localisationData)
+    }
+    
+    struct ManagerLanguageData: Codable, Hashable {
+        let name: String
+        let position: String
+        let landlinePhone: String
     }
 }
 

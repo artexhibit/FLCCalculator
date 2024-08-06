@@ -1,12 +1,12 @@
 import UIKit
 
 enum FLCPopupViewStyle { case error, normal, spinner }
-enum FLCDeliveryTypeCodes: String { case EXW, FCA, FOB }
+enum FLCDeliveryTypeCode: String { case EXW, FCA, FOB }
 enum FLCPopupViewPosition { case top, bottom }
 enum FLCProgressViewOption { case increase, decrease }
 enum FLCListPickerSortType { case byTitle, bySubtitle }
 enum FLCListPickerSearchType { case onlyByTitle, onlyBySubtitle, both }
-enum FLCGoToViewDirections { case forward, backward }
+enum FLCGoToViewDirection { case forward, backward }
 enum FLCSection { case main }
 enum FLCTextViewLabelImagePlacing { case afterText, beforeText }
 enum FLCPopoverPosition { case top, bottom }
@@ -36,7 +36,7 @@ enum FLCNotificationServiceDataKey: String, Codable {
     case isCalculationDataAvailable, isDocumentsDataAvailable, isManagerDataAvailable, isNewLogisticsTypesDataAvailable
 }
 
-enum FLCUsefulInfoSections: String, CaseIterable {
+enum FLCUsefulInfoSection: String, CaseIterable {
     case managerContacts = "Ваш менеджер"
     case usefulInfo = "Наши сервисы"
     case aboutCompany = "О компании"
@@ -52,7 +52,7 @@ enum FLCUsefulInfoSections: String, CaseIterable {
     }
 }
 
-enum FLCThemeOptions: String, CaseIterable {
+enum FLCAppTheme: String, CaseIterable {
     case onDevice = "Как на устройстве"
     case light = "Светлая"
     case dark = "Тёмная"
@@ -166,7 +166,7 @@ enum FLCSalesManager: String, CaseIterable {
     case igorVolkov = "Игорь Волков"
 }
 
-enum FLCCities: String, CaseIterable {
+enum FLCCity: String, CaseIterable {
     case istanbul = "Istanbul"
     case shanghai = "Shanghai"
     case beijing = "Beijing"
@@ -222,6 +222,11 @@ enum FLCFirebaseDataUpdateItem: String, Codable {
         case .turkeyTruckByFerryTariff: return TurkeyTruckByFerryTariff.self
         }
     }
+}
+
+enum FLCAppLanguage: String {
+    case ru = "ru"
+    case en = "en"
 }
 
 enum FLCLogisticsType: String, CaseIterable {

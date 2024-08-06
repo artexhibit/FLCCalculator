@@ -94,12 +94,42 @@
         }
       }
     },
+    "Бонусная программа CASH BACK для клиентов FLC" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CASH BACK bonus program for FLC clients"
+          }
+        }
+      }
+    },
     "Бонусный счет" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bonus account"
+          }
+        }
+      }
+    },
+    "Бонусный счёт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonus account"
+          }
+        }
+      }
+    },
+    "Бонусы начисляются на услуги по перевозке сборных грузов и авиаперевозке" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonuses are awarded for logistics services of consolidated cargo and air delivery"
           }
         }
       }
@@ -160,6 +190,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Documents"
+          }
+        }
+      }
+    },
+    "Закажите доставку сборного груза и получите скидку 10% на первую перевозку с FLC!\n\nВыбирая постоянное сотрудничество с FLC вы получаете не только качественные услуги по организации доставки и таможенного оформления ваших грузов, но и выгоду в удобном для вас формате.\n\nFLCoins можно списать в счет оплаты будущих перевозок или обменять на сертификат партнера (OZON, Lamoda, Л'Этуаль, Спортмастер)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Order delivery of consolidated cargo and receive a 10% discount on your first shipment with FLC!\n\nBy choosing permanent cooperation with FLC, you receive not only high-quality services for organizing the delivery and customs clearance of your goods, but also benefits in a format convenient for you.\n\nFLCoins can be written off as payment for future orders or exchanged for a partner certificate (OZON, Lamoda, L'Etoile, Sportmaster)."
           }
         }
       }
@@ -244,6 +284,16 @@
         }
       }
     },
+    "Маршрут" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Route"
+          }
+        }
+      }
+    },
     "Мобильный" : {
       "localizations" : {
         "en" : {
@@ -270,6 +320,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Company legal name"
+          }
+        }
+      }
+    },
+    "Написать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
           }
         }
       }
@@ -414,6 +474,26 @@
         }
       }
     },
+    "Подробнее" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More details"
+          }
+        }
+      }
+    },
+    "Позвонить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Call"
+          }
+        }
+      }
+    },
     "Полезное" : {
       "localizations" : {
         "en" : {
@@ -524,6 +604,16 @@
         }
       }
     },
+    "Скопировать адрес" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy the address"
+          }
+        }
+      }
+    },
     "Сможем оповещать об изменениях в тарифах и акциях" : {
       "localizations" : {
         "en" : {
@@ -569,7 +659,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Call"
+            "value" : "Phone Call"
           }
         }
       }
@@ -579,7 +669,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Phone"
+            "value" : "Theme"
           }
         }
       }

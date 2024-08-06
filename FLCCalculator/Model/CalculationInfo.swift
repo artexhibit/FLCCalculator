@@ -638,10 +638,10 @@ struct CalculationInfo {
     ]
     
     static let chinaAirportsOptions = [
-        FLCPickerItem(title: FLCCities.beijing.rawValue, subtitle: "Международный аэропорт Дасин (PKX)", image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCities.shanghai.rawValue, subtitle: "Международный аэропорт Пудун (PVG)", image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCities.guangzhou.rawValue, subtitle: "Международный аэропорт Байюнь (CAN)", image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCities.shenzhen.rawValue, subtitle: "Международный аэропорт Баоань (SZX)", image: Icons.plane, isOpenForAdd: false)
+        FLCPickerItem(title: FLCCity.beijing.rawValue, subtitle: "Международный аэропорт Дасин (PKX)", image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.shanghai.rawValue, subtitle: "Международный аэропорт Пудун (PVG)", image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.guangzhou.rawValue, subtitle: "Международный аэропорт Байюнь (CAN)", image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.shenzhen.rawValue, subtitle: "Международный аэропорт Баоань (SZX)", image: Icons.plane, isOpenForAdd: false)
     ]
     
     static let chinaDeliveryTypes = [

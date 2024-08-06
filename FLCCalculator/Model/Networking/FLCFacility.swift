@@ -10,6 +10,7 @@ struct FLCFacility: Codable, Hashable {
     let email: String?
     let avatarRef: [String]
     let routes: [String: String]
+    let localisationData: [String: FacilityLanguageData]?
     
     init(latitude: Double, longitude: Double, name: String, address: String, workingHours: String, phoneNumber: String, email: String? = nil, avatarRef: [String] = [], routes: [String: String] = [:]) {
         self.latitude = latitude
@@ -21,6 +22,13 @@ struct FLCFacility: Codable, Hashable {
         self.email = email
         self.avatarRef = avatarRef
         self.routes = routes
+        self.localisationData = nil
+    }
+    
+    struct FacilityLanguageData: Codable, Hashable {
+        let name: String
+        let address: String
+        let workingHours: String
     }
 }
 

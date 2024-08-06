@@ -115,7 +115,7 @@ struct CalculationHelper {
             }
         }
         view.flcListPickerButtons.forEach {
-            if $0.showingTitle == FLCCities.istanbul.rawValue {
+            if $0.showingTitle == FLCCity.istanbul.rawValue {
                 FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите область Стамбула в Пункте Отправления")
                 $0.switchToRedColors()
                 isWithZero = true

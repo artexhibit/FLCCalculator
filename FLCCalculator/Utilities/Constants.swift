@@ -142,6 +142,21 @@ enum FLCThemeOptionsStrings {
     static let dark = NSLocalizedString("Тёмная", comment: "")
 }
 
+enum BonusSystemVCStrings {
+    static let bonusAccount = NSLocalizedString("Бонусный счёт", comment: "")
+    static let detailsButton = NSLocalizedString("Подробнее", comment: "")
+    static let titleLabel = NSLocalizedString("Бонусная программа CASH BACK для клиентов FLC", comment: "")
+    static let mainTextLabel = NSLocalizedString("""
+            Закажите доставку сборного груза и получите скидку 10% на первую перевозку с FLC!
+            
+            Выбирая постоянное сотрудничество с FLC вы получаете не только качественные услуги по организации доставки и таможенного оформления ваших грузов, но и выгоду в удобном для вас формате.
+            
+            FLCoins можно списать в счет оплаты будущих перевозок или обменять на сертификат партнера (OZON, Lamoda, Л'Этуаль, Спортмастер).
+            """, comment: "")
+    static let markTintedMessage = NSLocalizedString("Бонусы начисляются на услуги по перевозке сборных грузов и авиаперевозке", comment: "")
+    static let textButtonURLLink = "http://free-lines.ru/information/specialoffers/loyaltyProgram/"
+}
+
 enum SettingsStrings {
     static let settings = NSLocalizedString("Настройки", comment: "")
     static let theme = NSLocalizedString("Тема", comment: "")
@@ -163,6 +178,14 @@ enum FLCPersonalManagerViewStrings {
     static let emailButton = "Email"
     static let telegramButton = "Telegram"
     static let whatsappButton = "WhatsApp"
+}
+
+enum ContactsVCStrings {
+    static let phoneButton = NSLocalizedString("Позвонить", comment: "")
+    static let emailButton = NSLocalizedString("Написать", comment: "")
+    static let routeButton = NSLocalizedString("Маршрут", comment: "")
+    static let detailsButton = NSLocalizedString("Подробнее", comment: "")
+    static let copyAction = NSLocalizedString("Скопировать адрес", comment: "")
 }
 
 enum UsefulInfoStrings {

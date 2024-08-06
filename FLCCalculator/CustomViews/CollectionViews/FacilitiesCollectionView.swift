@@ -78,7 +78,7 @@ extension FacilitiesCollectionView: UICollectionViewDelegateFlowLayout {
     }
     
     private func createActionMenu(with indexPaths: [IndexPath]) -> UIMenu {
-        let copyAction = UIAction(title: "Скопировать адрес", image: Icons.copyIcon) { _ in
+        let copyAction = UIAction(title: ContactsVCStrings.copyAction, image: Icons.copyIcon) { _ in
             let pickedFacility = self.facilities[indexPaths.first?.row ?? 0]
             let addressString = "\(pickedFacility.name) \n\n \(pickedFacility.address) \n\n \(pickedFacility.workingHours) \n\n \(pickedFacility.phoneNumber) \n \(pickedFacility.email ?? "")"
             UIPasteboard.general.string = addressString

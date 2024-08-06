@@ -13,6 +13,9 @@
 		0B05A4092C4169B3000F4ABF /* NumberFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */; };
 		0B05A40A2C4169B4000F4ABF /* NumberFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE2B2B89EC4C00B834DD /* NumberFormatter+Ext.swift */; };
 		0B0E71C52BAA09E900BC9D88 /* FLCTextViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */; };
+		0B15FFBC2C62958200CA3255 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B15FFBB2C62958200CA3255 /* LanguageManager.swift */; };
+		0B15FFBD2C62958800CA3255 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B15FFBB2C62958200CA3255 /* LanguageManager.swift */; };
+		0B15FFBE2C62958900CA3255 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B15FFBB2C62958200CA3255 /* LanguageManager.swift */; };
 		0B1E313E2C10956F00291D0E /* SettingsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1E313D2C10956F00291D0E /* SettingsVCHelper.swift */; };
 		0B1E31402C10A3F500291D0E /* SettingsCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1E313F2C10A3F500291D0E /* SettingsCellContent.swift */; };
 		0B1E31412C10A47900291D0E /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9D5A722BB9914D0016A991 /* Protocols.swift */; };
@@ -372,6 +375,7 @@
 /* Begin PBXFileReference section */
 		0B04C0D72BC59F0F0007A316 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		0B0E71C42BAA09E900BC9D88 /* FLCTextViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCTextViewLabel.swift; sourceTree = "<group>"; };
+		0B15FFBB2C62958200CA3255 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		0B1E313D2C10956F00291D0E /* SettingsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVCHelper.swift; sourceTree = "<group>"; };
 		0B1E313F2C10A3F500291D0E /* SettingsCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellContent.swift; sourceTree = "<group>"; };
 		0B1E31432C10C18100291D0E /* SettingsMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuCell.swift; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 				0B7E5CC02C2B49F500F142A1 /* DateFormatterManager.swift */,
 				0BCAF71B2C4D924800ECAD15 /* MapsManager.swift */,
 				0BF851732C4ED7B30006E8D3 /* CalculatorManager.swift */,
+				0B15FFBB2C62958200CA3255 /* LanguageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1304,6 +1309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BFA89A12C22B9DF0023D949 /* ChinaAirTariff.swift in Sources */,
+				0B15FFBE2C62958900CA3255 /* LanguageManager.swift in Sources */,
 				0BFA898C2C22B7BD0023D949 /* Persistence.swift in Sources */,
 				0B7E5CC32C2B49F500F142A1 /* DateFormatterManager.swift in Sources */,
 				0BFA89D52C22BC880023D949 /* FileSystemManager.swift in Sources */,
@@ -1478,6 +1484,7 @@
 				0B7882892BDEB0CE00BDCA16 /* FLCRoundButton.swift in Sources */,
 				0B67DF8E2C0B50B4008CE099 /* UserDefaultsPercistenceManager.swift in Sources */,
 				0BBB3A912BADE53400DFD54C /* UITextView+Ext.swift in Sources */,
+				0B15FFBC2C62958200CA3255 /* LanguageManager.swift in Sources */,
 				0BB1E0622BE0FB4900AB6A63 /* FLCManager.swift in Sources */,
 				0B32F16B2B93465D004BAB46 /* FLCPickerItem.swift in Sources */,
 				0B2E6BC12C0CD5680004DF10 /* RegistrationVC.swift in Sources */,
@@ -1580,6 +1587,7 @@
 				0BABA4C62C23677C000991E9 /* FLCUserCredentials.swift in Sources */,
 				0BFA89B12C22BA7B0023D949 /* CalculationInfo.swift in Sources */,
 				0B1E31412C10A47900291D0E /* Protocols.swift in Sources */,
+				0B15FFBD2C62958800CA3255 /* LanguageManager.swift in Sources */,
 				0B6E54572B811B540078C110 /* Widgets.swift in Sources */,
 				0BFA89E42C22CA950023D949 /* NetworkStatusManager.swift in Sources */,
 				0B754E732C288F6F0082D8A8 /* SMSManager.swift in Sources */,

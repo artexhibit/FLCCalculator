@@ -183,7 +183,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 return
             }
             
-            if transportView.deliveryTypePickerButton.showingTitle.contains(FLCDeliveryTypeCodes.FCA.rawValue) && pickedCountry != .turkey {
+            if transportView.deliveryTypePickerButton.showingTitle.contains(FLCDeliveryTypeCode.FCA.rawValue) && pickedCountry != .turkey {
                 button.smallLabelView.moveUpSmallLabel()
                 
                 switch pickedCountry {
@@ -193,7 +193,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 
                 CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, title: "Выберите аэропорт отправления для расчёта авиа логистики", cantCloseBySwipe: true)
             } else {
-                if transportView.departurePickerButton.showingTitle == FLCCities.istanbul.rawValue {
+                if transportView.departurePickerButton.showingTitle == FLCCity.istanbul.rawValue {
                     CalculationHelper.showIstanbulZones(in: transportView, and: self)
                     return
                 }
@@ -239,7 +239,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
             }
         
         case transportView.departurePickerButton:
-            if transportView.departurePickerButton.showingTitle == FLCCities.istanbul.rawValue {
+            if transportView.departurePickerButton.showingTitle == FLCCity.istanbul.rawValue {
                 CalculationHelper.showIstanbulZones(in: transportView, and: self)
             }
             departureCity = pickedItem.title

@@ -45,9 +45,11 @@ struct FLCPersonalManagerViewHelper {
     }
     
     static func configureItemsContent(manager: FLCManager, avatarView: FLCImageView, nameLabel: FLCTitleLabel, contactsLabel: FLCSubtitleLabel) {
+        let deviceLanguageCode = LanguageManager.shared.currentDeviceLanguage.rawValue
+        
         avatarView.image = manager.avatar ?? CalculationInfo.defaultManager.avatar
-        nameLabel.text = manager.name
-        contactsLabel.text = "\(manager.email) \n\(manager.landlinePhone)"
+        nameLabel.text = manager.localisationData?[deviceLanguageCode]?.name ?? manager.name
+        contactsLabel.text = "\(manager.email) \n\(manager.localisationData?[deviceLanguageCode]?.landlinePhone ?? manager.landlinePhone)"
     }
     
     static func addShimmerAnimationToItems(avatarView: FLCImageView, nameLabel: FLCTitleLabel, contactsLabel: FLCSubtitleLabel, roundButtons: [FLCRoundButton]) {

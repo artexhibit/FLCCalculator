@@ -68,7 +68,7 @@ struct CalculationResultHelper {
                 case .customsWarehouseServices: newItem.canDisplay = false
                 case .deliveryToWarehouse: 
                     newItem.title = "Доставка до аэропорта отправления"
-                    if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
+                    if data.deliveryTypeCode != FLCDeliveryTypeCode.EXW.rawValue { newItem.canDisplay = false }
                 case .deliveryFromWarehouse: newItem.title = "Авиаперевозка"
                 case .groupageDocs: newItem.title = "Авианакладная"
                 case .insurance, .cargoHandling: break
@@ -94,7 +94,7 @@ struct CalculationResultHelper {
                 if !data.needCustomClearance { newItem.canDisplay = false }
                 
             case .deliveryToWarehouse:
-                if data.deliveryTypeCode != FLCDeliveryTypeCodes.EXW.rawValue { newItem.canDisplay = false }
+                if data.deliveryTypeCode != FLCDeliveryTypeCode.EXW.rawValue { newItem.canDisplay = false }
                 
             case .deliveryFromWarehouse, .cargoHandling, .customsWarehouseServices, .insurance, .groupageDocs:
                 break

@@ -318,8 +318,8 @@ final class PriceCalculationManager {
         var transitDays = "1"
         let crossRatio = getRatioBetween(.EUR, and: .USD)
         
-        if city.contains(FLCCities.istanbul.rawValue) {
-            let istanbul = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == FLCCities.istanbul.rawValue })
+        if city.contains(FLCCity.istanbul.rawValue) {
+            let istanbul = turkeyTruckByFerryPickup?.first?.cities.first(where: { $0.name == FLCCity.istanbul.rawValue })
             let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode })
             transitDays = istanbul?.transitDays ?? "1"
             
@@ -358,8 +358,8 @@ final class PriceCalculationManager {
         var result = 0.0
         var transitDays = "1"
 
-        if city.contains(FLCCities.istanbul.rawValue) {
-            let istanbul = turkeyNovorossiyskBySeaPickup?.first?.cities.first(where: { $0.name == FLCCities.istanbul.rawValue })
+        if city.contains(FLCCity.istanbul.rawValue) {
+            let istanbul = turkeyNovorossiyskBySeaPickup?.first?.cities.first(where: { $0.name == FLCCity.istanbul.rawValue })
             let targetCity = istanbul?.zones.first(where: { $0.zipCode == pickedCityZipCode || $0.targetRegions.contains(where: { $0.contains(pickedCityZipCode) }) })
             
             transitDays = istanbul?.transitDays ?? "1"

@@ -4,7 +4,7 @@ struct SceneDelegateHelper {
     static func configureNavBar() { UINavigationBar.appearance().tintColor = UIColor(resource: .flcOrange) }
     
     static func configureAppTheme(in window: UIWindow?) {
-        guard let appTheme = FLCThemeOptions(rawValue: UserDefaultsManager.appTheme)?.userInterfaceStyle else { return }
+        guard let appTheme = FLCAppTheme(rawValue: UserDefaultsManager.appTheme)?.userInterfaceStyle else { return }
         window?.overrideUserInterfaceStyle = appTheme
     }
     

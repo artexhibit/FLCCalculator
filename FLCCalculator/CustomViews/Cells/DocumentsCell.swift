@@ -103,7 +103,8 @@ final class DocumentsCell: UICollectionViewCell {
     }
     
     func set(with document: Document, canRemoveShimmer: Bool) {
-        self.documentNameLabel.text = document.title
+        let deviceLanguageCode = LanguageManager.shared.currentDeviceLanguage.rawValue
+        self.documentNameLabel.text = document.localisationData?[deviceLanguageCode]?.title ?? document.title
         if canRemoveShimmer { self.removeShimmerAnimation() }
     }
     

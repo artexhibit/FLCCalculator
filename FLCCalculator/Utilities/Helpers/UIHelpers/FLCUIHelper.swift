@@ -1,7 +1,7 @@
 import UIKit
 
 struct FLCUIHelper {
-    static func move(view: UIView, constraint: NSLayoutConstraint?, vc: UIViewController, direction: FLCGoToViewDirections, times: CGFloat = 1, duration: Double = 0.3) {
+    static func move(view: UIView, constraint: NSLayoutConstraint?, vc: UIViewController, direction: FLCGoToViewDirection, times: CGFloat = 1, duration: Double = 0.3) {
         switch direction {
         case .forward:
             constraint?.constant = -(view.frame.width * times)

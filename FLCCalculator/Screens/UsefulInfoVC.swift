@@ -5,7 +5,7 @@ class UsefulInfoVC: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    private var sections: [FLCUsefulInfoSections] = FLCUsefulInfoSections.allCases
+    private var sections: [FLCUsefulInfoSection] = FLCUsefulInfoSection.allCases
     private var usefulInfoDocuments = CalculationInfo.defaultUsefulInfoDocuments
     private let usefulInfoServices = UsefulInfoHelper.usefulInfoServices
     private let usefulInfoAboutCompany = UsefulInfoHelper.usefulInfoAboutCompany

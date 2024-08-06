@@ -14,7 +14,7 @@ class BonusSystemVC: UIViewController {
         view.addSubview(tableView)
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Бонусный счёт"
+        navigationItem.title = BonusSystemVCStrings.bonusAccount
         setNavBarColor(color: UIColor.flcOrange)
         navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
     }
