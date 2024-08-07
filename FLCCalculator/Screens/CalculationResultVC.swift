@@ -61,7 +61,7 @@ class CalculationResultVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
         tabBarController?.tabBar.isHidden = true
-        navigationItem.title = "\(calculationData?.goodsType ?? "")"
+        navigationItem.title = "\(calculationData?.goodsType.localizedDescription.title ?? "")"
         navigationItem.createCloseButton(in: self, with: #selector(closeButtonPressed))
     }
     

@@ -42,7 +42,7 @@ struct CalculationsVCHelper {
             fromLocation: pickedCalculation.fromLocation ?? "",
             toLocation: pickedCalculation.toLocation ?? "",
             toLocationCode: pickedCalculation.toLocationCode ?? "",
-            goodsType: pickedCalculation.goodsType ?? "",
+            goodsType: FLCGoodsType(rawValue: pickedCalculation.goodsType ?? "") ?? .autoAccessories,
             volume: pickedCalculation.volume,
             weight: pickedCalculation.weight,
             invoiceAmount: pickedCalculation.invoiceAmount,

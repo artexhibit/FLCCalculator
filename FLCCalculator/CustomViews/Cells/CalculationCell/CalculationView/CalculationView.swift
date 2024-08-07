@@ -5,6 +5,7 @@ struct CalculationView: View {
     @ObservedObject var calculation: Calculation
     
     var body: some View {
+        let goodsType = FLCGoodsType(rawValue: calculation.goodsType ?? "")?.localizedDescription.title ?? ""
         
         VStack {
             HStack(alignment: .top) {
@@ -47,7 +48,7 @@ struct CalculationView: View {
             }
             
             HStack {
-                Text(calculation.goodsType ?? "")
+                Text(goodsType)
                     .font(.title2)
                     .foregroundStyle(.primary)
                     .bold()

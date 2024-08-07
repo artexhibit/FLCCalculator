@@ -236,7 +236,7 @@ struct CalculationHelper {
             fromLocation: transportView.departurePickerButton.showingTitle.removeStringPart("+1"),
             toLocation: transportView.destinationPickerButton.showingTitle,
             toLocationCode: pickedDestinationCode,
-            goodsType: cargoView.cargoTypePickerButton.showingTitle,
+            goodsType: FLCGoodsType(localizedString: cargoView.cargoTypePickerButton.showingTitle),
             volume: cargoView.volumeTextField.text?.createDouble() ?? 0.0,
             weight: cargoView.weightTextField.text?.createDouble() ?? 0.0,
             invoiceAmount: cargoView.invoiceAmountTextField.text?.createDouble() ?? 0.0,

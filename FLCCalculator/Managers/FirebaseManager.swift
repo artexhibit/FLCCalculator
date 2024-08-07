@@ -161,7 +161,7 @@ class FirebaseManager: NSObject {
             fromLocation: data.fromLocation,
             toLocation: data.toLocation,
             toLocationCode: data.toLocationCode,
-            goodsType: data.goodsType,
+            goodsType: data.goodsType.rawValue,
             volume: data.volume,
             weight: data.weight,
             invoiceAmount: data.invoiceAmount,

@@ -12,7 +12,7 @@ struct CalculationData: Hashable {
     let fromLocation: String
     let toLocation: String
     let toLocationCode: String
-    let goodsType: String
+    let goodsType: FLCGoodsType
     let volume: Double
     let weight: Double
     let invoiceAmount: Double

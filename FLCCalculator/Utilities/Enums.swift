@@ -22,8 +22,7 @@ enum FLCSettingsContentType { case profile, haptic, theme, permissions, support,
 enum FLCPermissionType { case notifications }
 enum FLCHTTPMethod: String { case POST, GET, PATCH }
 enum FLCRoundButtonType { case phone, email, route, details, telegram, whatsapp, standard }
-enum FLCUserCountry: Codable { case russia, kazakhstan, afghanistan, albania, algeria, angola, anguilla, antiguaAndBarbuda, argentina, armenia, australia, austria, azerbaijan, bahamas, bahrain, barbados, belarus, belgium, belize, benin, bermuda, bhutan, bolivia, bosniaAndHerzegovina, botswana, brazil, britishVirginIslands, brunei, bulgaria, burkinaFaso, cambodia, cameroon, canada, capeVerde, caymanIslands, chad, chile, china, colombia, democraticRepublicOfCongo, republicOfCongo, costaRica, coteDIvoire, croatia, cyprus, czechRepublic, denmark, dominica, dominicanRepublic, ecuador, egypt, elSalvador, estonia, eswatini, fiji, finland, france, gabon, gambia, georgia, germany, ghana, greece, grenada, guatemala, guineaBissau, guyana, honduras, hongKong, hungary, iceland, india, indonesia, iraq, ireland, israel, italy, jamaica, japan, jordan, kenya, republicOfKorea, kosovo, kuwait, kyrgyzstan, laos, latvia, lebanon, liberia, libya, lithuania, luxembourg, macao, madagascar, malawi, malaysia, maldives, mali, malta, mauritania, mauritius, mexico, micronesia, moldova, mongolia, montenegro, montserrat, morocco, mozambique, myanmar, namibia, nauru, nepal, netherlands, newZealand, nicaragua, niger, nigeria, northMacedonia, norway, oman, pakistan, palau, panama, papuaNewGuinea, paraguay, peru, philippines, poland, portugal, qatar, romania, rwanda, saoTomeAndPrincipe, saudiArabia, senegal, serbia, seychelles, sierraLeone, singapore, slovakia, slovenia, solomonIslands, southAfrica, spain, sriLanka, saintKittsAndNevis, saintLucia, saintVincentAndTheGrenadines, suriname, sweden, switzerland, taiwan, tajikistan, tanzania, thailand, tonga, trinidadAndTobago, tunisia, turkey, turkmenistan, turksAndCaicos, uganda, ukraine, unitedArabEmirates, unitedKingdom, unitedStates, uruguay, uzbekistan, vanuatu, venezuela, vietnam, yemen, zambia, zimbabwe
-}
+enum FLCUserCountry: Codable { case russia, kazakhstan, afghanistan, albania, algeria, angola, anguilla, antiguaAndBarbuda, argentina, armenia, australia, austria, azerbaijan, bahamas, bahrain, barbados, belarus, belgium, belize, benin, bermuda, bhutan, bolivia, bosniaAndHerzegovina, botswana, brazil, britishVirginIslands, brunei, bulgaria, burkinaFaso, cambodia, cameroon, canada, capeVerde, caymanIslands, chad, chile, china, colombia, democraticRepublicOfCongo, republicOfCongo, costaRica, coteDIvoire, croatia, cyprus, czechRepublic, denmark, dominica, dominicanRepublic, ecuador, egypt, elSalvador, estonia, eswatini, fiji, finland, france, gabon, gambia, georgia, germany, ghana, greece, grenada, guatemala, guineaBissau, guyana, honduras, hongKong, hungary, iceland, india, indonesia, iraq, ireland, israel, italy, jamaica, japan, jordan, kenya, republicOfKorea, kosovo, kuwait, kyrgyzstan, laos, latvia, lebanon, liberia, libya, lithuania, luxembourg, macao, madagascar, malawi, malaysia, maldives, mali, malta, mauritania, mauritius, mexico, micronesia, moldova, mongolia, montenegro, montserrat, morocco, mozambique, myanmar, namibia, nauru, nepal, netherlands, newZealand, nicaragua, niger, nigeria, northMacedonia, norway, oman, pakistan, palau, panama, papuaNewGuinea, paraguay, peru, philippines, poland, portugal, qatar, romania, rwanda, saoTomeAndPrincipe, saudiArabia, senegal, serbia, seychelles, sierraLeone, singapore, slovakia, slovenia, solomonIslands, southAfrica, spain, sriLanka, saintKittsAndNevis, saintLucia, saintVincentAndTheGrenadines, suriname, sweden, switzerland, taiwan, tajikistan, tanzania, thailand, tonga, trinidadAndTobago, tunisia, turkey, turkmenistan, turksAndCaicos, uganda, ukraine, unitedArabEmirates, unitedKingdom, unitedStates, uruguay, uzbekistan, vanuatu, venezuela, vietnam, yemen, zambia, zimbabwe }
 
 enum FLCHTTPHeaderField: String {
     case phone = "phone"
@@ -148,7 +147,7 @@ enum FLCCurrency: String, CaseIterable {
         case .CNY: return "¥"
         }
     }
-    static let symbols: Set<String> = ["₽", "$", "€", "₺", "¥"] 
+    static let symbols: Set<String> = ["₽", "$", "€", "₺", "¥"]
     
     init?(currencyCode: String) {
         switch currencyCode {
@@ -227,6 +226,366 @@ enum FLCFirebaseDataUpdateItem: String, Codable {
 enum FLCAppLanguage: String {
     case ru = "ru"
     case en = "en"
+}
+
+enum FLCGoodsType: String, CaseIterable {
+    case notFound = "Не найдено"
+    case autoAccessories = "Авто-аксессуары"
+    case autoParts = "Автозапчасти"
+    case clothingAccessories = "Аксессуары (одежда)"
+    case underwear = "Бельё"
+    case accessories = "Аксессуары"
+    case antennas = "Антенны"
+    case poolsSaunasBaths = "Бассейны, сауны, бани"
+    case bijouterie = "Бижутерия"
+    case braceletsStrapsCases = "Браслеты, ремешки, футляры"
+    case beads = "Бисер"
+    case householdGlues = "Бытовые клеи"
+    case householdPumps = "Бытовые насосы"
+    case ironingBoards = "Гладильные доски"
+    case householdAppliances = "Бытовая техника"
+    case haberdashery = "Галантерея"
+    case homeFurniture = "Бытовая мебель для дома"
+    case householdChemicals = "Бытовая химия"
+    case constructionStructures = "Конструкции для строительства"
+    case childrensFurniture = "Детская мебель"
+    case decorativeCosmetics = "Декоративная косметика"
+    case showerAndSteamCabins = "Душевые и паровые кабины"
+    case childrensClothing = "Детская одежда"
+    case childrensShoes = "Детская обувь"
+    case christmasDecorations = "Елочные украшения"
+    case gardenCampingFurniture = "Дачная и кемпинговая мебель"
+    case decorativeItems = "Декоративные изделия"
+    case intercoms = "Домофоны"
+    case playEquipment = "Игровое оборудование"
+    case mirrors = "Зеркала"
+    case blinds = "Жалюзи"
+    case spareParts = "Запчасти"
+    case tradeEquipmentParts = "Запчасти к торговому оборудованию"
+    case lockProducts = "Замочные изделия"
+    case toys = "Игрушки"
+    case stationery = "Канцтовары"
+    case tools = "Инструменты"
+    case measuringTools = "Измерительный инструмент"
+    case climateEquipment = "Климатическое оборудование"
+    case masonryMaterials = "Кладочные материалы"
+    case ceramicTiles = "Керамическая плитка"
+    case books = "Книги"
+    case heatingEquipmentOne = "Отопительное оборудование"
+    case naturalLeather = "Кожа натуральная"
+    case leatherSubstitutes = "Кожзаменители"
+    case carpets = "Ковры"
+    case cosmeticAccessories = "Косметические принадлежности"
+    case computerGoods = "Компьютерные товары"
+    case computersLaptops = "Компьютеры, ноутбуки"
+    case cosmetics = "Косметика"
+    case fasteners = "Крепежные изделия"
+    case largeHouseholdAppliances = "Крупная бытовая техника"
+    case kitchenFurniture = "Кухонная мебель"
+    case paintMaterials = "Лакокрасочные материалы"
+    case chandeliers = "Люстры"
+    case packaging = "Тара и упаковка"
+    case productionMaterials = "Материалы для производства"
+    case oils = "Масла"
+    case grills = "Мангалы"
+    case restaurantFurniture = "Мебель для ресторанов"
+    case furnitureFittings = "Мебельная фурнитура"
+    case medicalEquipment = "Медицинское оборудование"
+    case furniture = "Мебель"
+    case medicalKit = "Медицинский комплект"
+    case bathroomFurnitureAndAccessories = "Мебель и аксессуары для ванных комнат"
+    case smallHouseholdAppliances = "Мелкая бытовая техника"
+    case smallLeatherGoods = "Мелкая кожгалантерея"
+    case furProducts = "Меховые изделия"
+    case mechanicalTools = "Механический инструмент"
+    case rolledMetal = "Металлопрокат"
+    case navigationInstruments = "Навигационные приборы"
+    case motorcyclesAndATVs = "Мото- и квадроциклы"
+    case musicalInstruments = "Музыкальные инструменты"
+    case floorCoverings = "Напольные покрытия"
+    case equipmentAndMachines = "Оборудование, станки"
+    case tradeEquipmentAndInventory = "Оборудование и инвентарь для торговли"
+    case foodIndustryEquipment = "Оборудование для пищевой промышленности"
+    case communicationMeans = "Средства связи"
+    case wallpaper = "Обои"
+    case shoes = "Обувь"
+    case heatingEquipmentTwo = "Оборудование для отопления"
+    case tradeEquipment = "Оборудование торговое"
+    case printedProducts = "Полиграфическая продукция"
+    case fencesAndGates = "Ограждения, ворота"
+    case officeEquipment = "Офисная техника"
+    case clothing = "Одежда"
+    case securityEquipment = "Охранное оборудование"
+    case windowsAndDoors = "Окна, двери"
+    case officeFurniture = "Офисная мебель"
+    case securityAndFireEquipment = "Оборудование охранное и противопожарное"
+    case plasticFurniture = "Пластиковая мебель"
+    case perfumery = "Парфюмерия"
+    case wigs = "Парики"
+    case interiorItems = "Предметы интерьера"
+    case giftPackaging = "Подарочная упаковка"
+    case dishes = "Посуда"
+    case bedding = "Постельные принадлежности"
+    case pneumaticTools = "Пневмоинструмент"
+    case otherHaberdashery = "Прочая галантерея"
+    case foodProducts = "Продукты питания"
+    case industrialChemistry = "Промышленная химия"
+    case industrialEquipment = "Оборудование промышленное и производственное"
+    case firefightingEquipment = "Противопожарное оборудование"
+    case wiresAndCables = "Провода, кабели"
+    case otherHouseholdChemicals = "Прочая бытовая химия"
+    case otherHouseholdAppliances = "Прочая бытовая техника"
+    case otherCosmetics = "Прочая косметика"
+    case otherTradeEquipment = "Прочее торговое оборудование"
+    case otherTools = "Прочие инструменты"
+    case otherClimateEquipment = "Прочее клим. оборудование"
+    case otherFinishingMaterials = "Прочие отделочные материалы"
+    case otherPlumbing = "Прочая сантехника"
+    case otherStationery = "Прочие канцтовары"
+    case otherInteriorItems = "Прочие предметы интерьера"
+    case otherChildrenGoods = "Прочие товары для детей"
+    case otherTextiles = "Прочий текстиль"
+    case consumables = "Расходники"
+    case advertisingMaterials = "Рекламные материалы"
+    case yarn = "Пряжа"
+    case otherHouseholdGoods = "Прочие хоз.товары"
+    case vehicles = "Транспортные средства"
+    case fishingGoods = "Рыболовные товары"
+    case huntingGoods = "Охотничьи товары"
+    case sanitaryWare = "Санфаянс"
+    case gardenEquipment = "Садовая техника"
+    case plumbing = "Сантехника"
+    case warehouseEquipment = "Складское оборудование"
+    case mixers = "Смесители"
+    case safes = "Сейфы"
+    case skinCareProducts = "Средства ухода за кожей"
+    case radioCommunicationMeans = "Средства радио связи"
+    case sportsNutrition = "Спортивное питание"
+    case laundryDetergents = "Стиральные порошки"
+    case sportsEquipment = "Спортивная экипировка"
+    case mobileCommunicationMeans = "Средства мобильной связи"
+    case sportsInventory = "Спортинвентарь"
+    case instruments = "Приборы телекоммуникационные и навигационные"
+    case panels = "Панели стеновые и отделочные, потолки"
+    case sunglasses = "Солнцезащитные очки"
+    case cutlery = "Столовые приборы"
+    case bags = "Сумки"
+    case constructionEquipment = "Строительное оборудование"
+    case weldingEquipment = "Сварочное оборудование"
+    case finishingMaterials = "Отделочные материалы"
+    case bulkBuildingMaterials = "Сыпучие строй материалы"
+    case packagingTara = "Тара, упаковка"
+    case waterproofingMaterials = "Гидроизоляционные материалы"
+    case rawMaterials = "Сырье для производства бытовой химии"
+    case textileProducts = "Текстильные изделия"
+    case brushesAndPaints = "Кисти, краски"
+    case fabrics = "Ткани"
+    case leisureGoods = "Товары для отдыха"
+    case sewingGoods = "Швейные товары"
+    case thermalTools = "Термоинструмент"
+    case childrenGoods = "Товары для детей"
+    case medicalGoods = "Медицинские товары"
+    case toiletPaper = "Туалетная бумага"
+    case exerciseEquipment = "Тренажеры"
+    case touristEquipment = "Туристическое снаряжение"
+    case clothingFurniture = "Фурнитура для одежды"
+    case foodWrap = "Пищевая пленка"
+    case opticalInstruments = "Оптические приборы"
+    case measuringInstruments = "Измерительные приборы"
+    case householdGoods = "Хозяйственно-бытовые товары"
+    case sewingMachines = "Швейные машины"
+    case stockings = "Чулки"
+    case electricalGoods = "Электротовары"
+    case watches = "Часы"
+    case powerTools = "Электроинструмент"
+    case electricalEquipment = "Электрооборудование"
+    case electricalProducts = "Электротехнические изделия"
+    case switchgear = "Оборудование электрощитовое"
+    
+    var localizedDescription: (title: String, subtitle: String) {
+        switch self {
+        case .notFound: return FLCGoodsCategoryString.notFound
+        case .autoAccessories: return FLCGoodsCategoryString.autoAccessories
+        case .autoParts: return FLCGoodsCategoryString.autoParts
+        case .clothingAccessories: return FLCGoodsCategoryString.clothingAccessories
+        case .underwear: return FLCGoodsCategoryString.underwear
+        case .accessories: return FLCGoodsCategoryString.accessories
+        case .antennas: return FLCGoodsCategoryString.antennas
+        case .poolsSaunasBaths: return FLCGoodsCategoryString.poolsSaunasBaths
+        case .bijouterie: return FLCGoodsCategoryString.bijouterie
+        case .braceletsStrapsCases: return FLCGoodsCategoryString.braceletsStrapsCases
+        case .beads: return FLCGoodsCategoryString.beads
+        case .householdGlues: return FLCGoodsCategoryString.householdGlues
+        case .householdPumps: return FLCGoodsCategoryString.householdPumps
+        case .ironingBoards: return FLCGoodsCategoryString.ironingBoards
+        case .householdAppliances: return FLCGoodsCategoryString.householdAppliances
+        case .haberdashery: return FLCGoodsCategoryString.haberdashery
+        case .homeFurniture: return FLCGoodsCategoryString.homeFurniture
+        case .householdChemicals: return FLCGoodsCategoryString.householdChemicals
+        case .constructionStructures: return FLCGoodsCategoryString.constructionStructures
+        case .childrensFurniture: return FLCGoodsCategoryString.childrensFurniture
+        case .decorativeCosmetics: return FLCGoodsCategoryString.decorativeCosmetics
+        case .showerAndSteamCabins: return FLCGoodsCategoryString.showerAndSteamCabins
+        case .childrensClothing: return FLCGoodsCategoryString.childrensClothing
+        case .childrensShoes: return FLCGoodsCategoryString.childrensShoes
+        case .christmasDecorations: return FLCGoodsCategoryString.christmasDecorations
+        case .gardenCampingFurniture: return FLCGoodsCategoryString.gardenCampingFurniture
+        case .decorativeItems: return FLCGoodsCategoryString.decorativeItems
+        case .intercoms: return FLCGoodsCategoryString.intercoms
+        case .playEquipment: return FLCGoodsCategoryString.playEquipment
+        case .mirrors: return FLCGoodsCategoryString.mirrors
+        case .blinds: return FLCGoodsCategoryString.blinds
+        case .spareParts: return FLCGoodsCategoryString.spareParts
+        case .tradeEquipmentParts: return FLCGoodsCategoryString.tradeEquipmentParts
+        case .lockProducts: return FLCGoodsCategoryString.lockProducts
+        case .toys: return FLCGoodsCategoryString.toys
+        case .stationery: return FLCGoodsCategoryString.stationery
+        case .tools: return FLCGoodsCategoryString.tools
+        case .measuringTools: return FLCGoodsCategoryString.measuringTools
+        case .climateEquipment: return FLCGoodsCategoryString.climateEquipment
+        case .masonryMaterials: return FLCGoodsCategoryString.masonryMaterials
+        case .ceramicTiles: return FLCGoodsCategoryString.ceramicTiles
+        case .books: return FLCGoodsCategoryString.books
+        case .heatingEquipmentOne: return FLCGoodsCategoryString.heatingEquipmentOne
+        case .naturalLeather: return FLCGoodsCategoryString.naturalLeather
+        case .leatherSubstitutes: return FLCGoodsCategoryString.leatherSubstitutes
+        case .carpets: return FLCGoodsCategoryString.carpets
+        case .cosmeticAccessories: return FLCGoodsCategoryString.cosmeticAccessories
+        case .computerGoods: return FLCGoodsCategoryString.computerGoods
+        case .computersLaptops: return FLCGoodsCategoryString.computersLaptops
+        case .cosmetics: return FLCGoodsCategoryString.cosmetics
+        case .fasteners: return FLCGoodsCategoryString.fasteners
+        case .largeHouseholdAppliances: return FLCGoodsCategoryString.largeHouseholdAppliances
+        case .kitchenFurniture: return FLCGoodsCategoryString.kitchenFurniture
+        case .paintMaterials: return FLCGoodsCategoryString.paintMaterials
+        case .chandeliers: return FLCGoodsCategoryString.chandeliers
+        case .packaging: return FLCGoodsCategoryString.packaging
+        case .productionMaterials: return FLCGoodsCategoryString.productionMaterials
+        case .oils: return FLCGoodsCategoryString.oils
+        case .grills: return FLCGoodsCategoryString.grills
+        case .restaurantFurniture: return FLCGoodsCategoryString.restaurantFurniture
+        case .furnitureFittings: return FLCGoodsCategoryString.furnitureFittings
+        case .medicalEquipment: return FLCGoodsCategoryString.medicalEquipment
+        case .furniture: return FLCGoodsCategoryString.furniture
+        case .medicalKit: return FLCGoodsCategoryString.medicalKit
+        case .bathroomFurnitureAndAccessories: return FLCGoodsCategoryString.bathroomFurnitureAndAccessories
+        case .smallHouseholdAppliances: return FLCGoodsCategoryString.smallHouseholdAppliances
+        case .smallLeatherGoods: return FLCGoodsCategoryString.smallLeatherGoods
+        case .furProducts: return FLCGoodsCategoryString.furProducts
+        case .mechanicalTools: return FLCGoodsCategoryString.mechanicalTools
+        case .rolledMetal: return FLCGoodsCategoryString.rolledMetal
+        case .navigationInstruments: return FLCGoodsCategoryString.navigationInstruments
+        case .motorcyclesAndATVs: return FLCGoodsCategoryString.motorcyclesAndATVs
+        case .musicalInstruments: return FLCGoodsCategoryString.musicalInstruments
+        case .floorCoverings: return FLCGoodsCategoryString.floorCoverings
+        case .equipmentAndMachines: return FLCGoodsCategoryString.equipmentAndMachines
+        case .tradeEquipmentAndInventory: return FLCGoodsCategoryString.tradeEquipmentAndInventory
+        case .foodIndustryEquipment: return FLCGoodsCategoryString.foodIndustryEquipment
+        case .communicationMeans: return FLCGoodsCategoryString.communicationMeans
+        case .wallpaper: return FLCGoodsCategoryString.wallpaper
+        case .shoes: return FLCGoodsCategoryString.shoes
+        case .heatingEquipmentTwo: return FLCGoodsCategoryString.heatingEquipmentTwo
+        case .tradeEquipment: return FLCGoodsCategoryString.tradeEquipment
+        case .printedProducts: return FLCGoodsCategoryString.printedProducts
+        case .fencesAndGates: return FLCGoodsCategoryString.fencesAndGates
+        case .officeEquipment: return FLCGoodsCategoryString.officeEquipment
+        case .clothing: return FLCGoodsCategoryString.clothing
+        case .securityEquipment: return FLCGoodsCategoryString.securityEquipment
+        case .windowsAndDoors: return FLCGoodsCategoryString.windowsAndDoors
+        case .officeFurniture: return FLCGoodsCategoryString.officeFurniture
+        case .securityAndFireEquipment: return FLCGoodsCategoryString.securityAndFireEquipment
+        case .plasticFurniture: return FLCGoodsCategoryString.plasticFurniture
+        case .perfumery: return FLCGoodsCategoryString.perfumery
+        case .wigs: return FLCGoodsCategoryString.wigs
+        case .interiorItems: return FLCGoodsCategoryString.interiorItems
+        case .giftPackaging: return FLCGoodsCategoryString.giftPackaging
+        case .dishes: return FLCGoodsCategoryString.dishes
+        case .bedding: return FLCGoodsCategoryString.bedding
+        case .pneumaticTools: return FLCGoodsCategoryString.pneumaticTools
+        case .otherHaberdashery: return FLCGoodsCategoryString.otherHaberdashery
+        case .foodProducts: return FLCGoodsCategoryString.foodProducts
+        case .industrialChemistry: return FLCGoodsCategoryString.industrialChemistry
+        case .industrialEquipment: return FLCGoodsCategoryString.industrialEquipment
+        case .firefightingEquipment: return FLCGoodsCategoryString.firefightingEquipment
+        case .wiresAndCables: return FLCGoodsCategoryString.wiresAndCables
+        case .otherHouseholdChemicals: return FLCGoodsCategoryString.otherHouseholdChemicals
+        case .otherHouseholdAppliances: return FLCGoodsCategoryString.otherHouseholdAppliances
+        case .otherCosmetics: return FLCGoodsCategoryString.otherCosmetics
+        case .otherTradeEquipment: return FLCGoodsCategoryString.otherTradeEquipment
+        case .otherTools: return FLCGoodsCategoryString.otherTools
+        case .otherClimateEquipment: return FLCGoodsCategoryString.otherClimateEquipment
+        case .otherFinishingMaterials: return FLCGoodsCategoryString.otherFinishingMaterials
+        case .otherPlumbing: return FLCGoodsCategoryString.otherPlumbing
+        case .otherStationery: return FLCGoodsCategoryString.otherStationery
+        case .otherInteriorItems: return FLCGoodsCategoryString.otherInteriorItems
+        case .otherChildrenGoods: return FLCGoodsCategoryString.otherChildrenGoods
+        case .otherTextiles: return FLCGoodsCategoryString.otherTextiles
+        case .consumables: return FLCGoodsCategoryString.consumables
+        case .advertisingMaterials: return FLCGoodsCategoryString.advertisingMaterials
+        case .yarn: return FLCGoodsCategoryString.yarn
+        case .otherHouseholdGoods: return FLCGoodsCategoryString.otherHouseholdGoods
+        case .vehicles: return FLCGoodsCategoryString.vehicles
+        case .fishingGoods: return FLCGoodsCategoryString.fishingGoods
+        case .huntingGoods: return FLCGoodsCategoryString.huntingGoods
+        case .sanitaryWare: return FLCGoodsCategoryString.sanitaryWare
+        case .gardenEquipment: return FLCGoodsCategoryString.gardenEquipment
+        case .plumbing: return FLCGoodsCategoryString.plumbing
+        case .warehouseEquipment: return FLCGoodsCategoryString.warehouseEquipment
+        case .mixers: return FLCGoodsCategoryString.mixers
+        case .safes: return FLCGoodsCategoryString.safes
+        case .skinCareProducts: return FLCGoodsCategoryString.skinCareProducts
+        case .radioCommunicationMeans: return FLCGoodsCategoryString.radioCommunicationMeans
+        case .sportsNutrition: return FLCGoodsCategoryString.sportsNutrition
+        case .laundryDetergents: return FLCGoodsCategoryString.laundryDetergents
+        case .sportsEquipment: return FLCGoodsCategoryString.sportsEquipment
+        case .mobileCommunicationMeans: return FLCGoodsCategoryString.mobileCommunicationMeans
+        case .sportsInventory: return FLCGoodsCategoryString.sportsInventory
+        case .instruments: return FLCGoodsCategoryString.instruments
+        case .panels: return FLCGoodsCategoryString.panels
+        case .sunglasses: return FLCGoodsCategoryString.sunglasses
+        case .cutlery: return FLCGoodsCategoryString.cutlery
+        case .bags: return FLCGoodsCategoryString.bags
+        case .constructionEquipment: return FLCGoodsCategoryString.constructionEquipment
+        case .weldingEquipment: return FLCGoodsCategoryString.weldingEquipment
+        case .finishingMaterials: return FLCGoodsCategoryString.finishingMaterials
+        case .bulkBuildingMaterials: return FLCGoodsCategoryString.bulkBuildingMaterials
+        case .packagingTara: return FLCGoodsCategoryString.packagingTara
+        case .waterproofingMaterials: return FLCGoodsCategoryString.waterproofingMaterials
+        case .rawMaterials: return FLCGoodsCategoryString.rawMaterials
+        case .textileProducts: return FLCGoodsCategoryString.textileProducts
+        case .brushesAndPaints: return FLCGoodsCategoryString.brushesAndPaints
+        case .fabrics: return FLCGoodsCategoryString.fabrics
+        case .leisureGoods: return FLCGoodsCategoryString.leisureGoods
+        case .sewingGoods: return FLCGoodsCategoryString.sewingGoods
+        case .thermalTools: return FLCGoodsCategoryString.thermalTools
+        case .childrenGoods: return FLCGoodsCategoryString.childrenGoods
+        case .medicalGoods: return FLCGoodsCategoryString.medicalGoods
+        case .toiletPaper: return FLCGoodsCategoryString.toiletPaper
+        case .exerciseEquipment: return FLCGoodsCategoryString.exerciseEquipment
+        case .touristEquipment: return FLCGoodsCategoryString.touristEquipment
+        case .clothingFurniture: return FLCGoodsCategoryString.clothingFurniture
+        case .foodWrap: return FLCGoodsCategoryString.foodWrap
+        case .opticalInstruments: return FLCGoodsCategoryString.opticalInstruments
+        case .measuringInstruments: return FLCGoodsCategoryString.measuringInstruments
+        case .householdGoods: return FLCGoodsCategoryString.householdGoods
+        case .sewingMachines: return FLCGoodsCategoryString.sewingMachines
+        case .stockings: return FLCGoodsCategoryString.stockings
+        case .electricalGoods: return FLCGoodsCategoryString.electricalGoods
+        case .watches: return FLCGoodsCategoryString.watches
+        case .powerTools: return FLCGoodsCategoryString.powerTools
+        case .electricalEquipment: return FLCGoodsCategoryString.electricalEquipment
+        case .electricalProducts: return FLCGoodsCategoryString.electricalProducts
+        case .switchgear: return FLCGoodsCategoryString.switchgear
+        }
+    }
+    
+    init(localizedString: String) {
+        guard let type = FLCGoodsType.allCases.first(where: { $0.localizedDescription.title == localizedString }) else {
+            self = .notFound
+            return
+        }
+        self = type
+    }
 }
 
 enum FLCLogisticsType: String, CaseIterable {

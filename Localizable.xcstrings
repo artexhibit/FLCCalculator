@@ -17,6 +17,16 @@
         }
       }
     },
+    "Cигнализации, автомагнитолы и т.д." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarms, car radios, etc."
+          }
+        }
+      }
+    },
     "Email" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -74,6 +84,76 @@
         }
       }
     },
+    "Авто-аксессуары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto accessories"
+          }
+        }
+      }
+    },
+    "Автозапчасти" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto parts"
+          }
+        }
+      }
+    },
+    "Аксессуары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accessories"
+          }
+        }
+      }
+    },
+    "Аксессуары (одежда)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accessories (clothes)"
+          }
+        }
+      }
+    },
+    "Аксессуары и комплектующие" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accessories and components"
+          }
+        }
+      }
+    },
+    "Антенны" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antennas"
+          }
+        }
+      }
+    },
+    "Арматура, проволока, сетка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rebar, wire, mesh"
+          }
+        }
+      }
+    },
     "База поставщиков индустрии моды" : {
       "localizations" : {
         "en" : {
@@ -84,12 +164,62 @@
         }
       }
     },
+    "Барбекю, грили, коптильни и принадлежности" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barbecues, grills, smokers and accessories"
+          }
+        }
+      }
+    },
+    "Бассейны, сауны, бани" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swimming pools, saunas, baths"
+          }
+        }
+      }
+    },
     "Без этого приложение может работать нестабильно. Вы всегда сможете изменить решение в настройках" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Without this, app can work unstable. You can always change decision in settings"
+          }
+        }
+      }
+    },
+    "Бельё" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linen"
+          }
+        }
+      }
+    },
+    "Бижутерия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bijouterie"
+          }
+        }
+      }
+    },
+    "Бисер" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beads"
           }
         }
       }
@@ -134,12 +264,132 @@
         }
       }
     },
+    "Браслеты, ремешки, футляры" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bracelets, straps, cases"
+          }
+        }
+      }
+    },
+    "Бумажные салфетки и полотенца" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paper napkins and towels"
+          }
+        }
+      }
+    },
+    "Бытовая мебель для дома" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Household furniture for home"
+          }
+        }
+      }
+    },
+    "Бытовая техника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appliances"
+          }
+        }
+      }
+    },
+    "Бытовая химия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Household chemicals"
+          }
+        }
+      }
+    },
+    "Бытовые клеи" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Household adhesives"
+          }
+        }
+      }
+    },
+    "Бытовые насосы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domestic pumps"
+          }
+        }
+      }
+    },
+    "В потребительской упаковке" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In consumer packaging"
+          }
+        }
+      }
+    },
+    "Ванны, раковины, унитазы и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bathtubs, sinks, toilets, etc."
+          }
+        }
+      }
+    },
     "Ваш менеджер" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Personal manager"
+          }
+        }
+      }
+    },
+    "Велосипеды, коньки, лыжи и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bicycles, skates, skis, etc."
+          }
+        }
+      }
+    },
+    "весы, кассовые аппараты, штрих коды и т.д." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "scales, cash registers, barcodes, etc."
+          }
+        }
+      }
+    },
+    "Весы, термометры, барометры и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scales, thermometers, barometers, etc."
           }
         }
       }
@@ -164,12 +414,82 @@
         }
       }
     },
+    "Вязальные машины, оверлоки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Knitting machines, overlockers"
+          }
+        }
+      }
+    },
+    "Галантерея" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haberdashery"
+          }
+        }
+      }
+    },
+    "Гидроизоляционные материалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waterproofing materials"
+          }
+        }
+      }
+    },
+    "Гидромассажные ванны" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hot tubs"
+          }
+        }
+      }
+    },
+    "Гладильные доски" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ironing boards"
+          }
+        }
+      }
+    },
+    "Готовые и разборные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready-made and dismountable"
+          }
+        }
+      }
+    },
     "Дата рождения" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Date of Birth"
+          }
+        }
+      }
+    },
+    "Дачная и кемпинговая мебель" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Country and camping furniture"
           }
         }
       }
@@ -184,12 +504,182 @@
         }
       }
     },
+    "Декоративная косметика" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decorative cosmetics"
+          }
+        }
+      }
+    },
+    "Декоративные изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decorative items"
+          }
+        }
+      }
+    },
+    "Детская мебель" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Children's furniture"
+          }
+        }
+      }
+    },
+    "Детская обувь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Children's shoes"
+          }
+        }
+      }
+    },
+    "Детская одежда" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baby clothes"
+          }
+        }
+      }
+    },
+    "Для ванных комнат" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For bathrooms"
+          }
+        }
+      }
+    },
+    "Для металлообрабатывающего и машиностроительного производства" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For metalworking and engineering production"
+          }
+        }
+      }
+    },
+    "Для пищевой промышленности" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For the food industry"
+          }
+        }
+      }
+    },
+    "Для производства бытовой химии" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For the production of household chemicals"
+          }
+        }
+      }
+    },
+    "Для торговли" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For a trade"
+          }
+        }
+      }
+    },
+    "Для часов" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For watches"
+          }
+        }
+      }
+    },
+    "Для швейного и прядильного производства" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For sewing and spinning production"
+          }
+        }
+      }
+    },
     "Документы" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Documents"
+          }
+        }
+      }
+    },
+    "Домофоны" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intercoms"
+          }
+        }
+      }
+    },
+    "Душевые и паровые кабины" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Showers and steam cabins"
+          }
+        }
+      }
+    },
+    "Елочные украшения" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Christmas decorations"
+          }
+        }
+      }
+    },
+    "Жалюзи" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jalousie"
+          }
+        }
+      }
+    },
+    "Журналы и другая печатная продукция" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magazines and other printed materials"
           }
         }
       }
@@ -204,12 +694,162 @@
         }
       }
     },
+    "Замочные изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock products"
+          }
+        }
+      }
+    },
+    "Запчасти" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spare parts"
+          }
+        }
+      }
+    },
+    "Зеркала" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mirrors"
+          }
+        }
+      }
+    },
+    "И аксессуары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And accessories"
+          }
+        }
+      }
+    },
+    "И гидроинструмент" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And hydraulic tools"
+          }
+        }
+      }
+    },
+    "И инвентарь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And inventory"
+          }
+        }
+      }
+    },
+    "И оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And equipment"
+          }
+        }
+      }
+    },
+    "И оборудование (стенды)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And equipment (stands)"
+          }
+        }
+      }
+    },
+    "И приборы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And devices"
+          }
+        }
+      }
+    },
+    "И принадлежности" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And accessories"
+          }
+        }
+      }
+    },
+    "И производственное" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And production"
+          }
+        }
+      }
+    },
+    "И противопожарное" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And fire protection"
+          }
+        }
+      }
+    },
+    "И электроника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And electronics"
+          }
+        }
+      }
+    },
     "Иванов Иван Иванович" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "John Doe"
+          }
+        }
+      }
+    },
+    "Игровое оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gaming equipment"
+          }
+        }
+      }
+    },
+    "Игрушки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toys"
           }
         }
       }
@@ -224,12 +864,52 @@
         }
       }
     },
+    "Измерительные приборы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measuring instruments"
+          }
+        }
+      }
+    },
+    "Измерительный инструмент" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measuring tool"
+          }
+        }
+      }
+    },
     "ИНН" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "INN"
+          }
+        }
+      }
+    },
+    "Инструменты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tools"
+          }
+        }
+      }
+    },
+    "К торговому оборудованию" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To trade equipment"
           }
         }
       }
@@ -244,6 +924,146 @@
         }
       }
     },
+    "Канцтовары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stationery"
+          }
+        }
+      }
+    },
+    "Карнизы, портьеры, шторы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cornices, drapes, curtains"
+          }
+        }
+      }
+    },
+    "Картины, постеры, эстампы, фонтаны и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paintings, posters, prints, fountains, etc."
+          }
+        }
+      }
+    },
+    "Керамическая плитка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ceramic tile"
+          }
+        }
+      }
+    },
+    "Кирпич, камень, блоки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brick, stone, blocks"
+          }
+        }
+      }
+    },
+    "Кисти, краски" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brushes, paints"
+          }
+        }
+      }
+    },
+    "Кладочные материалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masonry materials"
+          }
+        }
+      }
+    },
+    "Клеи, герметики, антисептики" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adhesives, sealants, antiseptics"
+          }
+        }
+      }
+    },
+    "Клепки, молнии, этикетки и т.д" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rivets, zippers, labels, etc."
+          }
+        }
+      }
+    },
+    "Климатическое оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Climatic equipment"
+          }
+        }
+      }
+    },
+    "Книги" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Books"
+          }
+        }
+      }
+    },
+    "Книги, школьные принадлежности" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Books, school supplies"
+          }
+        }
+      }
+    },
+    "Ковровые изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carpet products"
+          }
+        }
+      }
+    },
+    "Ковры" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carpets"
+          }
+        }
+      }
+    },
     "Код страны" : {
       "localizations" : {
         "en" : {
@@ -254,12 +1074,102 @@
         }
       }
     },
+    "Кожа натуральная" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Natural leather"
+          }
+        }
+      }
+    },
+    "Кожзаменители" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leatherettes"
+          }
+        }
+      }
+    },
     "Количество оформленных ДТ за год" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Number of issued customs declarations per year"
+          }
+        }
+      }
+    },
+    "Комплектующие к производственному оборудованию" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accessories for production equipment"
+          }
+        }
+      }
+    },
+    "Компьютерные товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computer goods"
+          }
+        }
+      }
+    },
+    "Компьютеры, ноутбуки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computers, laptops"
+          }
+        }
+      }
+    },
+    "Кондиционеры, системы вентиляции, увлажнители, осушители и их комплектующие" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Air conditioners, ventilation systems, humidifiers, dehumidifiers and their components"
+          }
+        }
+      }
+    },
+    "Конструкторы, настольные игры и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Construction sets, board games, etc."
+          }
+        }
+      }
+    },
+    "Конструкции для строительства" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Construction structures"
+          }
+        }
+      }
+    },
+    "Конструкции и крепежи" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Structures and fasteners"
           }
         }
       }
@@ -284,12 +1194,322 @@
         }
       }
     },
+    "Косметика" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cosmetics"
+          }
+        }
+      }
+    },
+    "Косметические принадлежности" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cosmetic accessories"
+          }
+        }
+      }
+    },
+    "Кошельки, ремни" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wallets, belts"
+          }
+        }
+      }
+    },
+    "Краны, вентили, трубы, фитинги" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taps, valves, pipes, fittings"
+          }
+        }
+      }
+    },
+    "Красители и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dyes, etc."
+          }
+        }
+      }
+    },
+    "Крепежные изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fasteners"
+          }
+        }
+      }
+    },
+    "Крупная бытовая техника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Large home appliances"
+          }
+        }
+      }
+    },
+    "Кухонная мебель" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitchen furniture"
+          }
+        }
+      }
+    },
+    "Кухонный инвентарь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitchen tools"
+          }
+        }
+      }
+    },
+    "Лакокрасочные материалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paints and varnishes"
+          }
+        }
+      }
+    },
+    "Лампы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lumps"
+          }
+        }
+      }
+    },
+    "Люстры" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chandeliers"
+          }
+        }
+      }
+    },
+    "Мангалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Braziers"
+          }
+        }
+      }
+    },
+    "Манежи, коляски, кровати и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playpens, strollers, beds, etc."
+          }
+        }
+      }
+    },
+    "Маникюрные, бритвенные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manicure, shaving"
+          }
+        }
+      }
+    },
     "Маршрут" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Route"
+          }
+        }
+      }
+    },
+    "Масла" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oils"
+          }
+        }
+      }
+    },
+    "Материалы для производства" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Materials for production"
+          }
+        }
+      }
+    },
+    "Материалы, аксессуары, запчасти, комплектующие к инструментам" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Materials, accessories, spare parts, components for tools"
+          }
+        }
+      }
+    },
+    "Мебель" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Furniture"
+          }
+        }
+      }
+    },
+    "Мебель для ресторанов" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Furniture for restaurants"
+          }
+        }
+      }
+    },
+    "Мебель и аксессуары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Furniture and accessories"
+          }
+        }
+      }
+    },
+    "Мебельная фурнитура" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Furniture fittings"
+          }
+        }
+      }
+    },
+    "Медицинские товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medical products"
+          }
+        }
+      }
+    },
+    "Медицинский комплект" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medical kit"
+          }
+        }
+      }
+    },
+    "Медицинское оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medical equipment"
+          }
+        }
+      }
+    },
+    "Мелкая бытовая техника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Small household appliances"
+          }
+        }
+      }
+    },
+    "Мелкая кожгалантерея" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Small leather goods"
+          }
+        }
+      }
+    },
+    "Металлопрокат" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rolled metal"
+          }
+        }
+      }
+    },
+    "Метизы, фитинги" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hardware, fittings"
+          }
+        }
+      }
+    },
+    "Механический инструмент" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mechanical tool"
+          }
+        }
+      }
+    },
+    "Меховые изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fur"
           }
         }
       }
@@ -314,6 +1534,46 @@
         }
       }
     },
+    "Мото- и квадроциклы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motorcycles and ATVs"
+          }
+        }
+      }
+    },
+    "Музыкальные инструменты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Musical instruments"
+          }
+        }
+      }
+    },
+    "Мягкая мебель, спальни" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upholstered furniture, bedrooms"
+          }
+        }
+      }
+    },
+    "Навигационные приборы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navigation instruments"
+          }
+        }
+      }
+    },
     "Название юр.лица" : {
       "localizations" : {
         "en" : {
@@ -330,6 +1590,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email"
+          }
+        }
+      }
+    },
+    "Напольные покрытия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Floor coverings"
           }
         }
       }
@@ -364,12 +1634,42 @@
         }
       }
     },
+    "Не найдено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not found"
+          }
+        }
+      }
+    },
     "Не получается открыть App Store" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Can't open AppStore"
+          }
+        }
+      }
+    },
+    "Нитки, кошельки, ремни, сумки и пр." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threads, wallets, belts, bags, etc."
+          }
+        }
+      }
+    },
+    "Новогодние и другие праздничные товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Christmas and other holiday products"
           }
         }
       }
@@ -404,12 +1704,122 @@
         }
       }
     },
+    "Обои" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wallpapers"
+          }
+        }
+      }
+    },
+    "Оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Equipment"
+          }
+        }
+      }
+    },
+    "Оборудование для отопления" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heating equipment"
+          }
+        }
+      }
+    },
+    "Оборудование и аксессуары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Equipment and accessories"
+          }
+        }
+      }
+    },
+    "Оборудование и инвентарь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Equipment and inventory"
+          }
+        }
+      }
+    },
+    "Оборудование охранное" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Security equipment"
+          }
+        }
+      }
+    },
+    "Оборудование промышленное" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Industrial equipment"
+          }
+        }
+      }
+    },
+    "Оборудование торговое" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trade equipment"
+          }
+        }
+      }
+    },
+    "Оборудование электрощитовое" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Electrical switchboard equipment"
+          }
+        }
+      }
+    },
+    "Оборудование, станки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Equipment, machines"
+          }
+        }
+      }
+    },
     "Обратная связь" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Feedback"
+          }
+        }
+      }
+    },
+    "Обувь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shoes"
           }
         }
       }
@@ -424,12 +1834,152 @@
         }
       }
     },
+    "Ограждения, ворота" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fences, gates"
+          }
+        }
+      }
+    },
+    "Одежда" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clothes"
+          }
+        }
+      }
+    },
+    "Одежда, обувь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clothes, shoes"
+          }
+        }
+      }
+    },
+    "Окна, двери" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Windows, doors"
+          }
+        }
+      }
+    },
+    "Оконная и дверная фурнитура" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Window and door fittings"
+          }
+        }
+      }
+    },
     "ООО/ИП Название юр. лица" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "LLC/PE Company legal name"
+          }
+        }
+      }
+    },
+    "Оптические приборы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optical instruments"
+          }
+        }
+      }
+    },
+    "Отделочные материалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decoration Materials"
+          }
+        }
+      }
+    },
+    "Отделочный камень" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finishing stone"
+          }
+        }
+      }
+    },
+    "Открытки, календари" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postcards, calendars"
+          }
+        }
+      }
+    },
+    "Отопительное оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heating equipment"
+          }
+        }
+      }
+    },
+    "Офисная мебель" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Office furniture"
+          }
+        }
+      }
+    },
+    "Офисная техника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Office equipment"
+          }
+        }
+      }
+    },
+    "Охотничьи товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hunting goods"
+          }
+        }
+      }
+    },
+    "Охранное оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Security equipment"
           }
         }
       }
@@ -444,6 +1994,56 @@
         }
       }
     },
+    "Панели" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Panels"
+          }
+        }
+      }
+    },
+    "Парики" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wigs"
+          }
+        }
+      }
+    },
+    "Паркет, линолеум, ковролин" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parquet, linoleum, carpet"
+          }
+        }
+      }
+    },
+    "Парфюмерия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfumery"
+          }
+        }
+      }
+    },
+    "Перегородки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partitions"
+          }
+        }
+      }
+    },
     "Персональная информация" : {
       "localizations" : {
         "en" : {
@@ -454,12 +2054,72 @@
         }
       }
     },
+    "Перчатки, галстуки, шарфы, платки, гол.уборы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gloves, ties, scarves, headscarves, headwear"
+          }
+        }
+      }
+    },
+    "Печи, радиаторы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stoves, radiators"
+          }
+        }
+      }
+    },
+    "Пищевая пленка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cling film"
+          }
+        }
+      }
+    },
+    "Пластиковая мебель" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plastic furniture"
+          }
+        }
+      }
+    },
+    "Пневмоинструмент" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pneumatic tools"
+          }
+        }
+      }
+    },
     "Погрузка" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Load"
+          }
+        }
+      }
+    },
+    "Подарочная упаковка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gift wrap"
           }
         }
       }
@@ -504,6 +2164,56 @@
         }
       }
     },
+    "Полиграфическая продукция" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Printing products"
+          }
+        }
+      }
+    },
+    "Полиэтилен, листы пластмассы, бумаги" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polyethylene, plastic sheets, paper"
+          }
+        }
+      }
+    },
+    "Полотенца, скатерти и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Towels, tablecloths, etc."
+          }
+        }
+      }
+    },
+    "Постельные принадлежности" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedding"
+          }
+        }
+      }
+    },
+    "Посуда" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dishes"
+          }
+        }
+      }
+    },
     "Правилами обработки персональных данных" : {
       "localizations" : {
         "en" : {
@@ -514,12 +2224,232 @@
         }
       }
     },
+    "Предметы интерьера" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interior items"
+          }
+        }
+      }
+    },
+    "Приборы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Devices"
+          }
+        }
+      }
+    },
     "Проверка возможности импорта товара" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Possibility of goods import checker"
+          }
+        }
+      }
+    },
+    "Провода, кабели" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wires, cables"
+          }
+        }
+      }
+    },
+    "Продукты питания" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Food"
+          }
+        }
+      }
+    },
+    "Промышленная химия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Industrial chemistry"
+          }
+        }
+      }
+    },
+    "Противопожарное оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fire-fighting equipment"
+          }
+        }
+      }
+    },
+    "Прочая бытовая техника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other household appliances"
+          }
+        }
+      }
+    },
+    "Прочая бытовая химия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other household chemicals"
+          }
+        }
+      }
+    },
+    "Прочая галантерея" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other haberdashery"
+          }
+        }
+      }
+    },
+    "Прочая косметика" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other cosmetics"
+          }
+        }
+      }
+    },
+    "Прочая сантехника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other plumbing"
+          }
+        }
+      }
+    },
+    "Прочее клим. оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other climate control equipment"
+          }
+        }
+      }
+    },
+    "Прочее торговое оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other commercial equipment"
+          }
+        }
+      }
+    },
+    "Прочие инструменты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other tools"
+          }
+        }
+      }
+    },
+    "Прочие канцтовары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other stationery"
+          }
+        }
+      }
+    },
+    "Прочие отделочные материалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other finishing materials"
+          }
+        }
+      }
+    },
+    "Прочие предметы интерьера" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other interior items"
+          }
+        }
+      }
+    },
+    "Прочие товары для детей" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other products for children"
+          }
+        }
+      }
+    },
+    "Прочие хоз.товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other household goods"
+          }
+        }
+      }
+    },
+    "Прочий текстиль" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other textiles"
+          }
+        }
+      }
+    },
+    "Пряжа" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yarn"
+          }
+        }
+      }
+    },
+    "Пылесосы, обогреватели, утюги, фены, чайники, кофеварки и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vacuum cleaners, heaters, irons, hair dryers, kettles, coffee makers, etc."
           }
         }
       }
@@ -564,12 +2494,132 @@
         }
       }
     },
+    "Расходники" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumables"
+          }
+        }
+      }
+    },
+    "Рекламные материалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promotional materials"
+          }
+        }
+      }
+    },
+    "Решетки, ставни, кованые изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grilles, shutters, forged products"
+          }
+        }
+      }
+    },
+    "Розетки, терморегуляторы и т.д." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sockets, thermostats, etc."
+          }
+        }
+      }
+    },
+    "Рыболовные товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fishing goods"
+          }
+        }
+      }
+    },
+    "Садовая техника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garden equipment"
+          }
+        }
+      }
+    },
+    "Самоклеящаяся пленка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Self-adhesive film"
+          }
+        }
+      }
+    },
+    "Самоходные наземные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Self-propelled ground"
+          }
+        }
+      }
+    },
+    "Сантехника" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plumbing"
+          }
+        }
+      }
+    },
+    "Санфаянс" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sanitary Ware"
+          }
+        }
+      }
+    },
+    "Сварочное оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welding equipment"
+          }
+        }
+      }
+    },
     "Светлая" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Light"
+          }
+        }
+      }
+    },
+    "Сейфы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Safes"
           }
         }
       }
@@ -604,12 +2654,42 @@
         }
       }
     },
+    "Складское оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Storage equipment"
+          }
+        }
+      }
+    },
     "Скопировать адрес" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copy the address"
+          }
+        }
+      }
+    },
+    "Смазки, автокосметика" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lubricants, car care products"
+          }
+        }
+      }
+    },
+    "Смесители" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faucets"
           }
         }
       }
@@ -624,12 +2704,112 @@
         }
       }
     },
+    "Снегоходы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snowmobiles"
+          }
+        }
+      }
+    },
+    "Солнцезащитные очки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunglasses"
+          }
+        }
+      }
+    },
     "Сохранить изменения" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save changes"
+          }
+        }
+      }
+    },
+    "Спорта, охоты, рыбалки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sports, hunting, fishing"
+          }
+        }
+      }
+    },
+    "Спортивная экипировка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sports equipment"
+          }
+        }
+      }
+    },
+    "Спортивное питание" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sports nutrition"
+          }
+        }
+      }
+    },
+    "Спортинвентарь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sports equipment"
+          }
+        }
+      }
+    },
+    "Средства мобильной связи" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mobile communications"
+          }
+        }
+      }
+    },
+    "Средства радио связи" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Radio communications"
+          }
+        }
+      }
+    },
+    "Средства связи" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Communication Tools"
+          }
+        }
+      }
+    },
+    "Средства ухода за кожей" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skin care products"
           }
         }
       }
@@ -644,12 +2824,142 @@
         }
       }
     },
+    "Стеновые и отделочные, потолки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wall and finishing, ceilings"
+          }
+        }
+      }
+    },
+    "Стиральные порошки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Washing powders"
+          }
+        }
+      }
+    },
+    "Столовые приборы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cutlery"
+          }
+        }
+      }
+    },
+    "Строительное оборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Construction equipment"
+          }
+        }
+      }
+    },
+    "Строительные фены, паяльные лампы, паяльники и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Construction hair dryers, blowtorches, soldering irons, etc."
+          }
+        }
+      }
+    },
+    "Сумки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bags"
+          }
+        }
+      }
+    },
+    "Сушилки для белья, стремянки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clothes dryers, stepladders"
+          }
+        }
+      }
+    },
+    "Сыпучие строй материалы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bulk building materials"
+          }
+        }
+      }
+    },
+    "Сырье" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raw materials"
+          }
+        }
+      }
+    },
     "Тактильный отклик элементов интерфейса" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Haptics"
+          }
+        }
+      }
+    },
+    "Тара и упаковка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Containers and packaging"
+          }
+        }
+      }
+    },
+    "Тара, упаковка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Containers, packaging"
+          }
+        }
+      }
+    },
+    "Текстильные изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Textile products"
+          }
+        }
+      }
+    },
+    "Телекоммуникационные и навигационные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telecommunications and navigation"
           }
         }
       }
@@ -684,6 +2994,126 @@
         }
       }
     },
+    "Тепло-, шумо-" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heat, noise"
+          }
+        }
+      }
+    },
+    "Термоинструмент" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heat tool"
+          }
+        }
+      }
+    },
+    "Ткани" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fabrics"
+          }
+        }
+      }
+    },
+    "Товары для детей" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goods for children"
+          }
+        }
+      }
+    },
+    "Товары для отдыха" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leisure goods"
+          }
+        }
+      }
+    },
+    "Товары для художественного творчества" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Art supplies"
+          }
+        }
+      }
+    },
+    "Торшеры, бра, плафоны бытовые и комплектующие" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Floor lamps, sconces, household lampshades and accessories"
+          }
+        }
+      }
+    },
+    "Транспортные средства" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vehicles"
+          }
+        }
+      }
+    },
+    "Тренажеры" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exercise equipment"
+          }
+        }
+      }
+    },
+    "Туалетная бумага" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toilet paper"
+          }
+        }
+      }
+    },
+    "Туалетное мыло, товары для душа, крема" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toilet soap, shower products, creams"
+          }
+        }
+      }
+    },
+    "Туристическое снаряжение" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tourist equipment"
+          }
+        }
+      }
+    },
     "Уведомления" : {
       "localizations" : {
         "en" : {
@@ -714,12 +3144,192 @@
         }
       }
     },
+    "Фурнитура для одежды" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accessories for clothing"
+          }
+        }
+      }
+    },
+    "Хозяйственно-бытовые товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Household goods"
+          }
+        }
+      }
+    },
+    "Холодильники, стиральные машины, плиты, вытяжки и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refrigerators, washing machines, stoves, hoods, etc."
+          }
+        }
+      }
+    },
+    "Часы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watches"
+          }
+        }
+      }
+    },
+    "Чемоданы, портфели" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suitcases, briefcases"
+          }
+        }
+      }
+    },
+    "Чистящие и моющие средства" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cleaning and detergents"
+          }
+        }
+      }
+    },
+    "Чулки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stockings"
+          }
+        }
+      }
+    },
+    "Чулочно-носочные изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hosiery"
+          }
+        }
+      }
+    },
+    "Швейные машины" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sewing machines"
+          }
+        }
+      }
+    },
+    "Швейные товары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sewing goods"
+          }
+        }
+      }
+    },
+    "Шиньоны, накладки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hairpieces, overlays"
+          }
+        }
+      }
+    },
+    "Шланги" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoses"
+          }
+        }
+      }
+    },
+    "Шубы, дубленки, муфты, шапки меховые" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fur coats, sheepskin coats, muffs, fur hats"
+          }
+        }
+      }
+    },
+    "щебень, песок и др." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "crushed stone, sand, etc."
+          }
+        }
+      }
+    },
+    "Электроинструмент" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Power tools"
+          }
+        }
+      }
+    },
     "Электронная почта" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email"
+          }
+        }
+      }
+    },
+    "Электрооборудование" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Electrical equipment"
+          }
+        }
+      }
+    },
+    "Электротехнические изделия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Electrical products"
+          }
+        }
+      }
+    },
+    "Электротовары" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Electrical goods"
           }
         }
       }
