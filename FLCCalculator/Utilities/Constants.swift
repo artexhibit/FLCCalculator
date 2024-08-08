@@ -157,6 +157,12 @@ enum BonusSystemVCStrings {
     static let textButtonURLLink = "http://free-lines.ru/information/specialoffers/loyaltyProgram/"
 }
 
+enum FLCCountryOptionStrings {
+    static let china = NSLocalizedString("Китай", comment: "")
+    static let turkey = NSLocalizedString("Турция", comment: "")
+    static let russia = NSLocalizedString("Россия", comment: "")
+}
+
 enum SettingsStrings {
     static let settings = NSLocalizedString("Настройки", comment: "")
     static let theme = NSLocalizedString("Тема", comment: "")
@@ -319,7 +325,7 @@ enum FLCGoodsCategoryString {
     static let musicalInstruments = (title: NSLocalizedString("Музыкальные инструменты", comment: ""), subtitle: NSLocalizedString("И принадлежности", comment: ""))
     static let floorCoverings = (title: NSLocalizedString("Напольные покрытия", comment: ""), subtitle: NSLocalizedString("Паркет, линолеум, ковролин", comment: ""))
     static let equipmentAndMachines = (title: NSLocalizedString("Оборудование, станки", comment: ""), subtitle: NSLocalizedString("Для металлообрабатывающего и машиностроительного производства", comment: ""))
-    static let tradeEquipmentAndInventory = (title: NSLocalizedString("Оборудование и инвентарь", comment: ""), subtitle: NSLocalizedString("Для торговли", comment: ""))
+    static let equipmentAndInventory = (title: NSLocalizedString("Оборудование и инвентарь", comment: ""), subtitle: NSLocalizedString("Для торговли", comment: ""))
     static let foodIndustryEquipment = (title: NSLocalizedString("Оборудование", comment: ""), subtitle: NSLocalizedString("Для пищевой промышленности", comment: ""))
     static let communicationMeans = (title: NSLocalizedString("Средства связи", comment: ""), subtitle: NSLocalizedString("И оборудование", comment: ""))
     static let wallpaper = (title: NSLocalizedString("Обои", comment: ""), subtitle: NSLocalizedString("Самоклеящаяся пленка", comment: ""))

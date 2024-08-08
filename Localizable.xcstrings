@@ -954,6 +954,16 @@
         }
       }
     },
+    "кг" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kg"
+          }
+        }
+      }
+    },
     "Керамическая плитка" : {
       "localizations" : {
         "en" : {
@@ -980,6 +990,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Brushes, paints"
+          }
+        }
+      }
+    },
+    "Китай" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China"
           }
         }
       }
@@ -2534,6 +2554,16 @@
         }
       }
     },
+    "Россия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Russia"
+          }
+        }
+      }
+    },
     "Рыболовные товары" : {
       "localizations" : {
         "en" : {
@@ -3110,6 +3140,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tourist equipment"
+          }
+        }
+      }
+    },
+    "Турция" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turkey"
           }
         }
       }

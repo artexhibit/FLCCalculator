@@ -33,8 +33,8 @@ struct CalculationsVCHelper {
         
         let calculationData = CalculationData(
             id: pickedCalculation.id, 
-            countryFrom: pickedCalculation.countryFrom ?? "",
-            countryTo: pickedCalculation.countryTo ?? "",
+            countryFrom: FLCCountryOption(rawValue: pickedCalculation.countryFrom ?? "") ?? .china,
+            countryTo: FLCCountryOption(rawValue: pickedCalculation.countryTo ?? "") ?? .russia,
             deliveryType: pickedCalculation.deliveryType ?? "",
             deliveryTypeCode: pickedCalculation.deliveryTypeCode ?? "", 
             departureAirport: pickedCalculation.departureAirport ?? "",

@@ -81,21 +81,40 @@ enum FLCBackgroundFetchId: String {
     case updateAvailableLogisticsTypesData = "ru.igorcodes.FLCCalculator.updateAvailableLogisticsTypesData"
 }
 
-enum FLCCountryOption: String {
+enum FLCCountryOption: String, CaseIterable {
     case china = "Китай"
     case turkey = "Турция"
+    case russia = "Россия"
     
     var engName: String {
         switch self {
-        case .china: return "china"
-        case .turkey: return "turkey"
+        case .china: "china"
+        case .turkey: "turkey"
+        case .russia: "russia"
         }
     }
     var shortCode: String {
         switch self {
-        case .china: return "CNY"
-        case .turkey: return "TRY"
+        case .china: "CNY"
+        case .turkey: "TRY"
+        case .russia: "RUB"
         }
+    }
+    
+    var localizedDescription: String {
+        switch self {
+        case .china: FLCCountryOptionStrings.china
+        case .turkey: FLCCountryOptionStrings.turkey
+        case .russia: FLCCountryOptionStrings.russia
+        }
+    }
+    
+    init(localizedString: String) {
+        guard let type = FLCCountryOption.allCases.first(where: { $0.localizedDescription == localizedString }) else {
+            self = .china
+            return
+        }
+        self = type
     }
 }
 
@@ -304,7 +323,7 @@ enum FLCGoodsType: String, CaseIterable {
     case musicalInstruments = "Музыкальные инструменты"
     case floorCoverings = "Напольные покрытия"
     case equipmentAndMachines = "Оборудование, станки"
-    case tradeEquipmentAndInventory = "Оборудование и инвентарь для торговли"
+    case equipmentAndInventory = "Оборудование и инвентарь"
     case foodIndustryEquipment = "Оборудование для пищевой промышленности"
     case communicationMeans = "Средства связи"
     case wallpaper = "Обои"
@@ -479,7 +498,7 @@ enum FLCGoodsType: String, CaseIterable {
         case .musicalInstruments: return FLCGoodsCategoryString.musicalInstruments
         case .floorCoverings: return FLCGoodsCategoryString.floorCoverings
         case .equipmentAndMachines: return FLCGoodsCategoryString.equipmentAndMachines
-        case .tradeEquipmentAndInventory: return FLCGoodsCategoryString.tradeEquipmentAndInventory
+        case .equipmentAndInventory: return FLCGoodsCategoryString.equipmentAndInventory
         case .foodIndustryEquipment: return FLCGoodsCategoryString.foodIndustryEquipment
         case .communicationMeans: return FLCGoodsCategoryString.communicationMeans
         case .wallpaper: return FLCGoodsCategoryString.wallpaper
@@ -603,6 +622,7 @@ enum FLCLogisticsType: String, CaseIterable {
         switch country {
         case .china: return .chinaTruck
         case .turkey: return .turkeyNovorossiyskBySea
+        case .russia: return nil
         }
     }
     
@@ -610,6 +630,7 @@ enum FLCLogisticsType: String, CaseIterable {
         switch country {
         case .china: return [.chinaTruck, .chinaRailway, .chinaAir]
         case .turkey: return [.turkeyNovorossiyskBySea, .turkeyTruckByFerry, .turkeyAirSVO, .turkeyAirVKO]
+        case .russia: return []
         }
     }
     
@@ -647,6 +668,7 @@ enum FLCLogisticsType: String, CaseIterable {
                 }
             default: return nil
             }
+        case .russia: return nil
         }
     }
 }

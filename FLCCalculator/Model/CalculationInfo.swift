@@ -347,7 +347,7 @@ struct CalculationInfo {
         FLCPickerItem(title: FLCGoodsCategoryString.musicalInstruments.title, subtitle: FLCGoodsCategoryString.musicalInstruments.subtitle, image: nil),
         FLCPickerItem(title: FLCGoodsCategoryString.floorCoverings.title, subtitle: FLCGoodsCategoryString.floorCoverings.subtitle, image: nil),
         FLCPickerItem(title: FLCGoodsCategoryString.equipmentAndMachines.title, subtitle: FLCGoodsCategoryString.equipmentAndMachines.subtitle, image: nil),
-        FLCPickerItem(title: FLCGoodsCategoryString.tradeEquipmentAndInventory.title, subtitle: FLCGoodsCategoryString.tradeEquipmentAndInventory.subtitle, image: nil),
+        FLCPickerItem(title: FLCGoodsCategoryString.equipmentAndInventory.title, subtitle: FLCGoodsCategoryString.equipmentAndInventory.subtitle, image: nil),
         FLCPickerItem(title: FLCGoodsCategoryString.foodIndustryEquipment.title, subtitle: FLCGoodsCategoryString.foodIndustryEquipment.subtitle, image: nil),
         FLCPickerItem(title: FLCGoodsCategoryString.communicationMeans.title, subtitle: FLCGoodsCategoryString.communicationMeans.subtitle, image: nil),
         FLCPickerItem(title: FLCGoodsCategoryString.wallpaper.title, subtitle: FLCGoodsCategoryString.wallpaper.subtitle, image: nil),
@@ -633,8 +633,8 @@ struct CalculationInfo {
     ]
     
     static let countriesOptions = [
-        FLCPickerItem(title: FLCCountryOption.china.rawValue, subtitle: "", image: UIImage(named: "CNY")),
-        FLCPickerItem(title: FLCCountryOption.turkey.rawValue, subtitle: "", image: UIImage(named: "TRY"))
+        FLCPickerItem(title: FLCCountryOptionStrings.china, subtitle: "", image: UIImage(named: "CNY")),
+        FLCPickerItem(title: FLCCountryOptionStrings.turkey, subtitle: "", image: UIImage(named: "TRY"))
     ]
     
     static let chinaAirportsOptions = [

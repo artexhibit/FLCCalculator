@@ -153,4 +153,8 @@ extension String {
     func extractDigits() -> String { self.filter { $0.isNumber } }
     func extractCharacters() -> String { self.filter { $0.isLetter } }
     func isContains(_ target: String) -> Bool { self.range(of: target) != nil }
+    func removeTrailingZeroes() -> String {
+        guard self.getLastCharacters(2) == "00" else { return self }
+        return self.removeLastCharacters(3)
+    }
 }

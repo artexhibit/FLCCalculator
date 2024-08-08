@@ -189,6 +189,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 switch pickedCountry {
                 case .china: button.setTitle(WarehouseStrings.chinaWarehouse, for: .normal)
                 case .turkey: button.setTitle(WarehouseStrings.turkeyWarehouse, for: .normal)
+                case .russia: break
                 }
                 
                 CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, title: "Выберите аэропорт отправления для расчёта авиа логистики", cantCloseBySwipe: true)

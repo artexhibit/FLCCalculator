@@ -56,6 +56,7 @@ struct CalculationHelper {
             } else {
                 return CalculationInfo.turkeyLocations
             }
+        case .russia: return []
         }
     }
     
@@ -227,8 +228,8 @@ struct CalculationHelper {
     static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String, departureCity: String) -> CalculationData {
         let calcData = CalculationData(
             id: Int32(CoreDataManager.loadCalculations()?.count ?? 0),
-            countryFrom: transportView.countryPickerButton.showingTitle,
-            countryTo: "Россия",
+            countryFrom: FLCCountryOption(localizedString: transportView.countryPickerButton.showingTitle),
+            countryTo: FLCCountryOption.russia,
             deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
             deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3), 
             departureAirport: getDepartureAirport(for: departureCity, country: transportView.countryPickerButton.showingTitle),
@@ -258,6 +259,8 @@ struct CalculationHelper {
             return PriceCalculationManager.getClosestAirport(to: departureCity, with: PriceCalculationManager.getChinaAirPickup())?.airTargetAirport ?? ""
         case .turkey:
             return FLCWarehouse.istanbul.rawValue
+        case .russia:
+            return ""
         }
     }
 }

@@ -3,8 +3,8 @@ import Foundation
 struct CalculationData: Hashable {
     let id: Int32
     let calculationDate: String = Date().formatted(date: .numeric, time: .standard)
-    let countryFrom: String
-    let countryTo: String
+    let countryFrom: FLCCountryOption
+    let countryTo: FLCCountryOption
     let deliveryType: String
     let deliveryTypeCode: String
     let departureAirport: String

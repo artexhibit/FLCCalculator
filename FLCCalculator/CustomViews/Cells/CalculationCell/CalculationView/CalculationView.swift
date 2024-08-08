@@ -6,6 +6,8 @@ struct CalculationView: View {
     
     var body: some View {
         let goodsType = FLCGoodsType(rawValue: calculation.goodsType ?? "")?.localizedDescription.title ?? ""
+        let countryFrom = FLCCountryOption(rawValue: calculation.countryFrom ?? "")?.localizedDescription ?? ""
+        let countryTo = FLCCountryOption(rawValue: calculation.countryTo ?? "")?.localizedDescription ?? ""
         
         VStack {
             HStack(alignment: .top) {
@@ -86,7 +88,7 @@ struct CalculationView: View {
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                             
-                            Text("\(calculation.countryFrom ?? ""), \(calculation.fromLocation ?? "")")
+                            Text("\(countryFrom), \(calculation.fromLocation ?? "")")
                                 .font(.footnote)
                                 .foregroundStyle(.primary)
                                 .lineLimit(1)
@@ -99,7 +101,7 @@ struct CalculationView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("\(calculation.countryTo ?? ""), \(calculation.toLocation ?? "")")
+                        Text("\(countryTo), \(calculation.toLocation ?? "")")
                             .font(.footnote)
                             .foregroundStyle(.primary)
                             .lineLimit(4)
@@ -118,8 +120,8 @@ struct CalculationView: View {
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "scalemass.fill", text: "\(calculation.weight.formatAsNumber()) кг")
-                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(calculation.volume.formatAsNumber()) м3")
+                    CalculationTagView(systemImageName: "scalemass.fill", text: "\(calculation.weight.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("кг", comment: ""))")
+                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(calculation.volume.formatAsNumber().removeTrailingZeroes()) м3")
                     
                     Spacer()
                 }

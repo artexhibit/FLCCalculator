@@ -24,9 +24,8 @@ class CalculationResultVC: UIViewController {
     private var calculationData: CalculationData? {
         didSet {
             guard let calculationData = calculationData else { return }
-            guard let country = FLCCountryOption(rawValue: calculationData.countryFrom) else { return }
-            pickedLogisticsType = FLCLogisticsType.firstCase(for: country) ?? .chinaTruck
-            availableLogisticsTypes = CalculationResultHelper.getAvailableLogisticsTypes(for: country, and: calculationData)
+            pickedLogisticsType = FLCLogisticsType.firstCase(for: calculationData.countryFrom) ?? .chinaTruck
+            availableLogisticsTypes = CalculationResultHelper.getAvailableLogisticsTypes(for: calculationData.countryFrom, and: calculationData)
             calculationResultItems = CalculationResultHelper.configureInitialData(with: calculationData, pickedLogisticsType: pickedLogisticsType)
      
             Task {
@@ -284,7 +283,7 @@ extension CalculationResultVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: OptionsTableViewHeader.reuseID) as! OptionsTableViewHeader
         headerView.optionsCollectionView.optionsDelegate = self
-        headerView.optionsCollectionView.setPickedCountry(country: FLCCountryOption(rawValue: calculationData?.countryFrom ?? ""))
+        headerView.optionsCollectionView.setPickedCountry(country: calculationData?.countryFrom)
         headerView.optionsCollectionView.setOptions(options: CalculationResultHelper.getOptions(basedOn: availableLogisticsTypes), pickedLogisticsType: pickedLogisticsType)
         return headerView
     }
