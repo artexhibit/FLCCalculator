@@ -2,12 +2,12 @@ import UIKit
 
 class FLCTransportParametersView: FLCCalculationView {
     
-    let countryPickerButton = FLCListPickerButton(placeholderText: "Страна Отправления")
-    let deliveryTypePickerButton = FLCListPickerButton(placeholderText: "Условия Поставки")
-    let departurePickerButton = FLCListPickerButton(placeholderText: "Пункт отправления")
-    let destinationPickerButton = FLCListPickerButton(placeholderText: "Пункт назначения")
-    let calculateButton = FLCButton(color: .flcOrange, title: "Рассчитать")
-    let returnToPreviousViewButton = FLCTextButton(title: "вернуться назад")
+    let countryPickerButton = FLCListPickerButton(placeholderText: CalculationStrings.countryPicker)
+    let deliveryTypePickerButton = FLCListPickerButton(placeholderText: CalculationStrings.deliveryTypePicker)
+    let departurePickerButton = FLCListPickerButton(placeholderText: CalculationStrings.departurePicker)
+    let destinationPickerButton = FLCListPickerButton(placeholderText: CalculationStrings.destinationPicker)
+    let calculateButton = FLCButton(color: .flcOrange, title: CalculationStrings.calculateButton)
+    let returnToPreviousViewButton = FLCTextButton(title: CalculationStrings.returnToPreviousViewButton)
     
     var listPickerButtonsWithTitle = [FLCListPickerButton: Bool]()
     private var deliveryTypeTopContraint: NSLayoutConstraint!
@@ -39,7 +39,7 @@ class FLCTransportParametersView: FLCCalculationView {
         flcListPickerButtons.forEach { listPickerButtonsWithTitle[$0] = false }
     }
     
-    private func configureTitleLabel() { titleLabel.text = "Осталось заполнить параметры перевозки" }
+    private func configureTitleLabel() { titleLabel.text = CalculationStrings.transportParametersViewTitle }
     
     private func configureCountryPickerButton() {
         countryPickerButton.delegate = self

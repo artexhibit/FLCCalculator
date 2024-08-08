@@ -10,24 +10,24 @@ class FLCTabBarController: UITabBarController {
     
     func createCalculationsVC() -> UINavigationController {
         let calculationsVC = CalculationsVC()
-        calculationsVC.title = "Расчёты"
-        calculationsVC.tabBarItem = UITabBarItem(title: "Расчёты", image: UIImage(systemName: "list.bullet.rectangle.portrait.fill"), tag: 0)
+        calculationsVC.title = CalculationsVCStrings.calculations
+        calculationsVC.tabBarItem = UITabBarItem(title: CalculationsVCStrings.calculations, image: UIImage(systemName: "list.bullet.rectangle.portrait.fill"), tag: 0)
         
         return UINavigationController(rootViewController: calculationsVC)
     }
     
     func createUsefulInfoVC() -> UINavigationController {
         let usefulInfoVC = UsefulInfoVC()
-        usefulInfoVC.title = "Полезное"
-        usefulInfoVC.tabBarItem = UITabBarItem(title: "Полезное", image: UIImage(systemName: "doc.text.fill"), tag: 1)
+        usefulInfoVC.title = UsefulInfoVCStrings.useful
+        usefulInfoVC.tabBarItem = UITabBarItem(title: UsefulInfoVCStrings.useful, image: UIImage(systemName: "doc.text.fill"), tag: 1)
         
         return UINavigationController(rootViewController: usefulInfoVC)
     }
     
     func createSettingsVC() -> UINavigationController {
         let settingsVC = SettingsVC()
-        settingsVC.title = "Настройки"
-        settingsVC.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(systemName: "gear"), tag: 2)
+        settingsVC.title = SettingsVCStrings.settings
+        settingsVC.tabBarItem = UITabBarItem(title: SettingsVCStrings.settings, image: UIImage(systemName: "gear"), tag: 2)
         
         return UINavigationController(rootViewController: settingsVC)
     }

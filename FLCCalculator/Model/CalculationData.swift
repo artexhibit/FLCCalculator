@@ -5,7 +5,7 @@ struct CalculationData: Hashable {
     let calculationDate: String = Date().formatted(date: .numeric, time: .standard)
     let countryFrom: FLCCountryOption
     let countryTo: FLCCountryOption
-    let deliveryType: String
+    let deliveryType: FLCDeliveryType
     let deliveryTypeCode: String
     let departureAirport: String
     let fromLocationCode: String

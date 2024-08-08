@@ -43,10 +43,10 @@ enum FLCUsefulInfoSection: String, CaseIterable {
     
     var localizedDescription: String {
         switch self {
-        case .managerContacts: UsefulInfoStrings.managerContacts
-        case .usefulInfo: UsefulInfoStrings.usefulInfo
-        case .aboutCompany: UsefulInfoStrings.aboutCompany
-        case .documents: UsefulInfoStrings.documents
+        case .managerContacts: UsefulInfoVCStrings.managerContacts
+        case .usefulInfo: UsefulInfoVCStrings.usefulInfo
+        case .aboutCompany: UsefulInfoVCStrings.aboutCompany
+        case .documents: UsefulInfoVCStrings.documents
         }
     }
 }
@@ -70,6 +70,34 @@ enum FLCAppTheme: String, CaseIterable {
         case .light: FLCThemeOptionsStrings.light
         case .dark: FLCThemeOptionsStrings.dark
         }
+    }
+}
+
+enum FLCDeliveryType: String, CaseIterable {
+    case exwShipperClient = "Поставщик - Клиент"
+    case exwShipperPodolsk = "Поставщик - Склад Подольск"
+    case fcaChinaWarehouseClient = "Склад Китай - Клиент"
+    case fcaChinaWarehousePodolsk = "Склад Китай - Склад Подольск"
+    case fcaTurkeyWarehouseClient = "Склад Стамбул - Клиент"
+    case fcaTurkeyWarehousePodolsk = "Склад Стамбул - Склад Подольск"
+    
+    var localizedDescription: String {
+        switch self {
+        case .exwShipperClient: FLCDeliveryTypeStrings.exwShipperClient
+        case .exwShipperPodolsk: FLCDeliveryTypeStrings.exwShipperPodolsk
+        case .fcaChinaWarehouseClient: FLCDeliveryTypeStrings.fcaChinaWarehouseClient
+        case .fcaChinaWarehousePodolsk: FLCDeliveryTypeStrings.fcaChinaWarehousePodolsk
+        case .fcaTurkeyWarehouseClient: FLCDeliveryTypeStrings.fcaTurkeyWarehouseClient
+        case .fcaTurkeyWarehousePodolsk: FLCDeliveryTypeStrings.fcaTurkeyWarehousePodolsk
+        }
+    }
+    
+    init(localizedString: String) {
+        guard let type = FLCDeliveryType.allCases.first(where: { $0.localizedDescription == localizedString }) else {
+            self = .exwShipperClient
+            return
+        }
+        self = type
     }
 }
 

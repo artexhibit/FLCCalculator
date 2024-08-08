@@ -25,7 +25,7 @@ class CalculationsVC: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         setNavBarColor(color: UIColor.flcOrange)
-        navigationItem.title = "Расчёты"
+        navigationItem.title = CalculationsVCStrings.calculations
         tabBarController?.tabBar.isHidden = false
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
@@ -108,7 +108,7 @@ extension CalculationsVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { [weak self] (action, view, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: CalculationsVCStrings.deleteAction) { [weak self] (action, view, completionHandler) in
             guard let self = self else { return }
             
             CoreDataManager.deleteCalculation(withID: self.calculations[indexPath.row].id)

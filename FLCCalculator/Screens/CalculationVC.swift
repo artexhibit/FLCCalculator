@@ -192,7 +192,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 case .russia: break
                 }
                 
-                CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, title: "Выберите аэропорт отправления для расчёта авиа логистики", cantCloseBySwipe: true)
+                CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, title: CalculationStrings.chinaDepartureAirportLabel, cantCloseBySwipe: true)
             } else {
                 if transportView.departurePickerButton.showingTitle == FLCCity.istanbul.rawValue {
                     CalculationHelper.showIstanbulZones(in: transportView, and: self)

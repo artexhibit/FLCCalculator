@@ -4,15 +4,15 @@ class FLCCargoParametersView: FLCCalculationView {
     
     private let stackView = UIStackView()
     
-    let cargoTypePickerButton = FLCListPickerButton(placeholderText: "Тип груза")
-    let weightTextField = FLCNumberTextField(smallLabelPlaceholderText: "Вес брутто, кг")
-    let volumeTextField = FLCNumberTextField(smallLabelPlaceholderText: "Объём, м3")
-    let invoiceAmountTextField = FLCNumberTextField(smallLabelPlaceholderText: "Сумма по инвойсу")
-    let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: "Валюта")
+    let cargoTypePickerButton = FLCListPickerButton(placeholderText: CalculationStrings.cargoType)
+    let weightTextField = FLCNumberTextField(smallLabelPlaceholderText: CalculationStrings.weightTF)
+    let volumeTextField = FLCNumberTextField(smallLabelPlaceholderText: CalculationStrings.volumeTF)
+    let invoiceAmountTextField = FLCNumberTextField(smallLabelPlaceholderText: CalculationStrings.invoiceAmountTF)
+    let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: CalculationStrings.invoiceCurrencyButton)
     private let tintedView = FLCTintedView(color: .flcOrange)
-    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: "Необходимо таможенное оформление".makeAttributed(icon: Icons.infoSign, tint: .flcOrange, size: (0, -5, 24, 23), placeIcon: .afterText))
+    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: CalculationStrings.customsClearanceTF.makeAttributed(icon: Icons.infoSign, tint: .flcOrange, size: (0, -5, 24, 23), placeIcon: .afterText))
     let customsClearanceSwitch = UISwitch()
-    let nextButton = FLCButton(color: .flcOrange, title: "Далее")
+    let nextButton = FLCButton(color: .flcOrange, title: CalculationStrings.nextButton)
         
     var filledTextFileds = [UITextField: Bool]()
     var filledButtons = [FLCListPickerButton: Bool]()
@@ -58,7 +58,7 @@ class FLCCargoParametersView: FLCCalculationView {
         if let parentVC = parentVC as? CalculationVC { parentVC.delegate = self }
     }
     
-    private func configureTitleLabel() { titleLabel.text = "Расскажите нам о вашем грузе" }
+    private func configureTitleLabel() { titleLabel.text = CalculationStrings.cargoParametersViewTitle }
     
     private func configureCargoTypePickerButton() {
         cargoTypePickerButton.delegate = self

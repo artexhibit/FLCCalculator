@@ -27,7 +27,7 @@ class UsefulInfoVC: UIViewController {
     private func configureVC() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = UsefulInfoStrings.useful
+        navigationItem.title = UsefulInfoVCStrings.useful
         setNavBarColor(color: UIColor.flcOrange)
     }
     

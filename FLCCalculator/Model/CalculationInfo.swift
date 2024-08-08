@@ -625,37 +625,37 @@ struct CalculationInfo {
     ]
     
     static let currencyOptions = [
-        FLCPickerItem(title: "RUB", subtitle: "Рубли", image: UIImage(named: "RUB")),
-        FLCPickerItem(title: "CNY", subtitle: "Юани", image: UIImage(named: "CNY")),
-        FLCPickerItem(title: "TRY", subtitle: "Лиры", image: UIImage(named: "TRY")),
-        FLCPickerItem(title: "USD", subtitle: "Доллары", image: UIImage(named: "USD")),
-        FLCPickerItem(title: "EUR", subtitle: "Евро", image: UIImage(named: "EUR"))
+        FLCPickerItem(title: currencyOptionsStrings.rublesShort, subtitle: currencyOptionsStrings.rubles, image: UIImage(named: currencyOptionsStrings.rublesShort)),
+        FLCPickerItem(title: currencyOptionsStrings.yuanShort, subtitle: currencyOptionsStrings.yuan, image: UIImage(named: currencyOptionsStrings.yuanShort)),
+        FLCPickerItem(title: currencyOptionsStrings.lirasShort, subtitle: currencyOptionsStrings.liras, image: UIImage(named: currencyOptionsStrings.lirasShort)),
+        FLCPickerItem(title: currencyOptionsStrings.dollarsShort, subtitle: currencyOptionsStrings.dollars, image: UIImage(named: currencyOptionsStrings.dollarsShort)),
+        FLCPickerItem(title: currencyOptionsStrings.euroShort, subtitle: currencyOptionsStrings.euro, image: UIImage(named: currencyOptionsStrings.euroShort))
     ]
     
     static let countriesOptions = [
-        FLCPickerItem(title: FLCCountryOptionStrings.china, subtitle: "", image: UIImage(named: "CNY")),
-        FLCPickerItem(title: FLCCountryOptionStrings.turkey, subtitle: "", image: UIImage(named: "TRY"))
+        FLCPickerItem(title: FLCCountryOptionStrings.china, subtitle: "", image: UIImage(named: currencyOptionsStrings.yuanShort)),
+        FLCPickerItem(title: FLCCountryOptionStrings.turkey, subtitle: "", image: UIImage(named: currencyOptionsStrings.lirasShort))
     ]
     
     static let chinaAirportsOptions = [
-        FLCPickerItem(title: FLCCity.beijing.rawValue, subtitle: "Международный аэропорт Дасин (PKX)", image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCity.shanghai.rawValue, subtitle: "Международный аэропорт Пудун (PVG)", image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCity.guangzhou.rawValue, subtitle: "Международный аэропорт Байюнь (CAN)", image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCity.shenzhen.rawValue, subtitle: "Международный аэропорт Баоань (SZX)", image: Icons.plane, isOpenForAdd: false)
+        FLCPickerItem(title: FLCCity.beijing.rawValue, subtitle: chinaAirportsStrings.PKX, image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.shanghai.rawValue, subtitle: chinaAirportsStrings.PVG, image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.guangzhou.rawValue, subtitle: chinaAirportsStrings.CAN, image: Icons.plane, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.shenzhen.rawValue, subtitle: chinaAirportsStrings.SZX, image: Icons.plane, isOpenForAdd: false)
     ]
     
     static let chinaDeliveryTypes = [
-        FLCPickerItem(title: "EXW, Поставщик - Клиент", subtitle: "От поставщика до склада получателя", image: nil),
-        FLCPickerItem(title: "EXW, Поставщик - \(WarehouseStrings.russianWarehouseCity)", subtitle: "От поставщика до склада FLC", image: nil),
-        FLCPickerItem(title: "FCA, \(WarehouseStrings.chinaWarehouse) - Клиент", subtitle: "От склада в Китае до склада получателя", image: nil),
-        FLCPickerItem(title: "FCA, \(WarehouseStrings.chinaWarehouse) - \(WarehouseStrings.russianWarehouseCity)", subtitle: "От склада в Китае до склада FLC", image: nil)
+        FLCPickerItem(title: "EXW, " + FLCDeliveryTypeStrings.exwShipperClient, subtitle: FLCDeliveryTypeStrings.exwShipperClientComment, image: nil),
+        FLCPickerItem(title: "EXW, " + FLCDeliveryTypeStrings.exwShipperPodolsk, subtitle: FLCDeliveryTypeStrings.exwShipperPodolskComment, image: nil),
+        FLCPickerItem(title: "FCA, " + FLCDeliveryTypeStrings.fcaChinaWarehouseClient, subtitle: FLCDeliveryTypeStrings.fcaChinaWarehouseClientComment, image: nil),
+        FLCPickerItem(title: "FCA, " + FLCDeliveryTypeStrings.fcaChinaWarehousePodolsk, subtitle: FLCDeliveryTypeStrings.fcaChinaWarehousePodolskComment, image: nil)
     ]
     
     static let turkeyDeliveryTypes = [
-        FLCPickerItem(title: "EXW, Поставщик - Клиент", subtitle: "От поставщика до склада получателя", image: nil),
-        FLCPickerItem(title: "EXW, Поставщик - \(WarehouseStrings.russianWarehouseCity)", subtitle: "От поставщика до склада FLC", image: nil),
-        FLCPickerItem(title: "FCA, Склад Стамбул - Клиент", subtitle: "От склада в Стамбуле до склада получателя", image: nil),
-        FLCPickerItem(title: "FCA, Склад Стамбул - \(WarehouseStrings.russianWarehouseCity)", subtitle: "От склада в Стамбуле до склада FLC", image: nil)
+        FLCPickerItem(title: "EXW, " + FLCDeliveryTypeStrings.exwShipperClient, subtitle: FLCDeliveryTypeStrings.exwShipperClientComment, image: nil),
+        FLCPickerItem(title: "EXW, " + FLCDeliveryTypeStrings.exwShipperPodolsk, subtitle: FLCDeliveryTypeStrings.exwShipperPodolskComment, image: nil),
+        FLCPickerItem(title: "FCA, " + FLCDeliveryTypeStrings.fcaTurkeyWarehouseClient, subtitle: FLCDeliveryTypeStrings.fcaTurkeyWarehouseClientComment, image: nil),
+        FLCPickerItem(title: "FCA, " + FLCDeliveryTypeStrings.fcaTurkeyWarehousePodolsk, subtitle: FLCDeliveryTypeStrings.fcaTurkeyWarehousePodolskComment, image: nil)
     ]
     
     static let defaultManager = FLCManager(

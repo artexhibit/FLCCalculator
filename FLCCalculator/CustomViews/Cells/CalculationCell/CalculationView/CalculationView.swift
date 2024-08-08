@@ -8,6 +8,7 @@ struct CalculationView: View {
         let goodsType = FLCGoodsType(rawValue: calculation.goodsType ?? "")?.localizedDescription.title ?? ""
         let countryFrom = FLCCountryOption(rawValue: calculation.countryFrom ?? "")?.localizedDescription ?? ""
         let countryTo = FLCCountryOption(rawValue: calculation.countryTo ?? "")?.localizedDescription ?? ""
+        let deliveryType = FLCDeliveryType(rawValue: calculation.deliveryType ?? "")?.localizedDescription ?? ""
         
         VStack {
             HStack(alignment: .top) {
@@ -121,13 +122,13 @@ struct CalculationView: View {
                 
                 HStack {
                     CalculationTagView(systemImageName: "scalemass.fill", text: "\(calculation.weight.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("кг", comment: ""))")
-                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(calculation.volume.formatAsNumber().removeTrailingZeroes()) м3")
+                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(calculation.volume.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("м3", comment: ""))")
                     
                     Spacer()
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "warehouse", text: calculation.deliveryType ?? "", isSystemImage: false)
+                    CalculationTagView(systemImageName: "warehouse", text: deliveryType, isSystemImage: false)
                     
                     Spacer()
                 }

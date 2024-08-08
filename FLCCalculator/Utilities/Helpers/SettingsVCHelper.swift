@@ -13,23 +13,23 @@ struct SettingsVCHelper {
             SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: userMobilePhone, pickedOption: nil)
         ]
         let secondSectionItems = [
-            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: SettingsStrings.haptic, subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: SettingsStrings.theme, subtitle: nil, pickedOption: pickedThemeOption),
-            SettingsCellContent(cellType: .label, contentType: .permissions, image: Icons.key, title: SettingsStrings.permissions, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: SettingsVCStrings.haptic, subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: SettingsVCStrings.theme, subtitle: nil, pickedOption: pickedThemeOption),
+            SettingsCellContent(cellType: .label, contentType: .permissions, image: Icons.key, title: SettingsVCStrings.permissions, subtitle: nil, pickedOption: nil)
         ]
         let thirdSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .shareApp, image: Icons.shareIcon, title: SettingsStrings.shareApp, subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .label, contentType: .rateApp, image: Icons.star, title: SettingsStrings.rateApp, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .shareApp, image: Icons.shareIcon, title: SettingsVCStrings.shareApp, subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .label, contentType: .rateApp, image: Icons.star, title: SettingsVCStrings.rateApp, subtitle: nil, pickedOption: nil)
         ]
         let fourthSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .support, image: Icons.message, title: SettingsStrings.support, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .support, image: Icons.message, title: SettingsVCStrings.support, subtitle: nil, pickedOption: nil)
         ]
         
         return [
             SettingsSection(title: "", sectionFooter: "", items: firstSectionItems),
-            SettingsSection(title: SettingsStrings.commonSection, sectionFooter: "", items: secondSectionItems),
-            SettingsSection(title: SettingsStrings.aboutAppSection, sectionFooter: "", items: thirdSectionItems),
-            SettingsSection(title: "", sectionFooter: SettingsStrings.findErrorFooter, items: fourthSectionItems)
+            SettingsSection(title: SettingsVCStrings.commonSection, sectionFooter: "", items: secondSectionItems),
+            SettingsSection(title: SettingsVCStrings.aboutAppSection, sectionFooter: "", items: thirdSectionItems),
+            SettingsSection(title: "", sectionFooter: SettingsVCStrings.findErrorFooter, items: fourthSectionItems)
         ]
     }
     

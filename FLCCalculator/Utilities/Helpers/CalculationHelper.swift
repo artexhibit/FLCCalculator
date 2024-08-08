@@ -45,13 +45,13 @@ struct CalculationHelper {
         
         switch pickedCountry {
         case .china:
-            if button.smallLabelView.smallLabel.text == "Условия Поставки" {
+            if button.smallLabelView.smallLabel.text == CalculationStrings.deliveryTypePicker {
                 return CalculationInfo.chinaDeliveryTypes
             } else {
                 return CalculationInfo.chinaLocations
             }
         case .turkey:
-            if button.smallLabelView.smallLabel.text == "Условия Поставки" {
+            if button.smallLabelView.smallLabel.text == CalculationStrings.deliveryTypePicker {
                 return CalculationInfo.turkeyDeliveryTypes
             } else {
                 return CalculationInfo.turkeyLocations
@@ -217,11 +217,11 @@ struct CalculationHelper {
     }
     
     private static func createAvailableLogisticsTypes(with transportView: FLCTransportParametersView) -> [FLCLogisticsType] {
-        let country = FLCCountryOption(rawValue: transportView.countryPickerButton.showingTitle)
+        let country = FLCCountryOption(localizedString: transportView.countryPickerButton.showingTitle)
         let availableLogisticsTypes: [AvailableLogisticsType]? = CoreDataManager.retrieveItemsFromCoreData()
         
         return availableLogisticsTypes?
-            .filter { $0.isAvailable && $0.country == country?.engName }
+            .filter { $0.isAvailable && $0.country == country.engName }
             .compactMap { FLCLogisticsType(rawValue: $0.logisticsTypeName) } ?? [.chinaTruck]
     }
     
@@ -230,8 +230,8 @@ struct CalculationHelper {
             id: Int32(CoreDataManager.loadCalculations()?.count ?? 0),
             countryFrom: FLCCountryOption(localizedString: transportView.countryPickerButton.showingTitle),
             countryTo: FLCCountryOption.russia,
-            deliveryType: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5),
-            deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3), 
+            deliveryType: FLCDeliveryType(localizedString: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5)),
+            deliveryTypeCode: transportView.deliveryTypePickerButton.showingTitle.getFirstCharacters(3),
             departureAirport: getDepartureAirport(for: departureCity, country: transportView.countryPickerButton.showingTitle),
             fromLocationCode: PriceCalculationManager.getClosestPickupCityZipCodeForTurkeyNovorossiyskBySea(to: transportView.departurePickerButton.showingTitle),
             fromLocation: transportView.departurePickerButton.showingTitle.removeStringPart("+1"),

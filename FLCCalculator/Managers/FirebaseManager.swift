@@ -154,7 +154,7 @@ class FirebaseManager: NSObject {
             userCalculationID: data.id,
             countryFrom: data.countryFrom.rawValue,
             countryTo: data.countryTo.rawValue,
-            deliveryType: data.deliveryType,
+            deliveryType: data.deliveryType.rawValue,
             deliveryTypeCode: data.deliveryTypeCode,
             departureAirport: data.departureAirport,
             fromLocationCode: data.fromLocationCode,

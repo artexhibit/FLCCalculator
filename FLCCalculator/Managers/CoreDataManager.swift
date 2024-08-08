@@ -60,7 +60,7 @@ struct CoreDataManager {
         calc.id = Int32(CoreDataManager.loadCalculations()?.count ?? 0)
         calc.toLocation = calculationData.toLocation
         calc.toLocationCode = calculationData.toLocationCode
-        calc.deliveryType = calculationData.deliveryType
+        calc.deliveryType = calculationData.deliveryType.rawValue
         calc.goodsType = calculationData.goodsType.rawValue
         calc.fromLocation = calculationData.fromLocation
         calc.departureAirport = calculationData.departureAirport

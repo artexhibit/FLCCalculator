@@ -163,7 +163,7 @@ enum FLCCountryOptionStrings {
     static let russia = NSLocalizedString("Россия", comment: "")
 }
 
-enum SettingsStrings {
+enum SettingsVCStrings {
     static let settings = NSLocalizedString("Настройки", comment: "")
     static let theme = NSLocalizedString("Тема", comment: "")
     static let haptic = NSLocalizedString("Тактильный отклик элементов интерфейса", comment: "")
@@ -174,6 +174,60 @@ enum SettingsStrings {
     static let commonSection = NSLocalizedString("Общее", comment: "")
     static let aboutAppSection = NSLocalizedString("О приложении", comment: "")
     static let findErrorFooter = NSLocalizedString("Нашли баг, ошибку, опечатку? Напишите, и мы сразу же исправим!", comment: "")
+}
+
+enum CalculationStrings {
+    static let cargoType = NSLocalizedString("Тип груза", comment: "")
+    static let weightTF = NSLocalizedString("Вес брутто, кг", comment: "")
+    static let volumeTF = NSLocalizedString("Объём, м3", comment: "")
+    static let invoiceAmountTF = NSLocalizedString("Сумма по инвойсу", comment: "")
+    static let invoiceCurrencyButton = NSLocalizedString("Валюта", comment: "")
+    static let customsClearanceTF = NSLocalizedString("Необходимо таможенное оформление", comment: "")
+    static let nextButton = NSLocalizedString("Далее", comment: "")
+    static let cargoParametersViewTitle = NSLocalizedString("Расскажите нам о вашем грузе", comment: "")
+    static let countryPicker = NSLocalizedString("Страна Отправления", comment: "")
+    static let deliveryTypePicker = NSLocalizedString("Условия Поставки", comment: "")
+    static let departurePicker = NSLocalizedString("Пункт отправления", comment: "")
+    static let destinationPicker = NSLocalizedString("Пункт назначения", comment: "")
+    static let calculateButton = NSLocalizedString("Рассчитать", comment: "")
+    static let returnToPreviousViewButton = NSLocalizedString("вернуться назад", comment: "")
+    static let transportParametersViewTitle = NSLocalizedString("Осталось заполнить параметры перевозки", comment: "")
+    static let chinaDepartureAirportLabel = NSLocalizedString("Выберите аэропорт отправления для расчёта авиа логистики", comment: "")
+}
+
+enum currencyOptionsStrings {
+    static let rubles = NSLocalizedString("Рубли", comment: "")
+    static let yuan = NSLocalizedString("Юани", comment: "")
+    static let dollars = NSLocalizedString("Доллары", comment: "")
+    static let euro = NSLocalizedString("Евро", comment: "")
+    static let liras = NSLocalizedString("Лиры", comment: "")
+    static let rublesShort = "RUB"
+    static let yuanShort = "CNY"
+    static let lirasShort = "TRY"
+    static let dollarsShort = "USD"
+    static let euroShort = "EUR"
+}
+
+enum chinaAirportsStrings {
+    static let PKX = NSLocalizedString("Международный аэропорт Дасин (PKX)", comment: "")
+    static let PVG = NSLocalizedString("Международный аэропорт Пудун (PVG)", comment: "")
+    static let CAN = NSLocalizedString("Международный аэропорт Байюнь (CAN)", comment: "")
+    static let SZX = NSLocalizedString("Международный аэропорт Баоань (SZX)", comment: "")
+}
+
+enum FLCDeliveryTypeStrings {
+    static let exwShipperClient = NSLocalizedString("Поставщик - Клиент", comment: "")
+    static let exwShipperPodolsk = NSLocalizedString("Поставщик - Склад Подольск", comment: "")
+    static let fcaChinaWarehouseClient = NSLocalizedString("Склад Китай - Клиент", comment: "")
+    static let fcaChinaWarehousePodolsk = NSLocalizedString("Склад Китай - Склад Подольск", comment: "")
+    static let fcaTurkeyWarehouseClient = NSLocalizedString("Склад Стамбул - Клиент", comment: "")
+    static let fcaTurkeyWarehousePodolsk = NSLocalizedString("Склад Стамбул - Склад Подольск", comment: "")
+    static let exwShipperClientComment = NSLocalizedString("От поставщика до склада получателя", comment: "")
+    static let exwShipperPodolskComment = NSLocalizedString("От поставщика до склада FLC", comment: "")
+    static let fcaChinaWarehouseClientComment = NSLocalizedString("От склада в Китае до склада получателя", comment: "")
+    static let fcaChinaWarehousePodolskComment = NSLocalizedString("От склада в Китае до склада FLC", comment: "")
+    static let fcaTurkeyWarehouseClientComment = NSLocalizedString("От склада в Стамбуле до склада получателя", comment: "")
+    static let fcaTurkeyWarehousePodolskComment = NSLocalizedString("От склада в Стамбуле до склада FLC", comment: "")
 }
 
 enum FLCPersonalManagerViewStrings {
@@ -194,7 +248,12 @@ enum ContactsVCStrings {
     static let copyAction = NSLocalizedString("Скопировать адрес", comment: "")
 }
 
-enum UsefulInfoStrings {
+enum CalculationsVCStrings {
+    static let calculations = NSLocalizedString("Расчёты", comment: "")
+    static let deleteAction = NSLocalizedString("Удалить", comment: "")
+}
+
+enum UsefulInfoVCStrings {
     static let useful = NSLocalizedString("Полезное", comment: "")
     static let managerContacts = NSLocalizedString("Ваш менеджер", comment: "")
     static let usefulInfo = NSLocalizedString("Наши сервисы", comment: "")
