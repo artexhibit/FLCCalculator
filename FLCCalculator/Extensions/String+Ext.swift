@@ -1,8 +1,6 @@
 import UIKit
 
-extension String {
-    var flcWarehouseFromRusName: FLCWarehouse? { return FLCWarehouse.allCases.first(where: { $0.rusName == self }) }
-    
+extension String {    
     func createDouble(removeSymbols: Bool = false) -> Double {
         let decimalSeparator = Locale.current.decimalSeparator ?? "."
         var string = self.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\u{00A0}", with: "").replacingOccurrences(of: ",", with: ".")

@@ -41,7 +41,7 @@ class FLCPopoverVC: UIViewController {
     private func configureCloseButton() {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         
-        closeButton.setImage(Icons.xmark, for: .normal)
+        closeButton.setImage(FLCIcon.xmark.icon, for: .normal)
         closeButton.tintColor = .gray
         closeButton.contentVerticalAlignment = .fill
         closeButton.contentHorizontalAlignment = .fill

@@ -36,13 +36,13 @@ struct ContactsVCHelper {
     }
     
     static func showRoutesOptions(for facility: FLCFacility) -> UIMenu {
-        let appleMapsAction = UIAction(title: "Apple Карты", image: Icons.location) { _ in
+        let appleMapsAction = UIAction(title: "Apple Карты", image: FLCIcon.location.icon) { _ in
             MapsManager.openInAppleMaps(latitude: facility.latitude, longitude: facility.longitude, destinationName: facility.name)
         }
-        let yandexMapsAction = UIAction(title: "Яндекс Карты", image: Icons.location) { _ in
+        let yandexMapsAction = UIAction(title: "Яндекс Карты", image: FLCIcon.location.icon) { _ in
             MapsManager.openInYandexMaps(latitude: facility.latitude, longitude: facility.longitude)
         }
-        let googleMapsAction = UIAction(title: "Google Карты", image: Icons.location) { _ in
+        let googleMapsAction = UIAction(title: "Google Карты", image: FLCIcon.location.icon) { _ in
             MapsManager.openInGoogleMaps(latitude: facility.latitude, longitude: facility.longitude)
         }
         return UIMenu(title: "", children: [appleMapsAction, yandexMapsAction, googleMapsAction])

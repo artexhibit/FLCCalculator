@@ -161,7 +161,7 @@ class TotalPriceVC: UIViewController {
     
     private func configurePriceWarningTintedView() {
         let message = failedToFetchPrice ? "Не все услуги рассчитаны! Попробуйте пересчитать." : "Тариф действует только на первую перевозку. Не является офертой"
-        priceWarningTintedView.setTextLabel(text: message.makeAttributed(icon: Icons.exclamationMark, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        priceWarningTintedView.setTextLabel(text: message.makeAttributed(icon: FLCIcon.exclamationMark.icon, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             priceWarningTintedView.topAnchor.constraint(equalTo: pricePerKgTextView.bottomAnchor, constant: padding * 1.5),
@@ -172,7 +172,7 @@ class TotalPriceVC: UIViewController {
     
     private func configureInvoiceIssueTintedView() {
         invoiceIssueTintedView.tintedViewLabel.delegate = self
-        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: Icons.questionMark, tint: .flcOrange, size: (0, -4, 22, 21), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: FLCIcon.questionMark.icon, tint: .flcOrange, size: (0, -4, 22, 21), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             invoiceIssueTintedView.topAnchor.constraint(equalTo: priceWarningTintedView.bottomAnchor, constant: padding / 1.5),

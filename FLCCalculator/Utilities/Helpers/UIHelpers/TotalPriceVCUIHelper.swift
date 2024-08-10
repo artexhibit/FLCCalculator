@@ -49,7 +49,7 @@ struct TotalPriceVCUIHelper {
         case .asOneCurrency: targetType = .asOneCurrency
         }
         
-        view.attributedText = PriceCalculationManager.getPrice(totalPrice: totalPrice, data: data, type: targetType).result.makeAttributed(icon: Icons.dots, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
+        view.attributedText = PriceCalculationManager.getPrice(totalPrice: totalPrice, data: data, type: targetType).result.makeAttributed(icon: FLCIcon.dots.icon, tint: .gray, size: (0, -4, 22, 21), placeIcon: .afterText)
         view.setStyle(color: .lightGray, textAlignment: .left, fontWeight: .medium, fontSize: 17)
     }
     

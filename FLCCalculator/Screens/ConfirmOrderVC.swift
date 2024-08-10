@@ -168,7 +168,7 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureTintedMessageView() {
         tintedMessageView.hide(withAnimationDuration: 0)
-        tintedMessageView.setTextLabel(text: "Вы всегда можете посмотреть контакты вашего менеджера на вкладке Полезное".makeAttributed(icon: Icons.infoSign, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        tintedMessageView.setTextLabel(text: "Вы всегда можете посмотреть контакты вашего менеджера на вкладке Полезное".makeAttributed(icon: FLCIcon.infoSign.icon, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             tintedMessageView.topAnchor.constraint(equalTo: managerView.bottomAnchor, constant: padding * 2),

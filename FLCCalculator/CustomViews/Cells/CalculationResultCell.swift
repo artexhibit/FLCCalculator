@@ -211,8 +211,8 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func addPickupWarningMessage(warehouseName: String) {
-        let message = "Пикап рассчитан от ближайшего крупного города \(warehouseName). Стоимость пикапа с точного адреса может измениться"
-        pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: Icons.exclamationMark, tint: .flcGray, size: (0, -3, 17, 16), placeIcon: .beforeText)
+        let message = "\(CalculationResultVCStrings.pickupWarningStartLabel) \(warehouseName). \(CalculationResultVCStrings.pickupWarningEndLabel)"
+        pickupWarningTextViewLabel.attributedText = message.makeAttributed(icon: FLCIcon.exclamationMark.icon, tint: .flcGray, size: (0, -3, 17, 16), placeIcon: .beforeText)
         
         priceLabelBottomConstraint.isActive = false
         priceLabelBottomConstraint = priceLabel.bottomAnchor.constraint(equalTo: pickupWarningTextViewLabel.topAnchor, constant: -padding * 0.5)
@@ -224,7 +224,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     func set(with item: CalculationResultItem, presentedVC: UIViewController, pickedLogisticsType: FLCLogisticsType) {
-        let attributedText = item.title.makeAttributed(icon: Icons.infoSign, tint: .flcCalculationResultCellMain, size: (0, -4, 22, 21), placeIcon: .beforeText)
+        let attributedText = item.title.makeAttributed(icon: FLCIcon.infoSign.icon, tint: .flcCalculationResultCellMain, size: (0, -4, 22, 21), placeIcon: .beforeText)
         
         item.isShimmering ? addShimmerAnimation() : removeShimmerAnimation()
         

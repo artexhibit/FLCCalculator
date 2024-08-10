@@ -17,7 +17,7 @@ class PermissionsCell: UITableViewCell {
     weak var delegate: PermissionsCellDelegate?
     
     private let permissions: [PermissionItem] = [
-        PermissionItem(type: .notifications, icon: Icons.bellBadge, iconBackgroundColor: .systemRed, title: PermissionsStrings.notifications, subtitle: PermissionsStrings.notificationsSubtitle)
+        PermissionItem(type: .notifications, icon: FLCIcon.bellBadge.icon, iconBackgroundColor: .systemRed, title: PermissionsStrings.notifications, subtitle: PermissionsStrings.notificationsSubtitle)
     ]
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

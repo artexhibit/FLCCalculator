@@ -187,8 +187,8 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 button.smallLabelView.moveUpSmallLabel()
                 
                 switch pickedCountry {
-                case .china: button.setTitle(WarehouseStrings.chinaWarehouse, for: .normal)
-                case .turkey: button.setTitle(WarehouseStrings.turkeyWarehouse, for: .normal)
+                case .china: button.setTitle(FLCCountryWarehouse.china.localizedDescription, for: .normal)
+                case .turkey: button.setTitle(FLCCountryWarehouse.turkey.localizedDescription, for: .normal)
                 case .russia: break
                 }
                 
@@ -207,7 +207,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
                 return
             }
-            guard !transportView.deliveryTypePickerButton.showingTitle.contains(WarehouseStrings.russianWarehouseCity) else {
+            guard !transportView.deliveryTypePickerButton.showingTitle.contains(FLCCountryWarehouse.russia.localizedDescription) else {
                 FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на клиента")
                 return
             }
@@ -233,9 +233,9 @@ extension CalculationVC: FLCCalculationViewDelegate {
             transportView.calculateButton.removeShineEffect()
             
         case transportView.deliveryTypePickerButton:
-            CalculationHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, WarehouseStrings.russianWarehouseCity), (transportView.departurePickerButton, WarehouseStrings.turkeyWarehouse)], basedOn: button)
+            CalculationHelper.setupTitleFor(buttons: [(transportView.destinationPickerButton, FLCCountryWarehouse.russia.localizedDescription), (transportView.departurePickerButton, FLCCountryWarehouse.turkey.localizedDescription)], basedOn: button)
             
-            if transportView.departurePickerButton.showingTitle == WarehouseStrings.turkeyWarehouse {
+            if FLCCountryWarehouse(localizedString: transportView.departurePickerButton.showingTitle) == .turkey {
                 departureCity = FLCWarehouse.istanbul.rawValue
             }
         

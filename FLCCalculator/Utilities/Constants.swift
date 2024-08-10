@@ -1,42 +1,5 @@
 import UIKit
 
-enum Icons {
-    static let questionMark = UIImage(systemName: "questionmark.circle.fill") ?? UIImage()
-    static let exclamationMark = UIImage(systemName: "exclamationmark.circle.fill") ?? UIImage()
-    static let checkmark = UIImage(systemName: "checkmark") ?? UIImage()
-    static let infoSign = UIImage(systemName: "info.circle.fill") ?? UIImage()
-    static let truck = UIImage(systemName: "truck.box") ?? UIImage()
-    static let ship = UIImage(systemName: "ferry.fill") ?? UIImage()
-    static let xmark = UIImage(systemName: "xmark") ?? UIImage()
-    static let map = UIImage(systemName: "map") ?? UIImage()
-    static let document = UIImage(systemName: "doc.plaintext") ?? UIImage()
-    static let clock = UIImage(systemName: "clock") ?? UIImage()
-    static let dots = UIImage(systemName: "ellipsis.circle.fill") ?? UIImage()
-    static let truckFill = UIImage(systemName: "truck.box.fill") ?? UIImage()
-    static let train = UIImage(systemName: "train.side.front.car") ?? UIImage()
-    static let plane = UIImage(systemName: "airplane") ?? UIImage()
-    static let phone = UIImage(systemName: "phone.fill") ?? UIImage()
-    static let envelope = UIImage(systemName: "envelope.fill") ?? UIImage()
-    static let telegram = UIImage(resource: .telegram)
-    static let whatsapp = UIImage(resource: .whatsappFill)
-    static let trashBin = UIImage(systemName: "trash") ?? UIImage()
-    static let circle = UIImage(systemName: "circle.slash") ?? UIImage()
-    static let rubleSign = UIImage(systemName: "rublesign.arrow.circlepath") ?? UIImage()
-    static let person = UIImage(systemName: "person") ?? UIImage()
-    static let hapticPhone = UIImage(systemName: "iphone.gen3.radiowaves.left.and.right") ?? UIImage()
-    static let chevronUpDown = UIImage(systemName: "chevron.up.chevron.down") ?? UIImage()
-    static let circleHalfRight = UIImage(systemName: "circle.righthalf.filled.inverse") ?? UIImage()
-    static let bellBadge = UIImage(systemName: "bell.badge.fill") ?? UIImage()
-    static let key = UIImage(systemName: "key.horizontal") ?? UIImage()
-    static let message = UIImage(systemName: "checkmark.message") ?? UIImage()
-    static let star = UIImage(systemName: "star.fill") ?? UIImage()
-    static let shareIcon = UIImage(systemName: "square.and.arrow.up") ?? UIImage()
-    static let phoneBubble = UIImage(systemName: "phone.bubble.fill") ?? UIImage()
-    static let walkingPerson = UIImage(systemName: "figure.walk") ?? UIImage()
-    static let copyIcon = UIImage(systemName: "square.on.square") ?? UIImage()
-    static let location = UIImage(systemName: "location.fill") ?? UIImage()
-}
-
 enum Keys {
     static let permissionsScreenWasShown = "permissionsScreenWasShown"
     static let isHapticTurnedOn = "isHapticTurnedOn"
@@ -100,7 +63,7 @@ enum Keys {
     static let cdCurrencyData = "CDCurrencyData"
 }
 
-enum WarehouseStrings {
+enum FLCCountryWarehouseStrings {
     static let russianWarehouseCity = NSLocalizedString("Склад Подольск", comment: "")
     static let chinaWarehouse = NSLocalizedString("Склад Китай", comment: "")
     static let turkeyWarehouse = NSLocalizedString("Склад Стамбул", comment: "")
@@ -195,7 +158,59 @@ enum CalculationStrings {
     static let chinaDepartureAirportLabel = NSLocalizedString("Выберите аэропорт отправления для расчёта авиа логистики", comment: "")
 }
 
-enum currencyOptionsStrings {
+enum CalculationResultVCStrings {
+    static let russianDeliveryTitle = NSLocalizedString("Доставка по России", comment: "")
+    static let insuranceTitle = NSLocalizedString("Страхование", comment: "")
+    static let deliveryFromWarehouseTitle = NSLocalizedString("Перевозка Сборного Груза", comment: "")
+    static let cargoHandlingTitle = NSLocalizedString("Погрузо-разгрузочные работы", comment: "")
+    static let customsClearancePriceTitle = NSLocalizedString("Услуги по Таможенному Оформлению", comment: "")
+    static let customsWarehouseServices = NSLocalizedString("Услуги СВХ", comment: "")
+    static let deliveryToWarehouseTitle = NSLocalizedString("Доставка до Склада Консолидации", comment: "")
+    static let groupageDocsTitle = NSLocalizedString("Оформление пакета документов", comment: "")
+    static let truckLogisticsOptionTitle = NSLocalizedString("Авто", comment: "")
+    static let chinaTruckLogisticsOptionSubtitle = NSLocalizedString("Манчжурия", comment: "")
+    static let railwayLogisticsOptionTitle = NSLocalizedString("ЖД", comment: "")
+    static let chinaRailwayLogisticsOptionSubtitle = NSLocalizedString("Шанхай", comment: "")
+    static let airLogisticsOptionTitle = NSLocalizedString("Авиа", comment: "")
+    static let airSVOLogisticsOptionSubtitle = NSLocalizedString("Шереметьево", comment: "")
+    static let airVKOLogisticsOptionSubtitle = NSLocalizedString("Внуково", comment: "")
+    static let turkeyNovorossiyskBySeaTitle = NSLocalizedString("Море+Авто", comment: "")
+    static let turkeyNovorossiyskBySeaSubtitle = NSLocalizedString("Новороссийск", comment: "")
+    static let turkeyTruckByFerryTitle = NSLocalizedString("Авто+Паром", comment: "")
+    static let turkeyTruckByFerrySubtitle = NSLocalizedString("Туапсе", comment: "")
+    static let insurancePercentageLabel = NSLocalizedString("% от стоимости инвойса", comment: "")
+    static let russianDeliveryPodolskLabel = NSLocalizedString("Подольск -", comment: "")
+    static let daysLabel = NSLocalizedString("дн.", comment: "")
+    static let fromLabel = NSLocalizedString("от", comment: "")
+    static let cargoHandlingPerKgLabel = NSLocalizedString("за кг", comment: "")
+    static let cargoHandlingMinPriceLabel = NSLocalizedString(", минимум", comment: "")
+    static let customsClearanceLabel = NSLocalizedString("Свидетельство таможенного представителя № 0998/00", comment: "")
+    static let customsWarehouseServicesLabel = NSLocalizedString("Включено 2 дня ожидания", comment: "")
+    static let groupageDocsAirLabel = NSLocalizedString("Оформление AWB (Air Way Bill)", comment: "")
+    static let groupageDocsLabel = NSLocalizedString("В составе сборного груза", comment: "")
+    static let deliveryToWarehouseShaghaiLabel = NSLocalizedString("- Склад Шанхай", comment: "")
+    static let deliveryToWarehouseAirportLabel = NSLocalizedString(" - Аэропорт", comment: "")
+    static let deliveryToWarehouseWarehouseLabel = NSLocalizedString(" - Склад", comment: "")
+    static let deliveryFromWarehouseShanghaiPodolskLabel = NSLocalizedString("Шанхай - Подольск", comment: "")
+    static let deliveryFromWarehouseTurkeyVKOLabel = NSLocalizedString("Аэропорт Стамбул - Аэропорт Внуково", comment: "")
+    static let deliveryFromWarehouseTurkeySVOLabel = NSLocalizedString("Аэропорт Стамбул - Аэропорт Шереметьево", comment: "")
+    static let deliveryFromWarehouseIstanbulPodolskLabel = NSLocalizedString("Стамбул - Подольск", comment: "")
+    static let deliveryFromWarehouseAirportSVOLabel = NSLocalizedString("- Аэропорт Шереметьево", comment: "")
+    static let deliveryFromWarehouseAirportLabel = NSLocalizedString("Аэропорт", comment: "")
+    static let deliveryToDepartureAirportLabel = NSLocalizedString("Доставка до аэропорта отправления", comment: "")
+    static let airLabel = NSLocalizedString("Авиаперевозка", comment: "")
+    static let airDocumentLabel = NSLocalizedString("Авианакладная", comment: "")
+    static let pickupWarningStartLabel = NSLocalizedString("Пикап рассчитан от ближайшего крупного города", comment: "")
+    static let pickupWarningEndLabel = NSLocalizedString("Стоимость пикапа с точного адреса может измениться", comment: "")
+}
+
+enum FLCWarehouseStrings {
+    static let guangzhou = NSLocalizedString("Гуанчжоу", comment: "")
+    static let shanghai = NSLocalizedString("Шанхай", comment: "")
+    static let istanbul = NSLocalizedString("Стамбул", comment: "")
+}
+
+enum CurrencyOptionsStrings {
     static let rubles = NSLocalizedString("Рубли", comment: "")
     static let yuan = NSLocalizedString("Юани", comment: "")
     static let dollars = NSLocalizedString("Доллары", comment: "")
@@ -306,6 +321,26 @@ enum TextViewActionStrings {
 
 enum FLCPopupMessages {
     static let cantOpenAppStore = NSLocalizedString("Не получается открыть App Store", comment: "")
+}
+
+enum PopoverMessages {
+    static let russianDelivery = NSLocalizedString("Наш партнёр по доставке - ПЭК. Груз будет доставлен для Вас согласно высочайшим стандартам компании", comment: "")
+    static let insurance = NSLocalizedString("Наш многолетний партнёр по страхованию - компания СК Пари. Страховка от полной стоимости инвойса", comment: "")
+    static let deliveryFromWarehouseChinaTruck = NSLocalizedString("Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник", comment: "")
+    static let deliveryFromWarehouseChinaRailway = NSLocalizedString("С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске", comment: "")
+    static let deliveryFromWarehouseAir = NSLocalizedString("С момента вылета из аэропорта отправления и до размещения на СВХ в аэропорту прибытия", comment: "")
+    static let deliveryFromWarehouseTurkey = NSLocalizedString("С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске", comment: "")
+    static let cargoHandling = NSLocalizedString("Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения", comment: "")
+    static let cargoHandlingAir = NSLocalizedString("Включены погрузо-разгрузочные работы в аэропорту прибытия, извещение о прибытии груза, изготовление копий документов, выполнение требований госорганов для авиаперевозок, хранение на СВХ в аэропорту (1 день)", comment: "")
+    static let customsClearancePrice = NSLocalizedString("В стоимость входит подача Таможенной Декларации, услуги брокера и ЭЦП брокера", comment: "")
+    static let customsWarehouseServices = NSLocalizedString("Услуги таможенного Склада Временного Хранения на время оформления груза. Дополнительные услуги по погрузке, разгрузке, хранению сверх норматива оплачиваются по тарифу с СВХ отдельно", comment: "")
+    static let deliveryToWarehouseShipperGuangzhou = NSLocalizedString("Поставщик - Склад Гуанчжоу", comment: "")
+    static let deliveryToWarehouseGuangzhouShanghai = NSLocalizedString("Склад Гуанчжоу - Склад Шанхай: 4 дня", comment: "")
+    static let deliveryToWarehouseShanghai = NSLocalizedString("Доставка с адреса поставщика до нашего склада в Шанхае", comment: "")
+    static let deliveryToWarehouseInstanbul = NSLocalizedString("Доставка с адреса поставщика до нашего склада в Стамбуле", comment: "")
+    static let deliveryToWarehouse = NSLocalizedString("Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию", comment: "")
+    static let groupageDocs = NSLocalizedString("В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!", comment: "")
+    static let groupageDocsAir = NSLocalizedString("AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)", comment: "")
 }
 
 enum FLCGoodsCategoryString {

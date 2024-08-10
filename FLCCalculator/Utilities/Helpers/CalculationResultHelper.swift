@@ -22,7 +22,7 @@ struct CalculationResultHelper {
     
     static func getDeliveryFromWarehousePrice(item: CalculationResultItem, pickedLogisticsType: FLCLogisticsType) -> (price: String, days: String) {
         let price = PriceCalculationManager.getDeliveryFromWarehouse(for: pickedLogisticsType, item: item).formatAsCurrency(symbol: item.currency)
-        let days = "от " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: pickedLogisticsType) + " дн."
+        let days = "\(CalculationResultVCStrings.fromLabel) " + PriceCalculationManager.getDeliveryFromWarehouseTransitTime(for: pickedLogisticsType) + " \(CalculationResultVCStrings.daysLabel)"
         return (price, days)
     }
     
@@ -44,8 +44,8 @@ struct CalculationResultHelper {
     
     static func getDeliveryToWarehousePrice(logisticsType: FLCLogisticsType, item: CalculationResultItem) -> (price: String, days: String, isGuangzhou: Bool, warehouseName: String) {
         let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(item: item, logisticsType: logisticsType)
-        let isGuangzhou = deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou
-        let days = isGuangzhou ? "\((Int(deliveryData.transitDays) ?? 1) + 4) дн." : "\(deliveryData.transitDays) дн."
+        let isGuangzhou = FLCWarehouse(localizedString: deliveryData.warehouseName) == .guangzhou
+        let days = isGuangzhou ? "\((Int(deliveryData.transitDays) ?? 1) + 4) \(CalculationResultVCStrings.daysLabel)" : "\(deliveryData.transitDays) \(CalculationResultVCStrings.daysLabel)"
         
         let price = PriceCalculationManager.getDeliveryToWarehouse(item: item, logisticsType: logisticsType).result.formatAsCurrency(symbol: item.currency)
         return (price, days, isGuangzhou, deliveryData.warehouseName)
@@ -56,27 +56,28 @@ struct CalculationResultHelper {
         
         switch pickedLogisticsType {
         case .chinaTruck, .chinaRailway:
-            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, pickedLogisticsType: pickedLogisticsType)
+            baseItems = getBaseItems(with: data, rusWarehouse: FLCCountryWarehouse.russia.localizedDescription, pickedLogisticsType: pickedLogisticsType)
             
         case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
             baseItems = getLogisticsItems(with: data, pickedLogisticsType: pickedLogisticsType).map { item in
                 var newItem = item
                 
                 switch newItem.type {
-                case .russianDelivery: if data.toLocation == WarehouseStrings.russianWarehouseCity { newItem.canDisplay = false }
+                case .russianDelivery:
+                    if FLCCountryWarehouse(localizedString: data.toLocation) == .russia { newItem.canDisplay = false }
                 case .customsClearancePrice: if !data.needCustomClearance { newItem.canDisplay = false }
                 case .customsWarehouseServices: newItem.canDisplay = false
-                case .deliveryToWarehouse: 
-                    newItem.title = "Доставка до аэропорта отправления"
+                case .deliveryToWarehouse:
+                    newItem.title = CalculationResultVCStrings.deliveryToDepartureAirportLabel
                     if data.deliveryTypeCode != FLCDeliveryTypeCode.EXW.rawValue { newItem.canDisplay = false }
-                case .deliveryFromWarehouse: newItem.title = "Авиаперевозка"
-                case .groupageDocs: newItem.title = "Авианакладная"
+                case .deliveryFromWarehouse: newItem.title = CalculationResultVCStrings.airLabel
+                case .groupageDocs: newItem.title = CalculationResultVCStrings.airDocumentLabel
                 case .insurance, .cargoHandling: break
                 }
                 return newItem
             }
         case .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
-            baseItems = getBaseItems(with: data, rusWarehouse: WarehouseStrings.russianWarehouseCity, pickedLogisticsType: pickedLogisticsType)
+            baseItems = getBaseItems(with: data, rusWarehouse: FLCCountryWarehouse.russia.localizedDescription, pickedLogisticsType: pickedLogisticsType)
         }
         return baseItems.filter { $0.canDisplay == true }.sorted(by: { $0.type.rawValue < $1.type.rawValue })
     }
@@ -88,7 +89,7 @@ struct CalculationResultHelper {
             
             switch newItem.type {
             case .russianDelivery:
-                if data.toLocation == rusWarehouse { newItem.canDisplay = false }
+                if FLCCountryWarehouse(localizedString: data.toLocation) == .russia { newItem.canDisplay = false }
                 
             case .customsClearancePrice:
                 if !data.needCustomClearance { newItem.canDisplay = false }
@@ -129,14 +130,14 @@ struct CalculationResultHelper {
         var items = [CalculationResultItem]()
         let itemCurrencyType = getCurrency(for: pickedLogisticsType)
         
-        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: data, title: "Доставка по России", currency: itemCurrencyType[.russianDelivery] ?? .RUB)
-        let insuranceItem = CalculationResultItem(type: .insurance, calculationData: data, title: "Страхование", currency: itemCurrencyType[.insurance] ?? .USD)
-        let deliveryFromWarehouseItem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: data, title: "Перевозка Сборного Груза", currency: itemCurrencyType[.deliveryFromWarehouse] ?? .USD)
-        let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: data, title: "Погрузо-разгрузочные работы", currency: itemCurrencyType[.cargoHandling] ?? .USD)
-        let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: data, title: "Услуги по Таможенному Оформлению", currency: itemCurrencyType[.customsClearancePrice] ?? .USD)
-        let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: data, title: "Услуги СВХ", currency: itemCurrencyType[.customsWarehouseServices] ?? .RUB)
-        let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: data, title: "Доставка до Склада Консолидации", currency: itemCurrencyType[.deliveryToWarehouse] ?? .USD)
-        let groupageDocsItem = CalculationResultItem(type: .groupageDocs, calculationData: data, title: "Оформление пакета документов", currency: itemCurrencyType[.groupageDocs] ?? .USD)
+        let russianDeliveryItem = CalculationResultItem(type: .russianDelivery, calculationData: data, title: CalculationResultVCStrings.russianDeliveryTitle, currency: itemCurrencyType[.russianDelivery] ?? .RUB)
+        let insuranceItem = CalculationResultItem(type: .insurance, calculationData: data, title: CalculationResultVCStrings.insuranceTitle, currency: itemCurrencyType[.insurance] ?? .USD)
+        let deliveryFromWarehouseItem = CalculationResultItem(type: .deliveryFromWarehouse, calculationData: data, title: CalculationResultVCStrings.deliveryFromWarehouseTitle, currency: itemCurrencyType[.deliveryFromWarehouse] ?? .USD)
+        let cargoHandling = CalculationResultItem(type: .cargoHandling, calculationData: data, title: CalculationResultVCStrings.cargoHandlingTitle, currency: itemCurrencyType[.cargoHandling] ?? .USD)
+        let customsClearancePriceItem = CalculationResultItem(type: .customsClearancePrice, calculationData: data, title: CalculationResultVCStrings.customsClearancePriceTitle, currency: itemCurrencyType[.customsClearancePrice] ?? .USD)
+        let customsWarehouseServicesItem = CalculationResultItem(type: .customsWarehouseServices, calculationData: data, title: CalculationResultVCStrings.customsWarehouseServices, currency: itemCurrencyType[.customsWarehouseServices] ?? .RUB)
+        let deliveryToWarehouseItem = CalculationResultItem(type: .deliveryToWarehouse, calculationData: data, title: CalculationResultVCStrings.deliveryToWarehouseTitle, currency: itemCurrencyType[.deliveryToWarehouse] ?? .USD)
+        let groupageDocsItem = CalculationResultItem(type: .groupageDocs, calculationData: data, title: CalculationResultVCStrings.groupageDocsTitle, currency: itemCurrencyType[.groupageDocs] ?? .USD)
         
         items.append(contentsOf: [russianDeliveryItem, insuranceItem, deliveryFromWarehouseItem, cargoHandling, customsClearancePriceItem, customsWarehouseServicesItem, deliveryToWarehouseItem, groupageDocsItem])
         return items
@@ -144,13 +145,13 @@ struct CalculationResultHelper {
     
     static func getOptions(basedOn availableLogisticsTypes: [FLCLogisticsType]) -> [FLCLogisticsOption] {
         let predefinedOptions: [FLCLogisticsType: FLCLogisticsOption] = [
-            .chinaTruck: FLCLogisticsOption(image: Icons.truckFill, title: "Авто", subtitle: "Манчжурия", type: .chinaTruck, orderID: 1),
-            .chinaRailway: FLCLogisticsOption(image: Icons.train, title: "ЖД", subtitle: "Шанхай", type: .chinaRailway, orderID: 2),
-            .chinaAir: FLCLogisticsOption(image: Icons.plane, title: "Авиа", subtitle: "Шереметьево", type: .chinaAir, orderID: 3),
-            .turkeyNovorossiyskBySea: FLCLogisticsOption(image: Icons.ship, title: "Море+Авто", subtitle: "Новороссийск", type: .turkeyNovorossiyskBySea, orderID: 1),
-            .turkeyTruckByFerry: FLCLogisticsOption(image: Icons.truckFill, title: "Авто+Паром", subtitle: "Туапсе", type: .turkeyTruckByFerry, orderID: 2),
-            .turkeyAirSVO: FLCLogisticsOption(image: Icons.plane, title: "Авиа", subtitle: "Шереметьево", type: .turkeyAirSVO, orderID: 3),
-            .turkeyAirVKO: FLCLogisticsOption(image: Icons.plane, title: "Авиа", subtitle: "Внуково", type: .turkeyAirVKO, orderID: 4)
+            .chinaTruck: FLCLogisticsOption(image: FLCIcon.truckFill.icon, title: CalculationResultVCStrings.truckLogisticsOptionTitle, subtitle: CalculationResultVCStrings.chinaTruckLogisticsOptionSubtitle, type: .chinaTruck, orderID: 1),
+            .chinaRailway: FLCLogisticsOption(image: FLCIcon.train.icon, title: CalculationResultVCStrings.railwayLogisticsOptionTitle, subtitle: CalculationResultVCStrings.chinaRailwayLogisticsOptionSubtitle, type: .chinaRailway, orderID: 2),
+            .chinaAir: FLCLogisticsOption(image: FLCIcon.plane.icon, title: CalculationResultVCStrings.airLogisticsOptionTitle, subtitle: CalculationResultVCStrings.airSVOLogisticsOptionSubtitle, type: .chinaAir, orderID: 3),
+            .turkeyNovorossiyskBySea: FLCLogisticsOption(image: FLCIcon.ship.icon, title: CalculationResultVCStrings.turkeyNovorossiyskBySeaTitle, subtitle: CalculationResultVCStrings.turkeyNovorossiyskBySeaSubtitle, type: .turkeyNovorossiyskBySea, orderID: 1),
+            .turkeyTruckByFerry: FLCLogisticsOption(image: FLCIcon.truckFill.icon, title: CalculationResultVCStrings.turkeyTruckByFerryTitle, subtitle: CalculationResultVCStrings.turkeyTruckByFerrySubtitle, type: .turkeyTruckByFerry, orderID: 2),
+            .turkeyAirSVO: FLCLogisticsOption(image: FLCIcon.plane.icon, title: CalculationResultVCStrings.airLogisticsOptionTitle, subtitle: CalculationResultVCStrings.airSVOLogisticsOptionSubtitle, type: .turkeyAirSVO, orderID: 3),
+            .turkeyAirVKO: FLCLogisticsOption(image: FLCIcon.plane.icon, title: CalculationResultVCStrings.airLogisticsOptionTitle, subtitle: CalculationResultVCStrings.airVKOLogisticsOptionSubtitle, type: .turkeyAirVKO, orderID: 4)
         ]
         return availableLogisticsTypes.compactMap { predefinedOptions[$0] }.sorted(by: { $0.orderID < $1.orderID })
     }
@@ -391,15 +392,15 @@ struct CalculationResultHelper {
             
             guard let parentVC = cell.findParentViewController() as? CalculationResultVC else { return }
             let popover = FLCPopoverVC()
-            var iconType = ""
+            var iconType = UIImage()
             
             if parentVC.showingPopover.isShowing { parentVC.showingPopover.hidePopoverFromMainThread() }
             parentVC.showingPopover = popover
             
-            if imageName.description.contains("info.circle") {
-                iconType = "info.circle"
-            } else if imageName.description.contains("questionmark.circle.fill") {
-                iconType = "questionmark.circle.fill"
+            if imageName.description.contains(FLCIcon.infoSign.rawValue) {
+                iconType = FLCIcon.allCases.first(where: { $0.rawValue == FLCIcon.infoSign.rawValue })?.icon ?? UIImage()
+            } else if imageName.description.contains(FLCIcon.questionMark.rawValue) {
+                iconType = FLCIcon.allCases.first(where: { $0.rawValue == FLCIcon.questionMark.rawValue })?.icon ?? UIImage()
             }
             popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configurePopoverMessage(in: cell, iconType: iconType, pickedLogisticsType: pickedLogisticsType), in: parentVC, target: textView, characterRange: range, presentedVC: presentedVC)
         }

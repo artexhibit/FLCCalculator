@@ -10,7 +10,7 @@ class FLCCargoParametersView: FLCCalculationView {
     let invoiceAmountTextField = FLCNumberTextField(smallLabelPlaceholderText: CalculationStrings.invoiceAmountTF)
     let invoiceCurrencyPickerButton = FLCListPickerButton(placeholderText: CalculationStrings.invoiceCurrencyButton)
     private let tintedView = FLCTintedView(color: .flcOrange)
-    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: CalculationStrings.customsClearanceTF.makeAttributed(icon: Icons.infoSign, tint: .flcOrange, size: (0, -5, 24, 23), placeIcon: .afterText))
+    private let customsClearanceTextViewLabel = FLCTextViewLabel(text: CalculationStrings.customsClearanceTF.makeAttributed(icon: FLCIcon.infoSign.icon, tint: .flcOrange, size: (0, -5, 24, 23), placeIcon: .afterText))
     let customsClearanceSwitch = UISwitch()
     let nextButton = FLCButton(color: .flcOrange, title: CalculationStrings.nextButton)
         

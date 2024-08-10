@@ -349,7 +349,7 @@ final class PriceCalculationManager {
             let price = ((pricePerCbm * volume) * vat * crossRatio).add(markup: .seventeenPercents)
             result = price < minimumPrice ? minimumPrice : price
         }
-        return (FLCWarehouse.istanbul.rusName, transitDays, result)
+        return (FLCWarehouse.istanbul.localizedDescription, transitDays, result)
     }
     
     private static func calculateTurkeyNovorossiyskBySeaDeliveryToWarehouse(city: String, weight: Double, volume: Double, logisticsType: FLCLogisticsType) -> (warehouseName: String, transitDays: String, result: Double) {
@@ -379,7 +379,7 @@ final class PriceCalculationManager {
             let price = (pricePerCbm * volume).add(markup: .seventeenPercents)
             result = price < minimumPrice ? minimumPrice : price
         }
-        return (FLCWarehouse.istanbul.rusName, transitDays, result)
+        return (FLCWarehouse.istanbul.localizedDescription, transitDays, result)
     }
     
    private static func calculateChinaGroundDeliveryToWarehouse<T: PickupDataConvertible>(pickup: [T], city: String, weight: Double, volume: Double) -> (warehouseName: String, transitDays: String, result: Double) {
@@ -412,7 +412,7 @@ final class PriceCalculationManager {
         case .istanbul, nil: break
         }
         let result = ((totalPart1 + totalPart2 + totalPart3) / yuanRate).rounded().add(markup: .seventeenPercents)
-        return (warehouseName?.rusName ?? "", transitDays, result)
+        return (warehouseName?.localizedDescription ?? "", transitDays, result)
     }
     
     private static func calculateAirDeliveryToWarehouse<T: AirPickupIdentifiable>(city: String, weight: Double, volume: Double, pickups: [T]?) -> (warehouseName: String, transitDays: String, result: Double) {

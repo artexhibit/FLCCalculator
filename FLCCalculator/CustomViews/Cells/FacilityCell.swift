@@ -14,10 +14,10 @@ final class FacilityCell: UICollectionViewCell {
     private let facilityAddressLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
     private let facilityWorkingHoursLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .body)
     private let roundButtonsStackView = UIStackView()
-    private let phoneButton = FLCRoundButton(image: Icons.phone, tint: .flcOrange, title: ContactsVCStrings.phoneButton, type: .phone)
-    private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcOrange, title: ContactsVCStrings.emailButton, type: .email)
-    private let routeButton = FLCRoundButton(image: Icons.walkingPerson, tint: .flcOrange, title: ContactsVCStrings.routeButton, type: .route)
-    private let detailsButton = FLCRoundButton(image: Icons.dots, tint: .flcOrange, title: ContactsVCStrings.detailsButton, type: .details)
+    private let phoneButton = FLCRoundButton(image: FLCIcon.phone.icon, tint: .flcOrange, title: ContactsVCStrings.phoneButton, type: .phone)
+    private let emailButton = FLCRoundButton(image: FLCIcon.envelope.icon, tint: .flcOrange, title: ContactsVCStrings.emailButton, type: .email)
+    private let routeButton = FLCRoundButton(image: FLCIcon.walkingPerson.icon, tint: .flcOrange, title: ContactsVCStrings.routeButton, type: .route)
+    private let detailsButton = FLCRoundButton(image: FLCIcon.dots.icon, tint: .flcOrange, title: ContactsVCStrings.detailsButton, type: .details)
     
     private let padding: CGFloat = 15
     private var facility: FLCFacility = CalculationInfo.defaultFacility
@@ -37,8 +37,8 @@ final class FacilityCell: UICollectionViewCell {
         self.facility = facility
         
         facilityNameLabel.text = facility.localisationData?[deviceLanguageCode]?.name ?? facility.name
-        facilityAddressLabel.attributedText = (facility.localisationData?[deviceLanguageCode]?.address ?? facility.address).makeAttributed(icon: Icons.map, tint: .flcGray, size: (0, -2, 22, 16), placeIcon: .beforeText)
-        facilityWorkingHoursLabel.attributedText = (facility.localisationData?[deviceLanguageCode]?.workingHours ?? facility.workingHours).makeAttributed(icon: Icons.clock, tint: .flcGray, size: (0, -2, 18, 17), placeIcon: .beforeText)
+        facilityAddressLabel.attributedText = (facility.localisationData?[deviceLanguageCode]?.address ?? facility.address).makeAttributed(icon: FLCIcon.map.icon, tint: .flcGray, size: (0, -2, 22, 16), placeIcon: .beforeText)
+        facilityWorkingHoursLabel.attributedText = (facility.localisationData?[deviceLanguageCode]?.workingHours ?? facility.workingHours).makeAttributed(icon: FLCIcon.clock.icon, tint: .flcGray, size: (0, -2, 18, 17), placeIcon: .beforeText)
         configureEmailButton(with: facility)
     }
     

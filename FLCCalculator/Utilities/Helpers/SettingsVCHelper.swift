@@ -13,16 +13,16 @@ struct SettingsVCHelper {
             SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: userMobilePhone, pickedOption: nil)
         ]
         let secondSectionItems = [
-            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: Icons.hapticPhone, title: SettingsVCStrings.haptic, subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .menu, contentType: .theme, image: Icons.circleHalfRight, title: SettingsVCStrings.theme, subtitle: nil, pickedOption: pickedThemeOption),
-            SettingsCellContent(cellType: .label, contentType: .permissions, image: Icons.key, title: SettingsVCStrings.permissions, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: FLCIcon.hapticPhone.icon, title: SettingsVCStrings.haptic, subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .menu, contentType: .theme, image: FLCIcon.circleHalfRight.icon, title: SettingsVCStrings.theme, subtitle: nil, pickedOption: pickedThemeOption),
+            SettingsCellContent(cellType: .label, contentType: .permissions, image: FLCIcon.key.icon, title: SettingsVCStrings.permissions, subtitle: nil, pickedOption: nil)
         ]
         let thirdSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .shareApp, image: Icons.shareIcon, title: SettingsVCStrings.shareApp, subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .label, contentType: .rateApp, image: Icons.star, title: SettingsVCStrings.rateApp, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .shareApp, image: FLCIcon.shareIcon.icon, title: SettingsVCStrings.shareApp, subtitle: nil, pickedOption: nil),
+            SettingsCellContent(cellType: .label, contentType: .rateApp, image: FLCIcon.star.icon, title: SettingsVCStrings.rateApp, subtitle: nil, pickedOption: nil)
         ]
         let fourthSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .support, image: Icons.message, title: SettingsVCStrings.support, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .support, image: FLCIcon.message.icon, title: SettingsVCStrings.support, subtitle: nil, pickedOption: nil)
         ]
         
         return [

@@ -54,7 +54,7 @@ class BonusSystemCell: UITableViewCell {
     
     private func configureMarkTintedView() {
         let message = BonusSystemVCStrings.markTintedMessage
-        markTintedView.setTextLabel(text: message.makeAttributed(icon: Icons.exclamationMark, tint: .flcOrange, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate:  parentVC)
+        markTintedView.setTextLabel(text: message.makeAttributed(icon: FLCIcon.exclamationMark.icon, tint: .flcOrange, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate:  parentVC)
         
         NSLayoutConstraint.activate([
             markTintedView.topAnchor.constraint(equalTo: mainTextLabel.bottomAnchor, constant: padding),

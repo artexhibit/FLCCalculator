@@ -120,7 +120,7 @@ struct CalculationHelper {
                 FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите область Стамбула в Пункте Отправления")
                 $0.switchToRedColors()
                 isWithZero = true
-            } else if $0.showingTitle == WarehouseStrings.chinaWarehouse {
+            } else if FLCCountryWarehouse(localizedString: $0.showingTitle) == .china {
                 FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите аэропорт отправления для расчёта авиа")
                 $0.switchToRedColors()
                 isWithZero = true
@@ -213,7 +213,7 @@ struct CalculationHelper {
                 totalDays += Int(day.filter { $0.isNumber }) ?? 0
             }
         }
-        return "от \(totalDays) дн."
+        return "\(CalculationResultVCStrings.fromLabel) \(totalDays) \(CalculationResultVCStrings.daysLabel)"
     }
     
     private static func createAvailableLogisticsTypes(with transportView: FLCTransportParametersView) -> [FLCLogisticsType] {

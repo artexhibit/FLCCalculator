@@ -151,12 +151,42 @@ enum FLCWarehouse: String, CaseIterable {
     case shanghai = "Shanghai"
     case istanbul = "Istanbul"
     
-    var rusName: String {
+    var localizedDescription: String {
         switch self {
-        case .guangzhou: return "Гуанчжоу"
-        case .shanghai: return "Шанхай"
-        case .istanbul: return "Стамбул"
+        case .guangzhou: FLCWarehouseStrings.guangzhou
+        case .shanghai: FLCWarehouseStrings.shanghai
+        case .istanbul: FLCWarehouseStrings.istanbul
         }
+    }
+
+    init(localizedString: String) {
+        guard let type = FLCWarehouse.allCases.first(where: { $0.localizedDescription == localizedString }) else {
+            self = .shanghai
+            return
+        }
+        self = type
+    }
+}
+
+enum FLCCountryWarehouse: String, CaseIterable {
+    case russia = "Склад Подольск"
+    case china = "Склад Китай"
+    case turkey = "Склад Стамбул"
+    
+    var localizedDescription: String {
+        switch self {
+        case .russia: FLCCountryWarehouseStrings.russianWarehouseCity
+        case .china: FLCCountryWarehouseStrings.chinaWarehouse
+        case .turkey: FLCCountryWarehouseStrings.turkeyWarehouse
+        }
+    }
+    
+    init(localizedString: String) {
+        guard let type = FLCCountryWarehouse.allCases.first(where: { $0.localizedDescription == localizedString }) else {
+            self = .russia
+            return
+        }
+        self = type
     }
 }
 
@@ -273,6 +303,54 @@ enum FLCFirebaseDataUpdateItem: String, Codable {
 enum FLCAppLanguage: String {
     case ru = "ru"
     case en = "en"
+}
+
+enum FLCIcon: String, CaseIterable {
+    case questionMark = "questionmark.circle.fill"
+    case exclamationMark = "exclamationmark.circle.fill"
+    case checkmark = "checkmark"
+    case infoSign = "info.circle.fill"
+    case truck = "truck.box"
+    case ship = "ferry.fill"
+    case xmark = "xmark"
+    case map = "map"
+    case document = "doc.plaintext"
+    case clock = "clock"
+    case dots = "ellipsis.circle.fill"
+    case truckFill = "truck.box.fill"
+    case train = "train.side.front.car"
+    case plane = "airplane"
+    case phone = "phone.fill"
+    case envelope = "envelope.fill"
+    case telegram = "telegram"
+    case whatsapp = "whatsappFill"
+    case trashBin = "trash"
+    case circle = "circle.slash"
+    case rubleSign = "rublesign.arrow.circlepath"
+    case person = "person"
+    case hapticPhone = "iphone.gen3.radiowaves.left.and.right"
+    case chevronUpDown = "chevron.up.chevron.down"
+    case circleHalfRight = "circle.righthalf.filled.inverse"
+    case bellBadge = "bell.badge.fill"
+    case key = "key.horizontal"
+    case message = "checkmark.message"
+    case star = "star.fill"
+    case shareIcon = "square.and.arrow.up"
+    case phoneBubble = "phone.bubble.fill"
+    case walkingPerson = "figure.walk"
+    case copyIcon = "square.on.square"
+    case location = "location.fill"
+
+    var icon: UIImage {
+        switch self {
+        case .telegram:
+            return UIImage(resource: .telegram)
+        case .whatsapp:
+            return UIImage(resource: .whatsappFill)
+        default:
+            return UIImage(systemName: self.rawValue) ?? UIImage()
+        }
+    }
 }
 
 enum FLCGoodsType: String, CaseIterable {
@@ -679,19 +757,19 @@ enum FLCLogisticsType: String, CaseIterable {
         switch country {
         case .china:
             switch name {
-            case "Авто": self = .chinaTruck
-            case "ЖД": self = .chinaRailway
-            case "Авиа": self = .chinaAir
+            case CalculationResultVCStrings.truckLogisticsOptionTitle: self = .chinaTruck
+            case CalculationResultVCStrings.railwayLogisticsOptionTitle: self = .chinaRailway
+            case CalculationResultVCStrings.airLogisticsOptionTitle: self = .chinaAir
             default: return nil
             }
         case .turkey:
             switch name {
-            case "Авто+Паром": self = .turkeyTruckByFerry
-            case "Море+Авто": self = .turkeyNovorossiyskBySea
-            case "Авиа":
+            case CalculationResultVCStrings.turkeyTruckByFerryTitle: self = .turkeyTruckByFerry
+            case CalculationResultVCStrings.turkeyNovorossiyskBySeaTitle: self = .turkeyNovorossiyskBySea
+            case CalculationResultVCStrings.airLogisticsOptionTitle:
                 switch subtitle {
-                case "Внуково": self = .turkeyAirVKO
-                case "Шереметьево": self = .turkeyAirSVO
+                case CalculationResultVCStrings.airVKOLogisticsOptionSubtitle: self = .turkeyAirVKO
+                case CalculationResultVCStrings.airSVOLogisticsOptionSubtitle: self = .turkeyAirSVO
                 default: return nil
                 }
             default: return nil

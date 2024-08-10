@@ -116,7 +116,7 @@ extension CalculationsVC: UITableViewDelegate {
             self.getCalculations()
             completionHandler(true)
         }
-        deleteAction.image = Icons.trashBin.withTintColor(.red, renderingMode: .alwaysOriginal)
+        deleteAction.image = FLCIcon.trashBin.icon.withTintColor(.red, renderingMode: .alwaysOriginal)
         deleteAction.backgroundColor = UIColor(white: 1, alpha: 0)
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])

@@ -625,23 +625,23 @@ struct CalculationInfo {
     ]
     
     static let currencyOptions = [
-        FLCPickerItem(title: currencyOptionsStrings.rublesShort, subtitle: currencyOptionsStrings.rubles, image: UIImage(named: currencyOptionsStrings.rublesShort)),
-        FLCPickerItem(title: currencyOptionsStrings.yuanShort, subtitle: currencyOptionsStrings.yuan, image: UIImage(named: currencyOptionsStrings.yuanShort)),
-        FLCPickerItem(title: currencyOptionsStrings.lirasShort, subtitle: currencyOptionsStrings.liras, image: UIImage(named: currencyOptionsStrings.lirasShort)),
-        FLCPickerItem(title: currencyOptionsStrings.dollarsShort, subtitle: currencyOptionsStrings.dollars, image: UIImage(named: currencyOptionsStrings.dollarsShort)),
-        FLCPickerItem(title: currencyOptionsStrings.euroShort, subtitle: currencyOptionsStrings.euro, image: UIImage(named: currencyOptionsStrings.euroShort))
+        FLCPickerItem(title: CurrencyOptionsStrings.rublesShort, subtitle: CurrencyOptionsStrings.rubles, image: UIImage(named: CurrencyOptionsStrings.rublesShort)),
+        FLCPickerItem(title: CurrencyOptionsStrings.yuanShort, subtitle: CurrencyOptionsStrings.yuan, image: UIImage(named: CurrencyOptionsStrings.yuanShort)),
+        FLCPickerItem(title: CurrencyOptionsStrings.lirasShort, subtitle: CurrencyOptionsStrings.liras, image: UIImage(named: CurrencyOptionsStrings.lirasShort)),
+        FLCPickerItem(title: CurrencyOptionsStrings.dollarsShort, subtitle: CurrencyOptionsStrings.dollars, image: UIImage(named: CurrencyOptionsStrings.dollarsShort)),
+        FLCPickerItem(title: CurrencyOptionsStrings.euroShort, subtitle: CurrencyOptionsStrings.euro, image: UIImage(named: CurrencyOptionsStrings.euroShort))
     ]
     
     static let countriesOptions = [
-        FLCPickerItem(title: FLCCountryOptionStrings.china, subtitle: "", image: UIImage(named: currencyOptionsStrings.yuanShort)),
-        FLCPickerItem(title: FLCCountryOptionStrings.turkey, subtitle: "", image: UIImage(named: currencyOptionsStrings.lirasShort))
+        FLCPickerItem(title: FLCCountryOptionStrings.china, subtitle: "", image: UIImage(named: CurrencyOptionsStrings.yuanShort)),
+        FLCPickerItem(title: FLCCountryOptionStrings.turkey, subtitle: "", image: UIImage(named: CurrencyOptionsStrings.lirasShort))
     ]
     
     static let chinaAirportsOptions = [
-        FLCPickerItem(title: FLCCity.beijing.rawValue, subtitle: chinaAirportsStrings.PKX, image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCity.shanghai.rawValue, subtitle: chinaAirportsStrings.PVG, image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCity.guangzhou.rawValue, subtitle: chinaAirportsStrings.CAN, image: Icons.plane, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCity.shenzhen.rawValue, subtitle: chinaAirportsStrings.SZX, image: Icons.plane, isOpenForAdd: false)
+        FLCPickerItem(title: FLCCity.beijing.rawValue, subtitle: chinaAirportsStrings.PKX, image: FLCIcon.plane.icon, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.shanghai.rawValue, subtitle: chinaAirportsStrings.PVG, image: FLCIcon.plane.icon, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.guangzhou.rawValue, subtitle: chinaAirportsStrings.CAN, image: FLCIcon.plane.icon, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.shenzhen.rawValue, subtitle: chinaAirportsStrings.SZX, image: FLCIcon.plane.icon, isOpenForAdd: false)
     ]
     
     static let chinaDeliveryTypes = [

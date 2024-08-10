@@ -13,9 +13,9 @@ struct CalculationCellUIHelper {
         
         resetDaysContent(in: cell)
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "Подольск - \(item.calculationData.toLocation)".makeAttributed(icon: Icons.truck, size: (0, -3, 24, 17), placeIcon: .beforeText)
+        cell.subtitle.attributedText = "\(CalculationResultVCStrings.russianDeliveryPodolskLabel) \(item.calculationData.toLocation)".makeAttributed(icon: FLCIcon.truck.icon, size: (0, -3, 24, 17), placeIcon: .beforeText)
         cell.priceLabel.text = item.price
-        cell.daysTextView.text = "\(item.daysAmount ?? "?") дн."
+        cell.daysTextView.text = "\(item.daysAmount ?? "?") \(CalculationResultVCStrings.daysLabel)"
     }
     
     static func configureInsurance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
@@ -29,7 +29,7 @@ struct CalculationCellUIHelper {
         
         cell.titleTextView.attributedText = attributedText
         cell.priceLabel.text = item.price
-        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePercentage(for: pickedLogisticsType, item: item))% от стоимости инвойса \(totalString)"
+        cell.subtitle.text = "\(PriceCalculationManager.getInsurancePercentage(for: pickedLogisticsType, item: item)) \(CalculationResultVCStrings.insurancePercentageLabel) \(totalString)"
 
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
         removeDaysContent(in: cell)
@@ -40,8 +40,8 @@ struct CalculationCellUIHelper {
         let subtitle = getDeliveryFromWarehouseSubtitle(from: pickedLogisticsType, item: item)
         
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = subtitle.makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
-        cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
+        cell.subtitle.attributedText = subtitle.makeAttributed(icon: FLCIcon.map.icon, size: (0, -2, 22, 16), placeIcon: .beforeText)
+        cell.daysTextView.attributedText = data.days.makeAttributed(icon: FLCIcon.questionMark.icon, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
@@ -52,8 +52,8 @@ struct CalculationCellUIHelper {
         let results = CoreDataManager.getCalculationResults(forCalculationID: item.calculationData.id)
         let targetResult = results?.first(where: { $0.logisticsType == pickedLogisticsType.rawValue })
         let handlingData = item.calculationData.isFromCoreData ? (pricePerKg: targetResult?.cargoHandlingPricePerKg ?? 0, minPrice: targetResult?.cargoHandlingMinPrice) : PriceCalculationManager.getCargoHandlingData(for: pickedLogisticsType, item: item)
-        let perKgString = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) за кг"
-        let minPriceString = ", минимум \(handlingData.minPrice?.formatAsCurrency(symbol: item.currency) ?? "")"
+        let perKgString = "\(handlingData.pricePerKg.formatAsCurrency(symbol: item.currency)) \(CalculationResultVCStrings.cargoHandlingPerKgLabel)"
+        let minPriceString = "\(CalculationResultVCStrings.cargoHandlingMinPriceLabel) \(handlingData.minPrice?.formatAsCurrency(symbol: item.currency) ?? "")"
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.text = FLCLogisticsType.airLogisticsTypes.contains(pickedLogisticsType) ? perKgString : perKgString + minPriceString
@@ -65,7 +65,7 @@ struct CalculationCellUIHelper {
     
     static func configureCustomsClearance(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "Свидетельство таможенного представителя № 0998/00".makeAttributed(icon: Icons.document, size: (0, -3, 18, 17), placeIcon: .beforeText)
+        cell.subtitle.attributedText = CalculationResultVCStrings.customsClearanceLabel.makeAttributed(icon: FLCIcon.document.icon, size: (0, -3, 18, 17), placeIcon: .beforeText)
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
@@ -74,7 +74,7 @@ struct CalculationCellUIHelper {
     
     static func configureCustomsWarehouseServices(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "Включено 2 дня ожидания".makeAttributed(icon: Icons.clock, size: (0, -2, 18, 17), placeIcon: .beforeText)
+        cell.subtitle.attributedText = CalculationResultVCStrings.customsWarehouseServices.makeAttributed(icon: FLCIcon.clock.icon, size: (0, -2, 18, 17), placeIcon: .beforeText)
         cell.priceLabel.text = item.price
         
         item.hasError ? showFailedPriceFetchView(in: cell, with: item) : cell.failedPriceCalcContainer.hide()
@@ -82,7 +82,7 @@ struct CalculationCellUIHelper {
     }
     
     static func configureGroupageDocs(cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString, pickedLogisticsType: FLCLogisticsType) {
-        let text = FLCLogisticsType.airLogisticsTypes.contains(pickedLogisticsType) ? "Оформление AWB (Air Way Bill)" : "В составе сборного груза"
+        let text = FLCLogisticsType.airLogisticsTypes.contains(pickedLogisticsType) ? CalculationResultVCStrings.groupageDocsAirLabel : CalculationResultVCStrings.groupageDocsLabel
         
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.text = text
@@ -95,12 +95,12 @@ struct CalculationCellUIHelper {
     static func configureDeliveryToWarehouse(logisticsType: FLCLogisticsType, cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         let data = CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
         let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
-        let addShaghaiWarehouse = data.isGuangzhou ? "- Склад Шанхай" : ""
-        let deliveryPlace = logisticsType == .chinaAir ? " - Аэропорт" : " - Склад"
+        let addShaghaiWarehouse = data.isGuangzhou ? CalculationResultVCStrings.deliveryToWarehouseShaghaiLabel : ""
+        let deliveryPlace = logisticsType == .chinaAir ? CalculationResultVCStrings.deliveryToWarehouseAirportLabel : CalculationResultVCStrings.deliveryToWarehouseWarehouseLabel
                 
         cell.titleTextView.attributedText = attributedText
-        cell.subtitle.attributedText = "\(item.calculationData.fromLocation) \(deliveryPlace) \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: Icons.map, size: (0, -2, 22, 16), placeIcon: .beforeText)
-        cell.daysTextView.attributedText = data.days.makeAttributed(icon: Icons.questionMark, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
+        cell.subtitle.attributedText = "\(item.calculationData.fromLocation) \(deliveryPlace) \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: FLCIcon.map.icon, size: (0, -2, 22, 16), placeIcon: .beforeText)
+        cell.daysTextView.attributedText = data.days.makeAttributed(icon: FLCIcon.questionMark.icon, tint: .flcCalculationResultCellSecondary, size: (0, -4, 22, 21), placeIcon: .afterText)
         cell.priceLabel.text = item.price
         
         switch logisticsType {
@@ -169,68 +169,56 @@ struct CalculationCellUIHelper {
     
     private static func getDeliveryFromWarehouseSubtitle(from pickedLogisticsType: FLCLogisticsType, item: CalculationResultItem) -> String {
         switch pickedLogisticsType {
-        case .chinaTruck, .chinaRailway: return "Шанхай - Подольск"
+        case .chinaTruck, .chinaRailway: return CalculationResultVCStrings.deliveryFromWarehouseShanghaiPodolskLabel
         case .chinaAir:
             let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
             let city = item.calculationData.isFromCoreData ? calculation?.departureAirport ?? "" : item.calculationData.departureAirport
             let departureAirport = PriceCalculationManager.getClosestAirport(to: city, with: PriceCalculationManager.getChinaAirPickup())?.airTargetAirport ?? ""
-            return "Аэропорт \(departureAirport) - Аэропорт Шереметьево"
-        case .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return "Стамбул - Подольск"
-        case .turkeyAirVKO: return "Аэропорт Стамбул - Аэропорт Внуково"
-        case .turkeyAirSVO: return "Аэропорт Стамбул - Аэропорт Шереметьево"
+            return "\(CalculationResultVCStrings.deliveryFromWarehouseAirportLabel) \(departureAirport) \(CalculationResultVCStrings.deliveryFromWarehouseAirportSVOLabel)"
+        case .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return CalculationResultVCStrings.deliveryFromWarehouseIstanbulPodolskLabel
+        case .turkeyAirVKO: return CalculationResultVCStrings.deliveryFromWarehouseTurkeyVKOLabel
+        case .turkeyAirSVO: return CalculationResultVCStrings.deliveryFromWarehouseTurkeySVOLabel
         }
     }
     
-    static func configurePopoverMessage(in cell: CalculationResultCell, iconType: String, pickedLogisticsType: FLCLogisticsType) -> String {
+    static func configurePopoverMessage(in cell: CalculationResultCell, iconType: UIImage, pickedLogisticsType: FLCLogisticsType) -> String {
         
         switch cell.type {
-        case .russianDelivery:
-            return "Наш партнёр по доставке - ПЭК. Груз будет доставлен для Вас согласно высочайшим стандартам компании."
-        case .insurance:
-            return "Наш многолетний партнёр по страхованию - компания СК Пари. Страховка от полной стоимости инвойса."
+        case .russianDelivery: return PopoverMessages.russianDelivery
+        case .insurance: return PopoverMessages.insurance
         case .deliveryFromWarehouse:
             switch pickedLogisticsType {
-            case .chinaTruck:
-                return "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник."
-            case .chinaRailway:
-                return "С момента выхода с нашего склада в Китае и до разгрузки на нашем складе в Подольске."
-            case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
-                return "С момента вылета из аэропорта отправления и до размещения на СВХ в аэропорту прибытия."
-            case .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
-                return "С момента выхода с нашего склада в Стамбуле и до разгрузки на нашем складе в Подольске."
+            case .chinaTruck: return PopoverMessages.deliveryFromWarehouseChinaTruck
+            case .chinaRailway: return PopoverMessages.deliveryFromWarehouseChinaRailway
+            case .chinaAir, .turkeyAirSVO, .turkeyAirVKO: return PopoverMessages.deliveryFromWarehouseAir
+            case .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return PopoverMessages.deliveryFromWarehouseTurkey
             }
         case .cargoHandling:
             switch pickedLogisticsType {
-            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
-                return "Включены все операции по загрузке и выгрузке Вашего груза от склада отправления до склада назначения."
-            case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
-                return "Включены погрузо-разгрузочные работы в аэропорту прибытия, извещение о прибытии груза, изготовление копий документов, выполнение требований госорганов для авиаперевозок, хранение на СВХ в аэропорту (1 день)"
+            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return PopoverMessages.cargoHandling
+            case .chinaAir, .turkeyAirSVO, .turkeyAirVKO: return PopoverMessages.cargoHandlingAir
             }
-        case .customsClearancePrice:
-            return "В стоимость входит подача Таможенной Декларации, услуги брокера и ЭЦП брокера."
-        case .customsWarehouseServices:
-            return "Услуги таможенного Склада Временного Хранения на время оформления груза. Дополнительные услуги по погрузке, разгрузке, хранению сверх норматива оплачиваются по тарифу с СВХ отдельно."
+        case .customsClearancePrice: return PopoverMessages.customsClearancePrice
+        case .customsWarehouseServices: return PopoverMessages.customsWarehouseServices
         case .deliveryToWarehouse:
-            if iconType == "questionmark.circle.fill" {
+            if iconType == FLCIcon.questionMark.icon {
                 guard let item = cell.calculationResultItem else { return "" }
                 let deliveryData = PriceCalculationManager.getDeliveryToWarehouse(item: item, logisticsType: pickedLogisticsType)
                 
-                if deliveryData.warehouseName.flcWarehouseFromRusName == .guangzhou {
-                    return "Поставщик - Склад Гуанчжоу: \(deliveryData.transitDays) дн. \nСклад Гуанчжоу - Склад Шанхай: 4 дн."
-                } else if deliveryData.warehouseName.flcWarehouseFromRusName == .shanghai  {
-                    return "Доставка с адреса поставщика до нашего склада в Шанхае."
+                if FLCWarehouse(localizedString: deliveryData.warehouseName) == .guangzhou {
+                    return "\(PopoverMessages.deliveryToWarehouseShipperGuangzhou): \(deliveryData.transitDays) \(CalculationResultVCStrings.daysLabel) \n\(PopoverMessages.deliveryToWarehouseGuangzhouShanghai)"
+                } else if FLCWarehouse(localizedString: deliveryData.warehouseName) == .shanghai  {
+                    return PopoverMessages.deliveryToWarehouseShanghai
                 } else {
-                    return "Доставка с адреса поставщика до нашего склада в Стамбуле"
+                    return PopoverMessages.deliveryToWarehouseInstanbul
                 }
             } else {
-                return  "Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию"
+                return PopoverMessages.deliveryToWarehouse
             }
         case .groupageDocs:
             switch pickedLogisticsType {
-            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea:
-                return "В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!"
-            case .chinaAir, .turkeyAirVKO, .turkeyAirSVO:
-                return "AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)"
+            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return PopoverMessages.groupageDocs
+            case .chinaAir, .turkeyAirVKO, .turkeyAirSVO: return PopoverMessages.groupageDocsAir
             }
         }
     }

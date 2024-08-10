@@ -9,10 +9,10 @@ class FLCPersonalManagerView: UIView {
     private let managerContactsLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left, textStyle: .footnote)
     private let roundButtonsStackView = UIStackView()
     private var roundButtons = [FLCRoundButton]()
-    private let phoneButton = FLCRoundButton(image: Icons.phone, tint: .flcOrange, title: FLCPersonalManagerViewStrings.phoneButton, type: .phone)
-    private let emailButton = FLCRoundButton(image: Icons.envelope, tint: .flcGray, title: FLCPersonalManagerViewStrings.emailButton, type: .email)
-    private let telegramButton = FLCRoundButton(image: Icons.telegram, tint: .systemBlue, title: FLCPersonalManagerViewStrings.telegramButton, type: .telegram)
-    private let whatsappButton = FLCRoundButton(image: Icons.whatsapp, tint: .green, title: FLCPersonalManagerViewStrings.whatsappButton, type: .whatsapp)
+    private let phoneButton = FLCRoundButton(image: FLCIcon.phone.icon, tint: .flcOrange, title: FLCPersonalManagerViewStrings.phoneButton, type: .phone)
+    private let emailButton = FLCRoundButton(image: FLCIcon.envelope.icon, tint: .flcGray, title: FLCPersonalManagerViewStrings.emailButton, type: .email)
+    private let telegramButton = FLCRoundButton(image: FLCIcon.telegram.icon, tint: .systemBlue, title: FLCPersonalManagerViewStrings.telegramButton, type: .telegram)
+    private let whatsappButton = FLCRoundButton(image: FLCIcon.whatsapp.icon, tint: .green, title: FLCPersonalManagerViewStrings.whatsappButton, type: .whatsapp)
     private var confirmedCalculation: Calculation?
     
     private var manager: FLCManager?

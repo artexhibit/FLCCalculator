@@ -40,7 +40,7 @@ final class SettingsMenuCell: FLCContentCell {
     }
     
     private func configureMenuIconView() {
-        menuIconView.image = Icons.chevronUpDown
+        menuIconView.image = FLCIcon.chevronUpDown.icon
         
         NSLayoutConstraint.activate([
             menuIconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding / 1.5),
