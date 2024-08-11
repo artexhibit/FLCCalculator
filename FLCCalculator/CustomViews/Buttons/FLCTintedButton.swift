@@ -17,9 +17,9 @@ class FLCTintedButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(color: UIColor, title: String? = "", titleFontSize: CGFloat = 15, systemImageName: String? = nil, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
+    convenience init(color: UIColor, title: String? = "", titleFontSize: CGFloat = 15, systemImage: UIImage? = nil, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
         self.init(frame: .zero)
-        set(color: color, title: title, titleFontSize: titleFontSize, systemImageName: systemImageName, size: size, cornerStyle: cornerStyle)
+        set(color: color, title: title, titleFontSize: titleFontSize, systemImage: systemImage, size: size, cornerStyle: cornerStyle)
     }
     
     private func configure() {
@@ -29,7 +29,7 @@ class FLCTintedButton: UIButton {
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
-    final func set(color: UIColor, title: String? = "", titleFontSize: CGFloat = 15, systemImageName: String? = nil, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
+    final func set(color: UIColor, title: String? = "", titleFontSize: CGFloat = 15, systemImage: UIImage? = nil, size: UIButton.Configuration.Size? = nil, cornerStyle: UIButton.Configuration.CornerStyle = .medium) {
         configuration?.baseBackgroundColor = color
         configuration?.baseForegroundColor = color
         configuration?.title = title
@@ -37,7 +37,7 @@ class FLCTintedButton: UIButton {
         configuration?.setupCustomFont(ofSize: titleFontSize)
         
         if size != nil { configuration?.buttonSize = size ?? .small }
-        if systemImageName != nil { configuration?.image = UIImage(systemName: systemImageName ?? "") }
+        if systemImage != nil { configuration?.image = systemImage }
         
         configuration?.imagePadding = 6
         configuration?.imagePlacement = .leading

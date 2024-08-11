@@ -3,11 +3,11 @@ import UIKit
 struct FLCPersonalManagerViewHelper {
     static func goToTelegram(of manager: FLCManager?) {
         guard let appURL = URL(string: "tg://resolve?domain=\(manager?.telegram ?? "")") else {
-            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось найти никнейм в Telegram", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantFindTelegramNick, style: .error)
             return
         }
         guard let webURL = URL(string: "https://t.me/\(manager?.telegram ?? "")") else {
-            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось найти никнейм в Telegram", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantFindTelegramNick, style: .error)
             return
         }
         
@@ -17,11 +17,11 @@ struct FLCPersonalManagerViewHelper {
     
     static func goToWhatsapp(of manager: FLCManager?) {
         guard let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(manager?.whatsapp.extractDigits() ?? "")") else {
-            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось найти никнейм в Whatsapp", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantFindWhatsAppNick, style: .error)
             return
         }
         guard let webURL = URL(string: "https://wa.me/\(manager?.whatsapp.extractDigits() ?? "")") else {
-            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось найти никнейм в Whatsapp", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantFindWhatsAppNick, style: .error)
             return
         }
         

@@ -100,7 +100,7 @@ struct CalculationHelper {
             makeRedAll(textFields: view.flcTextFields)
             makeRedAll(buttons: view.flcListPickerButtons)
             HapticManager.addErrorHaptic()
-            FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Сперва заполните все поля")
+            FLCPopupView.showOnMainThread(systemImage: FLCIcon.textInsert.icon, title: FLCPopupMessages.fillInAllInfo)
             return false
         }
     }
@@ -111,17 +111,17 @@ struct CalculationHelper {
         view.flcTextFields.forEach {
             if $0.text == TextFieldManager.placeholderValue {
                 $0.switchToRedColors()
-                FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Значение не должно быть нулевым")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.textInsert.icon, title: FLCPopupMessages.notZeroValue)
                 isWithZero = true
             }
         }
         view.flcListPickerButtons.forEach {
             if $0.showingTitle == FLCCity.istanbul.rawValue {
-                FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите область Стамбула в Пункте Отправления")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.textInsert.icon, title: FLCPopupMessages.pickInstanbulRegion)
                 $0.switchToRedColors()
                 isWithZero = true
             } else if FLCCountryWarehouse(localizedString: $0.showingTitle) == .china {
-                FLCPopupView.showOnMainThread(systemImage: "text.insert", title: "Выберите аэропорт отправления для расчёта авиа")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.textInsert.icon, title: FLCPopupMessages.pickAirport)
                 $0.switchToRedColors()
                 isWithZero = true
             }
@@ -252,7 +252,7 @@ struct CalculationHelper {
     }
     
     private static func getDepartureAirport(for departureCity: String, country: String) -> String {
-        let pickedCountry = FLCCountryOption(rawValue: country) ?? .china
+        let pickedCountry = FLCCountryOption(localizedString: country)
         
         switch pickedCountry {
         case .china:

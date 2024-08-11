@@ -289,7 +289,7 @@ extension FLCCargoParametersView: UITextViewDelegate {
             guard !popover.isShowing else { return }
             guard let vc = self.findParentViewController() as? CalculationVC else { return }
             
-            popover.showPopoverOnMainThread(withText: "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления.", in: vc, target: textView, characterRange: range)
+            popover.showPopoverOnMainThread(withText: PopoverMessages.customsBroker, in: vc, target: textView, characterRange: range)
         }
     }
 }

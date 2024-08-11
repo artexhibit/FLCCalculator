@@ -83,7 +83,7 @@ struct SettingsVCHelper {
     }
     
     static func presentShareAppSheet(in vc: UIViewController, sourceView: UITableView, at indexPath: IndexPath) {
-        guard let appStoreAppPageURL = URL(string: "https://apps.apple.com/app/flc-calculator-%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B2-%D1%80%D1%84/id6547868937") else { return }
+        guard let appStoreAppPageURL = URL(string: Links.appStoreAppPageURL) else { return }
         
         let shareSheetVC = UIActivityViewController(activityItems: [appStoreAppPageURL], applicationActivities: nil)
         shareSheetVC.popoverPresentationController?.sourceView = sourceView
@@ -93,7 +93,7 @@ struct SettingsVCHelper {
     }
     
     static func goToAppStoreReviewPage() {
-        guard let appStoreReviewURL = URL(string: "https://apps.apple.com/app/id6547868937?action=write-review") else { return }
+        guard let appStoreReviewURL = URL(string: Links.appStoreReviewURL) else { return }
         
         if UIApplication.shared.canOpenURL(appStoreReviewURL) {
             UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)

@@ -156,7 +156,7 @@ struct CalculationCellUIHelper {
     }
     
     private static func resetDaysContent(in cell: CalculationResultCell) {
-        cell.daysLabelHeightConstraint.constant = 21
+        cell.daysLabelHeightConstraint.constant = 24
         cell.subtitleBottomConstraint.constant = -cell.padding * 2
     }
     

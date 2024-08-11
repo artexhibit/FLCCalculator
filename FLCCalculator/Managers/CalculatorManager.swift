@@ -14,7 +14,7 @@ struct CalculatorManager {
         if let url = URL(string: finalNumber) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
-            FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось совершить звонок")
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantMakeCall, style: .error)
         }
     }
 }

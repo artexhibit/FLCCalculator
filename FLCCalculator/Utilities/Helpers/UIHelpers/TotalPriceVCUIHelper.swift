@@ -58,13 +58,13 @@ struct TotalPriceVCUIHelper {
         
         let currencyTotal = priceData.currencyValue + (priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2)
         
-        let currencyString = "в \(priceData.currency.symbol): \(priceData.currencyValue.formatAsCurrency(symbol: priceData.currency)) + \((priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: priceData.currency)) (\(priceData.rubleValue.formatAsCurrency(symbol: priceData.secondCurrency)) по курсу \(priceData.exchangeRate)) = \((priceData.currencyValue + (priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2)).formatAsCurrency(symbol: priceData.currency))"
+        let currencyString = "\(TotalPriceVCStrings.currencyStringIn) \(priceData.currency.symbol): \(priceData.currencyValue.formatAsCurrency(symbol: priceData.currency)) + \((priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: priceData.currency)) (\(priceData.rubleValue.formatAsCurrency(symbol: priceData.secondCurrency)) \(TotalPriceVCStrings.currencyStringAtRate) \(priceData.exchangeRate)) = \((priceData.currencyValue + (priceData.rubleValue / priceData.exchangeRate).formatDecimalsTo(amount: 2)).formatAsCurrency(symbol: priceData.currency))"
         
-        let rubleString = "в \(priceData.secondCurrency.symbol): \(currencyTotal.formatAsCurrency(symbol: priceData.currency)) по курсу \(priceData.exchangeRate) = \((currencyTotal * priceData.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: priceData.secondCurrency))"
+        let rubleString = "\(TotalPriceVCStrings.currencyStringIn) \(priceData.secondCurrency.symbol): \(currencyTotal.formatAsCurrency(symbol: priceData.currency)) \(TotalPriceVCStrings.currencyStringAtRate) \(priceData.exchangeRate) = \((currencyTotal * priceData.exchangeRate).formatDecimalsTo(amount: 2).formatAsCurrency(symbol: priceData.secondCurrency))"
         
         switch type {
         case .perKG:
-            return currencyString + "\n\n" + rubleString + "\n\n" + "Сумма разделена на вес \(data?.weight ?? 0) кг"
+            return currencyString + "\n\n" + rubleString + "\n\n" + "\(TotalPriceVCStrings.currencyStringDevidedAmount) \(data?.weight ?? 0) \(TotalPriceVCStrings.currencyStringKg)"
         case .asOneCurrency:
             return currencyString + "\n\n" + rubleString
         }
@@ -92,19 +92,15 @@ struct TotalPriceVCUIHelper {
     static func setPopoverMessage(in textView: UITextView, priceAsOneCurrency: UITextView, pricePerKg: UITextView, invoiceIssue: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) -> String {
         
         switch textView.text {
-        case priceAsOneCurrency.text:
-            return getTotal(data: data, totalAmount: totalAmount, type: .asOneCurrency)
-        case pricePerKg.text:
-            return getTotal(data: data, totalAmount: totalAmount, type: .perKG)
-        case invoiceIssue.text:
-            return "3% только к валютной части из-за колебаний курса, поскольку расчёты с контрагентами у нас в валюте."
-        case .none, .some(_):
-            return ""
+        case priceAsOneCurrency.text: return getTotal(data: data, totalAmount: totalAmount, type: .asOneCurrency)
+        case pricePerKg.text: return getTotal(data: data, totalAmount: totalAmount, type: .perKG)
+        case invoiceIssue.text: return PopoverMessages.invoiceIssue
+        case .none, .some(_): return ""
         }
     }
     
     static func configurePopoverAppearance(textAttachment: NSTextAttachment, range: NSRange, textView: UITextView, vc: UIViewController, priceAsOneCurrency: UITextView, pricePerKg: UITextView, invoiceIssue: UITextView, with data: CalculationData?, and totalAmount: FLCTextLayer) {
-        if let imageName = textAttachment.image, imageName.description.contains("ellipsis.circle.fill") || imageName.description.contains("questionmark.circle.fill") {
+        if let imageName = textAttachment.image, imageName.description.contains(FLCIcon.dots.rawValue) || imageName.description.contains(FLCIcon.questionMark.rawValue) {
             HapticManager.addHaptic(style: .light)
             
             guard let totalPriceVC = vc as? TotalPriceVC else { return }

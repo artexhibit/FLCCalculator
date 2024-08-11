@@ -21,6 +21,16 @@
         }
       }
     },
+    " за 1 кг" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " per 1 kg"
+          }
+        }
+      }
+    },
     "- Аэропорт Шереметьево" : {
       "localizations" : {
         "en" : {
@@ -73,6 +83,16 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "3% только к валютной части из-за колебаний курса, поскольку расчёты с контрагентами у нас в валюте" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3% only to part which is not in rubles due to high exchange rate fluctuations, since all payments with counterparties are in foreign currency"
           }
         }
       }
@@ -480,6 +500,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Domestic pumps"
+          }
+        }
+      }
+    },
+    "в" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in"
           }
         }
       }
@@ -1084,6 +1114,16 @@
         }
       }
     },
+    "Закрыть" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
     "Замочные изделия" : {
       "localizations" : {
         "en" : {
@@ -1290,6 +1330,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tools"
+          }
+        }
+      }
+    },
+    "Итого" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total"
           }
         }
       }
@@ -2044,6 +2094,16 @@
         }
       }
     },
+    "Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We are a licensed customs broker, with our own customs clearance department"
+          }
+        }
+      }
+    },
     "Мягкая мебель, спальни" : {
       "localizations" : {
         "en" : {
@@ -2140,6 +2200,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Found a bug, error or typo? Let us know, and we’ll fix it!"
+          }
+        }
+      }
+    },
+    "Не все услуги рассчитаны! Попробуйте пересчитать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not all services are calculated! Try again"
           }
         }
       }
@@ -2774,6 +2844,16 @@
         }
       }
     },
+    "по курсу" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "at the rate"
+          }
+        }
+      }
+    },
     "Погрузка" : {
       "localizations" : {
         "en" : {
@@ -2830,6 +2910,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More details"
+          }
+        }
+      }
+    },
+    "Подтвердить заявку" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm order"
           }
         }
       }
@@ -3604,6 +3694,16 @@
         }
       }
     },
+    "Сохранить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
     "Сохранить изменения" : {
       "localizations" : {
         "en" : {
@@ -3824,12 +3924,42 @@
         }
       }
     },
+    "Сумма разделена на вес" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amount divided by weight"
+          }
+        }
+      }
+    },
     "Сушилки для белья, стремянки" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clothes dryers, stepladders"
+          }
+        }
+      }
+    },
+    "Счёт выставляется по курсу ЦБ + 3%" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invoice is issued according to Central Bank rate plus 3%"
+          }
+        }
+      }
+    },
+    "Считаем" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculating"
           }
         }
       }
@@ -3880,6 +4010,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Containers, packaging"
+          }
+        }
+      }
+    },
+    "Тариф действует только на первую перевозку. Не является офертой" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tariff is valid only for the first order. Not an offer"
           }
         }
       }

@@ -9,11 +9,11 @@ struct ProfileSettingsVCHelper {
     
     static func performAccountDeletion(ofUser user: FLCUser?, in vc: UIViewController) {
         guard NetworkStatusManager.shared.isDeviceOnline else {
-            FLCPopupView.showOnMainThread(title: "Необходимо активное подключение к интернету", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.needInternetConnection, style: .error)
             return
         }
         
-        FLCPopupView.showOnMainThread(title: "Одну минуту", style: .spinner)
+        FLCPopupView.showOnMainThread(title: FLCPopupMessages.oneMinute, style: .spinner)
         
         Task {
             do {
@@ -22,10 +22,10 @@ struct ProfileSettingsVCHelper {
                 UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
                 await vc.dismiss(animated: true) { AuthorizationVCHelper.presentAuthorizationVC(animated: true) }
                 await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Запрос принят. Ваш аккаунт будет удален в течение 14 дней")
+                await FLCPopupView.showOnMainThread(systemImage: FLCIcon.checkmark.icon, title: FLCPopupMessages.deleteAccountRequest)
             } catch {
                 await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(title: "Не удалось удалить аккаунт", style: .error)
+                await FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantDeleteAccount, style: .error)
             }
         }
     }
@@ -55,7 +55,7 @@ struct ProfileSettingsVCHelper {
             if !validity { shouldShowErrorPopup = true }
         }
         if shouldShowErrorPopup {
-            FLCPopupView.showOnMainThread(title: "Информация заполнена некорректно. Пожалуйста, исправьте", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.infoFilledWrong, style: .error)
             return false
         }
         return true
@@ -83,7 +83,7 @@ struct ProfileSettingsVCHelper {
 
     @MainActor
     static func saveNewUserData(user: FLCUser?, textFields: [UITextField], countryCodePickerButton: FLCListPickerButton, vc: ProfileSettingsVC) async {
-        FLCPopupView.showOnMainThread(title: "Сохраняем", style: .spinner)
+        FLCPopupView.showOnMainThread(title: FLCPopupMessages.saving, style: .spinner)
         
         do {
             var updatedUser = createNewUserData(user: user, with: textFields, countryCodePickerButton: countryCodePickerButton)
@@ -96,12 +96,12 @@ struct ProfileSettingsVCHelper {
             UserDefaultsPercistenceManager.updateItemInUserDefaults(item: updatedUser)
             
             FLCPopupView.removeFromMainThread()
-            FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Данные сохранены")
+            FLCPopupView.showOnMainThread(systemImage: FLCIcon.checkmark.icon, title: FLCPopupMessages.dataSaved)
             vc.delegate?.didUpdateUserInfo()
             vc.dismiss(animated: true)
         } catch {
             FLCPopupView.removeFromMainThread()
-            FLCPopupView.showOnMainThread(title: "Не удалось сохранить. Попробуйте ещё раз", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantSave, style: .error)
         }
     }
     
@@ -112,7 +112,7 @@ struct ProfileSettingsVCHelper {
             try await NetworkManager.shared.sendSMS(code: verificationCode, phoneNumber: phoneNumber)
             await showLoginConfirmationVC(code: verificationCode, phoneNumber: phoneNumber, vc: vc)
         } catch {
-            await FLCPopupView.showOnMainThread(title: "Не удалось отправить СМС", style: .error)
+            await FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantSendSMS, style: .error)
         }
     }
     
@@ -130,7 +130,7 @@ struct ProfileSettingsVCHelper {
         if isAllDataValid(textFieldsValidity) {
             DispatchQueue.main.async {
                 guard NetworkStatusManager.shared.isDeviceOnline else {
-                    FLCPopupView.showOnMainThread(title: "Необходимо активное подключение к интернету", style: .error)
+                    FLCPopupView.showOnMainThread(title: FLCPopupMessages.needInternetConnection, style: .error)
                     return
                 }
                 let countryData = CalculationInfo.countryPhonesData.first(where: { $0.phoneCode == countryCodePickerButton.showingTitle })

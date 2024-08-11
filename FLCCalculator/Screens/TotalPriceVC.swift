@@ -18,14 +18,14 @@ class TotalPriceVC: UIViewController {
     private let titleLayer = FLCTextLayer(fontSize: 25, fontWeight: .heavy, color: .flcOrange, alignment: .left)
     private let totalDaysLayer = FLCTextLayer(fontSize: 17, fontWeight: .bold, color: .flcGray, alignment: .left)
     private let totalAmountLayer = FLCTextLayer(fontSize: 20, fontWeight: .semibold, color: .flcGray.makeDarker(), alignment: .left)
-    private let detailsButton = FLCTintedButton(color: .flcOrange, title: "Подробнее", systemImageName: "ellipsis", size: .mini)
+    private let detailsButton = FLCTintedButton(color: .flcOrange, title: TotalPriceVCStrings.detailsButton, systemImage: FLCIcon.ellipsis.icon, size: .mini)
     private let priceAsOneCurrencyTextView = FLCTextViewLabel()
     private let pricePerKgTextView = FLCTextViewLabel()
     private let priceWarningTintedView = FLCTintedView(color: .red.makeLighter(delta: 0.5), alpha: 0.15, withText: true)
     private let invoiceIssueTintedView = FLCTintedView(color: .flcOrange, alpha: 0.15, withText: true)
-    private let confirmButton = FLCButton(color: .flcOrange, title: "Подтвердить заявку")
-    private let saveButton = FLCButton(color: .flcGray, title: "Сохранить")
-    private let closeButton = FLCButton(color: .flcGray, title: "Закрыть")
+    private let confirmButton = FLCButton(color: .flcOrange, title: TotalPriceVCStrings.confirmButton)
+    private let saveButton = FLCButton(color: .flcGray, title: TotalPriceVCStrings.saveButton)
+    private let closeButton = FLCButton(color: .flcGray, title: TotalPriceVCStrings.closeButton)
     
     private var isCustomDetentContainerViewConfigured: Bool = false
     private var failedToFetchPrice: Bool = false
@@ -110,14 +110,14 @@ class TotalPriceVC: UIViewController {
     }
     
     private func configureTitleLayer() {
-        titleLayer.string = "Итого"
+        titleLayer.string = TotalPriceVCStrings.titleLayer
         titleLayer.frame = CGRect(x: 0, y: 0, width: smallDetentContainerView.bounds.width, height: titleLayer.fontSize + 5)
     }
     
     private func configureTotalDaysLayer() {
         let totalDaysLayerY = titleLayer.frame.maxY + (padding / 2)
         
-        totalDaysLayer.frame = CGRect(x: 0, y: totalDaysLayerY, width: smallDetentContainerView.bounds.width, height: totalDaysLayer.fontSize + 2)
+        totalDaysLayer.frame = CGRect(x: 0, y: totalDaysLayerY, width: smallDetentContainerView.bounds.width, height: totalDaysLayer.fontSize + 5)
     }
     
     private func configureTotalAmountLayer() {
@@ -160,7 +160,7 @@ class TotalPriceVC: UIViewController {
     }
     
     private func configurePriceWarningTintedView() {
-        let message = failedToFetchPrice ? "Не все услуги рассчитаны! Попробуйте пересчитать." : "Тариф действует только на первую перевозку. Не является офертой"
+        let message = failedToFetchPrice ? TotalPriceVCStrings.priceWarningTintedViewFailedLabel : TotalPriceVCStrings.priceWarningTintedView
         priceWarningTintedView.setTextLabel(text: message.makeAttributed(icon: FLCIcon.exclamationMark.icon, tint: .red, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
@@ -172,7 +172,7 @@ class TotalPriceVC: UIViewController {
     
     private func configureInvoiceIssueTintedView() {
         invoiceIssueTintedView.tintedViewLabel.delegate = self
-        invoiceIssueTintedView.setTextLabel(text: "Счёт выставляется по курсу ЦБ + 3%".makeAttributed(icon: FLCIcon.questionMark.icon, tint: .flcOrange, size: (0, -4, 22, 21), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        invoiceIssueTintedView.setTextLabel(text: TotalPriceVCStrings.invoiceIssueTintedView.makeAttributed(icon: FLCIcon.questionMark.icon, tint: .flcOrange, size: (0, -4, 22, 21), placeIcon: .afterText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             invoiceIssueTintedView.topAnchor.constraint(equalTo: priceWarningTintedView.bottomAnchor, constant: padding / 1.5),
@@ -229,7 +229,7 @@ class TotalPriceVC: UIViewController {
     }
     
     private func configureSpinnerMessageLayer() {
-        spinnerMessageLayer.string = "Считаем"
+        spinnerMessageLayer.string = TotalPriceVCStrings.spinnerMessageLayer
         if spinner.isAnimating { spinnerMessageLayer.opacity = 1 }
         
         smallDetentContainerView.layoutIfNeeded()

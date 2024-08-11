@@ -114,9 +114,9 @@ class CalculationVC: UIViewController {
                 FLCPopupView.removeFromMainThread()
             } catch  {
                 if let error = error as? URLError, error.code == .timedOut {
-                    FLCPopupView.showOnMainThread(systemImage: "exclamationmark.icloud", title: "Плохое соединение. Попробуйте позже", style: .error)
+                    FLCPopupView.showOnMainThread(systemImage: FLCIcon.cloudExclamationMark.icon, title: "Плохое соединение. Попробуйте позже", style: .error)
                 }
-                FLCPopupView.showOnMainThread(systemImage: "exclamationmark.icloud", title: "Ошибка при загрузке городов", style: .error)
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.cloudExclamationMark.icon, title: "Ошибка при загрузке городов", style: .error)
             }
         }
     }
@@ -149,7 +149,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
     }
     
     func didTapListPickerButton(_ button: FLCListPickerButton) {
-        let pickedCountry = FLCCountryOption(rawValue: transportView.countryPickerButton.showingTitle) ?? .china
+        let pickedCountry = FLCCountryOption(localizedString: transportView.countryPickerButton.showingTitle)
         
         if !button.inDisabledState { button.switchToOrangeColors() }
         view.endEditing(true)
@@ -167,7 +167,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
    
         case transportView.deliveryTypePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {
-                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.handTap.icon, title: "Выберите страну отправления")
                 return
             }
             let items = CalculationHelper.getItems(basedOn: pickedCountry, for: button)
@@ -175,11 +175,11 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
         case transportView.departurePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {
-                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите страну отправления")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.handTap.icon, title: "Выберите страну отправления")
                 return
             }
             guard !transportView.deliveryTypePickerButton.titleIsEmpty else {
-                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.handTap.icon, title: "Выберите условия поставки")
                 return
             }
             
@@ -204,11 +204,11 @@ extension CalculationVC: FLCCalculationViewDelegate {
             
         case transportView.destinationPickerButton:
             guard !transportView.deliveryTypePickerButton.titleIsEmpty else {
-                FLCPopupView.showOnMainThread(systemImage: "hand.tap", title: "Выберите условия поставки")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.handTap.icon, title: "Выберите условия поставки")
                 return
             }
             guard !transportView.deliveryTypePickerButton.showingTitle.contains(FLCCountryWarehouse.russia.localizedDescription) else {
-                FLCPopupView.showOnMainThread(systemImage: "hand.draw", title: "Измените условия поставки на клиента")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.handDraw.icon, title: "Измените условия поставки на клиента")
                 return
             }
             FLCPopupView.showOnMainThread(title: "Загружаем города", style: .spinner)

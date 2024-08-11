@@ -71,8 +71,8 @@ class NetworkManager {
     }
     
     func sendSMS(code: String, phoneNumber: String) async throws {
-        guard let apiKey = Bundle.main.infoDictionary?["SMS API Key"] as? String else { throw FLCError.invalidData }
-        let message = "Ваш код для авторизации в приложении FLC: \(code)"
+        guard let apiKey = Bundle.main.infoDictionary?[SecretsStrings.smsApiKey] as? String else { throw FLCError.invalidData }
+        let message = "\(AuthorizationStrings.authCodeSMS): \(code)"
         guard let encodedMessage = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             throw FLCError.invalidData
         }

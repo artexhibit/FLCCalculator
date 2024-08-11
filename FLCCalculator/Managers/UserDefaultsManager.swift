@@ -19,7 +19,7 @@ struct UserDefaultsManager {
     }
     
     static var appTheme: String {
-        get { ud.string(forKey: Keys.appTheme) ?? "Как на устройстве" }
+        get { ud.string(forKey: Keys.appTheme) ?? FLCThemeOptionsStrings.onDevice }
         set { ud.setValue(newValue, forKey: Keys.appTheme) }
     }
     

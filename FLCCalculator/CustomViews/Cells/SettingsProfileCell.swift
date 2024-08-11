@@ -2,10 +2,10 @@ import UIKit
 
 final class SettingsProfileCell: UITableViewCell {
     
-    static let reuseID = "SettingsProfileCell"
+    static let reuseID = String(describing: SettingsProfileCell.self)
     private let padding: CGFloat = 14
     
-    private var personIcon = FLCTintedButton(color: .flcOrange, systemImageName: "person", cornerStyle: .capsule)
+    private var personIcon = FLCTintedButton(color: .flcOrange, systemImage: FLCIcon.person.icon, cornerStyle: .capsule)
     private let labelsContainer = UIView()
     private let titleLabel = FLCTitleLabel(color: .flcOrange, textAlignment: .left, size: 17, weight: .semibold)
     private let subtitleLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)

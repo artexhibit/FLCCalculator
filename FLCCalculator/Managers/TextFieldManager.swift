@@ -54,7 +54,7 @@ struct TextFieldManager {
         return false
     }
     
-    static func formatPhoneNumber(with mask: String = "(XXX) XXX-XX-XX", phone: String, isDeletionActive: Bool = false) -> String {
+    static func formatPhoneNumber(with mask: String = TextFieldStrings.defaultMask, phone: String, isDeletionActive: Bool = false) -> String {
         let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
         var result = ""
         var index = numbers.startIndex
@@ -135,7 +135,7 @@ struct TextFieldManager {
         _ = allTFs[targetTextFieldIndex - 1].becomeFirstResponder()
     }
     
-    static func managePhoneTextFieldInput(textField: UITextField, range: NSRange, string: String, mask: String = "(XXX) XXX-XX-XX") {
+    static func managePhoneTextFieldInput(textField: UITextField, range: NSRange, string: String, mask: String = TextFieldStrings.defaultMask) {
         guard let text = textField.text else { return }
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
         let isDeletionActive = string == "" ? true : false
@@ -188,7 +188,7 @@ struct TextFieldManager {
         
         let newString = (text as NSString).replacingCharacters(in: range, with: string).replacingOccurrences(of: ",", with: ".")
         let cursorPosition = textField.getCursorPosition()
-        let formattedText = formatBirthdayDate(with: "XX.XX.XXXX", date: newString)
+        let formattedText = formatBirthdayDate(with: TextFieldStrings.birthdayDateMask, date: newString)
         
         textField.text = formattedText
         textField.moveCursorTo(position: cursorPosition + (formattedText.count - text.count))

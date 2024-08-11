@@ -7,7 +7,7 @@ struct LoginConfirmationHelper {
         if typedCode == verificationCode { return true }
         
         if typedCode.count == 4  {
-            FLCPopupView.showOnMainThread(title: "Вы ввели неправильный код", style: .error, position: .top)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.wrongCode, style: .error, position: .top)
         }
         return false
     }

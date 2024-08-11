@@ -52,7 +52,7 @@ struct SMSManager {
         
         if timeInterval < minimumUpdateTimeToSendSMSAgain {
             let totalLeftTime = minimumUpdateTimeToSendSMSAgain - timeInterval
-            return "\(Int(totalLeftTime) / 3600) ч. \((Int(totalLeftTime) % 3600) / Int(oneHourInMinutes)) мин."
+            return "\(Int(totalLeftTime) / 3600) \(AuthorizationStrings.hours) \((Int(totalLeftTime) % 3600) / Int(oneHourInMinutes)) \(AuthorizationStrings.minutes)"
         }
         return ""
     }

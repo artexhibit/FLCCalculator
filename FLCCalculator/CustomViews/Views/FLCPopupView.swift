@@ -102,7 +102,7 @@ class FLCPopupView: UIView {
         ])
     }
     
-    static func showOnMainThread(systemImage: String = "xmark", title: String, style: FLCPopupViewStyle = .normal, position: FLCPopupViewPosition = .bottom) {
+    static func showOnMainThread(systemImage: UIImage = FLCIcon.xmark.icon, title: String, style: FLCPopupViewStyle = .normal, position: FLCPopupViewPosition = .bottom) {
         DispatchQueue.main.async {
             if showingPopup != nil {
                 if style == .spinner {
@@ -137,10 +137,10 @@ class FLCPopupView: UIView {
         }
     }
     
-    private static func showNewPopup(systemImage: String, title: String, style: FLCPopupViewStyle, position: FLCPopupViewPosition) {
+    private static func showNewPopup(systemImage: UIImage, title: String, style: FLCPopupViewStyle, position: FLCPopupViewPosition) {
         let popup = FLCPopupView()
         
-        popup.iconView.image = UIImage(systemName: systemImage)
+        popup.iconView.image = systemImage
         popup.messageLabel.text = title
         popup.set(with: style)
         popup.configureInWindow(with: position)

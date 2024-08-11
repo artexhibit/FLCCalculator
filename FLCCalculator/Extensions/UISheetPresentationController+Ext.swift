@@ -14,7 +14,7 @@ extension UISheetPresentationController {
     func getFLCSheetPresentationController(in view: UIView, size: CGFloat, dimmed: Bool = true, cornerRadius: CGFloat = 25, addSmallDetent: Bool = false) {
         self.preferredCornerRadius = cornerRadius
         self.prefersGrabberVisible = true
-        let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.21 : 0.13
+        let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.22 : 0.145
         let customSize = DeviceTypes.isiPhoneSE3rdGen ? 0.85 : size
         let detents = getDetents(for: view, of: (smallSize, customSize))
         

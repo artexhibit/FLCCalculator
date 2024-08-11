@@ -18,16 +18,16 @@ struct AuthorizationVCHelper {
     
     static func handleVerificationCodeButtonTap(loginConfirmationVC: FLCLoginConfirmationVC, pickedCountry: FLCCountryPhonesData?, phoneTextField: UITextField, enterUserCredentialsView: UIView, leadingConstraint: NSLayoutConstraint, vc: UIViewController) {
         let phoneNumber = ((pickedCountry?.phoneCode ?? "") + (phoneTextField.text ?? "")).extractDigits()
-        let reviewPhoneNumber = Bundle.main.infoDictionary?["App Store Review Phone"] as? String ?? ""
-        let verificationCode = phoneNumber == reviewPhoneNumber ? Bundle.main.infoDictionary?["App Store Review Code"] as? String ?? "" : AuthorizationManager.shared.createVerificationCode()
+        let reviewPhoneNumber = Bundle.main.infoDictionary?[SecretsStrings.appStoreReviewPhone] as? String ?? ""
+        let verificationCode = phoneNumber == reviewPhoneNumber ? Bundle.main.infoDictionary?[SecretsStrings.appStoreReviewCode] as? String ?? "" : AuthorizationManager.shared.createVerificationCode()
         
         Task {
             do {
                 guard NetworkStatusManager.shared.isDeviceOnline else {
-                    await FLCPopupView.showOnMainThread(title: "Необходимо активное подключение к интернету", style: .error)
+                    await FLCPopupView.showOnMainThread(title: FLCPopupMessages.needInternetConnection, style: .error)
                     return
                 }
-                await FLCPopupView.showOnMainThread(title: "Отправляем СМС", style: .spinner)
+                await FLCPopupView.showOnMainThread(title: FLCPopupMessages.sendingSMS, style: .spinner)
                 
                 guard try await checkPhoneNumberExistense(phoneNumber: phoneNumber, vc: vc) else {
                     await FLCPopupView.removeFromMainThread()
@@ -37,14 +37,14 @@ struct AuthorizationVCHelper {
                     try await sendVerificationCode(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, pickedCountry: pickedCountry, enterPhoneView: enterUserCredentialsView, leadingConstraint: leadingConstraint, vc: vc)
                     
                     await FLCPopupView.removeFromMainThread()
-                    await FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "СМС отправлено")
+                    await FLCPopupView.showOnMainThread(systemImage: FLCIcon.checkmark.icon, title: FLCPopupMessages.sentSMS)
                 } else {
                     let timeUntilCanSendSMS = SMSManager.timeUntilNextSMS()
-                    await FLCPopupView.showOnMainThread(title: "Вы использовали все попытки. Повторить можно через \(timeUntilCanSendSMS)", style: .error)
+                    await FLCPopupView.showOnMainThread(title: "\(FLCPopupMessages.zeroAttempts) \(timeUntilCanSendSMS)", style: .error)
                 }
             } catch {
                 await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(title: "Не удалось отправить СМС", style: .error)
+                await FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantSendSMS, style: .error)
             }
         }
     }
@@ -57,7 +57,7 @@ struct AuthorizationVCHelper {
             
             updateUIAfterSuccessfulSMS(verificationCode: verificationCode, loginConfirmationVC: loginConfirmationVC, phoneTextField: phoneTextField, pickedCountry: pickedCountry, enterPhoneView: enterPhoneView, leadingConstraint: leadingConstraint, vc: vc)
         } catch {
-            await FLCPopupView.showOnMainThread(title: "Не удалось отправить СМС", style: .error)
+            await FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantSendSMS, style: .error)
         }
     }
     
@@ -94,10 +94,10 @@ struct AuthorizationVCHelper {
     
     static func handleSuccessLogin(with number: String, in vc: UIViewController, country: FLCUserCountry) {
         guard NetworkStatusManager.shared.isDeviceOnline else {
-            FLCPopupView.showOnMainThread(title: "Не удалось завершить вход, отсутствует подключение к интернету", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantLoginNoInternet, style: .error)
             return
         }
-        FLCPopupView.showOnMainThread(title: "Завершаем вход", style: .spinner)
+        FLCPopupView.showOnMainThread(title: FLCPopupMessages.loginInProcess, style: .spinner)
         
         Task {
             do {
@@ -109,30 +109,30 @@ struct AuthorizationVCHelper {
                 await vc.dismiss(animated: true)
             } catch {
                 await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(title: "Не удалось завершить вход. Попробуйте ещё раз")
+                await FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantLoginTryAgain)
             }
         }
     }
     
     static func handleSuccessRegistration(with number: String, email: String, country: FLCUserCountry, in vc: UIViewController) {
         guard NetworkStatusManager.shared.isDeviceOnline else {
-            FLCPopupView.showOnMainThread(title: "Не удалось завершить регистрацию, отсутствует подключение к интернету", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantCompleteRegistrationNoInternet, style: .error)
             return
         }
-        FLCPopupView.showOnMainThread(title: "Завершаем регистрацию", style: .spinner)
+        FLCPopupView.showOnMainThread(title: FLCPopupMessages.completingRegistration, style: .spinner)
         
         Task {
             do {
                 let registrationCredentials = try await AuthorizationManager.shared.registerUserWith(number: number, email: email)
                 KeychainManager.shared.save(registrationCredentials)
-                let newUser = FLCUser(fio: "Гость\(AuthorizationManager.shared.createVerificationCode(digits: 5))", email: email, mobilePhone: number, userCountry: country)
+                let newUser = FLCUser(fio: "\(AuthorizationStrings.user)\(AuthorizationManager.shared.createVerificationCode(digits: 5))", email: email, mobilePhone: number, userCountry: country)
                 UserDefaultsPercistenceManager.updateItemInUserDefaults(item: newUser)
                 try await AuthorizationManager.shared.saveAccountDataToBubbleDatabase(for: newUser, token: registrationCredentials.credentials.response.token, userId: registrationCredentials.credentials.response.userId)
                 await FLCPopupView.removeFromMainThread()
                 await vc.dismiss(animated: true)
             } catch {
                 await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(title: "Не удалось завершить регистрацию. Попробуйте ещё раз")
+                await FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantRegisterTryAgain)
             }
         }
     }
@@ -140,14 +140,14 @@ struct AuthorizationVCHelper {
     static func handleNumberNotExist(in vc: UIViewController) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { vc.presentNewVC(ofType: RegistrationVC.self) }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            FLCPopupView.showOnMainThread(title: "Мы не нашли у себя такого номера. Пожалуйста, зарегистрируйтесь")
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantFindTheNumber)
         }
     }
     
     static func handleNumberAlreadyExist(in vc: UIViewController) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { vc.presentNewVC(ofType: LoginVC.self) }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            FLCPopupView.showOnMainThread(title: "Такой номер уже зарегистрирован. Пожалуйста, войдите")
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.numberAlreadyRegistered)
         }
     }
     

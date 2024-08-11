@@ -9,6 +9,7 @@ struct CalculationView: View {
         let countryFrom = FLCCountryOption(rawValue: calculation.countryFrom ?? "")?.localizedDescription ?? ""
         let countryTo = FLCCountryOption(rawValue: calculation.countryTo ?? "")?.localizedDescription ?? ""
         let deliveryType = FLCDeliveryType(rawValue: calculation.deliveryType ?? "")?.localizedDescription ?? ""
+        let toLocation = FLCCountryWarehouse(rawValue: calculation.toLocation ?? "") == .russia ? FLCCountryWarehouse(rawValue: calculation.toLocation ?? "")?.localizedDescription : calculation.toLocation
         
         VStack {
             HStack(alignment: .top) {
@@ -102,7 +103,7 @@ struct CalculationView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("\(countryTo), \(calculation.toLocation ?? "")")
+                        Text("\(countryTo), \(toLocation ?? "")")
                             .font(.footnote)
                             .foregroundStyle(.primary)
                             .lineLimit(4)

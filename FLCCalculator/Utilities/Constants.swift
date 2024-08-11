@@ -91,12 +91,17 @@ enum FLCBubbleUserDataKeys {
     static let dtCount = "dt_count"
     static let fio = "fio"
     static let inn = "inn"
-    static let phone =  "phone"
-    static let email =  "email_user"
+    static let phone = "phone"
+    static let email = "email_user"
 }
 
 enum OnboardingDictKeys {
     static let contactsVCPopoverWasShown = "contactsVCPopoverWasShown"
+}
+
+enum TextFieldStrings {
+    static let defaultMask = "(XXX) XXX-XX-XX"
+    static let birthdayDateMask = "XX.XX.XXXX"
 }
 
 enum FLCThemeOptionsStrings {
@@ -261,6 +266,9 @@ enum ContactsVCStrings {
     static let routeButton = NSLocalizedString("Маршрут", comment: "")
     static let detailsButton = NSLocalizedString("Подробнее", comment: "")
     static let copyAction = NSLocalizedString("Скопировать адрес", comment: "")
+    static let appleMaps = NSLocalizedString("Apple Карты", comment: "")
+    static let yandexMaps = NSLocalizedString("Яндекс Карты", comment: "")
+    static let googleMaps = NSLocalizedString("Google Карты", comment: "")
 }
 
 enum CalculationsVCStrings {
@@ -280,6 +288,23 @@ enum UsefulInfoVCStrings {
     static let contacts = NSLocalizedString("Контакты", comment: "")
     static let sanctionsCheckLink = "https://cargointegrator.com"
     static let fashionSupplierBaseLink = "https://manufactures.free-lines.ru"
+}
+
+enum TotalPriceVCStrings {
+    static let detailsButton = NSLocalizedString("Подробнее", comment: "")
+    static let confirmButton = NSLocalizedString("Подтвердить заявку", comment: "")
+    static let saveButton = NSLocalizedString("Сохранить", comment: "")
+    static let closeButton = NSLocalizedString("Закрыть", comment: "")
+    static let titleLayer = NSLocalizedString("Итого", comment: "")
+    static let priceWarningTintedViewFailedLabel = NSLocalizedString("Не все услуги рассчитаны! Попробуйте пересчитать", comment: "")
+    static let priceWarningTintedView = NSLocalizedString("Тариф действует только на первую перевозку. Не является офертой", comment: "")
+    static let invoiceIssueTintedView = NSLocalizedString("Счёт выставляется по курсу ЦБ + 3%", comment: "")
+    static let spinnerMessageLayer = NSLocalizedString("Считаем", comment: "")
+    static let currencyStringIn = NSLocalizedString("в", comment: "")
+    static let currencyStringAtRate = NSLocalizedString("по курсу", comment: "")
+    static let currencyStringDevidedAmount = NSLocalizedString("Сумма разделена на вес", comment: "")
+    static let currencyStringKg = NSLocalizedString("кг", comment: "")
+    static let perOneKg = NSLocalizedString(" за 1 кг", comment: "")
 }
 
 enum PermissionsStrings {
@@ -319,8 +344,60 @@ enum TextViewActionStrings {
     static let privacyPolicy = "privacyPolicy"
 }
 
+enum SecretsStrings {
+    static let appStoreReviewPhone = "App Store Review Phone"
+    static let appStoreReviewCode = "App Store Review Code"
+    static let smsApiKey = "SMS API Key"
+    static let bubbleToken = "Bubble Token"
+}
+
+enum AuthorizationStrings {
+    static let user = NSLocalizedString("Гость", comment: "")
+    static let authCodeSMS = NSLocalizedString("Ваш код для авторизации в приложении FLC", comment: "")
+    static let hours = NSLocalizedString("ч.", comment: "")
+    static let minutes = NSLocalizedString("мин.", comment: "")
+}
+
+enum Links {
+    static let appStoreAppPageURL = "https://apps.apple.com/app/flc-calculator-%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B2-%D1%80%D1%84/id6547868937"
+    static let appStoreReviewURL = "https://apps.apple.com/app/id6547868937?action=write-review"
+}
+
 enum FLCPopupMessages {
     static let cantOpenAppStore = NSLocalizedString("Не получается открыть App Store", comment: "")
+    static let tariffsNotDowloaded = NSLocalizedString("Не все тарифы загружены. Повторите через несколько минут", comment: "")
+    static let notZeroValue = NSLocalizedString("Значение не должно быть нулевым", comment: "")
+    static let pickInstanbulRegion = NSLocalizedString("Выберите область Стамбула в Пункте Отправления", comment: "")
+    static let pickAirport = NSLocalizedString("Выберите аэропорт отправления для расчёта авиа", comment: "")
+    static let fillInAllInfo = NSLocalizedString("Сперва заполните все поля", comment: "")
+    static let cantFindTelegramNick = NSLocalizedString("Не удалось найти никнейм в Telegram", comment: "")
+    static let cantFindWhatsAppNick = NSLocalizedString("Не удалось найти никнейм в WhatsApp", comment: "")
+    static let wrongCode = NSLocalizedString("Вы ввели неправильный код", comment: "")
+    static let needInternetConnection = NSLocalizedString("Необходимо активное подключение к интернету", comment: "")
+    static let sendingSMS = NSLocalizedString("Отправляем СМС", comment: "")
+    static let sentSMS = NSLocalizedString("СМС отправлено", comment: "")
+    static let zeroAttempts = NSLocalizedString("Вы использовали все попытки. Повторить можно через", comment: "")
+    static let cantSendSMS = NSLocalizedString("Не удалось отправить СМС", comment: "")
+    static let cantLoginNoInternet = NSLocalizedString("Не удалось завершить вход, отсутствует подключение к интернету", comment: "")
+    static let loginInProcess = NSLocalizedString("Завершаем вход", comment: "")
+    static let cantLoginTryAgain = NSLocalizedString("Не удалось завершить вход. Попробуйте ещё раз", comment: "")
+    static let cantCompleteRegistrationNoInternet = NSLocalizedString("Не удалось завершить регистрацию, отсутствует подключение к интернету", comment: "")
+    static let completingRegistration = NSLocalizedString("Завершаем регистрацию", comment: "")
+    static let cantRegisterTryAgain = NSLocalizedString("Не удалось завершить регистрацию. Попробуйте ещё раз", comment: "")
+    static let cantFindTheNumber = NSLocalizedString("Мы не нашли у себя такого номера. Пожалуйста, зарегистрируйтесь", comment: "")
+    static let numberAlreadyRegistered = NSLocalizedString("Такой номер уже зарегистрирован. Пожалуйста, войдите", comment: "")
+    static let oneMinute = NSLocalizedString("Одну минуту", comment: "")
+    static let deleteAccountRequest = NSLocalizedString("Запрос принят. Ваш аккаунт будет удален в течение 14 дней", comment: "")
+    static let cantDeleteAccount = NSLocalizedString("Не удалось удалить аккаунт", comment: "")
+    static let infoFilledWrong = NSLocalizedString("Информация заполнена некорректно. Пожалуйста, исправьте", comment: "")
+    static let saving = NSLocalizedString("Сохраняем", comment: "")
+    static let dataSaved = NSLocalizedString("Данные сохранены", comment: "")
+    static let cantSave = NSLocalizedString("Не удалось сохранить. Попробуйте ещё раз", comment: "")
+    static let downloadData = NSLocalizedString("Загружаем данные", comment: "")
+    static let downloadFile = NSLocalizedString("Загружаю файл", comment: "")
+    static let cantDownloadDocument = NSLocalizedString("Не удалось скачать документ", comment: "")
+    static let cantOpenMaps = NSLocalizedString("Не удалось открыть карты", comment: "")
+    static let cantMakeCall = NSLocalizedString("Не удалось совершить звонок", comment: "")
 }
 
 enum PopoverMessages {
@@ -341,6 +418,9 @@ enum PopoverMessages {
     static let deliveryToWarehouse = NSLocalizedString("Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию", comment: "")
     static let groupageDocs = NSLocalizedString("В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!", comment: "")
     static let groupageDocsAir = NSLocalizedString("AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)", comment: "")
+    static let invoiceIssue = NSLocalizedString("3% только к валютной части из-за колебаний курса, поскольку расчёты с контрагентами у нас в валюте", comment: "")
+    static let customsBroker = NSLocalizedString("Мы - лицензированный таможенный брокер, с собственным отделом таможенного оформления", comment: "")
+    static let switchCardsBySwipe = NSLocalizedString("Переключайте карточки свайпами вправо и влево.\n\nА долгое нажатие на карточке откроет меню с опцией копирования адреса", comment: "")
 }
 
 enum FLCGoodsCategoryString {

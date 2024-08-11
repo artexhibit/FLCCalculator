@@ -317,6 +317,7 @@ enum FLCIcon: String, CaseIterable {
     case document = "doc.plaintext"
     case clock = "clock"
     case dots = "ellipsis.circle.fill"
+    case ellipsis = "ellipsis"
     case truckFill = "truck.box.fill"
     case train = "train.side.front.car"
     case plane = "airplane"
@@ -340,6 +341,11 @@ enum FLCIcon: String, CaseIterable {
     case walkingPerson = "figure.walk"
     case copyIcon = "square.on.square"
     case location = "location.fill"
+    case arrowTriangle = "arrow.triangle.2.circlepath"
+    case textInsert = "text.insert"
+    case cloudExclamationMark = "exclamationmark.icloud"
+    case handTap = "hand.tap"
+    case handDraw = "hand.draw"
 
     var icon: UIImage {
         switch self {

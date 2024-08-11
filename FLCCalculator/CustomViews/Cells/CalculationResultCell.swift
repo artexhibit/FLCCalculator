@@ -20,7 +20,7 @@ class CalculationResultCell: UITableViewCell {
     private let failedPriceCalcContentStackView = UIStackView()
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
     let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
-    let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImageName: "arrow.triangle.2.circlepath", size: .medium)
+    let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImage: FLCIcon.arrowTriangle.icon, size: .medium)
     private let pickupWarningTextViewLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .footnote)
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
@@ -119,7 +119,7 @@ class CalculationResultCell: UITableViewCell {
     
     private func configureDaysLabel() {
         daysTextView.delegate = self
-        daysLabelHeightConstraint = daysTextView.heightAnchor.constraint(equalToConstant: 21)
+        daysLabelHeightConstraint = daysTextView.heightAnchor.constraint(equalToConstant: 24)
         
         NSLayoutConstraint.activate([
             daysTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding * 0.5),

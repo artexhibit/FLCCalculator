@@ -16,11 +16,11 @@ struct TextViewManager {
             guard let url = FileSystemManager.getLocalFileURL(for: privacyPolicyDoc.fileName) else { return }
             FileSystemManager.openDocument(with: url, in: vc)
         } else {
-            FLCPopupView.showOnMainThread(title: "Загружаю файл", style: .spinner)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.downloadFile, style: .spinner)
             FirebaseManager.downloadDocument(doc: privacyPolicyDoc) { result in
                 guard let progress = result.progress, let url = result.url else { return }
                 
-                if result.isWithError { FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error) }
+                if result.isWithError { FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantDownloadDocument, style: .error) }
                 
                 if progress == 100 {
                     HapticManager.addSuccessHaptic()

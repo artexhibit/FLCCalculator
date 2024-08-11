@@ -6,7 +6,7 @@ class AuthorizationManager {
     private let decoder = JSONDecoder()
     private let lkBaseEndpoint = "https://lk-flc.bubbleapps.io/version-live/api/1.1/"
     private let calcBaseEndpoint = "https://calc.free-lines.ru/version-live/api/1.1/obj/user/"
-    private let apiKey = Bundle.main.infoDictionary?["Bubble Token"] as? String
+    private let apiKey = Bundle.main.infoDictionary?[SecretsStrings.bubbleToken] as? String
     
     private init() { decoder.keyDecodingStrategy = .convertFromSnakeCase }
     

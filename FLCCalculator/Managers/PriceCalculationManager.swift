@@ -300,7 +300,7 @@ final class PriceCalculationManager {
             let currencyPricePerKg = (currencyTotal / (data?.weight ?? 1)).formatDecimalsTo(amount: 2)
             let rublePricePerKg = ((currencyTotal * currencyExchangeRate) / (data?.weight ?? 1)).formatAsCurrency(symbol: secondCurrency)
             
-            let result = "~" + currencyPricePerKg.formatAsCurrency(symbol: currency) + " (\(rublePricePerKg))" + " за 1 кг"
+            let result = "~" + currencyPricePerKg.formatAsCurrency(symbol: currency) + " (\(rublePricePerKg))" + TotalPriceVCStrings.perOneKg
             
             return (result, currency, secondCurrency, currencyExchangeRate, currencyValue, secondValue)
         case .asOneCurrency:

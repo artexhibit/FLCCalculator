@@ -18,7 +18,7 @@ struct ContactsVCHelper {
     
     @MainActor
     static func updateFacilitiesUI(in collectionView: FacilitiesCollectionView, map: MKMapView) {
-        FLCPopupView.showOnMainThread(title: "Загружаем данные", style: .spinner, position: .top)
+        FLCPopupView.showOnMainThread(title: FLCPopupMessages.downloadData, style: .spinner, position: .top)
         collectionView.layer.opacity = 0
         
         Task {
@@ -36,13 +36,13 @@ struct ContactsVCHelper {
     }
     
     static func showRoutesOptions(for facility: FLCFacility) -> UIMenu {
-        let appleMapsAction = UIAction(title: "Apple Карты", image: FLCIcon.location.icon) { _ in
+        let appleMapsAction = UIAction(title: ContactsVCStrings.appleMaps, image: FLCIcon.location.icon) { _ in
             MapsManager.openInAppleMaps(latitude: facility.latitude, longitude: facility.longitude, destinationName: facility.name)
         }
-        let yandexMapsAction = UIAction(title: "Яндекс Карты", image: FLCIcon.location.icon) { _ in
+        let yandexMapsAction = UIAction(title: ContactsVCStrings.yandexMaps, image: FLCIcon.location.icon) { _ in
             MapsManager.openInYandexMaps(latitude: facility.latitude, longitude: facility.longitude)
         }
-        let googleMapsAction = UIAction(title: "Google Карты", image: FLCIcon.location.icon) { _ in
+        let googleMapsAction = UIAction(title: ContactsVCStrings.googleMaps, image: FLCIcon.location.icon) { _ in
             MapsManager.openInGoogleMaps(latitude: facility.latitude, longitude: facility.longitude)
         }
         return UIMenu(title: "", children: [appleMapsAction, yandexMapsAction, googleMapsAction])
@@ -55,7 +55,7 @@ struct ContactsVCHelper {
     static func setupOnboardingPopover(in vc: UIViewController, target: UICollectionView) {
         if !popoverWasShown() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                FLCPopoverVC().showPopoverOnMainThread(withText: "Переключайте карточки свайпами вправо и влево.\n\nА долгое нажатие на карточке откроет меню с опцией копирования адреса", in: vc, target: target)
+                FLCPopoverVC().showPopoverOnMainThread(withText: PopoverMessages.switchCardsBySwipe, in: vc, target: target)
                 UserDefaultsManager.onboardingPopovers[OnboardingDictKeys.contactsVCPopoverWasShown] = true
             }
         } else {

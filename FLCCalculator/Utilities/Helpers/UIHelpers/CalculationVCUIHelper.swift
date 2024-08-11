@@ -7,7 +7,7 @@ struct CalculationVCUIHelper {
         
         guard PriceCalculationManager.isCalculationDataAvailable() else {
             AppDelegateHelper.updateCalculationData()
-            FLCPopupView.showOnMainThread(title: "Не все тарифы загружены. Повторите через несколько минут", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.tariffsNotDowloaded, style: .error)
             return
         }
         let data = CalculationHelper.getCalculationData(transportView: transportView, cargoView: cargoView, pickedDestinationCode: pickedDestinationCode, departureCity: departureCity)
