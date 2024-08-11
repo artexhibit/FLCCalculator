@@ -2,7 +2,7 @@ import UIKit
 
 final class DocumentsCell: UICollectionViewCell {
     
-    static let reuseID = "DocumentsCell"
+    static let reuseID = String(describing: DocumentsCell.self)
     
     private var shimmeringView = FLCShimmeringView()
     private let containerView = UIView()

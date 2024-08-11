@@ -9,9 +9,9 @@ extension FLCMailComposeDelegate where Self: UIViewController {
         switch result {
         case .cancelled, .saved, .failed, .sent:
             if result == .sent {
-                FLCPopupView.showOnMainThread(systemImage: "checkmark", title: "Письмо отправлено")
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.checkmark.icon, title: FLCPopupMessages.sentMail)
             } else if result == .failed {
-                FLCPopupView.showOnMainThread(systemImage: "xmark", title: "Не удалось отправить сообщение", style: .error)
+                FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantSendMail, style: .error)
             }
             dismiss(animated: true, completion: nil)
         @unknown default:
@@ -52,7 +52,7 @@ class FLCMailComposeVC: MFMailComposeViewController {
         case .success(let fileURL):
             guard let fileData = try? Data(contentsOf: fileURL) else { return }
             mailVC.setAttachedFileURL(fileURL: fileURL)
-            mailVC.addAttachmentData(fileData, mimeType: "text/plain", fileName: "Заявка на перевозку")
+            mailVC.addAttachmentData(fileData, mimeType: "text/plain", fileName: MailVCStrings.orderLabel)
         case .failure(_): break
         }
         
@@ -74,9 +74,10 @@ class FLCMailComposeVC: MFMailComposeViewController {
     
     static func sendEmail(from view: UIView, manager: FLCManager?, confirmedCalculation: Calculation? = nil) {
         guard let parentVC = view.findParentViewController() else { return }
-        let subject = confirmedCalculation == nil ? "" : "Подтверждение заявки на импортную перевозку груза"
-        let messageAddition = confirmedCalculation == nil ? "" : "\nХочу подтвердить заявку. \nИнформация по расчету в письме\n\n"
-        let message = "\(manager?.name.getDataBetweenCharacter() ?? ""), добрый день," + messageAddition
+        let deviceLanguageCode = LanguageManager.shared.currentDeviceLanguage.rawValue
+        let subject = confirmedCalculation == nil ? "" : MailVCStrings.confirmOrderLabel
+        let messageAddition = confirmedCalculation == nil ? "" : MailVCStrings.confirmOrderMessage
+        let message = "\(manager?.localisationData?[deviceLanguageCode]?.name.getDataBetweenCharacter() ?? ""), \(MailVCStrings.goodDayLabel)," + messageAddition
         sendEmailTo(email: manager?.email ?? "", subject: subject, message: message, confirmedCalculation: confirmedCalculation, from: parentVC)
     }
 }

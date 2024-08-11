@@ -4,9 +4,9 @@ class AuthorizationVC: UIViewController {
     
     private let flcLogoImageView = FLCImageView()
     private let authButtonsContainer = UIView()
-    private let signInButton = FLCButton(color: .flcOrange, title: "Войти", subtitle: "для зарегистрированных пользователей")
+    private let signInButton = FLCButton(color: .flcOrange, title: AuthorizationStrings.signInButtonLabel, subtitle: AuthorizationStrings.signInButtonLabelSubtitle)
     private let orButton = FLCSubtitleLabel(color: .label, textAlignment: .center, textStyle: .caption1)
-    private let registrationButton = FLCButton(color: .flcGray, title: "Зарегистрироваться", subtitle: "создать новый аккаунт")
+    private let registrationButton = FLCButton(color: .flcGray, title: AuthorizationStrings.registrationButtonLabel, subtitle: AuthorizationStrings.registrationButtonLabelSubtitle)
     
     private let padding: CGFloat = 10
     private var flcLogoYConstraint: NSLayoutConstraint!
@@ -69,7 +69,7 @@ class AuthorizationVC: UIViewController {
     }
     
     private func configureOrButton() {
-        orButton.text = "или"
+        orButton.text = AuthorizationStrings.orButton
         
         NSLayoutConstraint.activate([
             orButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: padding),

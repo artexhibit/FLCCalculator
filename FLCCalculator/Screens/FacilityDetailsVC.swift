@@ -18,7 +18,7 @@ class FacilityDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
-        showEmptyStateView(withTitle: "Раздел находится в разработке", andSubtitle: "И появится в следующем обновлении")
+        showEmptyStateView(withTitle: CommonStrings.inDevelopmentLabel, andSubtitle: CommonStrings.inDevelopmentLabelSubtitle)
     }
     
     private func configureVC() {

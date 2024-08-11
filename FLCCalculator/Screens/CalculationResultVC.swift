@@ -100,7 +100,7 @@ class CalculationResultVC: UIViewController {
                 switch pickedLogisticsType {
                 case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: break
                 case .chinaAir, .turkeyAirSVO, .turkeyAirVKO:
-                    emptyStateView.setup(titleText: "Расчёт Авиа недоступен", subtitleText: "Максимальный вес для перевозки авиа - \(maxWeight) кг. Вес вашего груза - \(calculationData?.weight ?? 0) кг")
+                    emptyStateView.setup(titleText: CalculationResultVCStrings.cantCalculateAviaLabel, subtitleText: "\(CalculationResultVCStrings.cantCalculateAviaLabelStart) - \(maxWeight) \(CommonStrings.currencyStringKg). \(CalculationResultVCStrings.cantCalculateAviaLabelEnd) - \(calculationData?.weight ?? 0) \(CommonStrings.currencyStringKg)")
                 }
             }
             CalculationHelper.updateTotalPriceSmallDetentHeight(to: -50, in: totalPriceVC, from: self)
@@ -333,7 +333,7 @@ extension CalculationResultVC: TotalPriceVCDelegate {
     func didPressConfirmButton() {
         guard let calculationData = calculationData else { return }
         guard NetworkStatusManager.shared.isDeviceOnline else {
-            FLCPopupView.showOnMainThread(title: "Для подтверждения необходимо подключение к интернету. Пожалуйста, проверьте своё", style: .error)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantConfirmOrder, style: .error)
             return
         }
         

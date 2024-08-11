@@ -100,10 +100,10 @@ class FLCNumberTextField: UITextField {
         toolbar.barStyle = .default
                 
         let items = [
-            UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(goToPreviousTextField)),
-            UIBarButtonItem(image: UIImage(systemName: "chevron.right"), style: .plain, target: self, action: #selector(goToNextTextField)),
+            UIBarButtonItem(image: FLCIcon.chevronLeft.icon, style: .done, target: self, action: #selector(goToPreviousTextField)),
+            UIBarButtonItem(image: FLCIcon.chevronRight.icon, style: .plain, target: self, action: #selector(goToNextTextField)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneButtonTapped))
+            UIBarButtonItem(title: CommonStrings.done, style: .done, target: self, action: #selector(doneButtonTapped))
         ]
         toolbar.setItems(items, animated: false)
         toolbar.updateConstraintsIfNeeded()

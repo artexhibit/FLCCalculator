@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 
 class CalculationCell: UITableViewCell {
-    static let reuseID = "CalculationCell"
+    static let reuseID = String(describing: CalculationCell.self)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

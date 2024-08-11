@@ -45,7 +45,7 @@ struct Persistence {
         do {
             try coordinator.migratePersistentStore(oldStore, to: sharedStoreURL, options: options, withType: NSSQLiteStoreType)
         } catch {
-            print("Unable to migrate to shared store with error: \(error.localizedDescription)")
+            print("Невозможно выполнить миграцию в общее хранилище из-за ошибки: \(error.localizedDescription)")
         }
         removeOldStore()
     }
@@ -54,7 +54,7 @@ struct Persistence {
         do {
             try FileManager.default.removeItem(at: oldStoreURL)
         } catch {
-            print("Unable to delete old store")
+            print("Невозможно удалить старое хранилище")
         }
     }
     
@@ -64,7 +64,7 @@ struct Persistence {
                 try container.viewContext.save()
             } catch {
                 let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                fatalError("Неразрешённая ошибка \(nserror), \(nserror.userInfo)")
             }
         }
     }

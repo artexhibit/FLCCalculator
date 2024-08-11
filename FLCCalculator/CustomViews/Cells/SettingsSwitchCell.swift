@@ -6,7 +6,7 @@ protocol SettingsSwitchCellDelegate: AnyObject {
 
 final class SettingsSwitchCell: FLCContentCell {
     
-    static let reuseID = "SettingsSwitchCell"
+    static let reuseID = String(describing: SettingsSwitchCell.self)
     
     private let uiSwitch = UISwitch()
     

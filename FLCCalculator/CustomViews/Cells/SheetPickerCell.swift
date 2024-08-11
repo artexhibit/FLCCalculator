@@ -2,7 +2,7 @@ import UIKit
 
 class SheetPickerCell: UITableViewCell {
     
-    static let reuseID = "SheetPickerCell"
+    static let reuseID = String(describing: SheetPickerCell.self)
     
     private let title = FLCTitleLabel(color: .label, textAlignment: .left, size: 18, weight: .medium)
     private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left, textStyle: .callout)
@@ -29,7 +29,7 @@ class SheetPickerCell: UITableViewCell {
         self.iconImageViewWidthConstraint.constant = pickerItem.image != nil ? 30 : 0.01
         if subtitle.text == "" { self.iconImageViewWidthConstraint.constant = 25 }
         self.iconImageViewLeadingConstraint.constant = pickerItem.image != nil ? padding * 2 : padding
-        self.checkmarkImageView.image = title.text == buttonTitle ? UIImage(systemName: "checkmark") : nil
+        self.checkmarkImageView.image = title.text == buttonTitle ? FLCIcon.checkmark.icon : nil
     }
     
     private func configure() {

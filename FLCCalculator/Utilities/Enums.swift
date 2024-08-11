@@ -310,6 +310,7 @@ enum FLCIcon: String, CaseIterable {
     case exclamationMark = "exclamationmark.circle.fill"
     case checkmark = "checkmark"
     case infoSign = "info.circle.fill"
+    case infoCircle = "info.circle"
     case truck = "truck.box"
     case ship = "ferry.fill"
     case xmark = "xmark"
@@ -346,6 +347,20 @@ enum FLCIcon: String, CaseIterable {
     case cloudExclamationMark = "exclamationmark.icloud"
     case handTap = "hand.tap"
     case handDraw = "hand.draw"
+    case aCircle = "a.circle.fill"
+    case bCircle = "b.circle.fill"
+    case shippingBoxWithArrow = "shippingbox.and.arrow.backward.fill"
+    case scaleMass = "scalemass.fill"
+    case shippingBox = "shippingbox.fill"
+    case warehouse = "warehouse"
+    case creditCard = "creditcard.fill"
+    case clockBadge = "clock.badge.checkmark"
+    case listBullet = "list.bullet.rectangle.portrait.fill"
+    case docText = "doc.text.fill"
+    case gear = "gear"
+    case plus = "plus"
+    case chevronLeft = "chevron.left"
+    case chevronRight = "chevron.right"
 
     var icon: UIImage {
         switch self {

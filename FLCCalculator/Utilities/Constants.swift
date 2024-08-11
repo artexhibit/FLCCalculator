@@ -61,6 +61,8 @@ enum Keys {
     static let cdTurkeyTruckByFerryPickup = "CDTurkeyTruckByFerryPickup"
     static let cdTurkeyNovorossiyskBySeaPickup = "CDTurkeyNovorossiyskBySeaPickup"
     static let cdCurrencyData = "CDCurrencyData"
+    static let userCredentialsServiceKey = "accountToken"
+    static let userCredentialsAccountKey = "bubble"
 }
 
 enum FLCCountryWarehouseStrings {
@@ -102,6 +104,7 @@ enum OnboardingDictKeys {
 enum TextFieldStrings {
     static let defaultMask = "(XXX) XXX-XX-XX"
     static let birthdayDateMask = "XX.XX.XXXX"
+    static let numbers = "0123456789"
 }
 
 enum FLCThemeOptionsStrings {
@@ -145,6 +148,7 @@ enum SettingsVCStrings {
 }
 
 enum CalculationStrings {
+    static let newCalculation = NSLocalizedString("Новый расчёт", comment: "")
     static let cargoType = NSLocalizedString("Тип груза", comment: "")
     static let weightTF = NSLocalizedString("Вес брутто, кг", comment: "")
     static let volumeTF = NSLocalizedString("Объём, м3", comment: "")
@@ -195,7 +199,7 @@ enum CalculationResultVCStrings {
     static let groupageDocsLabel = NSLocalizedString("В составе сборного груза", comment: "")
     static let deliveryToWarehouseShaghaiLabel = NSLocalizedString("- Склад Шанхай", comment: "")
     static let deliveryToWarehouseAirportLabel = NSLocalizedString(" - Аэропорт", comment: "")
-    static let deliveryToWarehouseWarehouseLabel = NSLocalizedString(" - Склад", comment: "")
+    static let deliveryToWarehouseLabel = NSLocalizedString(" - Склад", comment: "")
     static let deliveryFromWarehouseShanghaiPodolskLabel = NSLocalizedString("Шанхай - Подольск", comment: "")
     static let deliveryFromWarehouseTurkeyVKOLabel = NSLocalizedString("Аэропорт Стамбул - Аэропорт Внуково", comment: "")
     static let deliveryFromWarehouseTurkeySVOLabel = NSLocalizedString("Аэропорт Стамбул - Аэропорт Шереметьево", comment: "")
@@ -207,6 +211,11 @@ enum CalculationResultVCStrings {
     static let airDocumentLabel = NSLocalizedString("Авианакладная", comment: "")
     static let pickupWarningStartLabel = NSLocalizedString("Пикап рассчитан от ближайшего крупного города", comment: "")
     static let pickupWarningEndLabel = NSLocalizedString("Стоимость пикапа с точного адреса может измениться", comment: "")
+    static let recalculate = NSLocalizedString("Пересчитать", comment: "")
+    static let cantGetCalculation = NSLocalizedString("Не удалось получить расчёт", comment: "")
+    static let cantCalculateAviaLabel = NSLocalizedString("Расчёт Авиа недоступен", comment: "")
+    static let cantCalculateAviaLabelStart = NSLocalizedString("Максимальный вес для перевозки авиа", comment: "")
+    static let cantCalculateAviaLabelEnd = NSLocalizedString("Вес вашего груза", comment: "")
 }
 
 enum FLCWarehouseStrings {
@@ -228,7 +237,7 @@ enum CurrencyOptionsStrings {
     static let euroShort = "EUR"
 }
 
-enum chinaAirportsStrings {
+enum ChinaAirportsStrings {
     static let PKX = NSLocalizedString("Международный аэропорт Дасин (PKX)", comment: "")
     static let PVG = NSLocalizedString("Международный аэропорт Пудун (PVG)", comment: "")
     static let CAN = NSLocalizedString("Международный аэропорт Байюнь (CAN)", comment: "")
@@ -274,6 +283,8 @@ enum ContactsVCStrings {
 enum CalculationsVCStrings {
     static let calculations = NSLocalizedString("Расчёты", comment: "")
     static let deleteAction = NSLocalizedString("Удалить", comment: "")
+    static let noCalculations = NSLocalizedString("Пока нет расчётов", comment: "")
+    static let newCalculationLabel = NSLocalizedString("Нажмите на + в правом верхнем углу или кнопку ниже, чтобы начать", comment: "")
 }
 
 enum UsefulInfoVCStrings {
@@ -294,7 +305,6 @@ enum TotalPriceVCStrings {
     static let detailsButton = NSLocalizedString("Подробнее", comment: "")
     static let confirmButton = NSLocalizedString("Подтвердить заявку", comment: "")
     static let saveButton = NSLocalizedString("Сохранить", comment: "")
-    static let closeButton = NSLocalizedString("Закрыть", comment: "")
     static let titleLayer = NSLocalizedString("Итого", comment: "")
     static let priceWarningTintedViewFailedLabel = NSLocalizedString("Не все услуги рассчитаны! Попробуйте пересчитать", comment: "")
     static let priceWarningTintedView = NSLocalizedString("Тариф действует только на первую перевозку. Не является офертой", comment: "")
@@ -303,7 +313,6 @@ enum TotalPriceVCStrings {
     static let currencyStringIn = NSLocalizedString("в", comment: "")
     static let currencyStringAtRate = NSLocalizedString("по курсу", comment: "")
     static let currencyStringDevidedAmount = NSLocalizedString("Сумма разделена на вес", comment: "")
-    static let currencyStringKg = NSLocalizedString("кг", comment: "")
     static let perOneKg = NSLocalizedString(" за 1 кг", comment: "")
 }
 
@@ -344,6 +353,22 @@ enum TextViewActionStrings {
     static let privacyPolicy = "privacyPolicy"
 }
 
+enum CommonStrings {
+    static let search = NSLocalizedString("Поиск", comment: "")
+    static let done = NSLocalizedString("Готово", comment: "")
+    static let currencyStringKg = NSLocalizedString("кг", comment: "")
+    static let closeButton = NSLocalizedString("Закрыть", comment: "")
+    static let inDevelopmentLabel = NSLocalizedString("Раздел находится в разработке", comment: "")
+    static let inDevelopmentLabelSubtitle = NSLocalizedString("И появится в следующем обновлении", comment: "")
+}
+
+enum MailVCStrings {
+    static let orderLabel = NSLocalizedString("Заявка на перевозку", comment: "")
+    static let confirmOrderLabel = NSLocalizedString("Подтверждение заявки на импортную перевозку груза", comment: "")
+    static let confirmOrderMessage = NSLocalizedString("\nХочу подтвердить заявку. \nИнформация по расчету в письме\n\n", comment: "")
+    static let goodDayLabel = NSLocalizedString("добрый день", comment: "")
+}
+
 enum SecretsStrings {
     static let appStoreReviewPhone = "App Store Review Phone"
     static let appStoreReviewCode = "App Store Review Code"
@@ -356,11 +381,37 @@ enum AuthorizationStrings {
     static let authCodeSMS = NSLocalizedString("Ваш код для авторизации в приложении FLC", comment: "")
     static let hours = NSLocalizedString("ч.", comment: "")
     static let minutes = NSLocalizedString("мин.", comment: "")
+    static let confirmationCode = NSLocalizedString("Код подтверждения", comment: "")
+    static let phoneLabel = NSLocalizedString("Код подтверждения был отправлен на номер", comment: "")
+    static let signInButtonLabel = NSLocalizedString("Войти", comment: "")
+    static let signInButtonLabelSubtitle = NSLocalizedString("для зарегистрированных пользователей", comment: "")
+    static let registrationButtonLabel = NSLocalizedString("Зарегистрироваться", comment: "")
+    static let registrationButtonLabelSubtitle = NSLocalizedString("создать новый аккаунт", comment: "")
+    static let orButton = NSLocalizedString("или", comment: "")
+    static let countryCodePickerLabel = NSLocalizedString("Страна", comment: "")
+    static let phoneTFLabel = NSLocalizedString("Номер телефона", comment: "")
+    static let verificationCodeLabel = NSLocalizedString("Получить код", comment: "")
+    static let privacyPolicyAgreenmentLabel = NSLocalizedString("Нажимая на кнопку «Получить код», вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»", comment: "")
+    static let privacyPolicyAgreenmentAttributedPart = NSLocalizedString("Правилами обработки персональных данных", comment: "")
+    static let signIn = NSLocalizedString("Войти", comment: "")
+    static let enterPhoneTitleLabel = NSLocalizedString("Чтобы войти, выберите страну, введите ваш номер телефона, а затем четырёхзначный код из смс", comment: "")
+    static let emailTFLabel = "Email"
+    static let registration = NSLocalizedString("Регистрация", comment: "")
+//    static let countryCodePickerLabel = NSLocalizedString("Страна", comment: "")
 }
 
 enum Links {
     static let appStoreAppPageURL = "https://apps.apple.com/app/flc-calculator-%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B2-%D1%80%D1%84/id6547868937"
     static let appStoreReviewURL = "https://apps.apple.com/app/id6547868937?action=write-review"
+}
+
+enum ConfirmOrderVCStrings {
+    static let closeButtonLabel = NSLocalizedString("расчёты будут сохранены", comment: "")
+    static let welcomeLabelOne = NSLocalizedString("Добро пожаловать", comment: "")
+    static let welcomeLabelTwo = NSLocalizedString("на борт", comment: "")
+    static let welcomeLabelThree = NSLocalizedString("Фри Лайнс", comment: "")
+    static let salesManagerTitle = NSLocalizedString("Ваш персональный менеджер", comment: "")
+    static let tintedMessageView = NSLocalizedString("Вы всегда можете посмотреть контакты вашего менеджера на вкладке Полезное", comment: "")
 }
 
 enum FLCPopupMessages {
@@ -395,9 +446,19 @@ enum FLCPopupMessages {
     static let cantSave = NSLocalizedString("Не удалось сохранить. Попробуйте ещё раз", comment: "")
     static let downloadData = NSLocalizedString("Загружаем данные", comment: "")
     static let downloadFile = NSLocalizedString("Загружаю файл", comment: "")
+    static let downloadCities = NSLocalizedString("Загружаем города", comment: "")
     static let cantDownloadDocument = NSLocalizedString("Не удалось скачать документ", comment: "")
     static let cantOpenMaps = NSLocalizedString("Не удалось открыть карты", comment: "")
     static let cantMakeCall = NSLocalizedString("Не удалось совершить звонок", comment: "")
+    static let sentMail = NSLocalizedString("Письмо отправлено", comment: "")
+    static let cantSendMail = NSLocalizedString("Не удалось отправить сообщение", comment: "")
+    static let badConnection = NSLocalizedString("Плохое соединение. Попробуйте позже", comment: "")
+    static let cantDownloadCities = NSLocalizedString("Ошибка при загрузке городов", comment: "")
+    static let pickDepartureCity = NSLocalizedString("Выберите страну отправления", comment: "")
+    static let pickDeliveryType = NSLocalizedString("Выберите условия поставки", comment: "")
+    static let changeDeliveryCondition = NSLocalizedString("Измените условия поставки на клиента", comment: "")
+    static let cantConfirmOrder = NSLocalizedString("Для подтверждения необходимо подключение к интернету", comment: "")
+    static let pickPhoneCodeCountry = NSLocalizedString("Сначала выберите страну", comment: "")
 }
 
 enum PopoverMessages {

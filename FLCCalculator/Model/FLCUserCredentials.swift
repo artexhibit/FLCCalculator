@@ -23,6 +23,6 @@ struct FLCUserCredentialsResponseData: Codable {
 }
 
 extension FLCUserCredentials: KeychainStorable {
-    static var serviceKey: String { "accountToken" }
-    static var accountKey: String { "bubble" }
+    static var serviceKey: String { Keys.userCredentialsServiceKey }
+    static var accountKey: String { Keys.userCredentialsAccountKey }
 }

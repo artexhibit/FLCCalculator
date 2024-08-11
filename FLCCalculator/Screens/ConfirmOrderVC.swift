@@ -13,7 +13,7 @@ class ConfirmOrderVC: UIViewController {
     private let salesManagerTitle = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 21)
     private let managerView = FLCPersonalManagerView()
     private let tintedMessageView = FLCTintedView(color: .lightGray, withText: true)
-    private let closeButton = FLCButton(color: .flcOrange, title: "Закрыть", subtitle: "расчёты будут сохранены")
+    private let closeButton = FLCButton(color: .flcOrange, title: CommonStrings.closeButton, subtitle: ConfirmOrderVCStrings.closeButtonLabel)
     
     private let padding: CGFloat = 10
     private let containerHeight: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 665 : 600
@@ -83,7 +83,7 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureWelcomeLabelOne() {
-        welcomeLabelOne.text = "Добро пожаловать"
+        welcomeLabelOne.text = ConfirmOrderVCStrings.welcomeLabelOne
         welcomeLabelOne.hide(withAnimationDuration: 0)
         
         welcomeLabelOneTopContraint = welcomeLabelOne.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding * 7)
@@ -97,7 +97,7 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureWelcomeLabelTwo() {
-        welcomeLabelTwo.text = "на борт"
+        welcomeLabelTwo.text = ConfirmOrderVCStrings.welcomeLabelTwo
         welcomeLabelTwo.hide(withAnimationDuration: 0)
         
         welcomeLabelTwoTopContraint = welcomeLabelTwo.topAnchor.constraint(equalTo: welcomeLabelOne.bottomAnchor, constant: padding * 5)
@@ -135,7 +135,7 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureWelcomeLabelThree() {
-        welcomeLabelThree.text = "Free Lines"
+        welcomeLabelThree.text = ConfirmOrderVCStrings.welcomeLabelThree
         
         NSLayoutConstraint.activate([
             welcomeLabelThree.topAnchor.constraint(equalTo: companyLogoNameContainerView.topAnchor),
@@ -145,7 +145,7 @@ class ConfirmOrderVC: UIViewController {
     }
     
     private func configureSalesManagerTitle() {
-        salesManagerTitle.text = "Ваш персональный менеджер"
+        salesManagerTitle.text = ConfirmOrderVCStrings.salesManagerTitle
         salesManagerTitle.hide(withAnimationDuration: 0)
         
         NSLayoutConstraint.activate([
@@ -168,7 +168,7 @@ class ConfirmOrderVC: UIViewController {
     
     private func configureTintedMessageView() {
         tintedMessageView.hide(withAnimationDuration: 0)
-        tintedMessageView.setTextLabel(text: "Вы всегда можете посмотреть контакты вашего менеджера на вкладке Полезное".makeAttributed(icon: FLCIcon.infoSign.icon, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
+        tintedMessageView.setTextLabel(text: ConfirmOrderVCStrings.tintedMessageView.makeAttributed(icon: FLCIcon.infoSign.icon, tint: .flcGray, size: (0, -2.5, 17, 16), placeIcon: .beforeText), textAlignment: .left, fontWeight: .regular, fontSize: 15, delegate: self)
         
         NSLayoutConstraint.activate([
             tintedMessageView.topAnchor.constraint(equalTo: managerView.bottomAnchor, constant: padding * 2),

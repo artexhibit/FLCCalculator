@@ -43,7 +43,7 @@ extension DocumentsCollectionView: UICollectionViewDelegateFlowLayout {
             FirebaseManager.downloadDocument(doc: doc) { result in
                 guard let progress = result.progress, let url = result.url else { return }
                 
-                if result.isWithError { FLCPopupView.showOnMainThread(title: "Не удалось скачать документ", style: .error) }
+                if result.isWithError { FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantDownloadDocument, style: .error) }
                 
                 if self.documentsDownloadProgress[indexPath] != 100 {
                     self.documentsDownloadProgress[indexPath] = progress

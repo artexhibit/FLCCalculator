@@ -2,7 +2,7 @@ import UIKit
 
 class UsefulInfoDocumentsCell: UITableViewCell {
     
-    static let reuseID = "UsefulInfoDocumentsCell"
+    static let reuseID = String(describing: UsefulInfoDocumentsCell.self)
     
     private let documentsCollectionView = DocumentsCollectionView()
     

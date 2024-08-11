@@ -5,7 +5,7 @@ class FLCEmptyStateView: UIView {
     private let placeholderImage = FLCImageView(image: UIImage(resource: .emptyStateView))
     private let titleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center)
     private let subtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
-    private let actionButton = FLCButton(color: .flcOrange, title: "Новый расчёт", systemImageName: "plus")
+    private let actionButton = FLCButton(color: .flcOrange, title: CalculationStrings.newCalculation, systemImage: FLCIcon.plus.icon)
     
     init(withButton: Bool = true, yValue: CGFloat = -70) {
         super.init(frame: .zero)

@@ -34,7 +34,7 @@ struct CalculationView: View {
                 
                 if calculation.isConfirmed {
                     HStack {
-                        Image(systemName: "checkmark")
+                        Image(systemName: FLCIcon.checkmark.rawValue)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .foregroundStyle(.bar)
@@ -64,7 +64,7 @@ struct CalculationView: View {
             
             HStack(alignment: .top) {
                 VStack(spacing: 5) {
-                    Image(systemName: "a.circle.fill")
+                    Image(systemName: FLCIcon.aCircle.rawValue)
                         .resizable()
                         .frame(width: 23, height: 23)
                         .foregroundStyle(.flcOrange)
@@ -77,7 +77,7 @@ struct CalculationView: View {
                     .frame(width: 1, height: 28, alignment: .center)
                     .foregroundStyle(.flcOrange)
                     
-                    Image(systemName: "b.circle.fill")
+                    Image(systemName: FLCIcon.bCircle.rawValue)
                         .resizable()
                         .frame(width: 23, height: 23)
                         .foregroundStyle(.flcOrange)
@@ -116,26 +116,26 @@ struct CalculationView: View {
             
             VStack {
                 HStack {
-                    CalculationTagView(systemImageName: "shippingbox.and.arrow.backward.fill", imageSize: (20, 15), text: calculation.deliveryTypeCode ?? "")
+                    CalculationTagView(systemImageName: FLCIcon.shippingBoxWithArrow.rawValue, imageSize: (20, 15), text: calculation.deliveryTypeCode ?? "")
                     
                     Spacer()
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "scalemass.fill", text: "\(calculation.weight.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("кг", comment: ""))")
-                    CalculationTagView(systemImageName: "shippingbox.fill", text: "\(calculation.volume.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("м3", comment: ""))")
+                    CalculationTagView(systemImageName: FLCIcon.scaleMass.rawValue, text: "\(calculation.weight.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("кг", comment: ""))")
+                    CalculationTagView(systemImageName: FLCIcon.shippingBox.rawValue, text: "\(calculation.volume.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("м3", comment: ""))")
                     
                     Spacer()
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "warehouse", text: deliveryType, isSystemImage: false)
+                    CalculationTagView(systemImageName: FLCIcon.warehouse.rawValue, text: deliveryType, isSystemImage: false)
                     
                     Spacer()
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: "creditcard.fill", imageSize: (20, 15), text: calculation.totalPrice?.formatNumbers(separator: "+") ?? "", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
+                    CalculationTagView(systemImageName: FLCIcon.creditCard.rawValue, imageSize: (20, 15), text: calculation.totalPrice?.formatNumbers(separator: "+") ?? "", textColor: .primary.opacity(0.8), imageColor: .gray, backgroundColor: .gray)
                     
                     Spacer()
                 }

@@ -38,7 +38,7 @@ class FLCListPickerVC: FLCPickerVC {
     private func configureSearchController() {
         searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = CommonStrings.search
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
     }

@@ -95,8 +95,8 @@ struct CalculationCellUIHelper {
     static func configureDeliveryToWarehouse(logisticsType: FLCLogisticsType, cell: CalculationResultCell, with item: CalculationResultItem, and attributedText: NSMutableAttributedString) {
         let data = CalculationResultHelper.getDeliveryToWarehousePrice(logisticsType: logisticsType, item: item)
         let calculation = CoreDataManager.getCalculation(withID: item.calculationData.id)
-        let addShaghaiWarehouse = data.isGuangzhou ? CalculationResultVCStrings.deliveryToWarehouseShaghaiLabel : ""
-        let deliveryPlace = logisticsType == .chinaAir ? CalculationResultVCStrings.deliveryToWarehouseAirportLabel : CalculationResultVCStrings.deliveryToWarehouseWarehouseLabel
+        let addShaghaiWarehouse = data.isGuangzhou && logisticsType != .chinaAir ? CalculationResultVCStrings.deliveryToWarehouseShaghaiLabel : ""
+        let deliveryPlace = logisticsType == .chinaAir ? CalculationResultVCStrings.deliveryToWarehouseAirportLabel : CalculationResultVCStrings.deliveryToWarehouseLabel
                 
         cell.titleTextView.attributedText = attributedText
         cell.subtitle.attributedText = "\(item.calculationData.fromLocation) \(deliveryPlace) \(data.warehouseName) \(addShaghaiWarehouse)".makeAttributed(icon: FLCIcon.map.icon, size: (0, -2, 22, 16), placeIcon: .beforeText)

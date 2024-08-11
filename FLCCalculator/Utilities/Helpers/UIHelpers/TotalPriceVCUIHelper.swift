@@ -64,7 +64,7 @@ struct TotalPriceVCUIHelper {
         
         switch type {
         case .perKG:
-            return currencyString + "\n\n" + rubleString + "\n\n" + "\(TotalPriceVCStrings.currencyStringDevidedAmount) \(data?.weight ?? 0) \(TotalPriceVCStrings.currencyStringKg)"
+            return currencyString + "\n\n" + rubleString + "\n\n" + "\(TotalPriceVCStrings.currencyStringDevidedAmount) \(data?.weight ?? 0) \(CommonStrings.currencyStringKg)"
         case .asOneCurrency:
             return currencyString + "\n\n" + rubleString
         }

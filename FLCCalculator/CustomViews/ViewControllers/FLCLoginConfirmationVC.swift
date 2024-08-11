@@ -9,7 +9,7 @@ final class FLCLoginConfirmationVC: UIViewController {
     private let loginConfirmationTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
     private let verificationCodeTextFieldsStackView = UIStackView()
     private var verificationCodeTextFields = [FLCNumberTextField]()
-    private let returnToEnterPhoneViewButton = FLCTextButton(title: "вернуться назад")
+    private let returnToEnterPhoneViewButton = FLCTextButton(title: CalculationStrings.returnToPreviousViewButton)
     
     private let padding: CGFloat = 18
     private var myltiplyTopPaddingBy: CGFloat = 1
@@ -89,8 +89,8 @@ final class FLCLoginConfirmationVC: UIViewController {
     func setLoginConfirmationView(phoneNumber: String, verificationCode: String, isReturnButtonOn: Bool = true) {
         self.verificationCode = verificationCode
         
-        let labelMain = "Код подтверждения".makeAttributed(text: "Код подтверждения", attributes: [.font], font: UIFont.systemFont(ofSize: 25, weight: .bold)) ?? NSAttributedString()
-        let attributedPhoneString = "\n\nНа номер \(phoneNumber) был отправлен код подтверждения".makeAttributed(text: phoneNumber, attributes: [.font], font: UIFont.systemFont(ofSize: 20, weight: .bold)) ?? NSAttributedString()
+        let labelMain = AuthorizationStrings.confirmationCode.makeAttributed(text: AuthorizationStrings.confirmationCode, attributes: [.font], font: UIFont.systemFont(ofSize: 25, weight: .bold)) ?? NSAttributedString()
+        let attributedPhoneString = "\n\n\(AuthorizationStrings.phoneLabel) \(phoneNumber)".makeAttributed(text: phoneNumber, attributes: [.font], font: UIFont.systemFont(ofSize: 20, weight: .bold)) ?? NSAttributedString()
 
         loginConfirmationTitleLabel.attributedText = NSMutableAttributedString().combine(strings: labelMain, attributedPhoneString)
         

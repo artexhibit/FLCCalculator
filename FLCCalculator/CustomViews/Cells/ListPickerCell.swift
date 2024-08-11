@@ -2,7 +2,7 @@ import UIKit
 
 class ListPickerCell: UITableViewCell {
     
-    static let reuseID = "ListPickerCell"
+    static let reuseID = String(describing: ListPickerCell.self)
     
     private let title = FLCBodyLabel(color: .label, textAlignment: .left)
     private let subtitle = FLCSubtitleLabel(color: .gray, textAlignment: .left)

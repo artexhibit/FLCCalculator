@@ -2,7 +2,7 @@ import UIKit
 
 class FLCTableViewHeader: UITableViewHeaderFooterView {
 
-    static let reuseID = "flcTableViewHeader"
+    static let reuseID = String(describing: FLCTableViewHeader.self)
     
     private let titleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 20)
     

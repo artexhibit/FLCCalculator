@@ -2,7 +2,7 @@ import UIKit
 
 final class SettingsLabelCell: FLCContentCell {
     
-    static let reuseID = "SettingsLabelCell"
+    static let reuseID = String(describing: SettingsLabelCell.self)
     
     private var contentType: FLCSettingsContentType?
     

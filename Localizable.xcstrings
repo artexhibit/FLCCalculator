@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "ru",
   "strings" : {
+    "\nХочу подтвердить заявку. \nИнформация по расчету в письме\n\n" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I would like to confirm the order. \nOrder information in attached"
+          }
+        }
+      }
+    },
     " - Аэропорт" : {
       "localizations" : {
         "en" : {
@@ -97,6 +107,16 @@
         }
       }
     },
+    "Apple Карты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Maps"
+          }
+        }
+      }
+    },
     "AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)" : {
       "localizations" : {
         "en" : {
@@ -140,6 +160,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : ""
+          }
+        }
+      }
+    },
+    "Google Карты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google Maps"
           }
         }
       }
@@ -574,12 +604,32 @@
         }
       }
     },
+    "Ваш код для авторизации в приложении FLC" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your code for authorization in the FLC app"
+          }
+        }
+      }
+    },
     "Ваш менеджер" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Personal manager"
+          }
+        }
+      }
+    },
+    "Ваш персональный менеджер" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your personal manager"
           }
         }
       }
@@ -610,6 +660,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gross weight, kg"
+          }
+        }
+      }
+    },
+    "Вес вашего груза" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weight of your cargo"
           }
         }
       }
@@ -674,12 +734,92 @@
         }
       }
     },
+    "Войти" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in"
+          }
+        }
+      }
+    },
+    "Вы ввели неправильный код" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You entered the wrong code"
+          }
+        }
+      }
+    },
+    "Вы всегда можете посмотреть контакты вашего менеджера на вкладке Полезное" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can always see your manager's contacts on the Useful tab"
+          }
+        }
+      }
+    },
+    "Вы использовали все попытки. Повторить можно через" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have used all attempts. Repeat available in"
+          }
+        }
+      }
+    },
+    "Выберите аэропорт отправления для расчёта авиа" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select departure airport to calculate air logistics"
+          }
+        }
+      }
+    },
     "Выберите аэропорт отправления для расчёта авиа логистики" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select the departure airport to calculate air logistics"
+          }
+        }
+      }
+    },
+    "Выберите область Стамбула в Пункте Отправления" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Istanbul area in Departure point"
+          }
+        }
+      }
+    },
+    "Выберите страну отправления" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select departure country"
+          }
+        }
+      }
+    },
+    "Выберите условия поставки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select delivery terms"
           }
         }
       }
@@ -754,6 +894,26 @@
         }
       }
     },
+    "Гость" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User"
+          }
+        }
+      }
+    },
+    "Готово" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
     "Готовые и разборные" : {
       "localizations" : {
         "en" : {
@@ -780,6 +940,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next"
+          }
+        }
+      }
+    },
+    "Данные сохранены" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data saved"
           }
         }
       }
@@ -874,6 +1044,16 @@
         }
       }
     },
+    "для зарегистрированных пользователей" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "for registered users"
+          }
+        }
+      }
+    },
     "Для металлообрабатывающего и машиностроительного производства" : {
       "localizations" : {
         "en" : {
@@ -890,6 +1070,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "For the food industry"
+          }
+        }
+      }
+    },
+    "Для подтверждения необходимо подключение к интернету" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An internet connection is required to confirm"
           }
         }
       }
@@ -940,6 +1130,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "day(s)"
+          }
+        }
+      }
+    },
+    "Добро пожаловать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome"
+          }
+        }
+      }
+    },
+    "добрый день" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "good day"
           }
         }
       }
@@ -1104,6 +1314,56 @@
         }
       }
     },
+    "Завершаем вход" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completing log in"
+          }
+        }
+      }
+    },
+    "Завершаем регистрацию" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completing registration"
+          }
+        }
+      }
+    },
+    "Загружаем города" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading cities"
+          }
+        }
+      }
+    },
+    "Загружаем данные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading data"
+          }
+        }
+      }
+    },
+    "Загружаю файл" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading a file"
+          }
+        }
+      }
+    },
     "Закажите доставку сборного груза и получите скидку 10% на первую перевозку с FLC!\n\nВыбирая постоянное сотрудничество с FLC вы получаете не только качественные услуги по организации доставки и таможенного оформления ваших грузов, но и выгоду в удобном для вас формате.\n\nFLCoins можно списать в счет оплаты будущих перевозок или обменять на сертификат партнера (OZON, Lamoda, Л'Этуаль, Спортмастер)." : {
       "localizations" : {
         "en" : {
@@ -1134,6 +1394,16 @@
         }
       }
     },
+    "Запрос принят. Ваш аккаунт будет удален в течение 14 дней" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Request accepted. Your account will be deleted within 14 days"
+          }
+        }
+      }
+    },
     "Запчасти" : {
       "localizations" : {
         "en" : {
@@ -1144,12 +1414,42 @@
         }
       }
     },
+    "Зарегистрироваться" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register"
+          }
+        }
+      }
+    },
+    "Заявка на перевозку" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logistics order application"
+          }
+        }
+      }
+    },
     "Зеркала" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mirrors"
+          }
+        }
+      }
+    },
+    "Значение не должно быть нулевым" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The value must not be null"
           }
         }
       }
@@ -1200,6 +1500,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "And equipment (stands)"
+          }
+        }
+      }
+    },
+    "И появится в следующем обновлении" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "And will appear in the next update"
           }
         }
       }
@@ -1284,6 +1594,16 @@
         }
       }
     },
+    "Измените условия поставки на клиента" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change delivery terms to client"
+          }
+        }
+      }
+    },
     "Изменяя и сохраняя данные в профиле, вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»" : {
       "localizations" : {
         "en" : {
@@ -1314,6 +1634,16 @@
         }
       }
     },
+    "или" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "or"
+          }
+        }
+      }
+    },
     "ИНН" : {
       "localizations" : {
         "en" : {
@@ -1330,6 +1660,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tools"
+          }
+        }
+      }
+    },
+    "Информация заполнена некорректно. Пожалуйста, исправьте" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The information is filled in incorrectly. Please fix"
           }
         }
       }
@@ -1520,6 +1860,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Carpets"
+          }
+        }
+      }
+    },
+    "Код подтверждения" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmation code"
+          }
+        }
+      }
+    },
+    "Код подтверждения был отправлен на номер" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A confirmation code has been sent to"
           }
         }
       }
@@ -1794,6 +2154,16 @@
         }
       }
     },
+    "Максимальный вес для перевозки авиа" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Max weight for air logistics"
+          }
+        }
+      }
+    },
     "Мангалы" : {
       "localizations" : {
         "en" : {
@@ -2044,6 +2414,16 @@
         }
       }
     },
+    "мин." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "min."
+          }
+        }
+      }
+    },
     "Мобильный" : {
       "localizations" : {
         "en" : {
@@ -2104,6 +2484,16 @@
         }
       }
     },
+    "Мы не нашли у себя такого номера. Пожалуйста, зарегистрируйтесь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We did not find such a number. Please register"
+          }
+        }
+      }
+    },
     "Мягкая мебель, спальни" : {
       "localizations" : {
         "en" : {
@@ -2114,12 +2504,42 @@
         }
       }
     },
+    "на борт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "on board"
+          }
+        }
+      }
+    },
     "Навигационные приборы" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Navigation instruments"
+          }
+        }
+      }
+    },
+    "Нажимая на кнопку «Получить код», вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By clicking on the «Get code» button, you agree to the personal data processing rules of Free Lines Company LLC"
+          }
+        }
+      }
+    },
+    "Нажмите на + в правом верхнем углу или кнопку ниже, чтобы начать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click on + in the top right corner or the button below to get started"
           }
         }
       }
@@ -2204,6 +2624,16 @@
         }
       }
     },
+    "Не все тарифы загружены. Повторите через несколько минут" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not all tariffs are loaded. Repeat in a few minutes"
+          }
+        }
+      }
+    },
     "Не все услуги рассчитаны! Попробуйте пересчитать" : {
       "localizations" : {
         "en" : {
@@ -2230,6 +2660,156 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Can't open AppStore"
+          }
+        }
+      }
+    },
+    "Не удалось завершить вход, отсутствует подключение к интернету" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login failed, no internet connection"
+          }
+        }
+      }
+    },
+    "Не удалось завершить вход. Попробуйте ещё раз" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to complete login. Try again"
+          }
+        }
+      }
+    },
+    "Не удалось завершить регистрацию, отсутствует подключение к интернету" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registration failed, no internet connection"
+          }
+        }
+      }
+    },
+    "Не удалось завершить регистрацию. Попробуйте ещё раз" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to complete registration. Try again"
+          }
+        }
+      }
+    },
+    "Не удалось найти никнейм в Telegram" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find nickname in Telegram"
+          }
+        }
+      }
+    },
+    "Не удалось найти никнейм в WhatsApp" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find the nickname on WhatsApp"
+          }
+        }
+      }
+    },
+    "Не удалось открыть карты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to open maps"
+          }
+        }
+      }
+    },
+    "Не удалось отправить СМС" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to send SMS"
+          }
+        }
+      }
+    },
+    "Не удалось отправить сообщение" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to send an email"
+          }
+        }
+      }
+    },
+    "Не удалось получить расчёт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to get calculation"
+          }
+        }
+      }
+    },
+    "Не удалось скачать документ" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to download document"
+          }
+        }
+      }
+    },
+    "Не удалось совершить звонок" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to make a call"
+          }
+        }
+      }
+    },
+    "Не удалось сохранить. Попробуйте ещё раз" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save. Try again"
+          }
+        }
+      }
+    },
+    "Не удалось удалить аккаунт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to delete account"
+          }
+        }
+      }
+    },
+    "Необходимо активное подключение к интернету" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An active internet connection is required"
           }
         }
       }
@@ -2270,6 +2850,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Novorossiysk"
+          }
+        }
+      }
+    },
+    "Новый расчёт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New calculation"
           }
         }
       }
@@ -2474,6 +3064,16 @@
         }
       }
     },
+    "Одну минуту" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One minute"
+          }
+        }
+      }
+    },
     "Окна, двери" : {
       "localizations" : {
         "en" : {
@@ -2634,6 +3234,16 @@
         }
       }
     },
+    "Отправляем СМС" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sending SMS"
+          }
+        }
+      }
+    },
     "Отправляемся из Шанхая каждые вторник и пятницу. Выезд из Гуанчжоу каждую пятницу под выход из Шанхая во вторник" : {
       "localizations" : {
         "en" : {
@@ -2714,6 +3324,16 @@
         }
       }
     },
+    "Ошибка при загрузке городов" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error loading cities"
+          }
+        }
+      }
+    },
     "Панели" : {
       "localizations" : {
         "en" : {
@@ -2774,6 +3394,26 @@
         }
       }
     },
+    "Переключайте карточки свайпами вправо и влево.\n\nА долгое нажатие на карточке откроет меню с опцией копирования адреса" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch cards by swiping right and left.\n\nA long press on the card will open a menu with the option to copy the address"
+          }
+        }
+      }
+    },
+    "Пересчитать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recalculate"
+          }
+        }
+      }
+    },
     "Персональная информация" : {
       "localizations" : {
         "en" : {
@@ -2814,6 +3454,16 @@
         }
       }
     },
+    "Письмо отправлено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email sent"
+          }
+        }
+      }
+    },
     "Пищевая пленка" : {
       "localizations" : {
         "en" : {
@@ -2830,6 +3480,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plastic furniture"
+          }
+        }
+      }
+    },
+    "Плохое соединение. Попробуйте позже" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bad internet connection. Try again later"
           }
         }
       }
@@ -2924,12 +3584,42 @@
         }
       }
     },
+    "Подтверждение заявки на импортную перевозку груза" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmation of import logistics order"
+          }
+        }
+      }
+    },
     "Позвонить" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Call"
+          }
+        }
+      }
+    },
+    "Поиск" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
+    },
+    "Пока нет расчётов" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No calculations yet"
           }
         }
       }
@@ -2970,6 +3660,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Towels, tablecloths, etc."
+          }
+        }
+      }
+    },
+    "Получить код" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get code"
           }
         }
       }
@@ -3284,6 +3984,16 @@
         }
       }
     },
+    "Раздел находится в разработке" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Section is under development"
+          }
+        }
+      }
+    },
     "Разрешения" : {
       "localizations" : {
         "en" : {
@@ -3354,12 +4064,42 @@
         }
       }
     },
+    "Расчёт Авиа недоступен" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Air logistics calculation is not available"
+          }
+        }
+      }
+    },
     "Расчёты" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Calculations"
+          }
+        }
+      }
+    },
+    "расчёты будут сохранены" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "calculations will be saved"
+          }
+        }
+      }
+    },
+    "Регистрация" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registration"
           }
         }
       }
@@ -3674,12 +4414,42 @@
         }
       }
     },
+    "СМС отправлено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMS sent"
+          }
+        }
+      }
+    },
+    "Сначала выберите страну" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First select a country"
+          }
+        }
+      }
+    },
     "Снегоходы" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Snowmobiles"
+          }
+        }
+      }
+    },
+    "создать новый аккаунт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "create a new account"
           }
         }
       }
@@ -3710,6 +4480,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save changes"
+          }
+        }
+      }
+    },
+    "Сохраняем" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saving"
+          }
+        }
+      }
+    },
+    "Сперва заполните все поля" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First fill in all fields"
           }
         }
       }
@@ -3864,6 +4654,16 @@
         }
       }
     },
+    "Страна" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Country"
+          }
+        }
+      }
+    },
     "Страна Отправления" : {
       "localizations" : {
         "en" : {
@@ -3980,6 +4780,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Raw materials"
+          }
+        }
+      }
+    },
+    "Такой номер уже зарегистрирован. Пожалуйста, войдите" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This number has already been registered. Please login"
           }
         }
       }
@@ -4304,6 +5114,16 @@
         }
       }
     },
+    "Фри Лайнс" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free Lines"
+          }
+        }
+      }
+    },
     "Фурнитура для одежды" : {
       "localizations" : {
         "en" : {
@@ -4334,6 +5154,16 @@
         }
       }
     },
+    "ч." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "h."
+          }
+        }
+      }
+    },
     "Часы" : {
       "localizations" : {
         "en" : {
@@ -4360,6 +5190,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cleaning and detergents"
+          }
+        }
+      }
+    },
+    "Чтобы войти, выберите страну, введите ваш номер телефона, а затем четырёхзначный код из смс" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To log in, select a country, enter your phone number, and then the four-digit code from SMS"
           }
         }
       }
@@ -4530,6 +5370,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yuan"
+          }
+        }
+      }
+    },
+    "Яндекс Карты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yandex Maps"
           }
         }
       }

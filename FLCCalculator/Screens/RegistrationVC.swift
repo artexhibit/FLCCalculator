@@ -8,10 +8,10 @@ protocol RegistrationVCDelegate: AnyObject {
 class RegistrationVC: FLCLoginVC {
     
     private let enterPhoneAndEmailTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
-    private let countryCodePickerButton = FLCListPickerButton(placeholderText: "Страна", smallLabelFontSize: 25, mainLabelFontSize: 20)
-    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: "Номер телефона", smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 20, fontWeight: .bold)
-    private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: "Email", smallLabelFontSize: 20, keyboardType: .emailAddress, fontSize: 23, fontWeight: .bold)
-    private let proceedWithRegistrationButton = FLCButton(color: .flcOrange, title: "Зарегистрироваться", isEnabled: false)
+    private let countryCodePickerButton = FLCListPickerButton(placeholderText: AuthorizationStrings.countryCodePickerLabel, smallLabelFontSize: 25, mainLabelFontSize: 20)
+    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: AuthorizationStrings.phoneTFLabel, smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 20, fontWeight: .bold)
+    private let emailTextField = FLCNumberTextField(smallLabelPlaceholderText: AuthorizationStrings.emailTFLabel, smallLabelFontSize: 20, keyboardType: .emailAddress, fontSize: 23, fontWeight: .bold)
+    private let proceedWithRegistrationButton = FLCButton(color: .flcOrange, title: AuthorizationStrings.registrationButtonLabel, isEnabled: false)
     
     private var isPhoneValid = false
     private var isEmailValid = false
@@ -30,14 +30,14 @@ class RegistrationVC: FLCLoginVC {
     }
     
     private func configureVC() {
-        navigationItem.title = "Регистрация"
+        navigationItem.title = AuthorizationStrings.registration
         loginConfirmationVC.delegate = self
         loginConfirmationVC.setReturnButtonDelegate(vc: self)
         enterUserCredentialsView.addSubviews(enterPhoneAndEmailTitleLabel, countryCodePickerButton, phoneTextField, emailTextField, proceedWithRegistrationButton)
     }
     
     private func configureEnterPhoneTitleLabel() {
-        enterPhoneAndEmailTitleLabel.text = "Чтобы зарегистрироваться, выберите страну, введите номер телефона и email, а затем четырёхзначный код из смс"
+        enterPhoneAndEmailTitleLabel.text = AuthorizationStrings.enterPhoneTitleLabel
         
         NSLayoutConstraint.activate([
             enterPhoneAndEmailTitleLabel.topAnchor.constraint(equalTo: enterUserCredentialsView.topAnchor, constant: padding),
@@ -105,7 +105,7 @@ extension RegistrationVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == phoneTextField {
             guard !countryCodePickerButton.titleIsEmpty else {
-                FLCPopupView.showOnMainThread(title: "Сначала выберите страну", position: .top)
+                FLCPopupView.showOnMainThread(title: FLCPopupMessages.pickPhoneCodeCountry, position: .top)
                 return false
             }
             textField.placeholder = pickedCountryItem?.phoneMask ?? ""

@@ -2,7 +2,7 @@ import UIKit
 
 class OptionsTableViewHeader: UITableViewHeaderFooterView {
 
-    static let reuseID = "optionsTableViewHeader"
+    static let reuseID = String(describing: OptionsTableViewHeader.self)
     
     let optionsCollectionView = OptionsCollectionView()
     

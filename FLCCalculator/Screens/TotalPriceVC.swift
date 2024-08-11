@@ -25,7 +25,7 @@ class TotalPriceVC: UIViewController {
     private let invoiceIssueTintedView = FLCTintedView(color: .flcOrange, alpha: 0.15, withText: true)
     private let confirmButton = FLCButton(color: .flcOrange, title: TotalPriceVCStrings.confirmButton)
     private let saveButton = FLCButton(color: .flcGray, title: TotalPriceVCStrings.saveButton)
-    private let closeButton = FLCButton(color: .flcGray, title: TotalPriceVCStrings.closeButton)
+    private let closeButton = FLCButton(color: .flcGray, title: CommonStrings.closeButton)
     
     private var isCustomDetentContainerViewConfigured: Bool = false
     private var failedToFetchPrice: Bool = false

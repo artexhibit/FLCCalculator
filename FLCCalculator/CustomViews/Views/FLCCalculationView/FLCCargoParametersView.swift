@@ -206,7 +206,7 @@ extension FLCCargoParametersView: UITextFieldDelegate {
         let formatter = textField != self.invoiceAmountTextField ? NumberFormatter.getFLCNumberFormatter() : NumberFormatter.getFLCNumberFormatter(withDecimals: 0)
 
         let decimalSeparator = formatter.decimalSeparator ?? ""
-        let allowedCharacters = CharacterSet(charactersIn: "0123456789" + decimalSeparator)
+        let allowedCharacters = CharacterSet(charactersIn: TextFieldStrings.numbers + decimalSeparator)
         
         if string.rangeOfCharacter(from: allowedCharacters.inverted) != nil { return false }
         guard let text = textField.text else { return false }
@@ -279,7 +279,7 @@ extension FLCCargoParametersView: UITextViewDelegate {
     }
     
     private func configurePopoverAppearance(textAttachment: NSTextAttachment, range: NSRange, textView: UITextView) {
-        if let imageName = textAttachment.image, imageName.description.contains("info.circle") {
+        if let imageName = textAttachment.image, imageName.description.contains(FLCIcon.infoCircle.rawValue) {
             HapticManager.addHaptic(style: .light)
             
             let popover = FLCPopoverVC()

@@ -2,7 +2,7 @@ import UIKit
 
 final class OptionsCell: UICollectionViewCell {
     
-    static let reuseID = "OptionsCell"
+    static let reuseID = String(describing: OptionsCell.self)
     
     private let containerView = UIView()
     private let labelsContainerView = UIView()

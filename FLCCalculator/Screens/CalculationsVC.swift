@@ -73,7 +73,7 @@ class CalculationsVC: UIViewController {
         
         if calculations.isEmpty {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.showEmptyStateView(withTitle: "Пока нет расчётов", andSubtitle: "Нажмите на + в правом верхнем углу или кнопку ниже, чтобы начать")
+                self.showEmptyStateView(withTitle: CalculationsVCStrings.noCalculations, andSubtitle: CalculationsVCStrings.newCalculationLabel)
             }
         } else {
             DispatchQueue.main.async {

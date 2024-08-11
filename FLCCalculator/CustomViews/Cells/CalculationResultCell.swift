@@ -6,21 +6,21 @@ protocol CalculationResultCellDelegate: AnyObject {
 
 class CalculationResultCell: UITableViewCell {
     
-    static let reuseID = "CalculationResultCell"
+    static let reuseID = String(describing: CalculationResultCell.self)
     
     private let containerView = UIView()
     private let gradientLayer = CAGradientLayer()
         
     let titleTextView = FLCTextViewLabel()
     let subtitle = FLCSubtitleLabel(color: .flcCalculationResultCellSecondary, textAlignment: .left)
-    private let daysIconView = FLCImageView(image: UIImage(systemName: "clock.badge.checkmark"), tint: .flcCalculationResultCellSecondary)
+    private let daysIconView = FLCImageView(image: FLCIcon.clockBadge.icon, tint: .flcCalculationResultCellSecondary)
     let daysTextView = FLCTextViewLabel()
     let priceLabel = FLCTitleLabel(color: .flcCalculationResultCellSecondary, textAlignment: .right, size: 23)
     let failedPriceCalcContainer = UIView()
     private let failedPriceCalcContentStackView = UIStackView()
     private let failedPriceCalcErrorTitleLabel = FLCTitleLabel(color: .lightGray, textAlignment: .center, size: 18)
     let failedPriceCalcErrorSubtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .center)
-    let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: "Пересчитать", systemImage: FLCIcon.arrowTriangle.icon, size: .medium)
+    let failedPriceCalcRetryButton = FLCTintedButton(color: .lightGray, title: CalculationResultVCStrings.recalculate, systemImage: FLCIcon.arrowTriangle.icon, size: .medium)
     private let pickupWarningTextViewLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .footnote)
     
     var daysLabelHeightConstraint: NSLayoutConstraint!
@@ -173,7 +173,7 @@ class CalculationResultCell: UITableViewCell {
     }
     
     private func configureFailedPriceCalcErrorTitleLabel() {
-        failedPriceCalcErrorTitleLabel.text = "Не удалось получить расчёт"
+        failedPriceCalcErrorTitleLabel.text = CalculationResultVCStrings.cantGetCalculation
     }
     
     private func configureFailedPriceCalcRetryButton() { failedPriceCalcRetryButton.delegate = self }

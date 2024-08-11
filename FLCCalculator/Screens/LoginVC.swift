@@ -8,10 +8,10 @@ protocol LoginVCDelegate: AnyObject {
 final class LoginVC: FLCLoginVC {
     
     private let enterPhoneTitleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 19, weight: .medium)
-    private let countryCodePickerButton = FLCListPickerButton(placeholderText: "Страна", smallLabelFontSize: 25, mainLabelFontSize: 20)
-    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: "Номер телефона", smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 20, fontWeight: .bold)
-    private let verificationCodeButton = FLCButton(color: .flcOrange, title: "Получить код", isEnabled: false)
-    private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: "Нажимая на кнопку «Получить код», вы соглашаетесь с Правилами обработки персональных данных ООО «Фри Лайнс Компани»".makeAttributed(text: "Правилами обработки персональных данных", attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
+    private let countryCodePickerButton = FLCListPickerButton(placeholderText: AuthorizationStrings.countryCodePickerLabel, smallLabelFontSize: 25, mainLabelFontSize: 20)
+    private let phoneTextField = FLCNumberTextField(smallLabelPlaceholderText: AuthorizationStrings.phoneTFLabel, smallLabelFontSize: 20, keyboardType: .phonePad, fontSize: 20, fontWeight: .bold)
+    private let verificationCodeButton = FLCButton(color: .flcOrange, title: AuthorizationStrings.verificationCodeLabel, isEnabled: false)
+    private let privacyPolicyAgreenmentTextViewLabel = FLCTextViewLabel(text: AuthorizationStrings.privacyPolicyAgreenmentLabel.makeAttributed(text: AuthorizationStrings.privacyPolicyAgreenmentAttributedPart, attributes: [.underlineStyle, .link], linkValue: "privacyPolicy"))
     
     private var pickedCountryItem: FLCCountryPhonesData?
     weak var delegate: LoginVCDelegate?
@@ -27,14 +27,14 @@ final class LoginVC: FLCLoginVC {
     }
     
     private func configureVC() {
-        navigationItem.title = "Войти"
+        navigationItem.title = AuthorizationStrings.signIn
         loginConfirmationVC.delegate = self
         loginConfirmationVC.setReturnButtonDelegate(vc: self)
         enterUserCredentialsView.addSubviews(countryCodePickerButton, enterPhoneTitleLabel, phoneTextField, verificationCodeButton, privacyPolicyAgreenmentTextViewLabel)
     }
     
     private func configureEnterPhoneTitleLabel() {
-        enterPhoneTitleLabel.text = "Чтобы войти, выберите страну, введите ваш номер телефона, а затем четырёхзначный код из смс"
+        enterPhoneTitleLabel.text = AuthorizationStrings.enterPhoneTitleLabel
         
         NSLayoutConstraint.activate([
             enterPhoneTitleLabel.topAnchor.constraint(equalTo: enterUserCredentialsView.topAnchor, constant: padding),
@@ -100,7 +100,7 @@ final class LoginVC: FLCLoginVC {
 extension LoginVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         guard !countryCodePickerButton.titleIsEmpty else {
-            FLCPopupView.showOnMainThread(title: "Сначала выберите страну", position: .top)
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.pickPhoneCodeCountry, position: .top)
             return false
         }
         textField.placeholder = pickedCountryItem?.phoneMask ?? ""
