@@ -1,21 +1,21 @@
 import Foundation
 
 final class PriceCalculationManager {
-    private static let chinaTruckTariff: [ChinaTruckTariff]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let chinaRailwayTariff: [ChinaRailwayTariff]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let chinaAirTariff: [ChinaAirTariff]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyNovorossiyskBySeaTariff: [TurkeyNovorossiyskBySeaTariff]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let chinaTruckPickup: [ChinaTruckPickup]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let chinaRailwayPickup: [ChinaRailwayPickup]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let chinaAirPickup: [ChinaAirPickup]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyTruckByFerryPickup: [TurkeyTruckByFerryPickup]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyNovorossiyskBySeaPickup: [TurkeyNovorossiyskBySeaPickup]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyAirVKOTariff: [TurkeyAirVKOTariff]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyAirSVOTariff: [TurkeyAirSVOTariff]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyAirVKOPickup: [TurkeyAirVKOPickup]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let turkeyAirSVOPickup: [TurkeyAirSVOPickup]? = CoreDataManager.retrieveItemsFromCoreData()
-    private static let currencyData: CurrencyData? = CoreDataManager.retrieveItemFromCoreData()
+    private static var chinaTruckTariff: [ChinaTruckTariff]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var chinaRailwayTariff: [ChinaRailwayTariff]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var chinaAirTariff: [ChinaAirTariff]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyTruckByFerryTariff: [TurkeyTruckByFerryTariff]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyNovorossiyskBySeaTariff: [TurkeyNovorossiyskBySeaTariff]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var chinaTruckPickup: [ChinaTruckPickup]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var chinaRailwayPickup: [ChinaRailwayPickup]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var chinaAirPickup: [ChinaAirPickup]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyTruckByFerryPickup: [TurkeyTruckByFerryPickup]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyNovorossiyskBySeaPickup: [TurkeyNovorossiyskBySeaPickup]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyAirVKOTariff: [TurkeyAirVKOTariff]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyAirSVOTariff: [TurkeyAirSVOTariff]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyAirVKOPickup: [TurkeyAirVKOPickup]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var turkeyAirSVOPickup: [TurkeyAirSVOPickup]? { CoreDataManager.retrieveItemsFromCoreData() }
+    private static var currencyData: CurrencyData? { CoreDataManager.retrieveItemFromCoreData() }
     
     static func getInsurancePercentage(for logisticsType: FLCLogisticsType, item: CalculationResultItem? = nil) -> Double {
         let results = CoreDataManager.getCalculationResults(forCalculationID: item?.calculationData.id ?? 1)

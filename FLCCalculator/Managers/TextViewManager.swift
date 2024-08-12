@@ -8,7 +8,6 @@ struct TextViewManager {
         }
     }
     
-    
     static func showPrivacyPolicy(in vc: UIViewController) {
         let privacyPolicyDoc = Document(title: "", fileName: "documents/personalDataProcessingRules.pdf", docDate: "")
         

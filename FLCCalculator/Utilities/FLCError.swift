@@ -13,6 +13,7 @@ enum FLCError: String, Error {
     case castingError = "Значение не является строкой"
     case unableToFetchOrDecodeFromCoreData = "Не удалось получить или декодировать элементы из CoreData"
     case unableToEncodeOrSavetoCoreData = "Не удалось закодировать или сохранить элементы в CoreData"
+    case unableToUpdateInCoreData = "Не удалось обновить элементы в CoreData"
     case entityNotFound = "Сущность не найдена"
     case unableToSaveToUserDefaults = "Не удалось сохранить элементы в UserDefaults"
     case unableToUpdateUserDefaults = "Не удалось обновить элементы в UserDefaults"

@@ -14,6 +14,7 @@ class FirebaseManager: NSObject {
     static func configureFirebase() { FirebaseApp.configure() }
     static func configureMessagingDelegate() { Messaging.messaging().delegate = shared }
 
+    @MainActor
     static func getFirebaseDataUpdateDates() async throws -> [FirebaseDataUpdateItem] {
         let snapshot = try await Firestore.firestore().collection(Keys.dateDataWasUpdated).getDocuments()
         guard let dataDict = snapshot.documents.first?.data() else { throw FLCError.unableToGetDocuments }
@@ -25,6 +26,7 @@ class FirebaseManager: NSObject {
         return result
     }
     
+    @MainActor
     static func getDataFromFirebase<T: FirebaseIdentifiable>() async throws -> [T]? {
         let snapshot = try await Firestore.firestore().collection(T.collectionNameKey).getDocuments()
         guard let items = snapshot.documents.first?.data()[T.fieldNameKey] else { throw FLCError.unableToGetDocuments }
@@ -38,6 +40,7 @@ class FirebaseManager: NSObject {
         }
     }
     
+    @MainActor
     static func performUpdateForItem<T: FirebaseIdentifiable & CoreDataStorable>(item: T.Type) async -> Bool {
         do {
             async let itemToUpdate: [T]? = getDataFromFirebase()

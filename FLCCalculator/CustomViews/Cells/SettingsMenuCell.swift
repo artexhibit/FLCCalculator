@@ -9,7 +9,7 @@ final class SettingsMenuCell: FLCContentCell {
     static let reuseID = String(describing: SettingsMenuCell.self)
     
     private let pickedOptionLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .right, textStyle: .body)
-    private let menuIconView = FLCImageView(tint: .flcGray)
+    private let menuIconView = FLCImageView(tint: .systemGray3)
     private let showMenuButton = FLCMenuButton()
     
     private var contentType: FLCSettingsContentType?

@@ -6,7 +6,7 @@ struct SettingsVCHelper {
         let countryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
         let phoneCode = countryData?.phoneCode ?? ""
         let phoneNumber = user?.mobilePhone.removeStringPart(phoneCode.removeFirstCharacters(1)) ?? ""
-        let pickedThemeOption = FLCAppTheme(rawValue: UserDefaultsManager.appTheme)?.localizedDescription
+        let pickedThemeOption = FLCAppTheme(rawValue: UserDefaultsManager.appTheme)?.localizedDescription ?? FLCThemeOptionsStrings.onDevice
         let userMobilePhone = phoneCode + " " + TextFieldManager.formatPhoneNumber(with: countryData?.phoneMask ?? "", phone: phoneNumber)
         
         let firstSectionItems = [
@@ -15,6 +15,7 @@ struct SettingsVCHelper {
         let secondSectionItems = [
             SettingsCellContent(cellType: .switcher, contentType: .haptic, image: FLCIcon.hapticPhone.icon, title: SettingsVCStrings.haptic, subtitle: nil, pickedOption: nil),
             SettingsCellContent(cellType: .menu, contentType: .theme, image: FLCIcon.circleHalfRight.icon, title: SettingsVCStrings.theme, subtitle: nil, pickedOption: pickedThemeOption),
+            SettingsCellContent(cellType: .label, contentType: .language, image: FLCIcon.globe.icon, title: SettingsVCStrings.language, subtitle: nil, pickedOption: nil),
             SettingsCellContent(cellType: .label, contentType: .permissions, image: FLCIcon.key.icon, title: SettingsVCStrings.permissions, subtitle: nil, pickedOption: nil)
         ]
         let thirdSectionItems = [
@@ -99,6 +100,16 @@ struct SettingsVCHelper {
             UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)
         } else {
             FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantOpenAppStore, style: .error)
+        }
+    }
+    
+    static func goToSettingsLanguageSection() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        
+        if UIApplication.shared.canOpenURL(settingsURL) {
+            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+        } else {
+            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantOpenSettings, style: .error)
         }
     }
 }

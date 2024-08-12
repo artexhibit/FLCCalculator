@@ -20,8 +20,12 @@ class UsefulInfoVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureSections()
         tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        configureSections()
     }
     
     private func configureVC() {
@@ -48,15 +52,21 @@ class UsefulInfoVC: UIViewController {
     
     private func configureSections() {
         let manager: FLCManager? = CoreDataManager.retrieveItemFromCoreData()
-        if manager == nil { sections = sections.filter({ $0 != .managerContacts }) }
+        
+        if manager == nil {
+            sections = sections.filter({ $0 != .managerContacts })
+        } else {
+            guard let managerSectionIndex = self.sections.firstIndex(of: .managerContacts) else { return }
+            tableView.reloadSections([managerSectionIndex], with: .none)
+        }
     }
     
     private func updateDocumentsSectionUI(with docs: [Document]) {
-        DispatchQueue.main.async {
-            self.usefulInfoDocuments = docs
-            self.canRemoveShimmerInDocumentsCell = true
-            self.tableView.reloadSections([self.tableView.numberOfSections - 1], with: .none)
-        }
+        usefulInfoDocuments = docs
+        canRemoveShimmerInDocumentsCell = true
+        
+        guard let documentsSectionIndex = sections.firstIndex(of: .documents) else { return }
+        tableView.reloadSections([documentsSectionIndex], with: .none)
     }
 }
 

@@ -30,13 +30,13 @@ class NotificationService: UNNotificationServiceExtension {
             
             switch dataKey {
             case .isCalculationDataAvailable:
-                if boolValue { Task { await AppDelegateHelper.updateCalculationData() } }
+                if boolValue { Task { try await AppDelegateHelper.updateCalculationData() } }
             case .isDocumentsDataAvailable:
-                if boolValue { Task { await AppDelegateHelper.updateDocumentsData() } }
+                if boolValue { Task { try await AppDelegateHelper.updateDocumentsData() } }
             case .isManagerDataAvailable:
-                if boolValue { Task { await AppDelegateHelper.updateManagerData() } }
+                if boolValue { Task { try await AppDelegateHelper.updateManagerData() } }
             case .isNewLogisticsTypesDataAvailable:
-                if boolValue { Task { await AppDelegateHelper.updateAvailableLogisticsTypesData() } }
+                if boolValue { Task { try await AppDelegateHelper.updateAvailableLogisticsTypesData() } }
             }
         }
     }

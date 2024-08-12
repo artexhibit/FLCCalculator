@@ -122,8 +122,8 @@ struct CalculationView: View {
                 }
                 
                 HStack {
-                    CalculationTagView(systemImageName: FLCIcon.scaleMass.rawValue, text: "\(calculation.weight.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("кг", comment: ""))")
-                    CalculationTagView(systemImageName: FLCIcon.shippingBox.rawValue, text: "\(calculation.volume.formatAsNumber().removeTrailingZeroes()) \(NSLocalizedString("м3", comment: ""))")
+                    CalculationTagView(systemImageName: FLCIcon.scaleMass.rawValue, text: "\(calculation.weight.formatAsNumber().removeTrailingZeroes()) \(String(localized: "кг"))")
+                    CalculationTagView(systemImageName: FLCIcon.shippingBox.rawValue, text: "\(calculation.volume.formatAsNumber().removeTrailingZeroes()) \(String(localized: "м3"))")
                     
                     Spacer()
                 }

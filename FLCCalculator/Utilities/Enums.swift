@@ -18,7 +18,7 @@ enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresCon
 enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase, contacts }
 enum FLCTextFieldType { case email, phone(mask: String), username, birthdate, companyName, taxPayerID, customsDeclarationsAmount }
 enum FLCSettingsCellType { case profile, switcher, menu, label }
-enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp }
+enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp, language }
 enum FLCPermissionType { case notifications }
 enum FLCHTTPMethod: String { case POST, GET, PATCH }
 enum FLCRoundButtonType { case phone, email, route, details, telegram, whatsapp, standard }
@@ -359,17 +359,15 @@ enum FLCIcon: String, CaseIterable {
     case docText = "doc.text.fill"
     case gear = "gear"
     case plus = "plus"
+    case globe = "globe"
     case chevronLeft = "chevron.left"
     case chevronRight = "chevron.right"
 
     var icon: UIImage {
         switch self {
-        case .telegram:
-            return UIImage(resource: .telegram)
-        case .whatsapp:
-            return UIImage(resource: .whatsappFill)
-        default:
-            return UIImage(systemName: self.rawValue) ?? UIImage()
+        case .telegram: return UIImage(resource: .telegram)
+        case .whatsapp: return UIImage(resource: .whatsappFill)
+        default: return UIImage(systemName: self.rawValue) ?? UIImage()
         }
     }
 }

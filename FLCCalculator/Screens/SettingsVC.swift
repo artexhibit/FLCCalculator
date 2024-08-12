@@ -60,6 +60,7 @@ extension SettingsVC: UITableViewDelegate {
         case .shareApp: SettingsVCHelper.presentShareAppSheet(in: self, sourceView: tableView, at: indexPath)
         case .rateApp: SettingsVCHelper.goToAppStoreReviewPage()
         case .support: FLCMailComposeVC.sendEmail(from: self.view, manager: CalculationInfo.defaultManager)
+        case .language: SettingsVCHelper.goToSettingsLanguageSection()
         }
     }
     
@@ -102,7 +103,7 @@ extension SettingsVC: SettingsSwitchCellDelegate {
     func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
         switch contentType {
         case .haptic: UserDefaultsManager.isHapticTurnedOn = state
-        case .profile, .theme, .permissions,.support, .shareApp, .rateApp: break
+        case .profile, .theme, .permissions,.support, .shareApp, .rateApp, .language: break
         }
     }
 }
@@ -113,7 +114,7 @@ extension SettingsVC: SettingsMenuCellDelegate {
         case .theme:
             updateDataSource()
             SettingsVCHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
-        case .profile, .haptic, .permissions, .support, .shareApp, .rateApp: break
+        case .profile, .haptic, .permissions, .support, .shareApp, .rateApp, .language: break
         }
     }
 }

@@ -29,15 +29,15 @@ struct BackgroundTasksManager {
             
             switch id {
             case .updateCurrencyDataTaskId:
-                AppDelegateHelper.updateCurrencyData(for: task)
+                Task { try await AppDelegateHelper.updateCurrencyData(for: task) }
             case .updateCalculationData:
-                AppDelegateHelper.updateCalculationData(for: task)
+                Task { try await AppDelegateHelper.updateCalculationData(for: task) }
             case .updateManagerData:
-                AppDelegateHelper.updateManagerData(for: task)
+                Task { try await AppDelegateHelper.updateManagerData(for: task) }
             case .updateDocumentsData:
-                AppDelegateHelper.updateDocumentsData(for: task)
+                Task { try await AppDelegateHelper.updateDocumentsData(for: task) }
             case .updateAvailableLogisticsTypesData:
-                AppDelegateHelper.updateAvailableLogisticsTypesData(for: task)
+                Task { try await AppDelegateHelper.updateAvailableLogisticsTypesData(for: task) }
             }
         }
     }

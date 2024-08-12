@@ -30,10 +30,12 @@ struct FLCPersonalManagerViewHelper {
     }
     
     static func showPhoneCallUIMenu(of manager: FLCManager?) -> UIMenu {
+        let deviceLanguageCode = LanguageManager.shared.currentDeviceLanguage.rawValue
+        
         let mobileNumberItem = UIAction(title: manager?.mobilePhone ?? "", subtitle: FLCPersonalManagerViewStrings.mobilePhone, image: FLCIcon.phone.icon) { (_) in
             CalculatorManager.createPhoneCall(with: manager?.mobilePhone ?? "")
         }
-        let landlineNumberItem = UIAction(title: manager?.landlinePhone ?? "", subtitle: FLCPersonalManagerViewStrings.landlinePhone, image: FLCIcon.phone.icon) { (_) in
+        let landlineNumberItem = UIAction(title: manager?.localisationData?[deviceLanguageCode]?.landlinePhone ?? "", subtitle: FLCPersonalManagerViewStrings.landlinePhone, image: FLCIcon.phone.icon) { (_) in
             CalculatorManager.createPhoneCall(with: manager?.landlinePhone ?? "")
         }
         return UIMenu(title: FLCPersonalManagerViewStrings.phoneCallUIMenuTitle, children: [mobileNumberItem, landlineNumberItem])

@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "ru",
   "strings" : {
-    "\nХочу подтвердить заявку. \nИнформация по расчету в письме\n\n" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "I would like to confirm the order. \nOrder information in attached"
-          }
-        }
-      }
-    },
     " - Аэропорт" : {
       "localizations" : {
         "en" : {
@@ -1354,6 +1344,16 @@
         }
       }
     },
+    "Загружаем тарифы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading tariffs"
+          }
+        }
+      }
+    },
     "Загружаю файл" : {
       "localizations" : {
         "en" : {
@@ -1670,6 +1670,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The information is filled in incorrectly. Please fix"
+          }
+        }
+      }
+    },
+    "Информация по расчету в письме" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Order information in attached"
           }
         }
       }
@@ -2509,7 +2519,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "on board"
+            "value" : "on board of"
           }
         }
       }
@@ -2660,6 +2670,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Can't open AppStore"
+          }
+        }
+      }
+    },
+    "Не получается открыть Настройки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can't open Settings"
           }
         }
       }
@@ -4834,6 +4854,16 @@
         }
       }
     },
+    "Тарифы загружены" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tariffs are downloaded"
+          }
+        }
+      }
+    },
     "Текстильные изделия" : {
       "localizations" : {
         "en" : {
@@ -5154,6 +5184,16 @@
         }
       }
     },
+    "Хочу подтвердить заявку" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I would like to confirm the order"
+          }
+        }
+      }
+    },
     "ч." : {
       "localizations" : {
         "en" : {
@@ -5370,6 +5410,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yuan"
+          }
+        }
+      }
+    },
+    "Язык приложения" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App language"
           }
         }
       }
