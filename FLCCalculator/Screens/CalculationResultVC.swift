@@ -91,7 +91,7 @@ class CalculationResultVC: UIViewController {
     }
     
     private func updateEmptyStateView(with pickedLogisticsType: FLCLogisticsType) {
-        let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.21 : 0.13
+        let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.21 : CalculationResultHelper.totalPriceScreenHeightMultiplier
         
         if calculationData?.weight ?? 0 > maxWeight && FLCLogisticsType.airLogisticsTypes.contains(pickedLogisticsType) {
             if emptyStateView.superview == nil {
@@ -274,7 +274,7 @@ extension CalculationResultVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.23 : view.frame.height * 0.13
+        DeviceTypes.isiPhoneSE3rdGen ? view.frame.height * 0.23 : view.frame.height * CalculationResultHelper.totalPriceScreenHeightMultiplier
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 65 }

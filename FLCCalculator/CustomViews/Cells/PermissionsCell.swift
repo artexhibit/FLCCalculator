@@ -39,6 +39,8 @@ class PermissionsCell: UITableViewCell {
     
     private func configureHeadlineLabel() {
         headlineLabel.text = PermissionsStrings.configureHeadlineLabel
+        headlineLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        headlineLabel.setContentHuggingPriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
             headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),

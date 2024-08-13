@@ -21,10 +21,6 @@ class UsefulInfoVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         configureSections()
     }
     
@@ -52,13 +48,8 @@ class UsefulInfoVC: UIViewController {
     
     private func configureSections() {
         let manager: FLCManager? = CoreDataManager.retrieveItemFromCoreData()
-        
-        if manager == nil {
-            sections = sections.filter({ $0 != .managerContacts })
-        } else {
-            guard let managerSectionIndex = self.sections.firstIndex(of: .managerContacts) else { return }
-            tableView.reloadSections([managerSectionIndex], with: .none)
-        }
+        if manager == nil { sections = sections.filter({ $0 != .managerContacts }) }
+        tableView.reloadData()
     }
     
     private func updateDocumentsSectionUI(with docs: [Document]) {

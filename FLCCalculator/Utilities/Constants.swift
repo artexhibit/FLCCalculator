@@ -369,6 +369,7 @@ enum MailVCStrings {
     static let confirmOrderMessageStart = String(localized: "Хочу подтвердить заявку")
     static let confirmOrderMessageEnd = String(localized: "Информация по расчету в письме")
     static let goodDayLabel = String(localized: "добрый день")
+    static let defaultManagerName = String(localized: "Игорь")
 }
 
 enum SecretsStrings {

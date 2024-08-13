@@ -1574,6 +1574,16 @@
         }
       }
     },
+    "Игорь" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Igor"
+          }
+        }
+      }
+    },
     "Игровое оборудование" : {
       "localizations" : {
         "en" : {
@@ -3779,7 +3789,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Possibility of goods import checker"
+            "value" : "Goods import checker"
           }
         }
       }

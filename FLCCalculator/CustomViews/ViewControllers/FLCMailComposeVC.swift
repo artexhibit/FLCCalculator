@@ -77,7 +77,7 @@ class FLCMailComposeVC: MFMailComposeViewController {
         let deviceLanguageCode = LanguageManager.shared.currentDeviceLanguage.rawValue
         let subject = confirmedCalculation == nil ? "" : MailVCStrings.confirmOrderLabel
         let messageAddition = confirmedCalculation == nil ? "" : "\n\(MailVCStrings.confirmOrderMessageStart). \n\(MailVCStrings.confirmOrderMessageEnd)\n\n"
-        let message = "\(manager?.localisationData?[deviceLanguageCode]?.name.getDataBetweenCharacter() ?? ""), \(MailVCStrings.goodDayLabel)," + messageAddition
+        let message = "\(manager?.localisationData?[deviceLanguageCode]?.name.getDataBetweenCharacter() ?? MailVCStrings.defaultManagerName), \(MailVCStrings.goodDayLabel)," + messageAddition
         sendEmailTo(email: manager?.email ?? "", subject: subject, message: message, confirmedCalculation: confirmedCalculation, from: parentVC)
     }
 }

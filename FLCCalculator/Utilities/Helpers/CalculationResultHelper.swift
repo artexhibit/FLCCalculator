@@ -1,6 +1,8 @@
 import UIKit
 
 struct CalculationResultHelper {
+    static let totalPriceScreenHeightMultiplier = 0.147
+    
     static func getRussianDeliveryPrice(item: CalculationResultItem) async -> Result<(price: String, days: String), FLCError> {
         do {
             let data = try await NetworkManager.shared.getRussianDelivery(for: item)
