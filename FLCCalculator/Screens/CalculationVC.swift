@@ -159,10 +159,10 @@ extension CalculationVC: FLCCalculationViewDelegate {
             CalculationHelper.presentListPickerVC(from: button, listener: cargoView, items: CalculationInfo.categories, in: self)
             
         case cargoView.invoiceCurrencyPickerButton:
-            CalculationHelper.presentSheetPickerVC(items: CalculationInfo.currencyOptions, triggerButton: button, listener: cargoView, in: self)
+            CalculationHelper.presentSheetPickerVC(items: CalculationInfo.currencyOptions, triggerButton: button, listener: cargoView, in: self, iPhoneSEHeight: 0.65)
             
         case transportView.countryPickerButton:
-            CalculationHelper.presentSheetPickerVC(items: CalculationInfo.countriesOptions, triggerButton: button, listener: transportView, in: self, size: 0.2)
+            CalculationHelper.presentSheetPickerVC(items: CalculationInfo.countriesOptions, triggerButton: button, listener: transportView, in: self, iPhoneSEHeight: 0.3, otherDeviceHeight: 0.2)
             transportView.flcListPickerButtons.forEach { if !$0.titleIsEmpty { transportView.listPickerButtonsWithTitle[$0] = true } }
    
         case transportView.deliveryTypePickerButton:
@@ -171,7 +171,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 return
             }
             let items = CalculationHelper.getItems(basedOn: pickedCountry, for: button)
-            CalculationHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self, size: 0.45)
+            CalculationHelper.presentSheetPickerVC(items: items, triggerButton: button, listener: transportView, in: self, iPhoneSEHeight: 0.65, otherDeviceHeight: 0.47)
             
         case transportView.departurePickerButton:
             guard !transportView.countryPickerButton.titleIsEmpty else {
@@ -192,7 +192,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 case .russia: break
                 }
                 
-                CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, title: CalculationStrings.chinaDepartureAirportLabel, cantCloseBySwipe: true)
+                CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, iPhoneSEHeight: 0.75, title: CalculationStrings.chinaDepartureAirportLabel, cantCloseBySwipe: true)
             } else {
                 if transportView.departurePickerButton.showingTitle == FLCCity.istanbul.rawValue {
                     CalculationHelper.showIstanbulZones(in: transportView, and: self)

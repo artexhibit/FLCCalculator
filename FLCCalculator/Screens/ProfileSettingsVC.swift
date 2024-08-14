@@ -28,7 +28,7 @@ class ProfileSettingsVC: UIViewController {
     private var user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
     private var countryData: FLCCountryPhonesData?
     private var oldPhoneNumber = ""
-    private let containerHeight: CGFloat = 980
+    private let containerHeight: CGFloat = 1000
     private let textFieldsHeight: CGFloat = 50
     private let textFieldsSmallLabelSize: CGFloat = 17
     private let padding: CGFloat = 17

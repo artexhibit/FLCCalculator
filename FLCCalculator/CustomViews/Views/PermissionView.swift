@@ -67,9 +67,6 @@ class PermissionView: UIView {
     }
     
     private func configureTitleLabel() {
-        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        titleLabel.setContentHuggingPriority(.required, for: .vertical)
-        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: textContentView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: textContentView.leadingAnchor),
@@ -78,9 +75,6 @@ class PermissionView: UIView {
     }
     
     private func configureSubtitleLabel() {
-        subtitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        subtitleLabel.setContentHuggingPriority(.required, for: .vertical)
-        
         NSLayoutConstraint.activate([
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding / 3),
             subtitleLabel.leadingAnchor.constraint(equalTo: textContentView.leadingAnchor),
@@ -95,7 +89,7 @@ class PermissionView: UIView {
         NSLayoutConstraint.activate([
             permissionButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             permissionButton.centerYAnchor.constraint(equalTo: textContentView.centerYAnchor),
-            permissionButton.widthAnchor.constraint(lessThanOrEqualToConstant: 150)
+            permissionButton.widthAnchor.constraint(equalToConstant: 100)
         ])
     }
     

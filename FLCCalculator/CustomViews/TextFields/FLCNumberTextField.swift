@@ -32,7 +32,7 @@ class FLCNumberTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(smallLabelPlaceholderText: String = "", smallLabelFontSize: CGFloat = 0, keyboardType: UIKeyboardType = .decimalPad, textContentType: UITextContentType? = nil, fontSize: CGFloat = 19, fontWeight: UIFont.Weight = .bold, addClearButton: Bool = true, withSmallLabel: Bool = true, isTextCentered: Bool = false) {
+    convenience init(smallLabelPlaceholderText: String = "", smallLabelFontSize: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 18 : 0, keyboardType: UIKeyboardType = .decimalPad, textContentType: UITextContentType? = nil, fontSize: CGFloat = 19, fontWeight: UIFont.Weight = .bold, addClearButton: Bool = true, withSmallLabel: Bool = true, isTextCentered: Bool = false) {
         self.init(frame: .zero)
         
         self.withSmallLabel = withSmallLabel

@@ -12,7 +12,7 @@ class PermissionsCell: UITableViewCell {
     
     private let headlineLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 18, weight: .medium)
     private let permissionsStackView = UIStackView()
-    private let footerLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .callout)
+    private let footerLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .left, textStyle: .caption1)
     
     weak var delegate: PermissionsCellDelegate?
     
@@ -33,14 +33,12 @@ class PermissionsCell: UITableViewCell {
     }
     
     private func configure() {
-        contentView.addSubviews(headlineLabel, permissionsStackView)
+        contentView.addSubviews(headlineLabel, permissionsStackView, footerLabel)
         selectionStyle = .none
     }
     
     private func configureHeadlineLabel() {
         headlineLabel.text = PermissionsStrings.configureHeadlineLabel
-        headlineLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        headlineLabel.setContentHuggingPriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
             headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
@@ -52,8 +50,8 @@ class PermissionsCell: UITableViewCell {
     private func configurePermissionsStackView() {
         permissionsStackView.translatesAutoresizingMaskIntoConstraints = false
         permissionsStackView.axis = .vertical
-        permissionsStackView.distribution = .fillEqually
-        permissionsStackView.spacing = 0
+        permissionsStackView.distribution = .fill
+        permissionsStackView.spacing = 5
         permissionsStackView.alignment = .center
         
         permissions.forEach { permissionItem in
@@ -65,18 +63,23 @@ class PermissionsCell: UITableViewCell {
                 permissionView.widthAnchor.constraint(equalTo: permissionsStackView.widthAnchor)
             ])
         }
-        permissionsStackView.addArrangedSubview(footerLabel)
         
         NSLayoutConstraint.activate([
             permissionsStackView.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: padding),
             permissionsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            permissionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            permissionsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            permissionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
         ])
     }
     
     private func configureFooterLabel() {
         footerLabel.text = PermissionsStrings.footerLabel
+        
+        NSLayoutConstraint.activate([
+            footerLabel.topAnchor.constraint(equalTo: permissionsStackView.bottomAnchor, constant: padding / 2),
+            footerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 1.2),
+            footerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            footerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
     }
 }
 

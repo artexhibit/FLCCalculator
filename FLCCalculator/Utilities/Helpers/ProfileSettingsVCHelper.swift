@@ -122,7 +122,7 @@ struct ProfileSettingsVCHelper {
         await MainActor.run { loginConfirmationVC.delegate = vc as FLCLoginConfirmationVCDelegate }
         await loginConfirmationVC.setLoginConfirmationView(phoneNumber: phoneNumber, verificationCode: code, isReturnButtonOn: false)
         let navController = await UINavigationController(rootViewController: loginConfirmationVC)
-        await navController.sheetPresentationController?.getFLCSheetPresentationController(in: vc.view, size: 0.4)
+        await navController.sheetPresentationController?.getFLCSheetPresentationController(in: vc.view, otherDeviceHeight: 0.4)
         await vc.present(navController, animated: true)
     }
     

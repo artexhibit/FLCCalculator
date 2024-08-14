@@ -69,11 +69,11 @@ struct CalculationHelper {
         viewController.present(navController, animated: true)
     }
     
-    static func presentSheetPickerVC(items: [FLCPickerItem], triggerButton: FLCListPickerButton, listener: FLCCalculationView, in viewController: UIViewController, size: CGFloat = 0.5, title: String? = nil, cantCloseBySwipe: Bool = false) {
+    static func presentSheetPickerVC(items: [FLCPickerItem], triggerButton: FLCListPickerButton, listener: FLCCalculationView, in viewController: UIViewController, iPhoneSEHeight: CGFloat, otherDeviceHeight: CGFloat = 0.5, title: String? = nil, cantCloseBySwipe: Bool = false) {
         let sheetPickerVC = FLCSheetPickerVC(items: items, triggerButton: triggerButton, title: title)
         sheetPickerVC.delegate = listener as? FLCPickerDelegate
         let navController = UINavigationController(rootViewController: sheetPickerVC)
-        navController.sheetPresentationController?.getFLCSheetPresentationController(in: viewController.view, size: size)
+        navController.sheetPresentationController?.getFLCSheetPresentationController(in: viewController.view, iPhoneSEHeight: iPhoneSEHeight, otherDeviceHeight: otherDeviceHeight)
         navController.isModalInPresentation = cantCloseBySwipe
         viewController.present(navController, animated: true)
     }
@@ -82,7 +82,7 @@ struct CalculationHelper {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             guard let totalPriceVC = vc as? TotalPriceVC, let parentVC = parentVC as? CalculationResultVC else { return }
             totalPriceVC.isModalInPresentation = true
-            totalPriceVC.sheetPresentationController?.getFLCSheetPresentationController(in: parentVC.view, size: customSizeDetentHeight, dimmed: false, cornerRadius: 35, addSmallDetent: true)
+            totalPriceVC.sheetPresentationController?.getFLCSheetPresentationController(in: parentVC.view, otherDeviceHeight: customSizeDetentHeight, dimmed: false, cornerRadius: 35, addSmallDetent: true)
             parentVC.present(totalPriceVC, animated: true)
         }
     }

@@ -26,7 +26,7 @@ class FLCListPickerButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(placeholderText: String, smallLabelFontSize: CGFloat = 0, mainLabelFontSize: CGFloat = 19) {
+    convenience init(placeholderText: String, smallLabelFontSize: CGFloat = DeviceTypes.isiPhoneSE3rdGen ? 18 : 0, mainLabelFontSize: CGFloat = 19) {
         self.init(frame: .zero)
         smallLabelView.configureSmallLabel(with: placeholderText, fontSize: smallLabelFontSize)
         smallLabelView.constraint(in: self)

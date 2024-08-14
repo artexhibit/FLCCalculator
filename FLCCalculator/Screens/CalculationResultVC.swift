@@ -265,7 +265,10 @@ class CalculationResultVC: UIViewController {
         if detected { closeButtonPressed() }
     }
     func setCalculationData(data: CalculationData) { self.calculationData = data }
-    @objc func closeButtonPressed() { navigationController?.popViewController(animated: true) }
+    @objc func closeButtonPressed() {
+        navigationController?.popViewController(animated: true)
+        totalPriceVC.dismiss(animated: true)
+    }
 }
 
 extension CalculationResultVC: UITableViewDelegate {

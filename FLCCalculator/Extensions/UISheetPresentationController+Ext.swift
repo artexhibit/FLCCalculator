@@ -11,11 +11,11 @@ extension UISheetPresentationController {
         return [smallDetent, customSizeDetent]
     }
     
-    func getFLCSheetPresentationController(in view: UIView, size: CGFloat, dimmed: Bool = true, cornerRadius: CGFloat = 25, addSmallDetent: Bool = false) {
+    func getFLCSheetPresentationController(in view: UIView, iPhoneSEHeight: CGFloat = 0.85, otherDeviceHeight: CGFloat, dimmed: Bool = true, cornerRadius: CGFloat = 25, addSmallDetent: Bool = false) {
         self.preferredCornerRadius = cornerRadius
         self.prefersGrabberVisible = true
         let smallSize = DeviceTypes.isiPhoneSE3rdGen ? 0.22 : CalculationResultHelper.totalPriceScreenHeightMultiplier
-        let customSize = DeviceTypes.isiPhoneSE3rdGen ? 0.85 : size
+        let customSize = DeviceTypes.isiPhoneSE3rdGen ? iPhoneSEHeight : otherDeviceHeight
         let detents = getDetents(for: view, of: (smallSize, customSize))
         
         if !dimmed { self.largestUndimmedDetentIdentifier = .customSizeDetent }

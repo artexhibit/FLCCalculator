@@ -54,7 +54,7 @@ struct CalculationResultHelper {
     }
     
     static func configureInitialData(with data: CalculationData, pickedLogisticsType: FLCLogisticsType) -> [CalculationResultItem] {
-        var baseItems: [CalculationResultItem]
+        var baseItems: [CalculationResultItem] = []
         
         switch pickedLogisticsType {
         case .chinaTruck, .chinaRailway:
@@ -174,7 +174,7 @@ struct CalculationResultHelper {
     static func saveNetworkingData(oldItems: [CalculationResultItem], newItems: [CalculationResultItem]) -> [CalculationResultItem] {
         let russianDeliveryItem = oldItems.filter { $0.type == .russianDelivery }
         let filteredNewItems = newItems.filter { $0.type != .russianDelivery }
-        return russianDeliveryItem + filteredNewItems
+        return (russianDeliveryItem + filteredNewItems).sorted(by: { $0.type.rawValue < $1.type.rawValue })
     }
     
     static func getAllCalculationsFor(allLogisticsTypes: [FLCLogisticsType], calculationData: CalculationData) async -> [TotalPriceData] {

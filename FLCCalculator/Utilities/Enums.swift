@@ -181,11 +181,8 @@ enum FLCCountryWarehouse: String, CaseIterable {
         }
     }
     
-    init(localizedString: String) {
-        guard let type = FLCCountryWarehouse.allCases.first(where: { $0.localizedDescription == localizedString }) else {
-            self = .russia
-            return
-        }
+    init?(localizedString: String) {
+        guard let type = FLCCountryWarehouse.allCases.first(where: { $0.localizedDescription == localizedString }) else { return nil }
         self = type
     }
 }
