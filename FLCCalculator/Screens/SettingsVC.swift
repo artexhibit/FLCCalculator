@@ -60,7 +60,7 @@ extension SettingsVC: UITableViewDelegate {
         case .shareApp: SettingsVCHelper.presentShareAppSheet(in: self, sourceView: tableView, at: indexPath)
         case .rateApp: SettingsVCHelper.goToAppStoreReviewPage()
         case .support: FLCMailComposeVC.sendEmail(from: self.view, manager: CalculationInfo.defaultManager)
-        case .language: SettingsVCHelper.goToSettingsLanguageSection()
+        case .language: PermissionsManager.openAppPermissionsSettings()
         }
     }
     

@@ -12,7 +12,7 @@ class PermissionView: UIView {
     private let textContentView = UIView()
     private let titleLabel = FLCTitleLabel(color: .flcGray, textAlignment: .left, size: 20, weight: .bold)
     private let subtitleLabel = FLCSubtitleLabel(color: .lightGray, textAlignment: .left, textStyle: .caption1)
-    private let permissionButton = FLCTintedButton(color: .flcOrange, title: PermissionsStrings.permissionButtonAllow, cornerStyle: .capsule)
+    private let permissionButton = FLCTintedButton(color: .flcOrange, title: PermissionsStrings.permissionButtonAllow, titleFontSize: 13, cornerStyle: .capsule)
     private var type: FLCPermissionType = .notifications
     
     weak var delegate: PermissionViewDelegate?
@@ -95,7 +95,7 @@ class PermissionView: UIView {
     
     func updatePermissionButtonUI(with isAccessGranted: Bool) {
         Task {
-            isAccessGranted ? permissionButton.set(color: .flcGray, title: PermissionsStrings.permissionButtonAllowed, cornerStyle: .capsule) : permissionButton.set(color: .flcOrange, title: PermissionsStrings.permissionButtonAllow, cornerStyle: .capsule)
+            isAccessGranted ? permissionButton.set(color: .flcGray, title: PermissionsStrings.permissionButtonAllowed, titleFontSize: 13, cornerStyle: .capsule) : permissionButton.set(color: .flcOrange, title: PermissionsStrings.permissionButtonAllow, titleFontSize: 13, cornerStyle: .capsule)
         }
     }
     func getType() -> FLCPermissionType { type }

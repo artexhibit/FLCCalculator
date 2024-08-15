@@ -102,14 +102,4 @@ struct SettingsVCHelper {
             FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantOpenAppStore, style: .error)
         }
     }
-    
-    static func goToSettingsLanguageSection() {
-        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-        
-        if UIApplication.shared.canOpenURL(settingsURL) {
-            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-        } else {
-            FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantOpenSettings, style: .error)
-        }
-    }
 }

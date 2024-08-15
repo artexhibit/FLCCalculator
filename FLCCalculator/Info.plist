@@ -16,6 +16,8 @@
 	</array>
 	<key>Bubble Token</key>
 	<string>$(BUBBLE_TOKEN)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>Оповещения об изменении тарифов и акциях</string>
 	<key>SMS API Key</key>

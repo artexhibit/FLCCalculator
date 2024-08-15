@@ -254,6 +254,7 @@
 		0BF9388F2B8534BA00A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938902B85370800A18016 /* CalculationTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */; };
 		0BF938932B853A6900A18016 /* CalculationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF938922B853A6900A18016 /* CalculationVC.swift */; };
+		0BF9D3CC2C6E915A0098B731 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0BF9D3CA2C6E915A0098B731 /* InfoPlist.strings */; };
 		0BFA01542BB80F3D00AC453B /* FLCPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */; };
 		0BFA898A2C22B7A40023D949 /* FLCCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54302B810BA00078C110 /* FLCCalculator.xcdatamodeld */; };
 		0BFA898B2C22B7BC0023D949 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E54452B8115420078C110 /* Persistence.swift */; };
@@ -569,6 +570,7 @@
 		0BF9388B2B850EC600A18016 /* FLCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCButton.swift; sourceTree = "<group>"; };
 		0BF9388E2B8534BA00A18016 /* CalculationTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTagView.swift; sourceTree = "<group>"; };
 		0BF938922B853A6900A18016 /* CalculationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationVC.swift; sourceTree = "<group>"; };
+		0BF9D3CD2C6E91FB0098B731 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0BFA01532BB80F3D00AC453B /* FLCPopoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCPopoverVC.swift; sourceTree = "<group>"; };
 		0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationData.swift; sourceTree = "<group>"; };
 		0BFBD7422BA37E2B00B485B8 /* CalculationResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultVC.swift; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 		0B6E541B2B810BA00078C110 = {
 			isa = PBXGroup;
 			children = (
+				0BF9D3CA2C6E915A0098B731 /* InfoPlist.strings */,
 				0B7188E22C5FE462009D8D32 /* Localizable.xcstrings */,
 				0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */,
 				0BABA4BB2C22F987000991E9 /* WidgetsExtension.entitlements */,
@@ -1257,6 +1260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B6E54372B810BA20078C110 /* LaunchScreen.storyboard in Resources */,
+				0BF9D3CC2C6E915A0098B731 /* InfoPlist.strings in Resources */,
 				0B7188E32C5FE462009D8D32 /* Localizable.xcstrings in Resources */,
 				0B6E54342B810BA20078C110 /* Assets.xcassets in Resources */,
 				0B58D7A72C45ABB300C7EC80 /* PrivacyInfo.xcprivacy in Resources */,
@@ -1647,6 +1651,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		0BF9D3CA2C6E915A0098B731 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0BF9D3CD2C6E91FB0098B731 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1842,7 +1854,7 @@
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLCCalculator/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "FLC Calculator";
+				INFOPLIST_KEY_CFBundleDisplayName = "FLC Калькулятор";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -1878,7 +1890,7 @@
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLCCalculator/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "FLC Calculator";
+				INFOPLIST_KEY_CFBundleDisplayName = "FLC Калькулятор";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;

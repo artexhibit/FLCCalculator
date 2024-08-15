@@ -418,7 +418,6 @@ enum ConfirmOrderVCStrings {
 
 enum FLCPopupMessages {
     static let cantOpenAppStore = String(localized: "Не получается открыть App Store")
-    static let cantOpenSettings = String(localized: "Не получается открыть Настройки")
     static let tariffsNotDowloaded = String(localized: "Не все тарифы загружены. Повторите через несколько минут")
     static let notZeroValue = String(localized: "Значение не должно быть нулевым")
     static let pickInstanbulRegion = String(localized: "Выберите область Стамбула в Пункте Отправления")

@@ -349,7 +349,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fashion industry supplier base"
+            "value" : "Fashion industry suppliers base"
           }
         }
       }
@@ -2680,16 +2680,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Can't open AppStore"
-          }
-        }
-      }
-    },
-    "Не получается открыть Настройки" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Can't open Settings"
           }
         }
       }

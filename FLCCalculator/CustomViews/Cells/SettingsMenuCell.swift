@@ -9,7 +9,7 @@ final class SettingsMenuCell: FLCContentCell {
     static let reuseID = String(describing: SettingsMenuCell.self)
     
     private let pickedOptionLabel = FLCSubtitleLabel(color: .flcGray, textAlignment: .right, textStyle: .body)
-    private let menuIconView = FLCImageView(tint: .systemGray3)
+    private let menuIconView = FLCImageView(tint: .systemGray2)
     private let showMenuButton = FLCMenuButton()
     
     private var contentType: FLCSettingsContentType?
@@ -44,7 +44,7 @@ final class SettingsMenuCell: FLCContentCell {
         
         NSLayoutConstraint.activate([
             menuIconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding / 1.5),
-            menuIconView.widthAnchor.constraint(equalToConstant: 23),
+            menuIconView.widthAnchor.constraint(equalToConstant: DeviceTypes.isiPhoneSE3rdGen ? 22 : 23),
             menuIconView.heightAnchor.constraint(equalTo: menuIconView.widthAnchor),
             menuIconView.centerYAnchor.constraint(equalTo: pickedOptionLabel.centerYAnchor)
         ])

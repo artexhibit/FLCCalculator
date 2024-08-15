@@ -8,11 +8,12 @@ struct MapsManager {
         map.removeAnnotations(map.annotations)
         DispatchQueue.main.async {
             zoomOutToContinent(map: map, continent: eurasiaRegion, animated: animated) {
+                let deviceLanguageCode = LanguageManager.shared.currentDeviceLanguage.rawValue
                 let coordinate = CLLocationCoordinate2D(latitude: facility.latitude, longitude: facility.longitude)
                 
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
-                annotation.title = facility.name
+                annotation.title = facility.localisationData?[deviceLanguageCode]?.name
                 map.addAnnotation(annotation)
                 
                 let newCenterCoordinate = CLLocationCoordinate2D(latitude: facility.latitude - 0.0020, longitude: facility.longitude)

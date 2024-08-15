@@ -54,15 +54,17 @@ struct CoreDataManager {
     
     static func createCalculationRecord(with calculationData: CalculationData, totalPriceData: [TotalPriceData], pickedLogisticsType: FLCLogisticsType, isConfirmed: Bool = false) {
         let calc = Calculation(context: context)
+        let fromLocation = FLCCountryWarehouse(rawValue: calculationData.fromLocation).map { $0 != .russia ? $0.localizedDescription : calculationData.fromLocation } ?? calculationData.fromLocation
+        let toLocation = FLCCountryWarehouse(localizedString: calculationData.toLocation) == .russia ? FLCCountryWarehouse(localizedString: calculationData.toLocation)?.rawValue ?? "" : calculationData.toLocation
         
         calc.calculationDate = Date()
         calc.calculationConfirmDate = Date()
         calc.id = Int32(CoreDataManager.loadCalculations()?.count ?? 0)
-        calc.toLocation = calculationData.toLocation
+        calc.toLocation = toLocation
         calc.toLocationCode = calculationData.toLocationCode
         calc.deliveryType = calculationData.deliveryType.rawValue
         calc.goodsType = calculationData.goodsType.rawValue
-        calc.fromLocation = calculationData.fromLocation
+        calc.fromLocation = fromLocation
         calc.departureAirport = calculationData.departureAirport
         calc.fromLocationCode = calculationData.fromLocationCode
         calc.deliveryTypeCode = calculationData.deliveryTypeCode
