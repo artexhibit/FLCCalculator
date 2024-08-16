@@ -117,6 +117,12 @@ extension LoginVC: UITextFieldDelegate {
         TextFieldManager.isValid(.phone(mask: pickedCountryItem?.phoneMask ?? ""), textField.text ?? "") ? verificationCodeButton.setEnabled() : verificationCodeButton.setDisabled()
         return false
     }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        phoneTextField.text = ""
+        phoneTextField.placeholder = pickedCountryItem?.phoneMask ?? ""
+        return false
+    }
 }
 
 extension LoginVC: FLCButtonDelegate {
