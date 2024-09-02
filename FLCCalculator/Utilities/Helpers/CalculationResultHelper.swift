@@ -10,7 +10,7 @@ struct CalculationResultHelper {
             let days = data.getDays() ?? ""
             return .success((deliveryPrice, days))
         } catch {
-            return .failure(.invalidResponce)
+            return .failure(.invalidResponse)
         }
     }
     

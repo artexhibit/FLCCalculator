@@ -188,12 +188,15 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 
                 switch pickedCountry {
                 case .china: button.setTitle(FLCCountryWarehouse.china.localizedDescription, for: .normal)
-                case .turkey: button.setTitle(FLCCountryWarehouse.turkey.localizedDescription, for: .normal)
-                case .russia: break
+                case .russia, .turkey: break
                 }
                 
                 CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, iPhoneSEHeight: 0.75, title: CalculationStrings.chinaDepartureAirportLabel, cantCloseBySwipe: true)
             } else {
+                guard !transportView.deliveryTypePickerButton.showingTitle.contains(FLCDeliveryTypeCode.FCA.rawValue) else {
+                    FLCPopupView.showOnMainThread(systemImage: FLCIcon.handTap.icon, title: FLCPopupMessages.changeDeliveryCondition)
+                    return
+                }
                 if transportView.departurePickerButton.showingTitle == FLCCity.istanbul.rawValue {
                     CalculationHelper.showIstanbulZones(in: transportView, and: self)
                     return

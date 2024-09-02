@@ -377,6 +377,7 @@ enum SecretsStrings {
     static let appStoreReviewCode = "App Store Review Code"
     static let smsApiKey = "SMS API Key"
     static let bubbleToken = "Bubble Token"
+    static let amoCRMToken = "AMO CRM Token"
 }
 
 enum AuthorizationStrings {
@@ -420,7 +421,7 @@ enum FLCPopupMessages {
     static let cantOpenAppStore = String(localized: "Не получается открыть App Store")
     static let tariffsNotDowloaded = String(localized: "Не все тарифы загружены. Повторите через несколько минут")
     static let notZeroValue = String(localized: "Значение не должно быть нулевым")
-    static let pickInstanbulRegion = String(localized: "Выберите область Стамбула в Пункте Отправления")
+    static let pickIstanbulRegion = String(localized: "Выберите область Стамбула в Пункте Отправления")
     static let pickAirport = String(localized: "Выберите аэропорт отправления для расчёта авиа")
     static let fillInAllInfo = String(localized: "Сперва заполните все поля")
     static let cantFindTelegramNick = String(localized: "Не удалось найти никнейм в Telegram")
@@ -459,7 +460,7 @@ enum FLCPopupMessages {
     static let cantDownloadCities = String(localized: "Ошибка при загрузке городов")
     static let pickDepartureCity = String(localized: "Выберите страну отправления")
     static let pickDeliveryType = String(localized: "Выберите условия поставки")
-    static let changeDeliveryCondition = String(localized: "Измените условия поставки на клиента")
+    static let changeDeliveryCondition = String(localized: "Измените условия поставки")
     static let cantConfirmOrder = String(localized: "Для подтверждения необходимо подключение к интернету")
     static let pickPhoneCodeCountry = String(localized: "Сначала выберите страну")
     static let tariffsDownloaded = String(localized: "Тарифы загружены")
@@ -479,7 +480,7 @@ enum PopoverMessages {
     static let deliveryToWarehouseShipperGuangzhou = String(localized: "Поставщик - Склад Гуанчжоу")
     static let deliveryToWarehouseGuangzhouShanghai = String(localized: "Склад Гуанчжоу - Склад Шанхай: 4 дня")
     static let deliveryToWarehouseShanghai = String(localized: "Доставка с адреса поставщика до нашего склада в Шанхае")
-    static let deliveryToWarehouseInstanbul = String(localized: "Доставка с адреса поставщика до нашего склада в Стамбуле")
+    static let deliveryToWarehouseIstanbul = String(localized: "Доставка с адреса поставщика до нашего склада в Стамбуле")
     static let deliveryToWarehouse = String(localized: "Доставка с адреса поставщика до нашего Склада Консолидации для последующей отправки в Россию")
     static let groupageDocs = String(localized: "В стоимость входит транспортный комплект документов (CMR, накладные и тд). Оформление экспортной декларации за поставщика - отдельная услуга!")
     static let groupageDocsAir = String(localized: "AWB - обязательный документ при международной авиаперевозке. \n\nОформим по всем требованиям и вашим пожеланиям (например, добавим номера инвойсов)")

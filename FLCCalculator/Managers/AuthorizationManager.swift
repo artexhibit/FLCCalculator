@@ -16,8 +16,8 @@ class AuthorizationManager {
         guard let url = URL(string: finalEndpoint) else { throw FLCError.invalidEndpoint }
         let request = createAccountURLRequest(url: url, number: number, apikey: apiKey)
         
-        let (data, responce) = try await URLSession.shared.data(for: request)
-        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw FLCError.invalidResponse }
         
         do {
             let decodedData = try decoder.decode(PhoneNumberResponse.self, from: data)
@@ -33,8 +33,8 @@ class AuthorizationManager {
         guard let url = URL(string: finalEndpoint) else { throw FLCError.invalidEndpoint }
         let request = createAccountURLRequest(url: url, number: number, apikey: apiKey)
         
-        let (data, responce) = try await URLSession.shared.data(for: request)
-        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw FLCError.invalidResponse }
         
         do {
             let decodedData = try decoder.decode(PhoneNumberResponse.self, from: data)
@@ -50,8 +50,8 @@ class AuthorizationManager {
         guard let url = URL(string: finalEndpoint) else { throw FLCError.invalidEndpoint }
         let request = createAccountURLRequest(url: url, number: number, apikey: apiKey)
         
-        let (data, responce) = try await URLSession.shared.data(for: request)
-        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw FLCError.invalidResponse }
         
         do {
             let credentials = try decoder.decode(FLCUserCredentialsResponse.self, from: data)
@@ -67,8 +67,8 @@ class AuthorizationManager {
         guard let url = URL(string: finalEndpoint) else { throw FLCError.invalidEndpoint }
         let request = createAccountURLRequest(url: url, number: number, email: email, apikey: apiKey)
         
-        let (data, responce) = try await URLSession.shared.data(for: request)
-        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw FLCError.invalidResponse }
         
         do {
             let credentials = try decoder.decode(FLCUserCredentialsResponse.self, from: data)
@@ -83,8 +83,8 @@ class AuthorizationManager {
         guard let url = URL(string: finalEndpoint) else { throw FLCError.invalidEndpoint }
         let request = createAuthorizationURLRequest(url: url, token: token, httpMethod: .GET)
         
-        let (data, responce) = try await URLSession.shared.data(for: request)
-        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw FLCError.invalidResponce }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw FLCError.invalidResponse }
         
         do {
             let userData = try decoder.decode(FLCUserResponse.self, from: data)
@@ -102,9 +102,9 @@ class AuthorizationManager {
         let jsonData = try JSONSerialization.data(withJSONObject: getBubbleDictionary(for: user))
         request.httpBody = jsonData
         
-        let (_, responce) = try await URLSession.shared.data(for: request)
+        let (_, response) = try await URLSession.shared.data(for: request)
         
-        guard let responce = responce as? HTTPURLResponse, responce.statusCode == 204 else { throw FLCError.invalidResponce }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 204 else { throw FLCError.invalidResponse }
     }
     
     private func createAccountURLRequest(url: URL, number: String, email: String? = nil, apikey: String) -> URLRequest {

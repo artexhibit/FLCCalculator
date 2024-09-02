@@ -3,8 +3,8 @@ import Foundation
 enum FLCError: String, Error {
     case unableToFetchCategories = "Ошибка при получении категорий"
     case invalidEndpoint = "Неправильный эндпоинт"
-    case invalidResponce = "Неверный ответ от сервера"
-    case invalidResponceString = "Неверная строка ответа"
+    case invalidResponse = "Неверный ответ от сервера"
+    case invalidResponseString = "Неверная строка ответа"
     case invalidBubbleToken = "Токен Bubble недействителен или недоступен"
     case decodingError = "Ошибка декодирования данных"
     case unableToDownload = "Не удается загрузить данные"

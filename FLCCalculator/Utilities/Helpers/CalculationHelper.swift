@@ -117,7 +117,7 @@ struct CalculationHelper {
         }
         view.flcListPickerButtons.forEach {
             if $0.showingTitle == FLCCity.istanbul.rawValue {
-                FLCPopupView.showOnMainThread(systemImage: FLCIcon.textInsert.icon, title: FLCPopupMessages.pickInstanbulRegion)
+                FLCPopupView.showOnMainThread(systemImage: FLCIcon.textInsert.icon, title: FLCPopupMessages.pickIstanbulRegion)
                 $0.switchToRedColors()
                 isWithZero = true
             } else if FLCCountryWarehouse(localizedString: $0.showingTitle) == .china {

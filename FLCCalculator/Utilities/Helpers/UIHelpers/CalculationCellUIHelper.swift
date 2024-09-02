@@ -210,7 +210,7 @@ struct CalculationCellUIHelper {
                 } else if FLCWarehouse(localizedString: deliveryData.warehouseName) == .shanghai  {
                     return PopoverMessages.deliveryToWarehouseShanghai
                 } else {
-                    return PopoverMessages.deliveryToWarehouseInstanbul
+                    return PopoverMessages.deliveryToWarehouseIstanbul
                 }
             } else {
                 return PopoverMessages.deliveryToWarehouse

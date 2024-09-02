@@ -2124,12 +2124,12 @@
         }
       }
     },
-    "Измените условия поставки на клиента" : {
+    "Измените условия поставки" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Change delivery terms to client"
+            "value" : "Change delivery type"
           }
         }
       }
@@ -5709,7 +5709,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instanbul Warehouse"
+            "value" : "Istanbul Warehouse"
           }
         }
       }
@@ -5719,7 +5719,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instanbul Warehouse - Client"
+            "value" : "Istanbul Warehouse - Client"
           }
         }
       }
@@ -5729,7 +5729,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instanbul Warehouse - Podolsk Warehouse"
+            "value" : "Istanbul Warehouse - Podolsk Warehouse"
           }
         }
       }
@@ -5999,7 +5999,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instanbul"
+            "value" : "Istanbul"
           }
         }
       }

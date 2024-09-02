@@ -29,6 +29,7 @@ enum FLCHTTPHeaderField: String {
     case email = "email_user"
     case authorization = "Authorization"
     case contentType = "Content-Type"
+    case userAgent = "User-Agent"
 }
 
 enum FLCNotificationServiceDataKey: String, Codable {

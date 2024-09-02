@@ -221,6 +221,9 @@
 		0BD06AF62B8E647400942651 /* FLCListPickerVC + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */; };
 		0BD06AF92B8E683B00942651 /* UINavigationItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */; };
 		0BD06AFB2B8E6A1B00942651 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD06AFA2B8E6A1B00942651 /* Enums.swift */; };
+		0BD12A002C8652E300601A15 /* AMOCRMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD129FF2C8652E300601A15 /* AMOCRMResponse.swift */; };
+		0BD12A012C865A0100601A15 /* AMOCRMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD129FF2C8652E300601A15 /* AMOCRMResponse.swift */; };
+		0BD12A022C865A0200601A15 /* AMOCRMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD129FF2C8652E300601A15 /* AMOCRMResponse.swift */; };
 		0BD1E0802C50333C007F3631 /* ContactsVCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD1E07F2C50333C007F3631 /* ContactsVCHelper.swift */; };
 		0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */; };
 		0BD4DE252B88D5ED00B834DD /* FLCListPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD4DE242B88D5ED00B834DD /* FLCListPickerVC.swift */; };
@@ -537,6 +540,7 @@
 		0BD06AF52B8E647400942651 /* FLCListPickerVC + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FLCListPickerVC + DataSource.swift"; sourceTree = "<group>"; };
 		0BD06AF82B8E683B00942651 /* UINavigationItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Ext.swift"; sourceTree = "<group>"; };
 		0BD06AFA2B8E6A1B00942651 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		0BD129FF2C8652E300601A15 /* AMOCRMResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMOCRMResponse.swift; sourceTree = "<group>"; };
 		0BD1E07E2C502871007F3631 /* FLCCalculator_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FLCCalculator_v2.xcdatamodel; sourceTree = "<group>"; };
 		0BD1E07F2C50333C007F3631 /* ContactsVCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsVCHelper.swift; sourceTree = "<group>"; };
 		0BD4DE222B88B74800B834DD /* FLCSmallLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCSmallLabelView.swift; sourceTree = "<group>"; };
@@ -980,6 +984,7 @@
 				0B625C362BB340D400A9392A /* CurrencyData.swift */,
 				0BAF1DAE2BF1142800C0933B /* Document.swift */,
 				0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */,
+				0BD129FF2C8652E300601A15 /* AMOCRMResponse.swift */,
 				0BDEC62A2C160B4600DFABAF /* AvailableLogisticsType.swift */,
 				0BABA4BE2C236245000991E9 /* PhoneNumberResponse.swift */,
 				0BA381E72BFA3CB300A242F2 /* Pickups */,
@@ -1320,6 +1325,7 @@
 				0BFA89BC2C22BC020023D949 /* FirebaseManager.swift in Sources */,
 				0B20D4D22C334354003DB36E /* TurkeyAirSVOPickup.swift in Sources */,
 				0BFA89DC2C22C4900023D949 /* SMSCounter.swift in Sources */,
+				0BD12A022C865A0200601A15 /* AMOCRMResponse.swift in Sources */,
 				0B5F773D2C222817005B391C /* FLCError.swift in Sources */,
 				0B5F77402C222855005B391C /* SettingsCellContent.swift in Sources */,
 				0BFA89AE2C22BA510023D949 /* FLCPickerItem.swift in Sources */,
@@ -1428,6 +1434,7 @@
 				0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */,
 				0BE0466E2B9C7F9B00BA6F21 /* FLCSheetPickerVC.swift in Sources */,
 				0B7C8E042BF2A935009322E6 /* UsefulInfoHelper.swift in Sources */,
+				0BD12A002C8652E300601A15 /* AMOCRMResponse.swift in Sources */,
 				0BF8611F2B8B698900D2EF4D /* TextFieldManager.swift in Sources */,
 				0B9D5A6F2BB980900016A991 /* ChinaTruckPickup.swift in Sources */,
 				0B6F61192B86750000929613 /* FLCNumberTextField.swift in Sources */,
@@ -1615,6 +1622,7 @@
 				0BFA898F2C22B8330023D949 /* CoreDataManager.swift in Sources */,
 				0BFA89A62C22BA060023D949 /* Document.swift in Sources */,
 				0B7E5CC22C2B49F500F142A1 /* DateFormatterManager.swift in Sources */,
+				0BD12A012C865A0100601A15 /* AMOCRMResponse.swift in Sources */,
 				0BFA89B52C22BAB80023D949 /* CalculationResultItem.swift in Sources */,
 				0BFA899C2C22B9BA0023D949 /* ChinaTruckTariff.swift in Sources */,
 				0BFA89DB2C22C4900023D949 /* SMSCounter.swift in Sources */,
