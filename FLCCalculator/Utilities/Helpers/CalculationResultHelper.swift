@@ -407,4 +407,19 @@ struct CalculationResultHelper {
             popover.showPopoverOnMainThread(withText: CalculationCellUIHelper.configurePopoverMessage(in: cell, iconType: iconType, pickedLogisticsType: pickedLogisticsType), in: parentVC, target: textView, characterRange: range, presentedVC: presentedVC)
         }
     }
+    
+    @MainActor
+    static func sendCalculationDataToAMOCRM(calculationData: CalculationData) {
+        Task {
+            do {
+                guard let user: FLCUser = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults() else {
+                    return }
+                let calc = CoreDataManager.getCalculation(withID: calculationData.id)
+                let calcData = AttachmentManager.getContentForAttachment(confirmedCalculation: calc)
+                
+                let response = try await NetworkManager.shared.sendConfirmedOrderToAMOCRM(user: user)
+                try await NetworkManager.shared.addCalculationInfoNoteToCreatedAMOOrder(calcData: calcData, orderID: response.id)
+            }
+        }
+    }
 }

@@ -27,7 +27,9 @@ struct AttachmentManager {
         guard let calc = confirmedCalculation else { return "" }
         let results = calc.result as? Set<CalculationResult>
         guard let confirmedResult = results?.first(where: { $0.isConfirmed }) else { return "" }
+        
         let needCustomsClearance = calc.needCustomsClearance ? "Да" : "Нет"
+        let fromLocation = FLCCountryWarehouse.init(localizedString: calc.fromLocation ?? "")?.rawValue
         
         return """
             Дата расчёта: \(calc.calculationDate?.makeString() ?? ""),
@@ -35,7 +37,7 @@ struct AttachmentManager {
         
             Страна: \(calc.countryFrom ?? ""),
             Условия поставки: \(calc.deliveryTypeCode ?? ""),
-            Откуда: \(calc.fromLocation ?? ""),
+            Откуда: \(fromLocation ?? ""),
             Куда: \(calc.toLocation ?? ""),
             Груз: \(calc.goodsType ?? ""),
             Сумма Инвойса: \(calc.invoiceAmount) \(calc.invoiceCurrency ?? ""),

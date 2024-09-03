@@ -188,9 +188,8 @@ class NetworkManager {
                         ]
                     ],
                     "tags": [
-                        [
-                            "name": "iOS_app"
-                        ]
+                        ["name": "iOS"],
+                        ["name": "Калькулятор"]
                     ]
                 ]
             ]

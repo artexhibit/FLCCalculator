@@ -345,6 +345,8 @@ extension CalculationResultVC: TotalPriceVCDelegate {
         } else {
             CalculationResultHelper.saveCalculationInCoreData(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType, calcData: calculationData, isConfirmed: true)
         }
+        
+        CalculationResultHelper.sendCalculationDataToAMOCRM(calculationData: calculationData)
         CalculationResultHelper.createConfirmOrderVC(data: calculationData, in: self)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { self.navigationController?.removeVCFromStack(vc: self) }
         Task { await FirebaseManager.updateCalculationRecordInFirebase(with: calculationData, and: totalPriceDataItems) }
