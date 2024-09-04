@@ -414,7 +414,7 @@ struct CalculationResultHelper {
             do {
                 guard let user: FLCUser = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults() else {
                     return }
-                let calc = CoreDataManager.getCalculation(withID: calculationData.id)
+                let calc = CoreDataManager.getCalculation(withID: calculationData.id + 1)
                 let calcData = AttachmentManager.getContentForAttachment(confirmedCalculation: calc)
                 
                 let response = try await NetworkManager.shared.sendConfirmedOrderToAMOCRM(user: user)

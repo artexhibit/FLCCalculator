@@ -29,7 +29,7 @@ struct AttachmentManager {
         guard let confirmedResult = results?.first(where: { $0.isConfirmed }) else { return "" }
         
         let needCustomsClearance = calc.needCustomsClearance ? "Да" : "Нет"
-        let fromLocation = FLCCountryWarehouse.init(localizedString: calc.fromLocation ?? "")?.rawValue
+        let fromLocation = FLCCountryWarehouse.init(localizedString: calc.fromLocation ?? "")?.rawValue ?? calc.fromLocation
         
         return """
             Дата расчёта: \(calc.calculationDate?.makeString() ?? ""),
