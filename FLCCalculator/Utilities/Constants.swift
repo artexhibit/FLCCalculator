@@ -298,7 +298,7 @@ enum UsefulInfoVCStrings {
     static let sanctionsCheck = String(localized: "Проверка возможности импорта товара")
     static let fashionSupplierBase = String(localized: "База поставщиков индустрии моды")
     static let contacts = String(localized: "Контакты")
-    static let sanctionsCheckLink = "https://cargointegrator.com"
+    static let sanctionsCheckLink = "https://import.free-lines.ru"
     static let fashionSupplierBaseLink = "https://manufactures.free-lines.ru"
 }
 
