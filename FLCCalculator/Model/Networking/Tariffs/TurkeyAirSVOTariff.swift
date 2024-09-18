@@ -84,4 +84,5 @@ extension TurkeyAirSVOTariffCity: AirTariffCity {
 extension TurkeyAirSVOTariffPrice: AirTariffPrice {
     var airPricePerKg: Double { pricePerKg }
     var airGroupageDocs: Double { groupageDocs }
+    var airGroupageDocsV2: Double { 0 }
 }

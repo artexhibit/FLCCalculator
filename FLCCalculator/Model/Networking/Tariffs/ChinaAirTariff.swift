@@ -51,6 +51,7 @@ struct ChinaAirTariffCity: Codable, Hashable {
 
 struct ChinaAirTariffPrice: Codable, Hashable {
     let pricePerKg: Double
+    let groupageDocsV2: Double?
 }
 
 extension ChinaAirTariff: CoreDataStorable { static var coreDataKey: String { Keys.cdChinaAirTariff } }
@@ -81,4 +82,5 @@ extension ChinaAirTariffCity: AirTariffCity {
 extension ChinaAirTariffPrice: AirTariffPrice {
     var airPricePerKg: Double { pricePerKg }
     var airGroupageDocs: Double { 0 }
+    var airGroupageDocsV2: Double { groupageDocsV2 ?? 0 }
 }

@@ -103,4 +103,5 @@ protocol AirTariffCity {
 protocol AirTariffPrice {
     var airPricePerKg: Double { get }
     var airGroupageDocs: Double { get }
+    var airGroupageDocsV2: Double { get }
 }

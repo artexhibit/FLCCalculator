@@ -244,6 +244,9 @@ final class PriceCalculationManager {
     private static func getChinaAirGroupageDocs(item: CalculationResultItem) -> (netto: Double, brutto: Double) {
         let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(item.calculationData.departureAirport) }) })
         let netto = (chinaAirTariff?.first?.cities.first(where: { $0.name.lowercased() == targetCity?.targetAirport.lowercased() })?.groupageDocs ?? 0)
+        let nettoV2 = (chinaAirTariff?.first?.cities
+            .first(where: { $0.name.lowercased() == targetCity?.targetAirport.lowercased() })?.prices
+            .first(where: { $0.key.createRange()?.contains(item.calculationData.weight) == true }))?.value.groupageDocsV2
         let brutto = netto.add(markup: .fourteenPercents)
         return (netto, brutto)
     }
