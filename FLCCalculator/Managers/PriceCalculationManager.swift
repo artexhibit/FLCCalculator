@@ -109,7 +109,7 @@ final class PriceCalculationManager {
         let minLogisticsProfit = item.calculationData.isFromCoreData ? targetResult?.minLogisticsProfit ?? 0 : chinaAirTariff?.first?.minLogisticsProfit ?? 0
         let chargeableWeight = max(item.calculationData.weight, targetWeight * item.calculationData.volume)
         
-        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(item.calculationData.departureAirport) }) })
+        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities?.contains(where: { $0.contains(item.calculationData.departureAirport) }) ?? false })
         let targetTariffs = chinaAirTariff?.first?.cities.first(where: { $0.name.lowercased() == targetCity?.targetAirport.lowercased() })
         
         let airPriceNetto = (targetTariffs?.prices.first(where: { $0.key.createRange()?.contains(chargeableWeight) == true })?.value.pricePerKg ?? 0) * chargeableWeight
@@ -242,7 +242,7 @@ final class PriceCalculationManager {
     }
     
     private static func getChinaAirGroupageDocs(item: CalculationResultItem) -> (netto: Double, brutto: Double) {
-        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities.contains(where: { $0.contains(item.calculationData.departureAirport) }) })
+        let targetCity = chinaAirPickup?.first?.cities.first(where: { $0.targetCities?.contains(where: { $0.contains(item.calculationData.departureAirport) }) ?? false })
         let netto = (chinaAirTariff?.first?.cities.first(where: { $0.name.lowercased() == targetCity?.targetAirport.lowercased() })?.groupageDocs ?? 0)
         let nettoV2 = (chinaAirTariff?.first?.cities
             .first(where: { $0.name.lowercased() == targetCity?.targetAirport.lowercased() })?.prices

@@ -45,7 +45,7 @@ struct ChinaAirTariff: Codable, Hashable {
 struct ChinaAirTariffCity: Codable, Hashable {
     let name: String
     let targetAirport: String
-    let groupageDocs: Double
+    let groupageDocs: Double?
     let prices: [String: ChinaAirTariffPrice]
 }
 

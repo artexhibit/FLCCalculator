@@ -72,6 +72,7 @@ protocol AirPickupCity {
     var airName: String { get }
     var airTargetAirport: String { get }
     var airTargetCities: [String] { get }
+    var airTargetCitiesV2: [String] { get }
     var airTransitDays: String { get }
     var airPrices: [String: AirPickupCityPrice] { get }
 }

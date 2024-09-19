@@ -13,7 +13,8 @@ struct ChinaAirPickup: Codable, Hashable {
 struct ChinaAirCity: Codable, Hashable {
     let name: String
     let targetAirport: String
-    let targetCities: [String]
+    let targetCities: [String]?
+    let targetCitiesV2: [String]?
     let transitDays: String
     let prices: [String: ChinaAirCityPrice]
 }
@@ -30,7 +31,8 @@ extension ChinaAirPickup: FirebaseIdentifiable {
 extension ChinaAirCity: AirPickupCity {
     var airName: String { name }
     var airTargetAirport: String { targetAirport }
-    var airTargetCities: [String] { targetCities }
+    var airTargetCities: [String] { targetCities ?? [""] }
+    var airTargetCitiesV2: [String] { targetCitiesV2 ?? [""] }
     var airTransitDays: String { transitDays }
     var airPrices: [String : AirPickupCityPrice] { prices }
 }
