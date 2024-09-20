@@ -1,2 +1,2 @@
 "CFBundleDisplayName" = "FLC Calculator";
-"NSUserNotificationUsageDescription" = "Notifications about tariff changes and promos";
+"NSUserNotificationsUsageDescription" = "Notifications about tariff changes and promos";

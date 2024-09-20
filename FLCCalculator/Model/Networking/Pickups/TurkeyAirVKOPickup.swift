@@ -31,7 +31,7 @@ extension TurkeyAirVKOCity: AirPickupCity {
     var airName: String { name }
     var airTargetAirport: String { targetAirport }
     var airTargetCities: [String] { targetCities }
-    var airTargetCitiesV2: [String] { [""] }
+    var airTargetCitiesV2: [String] { [] }
     var airTransitDays: String { transitDays }
     var airPrices: [String : AirPickupCityPrice] { prices }
 }

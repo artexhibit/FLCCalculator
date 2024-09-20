@@ -3294,12 +3294,12 @@
         }
       }
     },
-    "Международный аэропорт Дасин (PKX)" : {
+    "Международный аэропорт Пекина (PEK)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daxing International Airport (PKX)"
+            "value" : "Beijing Capital International Airport (PEK)"
           }
         }
       }
@@ -3310,6 +3310,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pudong International Airport (PVG)"
+          }
+        }
+      }
+    },
+    "Международный аэропорт Чэнду-Шуанлю (CTU)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chengdu Shuangliu International Airport (CTU)"
           }
         }
       }

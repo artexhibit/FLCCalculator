@@ -239,10 +239,11 @@ enum CurrencyOptionsStrings {
 }
 
 enum ChinaAirportsStrings {
-    static let PKX = String(localized: "Международный аэропорт Дасин (PKX)")
+    static let PEK = String(localized: "Международный аэропорт Пекина (PEK)")
     static let PVG = String(localized: "Международный аэропорт Пудун (PVG)")
     static let CAN = String(localized: "Международный аэропорт Байюнь (CAN)")
     static let SZX = String(localized: "Международный аэропорт Баоань (SZX)")
+    static let CTU = String(localized: "Международный аэропорт Чэнду-Шуанлю (CTU)")
 }
 
 enum FLCDeliveryTypeStrings {

@@ -31,8 +31,8 @@ extension ChinaAirPickup: FirebaseIdentifiable {
 extension ChinaAirCity: AirPickupCity {
     var airName: String { name }
     var airTargetAirport: String { targetAirport }
-    var airTargetCities: [String] { targetCities ?? [""] }
-    var airTargetCitiesV2: [String] { targetCitiesV2 ?? [""] }
+    var airTargetCities: [String] { targetCities ?? [] }
+    var airTargetCitiesV2: [String] { targetCitiesV2 ?? [] }
     var airTransitDays: String { transitDays }
     var airPrices: [String : AirPickupCityPrice] { prices }
 }

@@ -191,7 +191,7 @@ extension CalculationVC: FLCCalculationViewDelegate {
                 case .russia, .turkey: break
                 }
                 
-                CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, iPhoneSEHeight: 0.75, title: CalculationStrings.chinaDepartureAirportLabel, cantCloseBySwipe: true)
+                CalculationHelper.presentSheetPickerVC(items: CalculationInfo.chinaAirportsOptions, triggerButton: button, listener: transportView, in: self, iPhoneSEHeight: 0.75, otherDeviceHeight: 0.6, title: CalculationStrings.chinaDepartureAirportLabel, cantCloseBySwipe: true)
             } else {
                 guard !transportView.deliveryTypePickerButton.showingTitle.contains(FLCDeliveryTypeCode.FCA.rawValue) else {
                     FLCPopupView.showOnMainThread(systemImage: FLCIcon.handTap.icon, title: FLCPopupMessages.changeDeliveryCondition)

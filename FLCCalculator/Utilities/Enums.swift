@@ -246,6 +246,7 @@ enum FLCCity: String, CaseIterable {
     case beijing = "Beijing"
     case guangzhou = "Guangzhou"
     case shenzhen = "Shenzhen"
+    case chengdu = "Chengdu"
 }
 
 enum FLCDateFormat: String {

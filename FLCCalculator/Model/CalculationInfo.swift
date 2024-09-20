@@ -638,10 +638,11 @@ struct CalculationInfo {
     ]
     
     static let chinaAirportsOptions = [
-        FLCPickerItem(title: FLCCity.beijing.rawValue, subtitle: ChinaAirportsStrings.PKX, image: FLCIcon.plane.icon, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.beijing.rawValue, subtitle: ChinaAirportsStrings.PEK, image: FLCIcon.plane.icon, isOpenForAdd: false),
         FLCPickerItem(title: FLCCity.shanghai.rawValue, subtitle: ChinaAirportsStrings.PVG, image: FLCIcon.plane.icon, isOpenForAdd: false),
         FLCPickerItem(title: FLCCity.guangzhou.rawValue, subtitle: ChinaAirportsStrings.CAN, image: FLCIcon.plane.icon, isOpenForAdd: false),
-        FLCPickerItem(title: FLCCity.shenzhen.rawValue, subtitle: ChinaAirportsStrings.SZX, image: FLCIcon.plane.icon, isOpenForAdd: false)
+        FLCPickerItem(title: FLCCity.shenzhen.rawValue, subtitle: ChinaAirportsStrings.SZX, image: FLCIcon.plane.icon, isOpenForAdd: false),
+        FLCPickerItem(title: FLCCity.chengdu.rawValue, subtitle: ChinaAirportsStrings.CTU, image: FLCIcon.plane.icon, isOpenForAdd: false)
     ]
     
     static let chinaDeliveryTypes = [
