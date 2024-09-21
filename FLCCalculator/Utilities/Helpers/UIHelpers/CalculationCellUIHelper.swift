@@ -135,17 +135,24 @@ struct CalculationCellUIHelper {
                 return item.calculationData.isFromCoreData ? storedFromLocation ?? "" : calculationFromLocation
             }
         }
+        
+        var pickups: [AirPickupIdentifiable]? {
+            switch logisticsType {
+            case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: return nil
+            case .chinaAir: return PriceCalculationManager.getChinaAirPickup()
+            case .turkeyAirVKO: return PriceCalculationManager.getTurkeyAirVKOPickup()
+            case .turkeyAirSVO: return PriceCalculationManager.getTurkeyAirSVOPickup()
+            }
+        }
        
         switch logisticsType {
         case .chinaTruck, .chinaRailway, .turkeyTruckByFerry, .turkeyNovorossiyskBySea: break
         case .chinaAir:
-            cell.addPickupWarningMessage(warehouseName: PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getChinaAirPickup())?.airName ?? "")
-        case .turkeyAirVKO:
-            let airportName = PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirVKOPickup())?.airName ?? ""
-            if !airportName.isContains(closestAirport) { cell.addPickupWarningMessage(warehouseName: airportName) }
-        case .turkeyAirSVO:
-            let airportName = PriceCalculationManager.getClosestAirport(to: closestAirport, with: PriceCalculationManager.getTurkeyAirSVOPickup())?.airName ?? ""
-            if !airportName.isContains(closestAirport) { cell.addPickupWarningMessage(warehouseName: airportName) }
+            guard let pickupCity = item.calculationData.fromLocation.getDataOutsideCharacters()?.lowercased() else { return }
+            if !pickupCity.isContains(closestAirport.lowercased()) { cell.addPickupWarningMessage(warehouseName: closestAirport) }
+        case .turkeyAirVKO, .turkeyAirSVO:
+            let airportName = PriceCalculationManager.getClosestAirport(to: closestAirport, with: pickups)?.airName ?? ""
+            if !airportName.lowercased().isContains(closestAirport.lowercased()) { cell.addPickupWarningMessage(warehouseName: airportName) }
         }
     }
     

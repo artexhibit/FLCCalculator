@@ -438,7 +438,7 @@ final class PriceCalculationManager {
         return (warehouse, transitDays, price)
     }
     
-    static func getClosestAirport<T: AirPickupIdentifiable>(to city: String, with pickups: [T]?) -> AirPickupCity? {
+    static func getClosestAirport(to city: String, with pickups: [AirPickupIdentifiable]?) -> AirPickupCity? {
         if pickups?.first?.airCities.first?.airTargetCitiesV2.isEmpty ?? true {
             return pickups?.first?.airCities.first(where: { $0.airTargetCities.contains(where: { $0.contains(city) }) })
         } else {

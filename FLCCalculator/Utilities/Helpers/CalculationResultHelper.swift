@@ -66,7 +66,7 @@ struct CalculationResultHelper {
                 
                 switch newItem.type {
                 case .russianDelivery:
-                    if FLCCountryWarehouse(localizedString: data.toLocation) == .russia { newItem.canDisplay = false }
+                    if FLCCountryWarehouse(rawValue: data.toLocation) ?? .china == .russia { newItem.canDisplay = false }
                 case .customsClearancePrice: if !data.needCustomClearance { newItem.canDisplay = false }
                 case .customsWarehouseServices: newItem.canDisplay = false
                 case .deliveryToWarehouse:
@@ -91,7 +91,7 @@ struct CalculationResultHelper {
             
             switch newItem.type {
             case .russianDelivery:
-                if FLCCountryWarehouse(localizedString: data.toLocation) == .russia { newItem.canDisplay = false }
+                if FLCCountryWarehouse(rawValue: data.toLocation) ?? .china == .russia { newItem.canDisplay = false }
                 
             case .customsClearancePrice:
                 if !data.needCustomClearance { newItem.canDisplay = false }
