@@ -18,7 +18,7 @@ enum FLCNetworkingAvailabilityStatus { case connected, noConnection, requiresCon
 enum FLCUsefulContentType { case bonusSystem, sanctionsCheck, fashionSupplierBase, contacts }
 enum FLCTextFieldType { case email, phone(mask: String), username, birthdate, companyName, taxPayerID, customsDeclarationsAmount }
 enum FLCSettingsCellType { case profile, switcher, menu, label }
-enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp, language }
+enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp, language, iCloud }
 enum FLCPermissionType { case notifications }
 enum FLCHTTPMethod: String { case POST, GET, PATCH }
 enum FLCRoundButtonType { case phone, email, route, details, telegram, whatsapp, standard }
@@ -344,6 +344,7 @@ enum FLCIcon: String, CaseIterable {
     case arrowTriangle = "arrow.triangle.2.circlepath"
     case textInsert = "text.insert"
     case cloudExclamationMark = "exclamationmark.icloud"
+    case iCloud = "icloud.fill"
     case handTap = "hand.tap"
     case handDraw = "hand.draw"
     case aCircle = "a.circle.fill"

@@ -19,18 +19,22 @@ struct SettingsVCHelper {
             SettingsCellContent(cellType: .label, contentType: .permissions, image: FLCIcon.key.icon, title: SettingsVCStrings.permissions, subtitle: nil, pickedOption: nil)
         ]
         let thirdSectionItems = [
+            SettingsCellContent(cellType: .switcher, contentType: .iCloud, image: FLCIcon.iCloud.icon, title: SettingsVCStrings.iCloud, subtitle: nil, pickedOption: nil)
+        ]
+        let fourthSectionItems = [
             SettingsCellContent(cellType: .label, contentType: .shareApp, image: FLCIcon.shareIcon.icon, title: SettingsVCStrings.shareApp, subtitle: nil, pickedOption: nil),
             SettingsCellContent(cellType: .label, contentType: .rateApp, image: FLCIcon.star.icon, title: SettingsVCStrings.rateApp, subtitle: nil, pickedOption: nil)
         ]
-        let fourthSectionItems = [
+        let fifthSectionItems = [
             SettingsCellContent(cellType: .label, contentType: .support, image: FLCIcon.message.icon, title: SettingsVCStrings.support, subtitle: nil, pickedOption: nil)
         ]
         
         return [
             SettingsSection(title: "", sectionFooter: "", items: firstSectionItems),
             SettingsSection(title: SettingsVCStrings.commonSection, sectionFooter: "", items: secondSectionItems),
-            SettingsSection(title: SettingsVCStrings.aboutAppSection, sectionFooter: "", items: thirdSectionItems),
-            SettingsSection(title: "", sectionFooter: SettingsVCStrings.findErrorFooter, items: fourthSectionItems)
+            SettingsSection(title: SettingsVCStrings.dataSection, sectionFooter: "", items: thirdSectionItems),
+            SettingsSection(title: SettingsVCStrings.aboutAppSection, sectionFooter: "", items: fourthSectionItems),
+            SettingsSection(title: "", sectionFooter: SettingsVCStrings.findErrorFooter, items: fifthSectionItems)
         ]
     }
     

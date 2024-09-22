@@ -1394,6 +1394,16 @@
         }
       }
     },
+    "Данные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data"
+          }
+        }
+      }
+    },
     "Данные сохранены" : {
       "localizations" : {
         "en" : {
@@ -5660,6 +5670,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Singapore"
+          }
+        }
+      }
+    },
+    "Синхронизация iCloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud sync"
           }
         }
       }

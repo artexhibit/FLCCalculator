@@ -55,7 +55,7 @@ extension SettingsVC: UITableViewDelegate {
         
         switch selectedItemContentType {
         case .profile: self.presentNewVC(ofType: ProfileSettingsVC.self)
-        case .haptic, .theme: break
+        case .haptic, .theme, .iCloud: break
         case .permissions: self.presentNewVC(ofType: PermissionsVC.self)
         case .shareApp: SettingsVCHelper.presentShareAppSheet(in: self, sourceView: tableView, at: indexPath)
         case .rateApp: SettingsVCHelper.goToAppStoreReviewPage()
@@ -103,6 +103,7 @@ extension SettingsVC: SettingsSwitchCellDelegate {
     func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
         switch contentType {
         case .haptic: UserDefaultsManager.isHapticTurnedOn = state
+        case .iCloud: print("changed")
         case .profile, .theme, .permissions,.support, .shareApp, .rateApp, .language: break
         }
     }
@@ -114,7 +115,7 @@ extension SettingsVC: SettingsMenuCellDelegate {
         case .theme:
             updateDataSource()
             SettingsVCHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
-        case .profile, .haptic, .permissions, .support, .shareApp, .rateApp, .language: break
+        case .profile, .haptic, .permissions, .support, .shareApp, .rateApp, .language, .iCloud: break
         }
     }
 }

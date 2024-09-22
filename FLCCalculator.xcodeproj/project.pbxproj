@@ -64,6 +64,9 @@
 		0B419FD02B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD12B824BED00498ACE /* CalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FCF2B824BED00498ACE /* CalculationView.swift */; };
 		0B419FD52B82546D00498ACE /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B419FD42B82546D00498ACE /* CalculationCell.swift */; };
+		0B4F8A492CA08166009A322D /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A482CA08166009A322D /* ICloudManager.swift */; };
+		0B4F8A4A2CA08166009A322D /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A482CA08166009A322D /* ICloudManager.swift */; };
+		0B4F8A4B2CA08166009A322D /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A482CA08166009A322D /* ICloudManager.swift */; };
 		0B53286E2BC2DFCC00B02A73 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53286D2BC2DFCC00B02A73 /* UIColor+Ext.swift */; };
 		0B58D7A72C45ABB300C7EC80 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */; };
 		0B5D1BBF2C1F087F00F9ECB3 /* SettingsLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D1BBE2C1F087F00F9ECB3 /* SettingsLabelCell.swift */; };
@@ -416,6 +419,7 @@
 		0B419FCB2B82464000498ACE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		0B419FCF2B824BED00498ACE /* CalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationView.swift; sourceTree = "<group>"; };
 		0B419FD42B82546D00498ACE /* CalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
+		0B4F8A482CA08166009A322D /* ICloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudManager.swift; sourceTree = "<group>"; };
 		0B53286D2BC2DFCC00B02A73 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0B5D1BBE2C1F087F00F9ECB3 /* SettingsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelCell.swift; sourceTree = "<group>"; };
@@ -711,6 +715,7 @@
 				0BCAF71B2C4D924800ECAD15 /* MapsManager.swift */,
 				0BF851732C4ED7B30006E8D3 /* CalculatorManager.swift */,
 				0B15FFBB2C62958200CA3255 /* LanguageManager.swift */,
+				0B4F8A482CA08166009A322D /* ICloudManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1346,6 +1351,7 @@
 				0B20D4D62C3344E0003DB36E /* TurkeyAirVKOTariff.swift in Sources */,
 				0BFA89BA2C22BAF90023D949 /* PermissionItem.swift in Sources */,
 				0BFA89972C22B9780023D949 /* TurkeyTruckByFerryPickup.swift in Sources */,
+				0B4F8A4B2CA08166009A322D /* ICloudManager.swift in Sources */,
 				0BFA899F2C22B9CF0023D949 /* ChinaRailwayTariff.swift in Sources */,
 				0BFA899B2C22B9960023D949 /* ChinaAirPickup.swift in Sources */,
 				0BFA89912C22B8610023D949 /* TotalPriceData.swift in Sources */,
@@ -1532,6 +1538,7 @@
 				0B67DF8C2C0B31FD008CE099 /* LoginConfirmationHelper.swift in Sources */,
 				0B8761082BEAAC9900596725 /* CalculationsVCHelper.swift in Sources */,
 				0B246B4F2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift in Sources */,
+				0B4F8A4A2CA08166009A322D /* ICloudManager.swift in Sources */,
 				0BFBD7472BA38FEC00B485B8 /* String+Ext.swift in Sources */,
 				0BE9DA8C2C13675E007D86D0 /* ProfileSettingsVCHelper.swift in Sources */,
 				0B32CBD32BAF499900E756A5 /* FirebaseManager.swift in Sources */,
@@ -1628,6 +1635,7 @@
 				0BFA89DB2C22C4900023D949 /* SMSCounter.swift in Sources */,
 				0B9AB6002BE265FB00E926EB /* Constants.swift in Sources */,
 				0BFA899E2C22B9CE0023D949 /* ChinaRailwayTariff.swift in Sources */,
+				0B4F8A492CA08166009A322D /* ICloudManager.swift in Sources */,
 				0BFA89A92C22BA300023D949 /* FLCManager.swift in Sources */,
 				0BFA89B32C22BA9A0023D949 /* CalculationDataFirebaseRecord.swift in Sources */,
 				0B8B7F562C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */,
@@ -1688,7 +1696,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1716,7 +1724,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1872,7 +1880,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1907,7 +1915,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1939,7 +1947,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1968,7 +1976,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.FLCCalculator.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
