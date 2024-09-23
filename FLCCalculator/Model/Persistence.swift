@@ -60,11 +60,13 @@ struct Persistence {
     
     func saveContext () {
         if container.viewContext.hasChanges {
-            do {
-                try container.viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Неразрешённая ошибка \(nserror), \(nserror.userInfo)")
+            DispatchQueue.main.async {
+                do {
+                    try container.viewContext.save()
+                } catch {
+                    let nserror = error as NSError
+                    fatalError("Неразрешённая ошибка \(nserror), \(nserror.userInfo)")
+                }
             }
         }
     }

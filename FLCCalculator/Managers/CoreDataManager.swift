@@ -31,6 +31,18 @@ struct CoreDataManager {
         }
     }
     
+    private static func getCalculation(withCloudID id: UUID) -> Calculation? {
+        let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
+        request.predicate = NSPredicate(format: "cloudID == %@", id as NSUUID)
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            print(FLCError.unableToFetchCategories)
+            return nil
+        }
+    }
+    
     static func getCalculationResults(forCalculationID id: Int32) -> Set<CalculationResult>? {
         guard let calculation = CoreDataManager.getCalculation(withID: id) else { return nil }
         return calculation.result as? Set<CalculationResult>
@@ -49,6 +61,12 @@ struct CoreDataManager {
     static func reassignCalculationsId() {
         guard let calculations = loadCalculations() else { return }
         for (index, calc) in calculations.enumerated() { calc.id = Int32(index + 1) }
+        Persistence.shared.saveContext()
+    }
+    
+    static func resetCalculationFor(cloudID: UUID) {
+        guard let calculation = getCalculation(withCloudID: cloudID) else { return }
+        calculation.cloudID = nil
         Persistence.shared.saveContext()
     }
     
