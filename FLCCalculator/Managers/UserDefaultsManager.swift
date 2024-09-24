@@ -13,6 +13,11 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: Keys.isHapticTurnedOn) }
     }
     
+    static var iCloudSyncEnabled: Bool {
+        get { NSUbiquitousKeyValueStore.default.object(forKey: Keys.iCloudSyncEnabled) == nil ? false : NSUbiquitousKeyValueStore.default.bool(forKey: Keys.iCloudSyncEnabled) }
+        set { NSUbiquitousKeyValueStore.default.set(newValue, forKey: Keys.iCloudSyncEnabled) }
+    }
+    
     static var isFirstLaunch: Bool {
         get { ud.object(forKey: Keys.isFirstLaunch) == nil ? true : ud.bool(forKey: Keys.isFirstLaunch) }
         set { ud.setValue(newValue, forKey: Keys.isFirstLaunch) }

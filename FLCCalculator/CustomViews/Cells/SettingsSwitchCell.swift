@@ -32,7 +32,6 @@ final class SettingsSwitchCell: FLCContentCell {
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         uiSwitch.onTintColor = .flcOrange
         uiSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
-        uiSwitch.setOn(SettingsVCHelper.configureSwitchState(for: contentType ?? .haptic), animated: false)
         
         NSLayoutConstraint.activate([
             uiSwitch.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: padding),
@@ -51,5 +50,6 @@ extension SettingsSwitchCell: FLCConfigurableCell {
         iconView.set(image: content.image, backgroundColor: content.backgroundColor)
         titleLabel.text = content.title
         contentType = content.contentType
+        uiSwitch.setOn(content.switchState ?? false, animated: false)
     }
 }

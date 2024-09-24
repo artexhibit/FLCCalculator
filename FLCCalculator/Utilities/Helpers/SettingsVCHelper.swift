@@ -10,31 +10,31 @@ struct SettingsVCHelper {
         let userMobilePhone = phoneCode + " " + TextFieldManager.formatPhoneNumber(with: countryData?.phoneMask ?? "", phone: phoneNumber)
         
         let firstSectionItems = [
-            SettingsCellContent(cellType: .profile, contentType: .profile, image: nil, title: user?.fio ?? "", subtitle: userMobilePhone, pickedOption: nil)
+            SettingsCellContent(cellType: .profile, contentType: .profile, title: user?.fio ?? "", subtitle: userMobilePhone)
         ]
         let secondSectionItems = [
-            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: FLCIcon.hapticPhone.icon, title: SettingsVCStrings.haptic, subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .menu, contentType: .theme, image: FLCIcon.circleHalfRight.icon, title: SettingsVCStrings.theme, subtitle: nil, pickedOption: pickedThemeOption),
-            SettingsCellContent(cellType: .label, contentType: .language, image: FLCIcon.globe.icon, title: SettingsVCStrings.language, subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .label, contentType: .permissions, image: FLCIcon.key.icon, title: SettingsVCStrings.permissions, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .switcher, contentType: .haptic, image: FLCIcon.hapticPhone.icon, title: SettingsVCStrings.haptic, switchState: UserDefaultsManager.isHapticTurnedOn),
+            SettingsCellContent(cellType: .menu, contentType: .theme, image: FLCIcon.circleHalfRight.icon, title: SettingsVCStrings.theme, pickedOption: pickedThemeOption),
+            SettingsCellContent(cellType: .label, contentType: .language, image: FLCIcon.globe.icon, title: SettingsVCStrings.language),
+            SettingsCellContent(cellType: .label, contentType: .permissions, image: FLCIcon.key.icon, title: SettingsVCStrings.permissions)
         ]
         let thirdSectionItems = [
-            SettingsCellContent(cellType: .switcher, contentType: .iCloud, image: FLCIcon.iCloud.icon, title: SettingsVCStrings.iCloud, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .switcher, contentType: .iCloud, image: FLCIcon.iCloud.icon, title: SettingsVCStrings.iCloud, switchState: UserDefaultsManager.iCloudSyncEnabled)
         ]
         let fourthSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .shareApp, image: FLCIcon.shareIcon.icon, title: SettingsVCStrings.shareApp, subtitle: nil, pickedOption: nil),
-            SettingsCellContent(cellType: .label, contentType: .rateApp, image: FLCIcon.star.icon, title: SettingsVCStrings.rateApp, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .shareApp, image: FLCIcon.shareIcon.icon, title: SettingsVCStrings.shareApp),
+            SettingsCellContent(cellType: .label, contentType: .rateApp, image: FLCIcon.star.icon, title: SettingsVCStrings.rateApp)
         ]
         let fifthSectionItems = [
-            SettingsCellContent(cellType: .label, contentType: .support, image: FLCIcon.message.icon, title: SettingsVCStrings.support, subtitle: nil, pickedOption: nil)
+            SettingsCellContent(cellType: .label, contentType: .support, image: FLCIcon.message.icon, title: SettingsVCStrings.support)
         ]
         
         return [
-            SettingsSection(title: "", sectionFooter: "", items: firstSectionItems),
-            SettingsSection(title: SettingsVCStrings.commonSection, sectionFooter: "", items: secondSectionItems),
-            SettingsSection(title: SettingsVCStrings.dataSection, sectionFooter: "", items: thirdSectionItems),
-            SettingsSection(title: SettingsVCStrings.aboutAppSection, sectionFooter: "", items: fourthSectionItems),
-            SettingsSection(title: "", sectionFooter: SettingsVCStrings.findErrorFooter, items: fifthSectionItems)
+            SettingsSection(items: firstSectionItems),
+            SettingsSection(title: SettingsVCStrings.commonSection, items: secondSectionItems),
+            SettingsSection(title: SettingsVCStrings.dataSection, sectionFooter: SettingsVCStrings.iCloudDataSectionFooter, items: thirdSectionItems),
+            SettingsSection(title: SettingsVCStrings.aboutAppSection, items: fourthSectionItems),
+            SettingsSection(sectionFooter: SettingsVCStrings.findErrorFooter, items: fifthSectionItems)
         ]
     }
     
@@ -72,11 +72,6 @@ struct SettingsVCHelper {
         return UIMenu(children: menuChildren)
     }
     
-    static func configureSwitchState(for contentType: FLCSettingsContentType) -> Bool {
-        if contentType == .haptic { return UserDefaultsManager.isHapticTurnedOn }
-        return true
-    }
-    
     static func updateAppTheme(in tableView: UITableView, sections: [SettingsSection], with contentType: FLCSettingsContentType) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let firstWindow = windowScene.windows.first else { return }
@@ -104,6 +99,32 @@ struct SettingsVCHelper {
             UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)
         } else {
             FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantOpenAppStore, style: .error)
+        }
+    }
+    
+    static func configureICloudSwitch(with switchTurnedOn: Bool) {
+        Task {
+            UserDefaultsManager.iCloudSyncEnabled = switchTurnedOn
+            
+            let operationTitle = switchTurnedOn ? FLCPopupMessages.uploadingCalculations : FLCPopupMessages.deletingCalculations
+            let successMessage = switchTurnedOn ? FLCPopupMessages.calculationsUploadedSuccessfully : FLCPopupMessages.calculationsDeletedSuccessfully
+            let errorMessage = switchTurnedOn ? FLCPopupMessages.failedToUploadCalculations : FLCPopupMessages.failedToDeleteCalculations
+            
+            await FLCPopupView.showOnMainThread(title: operationTitle, style: .spinner)
+            
+            do {
+                if switchTurnedOn {
+                    try await ICloudManager.shared.uploadCalculationsToCloud()
+                } else {
+                    try await ICloudManager.shared.deleteRecordsFromCloud()
+                }
+                
+                await FLCPopupView.removeFromMainThread()
+                await FLCPopupView.showOnMainThread(title: successMessage)
+            } catch {
+                await FLCPopupView.removeFromMainThread()
+                await FLCPopupView.showOnMainThread(title: errorMessage, style: .error)
+            }
         }
     }
 }

@@ -103,7 +103,7 @@ extension SettingsVC: SettingsSwitchCellDelegate {
     func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
         switch contentType {
         case .haptic: UserDefaultsManager.isHapticTurnedOn = state
-        case .iCloud: print("changed")
+        case .iCloud: SettingsVCHelper.configureICloudSwitch(with: state)
         case .profile, .theme, .permissions,.support, .shareApp, .rateApp, .language: break
         }
     }

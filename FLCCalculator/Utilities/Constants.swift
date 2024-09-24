@@ -3,6 +3,7 @@ import UIKit
 enum Keys {
     static let permissionsScreenWasShown = "permissionsScreenWasShown"
     static let isHapticTurnedOn = "isHapticTurnedOn"
+    static let iCloudSyncEnabled = "iCloudSyncEnabled"
     static let isFirstLaunch = "isFirstLaunch"
     static let appTheme = "appTheme"
     static let onboardingPopoversDict = "onboardingPopoversDict"
@@ -148,6 +149,7 @@ enum SettingsVCStrings {
     static let dataSection = String(localized: "Данные")
     static let aboutAppSection = String(localized: "О приложении")
     static let findErrorFooter = String(localized: "Нашли баг, ошибку, опечатку? Напишите, и мы сразу же исправим!")
+    static let iCloudDataSectionFooter = String(localized: "Ваши расчёты будут сохранены в iCloud и синхронизированы между всеми устройствами")
 }
 
 enum CalculationStrings {
@@ -467,6 +469,12 @@ enum FLCPopupMessages {
     static let cantConfirmOrder = String(localized: "Для подтверждения необходимо подключение к интернету")
     static let pickPhoneCodeCountry = String(localized: "Сначала выберите страну")
     static let tariffsDownloaded = String(localized: "Тарифы загружены")
+    static let uploadingCalculations = String(localized: "Загружаем расчёты в iCloud")
+    static let deletingCalculations = String(localized: "Удаляем расчёты из iCloud")
+    static let calculationsUploadedSuccessfully = String(localized: "Расчёты успешно загружены")
+    static let calculationsDeletedSuccessfully = String(localized: "Расчёты успешно удалены")
+    static let failedToUploadCalculations = String(localized: "Не удалось загрузить расчёты")
+    static let failedToDeleteCalculations = String(localized: "Не удалось удалить расчёты")
 }
 
 enum PopoverMessages {

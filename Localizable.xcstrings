@@ -914,6 +914,16 @@
         }
       }
     },
+    "Ваши расчёты будут сохранены в iCloud и синхронизированы между всеми устройствами" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your calculations will be saved in iCloud and synced between all devices"
+          }
+        }
+      }
+    },
     "Великобритания" : {
       "localizations" : {
         "en" : {
@@ -1850,6 +1860,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Downloading data"
+          }
+        }
+      }
+    },
+    "Загружаем расчёты в iCloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uploading calculations to iCloud"
           }
         }
       }
@@ -3774,6 +3794,16 @@
         }
       }
     },
+    "Не удалось загрузить расчёты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to upload calculations"
+          }
+        }
+      }
+    },
     "Не удалось найти никнейм в Telegram" : {
       "localizations" : {
         "en" : {
@@ -3870,6 +3900,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed to delete account"
+          }
+        }
+      }
+    },
+    "Не удалось удалить расчёты" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to delete calculations"
           }
         }
       }
@@ -5334,6 +5374,26 @@
         }
       }
     },
+    "Расчёты успешно загружены" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculations successfully uploaded"
+          }
+        }
+      }
+    },
+    "Расчёты успешно удалены" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculations successfully deleted"
+          }
+        }
+      }
+    },
     "Регистрация" : {
       "localizations" : {
         "en" : {
@@ -6630,6 +6690,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete account"
+          }
+        }
+      }
+    },
+    "Удаляем расчёты из iCloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting calculations from iCloud"
           }
         }
       }
