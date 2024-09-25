@@ -19,28 +19,17 @@ struct CoreDataManager {
         }
     }
     
-    static func getCalculation(withID id: Int32) -> Calculation? {
+    static func getCalculation<T>(withID id: T) -> Calculation? {
         let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", id)
         
-        do {
-            return try context.fetch(request).first
-        } catch {
-            print(FLCError.unableToFetchCategories)
+        if let id = id as? Int32 {
+            request.predicate = NSPredicate(format: "id == %d", id)
+        } else if let id = id as? UUID {
+            request.predicate = NSPredicate(format: "cloudID == %@", id as NSUUID)
+        } else {
             return nil
         }
-    }
-    
-    private static func getCalculation(withCloudID id: UUID) -> Calculation? {
-        let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
-        request.predicate = NSPredicate(format: "cloudID == %@", id as NSUUID)
-        
-        do {
-            return try context.fetch(request).first
-        } catch {
-            print(FLCError.unableToFetchCategories)
-            return nil
-        }
+        return try? context.fetch(request).first
     }
     
     static func getCalculationResults(forCalculationID id: Int32) -> Set<CalculationResult>? {
@@ -58,14 +47,20 @@ struct CoreDataManager {
         Persistence.shared.saveContext()
     }
     
-    static func reassignCalculationsId() {
+    static func deleteCalculation<T>(withID id: T) {
+        guard let calculationToDelete = getCalculation(withID: id) else { return }
+        context.delete(calculationToDelete)
+        Persistence.shared.saveContext()
+    }
+    
+    static func reassignCalculationsID() {
         guard let calculations = loadCalculations() else { return }
         for (index, calc) in calculations.enumerated() { calc.id = Int32(index + 1) }
         Persistence.shared.saveContext()
     }
     
     static func resetCalculationFor(cloudID: UUID) {
-        guard let calculation = getCalculation(withCloudID: cloudID) else { return }
+        guard let calculation = getCalculation(withID: cloudID) else { return }
         calculation.cloudID = nil
         Persistence.shared.saveContext()
     }

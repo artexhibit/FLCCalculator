@@ -120,7 +120,7 @@ struct SettingsVCHelper {
                 }
                 
                 await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(title: successMessage)
+                await FLCPopupView.showOnMainThread(systemImage: FLCIcon.checkmark.icon, title: successMessage)
             } catch {
                 await FLCPopupView.removeFromMainThread()
                 await FLCPopupView.showOnMainThread(title: errorMessage, style: .error)

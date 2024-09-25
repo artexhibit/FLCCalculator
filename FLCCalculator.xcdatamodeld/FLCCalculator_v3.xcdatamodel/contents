@@ -24,7 +24,7 @@
         <attribute name="totalPrice" attributeType="String"/>
         <attribute name="volume" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="result" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CalculationResult" inverseName="calculation" inverseEntity="CalculationResult"/>
+        <relationship name="result" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CalculationResult" inverseName="calculation" inverseEntity="CalculationResult"/>
     </entity>
     <entity name="CalculationResult" representedClassName="CalculationResult" syncable="YES" codeGenerationType="class">
         <attribute name="cargoHandling" optional="YES" attributeType="String"/>

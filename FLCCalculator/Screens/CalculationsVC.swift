@@ -12,6 +12,7 @@ class CalculationsVC: UIViewController {
         configureTableView()
         configureDataSource()
         getCalculations()
+        ICloudManager.shared.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,7 +113,7 @@ extension CalculationsVC: UITableViewDelegate {
             guard let self = self else { return }
             
             CoreDataManager.deleteCalculation(withID: self.calculations[indexPath.row].id)
-            CoreDataManager.reassignCalculationsId()
+            CoreDataManager.reassignCalculationsID()
             self.getCalculations()
             completionHandler(true)
         }
@@ -131,5 +132,11 @@ extension CalculationsVC: FLCButtonDelegate {
         case emptyStateView.getActionButton(): goToCalculation()
         default: break
         }
+    }
+}
+
+extension CalculationsVC: ICloudManagerDelegate {
+    func calculationsUpdated() {
+        getCalculations()
     }
 }

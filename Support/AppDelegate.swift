@@ -11,6 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AuthorizationVCHelper.presentAuthorizationVC()
         
         AppDelegateHelper.registerForRemoteNotifications(with: application)
+        ICloudManager.shared.subscribeToCalculationChangesInICloud()
         BackgroundTasksManager.registerBackgroundTasks()
         AppDelegateHelper.updateDataOnAppLaunch()
         AppDelegateHelper.configureSMSCounter()
@@ -36,7 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @MainActor
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult { .newData }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        let cloudKitChangeEvent = ICloudManager.shared.checkForCloudKitChangeEvent(from: userInfo)
+        
+        switch cloudKitChangeEvent {
+        case .creation, .update, .deletion: return .newData
+        case .unknown: return .noData
+        }
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {

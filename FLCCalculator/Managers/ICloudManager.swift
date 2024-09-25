@@ -1,12 +1,64 @@
 import Foundation
 import CloudKit
 
+protocol ICloudManagerDelegate: AnyObject {
+    func calculationsUpdated()
+}
+
 class ICloudManager {
     static let shared = ICloudManager()
     private let database = CKContainer.default().publicCloudDatabase
     private let recordType = "Calculation"
+    private let predicate = NSPredicate(value: true)
+    
+    weak var delegate: ICloudManagerDelegate?
     
     private init() {}
+    
+    func subscribeToCalculationChangesInICloud() {
+        Task {
+            do {
+                try await subscribeToCalculationChange(ofType: .creation)
+                try await subscribeToCalculationChange(ofType: .deletion)
+                try await subscribeToCalculationChange(ofType: .update)
+            } catch {
+                throw FLCError.failedToSubscribeToICloudChanges
+            }
+        }
+    }
+    
+    private func subscribeToCalculationChange(ofType type: CalculationChangeICloudType) async throws {
+        let subscription = CKQuerySubscription(recordType: recordType, predicate: predicate, subscriptionID: type.rawValue, options: type.subscriptionOptions)
+        let notificationInfo = CKSubscription.NotificationInfo()
+        
+        notificationInfo.shouldSendContentAvailable = true
+        subscription.notificationInfo = notificationInfo
+        
+        try await database.save(subscription)
+    }
+    
+    func checkForCloudKitChangeEvent(from userInfo: [AnyHashable : Any]) -> CalculationICloudChangeEvent {
+        guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else { return .unknown }
+        guard let subscriptionID = notification.subscriptionID else { return .unknown }
+        
+        switch subscriptionID {
+        case CalculationChangeICloudType.creation.rawValue: return .creation
+        case CalculationChangeICloudType.deletion.rawValue: return handleDeletionNotification(userInfo: userInfo)
+        case CalculationChangeICloudType.update.rawValue: return .update
+        default: return .unknown
+        }
+    }
+    
+    private func handleDeletionNotification(userInfo: [AnyHashable: Any]) -> CalculationICloudChangeEvent {
+        guard let queryNotification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification else { return .unknown }
+        guard let recordID = queryNotification.recordID, let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return .unknown }
+        
+        CoreDataManager.deleteCalculation(withID: deletedRecordUUID)
+        CoreDataManager.reassignCalculationsID()
+        delegate?.calculationsUpdated()
+        
+        return .deletion
+    }
     
     func uploadCalculationsToCloud() async throws {
         guard let calculations = CoreDataManager.loadCalculations()?.filter({ $0.cloudID == nil }), calculations.count > 0 else { return }
@@ -40,7 +92,7 @@ class ICloudManager {
         var cursor: CKQueryOperation.Cursor? = nil
         
         repeat {
-            let (fetchedRecordIDs, nextCursor) = try await performQuery(recordType: recordType, predicate: NSPredicate(value: true), cursor: cursor)
+            let (fetchedRecordIDs, nextCursor) = try await performQuery(recordType: recordType, predicate: predicate, cursor: cursor)
             
             if !fetchedRecordIDs.isEmpty { try await deleteRecords(recordIDs: fetchedRecordIDs) }
             cursor = nextCursor

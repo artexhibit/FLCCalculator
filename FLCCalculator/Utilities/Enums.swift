@@ -1,4 +1,5 @@
 import UIKit
+import CloudKit
 
 enum FLCPopupViewStyle { case error, normal, spinner }
 enum FLCDeliveryTypeCode: String { case EXW, FCA, FOB }
@@ -21,8 +22,26 @@ enum FLCSettingsCellType { case profile, switcher, menu, label }
 enum FLCSettingsContentType { case profile, haptic, theme, permissions, support, shareApp, rateApp, language, iCloud }
 enum FLCPermissionType { case notifications }
 enum FLCHTTPMethod: String { case POST, GET, PATCH }
+enum CalculationICloudChangeEvent { case creation, update, deletion, unknown }
 enum FLCRoundButtonType { case phone, email, route, details, telegram, whatsapp, standard }
 enum FLCUserCountry: Codable { case russia, kazakhstan, afghanistan, albania, algeria, angola, anguilla, antiguaAndBarbuda, argentina, armenia, australia, austria, azerbaijan, bahamas, bahrain, barbados, belarus, belgium, belize, benin, bermuda, bhutan, bolivia, bosniaAndHerzegovina, botswana, brazil, britishVirginIslands, brunei, bulgaria, burkinaFaso, cambodia, cameroon, canada, capeVerde, caymanIslands, chad, chile, china, colombia, democraticRepublicOfCongo, republicOfCongo, costaRica, coteDIvoire, croatia, cyprus, czechRepublic, denmark, dominica, dominicanRepublic, ecuador, egypt, elSalvador, estonia, eswatini, fiji, finland, france, gabon, gambia, georgia, germany, ghana, greece, grenada, guatemala, guineaBissau, guyana, honduras, hongKong, hungary, iceland, india, indonesia, iraq, ireland, israel, italy, jamaica, japan, jordan, kenya, republicOfKorea, kosovo, kuwait, kyrgyzstan, laos, latvia, lebanon, liberia, libya, lithuania, luxembourg, macao, madagascar, malawi, malaysia, maldives, mali, malta, mauritania, mauritius, mexico, micronesia, moldova, mongolia, montenegro, montserrat, morocco, mozambique, myanmar, namibia, nauru, nepal, netherlands, newZealand, nicaragua, niger, nigeria, northMacedonia, norway, oman, pakistan, palau, panama, papuaNewGuinea, paraguay, peru, philippines, poland, portugal, qatar, romania, rwanda, saoTomeAndPrincipe, saudiArabia, senegal, serbia, seychelles, sierraLeone, singapore, slovakia, slovenia, solomonIslands, southAfrica, spain, sriLanka, saintKittsAndNevis, saintLucia, saintVincentAndTheGrenadines, suriname, sweden, switzerland, taiwan, tajikistan, tanzania, thailand, tonga, trinidadAndTobago, tunisia, turkey, turkmenistan, turksAndCaicos, uganda, ukraine, unitedArabEmirates, unitedKingdom, unitedStates, uruguay, uzbekistan, vanuatu, venezuela, vietnam, yemen, zambia, zimbabwe }
+
+enum CalculationChangeICloudType: String {
+    case creation = "calculationCreation"
+    case update = "calculationUpdate"
+    case deletion = "calculationDeletion"
+    
+    var subscriptionOptions: CKQuerySubscription.Options {
+        switch self {
+        case .creation:
+            return .firesOnRecordCreation
+        case .update:
+            return .firesOnRecordUpdate
+        case .deletion:
+            return .firesOnRecordDeletion
+        }
+    }
+}
 
 enum FLCHTTPHeaderField: String {
     case phone = "phone"

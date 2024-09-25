@@ -28,4 +28,5 @@ enum FLCError: String, Error {
     case unableToFindAppDirectory = "Не удалось найти директорию поддержки приложений"
     case unableToDecodeFromKeychain = "Не удалось декодировать элемент из Keychain"
     case unableToEncodeFromKeychain = "Не удалось закодировать элемент для Keychain"
+    case failedToSubscribeToICloudChanges = "Не удалось подписаться на изменения в iCloud"
 }
