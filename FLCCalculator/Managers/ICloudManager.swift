@@ -3,9 +3,15 @@ import CloudKit
 
 protocol ICloudManagerDelegate: AnyObject {
     func calculationsUpdated()
+    func iCloudToggleSwitched()
 }
 
-class ICloudManager {
+extension ICloudManagerDelegate {
+    func calculationsUpdated() {}
+    func iCloudToggleSwitched() {}
+}
+
+class ICloudManager: NSObject {
     static let shared = ICloudManager()
     private let database = CKContainer.default().publicCloudDatabase
     private let recordType = "Calculation"
@@ -13,7 +19,10 @@ class ICloudManager {
     
     weak var delegate: ICloudManagerDelegate?
     
-    private init() {}
+    override init() {
+        super.init()
+        NotificationsManager.cloudKitKeyValueStoreValueDidChange(self, selector: #selector(cloudKitKeyValueStoreValueDidChange(_:)))
+    }
     
     func subscribeToCalculationChangesInICloud() {
         Task {
@@ -40,23 +49,55 @@ class ICloudManager {
     func checkForCloudKitChangeEvent(from userInfo: [AnyHashable : Any]) -> CalculationICloudChangeEvent {
         guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else { return .unknown }
         guard let subscriptionID = notification.subscriptionID else { return .unknown }
+        guard let queryNotification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification else { return .unknown }
+        guard let recordID = queryNotification.recordID else { return .unknown }
         
         switch subscriptionID {
-        case CalculationChangeICloudType.creation.rawValue: return .creation
-        case CalculationChangeICloudType.deletion.rawValue: return handleDeletionNotification(userInfo: userInfo)
-        case CalculationChangeICloudType.update.rawValue: return .update
+        case CalculationChangeICloudType.creation.rawValue: return handleCreationNotification(recordID: recordID)
+        case CalculationChangeICloudType.deletion.rawValue: return handleDeletionNotification(recordID: recordID)
+        case CalculationChangeICloudType.update.rawValue: return handleUpdateNotification(recordID: recordID)
         default: return .unknown
         }
     }
     
-    private func handleDeletionNotification(userInfo: [AnyHashable: Any]) -> CalculationICloudChangeEvent {
-        guard let queryNotification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification else { return .unknown }
-        guard let recordID = queryNotification.recordID, let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return .unknown }
+    private func handleCreationNotification(recordID: CKRecord.ID) -> CalculationICloudChangeEvent {
+        Task {
+            do {
+                guard let record = try await fetchRecords([recordID]).first else { return }
+                
+                await MainActor.run {
+                    createCalculationsFromRecords(records: [record])
+                    CoreDataManager.reassignCalculationsID()
+                    delegate?.calculationsUpdated()
+                }
+            }
+        }
+        return .creation
+    }
+    
+    private func handleUpdateNotification(recordID: CKRecord.ID) -> CalculationICloudChangeEvent {
+        Task {
+            do {
+                guard let updatedRecordUUID = UUID(uuidString: recordID.recordName) else { return }
+                guard let record = try await fetchRecords([recordID]).first else { return }
+                
+                await MainActor.run {
+                    CoreDataManager.deleteCalculation(withID: updatedRecordUUID)
+                    createCalculationsFromRecords(records: [record])
+                    delegate?.calculationsUpdated()
+                }
+            }
+        }
+        return .update
+    }
+
+    
+    private func handleDeletionNotification(recordID: CKRecord.ID) -> CalculationICloudChangeEvent {
+        guard let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return .unknown }
         
         CoreDataManager.deleteCalculation(withID: deletedRecordUUID)
         CoreDataManager.reassignCalculationsID()
         delegate?.calculationsUpdated()
-        
         return .deletion
     }
     
@@ -67,7 +108,7 @@ class ICloudManager {
             for calculation in calculations {
                 group.addTask { [weak self] in
                     guard let self = self else { return }
-
+                    
                     let newCloudID = UUID()
                     let record = CKRecord(recordType: self.recordType, recordID: CKRecord.ID(recordName: newCloudID.uuidString))
                     
@@ -170,6 +211,25 @@ class ICloudManager {
         }
     }
     
+    private func fetchRecords(_ recordIDs: [CKRecord.ID]) async throws -> [CKRecord] {
+        return try await withCheckedThrowingContinuation { continuation in
+            database.fetch(withRecordIDs: recordIDs, completionHandler: { result in
+                switch result {
+                case .success(let recordsDict):
+                    var records = [CKRecord]()
+                    for (_, recordResult) in recordsDict {
+                        switch recordResult {
+                        case .success(let record): records.append(record)
+                        case .failure(_): break
+                        }
+                    }
+                    continuation.resume(returning: records)
+                case .failure(let error): continuation.resume(throwing: error)
+                }
+            })
+        }
+    }
+    
     private func configureRecordFields(for record: CKRecord, with calculation: Calculation) {
         record.setValue(calculation.calculationConfirmDate, forKey: "calculationConfirmDate")
         record.setValue(calculation.calculationDate, forKey: "calculationDate")
@@ -193,7 +253,7 @@ class ICloudManager {
         record.setValue(calculation.totalPrice, forKey: "totalPrice")
         record.setValue(calculation.volume, forKey: "volume")
         record.setValue(calculation.weight, forKey: "weight")
-
+        
         if let results = encodeCalculationResults(calculation: calculation) {
             record.setValue(results, forKey: "calculationResultsData")
         } else {
@@ -201,9 +261,89 @@ class ICloudManager {
         }
     }
     
+    private func createCalculationsFromRecords(records: [CKRecord]) {
+        for record in records {
+            let calc = Calculation(context: CoreDataManager.context)
+            calc.calculationDate = record.value(forKey: "calculationDate") as? Date
+            calc.calculationConfirmDate = record.value(forKey: "calculationConfirmDate") as? Date
+            calc.id = record.value(forKey: "id") as? Int32 ?? Int32()
+            calc.toLocation = record.value(forKey: "toLocation") as? String
+            calc.toLocationCode = record.value(forKey: "toLocationCode") as? String
+            calc.deliveryType = record.value(forKey: "deliveryType") as? String
+            calc.goodsType = record.value(forKey: "goodsType") as? String
+            calc.fromLocation = record.value(forKey: "fromLocation") as? String
+            calc.departureAirport = record.value(forKey: "departureAirport") as? String
+            calc.fromLocationCode = record.value(forKey: "fromLocationCode") as? String
+            calc.deliveryTypeCode = record.value(forKey: "deliveryTypeCode") as? String
+            calc.countryTo = record.value(forKey: "countryTo") as? String
+            calc.countryFrom = record.value(forKey: "countryFrom") as? String
+            calc.weight = record.value(forKey: "weight") as? Double ?? 0
+            calc.volume = record.value(forKey: "volume") as? Double ?? 0
+            calc.invoiceAmount = record.value(forKey: "invoiceAmount") as? Double ?? 0
+            calc.invoiceCurrency = record.value(forKey: "invoiceCurrency") as? String
+            calc.isConfirmed = record.value(forKey: "isConfirmed") as? Bool ?? false
+            calc.totalPrice = record.value(forKey: "totalPrice") as? String
+            calc.needCustomsClearance = record.value(forKey: "needCustomsClearance") as? Bool ?? true
+            calc.exchangeRate = record.value(forKey: "exchangeRate") as? Double ?? 0
+            calc.logisticsTypes = record.value(forKey: "logisticsTypes") as? Data
+            calc.cloudID = UUID(uuidString: record.recordID.recordName)
+            
+            let calcResultsData = record.value(forKey: "calculationResultsData") as? Data
+            guard let calcResultsDTO = decodeCalculationResults(data: calcResultsData) else { continue }
+            
+            for dtoResult in calcResultsDTO {
+                let calcResult = CalculationResult(context: CoreDataManager.context)
+                
+                calcResult.logisticsType = dtoResult.logisticsType.rawValue
+                calcResult.totalPrice = dtoResult.totalPrice
+                calcResult.totalTime = dtoResult.totalTime
+                calcResult.cargoHandling = dtoResult.cargoHandling
+                calcResult.customsClearance = dtoResult.customsClearance
+                calcResult.customsWarehousePrice = dtoResult.customsWarehousePrice
+                calcResult.deliveryFromWarehousePrice = dtoResult.deliveryFromWarehousePrice
+                calcResult.deliveryFromWarehouseTime = dtoResult.deliveryFromWarehouseTime
+                calcResult.deliveryToWarehousePrice = dtoResult.deliveryToWarehousePrice
+                calcResult.deliveryToWarehouseTime = dtoResult.deliveryToWarehouseTime
+                calcResult.russianDeliveryPrice = dtoResult.russianDeliveryPrice
+                calcResult.russianDeliveryTime = dtoResult.russianDeliveryTime
+                calcResult.groupageDocs = dtoResult.groupageDocs
+                calcResult.insurance = dtoResult.insurance
+                calcResult.insurancePercentage = dtoResult.insurancePercentage ?? 0
+                calcResult.insuranceRatio = dtoResult.insuranceRatio ?? 0
+                calcResult.insuranceAgentVisit = dtoResult.insuranceAgentVisit ?? 0
+                calcResult.minLogisticsProfit = dtoResult.minLogisticsProfit ?? 0
+                calcResult.cargoHandlingPricePerKg = dtoResult.cargoHandlingPricePerKg ?? 0
+                calcResult.cargoHandlingMinPrice = dtoResult.cargoHandlingMinPrice ?? 0
+                calcResult.isConfirmed = dtoResult.isConfirmed
+                
+                calcResult.calculation = calc
+                calc.addToResult(calcResult)
+            }
+        }
+        Persistence.shared.saveContext()
+    }
+    
     private func encodeCalculationResults(calculation: Calculation) -> Data? {
         guard let results = calculation.result as? Set<CalculationResult> else { return nil }
         let resultsArray = Array(results).map({ $0.toDTO() })
         return try? JSONEncoder().encode(resultsArray)
+    }
+    
+    private func decodeCalculationResults(data: Data?) -> [TotalPriceData]? {
+        guard let data else { return nil }
+        return try? JSONDecoder().decode([TotalPriceData].self, from: data)
+    }
+    
+    @objc func cloudKitKeyValueStoreValueDidChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let reason = userInfo[NSUbiquitousKeyValueStoreChangeReasonKey] as? Int else { return }
+        
+        if reason == NSUbiquitousKeyValueStoreServerChange || reason == NSUbiquitousKeyValueStoreInitialSyncChange {
+            guard let changedKeys = userInfo[NSUbiquitousKeyValueStoreChangedKeysKey] as? [String] else { return }
+            
+            for key in changedKeys {
+                if key == Keys.iCloudSyncEnabled { delegate?.iCloudToggleSwitched() }
+            }
+        }
     }
 }

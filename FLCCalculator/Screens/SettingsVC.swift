@@ -25,6 +25,7 @@ class SettingsVC: UIViewController {
         navigationItem.title = SettingsVCStrings.settings
         setNavBarColor(color: UIColor.flcOrange)
         tabBarController?.tabBar.isHidden = false
+        ICloudManager.shared.delegate = self
     }
     
     private func configureTableView() {
@@ -43,8 +44,10 @@ class SettingsVC: UIViewController {
         tableView.register(FLCTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCTableViewHeader.reuseID)
     }
     private func updateDataSource() {
-        sections = SettingsVCHelper.configureDataSource()
-        tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: .profile, in: sections)], with: .none)
+        DispatchQueue.main.async {
+            self.sections = SettingsVCHelper.configureDataSource()
+            self.tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: .profile, in: self.sections)], with: .none)
+        }
     }
 }
 
@@ -127,5 +130,11 @@ extension SettingsVC: ProfileSettingsVCDelegate {
 extension SettingsVC: FLCMailComposeDelegate, MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         handleMailComposeResult(result)
+    }
+}
+
+extension SettingsVC: ICloudManagerDelegate {
+    func iCloudToggleSwitched() {
+        //do smth
     }
 }

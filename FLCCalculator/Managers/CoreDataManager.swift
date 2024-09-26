@@ -2,14 +2,16 @@ import Foundation
 import CoreData
 
 struct CoreDataManager {
-    private static let context = Persistence.shared.container.viewContext
+    static let context = Persistence.shared.container.viewContext
     private static let decoder = JSONDecoder()
     private static let encoder = JSONEncoder()
     
-    static func loadCalculations(sortBy key: String = "id", ascending: Bool = true) -> [Calculation]? {
+    static func loadCalculations(sortBy key: String = "id", ascending: Bool = true, sortByCreationDate: Bool = true) -> [Calculation]? {
         let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
-        request.sortDescriptors = [sortDescriptor]
+        let mainSortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
+        let dateSortDescriptor = NSSortDescriptor(key: "calculationDate", ascending: true)
+        
+        request.sortDescriptors = sortByCreationDate ? [mainSortDescriptor, dateSortDescriptor] : [mainSortDescriptor]
         
         do {
             return try context.fetch(request)
@@ -111,7 +113,7 @@ struct CoreDataManager {
             calcResult.groupageDocs = totalPriceDataItem.groupageDocs
             calcResult.insurance = totalPriceDataItem.insurance
             calcResult.insurancePercentage = totalPriceDataItem.insurancePercentage ?? 0
-            calcResult.insuranceRatio = totalPriceDataItem.insurancePercentage ?? 0
+            calcResult.insuranceRatio = totalPriceDataItem.insuranceRatio ?? 0
             calcResult.insuranceAgentVisit = totalPriceDataItem.insuranceAgentVisit ?? 0
             calcResult.minLogisticsProfit = totalPriceDataItem.minLogisticsProfit ?? 0
             calcResult.cargoHandlingPricePerKg = totalPriceDataItem.cargoHandlingPricePerKg ?? 0

@@ -51,3 +51,31 @@ extension TotalPriceData {
         ]
     }
 }
+
+extension CalculationResult {
+    func toDTO() -> TotalPriceData {
+        return TotalPriceData(
+            logisticsType: FLCLogisticsType(rawValue: self.logisticsType ?? "") ?? .chinaTruck,
+            totalPrice: self.totalPrice,
+            totalTime: self.totalTime,
+            cargoHandling: self.cargoHandling,
+            customsClearance: self.customsClearance,
+            customsWarehousePrice: self.customsWarehousePrice,
+            deliveryFromWarehousePrice: self.deliveryFromWarehousePrice,
+            deliveryFromWarehouseTime: self.deliveryFromWarehouseTime,
+            deliveryToWarehousePrice: self.deliveryToWarehousePrice,
+            deliveryToWarehouseTime: self.deliveryToWarehouseTime,
+            russianDeliveryPrice: self.russianDeliveryPrice,
+            russianDeliveryTime: self.russianDeliveryTime,
+            groupageDocs: self.groupageDocs,
+            insurance: self.insurance,
+            insurancePercentage: self.insurancePercentage,
+            insuranceRatio: self.insuranceRatio,
+            insuranceAgentVisit: self.insuranceAgentVisit,
+            minLogisticsProfit: self.minLogisticsProfit,
+            cargoHandlingPricePerKg: self.cargoHandlingPricePerKg,
+            cargoHandlingMinPrice: self.cargoHandlingMinPrice,
+            isConfirmed: self.isConfirmed
+        )
+    }
+}

@@ -67,9 +67,6 @@
 		0B4F8A492CA08166009A322D /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A482CA08166009A322D /* ICloudManager.swift */; };
 		0B4F8A4A2CA08166009A322D /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A482CA08166009A322D /* ICloudManager.swift */; };
 		0B4F8A4B2CA08166009A322D /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A482CA08166009A322D /* ICloudManager.swift */; };
-		0B4F8A4E2CA1909A009A322D /* CalculationResultDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A4D2CA1909A009A322D /* CalculationResultDTO.swift */; };
-		0B4F8A4F2CA1909A009A322D /* CalculationResultDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A4D2CA1909A009A322D /* CalculationResultDTO.swift */; };
-		0B4F8A502CA1909A009A322D /* CalculationResultDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F8A4D2CA1909A009A322D /* CalculationResultDTO.swift */; };
 		0B53286E2BC2DFCC00B02A73 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53286D2BC2DFCC00B02A73 /* UIColor+Ext.swift */; };
 		0B58D7A72C45ABB300C7EC80 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */; };
 		0B5D1BBF2C1F087F00F9ECB3 /* SettingsLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D1BBE2C1F087F00F9ECB3 /* SettingsLabelCell.swift */; };
@@ -152,6 +149,8 @@
 		0B8B7F552C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */; };
 		0B8B7F562C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */; };
 		0B8B7F572C42D3A2001992D9 /* FirebaseDataUpdateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8B7F542C42D3A2001992D9 /* FirebaseDataUpdateItem.swift */; };
+		0B9101472CA5BF39009BA313 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
+		0B9101482CA5BF42009BA313 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAABC1C2B978E56001A4AA1 /* NotificationsManager.swift */; };
 		0B916BA32C1CBF6E0037D44D /* FLCIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA22C1CBF6E0037D44D /* FLCIconView.swift */; };
 		0B916BA52C1CC5410037D44D /* PermissionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA42C1CC5410037D44D /* PermissionsVC.swift */; };
 		0B916BA72C1CC81F0037D44D /* PermissionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B916BA62C1CC81F0037D44D /* PermissionsCell.swift */; };
@@ -424,7 +423,6 @@
 		0B419FD42B82546D00498ACE /* CalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
 		0B4F8A482CA08166009A322D /* ICloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudManager.swift; sourceTree = "<group>"; };
 		0B4F8A4C2CA17D2A009A322D /* FLCCalculator_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FLCCalculator_v3.xcdatamodel; sourceTree = "<group>"; };
-		0B4F8A4D2CA1909A009A322D /* CalculationResultDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultDTO.swift; sourceTree = "<group>"; };
 		0B53286D2BC2DFCC00B02A73 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		0B58D7A62C45ABB300C7EC80 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0B5D1BBE2C1F087F00F9ECB3 /* SettingsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelCell.swift; sourceTree = "<group>"; };
@@ -921,7 +919,6 @@
 				0B6E54712B81228A0078C110 /* CalculationInfo.swift */,
 				0BFBD73F2BA37B9F00B485B8 /* CalculationData.swift */,
 				0B2FF62A2C1B634D00C66C5A /* CalculationDataFirebaseRecord.swift */,
-				0B4F8A4D2CA1909A009A322D /* CalculationResultDTO.swift */,
 				0B78F3062BE68D2000C52EC4 /* TotalPriceData.swift */,
 				0BDCE6F42BA598250043AB64 /* CalculationResultItem.swift */,
 				0B60E3592BA6ED720008000B /* RussianDelivery.swift */,
@@ -1362,7 +1359,6 @@
 				0BFA899B2C22B9960023D949 /* ChinaAirPickup.swift in Sources */,
 				0BFA89912C22B8610023D949 /* TotalPriceData.swift in Sources */,
 				0B6931042C20C6640032A179 /* NotificationService.swift in Sources */,
-				0B4F8A4F2CA1909A009A322D /* CalculationResultDTO.swift in Sources */,
 				0B5F773F2C22282A005B391C /* Protocols.swift in Sources */,
 				0BFA89992C22B9880023D949 /* ChinaRailwayPickup.swift in Sources */,
 				0B05A40A2C4169B4000F4ABF /* NumberFormatter+Ext.swift in Sources */,
@@ -1376,6 +1372,7 @@
 				0BFA89B42C22BA9B0023D949 /* CalculationDataFirebaseRecord.swift in Sources */,
 				0BABA4C32C2362E2000991E9 /* KeychainManager.swift in Sources */,
 				0BFA89B22C22BA7D0023D949 /* CalculationInfo.swift in Sources */,
+				0B9101482CA5BF42009BA313 /* NotificationsManager.swift in Sources */,
 				0B5F773E2C222824005B391C /* UserDefaults+Ext.swift in Sources */,
 				0B754E722C288F6B0082D8A8 /* SMSManager.swift in Sources */,
 				0BFA89932C22B87E0023D949 /* CalculationData.swift in Sources */,
@@ -1532,7 +1529,6 @@
 				0BABA4C52C23677C000991E9 /* FLCUserCredentials.swift in Sources */,
 				0BDCE6F52BA598250043AB64 /* CalculationResultItem.swift in Sources */,
 				0B2002B32B9E0B3500B8DF5C /* NetworkManager.swift in Sources */,
-				0B4F8A502CA1909A009A322D /* CalculationResultDTO.swift in Sources */,
 				0B7882862BDEA8F500BDCA16 /* FLCImageView.swift in Sources */,
 				0B2DD2262BBDCE09006F1CA7 /* FLCTextLayer.swift in Sources */,
 				0BD4DE232B88B74800B834DD /* FLCSmallLabelView.swift in Sources */,
@@ -1594,7 +1590,7 @@
 				0BFA89A32C22B9EC0023D949 /* TurkeyTruckByFerryTariff.swift in Sources */,
 				0B1E31422C10A47F00291D0E /* SettingsCellContent.swift in Sources */,
 				0B9515972C2C951400823A04 /* TurkeyNovorossiyskBySeaTariff.swift in Sources */,
-				0B4F8A4E2CA1909A009A322D /* CalculationResultDTO.swift in Sources */,
+				0B9101472CA5BF39009BA313 /* NotificationsManager.swift in Sources */,
 				0BFA89E22C22CA780023D949 /* String+Ext.swift in Sources */,
 				0B20D4CD2C333B19003DB36E /* TurkeyAirVKOPickup.swift in Sources */,
 				0BFA89B92C22BAF80023D949 /* PermissionItem.swift in Sources */,

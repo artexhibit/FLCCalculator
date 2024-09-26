@@ -751,7 +751,7 @@ enum FLCGoodsType: String, CaseIterable {
     }
 }
 
-enum FLCLogisticsType: String, CaseIterable {
+enum FLCLogisticsType: String, Codable, CaseIterable {
     case chinaTruck = "chinaTruck"
     case chinaRailway = "chinaRailway"
     case chinaAir = "chinaAir"

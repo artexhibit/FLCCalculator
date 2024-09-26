@@ -12,4 +12,8 @@ struct NotificationsManager {
     static func notifyWhenKeyboardWillHide(_ observer: Any, selector: Selector) {
         NotificationCenter.default.addObserver(observer, selector: selector, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    static func cloudKitKeyValueStoreValueDidChange(_ observer: Any, selector: Selector) {
+        NotificationCenter.default.addObserver(observer, selector: selector, name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: NSUbiquitousKeyValueStore.default)
+    }
 }
