@@ -102,28 +102,33 @@ struct SettingsVCHelper {
         }
     }
     
-    static func configureICloudSwitch(with switchTurnedOn: Bool) {
+    static func configureICloudSwitch(with switchTurnedOn: Bool, in tableView: UITableView, and sections: [SettingsSection]) {
         Task {
+            if switchTurnedOn {
+                guard NetworkStatusManager.shared.isDeviceOnline else {
+                    UserDefaultsManager.iCloudSyncEnabled = false
+                    await FLCPopupView.showOnMainThread(title: FLCPopupMessages.needInternetConnection, style: .error)
+                    await tableView.reloadRows(at: [getIndexPath(for: .iCloud, in: sections)], with: .none)
+                    return
+                }
+            }
+            
             UserDefaultsManager.iCloudSyncEnabled = switchTurnedOn
-            
-            let operationTitle = switchTurnedOn ? FLCPopupMessages.uploadingCalculations : FLCPopupMessages.deletingCalculations
-            let successMessage = switchTurnedOn ? FLCPopupMessages.calculationsUploadedSuccessfully : FLCPopupMessages.calculationsDeletedSuccessfully
-            let errorMessage = switchTurnedOn ? FLCPopupMessages.failedToUploadCalculations : FLCPopupMessages.failedToDeleteCalculations
-            
-            await FLCPopupView.showOnMainThread(title: operationTitle, style: .spinner)
+            let successMessage = switchTurnedOn ? FLCPopupMessages.calculationsUploadedSuccessfully : FLCPopupMessages.iCloudSyncDisabled
             
             do {
                 if switchTurnedOn {
+                    await FLCPopupView.showOnMainThread(title: FLCPopupMessages.uploadingCalculations, style: .spinner)
                     try await ICloudManager.shared.uploadCalculationsToCloud()
-                } else {
-                    try await ICloudManager.shared.deleteRecordsFromCloud()
+                    try await ICloudManager.shared.downloadMissingCalculationsFromCloud()
+                    await FLCPopupView.removeFromMainThread()
                 }
-                
-                await FLCPopupView.removeFromMainThread()
                 await FLCPopupView.showOnMainThread(systemImage: FLCIcon.checkmark.icon, title: successMessage)
             } catch {
+                UserDefaultsManager.iCloudSyncEnabled = false
+                await tableView.reloadRows(at: [getIndexPath(for: .iCloud, in: sections)], with: .none)
                 await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(title: errorMessage, style: .error)
+                await FLCPopupView.showOnMainThread(title: FLCPopupMessages.failedToUploadCalculations, style: .error)
             }
         }
     }

@@ -3904,16 +3904,6 @@
         }
       }
     },
-    "Не удалось удалить расчёты" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to delete calculations"
-          }
-        }
-      }
-    },
     "Необходимо активное подключение к интернету" : {
       "localizations" : {
         "en" : {
@@ -5374,26 +5364,6 @@
         }
       }
     },
-    "Расчёты успешно загружены" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calculations successfully uploaded"
-          }
-        }
-      }
-    },
-    "Расчёты успешно удалены" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calculations successfully deleted"
-          }
-        }
-      }
-    },
     "Регистрация" : {
       "localizations" : {
         "en" : {
@@ -5740,6 +5710,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "iCloud sync"
+          }
+        }
+      }
+    },
+    "Синхронизация iCloud включена" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud sync enabled"
+          }
+        }
+      }
+    },
+    "Синхронизация iCloud отключена" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud sync disabled"
           }
         }
       }
@@ -6690,16 +6680,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete account"
-          }
-        }
-      }
-    },
-    "Удаляем расчёты из iCloud" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deleting calculations from iCloud"
           }
         }
       }

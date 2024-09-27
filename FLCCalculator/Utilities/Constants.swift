@@ -470,11 +470,9 @@ enum FLCPopupMessages {
     static let pickPhoneCodeCountry = String(localized: "Сначала выберите страну")
     static let tariffsDownloaded = String(localized: "Тарифы загружены")
     static let uploadingCalculations = String(localized: "Загружаем расчёты в iCloud")
-    static let deletingCalculations = String(localized: "Удаляем расчёты из iCloud")
-    static let calculationsUploadedSuccessfully = String(localized: "Расчёты успешно загружены")
-    static let calculationsDeletedSuccessfully = String(localized: "Расчёты успешно удалены")
+    static let calculationsUploadedSuccessfully = String(localized: "Синхронизация iCloud включена")
+    static let iCloudSyncDisabled = String(localized: "Синхронизация iCloud отключена")
     static let failedToUploadCalculations = String(localized: "Не удалось загрузить расчёты")
-    static let failedToDeleteCalculations = String(localized: "Не удалось удалить расчёты")
 }
 
 enum PopoverMessages {

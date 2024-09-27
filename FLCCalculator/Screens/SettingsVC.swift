@@ -25,7 +25,6 @@ class SettingsVC: UIViewController {
         navigationItem.title = SettingsVCStrings.settings
         setNavBarColor(color: UIColor.flcOrange)
         tabBarController?.tabBar.isHidden = false
-        ICloudManager.shared.delegate = self
     }
     
     private func configureTableView() {
@@ -43,6 +42,7 @@ class SettingsVC: UIViewController {
         tableView.register(SettingsLabelCell.self, forCellReuseIdentifier: SettingsLabelCell.reuseID)
         tableView.register(FLCTableViewHeader.self, forHeaderFooterViewReuseIdentifier: FLCTableViewHeader.reuseID)
     }
+    
     private func updateDataSource() {
         DispatchQueue.main.async {
             self.sections = SettingsVCHelper.configureDataSource()
@@ -106,7 +106,7 @@ extension SettingsVC: SettingsSwitchCellDelegate {
     func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
         switch contentType {
         case .haptic: UserDefaultsManager.isHapticTurnedOn = state
-        case .iCloud: SettingsVCHelper.configureICloudSwitch(with: state)
+        case .iCloud: SettingsVCHelper.configureICloudSwitch(with: state, in: tableView, and: sections)
         case .profile, .theme, .permissions,.support, .shareApp, .rateApp, .language: break
         }
     }
@@ -130,11 +130,5 @@ extension SettingsVC: ProfileSettingsVCDelegate {
 extension SettingsVC: FLCMailComposeDelegate, MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         handleMailComposeResult(result)
-    }
-}
-
-extension SettingsVC: ICloudManagerDelegate {
-    func iCloudToggleSwitched() {
-        //do smth
     }
 }

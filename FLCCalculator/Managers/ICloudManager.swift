@@ -3,26 +3,18 @@ import CloudKit
 
 protocol ICloudManagerDelegate: AnyObject {
     func calculationsUpdated()
-    func iCloudToggleSwitched()
 }
 
-extension ICloudManagerDelegate {
-    func calculationsUpdated() {}
-    func iCloudToggleSwitched() {}
-}
-
-class ICloudManager: NSObject {
+class ICloudManager {
     static let shared = ICloudManager()
     private let database = CKContainer.default().publicCloudDatabase
     private let recordType = "Calculation"
     private let predicate = NSPredicate(value: true)
-    
+    private let batchSize = 400
+
     weak var delegate: ICloudManagerDelegate?
     
-    override init() {
-        super.init()
-        NotificationsManager.cloudKitKeyValueStoreValueDidChange(self, selector: #selector(cloudKitKeyValueStoreValueDidChange(_:)))
-    }
+    private init() {}
     
     func subscribeToCalculationChangesInICloud() {
         Task {
@@ -47,6 +39,7 @@ class ICloudManager: NSObject {
     }
     
     func checkForCloudKitChangeEvent(from userInfo: [AnyHashable : Any]) -> CalculationICloudChangeEvent {
+        guard UserDefaultsManager.iCloudSyncEnabled else { return .unknown }
         guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else { return .unknown }
         guard let subscriptionID = notification.subscriptionID else { return .unknown }
         guard let queryNotification = CKNotification(fromRemoteNotificationDictionary: userInfo) as? CKQueryNotification else { return .unknown }
@@ -91,7 +84,6 @@ class ICloudManager: NSObject {
         return .update
     }
 
-    
     private func handleDeletionNotification(recordID: CKRecord.ID) -> CalculationICloudChangeEvent {
         guard let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return .unknown }
         
@@ -102,7 +94,7 @@ class ICloudManager: NSObject {
     }
     
     func uploadCalculationsToCloud() async throws {
-        guard let calculations = CoreDataManager.loadCalculations()?.filter({ $0.cloudID == nil }), calculations.count > 0 else { return }
+        guard let calculations = try await getCalculationsToUpload(), calculations.count > 0 else { return }
         
         await withThrowingTaskGroup(of: Void.self) { group in
             for calculation in calculations {
@@ -129,6 +121,30 @@ class ICloudManager: NSObject {
         Persistence.shared.saveContext()
     }
     
+    func downloadMissingCalculationsFromCloud() async throws {
+        guard let recordIDsToDownload = try await getRecordIDsToDownload() else { return }
+        let records = try await fetchRecords(recordIDsToDownload)
+        createCalculationsFromRecords(records: records)
+        CoreDataManager.reassignCalculationsID()
+    }
+    
+    private func getCalculationsToUpload() async throws -> [Calculation]? {
+        guard let storedCalculations = CoreDataManager.loadCalculations() else { return nil }
+        guard let cloudRecordIDs = try await getAllRecordIDs() else { return storedCalculations }
+        let cloudRecordsUUIDs = Set(cloudRecordIDs.compactMap({ UUID(uuidString: $0.recordName) }))
+        
+        return storedCalculations.filter({ $0.cloudID.map { !cloudRecordsUUIDs.contains($0) } ?? true })
+    }
+    
+    private func getRecordIDsToDownload() async throws -> [CKRecord.ID]? {
+        guard let storedCalculations = CoreDataManager.loadCalculations() else { return nil }
+        guard let cloudRecordIDs = try await getAllRecordIDs() else { return nil }
+        let storedCalculationsIDs = Set(storedCalculations.compactMap({ $0.cloudID }))
+        let missingRecordIDs = cloudRecordIDs.filter { UUID(uuidString: $0.recordName).map { !storedCalculationsIDs.contains($0) } ?? true }
+
+        return missingRecordIDs.isEmpty ? nil : missingRecordIDs
+    }
+    
     func deleteRecordsFromCloud() async throws {
         var cursor: CKQueryOperation.Cursor? = nil
         
@@ -143,7 +159,6 @@ class ICloudManager: NSObject {
     private func performQuery(recordType: String, predicate: NSPredicate, cursor: CKQueryOperation.Cursor?) async throws -> ([CKRecord.ID], CKQueryOperation.Cursor?) {
         return try await withCheckedThrowingContinuation { continuation in
             var recordIDs: [CKRecord.ID] = []
-            let batchSize = 400
             
             let query = CKQuery(recordType: recordType, predicate: predicate)
             let operation: CKQueryOperation
@@ -212,6 +227,21 @@ class ICloudManager: NSObject {
     }
     
     private func fetchRecords(_ recordIDs: [CKRecord.ID]) async throws -> [CKRecord] {
+        var allRecords: [CKRecord] = []
+        var currentIndex = 0
+        let totalRecords = recordIDs.count
+        
+        while currentIndex < totalRecords {
+            let endIndex = min(currentIndex + batchSize, totalRecords)
+            let batch = Array(recordIDs[currentIndex..<endIndex])
+            let records = try await fetchBatch(batch)
+            allRecords.append(contentsOf: records)
+            currentIndex += batchSize
+        }
+        return allRecords
+    }
+    
+    private func fetchBatch(_ recordIDs: [CKRecord.ID]) async throws -> [CKRecord] {
         return try await withCheckedThrowingContinuation { continuation in
             database.fetch(withRecordIDs: recordIDs, completionHandler: { result in
                 switch result {
@@ -220,7 +250,7 @@ class ICloudManager: NSObject {
                     for (_, recordResult) in recordsDict {
                         switch recordResult {
                         case .success(let record): records.append(record)
-                        case .failure(_): break
+                        case .failure(let error): continuation.resume(throwing: error)
                         }
                     }
                     continuation.resume(returning: records)
@@ -228,6 +258,18 @@ class ICloudManager: NSObject {
                 }
             })
         }
+    }
+    
+    private func getAllRecordIDs() async throws -> [CKRecord.ID]? {
+        var recordIDs: [CKRecord.ID] = []
+        var cursor: CKQueryOperation.Cursor? = nil
+
+        repeat {
+            let (fetchedRecordIDs, nextCursor) = try await performQuery(recordType: recordType, predicate: predicate, cursor: cursor)
+            recordIDs.append(contentsOf: fetchedRecordIDs)
+            cursor = nextCursor
+        } while cursor != nil
+        return recordIDs.isEmpty ? nil : recordIDs
     }
     
     private func configureRecordFields(for record: CKRecord, with calculation: Calculation) {
@@ -332,18 +374,5 @@ class ICloudManager: NSObject {
     private func decodeCalculationResults(data: Data?) -> [TotalPriceData]? {
         guard let data else { return nil }
         return try? JSONDecoder().decode([TotalPriceData].self, from: data)
-    }
-    
-    @objc func cloudKitKeyValueStoreValueDidChange(_ notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        guard let reason = userInfo[NSUbiquitousKeyValueStoreChangeReasonKey] as? Int else { return }
-        
-        if reason == NSUbiquitousKeyValueStoreServerChange || reason == NSUbiquitousKeyValueStoreInitialSyncChange {
-            guard let changedKeys = userInfo[NSUbiquitousKeyValueStoreChangedKeysKey] as? [String] else { return }
-            
-            for key in changedKeys {
-                if key == Keys.iCloudSyncEnabled { delegate?.iCloudToggleSwitched() }
-            }
-        }
     }
 }

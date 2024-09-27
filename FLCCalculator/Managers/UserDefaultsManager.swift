@@ -14,8 +14,8 @@ struct UserDefaultsManager {
     }
     
     static var iCloudSyncEnabled: Bool {
-        get { NSUbiquitousKeyValueStore.default.object(forKey: Keys.iCloudSyncEnabled) == nil ? false : NSUbiquitousKeyValueStore.default.bool(forKey: Keys.iCloudSyncEnabled) }
-        set { NSUbiquitousKeyValueStore.default.set(newValue, forKey: Keys.iCloudSyncEnabled) }
+        get { ud.object(forKey: Keys.iCloudSyncEnabled) == nil ? false : ud.bool(forKey: Keys.iCloudSyncEnabled) }
+        set { ud.setValue(newValue, forKey: Keys.iCloudSyncEnabled) }
     }
     
     static var isFirstLaunch: Bool {

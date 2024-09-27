@@ -6,12 +6,11 @@ struct CoreDataManager {
     private static let decoder = JSONDecoder()
     private static let encoder = JSONEncoder()
     
-    static func loadCalculations(sortBy key: String = "id", ascending: Bool = true, sortByCreationDate: Bool = true) -> [Calculation]? {
+    static func loadCalculations(sortBy key: String = "calculationDate", ascending: Bool = true) -> [Calculation]? {
         let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
         let mainSortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
-        let dateSortDescriptor = NSSortDescriptor(key: "calculationDate", ascending: true)
         
-        request.sortDescriptors = sortByCreationDate ? [mainSortDescriptor, dateSortDescriptor] : [mainSortDescriptor]
+        request.sortDescriptors = [mainSortDescriptor]
         
         do {
             return try context.fetch(request)
