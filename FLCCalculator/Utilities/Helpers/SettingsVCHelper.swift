@@ -106,9 +106,11 @@ struct SettingsVCHelper {
         Task {
             if switchTurnedOn {
                 guard NetworkStatusManager.shared.isDeviceOnline else {
-                    UserDefaultsManager.iCloudSyncEnabled = false
-                    await FLCPopupView.showOnMainThread(title: FLCPopupMessages.needInternetConnection, style: .error)
-                    await tableView.reloadRows(at: [getIndexPath(for: .iCloud, in: sections)], with: .none)
+                    await handleICloudStatusError(message: FLCPopupMessages.needInternetConnection, in: tableView, and: sections)
+                    return
+                }
+                guard await ICloudManager.shared.isICloudAvailable() else {
+                    await handleICloudStatusError(message: FLCPopupMessages.iCloudIsNotAvailable, in: tableView, and: sections)
                     return
                 }
             }
@@ -131,5 +133,11 @@ struct SettingsVCHelper {
                 await FLCPopupView.showOnMainThread(title: FLCPopupMessages.failedToUploadCalculations, style: .error)
             }
         }
+    }
+    
+    private static func handleICloudStatusError(message: String, in tableView: UITableView, and sections: [SettingsSection]) async {
+        UserDefaultsManager.iCloudSyncEnabled = false
+        await FLCPopupView.showOnMainThread(title: message, style: .error)
+        await tableView.reloadRows(at: [getIndexPath(for: .iCloud, in: sections)], with: .none)
     }
 }

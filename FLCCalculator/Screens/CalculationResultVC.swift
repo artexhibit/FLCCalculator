@@ -330,11 +330,12 @@ extension CalculationResultVC: TotalPriceVCDelegate {
     
     func didPressSaveButton() {
         CalculationResultHelper.saveCalculationInCoreData(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType, calcData: calculationData)
+        ICloudManager.shared.manageCalculationFromCloud(action: .create)
         closeButtonPressed()
     }
     
     func didPressConfirmButton() {
-        guard let calculationData = calculationData else { return }
+        guard let calculationData = calculationData, let calculation = CoreDataManager.getCalculation(withID: calculationData.id) else { return }
         guard NetworkStatusManager.shared.isDeviceOnline else {
             FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantConfirmOrder, style: .error)
             return
@@ -342,8 +343,11 @@ extension CalculationResultVC: TotalPriceVCDelegate {
         
         if calculationData.isFromCoreData {
             CalculationResultHelper.saveConfirmedStatusForRefetchedResult(calcData: calculationData, pickedLogisticsType: pickedLogisticsType)
+            ICloudManager.shared.manageCalculationFromCloud(with: calculation.cloudID, action: .update)
+
         } else {
             CalculationResultHelper.saveCalculationInCoreData(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType, calcData: calculationData, isConfirmed: true)
+            ICloudManager.shared.manageCalculationFromCloud(action: .create)
         }
         
         CalculationResultHelper.sendCalculationDataToAMOCRM(calculationData: calculationData)

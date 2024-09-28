@@ -433,6 +433,7 @@ enum FLCPopupMessages {
     static let cantFindWhatsAppNick = String(localized: "Не удалось найти никнейм в WhatsApp")
     static let wrongCode = String(localized: "Вы ввели неправильный код")
     static let needInternetConnection = String(localized: "Необходимо активное подключение к интернету")
+    static let iCloudIsNotAvailable = String(localized: "iCloud недоступен на этом устройстве")
     static let sendingSMS = String(localized: "Отправляем СМС")
     static let sentSMS = String(localized: "СМС отправлено")
     static let zeroAttempts = String(localized: "Вы использовали все попытки. Повторить можно через")

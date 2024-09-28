@@ -86,8 +86,10 @@ class CalculationsVC: UIViewController {
     }
     
     private func getCalculations() {
-        self.calculations = CoreDataManager.loadCalculations() ?? []
-        updateUI()
+        DispatchQueue.main.async {
+            self.calculations = CoreDataManager.loadCalculations() ?? []
+            self.updateUI()
+        }
     }
     
     private func goToCalculation() {
@@ -111,9 +113,11 @@ extension CalculationsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: CalculationsVCStrings.deleteAction) { [weak self] (action, view, completionHandler) in
             guard let self = self else { return }
+            let calculationToDelete = self.calculations[indexPath.row]
             
-            CoreDataManager.deleteCalculation(withID: self.calculations[indexPath.row].id)
+            CoreDataManager.deleteCalculation(withID: calculationToDelete.id)
             CoreDataManager.reassignCalculationsID()
+            ICloudManager.shared.manageCalculationFromCloud(with: calculationToDelete.cloudID, action: .delete)
             self.getCalculations()
             completionHandler(true)
         }

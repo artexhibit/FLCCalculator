@@ -38,16 +38,6 @@ struct CoreDataManager {
         return calculation.result as? Set<CalculationResult>
     }
     
-    static func deleteCalculation(withID id: Int32) {
-        guard let calculationToDelete = getCalculation(withID: id) else { return }
-        
-        if let calculationResults = calculationToDelete.result as? Set<CalculationResult> {
-            for calculationResult in calculationResults { context.delete(calculationResult) }
-        }
-        context.delete(calculationToDelete)
-        Persistence.shared.saveContext()
-    }
-    
     static func deleteCalculation<T>(withID id: T) {
         guard let calculationToDelete = getCalculation(withID: id) else { return }
         context.delete(calculationToDelete)
@@ -57,12 +47,6 @@ struct CoreDataManager {
     static func reassignCalculationsID() {
         guard let calculations = loadCalculations() else { return }
         for (index, calc) in calculations.enumerated() { calc.id = Int32(index + 1) }
-        Persistence.shared.saveContext()
-    }
-    
-    static func resetCalculationFor(cloudID: UUID) {
-        guard let calculation = getCalculation(withID: cloudID) else { return }
-        calculation.cloudID = nil
         Persistence.shared.saveContext()
     }
     

@@ -164,6 +164,16 @@
         }
       }
     },
+    "iCloud недоступен на этом устройстве" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud is not available on this device"
+          }
+        }
+      }
+    },
     "My Widget" : {
       "localizations" : {
         "en" : {

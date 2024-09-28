@@ -16,6 +16,15 @@ class ICloudManager {
     
     private init() {}
     
+    func isICloudAvailable() async -> Bool {
+        do {
+            let accountStatus = try await CKContainer.default().accountStatus()
+            return accountStatus == .available
+        } catch {
+            return false
+        }
+    }
+    
     func subscribeToCalculationChangesInICloud() {
         Task {
             do {
@@ -28,7 +37,7 @@ class ICloudManager {
         }
     }
     
-    private func subscribeToCalculationChange(ofType type: CalculationChangeICloudType) async throws {
+    private func subscribeToCalculationChange(ofType type: FLCCKQuerySubscriptionType) async throws {
         let subscription = CKQuerySubscription(recordType: recordType, predicate: predicate, subscriptionID: type.rawValue, options: type.subscriptionOptions)
         let notificationInfo = CKSubscription.NotificationInfo()
         
@@ -38,7 +47,7 @@ class ICloudManager {
         try await database.save(subscription)
     }
     
-    func checkForCloudKitChangeEvent(from userInfo: [AnyHashable : Any]) -> CalculationICloudChangeEvent {
+    func checkForCloudKitChangeEvent(from userInfo: [AnyHashable : Any]) -> FLCICloudChangeEvent {
         guard UserDefaultsManager.iCloudSyncEnabled else { return .unknown }
         guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else { return .unknown }
         guard let subscriptionID = notification.subscriptionID else { return .unknown }
@@ -46,14 +55,14 @@ class ICloudManager {
         guard let recordID = queryNotification.recordID else { return .unknown }
         
         switch subscriptionID {
-        case CalculationChangeICloudType.creation.rawValue: return handleCreationNotification(recordID: recordID)
-        case CalculationChangeICloudType.deletion.rawValue: return handleDeletionNotification(recordID: recordID)
-        case CalculationChangeICloudType.update.rawValue: return handleUpdateNotification(recordID: recordID)
+        case FLCCKQuerySubscriptionType.creation.rawValue: return handleCreationNotification(recordID: recordID)
+        case FLCCKQuerySubscriptionType.deletion.rawValue: return handleDeletionNotification(recordID: recordID)
+        case FLCCKQuerySubscriptionType.update.rawValue: return handleUpdateNotification(recordID: recordID)
         default: return .unknown
         }
     }
     
-    private func handleCreationNotification(recordID: CKRecord.ID) -> CalculationICloudChangeEvent {
+    private func handleCreationNotification(recordID: CKRecord.ID) -> FLCICloudChangeEvent {
         Task {
             do {
                 guard let record = try await fetchRecords([recordID]).first else { return }
@@ -68,7 +77,7 @@ class ICloudManager {
         return .creation
     }
     
-    private func handleUpdateNotification(recordID: CKRecord.ID) -> CalculationICloudChangeEvent {
+    private func handleUpdateNotification(recordID: CKRecord.ID) -> FLCICloudChangeEvent {
         Task {
             do {
                 guard let updatedRecordUUID = UUID(uuidString: recordID.recordName) else { return }
@@ -84,7 +93,7 @@ class ICloudManager {
         return .update
     }
 
-    private func handleDeletionNotification(recordID: CKRecord.ID) -> CalculationICloudChangeEvent {
+    private func handleDeletionNotification(recordID: CKRecord.ID) -> FLCICloudChangeEvent {
         guard let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return .unknown }
         
         CoreDataManager.deleteCalculation(withID: deletedRecordUUID)
@@ -94,18 +103,18 @@ class ICloudManager {
     }
     
     func uploadCalculationsToCloud() async throws {
-        guard let calculations = try await getCalculationsToUpload(), calculations.count > 0 else { return }
+        guard let calculations = try await getCalculationsToUpload(), calculations.count > 0, UserDefaultsManager.iCloudSyncEnabled else { return }
         
         await withThrowingTaskGroup(of: Void.self) { group in
             for calculation in calculations {
                 group.addTask { [weak self] in
                     guard let self = self else { return }
                     
-                    let newCloudID = UUID()
-                    let record = CKRecord(recordType: self.recordType, recordID: CKRecord.ID(recordName: newCloudID.uuidString))
+                    let cloudIDToAssign = calculation.cloudID != nil ? calculation.cloudID ?? UUID() : UUID()
+                    let record = CKRecord(recordType: self.recordType, recordID: CKRecord.ID(recordName: cloudIDToAssign.uuidString))
                     
                     await MainActor.run {
-                        calculation.cloudID = newCloudID
+                        calculation.cloudID = cloudIDToAssign
                         self.configureRecordFields(for: record, with: calculation)
                     }
                     
@@ -126,6 +135,21 @@ class ICloudManager {
         let records = try await fetchRecords(recordIDsToDownload)
         createCalculationsFromRecords(records: records)
         CoreDataManager.reassignCalculationsID()
+    }
+    
+    func manageCalculationFromCloud(with cloudID: UUID? = nil, action: FLCICloudManageAction) {
+        guard UserDefaultsManager.iCloudSyncEnabled else { return }
+        
+        Task {
+            do {
+                if action == .delete || action == .update {
+                    guard let cloudID else { return }
+                    let recordID = CKRecord.ID(recordName: cloudID.uuidString)
+                    try await deleteRecords(recordIDs: [recordID])
+                }
+                if action == .create || action == .update { try await uploadCalculationsToCloud() }
+            }
+        }
     }
     
     private func getCalculationsToUpload() async throws -> [Calculation]? {
@@ -191,17 +215,6 @@ class ICloudManager {
         return try await withCheckedThrowingContinuation { continuation in
             let modifyOperation = CKModifyRecordsOperation(recordsToSave: nil, recordIDsToDelete: recordIDs)
             modifyOperation.isAtomic = false
-            
-            modifyOperation.perRecordDeleteBlock = { recordID, result in
-                switch result {
-                case .success(_):
-                    DispatchQueue.main.async {
-                        guard let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return }
-                        CoreDataManager.resetCalculationFor(cloudID: deletedRecordUUID)
-                    }
-                case .failure(_): break
-                }
-            }
             
             modifyOperation.modifyRecordsResultBlock = { result in
                 switch result {
