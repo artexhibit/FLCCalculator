@@ -1054,6 +1054,16 @@
         }
       }
     },
+    "Включить синхронизацию iCloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable iCloud Sync"
+          }
+        }
+      }
+    },
     "Внуково" : {
       "localizations" : {
         "en" : {
@@ -5719,7 +5729,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iCloud sync"
+            "value" : "iCloud Sync"
           }
         }
       }
@@ -5729,7 +5739,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iCloud sync enabled"
+            "value" : "iCloud Sync enabled"
           }
         }
       }
@@ -5739,7 +5749,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iCloud sync disabled"
+            "value" : "iCloud Sync disabled"
           }
         }
       }

@@ -149,7 +149,6 @@ enum SettingsVCStrings {
     static let dataSection = String(localized: "Данные")
     static let aboutAppSection = String(localized: "О приложении")
     static let findErrorFooter = String(localized: "Нашли баг, ошибку, опечатку? Напишите, и мы сразу же исправим!")
-    static let iCloudDataSectionFooter = String(localized: "Ваши расчёты будут сохранены в iCloud и синхронизированы между всеми устройствами")
 }
 
 enum CalculationStrings {
@@ -332,6 +331,11 @@ enum PermissionsStrings {
     static let permissionButtonAllowed = String(localized: "Разрешено")
 }
 
+enum ICloudVCStrings {
+    static let iCloudEnable = String(localized: "Включить синхронизацию iCloud")
+    static let iCloudDataSync = String(localized: "Ваши расчёты будут сохранены в iCloud и синхронизированы между всеми устройствами")
+}
+
 enum ProfileSettingsStrings {
     static let myProfile = String(localized: "Мой профиль")
     static let countryCode = String(localized: "Код страны")
@@ -406,6 +410,32 @@ enum AuthorizationStrings {
     static let enterPhoneTitleLabel = String(localized: "Чтобы войти, выберите страну, введите ваш номер телефона, а затем четырёхзначный код из смс")
     static let emailTFLabel = "Email"
     static let registration = String(localized: "Регистрация")
+}
+
+enum ICloudManagerStrings {
+    static let calculationConfirmDate = "calculationConfirmDate"
+    static let calculationDate = "calculationDate"
+    static let countryFrom = "countryFrom"
+    static let countryTo = "countryTo"
+    static let deliveryType = "deliveryType"
+    static let deliveryTypeCode = "deliveryTypeCode"
+    static let departureAirport = "departureAirport"
+    static let exchangeRate = "exchangeRate"
+    static let fromLocation = "fromLocation"
+    static let fromLocationCode = "fromLocationCode"
+    static let goodsType = "goodsType"
+    static let id = "id"
+    static let invoiceAmount = "invoiceAmount"
+    static let invoiceCurrency = "invoiceCurrency"
+    static let isConfirmed = "isConfirmed"
+    static let logisticsTypes = "logisticsTypes"
+    static let needCustomsClearance = "needCustomsClearance"
+    static let toLocation = "toLocation"
+    static let toLocationCode = "toLocationCode"
+    static let totalPrice = "totalPrice"
+    static let volume = "volume"
+    static let weight = "weight"
+    static let calculationResultsData = "calculationResultsData"
 }
 
 enum Links {

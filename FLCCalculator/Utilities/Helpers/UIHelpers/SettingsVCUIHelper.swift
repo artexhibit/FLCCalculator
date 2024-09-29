@@ -1,6 +1,6 @@
 import UIKit
 
-struct SettingsVCHelper {
+struct SettingsVCUIHelper {
     static func configureDataSource() -> [SettingsSection] {
         let user = getUserData()
         let countryData = CalculationInfo.countryPhonesData.first(where: { $0.country == user?.userCountry })
@@ -19,7 +19,7 @@ struct SettingsVCHelper {
             SettingsCellContent(cellType: .label, contentType: .permissions, image: FLCIcon.key.icon, title: SettingsVCStrings.permissions)
         ]
         let thirdSectionItems = [
-            SettingsCellContent(cellType: .switcher, contentType: .iCloud, image: FLCIcon.iCloud.icon, title: SettingsVCStrings.iCloud, switchState: UserDefaultsManager.iCloudSyncEnabled)
+            SettingsCellContent(cellType: .label, contentType: .iCloud, image: FLCIcon.iCloudFill.icon, title: SettingsVCStrings.iCloud)
         ]
         let fourthSectionItems = [
             SettingsCellContent(cellType: .label, contentType: .shareApp, image: FLCIcon.shareIcon.icon, title: SettingsVCStrings.shareApp),
@@ -32,7 +32,7 @@ struct SettingsVCHelper {
         return [
             SettingsSection(items: firstSectionItems),
             SettingsSection(title: SettingsVCStrings.commonSection, items: secondSectionItems),
-            SettingsSection(title: SettingsVCStrings.dataSection, sectionFooter: SettingsVCStrings.iCloudDataSectionFooter, items: thirdSectionItems),
+            SettingsSection(title: SettingsVCStrings.dataSection, items: thirdSectionItems),
             SettingsSection(title: SettingsVCStrings.aboutAppSection, items: fourthSectionItems),
             SettingsSection(sectionFooter: SettingsVCStrings.findErrorFooter, items: fifthSectionItems)
         ]
@@ -79,7 +79,7 @@ struct SettingsVCHelper {
         UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {
             firstWindow.overrideUserInterfaceStyle = appTheme
         })
-        tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: contentType, in: sections)], with: .none)
+        tableView.reloadRows(at: [SettingsVCUIHelper.getIndexPath(for: contentType, in: sections)], with: .none)
     }
     
     static func presentShareAppSheet(in vc: UIViewController, sourceView: UITableView, at indexPath: IndexPath) {
@@ -100,44 +100,5 @@ struct SettingsVCHelper {
         } else {
             FLCPopupView.showOnMainThread(title: FLCPopupMessages.cantOpenAppStore, style: .error)
         }
-    }
-    
-    static func configureICloudSwitch(with switchTurnedOn: Bool, in tableView: UITableView, and sections: [SettingsSection]) {
-        Task {
-            if switchTurnedOn {
-                guard NetworkStatusManager.shared.isDeviceOnline else {
-                    await handleICloudStatusError(message: FLCPopupMessages.needInternetConnection, in: tableView, and: sections)
-                    return
-                }
-                guard await ICloudManager.shared.isICloudAvailable() else {
-                    await handleICloudStatusError(message: FLCPopupMessages.iCloudIsNotAvailable, in: tableView, and: sections)
-                    return
-                }
-            }
-            
-            UserDefaultsManager.iCloudSyncEnabled = switchTurnedOn
-            let successMessage = switchTurnedOn ? FLCPopupMessages.calculationsUploadedSuccessfully : FLCPopupMessages.iCloudSyncDisabled
-            
-            do {
-                if switchTurnedOn {
-                    await FLCPopupView.showOnMainThread(title: FLCPopupMessages.uploadingCalculations, style: .spinner)
-                    try await ICloudManager.shared.uploadCalculationsToCloud()
-                    try await ICloudManager.shared.downloadMissingCalculationsFromCloud()
-                    await FLCPopupView.removeFromMainThread()
-                }
-                await FLCPopupView.showOnMainThread(systemImage: FLCIcon.checkmark.icon, title: successMessage)
-            } catch {
-                UserDefaultsManager.iCloudSyncEnabled = false
-                await tableView.reloadRows(at: [getIndexPath(for: .iCloud, in: sections)], with: .none)
-                await FLCPopupView.removeFromMainThread()
-                await FLCPopupView.showOnMainThread(title: FLCPopupMessages.failedToUploadCalculations, style: .error)
-            }
-        }
-    }
-    
-    private static func handleICloudStatusError(message: String, in tableView: UITableView, and sections: [SettingsSection]) async {
-        UserDefaultsManager.iCloudSyncEnabled = false
-        await FLCPopupView.showOnMainThread(title: message, style: .error)
-        await tableView.reloadRows(at: [getIndexPath(for: .iCloud, in: sections)], with: .none)
     }
 }

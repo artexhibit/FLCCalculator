@@ -12,6 +12,7 @@ class CalculationsVC: UIViewController {
         configureTableView()
         configureDataSource()
         getCalculations()
+        performICloudOperations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,7 +28,6 @@ class CalculationsVC: UIViewController {
         setNavBarColor(color: UIColor.flcOrange)
         navigationItem.title = CalculationsVCStrings.calculations
         tabBarController?.tabBar.isHidden = false
-        ICloudManager.shared.delegate = self
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
         if navigationItem.rightBarButtonItem == nil { navigationItem.rightBarButtonItem = addButton }
@@ -97,6 +97,11 @@ class CalculationsVC: UIViewController {
         let calculationVC = CalculationVC()
         navigationController?.pushViewController(calculationVC, animated: true)
     }
+    
+    private func performICloudOperations() {
+        ICloudManager.shared.delegate = self
+        ICloudManager.shared.manageCalculationFromCloud(action: .sync)
+    }
 }
 
 extension CalculationsVC: UITableViewDelegate {
@@ -140,7 +145,5 @@ extension CalculationsVC: FLCButtonDelegate {
 }
 
 extension CalculationsVC: ICloudManagerDelegate {
-    func calculationsUpdated() {
-        getCalculations()
-    }
+    func calculationsUpdated() { getCalculations() }
 }

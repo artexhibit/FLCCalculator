@@ -7,7 +7,7 @@ protocol ICloudManagerDelegate: AnyObject {
 
 class ICloudManager {
     static let shared = ICloudManager()
-    private let database = CKContainer.default().publicCloudDatabase
+    private let database = CKContainer.default().privateCloudDatabase
     private let recordType = "Calculation"
     private let predicate = NSPredicate(value: true)
     private let batchSize = 400
@@ -92,13 +92,19 @@ class ICloudManager {
         }
         return .update
     }
-
+    
     private func handleDeletionNotification(recordID: CKRecord.ID) -> FLCICloudChangeEvent {
-        guard let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return .unknown }
-        
-        CoreDataManager.deleteCalculation(withID: deletedRecordUUID)
-        CoreDataManager.reassignCalculationsID()
-        delegate?.calculationsUpdated()
+        Task {
+            do {
+                guard let deletedRecordUUID = UUID(uuidString: recordID.recordName) else { return }
+                
+                await MainActor.run {
+                    CoreDataManager.deleteCalculation(withID: deletedRecordUUID)
+                    CoreDataManager.reassignCalculationsID()
+                    delegate?.calculationsUpdated()
+                }
+            }
+        }
         return .deletion
     }
     
@@ -113,10 +119,8 @@ class ICloudManager {
                     let cloudIDToAssign = calculation.cloudID != nil ? calculation.cloudID ?? UUID() : UUID()
                     let record = CKRecord(recordType: self.recordType, recordID: CKRecord.ID(recordName: cloudIDToAssign.uuidString))
                     
-                    await MainActor.run {
-                        calculation.cloudID = cloudIDToAssign
-                        self.configureRecordFields(for: record, with: calculation)
-                    }
+                    await MainActor.run { calculation.cloudID = cloudIDToAssign }
+                    self.configureRecordFields(for: record, with: calculation)
                     
                     do {
                         try await self.saveRecord(record)
@@ -133,8 +137,11 @@ class ICloudManager {
     func downloadMissingCalculationsFromCloud() async throws {
         guard let recordIDsToDownload = try await getRecordIDsToDownload() else { return }
         let records = try await fetchRecords(recordIDsToDownload)
-        createCalculationsFromRecords(records: records)
-        CoreDataManager.reassignCalculationsID()
+        
+        await MainActor.run {
+            createCalculationsFromRecords(records: records)
+            CoreDataManager.reassignCalculationsID()
+        }
     }
     
     func manageCalculationFromCloud(with cloudID: UUID? = nil, action: FLCICloudManageAction) {
@@ -147,7 +154,14 @@ class ICloudManager {
                     let recordID = CKRecord.ID(recordName: cloudID.uuidString)
                     try await deleteRecords(recordIDs: [recordID])
                 }
+                
                 if action == .create || action == .update { try await uploadCalculationsToCloud() }
+                if action == .sync {
+                    try await Task.sleep(for: .seconds(2))
+                    try await uploadCalculationsToCloud()
+                    try await downloadMissingCalculationsFromCloud()
+                    await MainActor.run { delegate?.calculationsUpdated() }
+                }
             }
         }
     }
@@ -286,64 +300,64 @@ class ICloudManager {
     }
     
     private func configureRecordFields(for record: CKRecord, with calculation: Calculation) {
-        record.setValue(calculation.calculationConfirmDate, forKey: "calculationConfirmDate")
-        record.setValue(calculation.calculationDate, forKey: "calculationDate")
-        record.setValue(calculation.countryFrom, forKey: "countryFrom")
-        record.setValue(calculation.countryTo, forKey: "countryTo")
-        record.setValue(calculation.deliveryType, forKey: "deliveryType")
-        record.setValue(calculation.deliveryTypeCode, forKey: "deliveryTypeCode")
-        record.setValue(calculation.departureAirport, forKey: "departureAirport")
-        record.setValue(calculation.exchangeRate, forKey: "exchangeRate")
-        record.setValue(calculation.fromLocation, forKey: "fromLocation")
-        record.setValue(calculation.fromLocationCode, forKey: "fromLocationCode")
-        record.setValue(calculation.goodsType, forKey: "goodsType")
-        record.setValue(calculation.id, forKey: "id")
-        record.setValue(calculation.invoiceAmount, forKey: "invoiceAmount")
-        record.setValue(calculation.invoiceCurrency, forKey: "invoiceCurrency")
-        record.setValue(calculation.isConfirmed, forKey: "isConfirmed")
-        record.setValue(calculation.logisticsTypes, forKey: "logisticsTypes")
-        record.setValue(calculation.needCustomsClearance, forKey: "needCustomsClearance")
-        record.setValue(calculation.toLocation, forKey: "toLocation")
-        record.setValue(calculation.toLocationCode, forKey: "toLocationCode")
-        record.setValue(calculation.totalPrice, forKey: "totalPrice")
-        record.setValue(calculation.volume, forKey: "volume")
-        record.setValue(calculation.weight, forKey: "weight")
+        record.setValue(calculation.calculationConfirmDate, forKey: ICloudManagerStrings.calculationConfirmDate)
+        record.setValue(calculation.calculationDate, forKey: ICloudManagerStrings.calculationDate)
+        record.setValue(calculation.countryFrom, forKey: ICloudManagerStrings.countryFrom)
+        record.setValue(calculation.countryTo, forKey: ICloudManagerStrings.countryTo)
+        record.setValue(calculation.deliveryType, forKey: ICloudManagerStrings.deliveryType)
+        record.setValue(calculation.deliveryTypeCode, forKey: ICloudManagerStrings.deliveryTypeCode)
+        record.setValue(calculation.departureAirport, forKey: ICloudManagerStrings.departureAirport)
+        record.setValue(calculation.exchangeRate, forKey: ICloudManagerStrings.exchangeRate)
+        record.setValue(calculation.fromLocation, forKey: ICloudManagerStrings.fromLocation)
+        record.setValue(calculation.fromLocationCode, forKey: ICloudManagerStrings.fromLocationCode)
+        record.setValue(calculation.goodsType, forKey: ICloudManagerStrings.goodsType)
+        record.setValue(calculation.id, forKey: ICloudManagerStrings.id)
+        record.setValue(calculation.invoiceAmount, forKey: ICloudManagerStrings.invoiceAmount)
+        record.setValue(calculation.invoiceCurrency, forKey: ICloudManagerStrings.invoiceCurrency)
+        record.setValue(calculation.isConfirmed, forKey: ICloudManagerStrings.isConfirmed)
+        record.setValue(calculation.logisticsTypes, forKey: ICloudManagerStrings.logisticsTypes)
+        record.setValue(calculation.needCustomsClearance, forKey: ICloudManagerStrings.needCustomsClearance)
+        record.setValue(calculation.toLocation, forKey: ICloudManagerStrings.toLocation)
+        record.setValue(calculation.toLocationCode, forKey: ICloudManagerStrings.toLocationCode)
+        record.setValue(calculation.totalPrice, forKey: ICloudManagerStrings.totalPrice)
+        record.setValue(calculation.volume, forKey: ICloudManagerStrings.volume)
+        record.setValue(calculation.weight, forKey: ICloudManagerStrings.weight)
         
         if let results = encodeCalculationResults(calculation: calculation) {
-            record.setValue(results, forKey: "calculationResultsData")
+            record.setValue(results, forKey: ICloudManagerStrings.calculationResultsData)
         } else {
-            record.setValue([], forKey: "calculationResultsData")
+            record.setValue([], forKey: ICloudManagerStrings.calculationResultsData)
         }
     }
-    
+
     private func createCalculationsFromRecords(records: [CKRecord]) {
         for record in records {
             let calc = Calculation(context: CoreDataManager.context)
-            calc.calculationDate = record.value(forKey: "calculationDate") as? Date
-            calc.calculationConfirmDate = record.value(forKey: "calculationConfirmDate") as? Date
-            calc.id = record.value(forKey: "id") as? Int32 ?? Int32()
-            calc.toLocation = record.value(forKey: "toLocation") as? String
-            calc.toLocationCode = record.value(forKey: "toLocationCode") as? String
-            calc.deliveryType = record.value(forKey: "deliveryType") as? String
-            calc.goodsType = record.value(forKey: "goodsType") as? String
-            calc.fromLocation = record.value(forKey: "fromLocation") as? String
-            calc.departureAirport = record.value(forKey: "departureAirport") as? String
-            calc.fromLocationCode = record.value(forKey: "fromLocationCode") as? String
-            calc.deliveryTypeCode = record.value(forKey: "deliveryTypeCode") as? String
-            calc.countryTo = record.value(forKey: "countryTo") as? String
-            calc.countryFrom = record.value(forKey: "countryFrom") as? String
-            calc.weight = record.value(forKey: "weight") as? Double ?? 0
-            calc.volume = record.value(forKey: "volume") as? Double ?? 0
-            calc.invoiceAmount = record.value(forKey: "invoiceAmount") as? Double ?? 0
-            calc.invoiceCurrency = record.value(forKey: "invoiceCurrency") as? String
-            calc.isConfirmed = record.value(forKey: "isConfirmed") as? Bool ?? false
-            calc.totalPrice = record.value(forKey: "totalPrice") as? String
-            calc.needCustomsClearance = record.value(forKey: "needCustomsClearance") as? Bool ?? true
-            calc.exchangeRate = record.value(forKey: "exchangeRate") as? Double ?? 0
-            calc.logisticsTypes = record.value(forKey: "logisticsTypes") as? Data
+            calc.calculationDate = record.value(forKey: ICloudManagerStrings.calculationDate) as? Date
+            calc.calculationConfirmDate = record.value(forKey: ICloudManagerStrings.calculationConfirmDate) as? Date
+            calc.id = record.value(forKey: ICloudManagerStrings.id) as? Int32 ?? Int32()
+            calc.toLocation = record.value(forKey: ICloudManagerStrings.toLocation) as? String
+            calc.toLocationCode = record.value(forKey: ICloudManagerStrings.toLocationCode) as? String
+            calc.deliveryType = record.value(forKey: ICloudManagerStrings.deliveryType) as? String
+            calc.goodsType = record.value(forKey: ICloudManagerStrings.goodsType) as? String
+            calc.fromLocation = record.value(forKey: ICloudManagerStrings.fromLocation) as? String
+            calc.departureAirport = record.value(forKey: ICloudManagerStrings.departureAirport) as? String
+            calc.fromLocationCode = record.value(forKey: ICloudManagerStrings.fromLocationCode) as? String
+            calc.deliveryTypeCode = record.value(forKey: ICloudManagerStrings.deliveryTypeCode) as? String
+            calc.countryTo = record.value(forKey: ICloudManagerStrings.countryTo) as? String
+            calc.countryFrom = record.value(forKey: ICloudManagerStrings.countryFrom) as? String
+            calc.weight = record.value(forKey: ICloudManagerStrings.weight) as? Double ?? 0
+            calc.volume = record.value(forKey: ICloudManagerStrings.volume) as? Double ?? 0
+            calc.invoiceAmount = record.value(forKey: ICloudManagerStrings.invoiceAmount) as? Double ?? 0
+            calc.invoiceCurrency = record.value(forKey: ICloudManagerStrings.invoiceCurrency) as? String
+            calc.isConfirmed = record.value(forKey: ICloudManagerStrings.isConfirmed) as? Bool ?? false
+            calc.totalPrice = record.value(forKey: ICloudManagerStrings.totalPrice) as? String
+            calc.needCustomsClearance = record.value(forKey: ICloudManagerStrings.needCustomsClearance) as? Bool ?? true
+            calc.exchangeRate = record.value(forKey: ICloudManagerStrings.exchangeRate) as? Double ?? 0
+            calc.logisticsTypes = record.value(forKey: ICloudManagerStrings.logisticsTypes) as? Data
             calc.cloudID = UUID(uuidString: record.recordID.recordName)
             
-            let calcResultsData = record.value(forKey: "calculationResultsData") as? Data
+            let calcResultsData = record.value(forKey: ICloudManagerStrings.calculationResultsData) as? Data
             guard let calcResultsDTO = decodeCalculationResults(data: calcResultsData) else { continue }
             
             for dtoResult in calcResultsDTO {

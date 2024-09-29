@@ -16,6 +16,7 @@ class FLCTitleLabel: UILabel {
     
     convenience init(color: UIColor, textAlignment: NSTextAlignment = .left, size: CGFloat = 24, weight: UIFont.Weight = .bold) {
         self.init(frame: .zero)
+        
         self.textColor = color
         self.textAlignment = textAlignment
         self.font = UIFont.systemFont(ofSize: size, weight: weight)

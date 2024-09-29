@@ -52,7 +52,7 @@ final class SettingsMenuCell: FLCContentCell {
     private func configureShowMenuButton() { showMenuButton.pinToEdges(of: contentView) }
     
     private func getMenu() -> UIMenu {
-        return SettingsVCHelper.configureUIMenu(for: contentType ?? .theme, updateHandler: { [weak self] in
+        return SettingsVCUIHelper.configureUIMenu(for: contentType ?? .theme, updateHandler: { [weak self] in
             guard let self else { return }
             self.showMenuButton.configureMenu(with: getMenu())
             delegate?.menuButtonPressed(contentType: contentType ?? .theme)

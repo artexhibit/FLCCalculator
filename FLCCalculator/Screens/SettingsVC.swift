@@ -4,7 +4,7 @@ import MessageUI
 class SettingsVC: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var sections = SettingsVCHelper.configureDataSource()
+    private var sections = SettingsVCUIHelper.configureDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +45,8 @@ class SettingsVC: UIViewController {
     
     private func updateDataSource() {
         DispatchQueue.main.async {
-            self.sections = SettingsVCHelper.configureDataSource()
-            self.tableView.reloadRows(at: [SettingsVCHelper.getIndexPath(for: .profile, in: self.sections)], with: .none)
+            self.sections = SettingsVCUIHelper.configureDataSource()
+            self.tableView.reloadRows(at: [SettingsVCUIHelper.getIndexPath(for: .profile, in: self.sections)], with: .none)
         }
     }
 }
@@ -58,10 +58,11 @@ extension SettingsVC: UITableViewDelegate {
         
         switch selectedItemContentType {
         case .profile: self.presentNewVC(ofType: ProfileSettingsVC.self)
-        case .haptic, .theme, .iCloud: break
+        case .haptic, .theme: break
+        case .iCloud: self.presentNewVC(ofType: ICloudVC.self)
         case .permissions: self.presentNewVC(ofType: PermissionsVC.self)
-        case .shareApp: SettingsVCHelper.presentShareAppSheet(in: self, sourceView: tableView, at: indexPath)
-        case .rateApp: SettingsVCHelper.goToAppStoreReviewPage()
+        case .shareApp: SettingsVCUIHelper.presentShareAppSheet(in: self, sourceView: tableView, at: indexPath)
+        case .rateApp: SettingsVCUIHelper.goToAppStoreReviewPage()
         case .support: FLCMailComposeVC.sendEmail(from: self.view, manager: CalculationInfo.defaultManager)
         case .language: PermissionsManager.openAppPermissionsSettings()
         }
@@ -106,8 +107,7 @@ extension SettingsVC: SettingsSwitchCellDelegate {
     func switchValueChanged(contentType: FLCSettingsContentType, state: Bool) {
         switch contentType {
         case .haptic: UserDefaultsManager.isHapticTurnedOn = state
-        case .iCloud: SettingsVCHelper.configureICloudSwitch(with: state, in: tableView, and: sections)
-        case .profile, .theme, .permissions,.support, .shareApp, .rateApp, .language: break
+        case .profile, .theme, .permissions,.support, .shareApp, .rateApp, .language, .iCloud: break
         }
     }
 }
@@ -117,7 +117,7 @@ extension SettingsVC: SettingsMenuCellDelegate {
         switch contentType {
         case .theme:
             updateDataSource()
-            SettingsVCHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
+            SettingsVCUIHelper.updateAppTheme(in: tableView, sections: sections, with: contentType)
         case .profile, .haptic, .permissions, .support, .shareApp, .rateApp, .language, .iCloud: break
         }
     }
