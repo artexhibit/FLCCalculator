@@ -17,9 +17,11 @@ class FLCTextButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(title: String, titleAlignment: UIButton.Configuration.TitleAlignment = .center, underlineTitle: Bool = false) {
+    convenience init(title: String, titleAlignment: UIButton.Configuration.TitleAlignment = .center, underlineTitle: Bool = false, titleColor: UIColor = .flcOrange) {
         self.init(frame: .zero)
+        
         configuration?.title = title
+        configuration?.baseForegroundColor = titleColor
         configuration?.titleAlignment = titleAlignment
         configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming

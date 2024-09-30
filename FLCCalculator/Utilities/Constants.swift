@@ -334,6 +334,8 @@ enum PermissionsStrings {
 enum ICloudVCStrings {
     static let iCloudEnable = String(localized: "Включить синхронизацию iCloud")
     static let iCloudDataSync = String(localized: "Ваши расчёты будут сохранены в iCloud и синхронизированы между всеми устройствами")
+    static let syncNow = String(localized: "Синхронизировать сейчас")
+    static let deleteDatabase = String(localized: "Cтереть базу данных")
 }
 
 enum ProfileSettingsStrings {
@@ -501,7 +503,10 @@ enum FLCPopupMessages {
     static let pickPhoneCodeCountry = String(localized: "Сначала выберите страну")
     static let tariffsDownloaded = String(localized: "Тарифы загружены")
     static let uploadingCalculations = String(localized: "Загружаем расчёты в iCloud")
-    static let calculationsUploadedSuccessfully = String(localized: "Синхронизация iCloud включена")
+    static let deletingCalculations = String(localized: "Удаляем расчёты в iCloud")
+    static let calculationsUploadedSuccessfully = String(localized: "Расчёты синхронизированы")
+    static let databaseDeleted = String(localized: "База данных с расчётами удалена")
+    static let cantDeleteDatabase = String(localized: "Не получилось удалить базу данных")
     static let iCloudSyncDisabled = String(localized: "Синхронизация iCloud отключена")
     static let failedToUploadCalculations = String(localized: "Не удалось загрузить расчёты")
 }

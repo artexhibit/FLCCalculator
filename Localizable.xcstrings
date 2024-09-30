@@ -127,6 +127,16 @@
         }
       }
     },
+    "Cтереть базу данных" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete database"
+          }
+        }
+      }
+    },
     "Email" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -470,6 +480,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bahamas"
+          }
+        }
+      }
+    },
+    "База данных с расчётами удалена" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Database deleted"
           }
         }
       }
@@ -3774,6 +3794,16 @@
         }
       }
     },
+    "Не получилось удалить базу данных" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to delete database"
+          }
+        }
+      }
+    },
     "Не удалось завершить вход, отсутствует подключение к интернету" : {
       "localizations" : {
         "en" : {
@@ -5384,6 +5414,16 @@
         }
       }
     },
+    "Расчёты синхронизированы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculations are synced"
+          }
+        }
+      }
+    },
     "Регистрация" : {
       "localizations" : {
         "en" : {
@@ -5734,22 +5774,22 @@
         }
       }
     },
-    "Синхронизация iCloud включена" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud Sync enabled"
-          }
-        }
-      }
-    },
     "Синхронизация iCloud отключена" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "iCloud Sync disabled"
+          }
+        }
+      }
+    },
+    "Синхронизировать сейчас" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync now"
           }
         }
       }
@@ -6700,6 +6740,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete account"
+          }
+        }
+      }
+    },
+    "Удаляем расчёты в iCloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting Calculations from iCloud"
           }
         }
       }

@@ -41,6 +41,19 @@ enum FLCCKQuerySubscriptionType: String {
     }
 }
 
+enum FLCICloudSyncError: LocalizedError {
+    case needInternetConnection, iCloudSyncDisabled, iCloudNotAvailable, cantDeleteDatabase
+    
+    var errorDescription: String? {
+        switch self {
+        case .needInternetConnection: FLCPopupMessages.needInternetConnection
+        case .iCloudSyncDisabled: FLCPopupMessages.iCloudSyncDisabled
+        case .iCloudNotAvailable: FLCPopupMessages.iCloudIsNotAvailable
+        case .cantDeleteDatabase: FLCPopupMessages.cantDeleteDatabase
+        }
+    }
+}
+
 enum FLCHTTPHeaderField: String {
     case phone = "phone"
     case email = "email_user"
