@@ -764,9 +764,9 @@
 		0B5099D32BE1245B00F0E3D0 /* UIHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */,
 				0B1E313D2C10956F00291D0E /* SettingsVCUIHelper.swift */,
 				0BA293E32CA9BA6A00E05385 /* ICloudVCUIHelper.swift */,
-				0B67DF932C0B7BD7008CE099 /* FLCUIHelper.swift */,
 				0B246B4E2BB1EBB6006E90A8 /* CalculationCellUIHelper.swift */,
 				0BF860FA2BC0544D0065359C /* TotalPriceVCUIHelper.swift */,
 				0B267C472C442D26003697AE /* CalculationVCUIHelper.swift */,

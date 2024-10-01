@@ -34,7 +34,7 @@ class ICloudVC: UIViewController {
     }
     
     private func configureCloudImageView() {
-        cloudImageView.image = FLCIcon.iCloud.icon
+        cloudImageView.image = UserDefaultsManager.iCloudSyncEnabled ? FLCIcon.iCloudCheckmark.icon : FLCIcon.iCloud.icon
         
         NSLayoutConstraint.activate([
             cloudImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -101,7 +101,7 @@ class ICloudVC: UIViewController {
     }
     
     @objc private func enableICloudSwitchValueChanged(_ sender: UISwitch) {
-        ICloudVCUIHelper.configureICloudSwitch(iCloudSwitch: sender)
+        ICloudVCUIHelper.iCloudSwitchPressed(iCloudSwitch: sender, imageView: cloudImageView)
     }
 
     @objc func closeButtonPressed() { dismiss(animated: true) }

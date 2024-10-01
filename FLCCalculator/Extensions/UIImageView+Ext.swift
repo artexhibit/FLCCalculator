@@ -16,4 +16,17 @@ extension UIImageView {
     func stopRotationAnimation() {
         self.layer.removeAnimation(forKey: "rotationAnimation")
     }
+    
+    func animateSymbolChange(to newSymbol: UIImage, completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: [.curveEaseOut], animations: {
+            self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.curveEaseOut], animations: {
+                self.image = newSymbol
+                self.transform = CGAffineTransform.identity
+            }, completion: { _ in
+                completion?()
+            })
+        })
+    }
 }

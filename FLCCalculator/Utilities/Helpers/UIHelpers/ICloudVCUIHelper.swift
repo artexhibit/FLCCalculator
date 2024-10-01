@@ -18,7 +18,7 @@ struct ICloudVCUIHelper {
     static func syncNowTextButtonPressed() {
         Task {
             do {
-                try await forceICloudSync()
+                try await performICloudSyncOperations()
                 await showSuccessPopup(message: FLCPopupMessages.calculationsUploadedSuccessfully)
             } catch {
                 await showErrorPopup(message: error.localizedDescription)
@@ -26,7 +26,7 @@ struct ICloudVCUIHelper {
         }
     }
     
-    static func configureICloudSwitch(iCloudSwitch: UISwitch) {
+    static func iCloudSwitchPressed(iCloudSwitch: UISwitch, imageView: UIImageView) {
         Task {
             if await iCloudSwitch.isOn {
                 do {
@@ -38,10 +38,12 @@ struct ICloudVCUIHelper {
             }
             
             UserDefaultsManager.iCloudSyncEnabled = await iCloudSwitch.isOn
+            let newSymbol = UserDefaultsManager.iCloudSyncEnabled ? FLCIcon.iCloudCheckmark.icon : FLCIcon.iCloud.icon
             let successMessage = await iCloudSwitch.isOn ? FLCPopupMessages.calculationsUploadedSuccessfully : FLCPopupMessages.iCloudSyncDisabled
             
             do {
                 if await iCloudSwitch.isOn { try await performICloudSync() }
+                await imageView.animateSymbolChange(to: newSymbol)
                 await showSuccessPopup(message: successMessage)
             } catch {
                 UserDefaultsManager.iCloudSyncEnabled = false
@@ -52,18 +54,16 @@ struct ICloudVCUIHelper {
     }
     
     private static func deleteDatabase() async throws {
-        Task {
-            do {
-                try await ICloudManager.shared.deleteRecordsFromCloud()
-                await FLCPopupView.removeFromMainThread()
-            } catch {
-                await FLCPopupView.removeFromMainThread()
-                throw FLCICloudSyncError.cantDeleteDatabase
-            }
+        do {
+            try await ICloudManager.shared.deleteRecordsFromCloud()
+            await FLCPopupView.removeFromMainThread()
+        } catch {
+            await FLCPopupView.removeFromMainThread()
+            throw FLCICloudSyncError.cantDeleteDatabase
         }
     }
     
-    private static func forceICloudSync() async throws {
+    private static func performICloudSyncOperations() async throws {
         try await validateICloudActivation()
         await FLCPopupView.showOnMainThread(title: FLCPopupMessages.uploadingCalculations, style: .spinner)
         try await ICloudManager.shared.uploadCalculationsToCloud()
@@ -75,7 +75,7 @@ struct ICloudVCUIHelper {
         guard await ICloudManager.shared.isICloudAvailable() else {
             throw FLCICloudSyncError.iCloudNotAvailable
         }
-        try await forceICloudSync()
+        try await performICloudSyncOperations()
     }
     
     private static func validateICloudActivation() async throws {
