@@ -32,7 +32,8 @@ struct CalculationsVCHelper {
         })
         
         let calculationData = CalculationData(
-            id: pickedCalculation.id, 
+            id: pickedCalculation.id,
+            cloudID: pickedCalculation.cloudID ?? UUID(), 
             countryFrom: FLCCountryOption(rawValue: pickedCalculation.countryFrom ?? "") ?? .china,
             countryTo: FLCCountryOption(rawValue: pickedCalculation.countryTo ?? "") ?? .russia,
             deliveryType: FLCDeliveryType(rawValue: pickedCalculation.deliveryType ?? "") ?? .exwShipperClient,

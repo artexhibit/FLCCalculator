@@ -228,6 +228,7 @@ struct CalculationHelper {
     static func getCalculationData(transportView: FLCTransportParametersView, cargoView: FLCCargoParametersView, pickedDestinationCode: String, departureCity: String) -> CalculationData {
         let calcData = CalculationData(
             id: Int32(CoreDataManager.loadCalculations()?.count ?? 0),
+            cloudID: UUID(),
             countryFrom: FLCCountryOption(localizedString: transportView.countryPickerButton.showingTitle),
             countryTo: FLCCountryOption.russia,
             deliveryType: FLCDeliveryType(localizedString: transportView.deliveryTypePickerButton.showingTitle.removeFirstCharacters(5)),

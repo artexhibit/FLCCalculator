@@ -1,6 +1,7 @@
 import Foundation
 
 struct CalculationDataFirebaseRecord: Codable {
+    var cloudID: UUID?
     var calculationDate: String
     var name: String
     var email: String

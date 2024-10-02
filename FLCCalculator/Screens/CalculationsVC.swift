@@ -7,7 +7,7 @@ class CalculationsVC: UIViewController {
     private var calculations: [Calculation] = []
     private var dataSource: UITableViewDiffableDataSource<FLCSection, Calculation>!
     
-    private var canAnimateCalcDifferences = false
+    private var ifIsFirstLoad = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,7 +15,6 @@ class CalculationsVC: UIViewController {
         configureDataSource()
         getCalculations()
         performICloudOperations()
-        canAnimateCalcDifferences = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,12 +55,12 @@ class CalculationsVC: UIViewController {
     }
     
     private func updateDataSource() {
-        let animatingDifferences = canAnimateCalcDifferences ? false : true
         var snapshot = NSDiffableDataSourceSnapshot<FLCSection, Calculation>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.calculations)
         
-        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+        dataSource.apply(snapshot, animatingDifferences: !ifIsFirstLoad)
+        if ifIsFirstLoad { ifIsFirstLoad = false }
     }
     
     private func showEmptyStateView(withTitle: String, andSubtitle: String) {

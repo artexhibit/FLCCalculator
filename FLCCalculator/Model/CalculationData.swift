@@ -2,6 +2,7 @@ import Foundation
 
 struct CalculationData: Hashable {
     let id: Int32
+    let cloudID: UUID?
     let calculationDate: String = Date().formatted(date: .numeric, time: .standard)
     let countryFrom: FLCCountryOption
     let countryTo: FLCCountryOption

@@ -52,6 +52,7 @@ struct AppDelegateHelper {
             for updateEntry in updateData {
                 if let storedEntryIndex = storedUpdateData.firstIndex(where: { $0.item == updateEntry.item }) {
                     var storedEntry = storedUpdateData[storedEntryIndex]
+                    
                     guard let storedDate = storedEntry.updateDate.createDate(format: .dotDMYHMS) else { continue }
                     guard let receivedDate = updateEntry.updateDate.createDate(format: .dotDMYHMS) else { continue }
 
@@ -192,6 +193,13 @@ struct AppDelegateHelper {
             UserDefaultsPercistenceManager.deleteItemFromUserDefaults(itemType: FLCUser.self)
             UserDefaultsManager.isFirstLaunch = false
         }
+    }
+    
+    static func assignCloudIDToAllStoredCalculations() {
+        guard let calculations = CoreDataManager.loadCalculationsWithCondition(condition: "cloudID == nil"), !calculations.isEmpty else { return }
+        
+        calculations.forEach({ $0.cloudID = UUID() })
+        Persistence.shared.saveContext()
     }
     
     private static func shouldUpdateData(afterDays days: Int, for lastDataUpdateDate: Date?) -> Bool {

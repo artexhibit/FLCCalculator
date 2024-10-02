@@ -20,6 +20,19 @@ struct CoreDataManager {
         }
     }
     
+    static func loadCalculationsWithCondition(condition: String) -> [Calculation]? {
+        let fetchRequest: NSFetchRequest<Calculation> = Calculation.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: condition)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            return results
+        } catch {
+            print(FLCError.unableToFetchCategories)
+            return nil
+        }
+    }
+    
     static func getCalculation<T>(withID id: T) -> Calculation? {
         let request: NSFetchRequest<Calculation> = Calculation.fetchRequest()
         
@@ -57,6 +70,7 @@ struct CoreDataManager {
         
         calc.calculationDate = Date()
         calc.calculationConfirmDate = Date()
+        calc.cloudID = calculationData.cloudID
         calc.id = Int32(CoreDataManager.loadCalculations()?.count ?? 0)
         calc.toLocation = toLocation
         calc.toLocationCode = calculationData.toLocationCode

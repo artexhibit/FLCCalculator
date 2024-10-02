@@ -344,7 +344,6 @@ extension CalculationResultVC: TotalPriceVCDelegate {
         if calculationData.isFromCoreData {
             CalculationResultHelper.saveConfirmedStatusForRefetchedResult(calcData: calculationData, pickedLogisticsType: pickedLogisticsType)
             ICloudManager.shared.manageCalculationFromCloud(with: calculation.cloudID, action: .update)
-
         } else {
             CalculationResultHelper.saveCalculationInCoreData(totalPriceDataItems: totalPriceDataItems, pickedLogisticsType: pickedLogisticsType, calcData: calculationData, isConfirmed: true)
             ICloudManager.shared.manageCalculationFromCloud(action: .create)

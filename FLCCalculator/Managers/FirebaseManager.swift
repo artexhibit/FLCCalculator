@@ -114,22 +114,17 @@ class FirebaseManager: NSObject {
     }
     
     static func createCalculationDocument(with calcData: CalculationDataFirebaseRecord) async {
-        let calcDataDict = calcData.toDictionary()
-        let calculationDate = calcData.calculationDate.getDataBetweenCharacter(char: ",", returnFirstHalf: true)?.replacingOccurrences(of: "/", with: ".") ?? ""
-
         do {
-            let documentName = "\(calculationDate) \(calcData.countryFrom) \(calcData.goodsType) \(calcData.invoiceAmount) \(calcData.invoiceCurrency) \(calcData.volume) \(calcData.weight)"
-            
+            let documentName = calcData.cloudID?.uuidString ?? ""
             let newCalcEntry = Firestore.firestore().collection(Keys.calculations).document(documentName)
-            try await newCalcEntry.setData(calcDataDict)
+            try await newCalcEntry.setData(calcData.toDictionary())
         } catch {
             print(error)
         }
     }
     
     static func updateCalculationRecordInFirebase(with data: CalculationData, and totalPriceData: [TotalPriceData]) async {
-        let calculationDate = data.calculationDate.getDataBetweenCharacter(char: ",", returnFirstHalf: true)?.replacingOccurrences(of: "/", with: ".") ?? ""
-        let documentName = "\(calculationDate) \(data.countryFrom) \(data.goodsType) \(data.invoiceAmount) \(data.invoiceCurrency) \(data.volume) \(data.weight)"
+        let documentName = data.cloudID?.uuidString ?? ""
         let documentNameRef = Firestore.firestore().collection(Keys.calculations).document(documentName)
         
         do {
@@ -150,6 +145,7 @@ class FirebaseManager: NSObject {
         let user: FLCUser? = UserDefaultsPercistenceManager.retrieveItemFromUserDefaults()
         
         return CalculationDataFirebaseRecord(
+            cloudID: data.cloudID,
             calculationDate: data.calculationDate,
             name: user?.fio ?? "",
             email: user?.email ?? "",

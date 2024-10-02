@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegateHelper.manageStoredCalculationRecords()
         AppDelegateHelper.resetFLCUserDataOnAppInitialLaunch()
         AppDelegateHelper.assignUserCountryIfNil()
+        AppDelegateHelper.assignCloudIDToAllStoredCalculations()
         
         return true
     }
